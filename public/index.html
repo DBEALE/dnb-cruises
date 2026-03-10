@@ -256,41 +256,87 @@
   let sortAsc      = true;
 
   // ── Fetch cruises from the backend ─────────────────────────────────────────
+  //
+  // On Netlify the scraping runs as a background function (up to 15 min).
+  // We POST to /api/scrape to kick it off, then poll /api/cruises until the
+  // status changes from "running" to "ready" (or "error").
+  //
+  // When running locally via `node server.js` the server exposes a direct
+  // /api/cruises endpoint that returns results synchronously, so we fall back
+  // to a single-request path when the initial response already has data.
   async function fetchCruises() {
     const btn    = document.getElementById('fetchBtn');
     const status = document.getElementById('status');
     const input  = document.getElementById('searchInput');
     const summary = document.getElementById('summary');
+    const FETCH_SVG =
+      '<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">' +
+      '<path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>' +
+      '</svg> Fetch Cruises';
 
     btn.disabled  = true;
     btn.innerHTML = '<span class="spinner"></span> Scraping…';
-    status.textContent = 'Loading the Royal Caribbean page with a headless browser. This may take up to 90 seconds…';
+    status.textContent = 'Starting scraper…';
     status.className = '';
     input.disabled = true;
     summary.textContent = '';
-    renderBody([]);   // show loading row
+    renderBody([]);
 
     try {
-      const res = await fetch('/api/cruises');
-      const json = await res.json();
+      // Trigger the background scrape (returns 202 on Netlify, or starts the
+      // synchronous scrape on the local Express server)
+      const triggerRes = await fetch('/api/scrape', { method: 'POST' });
 
-      if (!res.ok || !json.success) {
-        throw new Error(json.error || `HTTP ${res.status}`);
+      // Local Express server (server.js) doesn't expose /api/scrape; it only
+      // has /api/cruises.  A 404 here means we're running locally — fall back
+      // to the direct endpoint.
+      if (triggerRes.status === 404) {
+        await fetchCruisesDirect(status, input, summary);
+        return;
       }
 
-      allCruises = json.cruises || [];
-      input.disabled = false;
-      input.value = '';
+      // ── Poll /api/cruises until the background function finishes ───────────
+      // MAX_WAIT_MS must be ≤ the Netlify Background Function timeout (15 min).
+      const MAX_WAIT_MS   = 15 * 60 * 1000;  // 15 minutes (background fn limit)
+      const POLL_INTERVAL = 5000;             // poll every 5 seconds
+      const startTime     = Date.now();
 
-      const ts = json.scrapedAt
-        ? new Date(json.scrapedAt).toLocaleTimeString()
-        : '';
-      status.textContent = `Loaded ${allCruises.length} cruise${allCruises.length !== 1 ? 's' : ''}.${ts ? ' (at ' + ts + ')' : ''}`;
-      summary.textContent = allCruises.length
-        ? `Showing ${allCruises.length} results — click any column header to sort.`
-        : '';
+      while (true) {
+        await sleep(POLL_INTERVAL);
 
-      renderBody(allCruises);
+        const elapsed = Math.round((Date.now() - startTime) / 1000);
+        status.textContent = `Scraping in progress (${formatElapsed(elapsed)})…`;
+
+        const res  = await fetch('/api/cruises');
+        const json = await res.json();
+
+        if (json.status === 'error') {
+          throw new Error(json.error || 'Scraping failed');
+        }
+
+        if (json.status === 'ready') {
+          allCruises = json.cruises || [];
+          input.disabled = false;
+          input.value    = '';
+
+          const ts = json.scrapedAt
+            ? new Date(json.scrapedAt).toLocaleTimeString()
+            : '';
+          status.textContent =
+            `Loaded ${allCruises.length} cruise${allCruises.length !== 1 ? 's' : ''}.` +
+            (ts ? ` (at ${ts})` : '');
+          summary.textContent = allCruises.length
+            ? 'Showing ' + allCruises.length + ' results — click any column header to sort.'
+            : '';
+
+          renderBody(allCruises);
+          break;
+        }
+
+        if (Date.now() - startTime > MAX_WAIT_MS) {
+          throw new Error('Scraping timed out. Please try again.');
+        }
+      }
 
     } catch (err) {
       status.textContent = 'Error: ' + err.message;
@@ -298,11 +344,43 @@
       renderBody([]);
     } finally {
       btn.disabled  = false;
-      btn.innerHTML =
-        '<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">' +
-        '<path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>' +
-        '</svg> Fetch Cruises';
+      btn.innerHTML = FETCH_SVG;
     }
+  }
+
+  // Fallback for the local Express server which uses a single synchronous call
+  async function fetchCruisesDirect(status, input, summary) {
+    status.textContent =
+      'Loading the Royal Caribbean page with a headless browser. This may take up to 90 seconds…';
+    const res  = await fetch('/api/cruises');
+    const json = await res.json();
+
+    if (!res.ok || !json.success) {
+      throw new Error(json.error || `HTTP ${res.status}`);
+    }
+
+    allCruises = json.cruises || [];
+    input.disabled = false;
+    input.value    = '';
+
+    const ts = json.scrapedAt
+      ? new Date(json.scrapedAt).toLocaleTimeString()
+      : '';
+    status.textContent =
+      `Loaded ${allCruises.length} cruise${allCruises.length !== 1 ? 's' : ''}.` +
+      (ts ? ` (at ${ts})` : '');
+    summary.textContent = allCruises.length
+      ? 'Showing ' + allCruises.length + ' results — click any column header to sort.'
+      : '';
+
+    renderBody(allCruises);
+  }
+
+  function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
+
+  function formatElapsed(sec) {
+    if (sec < 60) return sec + 's';
+    return Math.floor(sec / 60) + 'm ' + (sec % 60) + 's';
   }
 
   // ── Render table body ──────────────────────────────────────────────────────

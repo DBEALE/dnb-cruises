@@ -20,6 +20,8 @@ A Node.js web app that scrapes all cruises from the Royal Caribbean GBR (UK) mar
 
 ## Setup
 
+### Local development
+
 **Requirements:** Node.js >= 18
 
 ```bash
@@ -30,6 +32,28 @@ npm start
 Then open **http://localhost:3000** in your browser and click **Fetch Cruises**.
 
 > The first fetch can take up to 90 seconds because Puppeteer launches a full headless Chrome instance to render the dynamic page.
+
+### Deploy to Netlify
+
+This repository includes full Netlify support. Because the scrape can take several minutes, the backend runs as a **Netlify Background Function** (up to 15-minute timeout).
+
+#### One-click deploy
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/DBEALE/dnb-cruises)
+
+#### Manual deploy
+
+1. Push this repo to GitHub (or fork it).
+2. In the [Netlify dashboard](https://app.netlify.com/), click **Add new site → Import an existing project**.
+3. Connect your GitHub repo.
+4. Netlify will auto-detect the `netlify.toml` settings:
+   - **Publish directory:** `public`
+   - **Functions directory:** `netlify/functions`
+5. Click **Deploy site**.
+
+Once deployed, click **Fetch Cruises** — the frontend triggers a background scrape and polls every 5 seconds until results arrive.
+
+> **Note:** Background Functions require a [Netlify paid plan](https://www.netlify.com/pricing/). On the free Starter plan the function will still run but is subject to the standard 10-second synchronous timeout, which is unlikely to be enough for a full scrape.
 
 ## Columns
 
@@ -51,3 +75,4 @@ Data is scraped live from:
 https://www.royalcaribbean.com/gbr/en/cruises?sort=by:PRICE|order:ASC&country=GBR&market=gbr&language=en
 
 Prices and availability are subject to change. Always verify on the Royal Caribbean website before booking.
+

@@ -1,0 +1,20 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Keep @sparticuz/chromium external so its bin/ files are preserved on disk
+[functions."scrape-background"]
+  external_node_modules = ["@sparticuz/chromium"]
+
+[[redirects]]
+  from = "/api/scrape"
+  to   = "/.netlify/functions/scrape-background"
+  status = 200
+
+[[redirects]]
+  from = "/api/cruises"
+  to   = "/.netlify/functions/cruises"
+  status = 200
