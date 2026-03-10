@@ -241,7 +241,7 @@ function normaliseCruises(rawList) {
           c.detailUrl || c.url || c.bookingUrl || c.link || c.href || '',
       };
     })
-    .filter((c) => c.shipName || c.itinerary || c.departureDate);
+    .filter((c) => (c.shipName || c.itinerary || c.departureDate) && c.priceFrom);
 }
 
 function formatPrice(val) {
@@ -409,7 +409,7 @@ async function extractFromPage(page) {
       })(),
     }));
 
-    return { source: 'dom', list: list.filter((c) => c.shipName || c.itinerary) };
+    return { source: 'dom', list: list.filter((c) => (c.shipName || c.itinerary) && c.priceFrom) };
   }, MAX_RECURSION_DEPTH);
 
   if (raw.source === 'nextData') return normaliseCruises(raw.list);
