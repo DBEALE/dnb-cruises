@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Caribbean GBR Cruises</title>
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: #f0f4f8;
+      color: #1a2533;
+      min-height: 100vh;
+    }
+
+    /* ── Header ────────────────────────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #002b5c 0%, #00407a 60%, #005fa3 100%);
+      color: #fff;
+      padding: 28px 32px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    }
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    header p {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      opacity: .75;
+    }
+
+    /* ── Main layout ────────────────────────────────────────────────────────── */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 24px 48px;
+    }
+
+    /* ── Controls bar ───────────────────────────────────────────────────────── */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    #fetchBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #005fa3;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    #fetchBtn:hover:not(:disabled) { background: #004d87; }
+    #fetchBtn:active:not(:disabled) { transform: scale(.97); }
+    #fetchBtn:disabled { background: #7fa8c8; cursor: not-allowed; }
+
+    #searchInput {
+      flex: 1;
+      min-width: 200px;
+      max-width: 380px;
+      border: 1px solid #c9d6e3;
+      border-radius: 6px;
+      padding: 9px 14px;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    #searchInput:focus { border-color: #005fa3; }
+
+    /* ── Status / loader ────────────────────────────────────────────────────── */
+    #status {
+      font-size: 0.88rem;
+      color: #4a6a8a;
+    }
+    #status.error { color: #c0392b; font-weight: 600; }
+
+    .spinner {
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Summary bar ────────────────────────────────────────────────────────── */
+    #summary {
+      font-size: 0.88rem;
+      color: #556b82;
+      margin-bottom: 12px;
+    }
+
+    /* ── Table wrapper ──────────────────────────────────────────────────────── */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.1);
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    /* ── Table head ─────────────────────────────────────────────────────────── */
+    thead {
+      background: #002b5c;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    thead th {
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      transition: background .15s;
+    }
+    thead th:hover { background: #003d7a; }
+    thead th.sort-asc::after  { content: " ▲"; font-size: .7em; }
+    thead th.sort-desc::after { content: " ▼"; font-size: .7em; }
+
+    /* ── Table body ─────────────────────────────────────────────────────────── */
+    tbody tr:nth-child(even) { background: #f5f8fc; }
+    tbody tr:hover { background: #e8f0fa; }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e4eaf2;
+      vertical-align: middle;
+    }
+
+    td.price {
+      font-weight: 700;
+      color: #005fa3;
+      white-space: nowrap;
+    }
+
+    td.duration { text-align: center; }
+
+    td.book a {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #005fa3;
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: background .2s;
+    }
+    td.book a:hover { background: #004d87; }
+
+    /* ── Empty / loading states ─────────────────────────────────────────────── */
+    .empty-row td {
+      text-align: center;
+      padding: 40px;
+      color: #7a94ac;
+      font-size: 0.95rem;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #7a94ac;
+      padding: 20px;
+    }
+    footer a { color: #005fa3; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🚢 Royal Caribbean GBR Cruises</h1>
+  <p>Live cruise search — United Kingdom market, sorted by lowest price</p>
+</header>
+
+<main>
+  <div class="controls">
+    <button id="fetchBtn" onclick="fetchCruises()">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+      </svg>
+      Fetch Cruises
+    </button>
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Filter by ship, destination, port…"
+      oninput="filterTable()"
+      disabled
+    />
+
+    <span id="status">Click "Fetch Cruises" to load live data.</span>
+  </div>
+
+  <p id="summary"></p>
+
+  <div class="table-wrapper">
+    <table id="cruiseTable">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0)"  data-col="0">#</th>
+          <th onclick="sortTable(1)"  data-col="1">Ship</th>
+          <th onclick="sortTable(2)"  data-col="2">Itinerary / Name</th>
+          <th onclick="sortTable(3)"  data-col="3">Destination</th>
+          <th onclick="sortTable(4)"  data-col="4">Departure Date</th>
+          <th onclick="sortTable(5)"  data-col="5">Duration</th>
+          <th onclick="sortTable(6)"  data-col="6">Departure Port</th>
+          <th onclick="sortTable(7)"  data-col="7">Price From</th>
+          <th>Book</th>
+        </tr>
+      </thead>
+      <tbody id="cruiseBody">
+        <tr class="empty-row">
+          <td colspan="9">No data yet — click <strong>Fetch Cruises</strong> to load results.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  Data sourced from <a href="https://www.royalcaribbean.com/gbr/en/cruises" target="_blank" rel="noopener">
+    royalcaribbean.com/gbr/en/cruises
+  </a>.
+  All prices in GBP per person. Prices and availability subject to change.
+</footer>
+
+<script>
+  // ── State ──────────────────────────────────────────────────────────────────
+  let allCruises   = [];   // full data from server
+  let sortColIndex = -1;
+  let sortAsc      = true;
+
+  // ── Fetch cruises from the backend ─────────────────────────────────────────
+  async function fetchCruises() {
+    const btn    = document.getElementById('fetchBtn');
+    const status = document.getElementById('status');
+    const input  = document.getElementById('searchInput');
+    const summary = document.getElementById('summary');
+
+    btn.disabled  = true;
+    btn.innerHTML = '<span class="spinner"></span> Scraping…';
+    status.textContent = 'Loading the Royal Caribbean page with a headless browser. This may take up to 90 seconds…';
+    status.className = '';
+    input.disabled = true;
+    summary.textContent = '';
+    renderBody([]);   // show loading row
+
+    try {
+      const res = await fetch('/api/cruises');
+      const json = await res.json();
+
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || `HTTP ${res.status}`);
+      }
+
+      allCruises = json.cruises || [];
+      input.disabled = false;
+      input.value = '';
+
+      const ts = json.scrapedAt
+        ? new Date(json.scrapedAt).toLocaleTimeString()
+        : '';
+      status.textContent = `Loaded ${allCruises.length} cruise${allCruises.length !== 1 ? 's' : ''}.${ts ? ' (at ' + ts + ')' : ''}`;
+      summary.textContent = allCruises.length
+        ? `Showing ${allCruises.length} results — click any column header to sort.`
+        : '';
+
+      renderBody(allCruises);
+
+    } catch (err) {
+      status.textContent = 'Error: ' + err.message;
+      status.className   = 'error';
+      renderBody([]);
+    } finally {
+      btn.disabled  = false;
+      btn.innerHTML =
+        '<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">' +
+        '<path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>' +
+        '</svg> Fetch Cruises';
+    }
+  }
+
+  // ── Render table body ──────────────────────────────────────────────────────
+  function renderBody(list) {
+    const tbody = document.getElementById('cruiseBody');
+
+    if (!list || list.length === 0) {
+      tbody.innerHTML =
+        '<tr class="empty-row"><td colspan="9">No cruises to display.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = list.map((c, i) => {
+      const priceDisplay = formatPriceDisplay(c.priceFrom, c.currency);
+      const dateDisplay  = formatDateDisplay(c.departureDate);
+      const durationDisplay = formatDurationDisplay(c.duration);
+      const bookCell = c.bookingUrl
+        ? `<a href="${escHtml(absoluteUrl(c.bookingUrl))}" target="_blank" rel="noopener noreferrer">Book →</a>`
+        : '—';
+
+      return `<tr>
+        <td>${i + 1}</td>
+        <td>${escHtml(c.shipName || '—')}</td>
+        <td>${escHtml(c.itinerary || '—')}</td>
+        <td>${escHtml(c.destination || '—')}</td>
+        <td>${escHtml(dateDisplay)}</td>
+        <td class="duration">${escHtml(durationDisplay)}</td>
+        <td>${escHtml(c.departurePort || '—')}</td>
+        <td class="price">${priceDisplay}</td>
+        <td class="book">${bookCell}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ── Sort ────────────────────────────────────────────────────────────────────
+  function sortTable(colIndex) {
+    if (sortColIndex === colIndex) {
+      sortAsc = !sortAsc;
+    } else {
+      sortColIndex = colIndex;
+      sortAsc = true;
+    }
+
+    // Update header arrows
+    document.querySelectorAll('thead th').forEach((th, i) => {
+      th.classList.remove('sort-asc', 'sort-desc');
+      if (i === colIndex) th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+    });
+
+    const sorted = [...getFiltered()].sort((a, b) => {
+      const va = getCellValue(a, colIndex);
+      const vb = getCellValue(b, colIndex);
+      return compare(va, vb) * (sortAsc ? 1 : -1);
+    });
+
+    renderBody(sorted);
+  }
+
+  function getCellValue(cruise, col) {
+    switch (col) {
+      case 0:  return '';   // row number — not used for sort
+      case 1:  return cruise.shipName      || '';
+      case 2:  return cruise.itinerary     || '';
+      case 3:  return cruise.destination   || '';
+      case 4:  return cruise.departureDate || '';
+      case 5:  return parseFloat(cruise.duration) || 0;
+      case 6:  return cruise.departurePort || '';
+      case 7:  return parseFloat(cruise.priceFrom) || 0;
+      default: return '';
+    }
+  }
+
+  function compare(a, b) {
+    if (typeof a === 'number' && typeof b === 'number') return a - b;
+    return String(a).localeCompare(String(b), 'en', { numeric: true });
+  }
+
+  // ── Filter ──────────────────────────────────────────────────────────────────
+  function filterTable() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    const filtered = q
+      ? allCruises.filter(c =>
+          [c.shipName, c.itinerary, c.destination, c.departurePort, c.departureDate]
+            .some(v => v && v.toLowerCase().includes(q))
+        )
+      : allCruises;
+
+    const summary = document.getElementById('summary');
+    summary.textContent = filtered.length === allCruises.length
+      ? `Showing ${allCruises.length} results — click any column header to sort.`
+      : `Showing ${filtered.length} of ${allCruises.length} results.`;
+
+    // Re-apply active sort if any
+    if (sortColIndex >= 0) {
+      const sorted = [...filtered].sort((a, b) => {
+        const va = getCellValue(a, sortColIndex);
+        const vb = getCellValue(b, sortColIndex);
+        return compare(va, vb) * (sortAsc ? 1 : -1);
+      });
+      renderBody(sorted);
+    } else {
+      renderBody(filtered);
+    }
+  }
+
+  function getFiltered() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    if (!q) return allCruises;
+    return allCruises.filter(c =>
+      [c.shipName, c.itinerary, c.destination, c.departurePort, c.departureDate]
+        .some(v => v && v.toLowerCase().includes(q))
+    );
+  }
+
+  // ── Formatting helpers ──────────────────────────────────────────────────────
+  function formatDurationDisplay(raw) {
+    if (!raw) return '—';
+    const nights = raw.toString().replace(/\D/g, '');
+    return nights && nights !== '0' ? nights + ' nights' : '—';
+  }
+
+  function formatPriceDisplay(raw, currency) {
+    const n = parseFloat(raw);
+    if (!raw || isNaN(n)) return '—';
+    const sym = currency === 'GBP' ? '£' : (currency === 'EUR' ? '€' : '$');
+    return sym + n.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  }
+
+  function formatDateDisplay(raw) {
+    if (!raw) return '—';
+    // If it's already a readable date string, return it
+    if (/[a-zA-Z]/.test(raw) && raw.length > 4) return raw;
+    // Try to parse ISO / epoch
+    const d = new Date(raw);
+    if (!isNaN(d)) return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    return raw;
+  }
+
+  function absoluteUrl(url) {
+    if (!url) return '#';
+    if (url.startsWith('http')) return url;
+    return 'https://www.royalcaribbean.com' + (url.startsWith('/') ? url : '/' + url);
+  }
+
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+</script>
+</body>
+</html>
