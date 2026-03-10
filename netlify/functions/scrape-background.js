@@ -19,7 +19,7 @@
 
 const chromium = require('@sparticuz/chromium');
 const puppeteer = require('puppeteer-core');
-const { getStore } = require('@netlify/blobs');
+const { connectLambda, getStore } = require('@netlify/blobs');
 
 const RC_URL =
   'https://www.royalcaribbean.com/gbr/en/cruises' +
@@ -34,17 +34,26 @@ const MAX_RECURSION_DEPTH = 12;
 
 // ─── Handler ──────────────────────────────────────────────────────────────────
 
-exports.handler = async () => {
-  const store = getStore('cruises');
+exports.handler = async (event) => {
+  // In a deployed Netlify Lambda, the Blobs context (siteID + token) arrives
+  // in event.blobs, not as a pre-set environment variable.
+  // connectLambda() extracts it and sets process.env.NETLIFY_BLOBS_CONTEXT so
+  // that subsequent getStore() calls work correctly.
+  if (event && event.blobs) {
+    connectLambda(event);
+  }
 
-  // Immediately mark as running so the polling endpoint can respond correctly
-  await store.setJSON('status', {
-    status: 'running',
-    startedAt: new Date().toISOString(),
-  });
-
+  let store;
   let browser;
   try {
+    store = getStore('cruises');
+
+    // Immediately mark as running so the polling endpoint can respond correctly
+    await store.setJSON('status', {
+      status: 'running',
+      startedAt: new Date().toISOString(),
+    });
+
     browser = await puppeteer.launch({
       args: chromium.args,
       executablePath: await chromium.executablePath(),
@@ -133,11 +142,13 @@ exports.handler = async () => {
     if (browser) await browser.close().catch(() => {});
     console.error('Background scrape error:', err.message);
 
-    await store.setJSON('status', {
-      status: 'error',
-      success: false,
-      error: err.message,
-    });
+    if (store) {
+      await store.setJSON('status', {
+        status: 'error',
+        success: false,
+        error: err.message,
+      }).catch(() => {});
+    }
   }
 };
 

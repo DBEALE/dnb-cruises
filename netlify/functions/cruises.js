@@ -13,9 +13,17 @@
  *   { status: 'error', error: '...' }           – scrape failed
  */
 
-const { getStore } = require('@netlify/blobs');
+const { connectLambda, getStore } = require('@netlify/blobs');
 
-exports.handler = async () => {
+exports.handler = async (event) => {
+  // In a deployed Netlify Lambda, the Blobs context (siteID + token) arrives
+  // in event.blobs, not as a pre-set environment variable.
+  // connectLambda() extracts it and sets process.env.NETLIFY_BLOBS_CONTEXT so
+  // that subsequent getStore() calls work correctly.
+  if (event && event.blobs) {
+    connectLambda(event);
+  }
+
   try {
     const store = getStore('cruises');
     const data = await store.get('status', { type: 'json' });
