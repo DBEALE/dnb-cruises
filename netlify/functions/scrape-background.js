@@ -166,16 +166,21 @@ function looksLikeCruisePayload(obj) {
     obj.results ||
     obj.items ||
     obj.data?.cruises ||
-    obj.data?.sailings;
+    obj.data?.sailings ||
+    obj.data?.results ||
+    obj.payload?.cruises ||
+    obj.payload?.sailings;
   if (!Array.isArray(list) || list.length === 0) return false;
-  const first = list[0];
+  return isCruiseLike(list[0]);
+}
+
+function isCruiseLike(obj) {
+  if (!obj || typeof obj !== 'object') return false;
   return !!(
-    first.shipName ||
-    first.ship ||
-    first.sailDate ||
-    first.departureDate ||
-    first.priceFrom ||
-    first.price
+    obj.shipName || obj.ship || obj.vessel || obj.vesselName ||
+    obj.sailDate || obj.departureDate || obj.embarkDate || obj.sailingDate ||
+    obj.priceFrom || obj.price || obj.lowestPrice || obj.startPrice ||
+    obj.itinerary || obj.itineraryName || obj.cruiseName || obj.sailingName
   );
 }
 
@@ -187,26 +192,66 @@ function parseCruisesFromApiPayload(data) {
     data.items ||
     data.data?.cruises ||
     data.data?.sailings ||
+    data.data?.results ||
+    data.payload?.cruises ||
+    data.payload?.sailings ||
     []
   );
 }
 
 function normaliseCruises(rawList) {
-  return rawList.map((c) => ({
-    shipName: c.shipName || c.ship?.name || c.vessel || '',
-    itinerary: c.itinerary || c.itineraryName || c.name || c.title || '',
-    departureDate: c.departureDate || c.sailDate || c.startDate || '',
-    duration: String(c.duration || c.nights || c.length || ''),
-    departurePort: c.departurePort || c.homePort || c.port?.name || '',
-    destination: c.destination || c.region || c.destinationName || '',
-    priceFrom: formatPrice(c.priceFrom ?? c.price ?? c.lowestPrice ?? null),
-    currency: c.currency || 'GBP',
-    bookingUrl: c.detailUrl || c.url || c.bookingUrl || '',
-  }));
+  return rawList
+    .map((c) => {
+      // Price may arrive as a plain number, a formatted string ("£899"), or an
+      // object like { amount: 899, currency: 'GBP' }.  Try every known field
+      // name before falling back to null so formatPrice can do its job.
+      const rawPrice =
+        c.priceFrom ?? c.price ?? c.lowestPrice ?? c.startPrice ??
+        c.salePrice ?? c.pricePerPerson ?? c.pricing ?? null;
+
+      // When the price is a wrapper object, hoist the currency from it too.
+      const currency =
+        c.currency ||
+        (rawPrice && typeof rawPrice === 'object' ? rawPrice.currency : null) ||
+        'GBP';
+
+      return {
+        shipName:
+          c.shipName || c.ship?.name || c.vessel || c.vesselName || '',
+        itinerary:
+          c.itinerary || c.itineraryName || c.itineraryCode ||
+          c.packageName || c.cruiseName || c.sailingName || '',
+        departureDate:
+          c.departureDate || c.sailDate || c.startDate ||
+          c.embarkDate || c.sailingDate || '',
+        duration: String(
+          c.duration || c.nights || c.numberOfNights ||
+          c.durationInDays || c.length || ''
+        ),
+        departurePort:
+          c.departurePort || c.homePort || c.port?.name ||
+          c.portName || c.departurePortName || c.embarkPort ||
+          c.embarkationPort || '',
+        destination:
+          c.destination || c.region || c.destinationName ||
+          c.regionName || c.destinationCode || '',
+        priceFrom: formatPrice(rawPrice),
+        currency,
+        bookingUrl:
+          c.detailUrl || c.url || c.bookingUrl || c.link || c.href || '',
+      };
+    })
+    .filter((c) => c.shipName || c.itinerary || c.departureDate);
 }
 
 function formatPrice(val) {
   if (val == null) return '';
+  // Handle price objects like { amount: 1234, currency: 'GBP' } or
+  // { value: 1234 } or { perPerson: 1234 }
+  if (typeof val === 'object') {
+    val = val.amount ?? val.value ?? val.price ?? val.perPerson ?? val.total ?? null;
+    if (val == null) return '';
+  }
   const n = parseFloat(String(val).replace(/[^0-9.]/g, ''));
   return isNaN(n) ? '' : String(n);
 }
@@ -218,13 +263,16 @@ async function extractFromPage(page) {
     if (nextEl) {
       try {
         const nextData = JSON.parse(nextEl.textContent);
+        const isCruiseLikeInner = (obj) => !!(
+          obj && typeof obj === 'object' &&
+          (obj.shipName || obj.ship || obj.vessel || obj.vesselName ||
+           obj.sailDate || obj.departureDate || obj.embarkDate ||
+           obj.priceFrom || obj.price || obj.lowestPrice ||
+           obj.itinerary || obj.itineraryName || obj.cruiseName)
+        );
         const findArray = (obj, depth) => {
           if (depth > maxRecursionDepth || !obj || typeof obj !== 'object') return null;
-          if (
-            Array.isArray(obj) &&
-            obj.length > 0 &&
-            (obj[0].shipName || obj[0].sailDate || obj[0].priceFrom)
-          )
+          if (Array.isArray(obj) && obj.length > 0 && isCruiseLikeInner(obj[0]))
             return obj;
           if (Array.isArray(obj)) {
             for (const item of obj) {
@@ -266,10 +314,14 @@ async function extractFromPage(page) {
     }
     if (!cards.length) return { source: 'dom', list: [] };
 
+    // Normalise whitespace from any extracted DOM text node.
     const getText = (el, ...selectors) => {
       for (const sel of selectors) {
         const found = el.querySelector(sel);
-        if (found && found.textContent.trim()) return found.textContent.trim();
+        if (found) {
+          const text = found.textContent.replace(/\s+/g, ' ').trim();
+          if (text) return text;
+        }
       }
       return '';
     };
@@ -280,15 +332,19 @@ async function extractFromPage(page) {
         '[data-testid="ship-name"]',
         '[class*="shipName"]',
         '[class*="ShipName"]',
-        '[class*="ship-name"]'
+        '[class*="ship-name"]',
+        '[class*="vesselName"]'
       ),
       itinerary: getText(
         card,
         '[data-testid="itinerary-name"]',
         '[class*="itinerary"]',
         '[class*="Itinerary"]',
-        '[class*="cruise-name"]',
+        '[class*="cruiseName"]',
         '[class*="CruiseName"]',
+        '[class*="sailingName"]',
+        '[class*="SailingName"]',
+        '[class*="cruise-name"]',
         'h2',
         'h3'
       ),
@@ -298,6 +354,8 @@ async function extractFromPage(page) {
         '[class*="departureDate"]',
         '[class*="DepartureDate"]',
         '[class*="departure-date"]',
+        '[class*="sailDate"]',
+        '[class*="SailDate"]',
         'time'
       ),
       duration: getText(
@@ -306,14 +364,19 @@ async function extractFromPage(page) {
         '[class*="duration"]',
         '[class*="Duration"]',
         '[class*="nights"]',
-        '[class*="Nights"]'
+        '[class*="Nights"]',
+        '[class*="numberOfNights"]'
       ),
       departurePort: getText(
         card,
         '[data-testid="departure-port"]',
+        '[data-testid="homeport"]',
         '[class*="departurePort"]',
-        '[class*="port"]',
-        '[class*="Port"]'
+        '[class*="DeparturePort"]',
+        '[class*="homePort"]',
+        '[class*="HomePort"]',
+        '[class*="embark"]',
+        '[class*="Embark"]'
       ),
       destination: getText(
         card,
@@ -326,6 +389,13 @@ async function extractFromPage(page) {
       priceFrom: getText(
         card,
         '[data-testid="price"]',
+        '[data-testid="starting-price"]',
+        '[class*="startingPrice"]',
+        '[class*="StartingPrice"]',
+        '[class*="lowestPrice"]',
+        '[class*="LowestPrice"]',
+        '[class*="priceFrom"]',
+        '[class*="PriceFrom"]',
         '[class*="price"]',
         '[class*="Price"]',
         '[class*="amount"]',
