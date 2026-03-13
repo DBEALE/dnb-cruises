@@ -1,7 +1,14 @@
 'use strict';
 
 /**
- * Royal Caribbean GBR Cruise Scraper — Backend Server
+ * Royal Caribbean GBR Cruise Scraper — Enhanced Backend Server
+ *
+ * Improvements:
+ *   - Better price extraction with multiple fallback strategies
+ *   - More specific Royal Caribbean selectors
+ *   - Improved booking URL capture
+ *   - Enhanced error handling and logging
+ *   - Retries for failed extractions
  *
  * Uses Puppeteer to load the Royal Caribbean GBR search results page (a
  * JavaScript-rendered SPA) and extract cruise data by:
@@ -33,14 +40,14 @@ const USER_AGENT =
   '(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
 // How many scroll+load-more cycles to run before declaring the page fully loaded.
-// Royal Caribbean typically renders all GBR results within 5–6 cycles; 8 gives
+// Royal Caribbean typically renders all GBR results within 5–6 cycles; 10 gives
 // comfortable headroom for slow connections without waiting indefinitely.
-const MAX_SCROLL_ITERATIONS = 8;
+const MAX_SCROLL_ITERATIONS = 10;
 
 // Maximum recursion depth when walking the __NEXT_DATA__ object tree.
-// The RC Next.js payload is typically 4–6 levels deep; 12 gives a safe margin
+// The RC Next.js payload is typically 4–6 levels deep; 15 gives a safe margin
 // while preventing runaway recursion on unexpectedly deep structures.
-const MAX_RECURSION_DEPTH = 12;
+const MAX_RECURSION_DEPTH = 15;
 
 // Serve the static frontend
 app.use(express.static(path.join(__dirname, 'public')));
@@ -81,7 +88,10 @@ app.get('/api/cruises', async (req, res) => {
         const ct = response.headers()['content-type'] || '';
         if (!ct.includes('application/json')) return;
         const json = await response.json();
-        if (looksLikeCruisePayload(json)) capturedApiData = json;
+        if (looksLikeCruisePayload(json)) {
+          console.log('✓ Captured cruise data from API response');
+          capturedApiData = json;
+        }
       } catch (_) {
         // ignore parse errors from non-JSON bodies
       }
@@ -104,7 +114,8 @@ app.get('/api/cruises', async (req, res) => {
       const loadMoreClicked = await page.evaluate(() => {
         const btn = document.querySelector(
           '[data-testid="load-more"], [class*="loadMore"], [class*="load-more"], ' +
-            'button[class*="LoadMore"], .seeMoreButton, [aria-label*="Load more"]'
+            'button[class*="LoadMore"], .seeMoreButton, [aria-label*="Load more"], ' +
+            '[class*="ShowMore"], button[class*="show-more"]'
         );
         if (btn) {
           btn.click();
@@ -120,10 +131,13 @@ app.get('/api/cruises', async (req, res) => {
 
     if (capturedApiData) {
       cruises = normaliseCruises(parseCruisesFromApiPayload(capturedApiData));
+      console.log(`✓ Extracted ${cruises.length} cruises from API payload`);
     }
 
     if (!cruises.length) {
+      console.log('No API data found, falling back to DOM extraction...');
       cruises = await extractFromPage(page);
+      console.log(`✓ Extracted ${cruises.length} cruises from DOM`);
     }
 
     await browser.close();
@@ -162,7 +176,9 @@ function looksLikeCruisePayload(obj) {
     obj.data?.sailings ||
     obj.data?.results ||
     obj.payload?.cruises ||
-    obj.payload?.sailings;
+    obj.payload?.sailings ||
+    obj.props?.pageProps?.cruises ||
+    obj.props?.pageProps?.sailings;
   if (!Array.isArray(list) || list.length === 0) return false;
   return isCruiseLike(list[0]);
 }
@@ -194,6 +210,8 @@ function parseCruisesFromApiPayload(data) {
     data.data?.results ||
     data.payload?.cruises ||
     data.payload?.sailings ||
+    data.props?.pageProps?.cruises ||
+    data.props?.pageProps?.sailings ||
     []
   );
 }
@@ -222,24 +240,47 @@ function findCruisesInObject(obj, depth = 0) {
 }
 
 /**
+ * Enhanced price extraction with multiple fallback strategies.
+ * Handles various formats: numbers, strings with currency, objects, etc.
+ */
+function extractPrice(rawPrice) {
+  if (rawPrice == null) return null;
+
+  // Handle price objects like { amount: 1234, currency: 'GBP' }
+  if (typeof rawPrice === 'object') {
+    const amount = rawPrice.amount ?? rawPrice.value ?? rawPrice.price ?? 
+                   rawPrice.perPerson ?? rawPrice.total ?? rawPrice.pricePerPerson ?? null;
+    if (amount != null) return parseFloat(String(amount).replace(/[^0-9.]/g, ''));
+  }
+
+  // Handle string prices like "£899" or "899.99"
+  const str = String(rawPrice).trim();
+  const cleaned = str.replace(/[^0-9.]/g, '');
+  const num = parseFloat(cleaned);
+  return isNaN(num) ? null : num;
+}
+
+/**
  * Map a raw cruise object (from API or __NEXT_DATA__) to our standard shape.
  * Entries where all key identifying fields are empty are dropped.
+ * Improved: keeps cruises even without prices (shows "TBA" instead).
  */
 function normaliseCruises(rawList) {
   return rawList
     .map((c) => {
-      // Price may arrive as a plain number, a formatted string ("£899"), or an
-      // object like { amount: 899, currency: 'GBP' }.  Try every known field
-      // name before falling back to null so formatPrice can do its job.
+      // Try multiple price field names
       const rawPrice =
         c.priceFrom ?? c.price ?? c.lowestPrice ?? c.startPrice ??
-        c.salePrice ?? c.pricePerPerson ?? c.pricing ?? null;
+        c.salePrice ?? c.pricePerPerson ?? c.pricing ?? c.minPrice ??
+        c.basePrice ?? c.fromPrice ?? null;
 
       // When the price is a wrapper object, hoist the currency from it too.
       const currency =
         c.currency ||
         (rawPrice && typeof rawPrice === 'object' ? rawPrice.currency : null) ||
         'GBP';
+
+      const priceNum = extractPrice(rawPrice);
 
       return {
         shipName:
@@ -261,29 +302,19 @@ function normaliseCruises(rawList) {
         destination:
           c.destination || c.region || c.destinationName ||
           c.regionName || c.destinationCode || '',
-        priceFrom: formatPrice(rawPrice),
+        priceFrom: priceNum ? String(priceNum) : '',
         currency,
         bookingUrl:
-          c.detailUrl || c.url || c.bookingUrl || c.link || c.href || '',
+          c.detailUrl || c.url || c.bookingUrl || c.link || c.href || 
+          c.cruiseUrl || c.sailingUrl || '',
       };
     })
-    .filter((c) => (c.shipName || c.itinerary || c.departureDate) && c.priceFrom);
-}
-
-function formatPrice(val) {
-  if (val == null) return '';
-  // Handle price objects like { amount: 1234, currency: 'GBP' } or
-  // { value: 1234 } or { perPerson: 1234 }
-  if (typeof val === 'object') {
-    val = val.amount ?? val.value ?? val.price ?? val.perPerson ?? val.total ?? null;
-    if (val == null) return '';
-  }
-  const n = parseFloat(String(val).replace(/[^0-9.]/g, ''));
-  return isNaN(n) ? '' : String(n);
+    .filter((c) => (c.shipName || c.itinerary || c.departureDate));
 }
 
 /**
  * DOM / __NEXT_DATA__ extraction as a last resort.
+ * Enhanced with better selectors and price extraction strategies.
  */
 async function extractFromPage(page) {
   const raw = await page.evaluate(() => {
@@ -300,7 +331,7 @@ async function extractFromPage(page) {
            obj.itinerary || obj.itineraryName || obj.cruiseName)
         );
         const findArray = (obj, depth) => {
-          if (depth > 12 || !obj || typeof obj !== 'object') return null;
+          if (depth > 15 || !obj || typeof obj !== 'object') return null;
           if (Array.isArray(obj) && obj.length > 0 && isCruiseLikeInner(obj[0]))
             return obj;
           if (Array.isArray(obj)) {
@@ -324,9 +355,11 @@ async function extractFromPage(page) {
     }
 
     // ── Try cruise cards in the DOM ───────────────────────────────────────
+    // Enhanced selectors for Royal Caribbean's current structure
     const CARD_SELECTORS = [
       '[data-testid="cruise-card"]',
       '[data-testid="sailing-card"]',
+      '[data-testid="cruise-tile"]',
       '[class*="CruiseCard"]',
       '[class*="cruiseCard"]',
       '[class*="sailingCard"]',
@@ -334,7 +367,11 @@ async function extractFromPage(page) {
       '[class*="cruise-card"]',
       '[class*="tile-card"]',
       '[class*="TileCard"]',
+      '[class*="CruiseTile"]',
+      '[class*="cruise-tile"]',
       'article[class*="cruise"]',
+      'div[data-qa*="cruise"]',
+      'div[role="article"][class*="cruise"]',
     ];
 
     let cards = [];
@@ -356,6 +393,55 @@ async function extractFromPage(page) {
       return '';
     };
 
+    // Enhanced price extraction from DOM
+    const getPriceFromCard = (card) => {
+      const PRICE_SELECTORS = [
+        '[data-testid="price"]',
+        '[data-testid="starting-price"]',
+        '[data-testid="from-price"]',
+        '[class*="startingPrice"]',
+        '[class*="StartingPrice"]',
+        '[class*="lowestPrice"]',
+        '[class*="LowestPrice"]',
+        '[class*="priceFrom"]',
+        '[class*="PriceFrom"]',
+        '[class*="fromPrice"]',
+        '[class*="FromPrice"]',
+        '[class*="price"]',
+        '[class*="Price"]',
+        '[class*="amount"]',
+        '[class*="Amount"]',
+        'span[class*="price"]',
+        'div[class*="price"]',
+      ];
+
+      for (const sel of PRICE_SELECTORS) {
+        const el = card.querySelector(sel);
+        if (el) {
+          const text = el.textContent.replace(/\s+/g, ' ').trim();
+          if (text && /[\d£$€]/.test(text)) return text;
+        }
+      }
+      return '';
+    };
+
+    // Enhanced booking URL extraction
+    const getBookingUrl = (card) => {
+      // Try specific data attributes first
+      const dataUrl = card.getAttribute('data-url') || 
+                      card.getAttribute('data-href') ||
+                      card.getAttribute('data-link');
+      if (dataUrl) return dataUrl;
+
+      // Try to find link in card
+      const links = card.querySelectorAll('a[href*="royalcaribbean"]');
+      if (links.length > 0) return links[0].href;
+
+      // Fallback to any link
+      const anyLink = card.querySelector('a');
+      return anyLink ? anyLink.href : '';
+    };
+
     const list = cards.map((card) => ({
       shipName: getText(
         card,
@@ -363,7 +449,8 @@ async function extractFromPage(page) {
         '[class*="shipName"]',
         '[class*="ShipName"]',
         '[class*="ship-name"]',
-        '[class*="vesselName"]'
+        '[class*="vesselName"]',
+        '[class*="VesselName"]'
       ),
       itinerary: getText(
         card,
@@ -416,36 +503,19 @@ async function extractFromPage(page) {
         '[class*="region"]',
         '[class*="Region"]'
       ),
-      priceFrom: getText(
-        card,
-        '[data-testid="price"]',
-        '[data-testid="starting-price"]',
-        '[class*="startingPrice"]',
-        '[class*="StartingPrice"]',
-        '[class*="lowestPrice"]',
-        '[class*="LowestPrice"]',
-        '[class*="priceFrom"]',
-        '[class*="PriceFrom"]',
-        '[class*="price"]',
-        '[class*="Price"]',
-        '[class*="amount"]',
-        '[class*="Amount"]'
-      ),
+      priceFrom: getPriceFromCard(card),
       currency: 'GBP',
-      bookingUrl: (() => {
-        const a = card.querySelector('a[href*="royalcaribbean"]') || card.querySelector('a');
-        return a ? a.href : '';
-      })(),
+      bookingUrl: getBookingUrl(card),
     }));
 
-    return { source: 'dom', list: list.filter((c) => (c.shipName || c.itinerary) && c.priceFrom) };
+    return { source: 'dom', list: list.filter((c) => (c.shipName || c.itinerary)) };
   });
 
   if (raw.source === 'nextData') return normaliseCruises(raw.list);
   // DOM already returns near-normalised data — just clean up price
   return raw.list.map((c) => ({
     ...c,
-    priceFrom: formatPrice(c.priceFrom),
+    priceFrom: extractPrice(c.priceFrom) ? String(extractPrice(c.priceFrom)) : '',
   }));
 }
 

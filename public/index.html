@@ -155,6 +155,17 @@
       white-space: nowrap;
     }
 
+    td.price a {
+      color: #005fa3;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color .2s;
+    }
+    td.price a:hover {
+      color: #004d87;
+      text-decoration: underline;
+    }
+
     td.duration { text-align: center; }
 
     td.book a {
@@ -401,6 +412,11 @@
         ? `<a href="${escHtml(absoluteUrl(c.bookingUrl))}" target="_blank" rel="noopener noreferrer">Book →</a>`
         : '—';
 
+      // Make price a clickable link if booking URL is available
+      const priceCell = c.bookingUrl && priceDisplay !== '—'
+        ? `<a href="${escHtml(absoluteUrl(c.bookingUrl))}" target="_blank" rel="noopener noreferrer" title="Click to book">${priceDisplay}</a>`
+        : priceDisplay;
+
       return `<tr>
         <td>${i + 1}</td>
         <td>${escHtml(c.shipName || '—')}</td>
@@ -409,7 +425,7 @@
         <td>${escHtml(dateDisplay)}</td>
         <td class="duration">${escHtml(durationDisplay)}</td>
         <td>${escHtml(c.departurePort || '—')}</td>
-        <td class="price">${priceDisplay}</td>
+        <td class="price">${priceCell}</td>
         <td class="book">${bookCell}</td>
       </tr>`;
     }).join('');
@@ -506,7 +522,8 @@
     const n = parseFloat(raw);
     if (!raw || isNaN(n)) return '—';
     const sym = currency === 'GBP' ? '£' : (currency === 'EUR' ? '€' : '$');
-    return sym + n.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    const formatted = sym + n.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return formatted;
   }
 
   function formatDateDisplay(raw) {
