@@ -72,7 +72,10 @@ exports.handler = async (event) => {
       startedAt: new Date().toISOString(),
     });
 
-    const cruises = await scrapeCruises();
+    const cruises = await scrapeCruises(
+      (event.headers && event.headers['x-firecrawl-api-key']) ||
+      process.env.FIRECRAWL_API_KEY
+    );
 
     await store.setJSON('status', {
       status: 'ready',
@@ -103,10 +106,9 @@ exports.handler = async (event) => {
  * Scrape the Royal Caribbean GBR cruise listings using Firecrawl and return
  * a normalised array of cruise objects.
  */
-async function scrapeCruises() {
-  const apiKey = process.env.FIRECRAWL_API_KEY;
+async function scrapeCruises(apiKey) {
   if (!apiKey) {
-    throw new Error('FIRECRAWL_API_KEY environment variable is not set');
+    throw new Error('Firecrawl API key is required. Please provide it via the prompt or set FIRECRAWL_API_KEY.');
   }
   const firecrawl = new FirecrawlApp({ apiKey });
 

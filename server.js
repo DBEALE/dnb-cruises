@@ -55,7 +55,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/api/cruises', async (req, res) => {
   try {
-    const cruises = await scrapeCruises();
+    const apiKey = req.headers['x-firecrawl-api-key'] || process.env.FIRECRAWL_API_KEY;
+    const cruises = await scrapeCruises(apiKey);
 
     console.log(`✓ Successfully extracted ${cruises.length} cruises`);
 
@@ -78,10 +79,9 @@ app.get('/api/cruises', async (req, res) => {
  * Scrape the Royal Caribbean GBR cruise listings using Firecrawl and return
  * a normalised array of cruise objects.
  */
-async function scrapeCruises() {
-  const apiKey = process.env.FIRECRAWL_API_KEY;
+async function scrapeCruises(apiKey) {
   if (!apiKey) {
-    throw new Error('FIRECRAWL_API_KEY environment variable is not set');
+    throw new Error('Firecrawl API key is required. Please provide it via the prompt or set FIRECRAWL_API_KEY.');
   }
   const firecrawl = new FirecrawlApp({ apiKey });
 
