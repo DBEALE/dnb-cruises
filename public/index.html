@@ -189,6 +189,83 @@
       font-size: 0.95rem;
     }
 
+    /* ── API Key Modal ──────────────────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .modal-overlay.hidden { display: none; }
+
+    .modal {
+      background: #fff;
+      border-radius: 10px;
+      padding: 32px 28px 24px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+    }
+    .modal h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #002b5c;
+      margin-bottom: 8px;
+    }
+    .modal p {
+      font-size: 0.88rem;
+      color: #556b82;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+    .modal label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1a2533;
+      margin-bottom: 6px;
+    }
+    .modal input[type="password"] {
+      width: 100%;
+      border: 1px solid #c9d6e3;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color .2s;
+      font-family: monospace;
+    }
+    .modal input[type="password"]:focus { border-color: #005fa3; }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .modal-actions button {
+      border: none;
+      border-radius: 6px;
+      padding: 9px 20px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    #modalCancel {
+      background: #e8eef5;
+      color: #1a2533;
+    }
+    #modalCancel:hover { background: #d5dfe9; }
+    #modalConfirm {
+      background: #005fa3;
+      color: #fff;
+    }
+    #modalConfirm:hover { background: #004d87; }
+    #modalConfirm:disabled { background: #7fa8c8; cursor: not-allowed; }
+
     /* ── Footer ─────────────────────────────────────────────────────────────── */
     footer {
       text-align: center;
@@ -205,6 +282,29 @@
   <h1>🚢 Royal Caribbean GBR Cruises</h1>
   <p>Live cruise search — United Kingdom market, sorted by lowest price</p>
 </header>
+
+<!-- ── Firecrawl API Key Modal ─────────────────────────────────────────── -->
+<div id="apiKeyOverlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <h2 id="modalTitle">🔑 Firecrawl API Key</h2>
+    <p>
+      Enter your <a href="https://www.firecrawl.dev" target="_blank" rel="noopener">Firecrawl</a>
+      API key to scrape live cruise data. The key will <strong>not</strong> be saved.
+    </p>
+    <label for="apiKeyInput">API Key</label>
+    <input
+      id="apiKeyInput"
+      type="password"
+      placeholder="fc-…"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <div class="modal-actions">
+      <button id="modalCancel" type="button">Cancel</button>
+      <button id="modalConfirm" type="button" disabled>Scrape</button>
+    </div>
+  </div>
+</div>
 
 <main>
   <div class="controls">
@@ -266,6 +366,62 @@
   let sortColIndex = -1;
   let sortAsc      = true;
 
+  // ── API Key Modal ──────────────────────────────────────────────────────────
+  //
+  // The key is held only in memory for the duration of the scrape request.
+  // It is never written to localStorage, sessionStorage, or cookies.
+
+  const overlay     = document.getElementById('apiKeyOverlay');
+  const apiKeyInput = document.getElementById('apiKeyInput');
+  const modalCancel = document.getElementById('modalCancel');
+  const modalConfirm = document.getElementById('modalConfirm');
+
+  // Enable the Scrape button only when the input is non-empty
+  apiKeyInput.addEventListener('input', () => {
+    modalConfirm.disabled = apiKeyInput.value.trim() === '';
+  });
+
+  // Allow pressing Enter to confirm, Escape to cancel
+  apiKeyInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !modalConfirm.disabled) modalConfirm.click();
+    if (e.key === 'Escape') modalCancel.click();
+  });
+
+  /**
+   * Show the API key modal and resolve with the entered key, or null if
+   * the user cancels. The key is never persisted anywhere.
+   */
+  function promptForApiKey() {
+    return new Promise((resolve) => {
+      apiKeyInput.value = '';
+      modalConfirm.disabled = true;
+      overlay.classList.remove('hidden');
+      apiKeyInput.focus();
+
+      function closeModal() {
+        overlay.classList.add('hidden');
+        apiKeyInput.value = '';
+        modalConfirm.disabled = true;
+        modalConfirm.removeEventListener('click', onConfirm);
+        modalCancel.removeEventListener('click', onCancel);
+      }
+
+      const onConfirm = () => {
+        const key = apiKeyInput.value.trim();
+        closeModal();
+        resolve(key || null);
+      };
+
+      const onCancel = () => {
+        closeModal();
+        resolve(null);
+      };
+
+      modalConfirm.addEventListener('click', onConfirm);
+      modalCancel.addEventListener('click', onCancel);
+    });
+  }
+
   // ── Fetch cruises from the backend ─────────────────────────────────────────
   //
   // On Netlify the scraping runs as a background function (up to 15 min).
@@ -285,6 +441,10 @@
       '<path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>' +
       '</svg> Fetch Cruises';
 
+    // Prompt for the API key — do not store it anywhere persistent
+    const apiKey = await promptForApiKey();
+    if (!apiKey) return; // user cancelled
+
     btn.disabled  = true;
     btn.innerHTML = '<span class="spinner"></span> Scraping…';
     status.textContent = 'Starting scraper…';
@@ -295,14 +455,18 @@
 
     try {
       // Trigger the background scrape (returns 202 on Netlify, or starts the
-      // synchronous scrape on the local Express server)
-      const triggerRes = await fetch('/api/scrape', { method: 'POST' });
+      // synchronous scrape on the local Express server).
+      // The API key is sent as a request header and used for this request only.
+      const triggerRes = await fetch('/api/scrape', {
+        method: 'POST',
+        headers: { 'X-Firecrawl-Api-Key': apiKey },
+      });
 
       // Local Express server (server.js) doesn't expose /api/scrape; it only
       // has /api/cruises.  A 404 here means we're running locally — fall back
       // to the direct endpoint.
       if (triggerRes.status === 404) {
-        await fetchCruisesDirect(status, input, summary);
+        await fetchCruisesDirect(apiKey, status, input, summary);
         return;
       }
 
@@ -360,10 +524,12 @@
   }
 
   // Fallback for the local Express server which uses a single synchronous call
-  async function fetchCruisesDirect(status, input, summary) {
+  async function fetchCruisesDirect(apiKey, status, input, summary) {
     status.textContent =
-      'Loading the Royal Caribbean page with a headless browser. This may take up to 90 seconds…';
-    const res  = await fetch('/api/cruises');
+      'Loading the Royal Caribbean page via Firecrawl. This may take up to 90 seconds…';
+    const res  = await fetch('/api/cruises', {
+      headers: { 'X-Firecrawl-Api-Key': apiKey },
+    });
     const json = await res.json();
 
     if (!res.ok || !json.success) {

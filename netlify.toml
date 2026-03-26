@@ -5,10 +5,6 @@
 [functions]
   node_bundler = "esbuild"
 
-# Keep @sparticuz/chromium external so its bin/ files are preserved on disk
-[functions."scrape-background"]
-  external_node_modules = ["@sparticuz/chromium"]
-
 [[redirects]]
   from = "/api/scrape"
   to   = "/.netlify/functions/scrape-background"
