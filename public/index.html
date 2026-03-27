@@ -266,6 +266,20 @@
   let sortColIndex = -1;
   let sortAsc      = true;
 
+  // ── API key helpers ────────────────────────────────────────────────────────
+
+  /** Return a stored Firecrawl API key, prompting the user if needed. */
+  function getApiKey() {
+    let key = sessionStorage.getItem('firecrawlApiKey') || '';
+    if (!key) {
+      key = (window.prompt('Enter your Firecrawl API key (stored in session only):') || '').trim();
+      if (key) {
+        sessionStorage.setItem('firecrawlApiKey', key);
+      }
+    }
+    return key;
+  }
+
   // ── Fetch cruises from the backend ─────────────────────────────────────────
   //
   // On Netlify the scraping runs as a background function (up to 15 min).
@@ -285,6 +299,13 @@
       '<path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>' +
       '</svg> Fetch Cruises';
 
+    const apiKey = getApiKey();
+    if (!apiKey) {
+      status.textContent = 'Error: Firecrawl API key is required.';
+      status.className   = 'error';
+      return;
+    }
+
     btn.disabled  = true;
     btn.innerHTML = '<span class="spinner"></span> Scraping…';
     status.textContent = 'Starting scraper…';
@@ -298,13 +319,14 @@
       // synchronous scrape on the local Express server).
       const triggerRes = await fetch('/api/scrape', {
         method: 'POST',
+        headers: { 'x-firecrawl-api-key': apiKey },
       });
 
       // Local Express server (server.js) doesn't expose /api/scrape; it only
       // has /api/cruises.  A 404 here means we're running locally — fall back
       // to the direct endpoint.
       if (triggerRes.status === 404) {
-        await fetchCruisesDirect(status, input, summary);
+        await fetchCruisesDirect(status, input, summary, apiKey);
         return;
       }
 
@@ -362,10 +384,12 @@
   }
 
   // Fallback for the local Express server which uses a single synchronous call
-  async function fetchCruisesDirect(status, input, summary) {
+  async function fetchCruisesDirect(status, input, summary, apiKey) {
     status.textContent =
       'Loading the Royal Caribbean page via Firecrawl. This may take up to 90 seconds…';
-    const res  = await fetch('/api/cruises');
+    const res  = await fetch('/api/cruises', {
+      headers: { 'x-firecrawl-api-key': apiKey },
+    });
     const json = await res.json();
 
     if (!res.ok || !json.success) {
