@@ -16,6 +16,25 @@
 const express = require('express');
 const FirecrawlApp = require('@mendable/firecrawl-js');
 const path = require('path');
+const fs = require('fs');
+
+// If FIRECRAWL_API_KEY is not already in the environment, fall back to the
+// value stored in netlify.toml so the local Express server works without
+// a separate `.env` file.
+if (!process.env.FIRECRAWL_API_KEY) {
+  try {
+    const toml = fs.readFileSync(path.join(__dirname, 'netlify.toml'), 'utf8');
+    const match = toml.match(/FIRECRAWL_API_KEY\s*=\s*"([^"]+)"/);
+    if (match) {
+      process.env.FIRECRAWL_API_KEY = match[1];
+    }
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
+      console.warn('Warning: could not read FIRECRAWL_API_KEY from netlify.toml:', err.message);
+    }
+    // netlify.toml not found — the key must be supplied via the environment
+  }
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
