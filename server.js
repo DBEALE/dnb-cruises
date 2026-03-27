@@ -56,6 +56,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/api/cruises', async (req, res) => {
   try {
     const apiKey = req.headers['x-firecrawl-api-key'] || process.env.FIRECRAWL_API_KEY;
+    if (!apiKey) {
+      return res.status(400).json({
+        success: false,
+        error: 'Firecrawl API key is required. Provide it via the X-Firecrawl-API-Key header or set FIRECRAWL_API_KEY in the environment.',
+        hint: 'For local testing: export FIRECRAWL_API_KEY=your_key and restart the server, or include X-Firecrawl-API-Key in the request headers.',
+      });
+    }
+
     const cruises = await scrapeCruises(apiKey);
 
     console.log(`✓ Successfully extracted ${cruises.length} cruises`);
@@ -120,6 +128,10 @@ async function scrapeCruises(apiKey) {
 
 // ─── Start ───────────────────────────────────────────────────────────────────
 
-app.listen(PORT, () => {
-  console.log(`\n🚢  Royal Caribbean cruise viewer running at http://localhost:${PORT}\n`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n🚢  Royal Caribbean cruise viewer running at http://localhost:${PORT}\n`);
+  });
+}
+
+module.exports = app;
