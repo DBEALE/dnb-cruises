@@ -22,7 +22,10 @@ const PORT = process.env.PORT || 3000;
 
 const RC_URL =
   'https://www.royalcaribbean.com/gbr/en/cruises' +
-  '?sort=by:PRICE|order:ASC&country=GBR&market=gbr&language=en';
+  '?search=departurePort:ATH,BCN,BLQ,IST,ROM,STH,TRS|nights:6~8,9~11,gte12' +
+  '&sort=by:PRICE|order:ASC&conflict_banner=false&country=GBR&market=gbr&language=en';
+
+const DEFAULT_LIMIT = 100;
 
 // JSON schema for structured cruise extraction
 const CRUISE_SCHEMA = {
@@ -64,7 +67,8 @@ app.get('/api/cruises', async (req, res) => {
       });
     }
 
-    const cruises = await scrapeCruises(apiKey);
+    const limit = parseInt(req.query.limit, 10) || DEFAULT_LIMIT;
+    const cruises = await scrapeCruises(apiKey, limit);
 
     console.log(`✓ Successfully extracted ${cruises.length} cruises`);
 
@@ -86,8 +90,10 @@ app.get('/api/cruises', async (req, res) => {
 /**
  * Scrape the Royal Caribbean GBR cruise listings using Firecrawl and return
  * a normalised array of cruise objects.
+ * @param {string} apiKey  Firecrawl API key.
+ * @param {number} [limit] Maximum number of cruise listings to extract (default: DEFAULT_LIMIT).
  */
-async function scrapeCruises(apiKey) {
+async function scrapeCruises(apiKey, limit = DEFAULT_LIMIT) {
   if (!apiKey) {
     throw new Error('Firecrawl API key is required. Please provide it via the prompt or set FIRECRAWL_API_KEY.');
   }
@@ -107,10 +113,11 @@ async function scrapeCruises(apiKey) {
   const result = await firecrawl.scrapeUrl(RC_URL, {
     formats: ['json'],
     actions: scrollActions,
+    timeout: 120000,
     jsonOptions: {
       prompt:
-        'Extract ALL cruise listings shown on this Royal Caribbean page — ' +
-        'up to 500 results. Do not stop early; include every listing visible. ' +
+        `Extract up to ${limit} cruise listings shown on this Royal Caribbean page. ` +
+        'Do not stop early; include every listing visible up to that limit. ' +
         'For each cruise record the ship name, itinerary/route name, ' +
         'duration in nights (e.g. "7 Nights"), departure / embarkation port, ' +
         'destination region or ports visited, the lowest price per person in ' +
