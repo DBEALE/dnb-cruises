@@ -114,11 +114,22 @@ async function scrapeCruises(apiKey) {
 
   console.log('Background: loading Royal Caribbean GBR cruises page via Firecrawl …');
 
+  // Scroll down the page multiple times so lazy-loaded results are rendered
+  // before the content is extracted. Each pair scrolls one viewport-height
+  // and then waits for the network/JS to settle.
+  const scrollActions = [];
+  for (let i = 0; i < 25; i++) {
+    scrollActions.push({ type: 'scroll', direction: 'down', amount: 800 });
+    scrollActions.push({ type: 'wait', milliseconds: 1500 });
+  }
+
   const result = await firecrawl.scrapeUrl(RC_URL, {
     formats: ['json'],
+    actions: scrollActions,
     jsonOptions: {
       prompt:
-        'Extract every cruise listing shown on this Royal Caribbean page. ' +
+        'Extract ALL cruise listings shown on this Royal Caribbean page — ' +
+        'up to 500 results. Do not stop early; include every listing visible. ' +
         'For each cruise record the ship name, itinerary/route name, ' +
         'duration in nights (e.g. "7 Nights"), departure / embarkation port, ' +
         'destination region or ports visited, the lowest price per person in ' +
