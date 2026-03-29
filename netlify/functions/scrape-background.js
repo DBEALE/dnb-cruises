@@ -20,7 +20,7 @@
  * the frontend.
  */
 
-const FirecrawlApp = require('@mendable/firecrawl-js');
+const { FirecrawlAppV1: FirecrawlApp } = require('@mendable/firecrawl-js');
 const { connectLambda, getStore } = require('@netlify/blobs');
 
 const RC_URL =
