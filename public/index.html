@@ -49,6 +49,33 @@
       margin-bottom: 20px;
     }
 
+    /* ── API key row ────────────────────────────────────────────────────────── */
+    .api-key-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-size: 0.88rem;
+      color: #4a6a8a;
+    }
+    .api-key-row label { white-space: nowrap; font-weight: 600; }
+    #apiKeyInput {
+      flex: 1;
+      min-width: 260px;
+      max-width: 480px;
+      border: 1px solid #c9d6e3;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 0.88rem;
+      font-family: monospace;
+      outline: none;
+      transition: border-color .2s;
+    }
+    #apiKeyInput:focus { border-color: #005fa3; }
+    #apiKeyInput.key-error { border-color: #c0392b; }
+    .api-key-hint { color: #7a94ac; font-size: 0.82rem; }
+
     #fetchBtn {
       display: inline-flex;
       align-items: center;
@@ -207,6 +234,18 @@
 </header>
 
 <main>
+  <div class="api-key-row">
+    <label for="apiKeyInput">Firecrawl API Key:</label>
+    <input
+      id="apiKeyInput"
+      type="password"
+      placeholder="fc-…  (your Firecrawl API key)"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <span class="api-key-hint">Stored locally in your browser. Required only if not configured on the server.</span>
+  </div>
+
   <div class="controls">
     <button id="fetchBtn" onclick="fetchCruises()">
       <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -258,6 +297,7 @@
     royalcaribbean.com/gbr/en/cruises
   </a>.
   All prices in GBP per person. Prices and availability subject to change.
+  <span id="buildInfo"></span>
 </footer>
 
 <script>
@@ -265,6 +305,25 @@
   let allCruises   = [];   // full data from server
   let sortColIndex = -1;
   let sortAsc      = true;
+
+  // ── Load persisted API key and build info on page load ─────────────────────
+  (function init() {
+    const saved = localStorage.getItem('firecrawl_api_key');
+    if (saved) document.getElementById('apiKeyInput').value = saved;
+
+    fetch('/build-info.json')
+      .then((r) => r.ok ? r.json() : null)
+      .then((info) => {
+        if (!info || !info.builtAt) return;
+        const d = new Date(info.builtAt);
+        const fmt = d.toLocaleString('en-GB', {
+          day: 'numeric', month: 'short', year: 'numeric',
+          hour: '2-digit', minute: '2-digit', timeZone: 'UTC', timeZoneName: 'short',
+        });
+        document.getElementById('buildInfo').textContent = ' · Last built: ' + fmt;
+      })
+      .catch(() => {});
+  })();
 
   // ── Fetch cruises from the backend ─────────────────────────────────────────
   //
@@ -276,14 +335,21 @@
   // /api/cruises endpoint that returns results synchronously, so we fall back
   // to a single-request path when the initial response already has data.
   async function fetchCruises() {
-    const btn    = document.getElementById('fetchBtn');
-    const status = document.getElementById('status');
-    const input  = document.getElementById('searchInput');
+    const btn     = document.getElementById('fetchBtn');
+    const status  = document.getElementById('status');
+    const input   = document.getElementById('searchInput');
     const summary = document.getElementById('summary');
+    const keyInput = document.getElementById('apiKeyInput');
     const FETCH_SVG =
       '<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">' +
       '<path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>' +
       '</svg> Fetch Cruises';
+
+    // Read and persist the API key from the input field
+    const apiKey = keyInput.value.trim();
+    if (apiKey) {
+      localStorage.setItem('firecrawl_api_key', apiKey);
+    }
 
     btn.disabled  = true;
     btn.innerHTML = '<span class="spinner"></span> Scraping…';
@@ -294,17 +360,22 @@
     renderBody([]);
 
     try {
+      // Build request headers — include API key if one was entered
+      const reqHeaders = {};
+      if (apiKey) reqHeaders['X-Firecrawl-API-Key'] = apiKey;
+
       // Trigger the background scrape (returns 202 on Netlify, or starts the
       // synchronous scrape on the local Express server).
       const triggerRes = await fetch('/api/scrape', {
         method: 'POST',
+        headers: reqHeaders,
       });
 
       // Local Express server (server.js) doesn't expose /api/scrape; it only
       // has /api/cruises.  A 404 here means we're running locally — fall back
       // to the direct endpoint.
       if (triggerRes.status === 404) {
-        await fetchCruisesDirect(status, input, summary);
+        await fetchCruisesDirect(status, input, summary, reqHeaders);
         return;
       }
 
@@ -324,6 +395,11 @@
         const json = await res.json();
 
         if (json.status === 'error') {
+          // If the error is about the API key, highlight the key input
+          if (json.error && json.error.toLowerCase().includes('api key')) {
+            keyInput.classList.add('key-error');
+            keyInput.focus();
+          }
           throw new Error(json.error || 'Scraping failed');
         }
 
@@ -331,6 +407,7 @@
           allCruises = json.cruises || [];
           input.disabled = false;
           input.value    = '';
+          keyInput.classList.remove('key-error');
 
           const ts = json.scrapedAt
             ? new Date(json.scrapedAt).toLocaleTimeString()
@@ -362,19 +439,25 @@
   }
 
   // Fallback for the local Express server which uses a single synchronous call
-  async function fetchCruisesDirect(status, input, summary) {
+  async function fetchCruisesDirect(status, input, summary, reqHeaders) {
+    const keyInput = document.getElementById('apiKeyInput');
     status.textContent =
       'Loading the Royal Caribbean page via Firecrawl. This may take up to 90 seconds…';
-    const res  = await fetch('/api/cruises');
+    const res  = await fetch('/api/cruises', { headers: reqHeaders });
     const json = await res.json();
 
     if (!res.ok || !json.success) {
+      if (json.error && json.error.toLowerCase().includes('api key')) {
+        keyInput.classList.add('key-error');
+        keyInput.focus();
+      }
       throw new Error(json.error || `HTTP ${res.status}`);
     }
 
     allCruises = json.cruises || [];
     input.disabled = false;
     input.value    = '';
+    keyInput.classList.remove('key-error');
 
     const ts = json.scrapedAt
       ? new Date(json.scrapedAt).toLocaleTimeString()
