@@ -311,7 +311,7 @@
     const saved = localStorage.getItem('firecrawl_api_key');
     if (saved) document.getElementById('apiKeyInput').value = saved;
 
-    fetch('build-info.json')
+    fetch('/build-info.json')
       .then((r) => r.ok ? r.json() : null)
       .then((info) => {
         if (!info || !info.builtAt) return;
@@ -347,7 +347,6 @@
 
     // Read and persist the API key from the input field
     const apiKey = keyInput.value.trim();
-    keyInput.classList.remove('key-error');
     if (apiKey) {
       localStorage.setItem('firecrawl_api_key', apiKey);
     }
@@ -408,6 +407,7 @@
           allCruises = json.cruises || [];
           input.disabled = false;
           input.value    = '';
+          keyInput.classList.remove('key-error');
 
           const ts = json.scrapedAt
             ? new Date(json.scrapedAt).toLocaleTimeString()
@@ -457,6 +457,7 @@
     allCruises = json.cruises || [];
     input.disabled = false;
     input.value    = '';
+    keyInput.classList.remove('key-error');
 
     const ts = json.scrapedAt
       ? new Date(json.scrapedAt).toLocaleTimeString()
