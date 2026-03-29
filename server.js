@@ -128,6 +128,10 @@ async function scrapeCruises(apiKey) {
 
 // ─── Start ───────────────────────────────────────────────────────────────────
 
-app.listen(PORT, () => {
-  console.log(`\n🚢  Royal Caribbean cruise viewer running at http://localhost:${PORT}\n`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n🚢  Royal Caribbean cruise viewer running at http://localhost:${PORT}\n`);
+  });
+}
+
+module.exports = app;
