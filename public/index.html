@@ -166,6 +166,26 @@
     thead th.sort-asc::after  { content: " ▲"; font-size: .7em; }
     thead th.sort-desc::after { content: " ▼"; font-size: .7em; }
 
+    /* ── Column filters row ─────────────────────────────────────────────────── */
+    #filterRow td {
+      background: #003d7a;
+      padding: 5px 6px;
+    }
+    .col-filter {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 4px;
+      padding: 4px 7px;
+      font-size: 0.78rem;
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .col-filter::placeholder { color: rgba(255,255,255,.45); }
+    .col-filter:focus { border-color: #fff; background: rgba(255,255,255,.2); }
+    select.col-filter option { background: #003d7a; color: #fff; }
+
     /* ── Table body ─────────────────────────────────────────────────────────── */
     tbody tr:nth-child(even) { background: #f5f8fc; }
     tbody tr:hover { background: #e8f0fa; }
@@ -274,18 +294,60 @@
         <tr>
           <th onclick="sortTable(0)"  data-col="0">#</th>
           <th onclick="sortTable(1)"  data-col="1">Ship</th>
-          <th onclick="sortTable(2)"  data-col="2">Itinerary / Name</th>
-          <th onclick="sortTable(3)"  data-col="3">Destination</th>
-          <th onclick="sortTable(4)"  data-col="4">Departure Date</th>
-          <th onclick="sortTable(5)"  data-col="5">Duration</th>
-          <th onclick="sortTable(6)"  data-col="6">Departure Port</th>
-          <th onclick="sortTable(7)"  data-col="7">Price From</th>
+          <th onclick="sortTable(2)"  data-col="2">Class</th>
+          <th onclick="sortTable(3)"  data-col="3">Launch</th>
+          <th onclick="sortTable(4)"  data-col="4">Itinerary / Name</th>
+          <th onclick="sortTable(5)"  data-col="5">Destination</th>
+          <th onclick="sortTable(6)"  data-col="6">Departure Date</th>
+          <th onclick="sortTable(7)"  data-col="7">Duration</th>
+          <th onclick="sortTable(8)"  data-col="8">Departure Port</th>
+          <th onclick="sortTable(9)"  data-col="9">Region</th>
+          <th onclick="sortTable(10)" data-col="10">Price From</th>
           <th>Book</th>
+        </tr>
+        <tr id="filterRow">
+          <td></td>
+          <td><input class="col-filter" data-field="shipName"  placeholder="Filter…" oninput="applyFilters()"></td>
+          <td>
+            <select class="col-filter" data-field="shipClass" onchange="applyFilters()">
+              <option value="">All classes</option>
+              <option>Icon</option>
+              <option>Oasis</option>
+              <option>Quantum</option>
+              <option>Freedom</option>
+              <option>Voyager</option>
+              <option>Radiance</option>
+              <option>Vision</option>
+            </select>
+          </td>
+          <td><input class="col-filter" data-field="minLaunch"     placeholder="Min year…" type="number" min="1900" oninput="applyFilters()"></td>
+          <td><input class="col-filter" data-field="itinerary"     placeholder="Filter…"   oninput="applyFilters()"></td>
+          <td><input class="col-filter" data-field="destination"   placeholder="Filter…"   oninput="applyFilters()"></td>
+          <td><input class="col-filter" data-field="departureDate" placeholder="Filter…"   oninput="applyFilters()"></td>
+          <td><input class="col-filter" data-field="duration"      placeholder="Min days…" type="number" min="0" oninput="applyFilters()"></td>
+          <td><input class="col-filter" data-field="departurePort" placeholder="Filter…"   oninput="applyFilters()"></td>
+          <td>
+            <select class="col-filter" data-field="departureRegion" onchange="applyFilters()">
+              <option value="">All regions</option>
+              <option>UK & Ireland</option>
+              <option>Northern Europe</option>
+              <option>Mediterranean</option>
+              <option>Caribbean</option>
+              <option>Americas</option>
+              <option>Asia & Far East</option>
+              <option>Middle East</option>
+              <option>Australia & Pacific</option>
+              <option>South America</option>
+              <option>Other</option>
+            </select>
+          </td>
+          <td><input class="col-filter" data-field="maxPrice"      placeholder="Max £…"    type="number" min="0" oninput="applyFilters()"></td>
+          <td></td>
         </tr>
       </thead>
       <tbody id="cruiseBody">
         <tr class="empty-row">
-          <td colspan="9">No data yet — click <strong>Fetch Cruises</strong> to load results.</td>
+          <td colspan="12">No data yet — click <strong>Fetch Cruises</strong> to load results.</td>
         </tr>
       </tbody>
     </table>
@@ -311,6 +373,11 @@
     const saved = localStorage.getItem('firecrawl_api_key');
     if (saved) document.getElementById('apiKeyInput').value = saved;
 
+    const cached = loadCachedCruises();
+    if (cached) {
+      applyCruiseResults(cached.cruises, cached.scrapedAt, true);
+    }
+
     fetch('/build-info.json')
       .then((r) => r.ok ? r.json() : null)
       .then((info) => {
@@ -324,6 +391,59 @@
       })
       .catch(() => {});
   })();
+
+  function getApiBaseUrl() {
+    if (window.location && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
+      return window.location.origin;
+    }
+
+    return 'http://localhost:3000';
+  }
+
+  function buildSummaryText(count) {
+    return 'Showing ' + count + ' result' + (count === 1 ? '' : 's') + ' — click any column header to sort.';
+  }
+
+  function loadCachedCruises() {
+    try {
+      const raw = localStorage.getItem('cached_cruises');
+      if (!raw) return null;
+
+      const cached = JSON.parse(raw);
+      if (!cached || !Array.isArray(cached.cruises)) return null;
+
+      return cached;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function saveCachedCruises(cruises, scrapedAt) {
+    try {
+      localStorage.setItem('cached_cruises', JSON.stringify({ cruises, scrapedAt }));
+    } catch (err) {}
+  }
+
+  function applyCruiseResults(cruises, scrapedAt, cached) {
+    allCruises = cruises || [];
+
+    const input = document.getElementById('searchInput');
+    const summary = document.getElementById('summary');
+    const status = document.getElementById('status');
+    const keyInput = document.getElementById('apiKeyInput');
+
+    input.disabled = false;
+    input.value = '';
+    keyInput.classList.remove('key-error');
+
+    const ts = scrapedAt ? new Date(scrapedAt).toLocaleTimeString() : '';
+    status.textContent =
+      `Loaded ${allCruises.length} cruise${allCruises.length !== 1 ? 's' : ''}.` +
+      (cached ? ' (cached)' : (ts ? ` (at ${ts})` : ''));
+    summary.textContent = allCruises.length ? buildSummaryText(allCruises.length) : '';
+
+    renderBody(allCruises);
+  }
 
   // ── Fetch cruises from the backend ─────────────────────────────────────────
   //
@@ -340,6 +460,7 @@
     const input   = document.getElementById('searchInput');
     const summary = document.getElementById('summary');
     const keyInput = document.getElementById('apiKeyInput');
+    const apiBase = getApiBaseUrl();
     const FETCH_SVG =
       '<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">' +
       '<path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>' +
@@ -356,17 +477,16 @@
     status.textContent = 'Starting scraper…';
     status.className = '';
     input.disabled = true;
-    summary.textContent = '';
-    renderBody([]);
 
     try {
       // Build request headers — include API key if one was entered
       const reqHeaders = {};
       if (apiKey) reqHeaders['X-Firecrawl-API-Key'] = apiKey;
+      const limitQuery = '';
 
       // Trigger the background scrape (returns 202 on Netlify, or starts the
       // synchronous scrape on the local Express server).
-      const triggerRes = await fetch('/api/scrape', {
+      const triggerRes = await fetch(apiBase + '/api/scrape' + limitQuery, {
         method: 'POST',
         headers: reqHeaders,
       });
@@ -391,7 +511,7 @@
         const elapsed = Math.round((Date.now() - startTime) / 1000);
         status.textContent = `Scraping in progress (${formatElapsed(elapsed)})…`;
 
-        const res  = await fetch('/api/cruises');
+        const res  = await fetch(apiBase + '/api/cruises' + limitQuery);
         const json = await res.json();
 
         if (json.status === 'error') {
@@ -404,22 +524,9 @@
         }
 
         if (json.status === 'ready') {
-          allCruises = json.cruises || [];
-          input.disabled = false;
-          input.value    = '';
-          keyInput.classList.remove('key-error');
-
-          const ts = json.scrapedAt
-            ? new Date(json.scrapedAt).toLocaleTimeString()
-            : '';
-          status.textContent =
-            `Loaded ${allCruises.length} cruise${allCruises.length !== 1 ? 's' : ''}.` +
-            (ts ? ` (at ${ts})` : '');
-          summary.textContent = allCruises.length
-            ? 'Showing ' + allCruises.length + ' results — click any column header to sort.'
-            : '';
-
-          renderBody(allCruises);
+          const cruises = json.cruises || [];
+          saveCachedCruises(cruises, json.scrapedAt || '');
+          applyCruiseResults(cruises, json.scrapedAt || '', false);
           break;
         }
 
@@ -431,7 +538,6 @@
     } catch (err) {
       status.textContent = 'Error: ' + err.message;
       status.className   = 'error';
-      renderBody([]);
     } finally {
       btn.disabled  = false;
       btn.innerHTML = FETCH_SVG;
@@ -441,9 +547,10 @@
   // Fallback for the local Express server which uses a single synchronous call
   async function fetchCruisesDirect(status, input, summary, reqHeaders) {
     const keyInput = document.getElementById('apiKeyInput');
+    const apiBase = getApiBaseUrl();
     status.textContent =
       'Loading the Royal Caribbean page via Firecrawl. This may take up to 90 seconds…';
-    const res  = await fetch('/api/cruises', { headers: reqHeaders });
+    const res  = await fetch(apiBase + '/api/cruises', { headers: reqHeaders });
     const json = await res.json();
 
     if (!res.ok || !json.success) {
@@ -454,22 +561,9 @@
       throw new Error(json.error || `HTTP ${res.status}`);
     }
 
-    allCruises = json.cruises || [];
-    input.disabled = false;
-    input.value    = '';
-    keyInput.classList.remove('key-error');
-
-    const ts = json.scrapedAt
-      ? new Date(json.scrapedAt).toLocaleTimeString()
-      : '';
-    status.textContent =
-      `Loaded ${allCruises.length} cruise${allCruises.length !== 1 ? 's' : ''}.` +
-      (ts ? ` (at ${ts})` : '');
-    summary.textContent = allCruises.length
-      ? 'Showing ' + allCruises.length + ' results — click any column header to sort.'
-      : '';
-
-    renderBody(allCruises);
+    const cruises = json.cruises || [];
+    saveCachedCruises(cruises, json.scrapedAt || '');
+    applyCruiseResults(cruises, json.scrapedAt || '', false);
   }
 
   function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
@@ -485,7 +579,7 @@
 
     if (!list || list.length === 0) {
       tbody.innerHTML =
-        '<tr class="empty-row"><td colspan="9">No cruises to display.</td></tr>';
+        '<tr class="empty-row"><td colspan="12">No cruises to display.</td></tr>';
       return;
     }
 
@@ -505,11 +599,14 @@
       return `<tr>
         <td>${i + 1}</td>
         <td>${escHtml(c.shipName || '—')}</td>
+        <td>${escHtml(c.shipClass || '—')}</td>
+        <td>${c.shipLaunchYear || '—'}</td>
         <td>${escHtml(c.itinerary || '—')}</td>
         <td>${escHtml(c.destination || '—')}</td>
         <td>${escHtml(dateDisplay)}</td>
         <td class="duration">${escHtml(durationDisplay)}</td>
         <td>${escHtml(c.departurePort || '—')}</td>
+        <td>${escHtml(c.departureRegion || '—')}</td>
         <td class="price">${priceCell}</td>
         <td class="book">${bookCell}</td>
       </tr>`;
@@ -524,32 +621,26 @@
       sortColIndex = colIndex;
       sortAsc = true;
     }
-
-    // Update header arrows
     document.querySelectorAll('thead th').forEach((th, i) => {
       th.classList.remove('sort-asc', 'sort-desc');
       if (i === colIndex) th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
     });
-
-    const sorted = [...getFiltered()].sort((a, b) => {
-      const va = getCellValue(a, colIndex);
-      const vb = getCellValue(b, colIndex);
-      return compare(va, vb) * (sortAsc ? 1 : -1);
-    });
-
-    renderBody(sorted);
+    applyFilters();
   }
 
   function getCellValue(cruise, col) {
     switch (col) {
-      case 0:  return '';   // row number — not used for sort
-      case 1:  return cruise.shipName      || '';
-      case 2:  return cruise.itinerary     || '';
-      case 3:  return cruise.destination   || '';
-      case 4:  return cruise.departureDate || '';
-      case 5:  return parseFloat(cruise.duration) || 0;
-      case 6:  return cruise.departurePort || '';
-      case 7:  return parseFloat(cruise.priceFrom) || 0;
+      case 0:  return '';
+      case 1:  return cruise.shipName        || '';
+      case 2:  return cruise.shipClass       || '';
+      case 3:  return cruise.shipLaunchYear  || 0;
+      case 4:  return cruise.itinerary       || '';
+      case 5:  return cruise.destination     || '';
+      case 6:  return cruise.departureDate   || '';
+      case 7:  return parseFloat(cruise.duration) || 0;
+      case 8:  return cruise.departurePort   || '';
+      case 9:  return cruise.departureRegion || '';
+      case 10: return parseFloat(cruise.priceFrom) || 0;
       default: return '';
     }
   }
@@ -560,21 +651,58 @@
   }
 
   // ── Filter ──────────────────────────────────────────────────────────────────
-  function filterTable() {
-    const q = document.getElementById('searchInput').value.toLowerCase().trim();
-    const filtered = q
-      ? allCruises.filter(c =>
-          [c.shipName, c.itinerary, c.destination, c.departurePort, c.departureDate]
-            .some(v => v && v.toLowerCase().includes(q))
-        )
-      : allCruises;
+  function filterTable() { applyFilters(); }
+
+  function applyFilters() {
+    const globalQ = document.getElementById('searchInput').value.toLowerCase().trim();
+
+    // Collect column filter values keyed by data-field
+    const colFilters = {};
+    document.querySelectorAll('.col-filter').forEach(input => {
+      const val = input.value.trim();
+      if (val) colFilters[input.dataset.field] = val;
+    });
+
+    const filtered = allCruises.filter(c => {
+      // Global search across key text fields
+      if (globalQ && ![c.shipName, c.itinerary, c.destination, c.departurePort, c.departureDate]
+            .some(v => v && v.toLowerCase().includes(globalQ))) return false;
+
+      // Per-column text filters
+      const textFields = ['shipName', 'shipClass', 'itinerary', 'destination', 'departurePort', 'departureRegion'];
+      for (const field of textFields) {
+        if (colFilters[field] && !(c[field] || '').toLowerCase().includes(colFilters[field].toLowerCase())) return false;
+      }
+      if (colFilters.departureDate && !formatDateDisplay(c.departureDate).toLowerCase().includes(colFilters.departureDate.toLowerCase())) return false;
+
+      // Min launch year filter
+      if (colFilters.minLaunch) {
+        const minYear = parseInt(colFilters.minLaunch, 10);
+        if (!isNaN(minYear) && (!(c.shipLaunchYear) || c.shipLaunchYear < minYear)) return false;
+      }
+
+      // Min duration filter
+      if (colFilters.duration) {
+        const min = parseFloat(colFilters.duration);
+        const nights = parseFloat(c.duration);
+        if (!isNaN(min) && (isNaN(nights) || nights < min)) return false;
+      }
+
+      // Max price filter
+      if (colFilters.maxPrice) {
+        const max = parseFloat(colFilters.maxPrice);
+        const price = parseFloat(c.priceFrom);
+        if (!isNaN(max) && (isNaN(price) || price > max)) return false;
+      }
+
+      return true;
+    });
 
     const summary = document.getElementById('summary');
     summary.textContent = filtered.length === allCruises.length
       ? `Showing ${allCruises.length} results — click any column header to sort.`
       : `Showing ${filtered.length} of ${allCruises.length} results.`;
 
-    // Re-apply active sort if any
     if (sortColIndex >= 0) {
       const sorted = [...filtered].sort((a, b) => {
         const va = getCellValue(a, sortColIndex);
@@ -585,15 +713,6 @@
     } else {
       renderBody(filtered);
     }
-  }
-
-  function getFiltered() {
-    const q = document.getElementById('searchInput').value.toLowerCase().trim();
-    if (!q) return allCruises;
-    return allCruises.filter(c =>
-      [c.shipName, c.itinerary, c.destination, c.departurePort, c.departureDate]
-        .some(v => v && v.toLowerCase().includes(q))
-    );
   }
 
   // ── Formatting helpers ──────────────────────────────────────────────────────

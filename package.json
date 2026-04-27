@@ -7,7 +7,8 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "build": "node scripts/generate-build-info.js",
-    "test": "node --test test/api-key.test.js test/cruises-route.test.js"
+    "test": "node --test test/api-key.test.js test/cruises-route.test.js test/ui-api-key.test.js && playwright test",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@mendable/firecrawl-js": "^4.18.0",
@@ -16,5 +17,8 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
   }
 }
