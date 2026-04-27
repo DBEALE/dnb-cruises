@@ -186,6 +186,19 @@
     .col-filter:focus { border-color: #fff; background: rgba(255,255,255,.2); }
     select.col-filter option { background: #003d7a; color: #fff; }
 
+    /* ── Ship class newness dots ────────────────────────────────────────────── */
+    .class-dots { display: inline-flex; gap: 3px; vertical-align: middle; margin-left: 5px; }
+    .class-dots span {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      border: 1.5px solid #005fa3;
+    }
+    .class-dots span.filled { background: #005fa3; }
+    .class-dots span.filled.new  { background: #16a34a; border-color: #16a34a; }
+    .class-dots span.filled.mid  { background: #2563eb; border-color: #2563eb; }
+    .class-dots span.filled.old  { background: #94a3b8; border-color: #94a3b8; }
+
     /* ── Table body ─────────────────────────────────────────────────────────── */
     tbody tr:nth-child(even) { background: #f5f8fc; }
     tbody tr:hover { background: #e8f0fa; }
@@ -283,6 +296,12 @@
       disabled
     />
 
+    <label id="gbpToggleLabel" style="display:inline-flex;align-items:center;gap:7px;font-size:0.88rem;color:#4a6a8a;cursor:pointer;user-select:none;">
+      <input type="checkbox" id="gbpToggle" onchange="toggleGBP()" style="width:16px;height:16px;cursor:pointer;">
+      Show prices in £ GBP
+    </label>
+    <span id="rateNote" style="font-size:0.78rem;color:#7a94ac;"></span>
+
     <span id="status">Click "Fetch Cruises" to load live data.</span>
   </div>
 
@@ -364,9 +383,25 @@
 
 <script>
   // ── State ──────────────────────────────────────────────────────────────────
-  let allCruises   = [];   // full data from server
+  let allCruises   = [];
   let sortColIndex = -1;
   let sortAsc      = true;
+  let usdToGbp     = null;   // fetched on first toggle
+  let showInGbp    = false;
+
+  // ── Ship class newness ─────────────────────────────────────────────────────
+  const CLASS_TIER = { Icon: 5, Oasis: 4, Quantum: 4, Freedom: 3, Radiance: 2, Voyager: 2, Vision: 1 };
+  const TIER_COLOUR = { 5: 'new', 4: 'new', 3: 'mid', 2: 'old', 1: 'old' };
+
+  function classDots(shipClass) {
+    const tier = CLASS_TIER[shipClass];
+    if (!tier) return '';
+    const colour = TIER_COLOUR[tier];
+    const dots = Array.from({ length: 5 }, (_, i) =>
+      `<span class="${i < tier ? 'filled ' + colour : ''}"></span>`
+    ).join('');
+    return `<span class="class-dots" title="${shipClass} class — ${tier}/5">${dots}</span>`;
+  }
 
   // ── Load persisted API key and build info on page load ─────────────────────
   (function init() {
@@ -376,6 +411,16 @@
     const cached = loadCachedCruises();
     if (cached) {
       applyCruiseResults(cached.cruises, cached.scrapedAt, true);
+    } else {
+      // On GitHub Pages there's no API server — auto-load the pre-built JSON.
+      fetch('./cruises.json')
+        .then(r => r.ok ? r.json() : null)
+        .then(json => {
+          if (json && Array.isArray(json.cruises) && json.cruises.length) {
+            applyCruiseResults(json.cruises, json.scrapedAt || '', false);
+          }
+        })
+        .catch(() => {});
     }
 
     fetch('/build-info.json')
@@ -491,11 +536,14 @@
         headers: reqHeaders,
       });
 
-      // Local Express server (server.js) doesn't expose /api/scrape; it only
-      // has /api/cruises.  A 404 here means we're running locally — fall back
-      // to the direct endpoint.
+      // Local Express server: no /api/scrape → fall back to direct endpoint.
+      // GitHub Pages: no server at all → fall back to static cruises.json.
       if (triggerRes.status === 404) {
-        await fetchCruisesDirect(status, input, summary, reqHeaders);
+        try {
+          await fetchCruisesDirect(status, input, summary, reqHeaders);
+        } catch {
+          await fetchStaticCruises(status);
+        }
         return;
       }
 
@@ -547,10 +595,10 @@
   // Fallback for the local Express server which uses a single synchronous call
   async function fetchCruisesDirect(status, input, summary, reqHeaders) {
     const keyInput = document.getElementById('apiKeyInput');
-    const apiBase = getApiBaseUrl();
-    status.textContent =
-      'Loading the Royal Caribbean page via Firecrawl. This may take up to 90 seconds…';
+    const apiBase  = getApiBaseUrl();
+    status.textContent = 'Fetching cruise data from server…';
     const res  = await fetch(apiBase + '/api/cruises', { headers: reqHeaders });
+    if (res.status === 404) throw new Error('no-server');
     const json = await res.json();
 
     if (!res.ok || !json.success) {
@@ -561,6 +609,17 @@
       throw new Error(json.error || `HTTP ${res.status}`);
     }
 
+    const cruises = json.cruises || [];
+    saveCachedCruises(cruises, json.scrapedAt || '');
+    applyCruiseResults(cruises, json.scrapedAt || '', false);
+  }
+
+  // Static fallback: load pre-built cruises.json (GitHub Pages mode)
+  async function fetchStaticCruises(status) {
+    status.textContent = 'Loading pre-fetched cruise data…';
+    const res  = await fetch('./cruises.json');
+    if (!res.ok) throw new Error('cruises.json not found — run the fetch script first');
+    const json = await res.json();
     const cruises = json.cruises || [];
     saveCachedCruises(cruises, json.scrapedAt || '');
     applyCruiseResults(cruises, json.scrapedAt || '', false);
@@ -599,7 +658,7 @@
       return `<tr>
         <td>${i + 1}</td>
         <td>${escHtml(c.shipName || '—')}</td>
-        <td>${escHtml(c.shipClass || '—')}</td>
+        <td style="white-space:nowrap">${escHtml(c.shipClass || '—')}${classDots(c.shipClass)}</td>
         <td>${c.shipLaunchYear || '—'}</td>
         <td>${escHtml(c.itinerary || '—')}</td>
         <td>${escHtml(c.destination || '—')}</td>
@@ -715,6 +774,32 @@
     }
   }
 
+  // ── GBP conversion ─────────────────────────────────────────────────────────
+  async function toggleGBP() {
+    showInGbp = document.getElementById('gbpToggle').checked;
+    const rateNote = document.getElementById('rateNote');
+
+    document.querySelector('[data-col="10"]').textContent = showInGbp ? 'Price (£)' : 'Price From';
+    document.querySelector('[data-field="maxPrice"]').placeholder = showInGbp ? 'Max £…' : 'Max $…';
+    if (showInGbp && !usdToGbp) {
+      rateNote.textContent = 'Fetching exchange rate…';
+      try {
+        const res  = await fetch('https://open.er-api.com/v6/latest/USD');
+        const data = await res.json();
+        usdToGbp = data?.rates?.GBP;
+        if (!usdToGbp) throw new Error('Rate not found');
+        rateNote.textContent = `1 USD = £${usdToGbp.toFixed(4)} (live rate)`;
+      } catch {
+        usdToGbp = 0.79;
+        rateNote.textContent = `Using fallback rate: 1 USD = £0.79`;
+      }
+    } else if (!showInGbp) {
+      rateNote.textContent = '';
+    }
+
+    applyFilters();
+  }
+
   // ── Formatting helpers ──────────────────────────────────────────────────────
   function formatDurationDisplay(raw) {
     if (!raw) return '—';
@@ -725,9 +810,12 @@
   function formatPriceDisplay(raw, currency) {
     const n = parseFloat(raw);
     if (!raw || isNaN(n)) return '—';
+    if (showInGbp && usdToGbp && currency === 'USD') {
+      const gbp = Math.round(n * usdToGbp);
+      return '£' + gbp.toLocaleString('en-GB');
+    }
     const sym = currency === 'GBP' ? '£' : (currency === 'EUR' ? '€' : '$');
-    const formatted = sym + n.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    return formatted;
+    return sym + n.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
   }
 
   function formatDateDisplay(raw) {
