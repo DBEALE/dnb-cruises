@@ -146,7 +146,9 @@ function normalizeCruise(cruise) {
   };
 }
 
-async function fetchCruiseSearchPage({ filters, pagination }) {
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function fetchCruiseSearchPage({ filters, pagination }, attempt = 1) {
   const body = JSON.stringify({
     operationName: 'cruiseSearch_Cruises',
     variables: { filters, qualifiers: '', nlSearch: '', sort: CRUISE_SEARCH_SORT, pagination },
@@ -164,7 +166,15 @@ async function fetchCruiseSearchPage({ filters, pagination }) {
     },
     body,
   });
-  if (!res.ok) throw new Error(`RC API returned HTTP ${res.status}`);
+  if (!res.ok) {
+    if (attempt < 4) {
+      const delay = attempt * 3000;
+      console.log(`  HTTP ${res.status} — retrying in ${delay / 1000}s (attempt ${attempt}/3)…`);
+      await sleep(delay);
+      return fetchCruiseSearchPage({ filters, pagination }, attempt + 1);
+    }
+    throw new Error(`RC API returned HTTP ${res.status} after 3 retries`);
+  }
   const payload = await res.json();
   const results = payload?.data?.cruiseSearch?.results;
   if (!results) throw new Error(payload?.errors?.[0]?.message || 'No results in RC API response');
@@ -193,6 +203,7 @@ async function fetchAllCruises() {
 
     skip += page.length;
     console.log(`  fetched ${cruises.length} / ${total}`);
+    await sleep(500);
   }
   return cruises;
 }
