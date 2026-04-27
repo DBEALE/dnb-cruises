@@ -3,382 +3,591 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Royal Caribbean GBR Cruises</title>
+  <title>Royal Caribbean Cruises</title>
   <style>
-    /* ── Reset & base ─────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0d1b2e;
+      --navy-mid:   #1a3461;
+      --blue:       #1d4ed8;
+      --blue-light: #3b82f6;
+      --blue-pale:  #eff6ff;
+      --white:      #ffffff;
+      --gray-50:    #f8fafc;
+      --gray-100:   #f1f5f9;
+      --gray-200:   #e2e8f0;
+      --gray-400:   #94a3b8;
+      --gray-600:   #475569;
+      --gray-800:   #1e293b;
+      --green:      #16a34a;
+      --radius:     12px;
+      --shadow:     0 4px 32px rgba(0,0,0,.10);
+      --shadow-sm:  0 1px 4px rgba(0,0,0,.06);
+    }
 
     body {
       font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-      background: #f0f4f8;
-      color: #1a2533;
+      background: var(--gray-50);
+      color: var(--gray-800);
       min-height: 100vh;
     }
 
-    /* ── Header ────────────────────────────────────────────────────────────── */
+    /* ── Header ─────────────────────────────────────────────────────────────── */
     header {
-      background: linear-gradient(135deg, #002b5c 0%, #00407a 60%, #005fa3 100%);
+      background: linear-gradient(135deg, #060f1e 0%, #0d2045 40%, #1a3a6b 100%);
       color: #fff;
-      padding: 28px 32px 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.25);
-    }
-    header h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-    header p {
-      margin-top: 6px;
-      font-size: 0.9rem;
-      opacity: .75;
+      padding: 52px 24px 0;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* ── Main layout ────────────────────────────────────────────────────────── */
-    main {
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(59,130,246,.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 10% 80%, rgba(29,78,216,.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .header-inner {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 28px 24px 48px;
+      position: relative;
+      padding-bottom: 48px;
     }
 
-    /* ── Controls bar ───────────────────────────────────────────────────────── */
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    /* ── API key row ────────────────────────────────────────────────────────── */
-    .api-key-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      font-size: 0.88rem;
-      color: #4a6a8a;
-    }
-    .api-key-row label { white-space: nowrap; font-weight: 600; }
-    #apiKeyInput {
-      flex: 1;
-      min-width: 260px;
-      max-width: 480px;
-      border: 1px solid #c9d6e3;
-      border-radius: 6px;
-      padding: 8px 12px;
-      font-size: 0.88rem;
-      font-family: monospace;
-      outline: none;
-      transition: border-color .2s;
-    }
-    #apiKeyInput:focus { border-color: #005fa3; }
-    #apiKeyInput.key-error { border-color: #c0392b; }
-    .api-key-hint { color: #7a94ac; font-size: 0.82rem; }
-
-    #fetchBtn {
+    .live-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: #005fa3;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 22px;
-      font-size: 0.95rem;
+      gap: 7px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 0.72rem;
       font-weight: 600;
-      cursor: pointer;
-      transition: background .2s, transform .1s;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
     }
-    #fetchBtn:hover:not(:disabled) { background: #004d87; }
-    #fetchBtn:active:not(:disabled) { transform: scale(.97); }
-    #fetchBtn:disabled { background: #7fa8c8; cursor: not-allowed; }
 
-    #searchInput {
-      flex: 1;
-      min-width: 200px;
-      max-width: 380px;
-      border: 1px solid #c9d6e3;
-      border-radius: 6px;
-      padding: 9px 14px;
-      font-size: 0.92rem;
-      outline: none;
-      transition: border-color .2s;
-    }
-    #searchInput:focus { border-color: #005fa3; }
-
-    /* ── Status / loader ────────────────────────────────────────────────────── */
-    #status {
-      font-size: 0.88rem;
-      color: #4a6a8a;
-    }
-    #status.error { color: #c0392b; font-weight: 600; }
-
-    .spinner {
-      display: inline-block;
-      width: 16px; height: 16px;
-      border: 2px solid rgba(255,255,255,.4);
-      border-top-color: #fff;
+    .live-dot {
+      width: 7px; height: 7px;
       border-radius: 50%;
-      animation: spin .7s linear infinite;
+      background: #4ade80;
+      box-shadow: 0 0 6px #4ade80;
+      animation: livepulse 2s ease-in-out infinite;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── Summary bar ────────────────────────────────────────────────────────── */
-    #summary {
-      font-size: 0.88rem;
-      color: #556b82;
+    @keyframes livepulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(.8); }
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
       margin-bottom: 12px;
     }
 
-    /* ── Table wrapper ──────────────────────────────────────────────────────── */
+    header h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.6);
+      max-width: 480px;
+      line-height: 1.5;
+    }
+
+    .header-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .hstat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hstat-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .hstat-lbl {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,.45);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Wave divider */
+    .header-wave {
+      line-height: 0;
+      margin-top: -1px;
+    }
+
+    .header-wave svg { display: block; width: 100%; }
+
+    /* ── Main ───────────────────────────────────────────────────────────────── */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 16px 64px;
+    }
+
+    /* ── Toolbar ─────────────────────────────────────────────────────────────── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    #summary {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* GBP toggle */
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-700, #334155);
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 46px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: var(--gray-200);
+      transition: background .2s;
+    }
+
+    .toggle-switch input:checked + .toggle-track { background: var(--blue); }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 1px 4px rgba(0,0,0,.25);
+      transition: transform .2s;
+      pointer-events: none;
+    }
+
+    .toggle-switch input:checked ~ .toggle-thumb { transform: translateX(20px); }
+
+    #rateNote {
+      font-size: 0.75rem;
+      color: var(--gray-400);
+    }
+
+    /* ── Status bar ──────────────────────────────────────────────────────────── */
+    #statusBar {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 13px 18px;
+      margin-bottom: 14px;
+      font-size: 0.875rem;
+      color: var(--gray-600);
+      box-shadow: var(--shadow-sm);
+    }
+
+    #statusBar.visible { display: flex; }
+    #statusBar.error   { border-color: #fca5a5; background: #fff5f5; color: #dc2626; }
+
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2.5px solid var(--gray-200);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Table card ──────────────────────────────────────────────────────────── */
+    .table-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+    }
+
     .table-wrapper {
       overflow-x: auto;
-      border-radius: 8px;
-      box-shadow: 0 1px 6px rgba(0,0,0,.1);
-      background: #fff;
+      -webkit-overflow-scrolling: touch;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.88rem;
+      font-size: 0.83rem;
+      min-width: 860px;
     }
 
-    /* ── Table head ─────────────────────────────────────────────────────────── */
-    thead {
-      background: #002b5c;
-      color: #fff;
-      position: sticky;
-      top: 0;
-      z-index: 1;
-    }
-    thead th {
-      padding: 12px 14px;
+    /* ── Sort header row ─────────────────────────────────────────────────────── */
+    thead { position: sticky; top: 0; z-index: 2; }
+
+    .sort-row th {
+      background: var(--navy);
+      color: rgba(255,255,255,.9);
+      padding: 13px 11px;
       text-align: left;
       font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       white-space: nowrap;
       cursor: pointer;
       user-select: none;
       transition: background .15s;
+      border-right: 1px solid rgba(255,255,255,.05);
     }
-    thead th:hover { background: #003d7a; }
-    thead th.sort-asc::after  { content: " ▲"; font-size: .7em; }
-    thead th.sort-desc::after { content: " ▼"; font-size: .7em; }
 
-    /* ── Column filters row ─────────────────────────────────────────────────── */
+    .sort-row th:last-child { border-right: none; }
+    .sort-row th:hover { background: #1e3d72; }
+    .sort-row th.sort-asc::after  { content: " ▲"; font-size: .65em; opacity: .7; }
+    .sort-row th.sort-desc::after { content: " ▼"; font-size: .65em; opacity: .7; }
+
+    /* ── Filter row ──────────────────────────────────────────────────────────── */
     #filterRow td {
-      background: #003d7a;
-      padding: 5px 6px;
+      background: #162040;
+      padding: 5px 5px;
+      border-bottom: 3px solid var(--navy);
     }
+
     .col-filter {
       width: 100%;
-      border: 1px solid rgba(255,255,255,.3);
-      border-radius: 4px;
-      padding: 4px 7px;
-      font-size: 0.78rem;
-      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 6px;
+      padding: 5px 8px;
+      font-size: 0.75rem;
+      background: rgba(255,255,255,.07);
       color: #fff;
       outline: none;
-      box-sizing: border-box;
+      transition: border-color .15s, background .15s;
     }
-    .col-filter::placeholder { color: rgba(255,255,255,.45); }
-    .col-filter:focus { border-color: #fff; background: rgba(255,255,255,.2); }
-    select.col-filter option { background: #003d7a; color: #fff; }
 
-    /* ── Ship class newness dots ────────────────────────────────────────────── */
-    .class-dots { display: inline-flex; gap: 3px; vertical-align: middle; margin-left: 5px; }
-    .class-dots span {
-      display: inline-block;
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      border: 1.5px solid #005fa3;
-    }
-    .class-dots span.filled { background: #005fa3; }
-    .class-dots span.filled.new  { background: #16a34a; border-color: #16a34a; }
-    .class-dots span.filled.mid  { background: #2563eb; border-color: #2563eb; }
-    .class-dots span.filled.old  { background: #94a3b8; border-color: #94a3b8; }
+    .col-filter::placeholder { color: rgba(255,255,255,.3); }
+    .col-filter:focus { border-color: #60a5fa; background: rgba(255,255,255,.13); }
+    select.col-filter { cursor: pointer; }
+    select.col-filter option { background: #1a2f4e; color: #fff; }
 
-    /* ── Table body ─────────────────────────────────────────────────────────── */
-    tbody tr:nth-child(even) { background: #f5f8fc; }
-    tbody tr:hover { background: #e8f0fa; }
+    /* ── Table body ──────────────────────────────────────────────────────────── */
+    tbody tr { transition: background .1s; }
+    tbody tr:nth-child(even) { background: #fafbfd; }
+    tbody tr:hover { background: var(--blue-pale); }
 
     td {
-      padding: 10px 14px;
-      border-bottom: 1px solid #e4eaf2;
+      padding: 10px 11px;
+      border-bottom: 1px solid #edf1f7;
       vertical-align: middle;
+      color: var(--gray-800);
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+
+    td.ship-name {
+      font-weight: 600;
+      color: var(--navy);
+      white-space: nowrap;
     }
 
     td.price {
       font-weight: 700;
-      color: #005fa3;
+      font-size: 0.95rem;
+      color: var(--blue);
       white-space: nowrap;
     }
 
     td.price a {
-      color: #005fa3;
+      color: var(--blue);
       text-decoration: none;
-      cursor: pointer;
-      transition: color .2s;
-    }
-    td.price a:hover {
-      color: #004d87;
-      text-decoration: underline;
     }
 
-    td.duration { text-align: center; }
+    td.price a:hover { text-decoration: underline; }
+
+    td.duration { text-align: center; white-space: nowrap; }
+
+    td.book { white-space: nowrap; }
 
     td.book a {
       display: inline-block;
-      padding: 4px 10px;
-      background: #005fa3;
+      padding: 5px 13px;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
       color: #fff;
-      border-radius: 4px;
+      border-radius: 6px;
       text-decoration: none;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      transition: background .2s;
+      transition: opacity .15s, transform .1s;
+      box-shadow: 0 2px 6px rgba(29,78,216,.3);
     }
-    td.book a:hover { background: #004d87; }
 
-    /* ── Empty / loading states ─────────────────────────────────────────────── */
+    td.book a:hover { opacity: .9; transform: translateY(-1px); }
+    td.book a:active { transform: translateY(0); }
+
+    /* ── Class dots ──────────────────────────────────────────────────────────── */
+    .class-cell { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+
+    .class-dots { display: inline-flex; gap: 3px; }
+
+    .class-dots span {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      border: 1.5px solid #cbd5e1;
+    }
+
+    .class-dots span.filled.new  { background: #16a34a; border-color: #16a34a; }
+    .class-dots span.filled.mid  { background: #2563eb; border-color: #2563eb; }
+    .class-dots span.filled.old  { background: #94a3b8; border-color: #94a3b8; }
+
+    /* ── Empty / loading row ─────────────────────────────────────────────────── */
     .empty-row td {
       text-align: center;
-      padding: 40px;
-      color: #7a94ac;
-      font-size: 0.95rem;
+      padding: 70px 20px;
+      color: var(--gray-400);
+      font-size: 1rem;
     }
 
-    /* ── Footer ─────────────────────────────────────────────────────────────── */
+    /* ── Footer ──────────────────────────────────────────────────────────────── */
     footer {
       text-align: center;
-      font-size: 0.78rem;
-      color: #7a94ac;
-      padding: 20px;
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      padding: 28px 16px;
+      line-height: 1.8;
     }
-    footer a { color: #005fa3; }
+
+    footer a { color: var(--blue); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive column hiding ────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .col-launch, .col-destination { display: none; }
+    }
+
+    @media (max-width: 860px) {
+      .col-itinerary, .col-region { display: none; }
+      table { min-width: 0; }
+    }
+
+    @media (max-width: 640px) {
+      header { padding: 36px 16px 0; }
+      .header-stats { gap: 20px; }
+      .hstat-val { font-size: 1.3rem; }
+      .col-class { display: none; }
+      td, .sort-row th { padding: 9px 8px; }
+      td.book a { padding: 4px 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .col-port { display: none; }
+      td.price { font-size: 0.88rem; }
+    }
+
+    /* ── Fade in on load ─────────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .table-card { animation: fadeUp .35s ease both; }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>🚢 Royal Caribbean GBR Cruises</h1>
-  <p>Live cruise search — United Kingdom market, sorted by lowest price</p>
+  <div class="header-inner">
+    <div class="live-badge"><span class="live-dot"></span> Updated Hourly</div>
+    <h1>🚢 Royal Caribbean <em>Cruises</em></h1>
+    <p>Browse all sailings worldwide — prices converted to GBP, sorted by lowest fare.</p>
+    <div class="header-stats">
+      <div class="hstat">
+        <span class="hstat-val" id="totalCount">—</span>
+        <span class="hstat-lbl">Sailings</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-val" id="totalShips">—</span>
+        <span class="hstat-lbl">Ships</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-val" id="updatedAt">—</span>
+        <span class="hstat-lbl">Last updated</span>
+      </div>
+    </div>
+  </div>
+  <div class="header-wave">
+    <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,28 C240,56 480,0 720,28 C960,56 1200,0 1440,28 L1440,56 L0,56 Z" fill="#f8fafc"/>
+    </svg>
+  </div>
 </header>
 
 <main>
-  <div class="api-key-row">
-    <label for="apiKeyInput">Firecrawl API Key:</label>
-    <input
-      id="apiKeyInput"
-      type="password"
-      placeholder="fc-…  (your Firecrawl API key)"
-      autocomplete="off"
-      spellcheck="false"
-    />
-    <span class="api-key-hint">Stored locally in your browser. Required only if not configured on the server.</span>
+  <div id="statusBar">
+    <span class="spinner"></span>
+    <span id="statusText">Loading cruise data…</span>
   </div>
 
-  <div class="controls">
-    <button id="fetchBtn" onclick="fetchCruises()">
-      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-      </svg>
-      Fetch Cruises
-    </button>
-
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Filter by ship, destination, port…"
-      oninput="filterTable()"
-      disabled
-    />
-
-    <label id="gbpToggleLabel" style="display:inline-flex;align-items:center;gap:7px;font-size:0.88rem;color:#4a6a8a;cursor:pointer;user-select:none;">
-      <input type="checkbox" id="gbpToggle" onchange="toggleGBP()" style="width:16px;height:16px;cursor:pointer;">
-      Show prices in £ GBP
-    </label>
-    <span id="rateNote" style="font-size:0.78rem;color:#7a94ac;"></span>
-
-    <span id="status">Click "Fetch Cruises" to load live data.</span>
+  <div class="toolbar">
+    <span id="summary"></span>
+    <div class="toolbar-right">
+      <label class="toggle-wrap" for="gbpToggle">
+        <span class="toggle-label">Prices in £ GBP</span>
+        <div class="toggle-switch">
+          <input type="checkbox" id="gbpToggle" checked onchange="toggleGBP()">
+          <span class="toggle-track"></span>
+          <span class="toggle-thumb"></span>
+        </div>
+      </label>
+      <span id="rateNote"></span>
+    </div>
   </div>
 
-  <p id="summary"></p>
-
-  <div class="table-wrapper">
-    <table id="cruiseTable">
-      <thead>
-        <tr>
-          <th onclick="sortTable(0)"  data-col="0">#</th>
-          <th onclick="sortTable(1)"  data-col="1">Ship</th>
-          <th onclick="sortTable(2)"  data-col="2">Class</th>
-          <th onclick="sortTable(3)"  data-col="3">Launch</th>
-          <th onclick="sortTable(4)"  data-col="4">Itinerary / Name</th>
-          <th onclick="sortTable(5)"  data-col="5">Destination</th>
-          <th onclick="sortTable(6)"  data-col="6">Departure Date</th>
-          <th onclick="sortTable(7)"  data-col="7">Duration</th>
-          <th onclick="sortTable(8)"  data-col="8">Departure Port</th>
-          <th onclick="sortTable(9)"  data-col="9">Region</th>
-          <th onclick="sortTable(10)" data-col="10">Price From</th>
-          <th>Book</th>
-        </tr>
-        <tr id="filterRow">
-          <td></td>
-          <td><input class="col-filter" data-field="shipName"  placeholder="Filter…" oninput="applyFilters()"></td>
-          <td>
-            <select class="col-filter" data-field="shipClass" onchange="applyFilters()">
-              <option value="">All classes</option>
-              <option>Icon</option>
-              <option>Oasis</option>
-              <option>Quantum</option>
-              <option>Freedom</option>
-              <option>Voyager</option>
-              <option>Radiance</option>
-              <option>Vision</option>
-            </select>
-          </td>
-          <td><input class="col-filter" data-field="minLaunch"     placeholder="Min year…" type="number" min="1900" oninput="applyFilters()"></td>
-          <td><input class="col-filter" data-field="itinerary"     placeholder="Filter…"   oninput="applyFilters()"></td>
-          <td><input class="col-filter" data-field="destination"   placeholder="Filter…"   oninput="applyFilters()"></td>
-          <td><input class="col-filter" data-field="departureDate" placeholder="Filter…"   oninput="applyFilters()"></td>
-          <td><input class="col-filter" data-field="duration"      placeholder="Min days…" type="number" min="0" oninput="applyFilters()"></td>
-          <td><input class="col-filter" data-field="departurePort" placeholder="Filter…"   oninput="applyFilters()"></td>
-          <td>
-            <select class="col-filter" data-field="departureRegion" onchange="applyFilters()">
-              <option value="">All regions</option>
-              <option>UK & Ireland</option>
-              <option>Northern Europe</option>
-              <option>Mediterranean</option>
-              <option>Caribbean</option>
-              <option>Americas</option>
-              <option>Asia & Far East</option>
-              <option>Middle East</option>
-              <option>Australia & Pacific</option>
-              <option>South America</option>
-              <option>Other</option>
-            </select>
-          </td>
-          <td><input class="col-filter" data-field="maxPrice"      placeholder="Max £…"    type="number" min="0" oninput="applyFilters()"></td>
-          <td></td>
-        </tr>
-      </thead>
-      <tbody id="cruiseBody">
-        <tr class="empty-row">
-          <td colspan="12">No data yet — click <strong>Fetch Cruises</strong> to load results.</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="table-card">
+    <div class="table-wrapper">
+      <table id="cruiseTable">
+        <thead>
+          <tr class="sort-row">
+            <th class="col-num"         onclick="sortTable(0)">#</th>
+            <th class="col-ship"        onclick="sortTable(1)">Ship</th>
+            <th class="col-class"       onclick="sortTable(2)">Class</th>
+            <th class="col-launch"      onclick="sortTable(3)">Launch</th>
+            <th class="col-itinerary"   onclick="sortTable(4)">Itinerary</th>
+            <th class="col-destination" onclick="sortTable(5)">Destination</th>
+            <th class="col-date"        onclick="sortTable(6)">Departure</th>
+            <th class="col-duration"    onclick="sortTable(7)">Nights</th>
+            <th class="col-port"        onclick="sortTable(8)">Port</th>
+            <th class="col-region"      onclick="sortTable(9)">Region</th>
+            <th class="col-price"       onclick="sortTable(10)" data-col="10">Price</th>
+            <th class="col-book">Book</th>
+          </tr>
+          <tr id="filterRow">
+            <td class="col-num"></td>
+            <td class="col-ship">
+              <input class="col-filter" data-field="shipName" placeholder="Ship…" oninput="applyFilters()">
+            </td>
+            <td class="col-class">
+              <select class="col-filter" data-field="shipClass" onchange="applyFilters()">
+                <option value="">All</option>
+                <option>Icon</option>
+                <option>Oasis</option>
+                <option>Quantum</option>
+                <option>Freedom</option>
+                <option>Voyager</option>
+                <option>Radiance</option>
+                <option>Vision</option>
+              </select>
+            </td>
+            <td class="col-launch">
+              <input class="col-filter" data-field="minLaunch" placeholder="Min yr…" type="number" min="1990" oninput="applyFilters()">
+            </td>
+            <td class="col-itinerary">
+              <input class="col-filter" data-field="itinerary" placeholder="Filter…" oninput="applyFilters()">
+            </td>
+            <td class="col-destination">
+              <input class="col-filter" data-field="destination" placeholder="Filter…" oninput="applyFilters()">
+            </td>
+            <td class="col-date">
+              <input class="col-filter" data-field="departureDate" placeholder="e.g. Jun…" oninput="applyFilters()">
+            </td>
+            <td class="col-duration">
+              <input class="col-filter" data-field="duration" placeholder="Min…" type="number" min="0" oninput="applyFilters()">
+            </td>
+            <td class="col-port">
+              <input class="col-filter" data-field="departurePort" placeholder="Filter…" oninput="applyFilters()">
+            </td>
+            <td class="col-region">
+              <select class="col-filter" data-field="departureRegion" onchange="applyFilters()">
+                <option value="">All regions</option>
+                <option>UK & Ireland</option>
+                <option>Northern Europe</option>
+                <option>Mediterranean</option>
+                <option>Caribbean</option>
+                <option>Americas</option>
+                <option>Asia & Far East</option>
+                <option>Middle East</option>
+                <option>Australia & Pacific</option>
+                <option>South America</option>
+                <option>Other</option>
+              </select>
+            </td>
+            <td class="col-price">
+              <input class="col-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="applyFilters()">
+            </td>
+            <td class="col-book"></td>
+          </tr>
+        </thead>
+        <tbody id="cruiseBody">
+          <tr class="empty-row">
+            <td colspan="12">Loading cruise data…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </main>
 
 <footer>
-  Data sourced from <a href="https://www.royalcaribbean.com/gbr/en/cruises" target="_blank" rel="noopener">
-    royalcaribbean.com/gbr/en/cruises
-  </a>.
-  All prices in GBP per person. Prices and availability subject to change.
-  <span id="buildInfo"></span>
+  Data sourced from
+  <a href="https://www.royalcaribbean.com/gbr/en/cruises" target="_blank" rel="noopener">royalcaribbean.com</a>.
+  Prices shown per person. Availability and fares subject to change.
+  <br><span id="buildInfo"></span>
 </footer>
 
 <script>
@@ -386,12 +595,12 @@
   let allCruises   = [];
   let sortColIndex = -1;
   let sortAsc      = true;
-  let usdToGbp     = null;   // fetched on first toggle
-  let showInGbp    = false;
+  let usdToGbp     = null;
+  let showInGbp    = true;
 
   // ── Ship class newness ─────────────────────────────────────────────────────
-  const CLASS_TIER = { Icon: 5, Oasis: 4, Quantum: 4, Freedom: 3, Radiance: 2, Voyager: 2, Vision: 1 };
-  const TIER_COLOUR = { 5: 'new', 4: 'new', 3: 'mid', 2: 'old', 1: 'old' };
+  const CLASS_TIER   = { Icon: 5, Oasis: 4, Quantum: 4, Freedom: 3, Radiance: 2, Voyager: 2, Vision: 1 };
+  const TIER_COLOUR  = { 5: 'new', 4: 'new', 3: 'mid', 2: 'old', 1: 'old' };
 
   function classDots(shipClass) {
     const tier = CLASS_TIER[shipClass];
@@ -403,303 +612,173 @@
     return `<span class="class-dots" title="${shipClass} class — ${tier}/5">${dots}</span>`;
   }
 
-  // ── Load persisted API key and build info on page load ─────────────────────
+  // ── Init ───────────────────────────────────────────────────────────────────
   (function init() {
-    const saved = localStorage.getItem('firecrawl_api_key');
-    if (saved) document.getElementById('apiKeyInput').value = saved;
-
-    const cached = loadCachedCruises();
-    if (cached) {
-      applyCruiseResults(cached.cruises, cached.scrapedAt, true);
-    } else {
-      // On GitHub Pages there's no API server — auto-load the pre-built JSON.
-      fetch('./cruises.json')
-        .then(r => r.ok ? r.json() : null)
-        .then(json => {
-          if (json && Array.isArray(json.cruises) && json.cruises.length) {
-            applyCruiseResults(json.cruises, json.scrapedAt || '', false);
-          }
-        })
-        .catch(() => {});
-    }
+    showStatus('Loading cruise data…');
+    loadData();
+    fetchGBPRate();
 
     fetch('/build-info.json')
-      .then((r) => r.ok ? r.json() : null)
-      .then((info) => {
-        if (!info || !info.builtAt) return;
-        const d = new Date(info.builtAt);
-        const fmt = d.toLocaleString('en-GB', {
+      .then(r => r.ok ? r.json() : null)
+      .then(info => {
+        if (!info?.builtAt) return;
+        const fmt = new Date(info.builtAt).toLocaleString('en-GB', {
           day: 'numeric', month: 'short', year: 'numeric',
           hour: '2-digit', minute: '2-digit', timeZone: 'UTC', timeZoneName: 'short',
         });
-        document.getElementById('buildInfo').textContent = ' · Last built: ' + fmt;
+        document.getElementById('buildInfo').textContent = 'Site built: ' + fmt;
       })
       .catch(() => {});
   })();
 
-  function getApiBaseUrl() {
-    if (window.location && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
-      return window.location.origin;
+  async function loadData() {
+    // Show cached data immediately while fetching fresh
+    const cached = loadCachedCruises();
+    if (cached) applyCruiseResults(cached.cruises, cached.scrapedAt);
+
+    try {
+      // Try pre-built JSON (GitHub Pages / static hosting)
+      const res = await fetch('./cruises.json');
+      if (!res.ok) throw new Error('not-found');
+      const json = await res.json();
+      if (!Array.isArray(json.cruises) || !json.cruises.length) throw new Error('empty');
+      saveCachedCruises(json.cruises, json.scrapedAt);
+      applyCruiseResults(json.cruises, json.scrapedAt);
+      hideStatus();
+    } catch {
+      // Fall back to live local API (development server)
+      try {
+        const apiKey = localStorage.getItem('firecrawl_api_key');
+        const headers = apiKey ? { 'X-Firecrawl-API-Key': apiKey } : {};
+        const res  = await fetch('/api/cruises', { headers });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = await res.json();
+        if (!json.success) throw new Error(json.error || 'API error');
+        saveCachedCruises(json.cruises, json.scrapedAt);
+        applyCruiseResults(json.cruises, json.scrapedAt);
+        hideStatus();
+      } catch (e) {
+        if (!cached) showStatus('Could not load cruise data: ' + e.message, true);
+        else hideStatus();
+      }
     }
-
-    return 'http://localhost:3000';
   }
 
-  function buildSummaryText(count) {
-    return 'Showing ' + count + ' result' + (count === 1 ? '' : 's') + ' — click any column header to sort.';
+  async function fetchGBPRate() {
+    try {
+      const res  = await fetch('https://open.er-api.com/v6/latest/USD');
+      const data = await res.json();
+      usdToGbp = data?.rates?.GBP;
+      if (!usdToGbp) throw new Error();
+      document.getElementById('rateNote').textContent = `1 USD = £${usdToGbp.toFixed(4)}`;
+    } catch {
+      usdToGbp = 0.79;
+      document.getElementById('rateNote').textContent = 'Rate: £0.79 / $1 (est.)';
+    }
+    if (allCruises.length) applyFilters();
   }
 
+  // ── Status helpers ─────────────────────────────────────────────────────────
+  function showStatus(msg, isError = false) {
+    const bar = document.getElementById('statusBar');
+    document.getElementById('statusText').textContent = msg;
+    bar.className = 'visible' + (isError ? ' error' : '');
+    bar.querySelector('.spinner').style.display = isError ? 'none' : '';
+  }
+
+  function hideStatus() {
+    document.getElementById('statusBar').className = '';
+  }
+
+  // ── Cache helpers ──────────────────────────────────────────────────────────
   function loadCachedCruises() {
     try {
       const raw = localStorage.getItem('cached_cruises');
       if (!raw) return null;
-
-      const cached = JSON.parse(raw);
-      if (!cached || !Array.isArray(cached.cruises)) return null;
-
-      return cached;
-    } catch (err) {
-      return null;
-    }
+      const c = JSON.parse(raw);
+      return c && Array.isArray(c.cruises) ? c : null;
+    } catch { return null; }
   }
 
   function saveCachedCruises(cruises, scrapedAt) {
-    try {
-      localStorage.setItem('cached_cruises', JSON.stringify({ cruises, scrapedAt }));
-    } catch (err) {}
+    try { localStorage.setItem('cached_cruises', JSON.stringify({ cruises, scrapedAt })); } catch {}
   }
 
-  function applyCruiseResults(cruises, scrapedAt, cached) {
+  // ── Apply results ──────────────────────────────────────────────────────────
+  function applyCruiseResults(cruises, scrapedAt) {
     allCruises = cruises || [];
 
-    const input = document.getElementById('searchInput');
-    const summary = document.getElementById('summary');
-    const status = document.getElementById('status');
-    const keyInput = document.getElementById('apiKeyInput');
-
-    input.disabled = false;
-    input.value = '';
-    keyInput.classList.remove('key-error');
-
-    const ts = scrapedAt ? new Date(scrapedAt).toLocaleTimeString() : '';
-    status.textContent =
-      `Loaded ${allCruises.length} cruise${allCruises.length !== 1 ? 's' : ''}.` +
-      (cached ? ' (cached)' : (ts ? ` (at ${ts})` : ''));
-    summary.textContent = allCruises.length ? buildSummaryText(allCruises.length) : '';
-
-    renderBody(allCruises);
-  }
-
-  // ── Fetch cruises from the backend ─────────────────────────────────────────
-  //
-  // On Netlify the scraping runs as a background function (up to 15 min).
-  // We POST to /api/scrape to kick it off, then poll /api/cruises until the
-  // status changes from "running" to "ready" (or "error").
-  //
-  // When running locally via `node server.js` the server exposes a direct
-  // /api/cruises endpoint that returns results synchronously, so we fall back
-  // to a single-request path when the initial response already has data.
-  async function fetchCruises() {
-    const btn     = document.getElementById('fetchBtn');
-    const status  = document.getElementById('status');
-    const input   = document.getElementById('searchInput');
-    const summary = document.getElementById('summary');
-    const keyInput = document.getElementById('apiKeyInput');
-    const apiBase = getApiBaseUrl();
-    const FETCH_SVG =
-      '<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">' +
-      '<path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>' +
-      '</svg> Fetch Cruises';
-
-    // Read and persist the API key from the input field
-    const apiKey = keyInput.value.trim();
-    if (apiKey) {
-      localStorage.setItem('firecrawl_api_key', apiKey);
+    // Header stats
+    document.getElementById('totalCount').textContent = allCruises.length.toLocaleString();
+    const ships = new Set(allCruises.map(c => c.shipName).filter(Boolean));
+    document.getElementById('totalShips').textContent = ships.size;
+    if (scrapedAt) {
+      const d = new Date(scrapedAt);
+      document.getElementById('updatedAt').textContent = d.toLocaleTimeString('en-GB', {
+        hour: '2-digit', minute: '2-digit', timeZone: 'UTC',
+      }) + ' UTC';
     }
 
-    btn.disabled  = true;
-    btn.innerHTML = '<span class="spinner"></span> Scraping…';
-    status.textContent = 'Starting scraper…';
-    status.className = '';
-    input.disabled = true;
-
-    try {
-      // Build request headers — include API key if one was entered
-      const reqHeaders = {};
-      if (apiKey) reqHeaders['X-Firecrawl-API-Key'] = apiKey;
-      const limitQuery = '';
-
-      // Trigger the background scrape (returns 202 on Netlify, or starts the
-      // synchronous scrape on the local Express server).
-      const triggerRes = await fetch(apiBase + '/api/scrape' + limitQuery, {
-        method: 'POST',
-        headers: reqHeaders,
-      });
-
-      // Local Express server: no /api/scrape → fall back to direct endpoint.
-      // GitHub Pages: no server at all → fall back to static cruises.json.
-      if (triggerRes.status === 404) {
-        try {
-          await fetchCruisesDirect(status, input, summary, reqHeaders);
-        } catch {
-          await fetchStaticCruises(status);
-        }
-        return;
-      }
-
-      // ── Poll /api/cruises until the background function finishes ───────────
-      // MAX_WAIT_MS must be ≤ the Netlify Background Function timeout (15 min).
-      const MAX_WAIT_MS   = 15 * 60 * 1000;  // 15 minutes (background fn limit)
-      const POLL_INTERVAL = 5000;             // poll every 5 seconds
-      const startTime     = Date.now();
-
-      while (true) {
-        await sleep(POLL_INTERVAL);
-
-        const elapsed = Math.round((Date.now() - startTime) / 1000);
-        status.textContent = `Scraping in progress (${formatElapsed(elapsed)})…`;
-
-        const res  = await fetch(apiBase + '/api/cruises' + limitQuery);
-        const json = await res.json();
-
-        if (json.status === 'error') {
-          // If the error is about the API key, highlight the key input
-          if (json.error && json.error.toLowerCase().includes('api key')) {
-            keyInput.classList.add('key-error');
-            keyInput.focus();
-          }
-          throw new Error(json.error || 'Scraping failed');
-        }
-
-        if (json.status === 'ready') {
-          const cruises = json.cruises || [];
-          saveCachedCruises(cruises, json.scrapedAt || '');
-          applyCruiseResults(cruises, json.scrapedAt || '', false);
-          break;
-        }
-
-        if (Date.now() - startTime > MAX_WAIT_MS) {
-          throw new Error('Scraping timed out. Please try again.');
-        }
-      }
-
-    } catch (err) {
-      status.textContent = 'Error: ' + err.message;
-      status.className   = 'error';
-    } finally {
-      btn.disabled  = false;
-      btn.innerHTML = FETCH_SVG;
-    }
+    applyFilters();
   }
 
-  // Fallback for the local Express server which uses a single synchronous call
-  async function fetchCruisesDirect(status, input, summary, reqHeaders) {
-    const keyInput = document.getElementById('apiKeyInput');
-    const apiBase  = getApiBaseUrl();
-    status.textContent = 'Fetching cruise data from server…';
-    const res  = await fetch(apiBase + '/api/cruises', { headers: reqHeaders });
-    if (res.status === 404) throw new Error('no-server');
-    const json = await res.json();
-
-    if (!res.ok || !json.success) {
-      if (json.error && json.error.toLowerCase().includes('api key')) {
-        keyInput.classList.add('key-error');
-        keyInput.focus();
-      }
-      throw new Error(json.error || `HTTP ${res.status}`);
-    }
-
-    const cruises = json.cruises || [];
-    saveCachedCruises(cruises, json.scrapedAt || '');
-    applyCruiseResults(cruises, json.scrapedAt || '', false);
-  }
-
-  // Static fallback: load pre-built cruises.json (GitHub Pages mode)
-  async function fetchStaticCruises(status) {
-    status.textContent = 'Loading pre-fetched cruise data…';
-    const res  = await fetch('./cruises.json');
-    if (!res.ok) throw new Error('cruises.json not found — run the fetch script first');
-    const json = await res.json();
-    const cruises = json.cruises || [];
-    saveCachedCruises(cruises, json.scrapedAt || '');
-    applyCruiseResults(cruises, json.scrapedAt || '', false);
-  }
-
-  function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
-
-  function formatElapsed(sec) {
-    if (sec < 60) return sec + 's';
-    return Math.floor(sec / 60) + 'm ' + (sec % 60) + 's';
-  }
-
-  // ── Render table body ──────────────────────────────────────────────────────
+  // ── Render ─────────────────────────────────────────────────────────────────
   function renderBody(list) {
     const tbody = document.getElementById('cruiseBody');
-
     if (!list || list.length === 0) {
-      tbody.innerHTML =
-        '<tr class="empty-row"><td colspan="12">No cruises to display.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="12">No cruises match your filters.</td></tr>';
       return;
     }
-
     tbody.innerHTML = list.map((c, i) => {
-      const priceDisplay = formatPriceDisplay(c.priceFrom, c.currency);
-      const dateDisplay  = formatDateDisplay(c.departureDate);
-      const durationDisplay = formatDurationDisplay(c.duration);
-      const bookCell = c.bookingUrl
-        ? `<a href="${escHtml(absoluteUrl(c.bookingUrl))}" target="_blank" rel="noopener noreferrer">Book →</a>`
-        : '—';
-
-      // Make price a clickable link if booking URL is available
-      const priceCell = c.bookingUrl && priceDisplay !== '—'
-        ? `<a href="${escHtml(absoluteUrl(c.bookingUrl))}" target="_blank" rel="noopener noreferrer" title="Click to book">${priceDisplay}</a>`
-        : priceDisplay;
+      const price    = formatPriceDisplay(c.priceFrom, c.currency);
+      const date     = formatDateDisplay(c.departureDate);
+      const duration = formatDurationDisplay(c.duration);
+      const url      = c.bookingUrl ? escHtml(absoluteUrl(c.bookingUrl)) : '';
+      const bookCell = url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">Book →</a>` : '—';
+      const priceCell = url && price !== '—'
+        ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${price}</a>`
+        : price;
 
       return `<tr>
-        <td>${i + 1}</td>
-        <td>${escHtml(c.shipName || '—')}</td>
-        <td style="white-space:nowrap">${escHtml(c.shipClass || '—')}${classDots(c.shipClass)}</td>
-        <td>${c.shipLaunchYear || '—'}</td>
-        <td>${escHtml(c.itinerary || '—')}</td>
-        <td>${escHtml(c.destination || '—')}</td>
-        <td>${escHtml(dateDisplay)}</td>
-        <td class="duration">${escHtml(durationDisplay)}</td>
-        <td>${escHtml(c.departurePort || '—')}</td>
-        <td>${escHtml(c.departureRegion || '—')}</td>
-        <td class="price">${priceCell}</td>
-        <td class="book">${bookCell}</td>
+        <td class="col-num">${i + 1}</td>
+        <td class="col-ship ship-name">${escHtml(c.shipName || '—')}</td>
+        <td class="col-class"><span class="class-cell">${escHtml(c.shipClass || '—')}${classDots(c.shipClass)}</span></td>
+        <td class="col-launch">${c.shipLaunchYear || '—'}</td>
+        <td class="col-itinerary">${escHtml(c.itinerary || '—')}</td>
+        <td class="col-destination">${escHtml(c.destination || '—')}</td>
+        <td class="col-date">${escHtml(date)}</td>
+        <td class="col-duration duration">${escHtml(duration)}</td>
+        <td class="col-port">${escHtml(c.departurePort || '—')}</td>
+        <td class="col-region">${escHtml(c.departureRegion || '—')}</td>
+        <td class="col-price price">${priceCell}</td>
+        <td class="col-book book">${bookCell}</td>
       </tr>`;
     }).join('');
   }
 
-  // ── Sort ────────────────────────────────────────────────────────────────────
+  // ── Sort ───────────────────────────────────────────────────────────────────
   function sortTable(colIndex) {
-    if (sortColIndex === colIndex) {
-      sortAsc = !sortAsc;
-    } else {
-      sortColIndex = colIndex;
-      sortAsc = true;
-    }
-    document.querySelectorAll('thead th').forEach((th, i) => {
+    sortAsc = sortColIndex === colIndex ? !sortAsc : true;
+    sortColIndex = colIndex;
+    document.querySelectorAll('.sort-row th').forEach((th, i) => {
       th.classList.remove('sort-asc', 'sort-desc');
       if (i === colIndex) th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
     });
     applyFilters();
   }
 
-  function getCellValue(cruise, col) {
+  function getCellValue(c, col) {
     switch (col) {
-      case 0:  return '';
-      case 1:  return cruise.shipName        || '';
-      case 2:  return cruise.shipClass       || '';
-      case 3:  return cruise.shipLaunchYear  || 0;
-      case 4:  return cruise.itinerary       || '';
-      case 5:  return cruise.destination     || '';
-      case 6:  return cruise.departureDate   || '';
-      case 7:  return parseFloat(cruise.duration) || 0;
-      case 8:  return cruise.departurePort   || '';
-      case 9:  return cruise.departureRegion || '';
-      case 10: return parseFloat(cruise.priceFrom) || 0;
+      case 1:  return c.shipName        || '';
+      case 2:  return c.shipClass       || '';
+      case 3:  return c.shipLaunchYear  || 0;
+      case 4:  return c.itinerary       || '';
+      case 5:  return c.destination     || '';
+      case 6:  return c.departureDate   || '';
+      case 7:  return parseFloat(c.duration)  || 0;
+      case 8:  return c.departurePort   || '';
+      case 9:  return c.departureRegion || '';
+      case 10: return parseFloat(c.priceFrom) || 0;
       default: return '';
     }
   }
@@ -709,123 +788,82 @@
     return String(a).localeCompare(String(b), 'en', { numeric: true });
   }
 
-  // ── Filter ──────────────────────────────────────────────────────────────────
-  function filterTable() { applyFilters(); }
-
+  // ── Filter ─────────────────────────────────────────────────────────────────
   function applyFilters() {
-    const globalQ = document.getElementById('searchInput').value.toLowerCase().trim();
-
-    // Collect column filter values keyed by data-field
     const colFilters = {};
-    document.querySelectorAll('.col-filter').forEach(input => {
-      const val = input.value.trim();
-      if (val) colFilters[input.dataset.field] = val;
+    document.querySelectorAll('.col-filter').forEach(el => {
+      const v = el.value.trim();
+      if (v) colFilters[el.dataset.field] = v;
     });
 
     const filtered = allCruises.filter(c => {
-      // Global search across key text fields
-      if (globalQ && ![c.shipName, c.itinerary, c.destination, c.departurePort, c.departureDate]
-            .some(v => v && v.toLowerCase().includes(globalQ))) return false;
-
-      // Per-column text filters
-      const textFields = ['shipName', 'shipClass', 'itinerary', 'destination', 'departurePort', 'departureRegion'];
-      for (const field of textFields) {
-        if (colFilters[field] && !(c[field] || '').toLowerCase().includes(colFilters[field].toLowerCase())) return false;
+      const text = ['shipName', 'shipClass', 'itinerary', 'destination', 'departurePort', 'departureRegion'];
+      for (const f of text) {
+        if (colFilters[f] && !(c[f] || '').toLowerCase().includes(colFilters[f].toLowerCase())) return false;
       }
       if (colFilters.departureDate && !formatDateDisplay(c.departureDate).toLowerCase().includes(colFilters.departureDate.toLowerCase())) return false;
-
-      // Min launch year filter
       if (colFilters.minLaunch) {
-        const minYear = parseInt(colFilters.minLaunch, 10);
-        if (!isNaN(minYear) && (!(c.shipLaunchYear) || c.shipLaunchYear < minYear)) return false;
+        const min = parseInt(colFilters.minLaunch, 10);
+        if (!isNaN(min) && (!c.shipLaunchYear || c.shipLaunchYear < min)) return false;
       }
-
-      // Min duration filter
       if (colFilters.duration) {
         const min = parseFloat(colFilters.duration);
-        const nights = parseFloat(c.duration);
-        if (!isNaN(min) && (isNaN(nights) || nights < min)) return false;
+        if (!isNaN(min) && (parseFloat(c.duration) || 0) < min) return false;
       }
-
-      // Max price filter
       if (colFilters.maxPrice) {
         const max = parseFloat(colFilters.maxPrice);
-        const price = parseFloat(c.priceFrom);
-        if (!isNaN(max) && (isNaN(price) || price > max)) return false;
+        const p   = getGBPPrice(c);
+        if (!isNaN(max) && (isNaN(p) || p > max)) return false;
       }
-
       return true;
     });
 
-    const summary = document.getElementById('summary');
-    summary.textContent = filtered.length === allCruises.length
-      ? `Showing ${allCruises.length} results — click any column header to sort.`
-      : `Showing ${filtered.length} of ${allCruises.length} results.`;
+    document.getElementById('summary').textContent = filtered.length === allCruises.length
+      ? `Showing all ${allCruises.length.toLocaleString()} sailings — tap a column header to sort.`
+      : `Showing ${filtered.length.toLocaleString()} of ${allCruises.length.toLocaleString()} sailings.`;
 
-    if (sortColIndex >= 0) {
-      const sorted = [...filtered].sort((a, b) => {
-        const va = getCellValue(a, sortColIndex);
-        const vb = getCellValue(b, sortColIndex);
-        return compare(va, vb) * (sortAsc ? 1 : -1);
-      });
-      renderBody(sorted);
-    } else {
-      renderBody(filtered);
-    }
+    const sorted = sortColIndex >= 0
+      ? [...filtered].sort((a, b) => compare(getCellValue(a, sortColIndex), getCellValue(b, sortColIndex)) * (sortAsc ? 1 : -1))
+      : filtered;
+
+    renderBody(sorted);
   }
 
-  // ── GBP conversion ─────────────────────────────────────────────────────────
+  // ── GBP toggle ─────────────────────────────────────────────────────────────
   async function toggleGBP() {
     showInGbp = document.getElementById('gbpToggle').checked;
-    const rateNote = document.getElementById('rateNote');
-
-    document.querySelector('[data-col="10"]').textContent = showInGbp ? 'Price (£)' : 'Price From';
     document.querySelector('[data-field="maxPrice"]').placeholder = showInGbp ? 'Max £…' : 'Max $…';
-    if (showInGbp && !usdToGbp) {
-      rateNote.textContent = 'Fetching exchange rate…';
-      try {
-        const res  = await fetch('https://open.er-api.com/v6/latest/USD');
-        const data = await res.json();
-        usdToGbp = data?.rates?.GBP;
-        if (!usdToGbp) throw new Error('Rate not found');
-        rateNote.textContent = `1 USD = £${usdToGbp.toFixed(4)} (live rate)`;
-      } catch {
-        usdToGbp = 0.79;
-        rateNote.textContent = `Using fallback rate: 1 USD = £0.79`;
-      }
-    } else if (!showInGbp) {
-      rateNote.textContent = '';
-    }
-
     applyFilters();
   }
 
-  // ── Formatting helpers ──────────────────────────────────────────────────────
-  function formatDurationDisplay(raw) {
-    if (!raw) return '—';
-    const nights = raw.toString().replace(/\D/g, '');
-    return nights && nights !== '0' ? nights + ' nights' : '—';
+  function getGBPPrice(c) {
+    const n = parseFloat(c.priceFrom);
+    if (isNaN(n)) return NaN;
+    return (showInGbp && usdToGbp && c.currency === 'USD') ? n * usdToGbp : n;
   }
 
+  // ── Formatting ─────────────────────────────────────────────────────────────
   function formatPriceDisplay(raw, currency) {
     const n = parseFloat(raw);
     if (!raw || isNaN(n)) return '—';
     if (showInGbp && usdToGbp && currency === 'USD') {
-      const gbp = Math.round(n * usdToGbp);
-      return '£' + gbp.toLocaleString('en-GB');
+      return '£' + Math.round(n * usdToGbp).toLocaleString('en-GB');
     }
-    const sym = currency === 'GBP' ? '£' : (currency === 'EUR' ? '€' : '$');
-    return sym + n.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    const sym = currency === 'GBP' ? '£' : currency === 'EUR' ? '€' : '$';
+    return sym + Math.round(n).toLocaleString('en-GB');
+  }
+
+  function formatDurationDisplay(raw) {
+    if (!raw) return '—';
+    const n = raw.toString().replace(/\D/g, '');
+    return n && n !== '0' ? n + 'N' : '—';
   }
 
   function formatDateDisplay(raw) {
     if (!raw) return '—';
-    // If it's already a readable date string, return it
     if (/[a-zA-Z]/.test(raw) && raw.length > 4) return raw;
-    // Try to parse ISO / epoch
     const d = new Date(raw);
-    if (!isNaN(d)) return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-    return raw;
+    return isNaN(d) ? raw : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
   }
 
   function absoluteUrl(url) {
@@ -836,11 +874,8 @@
 
   function escHtml(str) {
     return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 </script>
 </body>
