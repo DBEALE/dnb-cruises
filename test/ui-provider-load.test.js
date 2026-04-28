@@ -53,6 +53,7 @@ function createElement(initial = {}) {
 
 function buildCruise({ shipName, itinerary, departurePort, destination, priceFrom, currency, scrapedAt }) {
   return {
+    provider: 'Royal Caribbean',
     shipName,
     itinerary,
     departureDate: '',
@@ -223,9 +224,14 @@ test('loads the provider manifest and provider-specific cruise file on init', as
 
   assert.ok(providerIndexCall, 'Expected the UI to load the provider manifest');
   assert.ok(providerCruisesCall, 'Expected the UI to load the provider-specific cruise file');
+  assert.equal(providerIndexCall.options.cache, 'no-store');
+  assert.equal(providerCruisesCall.options.cache, 'no-store');
   assert.equal(elements.statusBar.className, '');
   assert.match(elements.summary.textContent, /Showing all 1 sailings/);
   assert.match(elements.cruiseBody.innerHTML, /Harmony of the Seas/);
+  assert.match(elements.cruiseBody.innerHTML, /data-label="Cruise line"/);
+  assert.match(elements.cruiseBody.innerHTML, /data-label="Book"/);
+  assert.match(elements.cruiseBody.innerHTML, /Royal Caribbean/);
   assert.match(elements.providerStats.innerHTML, /Royal Caribbean/);
   assert.match(elements.providerStats.innerHTML, /Updated:/);
   assert.ok(sandbox.localStorage.getItem('cached_cruises:royal-caribbean'));

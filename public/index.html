@@ -467,11 +467,103 @@
       .col-class { display: none; }
       td, .sort-row th { padding: 9px 8px; }
       td.book a { padding: 4px 10px; }
+      .toolbar { gap: 10px; }
+      .toolbar-right { width: 100%; align-items: flex-start; }
+      .toggle-wrap { align-self: stretch; }
     }
 
     @media (max-width: 480px) {
-      .col-port { display: none; }
-      td.price { font-size: 0.88rem; }
+      .table-wrapper {
+        overflow: visible;
+      }
+
+      thead {
+        display: none;
+      }
+
+      table {
+        min-width: 0;
+        font-size: 0.9rem;
+      }
+
+      tbody,
+      tr,
+      td {
+        display: block;
+        width: 100%;
+      }
+
+      tbody tr {
+        margin: 0 12px 12px;
+        border: 1px solid var(--gray-200);
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 10px 24px rgba(13, 27, 46, .08);
+      }
+
+      tbody tr:nth-child(even) {
+        background: #fff;
+      }
+
+      td {
+        border-bottom: 1px solid #edf1f7;
+        padding: 10px 12px;
+      }
+
+      td:last-child {
+        border-bottom: 0;
+      }
+
+      td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+      }
+
+      td.col-num,
+      td.col-book {
+        width: auto;
+      }
+
+      td.col-num {
+        font-weight: 700;
+        color: var(--gray-500);
+      }
+
+      td.col-num::before,
+      td.col-book::before {
+        content: '';
+        display: none;
+      }
+
+      td.ship-name {
+        white-space: normal;
+        font-size: 1.02rem;
+      }
+
+      td.price {
+        font-size: 1rem;
+      }
+
+      td.book {
+        padding-top: 14px;
+      }
+
+      td.book a {
+        display: block;
+        text-align: center;
+      }
+
+      .empty-row td {
+        margin: 0 12px 12px;
+        border-radius: 14px;
+      }
     }
 
     /* ── Fade in on load ─────────────────────────────────────────────────────── */
@@ -544,21 +636,25 @@
           <tr class="sort-row">
             <th class="col-num"         onclick="sortTable(0)">#</th>
             <th class="col-ship"        onclick="sortTable(1)">Ship</th>
-            <th class="col-class"       onclick="sortTable(2)">Class</th>
-            <th class="col-launch"      onclick="sortTable(3)">Launch</th>
-            <th class="col-itinerary"   onclick="sortTable(4)">Itinerary</th>
-            <th class="col-destination" onclick="sortTable(5)">Destination</th>
-            <th class="col-date"        onclick="sortTable(6)">Departure</th>
-            <th class="col-duration"    onclick="sortTable(7)">Nights</th>
-            <th class="col-port"        onclick="sortTable(8)">Port</th>
-            <th class="col-region"      onclick="sortTable(9)">Region</th>
-            <th class="col-price"       onclick="sortTable(10)" data-col="10">Price</th>
+            <th class="col-provider"    onclick="sortTable(2)">Cruise line</th>
+            <th class="col-class"       onclick="sortTable(3)">Class</th>
+            <th class="col-launch"      onclick="sortTable(4)">Launch</th>
+            <th class="col-itinerary"   onclick="sortTable(5)">Itinerary</th>
+            <th class="col-destination" onclick="sortTable(6)">Destination</th>
+            <th class="col-date"        onclick="sortTable(7)">Departure</th>
+            <th class="col-duration"    onclick="sortTable(8)">Nights</th>
+            <th class="col-port"        onclick="sortTable(9)">Port</th>
+            <th class="col-region"      onclick="sortTable(10)">Region</th>
+            <th class="col-price"       onclick="sortTable(11)" data-col="11">Price</th>
             <th class="col-book">Book</th>
           </tr>
           <tr id="filterRow">
             <td class="col-num"></td>
             <td class="col-ship">
               <input class="col-filter" data-field="shipName" placeholder="Ship…" oninput="applyFilters()">
+            </td>
+            <td class="col-provider">
+              <input class="col-filter" data-field="provider" placeholder="Cruise line…" oninput="applyFilters()">
             </td>
             <td class="col-class">
               <input class="col-filter" data-field="shipClass" placeholder="Filter class…" oninput="applyFilters()">
@@ -591,6 +687,7 @@
                 <option>Americas</option>
                 <option>Asia & Far East</option>
                 <option>Middle East</option>
+                <option>Africa</option>
                 <option>Australia & Pacific</option>
                 <option>South America</option>
                 <option>Other</option>
@@ -604,7 +701,7 @@
         </thead>
         <tbody id="cruiseBody">
           <tr class="empty-row">
-            <td colspan="12">Loading cruise data…</td>
+            <td colspan="13">Loading cruise data…</td>
           </tr>
         </tbody>
       </table>
@@ -667,9 +764,13 @@
     return `http://localhost:3000/${normalized}`;
   }
 
+  function fetchStaticJson(resourcePath) {
+    return fetch(resolveStaticUrl(resourcePath), { cache: 'no-store' });
+  }
+
   async function loadProviderCatalog() {
     try {
-      const res = await fetch(resolveStaticUrl(PROVIDER_INDEX_URL));
+      const res = await fetchStaticJson(PROVIDER_INDEX_URL);
       if (!res.ok) throw new Error('not-found');
       const manifest = await res.json();
       const providers = Array.isArray(manifest.providers) ? manifest.providers.map(normalizeProvider).filter(provider => provider.id) : [];
@@ -742,7 +843,7 @@
     loadData();
     fetchGBPRate();
 
-    fetch(resolveStaticUrl('/build-info.json'))
+    fetch(resolveStaticUrl('/build-info.json'), { cache: 'no-store' })
       .then(r => r.ok ? r.json() : null)
       .then(info => {
         if (!info?.builtAt) return;
@@ -770,7 +871,7 @@
     try {
       // Try pre-built provider JSON files (GitHub Pages / static hosting)
       const providerResults = await Promise.all(providers.map(async (provider) => {
-        const res = await fetch(resolveStaticUrl(provider.cruisesUrl));
+        const res = await fetchStaticJson(provider.cruisesUrl);
         if (!res.ok) throw new Error(`not-found:${provider.id}`);
         const json = await res.json();
         if (!Array.isArray(json.cruises) || !json.cruises.length) throw new Error(`empty:${provider.id}`);
@@ -875,7 +976,7 @@
   function renderBody(list) {
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="12">No cruises match your filters.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="13">No cruises match your filters.</td></tr>';
       return;
     }
     tbody.innerHTML = list.map((c, i) => {
@@ -889,18 +990,19 @@
         : price;
 
       return `<tr>
-        <td class="col-num">${i + 1}</td>
-        <td class="col-ship ship-name">${escHtml(c.shipName || '—')}</td>
-        <td class="col-class"><span class="class-cell">${escHtml(c.shipClass || '—')}${classDots(c.shipClass)}</span></td>
-        <td class="col-launch">${c.shipLaunchYear || '—'}</td>
-        <td class="col-itinerary">${escHtml(c.itinerary || '—')}</td>
-        <td class="col-destination">${escHtml(c.destination || '—')}</td>
-        <td class="col-date">${escHtml(date)}</td>
-        <td class="col-duration duration">${escHtml(duration)}</td>
-        <td class="col-port">${escHtml(c.departurePort || '—')}</td>
-        <td class="col-region">${escHtml(c.departureRegion || '—')}</td>
-        <td class="col-price price">${priceCell}</td>
-        <td class="col-book book">${bookCell}</td>
+        <td class="col-num" data-label="#">${i + 1}</td>
+        <td class="col-ship ship-name" data-label="Ship">${escHtml(c.shipName || '—')}</td>
+        <td class="col-provider" data-label="Cruise line">${escHtml(c.provider || '—')}</td>
+        <td class="col-class" data-label="Class"><span class="class-cell">${escHtml(c.shipClass || '—')}${classDots(c.shipClass)}</span></td>
+        <td class="col-launch" data-label="Launch">${c.shipLaunchYear || '—'}</td>
+        <td class="col-itinerary" data-label="Itinerary">${escHtml(c.itinerary || '—')}</td>
+        <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
+        <td class="col-date" data-label="Departure">${escHtml(date)}</td>
+        <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
+        <td class="col-port" data-label="Port">${escHtml(c.departurePort || '—')}</td>
+        <td class="col-region" data-label="Region">${escHtml(c.departureRegion || '—')}</td>
+        <td class="col-price price" data-label="Price">${priceCell}</td>
+        <td class="col-book book" data-label="Book">${bookCell}</td>
       </tr>`;
     }).join('');
   }
@@ -919,22 +1021,36 @@
   function getCellValue(c, col) {
     switch (col) {
       case 1:  return c.shipName        || '';
-      case 2:  return c.shipClass       || '';
-      case 3:  return c.shipLaunchYear  || 0;
-      case 4:  return c.itinerary       || '';
-      case 5:  return c.destination     || '';
-      case 6:  return c.departureDate   || '';
-      case 7:  return parseFloat(c.duration)  || 0;
-      case 8:  return c.departurePort   || '';
-      case 9:  return c.departureRegion || '';
-      case 10: return parseFloat(c.priceFrom) || 0;
+      case 2:  return c.provider        || '';
+      case 3:  return c.shipClass       || '';
+      case 4:  return c.shipLaunchYear  || null;
+      case 5:  return c.itinerary       || '';
+      case 6:  return c.destination     || '';
+      case 7:  return c.departureDate   || '';
+      case 8:  return Number.isFinite(parseFloat(c.duration)) ? parseFloat(c.duration) : null;
+      case 9:  return c.departurePort   || '';
+      case 10: return c.departureRegion || '';
+      case 11: return getGBPPrice(c);
       default: return '';
     }
   }
 
-  function compare(a, b) {
-    if (typeof a === 'number' && typeof b === 'number') return a - b;
-    return String(a).localeCompare(String(b), 'en', { numeric: true });
+  function compare(a, b, descending = false) {
+    const aMissing = a === null || a === undefined || a === '' || Number.isNaN(a);
+    const bMissing = b === null || b === undefined || b === '' || Number.isNaN(b);
+    if (aMissing || bMissing) {
+      if (aMissing && bMissing) return 0;
+      return aMissing ? 1 : -1;
+    }
+
+    let result = 0;
+    if (typeof a === 'number' && typeof b === 'number') {
+      result = a - b;
+    } else {
+      result = String(a).localeCompare(String(b), 'en', { numeric: true, sensitivity: 'base' });
+    }
+
+    return descending ? -result : result;
   }
 
   // ── Filter ─────────────────────────────────────────────────────────────────
@@ -946,7 +1062,7 @@
     });
 
     const filtered = allCruises.filter(c => {
-      const text = ['shipName', 'shipClass', 'itinerary', 'destination', 'departurePort', 'departureRegion'];
+      const text = ['shipName', 'provider', 'shipClass', 'itinerary', 'destination', 'departurePort', 'departureRegion'];
       for (const f of text) {
         if (colFilters[f] && !(c[f] || '').toLowerCase().includes(colFilters[f].toLowerCase())) return false;
       }
@@ -972,7 +1088,7 @@
       : `Showing ${filtered.length.toLocaleString()} of ${allCruises.length.toLocaleString()} sailings.`;
 
     const sorted = sortColIndex >= 0
-      ? [...filtered].sort((a, b) => compare(getCellValue(a, sortColIndex), getCellValue(b, sortColIndex)) * (sortAsc ? 1 : -1))
+      ? [...filtered].sort((a, b) => compare(getCellValue(a, sortColIndex), getCellValue(b, sortColIndex), !sortAsc))
       : filtered;
 
     renderBody(sorted);

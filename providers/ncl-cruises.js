@@ -138,6 +138,30 @@ function extractPriceFromText(text) {
   return firstPrice ? firstPrice[1].replace(/,/g, '') : '';
 }
 
+function formatTitleCase(value) {
+  return cleanText(value).toLowerCase().replace(/\b[a-z]/g, match => match.toUpperCase());
+}
+
+function extractDateFromText(text) {
+  const value = cleanText(text);
+  if (!value) return '';
+
+  const dateMatch = value.match(/\b(?:mon|tue|wed|thu|fri|sat|sun)\s+\d{1,2}\s+(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)(?:\s+\d{4})?/i);
+  if (dateMatch) {
+    const date = formatTitleCase(dateMatch[0]);
+    if (/\b\d{4}\b/.test(date)) return date;
+
+    const after = value.slice((dateMatch.index || 0) + dateMatch[0].length);
+    const yearMatch = after.match(/\b(19|20)\d{2}\b/);
+    return yearMatch ? `${date} ${yearMatch[0]}` : date;
+  }
+
+  const monthDateMatch = value.match(/\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)[,\s-]*\d{4}/i);
+  if (monthDateMatch) return formatTitleCase(monthDateMatch[0]);
+
+  return '';
+}
+
 async function extractPriceFromBookingPage(browser, bookingUrl) {
   if (!bookingUrl) return '';
 
@@ -147,6 +171,23 @@ async function extractPriceFromBookingPage(browser, bookingUrl) {
     await page.waitForTimeout(NCL_PAGE_WAIT_MS);
     const text = await page.evaluate(() => document.body?.innerText || '');
     return extractPriceFromText(text);
+  } catch {
+    return '';
+  } finally {
+    await page.close();
+  }
+}
+
+async function extractDateFromBookingPage(browser, bookingUrl) {
+  if (!bookingUrl) return '';
+
+  const page = await browser.newPage({ viewport: { width: 1440, height: 1800 } });
+  try {
+    await page.goto(bookingUrl, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.waitForTimeout(NCL_PAGE_WAIT_MS);
+    const text = await page.evaluate(() => document.body?.innerText || '');
+    const dateText = extractDateFromText(text);
+    return dateText || '';
   } catch {
     return '';
   } finally {
@@ -274,6 +315,16 @@ async function collectCruiseCards() {
     for (const cruise of cruises) {
       const sailing = Array.isArray(cruise.detail?.sailings) ? cruise.detail.sailings[0] : null;
       const hasPrice = Boolean(sailing?.staterooms?.some(room => cleanText(room?.combinedPrice)));
+      const hasDepartureDate = Boolean(cleanText(sailing?.departureDate));
+
+      if (!hasDepartureDate) {
+        const bookingDate = await extractDateFromBookingPage(browser, cruise.bookingUrl);
+        if (bookingDate) {
+          sailing.departureDate = bookingDate;
+          sailing.sailStartDate = bookingDate;
+        }
+      }
+
       if (!hasPrice) {
         const bookingPrice = await extractPriceFromBookingPage(browser, cruise.bookingUrl);
         if (bookingPrice) {
@@ -319,3 +370,4 @@ module.exports.normalizeCruise = normalizeCruise;
 module.exports.collectCruiseCards = collectCruiseCards;
 module.exports.extractFirstDateText = extractFirstDateText;
 module.exports.extractPriceFromText = extractPriceFromText;
+module.exports.extractDateFromText = extractDateFromText;

@@ -72,3 +72,9 @@ test('extracts the cruise offer price from NCL detail-page text', () => {
 
   assert.equal(price, '2290');
 });
+
+test('extracts the first sailing date from NCL date-range text', () => {
+  const date = provider.extractDateFromText('Sun 31 May — Thu 11 Jun 2026\nCruise Offers From £2,290 PP / GBP');
+
+  assert.equal(date, 'Sun 31 May 2026');
+});
