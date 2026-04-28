@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Royal Caribbean Cruises</title>
+  <title>Cruise Explorer</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -136,6 +136,40 @@
       color: rgba(255,255,255,.45);
       text-transform: uppercase;
       letter-spacing: 0.06em;
+    }
+
+    .provider-stats {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .provider-chip {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.92);
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .provider-chip small {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,.68);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .provider-chip strong {
+      color: #fff;
+      font-weight: 800;
     }
 
     /* Wave divider */
@@ -454,8 +488,8 @@
 <header>
   <div class="header-inner">
     <div class="live-badge"><span class="live-dot"></span> Updated Hourly</div>
-    <h1>🚢 Royal Caribbean <em>Cruises</em></h1>
-    <p>Browse all sailings worldwide — prices converted to GBP, sorted by lowest fare.</p>
+    <h1>🚢 Cruise <em>Explorer</em></h1>
+    <p>Browse sailings across the available providers — prices converted to GBP and sorted by lowest fare.</p>
     <div class="header-stats">
       <div class="hstat">
         <span class="hstat-val" id="totalCount">—</span>
@@ -467,7 +501,11 @@
       </div>
       <div class="hstat">
         <span class="hstat-val" id="updatedAt">—</span>
-        <span class="hstat-lbl">Last updated</span>
+        <span class="hstat-lbl">Latest sync</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-lbl">By provider</span>
+        <div id="providerStats" class="provider-stats"></div>
       </div>
     </div>
   </div>
@@ -523,16 +561,7 @@
               <input class="col-filter" data-field="shipName" placeholder="Ship…" oninput="applyFilters()">
             </td>
             <td class="col-class">
-              <select class="col-filter" data-field="shipClass" onchange="applyFilters()">
-                <option value="">All</option>
-                <option>Icon</option>
-                <option>Oasis</option>
-                <option>Quantum</option>
-                <option>Freedom</option>
-                <option>Voyager</option>
-                <option>Radiance</option>
-                <option>Vision</option>
-              </select>
+              <input class="col-filter" data-field="shipClass" placeholder="Filter class…" oninput="applyFilters()">
             </td>
             <td class="col-launch">
               <input class="col-filter" data-field="minLaunch" placeholder="Min yr…" type="number" min="1990" oninput="applyFilters()">
@@ -593,13 +622,23 @@
 <script>
   // ── State ──────────────────────────────────────────────────────────────────
   let allCruises   = [];
+  let loadedProviders = [];
+  let loadedProviderCounts = new Map();
+  let loadedProviderScrapedAts = new Map();
   let sortColIndex = -1;
   let sortAsc      = true;
   let usdToGbp     = null;
   let showInGbp    = true;
+  const DEFAULT_PROVIDER = {
+    id:        'royal-caribbean',
+    name:      'Royal Caribbean',
+    cruisesUrl:'./providers/royal-caribbean/cruises.json',
+  };
+  const PROVIDER_INDEX_URL = './providers/index.json';
+  const LEGACY_CACHE_KEY = 'cached_cruises';
 
-  // ── Ship class newness ─────────────────────────────────────────────────────
-  const CLASS_TIER   = { Icon: 5, Oasis: 4, Quantum: 4, Freedom: 3, Radiance: 2, Voyager: 2, Vision: 1 };
+  // ── Ship class score ───────────────────────────────────────────────────────
+  const CLASS_TIER   = { Icon: 5, Oasis: 4, Quantum: 4, Freedom: 3, Radiance: 2, Voyager: 2, Vision: 1, Edge: 4, Solstice: 3, Millennium: 2, Galapagos: 1 };
   const TIER_COLOUR  = { 5: 'new', 4: 'new', 3: 'mid', 2: 'old', 1: 'old' };
 
   function classDots(shipClass) {
@@ -612,13 +651,98 @@
     return `<span class="class-dots" title="${shipClass} class — ${tier}/5">${dots}</span>`;
   }
 
+  function normalizeProvider(provider) {
+    const id = provider?.id || DEFAULT_PROVIDER.id;
+    return {
+      id,
+      name: provider?.name || id,
+      cruisesUrl: provider?.cruisesUrl || provider?.cruisesPath || `./providers/${id}/cruises.json`,
+    };
+  }
+
+  function resolveStaticUrl(resourcePath) {
+    if (/^https?:\/\//i.test(resourcePath)) return resourcePath;
+    if (window.location.protocol !== 'file:') return resourcePath;
+    const normalized = resourcePath.replace(/^\.\//, '').replace(/^\//, '');
+    return `http://localhost:3000/${normalized}`;
+  }
+
+  async function loadProviderCatalog() {
+    try {
+      const res = await fetch(resolveStaticUrl(PROVIDER_INDEX_URL));
+      if (!res.ok) throw new Error('not-found');
+      const manifest = await res.json();
+      const providers = Array.isArray(manifest.providers) ? manifest.providers.map(normalizeProvider).filter(provider => provider.id) : [];
+      if (!providers.length) throw new Error('empty');
+      const defaultProviderId = manifest.defaultProviderId && providers.some(provider => provider.id === manifest.defaultProviderId)
+        ? manifest.defaultProviderId
+        : providers[0].id;
+      return { providers, defaultProviderId };
+    } catch {
+      return {
+        providers: [{ ...DEFAULT_PROVIDER }],
+        defaultProviderId: DEFAULT_PROVIDER.id,
+      };
+    }
+  }
+
+  function getProviderCacheKey(providerId) {
+    return `${LEGACY_CACHE_KEY}:${providerId}`;
+  }
+
+  function readCachedPayload(key) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return parsed && Array.isArray(parsed.cruises) ? parsed : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function loadCachedCruises(providerIds) {
+    const ids = Array.isArray(providerIds) ? providerIds : [providerIds].filter(Boolean);
+    const combined = [];
+    const counts = new Map();
+    const scrapedAts = new Map();
+    let latestScrapedAt = null;
+    let found = false;
+
+    for (const providerId of ids) {
+      const cached = readCachedPayload(getProviderCacheKey(providerId));
+      if (!cached) continue;
+      found = true;
+      combined.push(...cached.cruises);
+      counts.set(providerId, (counts.get(providerId) || 0) + cached.cruises.length);
+      if (cached.scrapedAt) scrapedAts.set(providerId, cached.scrapedAt);
+      if (cached.scrapedAt && (!latestScrapedAt || cached.scrapedAt > latestScrapedAt)) latestScrapedAt = cached.scrapedAt;
+    }
+
+    if (found) return { cruises: combined, scrapedAt: latestScrapedAt, counts, scrapedAts };
+    const legacy = readCachedPayload(LEGACY_CACHE_KEY);
+    return legacy ? { cruises: legacy.cruises, scrapedAt: legacy.scrapedAt, counts: new Map(), scrapedAts: new Map() } : null;
+  }
+
+  function saveCachedCruises(providerId, cruises, scrapedAt) {
+    try {
+      localStorage.setItem(getProviderCacheKey(providerId), JSON.stringify({ cruises, scrapedAt }));
+    } catch {}
+  }
+
+  function saveLegacyCachedCruises(cruises, scrapedAt) {
+    try {
+      localStorage.setItem(LEGACY_CACHE_KEY, JSON.stringify({ cruises, scrapedAt }));
+    } catch {}
+  }
+
   // ── Init ───────────────────────────────────────────────────────────────────
   (function init() {
     showStatus('Loading cruise data…');
     loadData();
     fetchGBPRate();
 
-    fetch('/build-info.json')
+    fetch(resolveStaticUrl('/build-info.json'))
       .then(r => r.ok ? r.json() : null)
       .then(info => {
         if (!info?.builtAt) return;
@@ -632,35 +756,46 @@
   })();
 
   async function loadData() {
+    const { providers } = await loadProviderCatalog();
+    loadedProviders = providers;
+
     // Show cached data immediately while fetching fresh
-    const cached = loadCachedCruises();
-    if (cached) applyCruiseResults(cached.cruises, cached.scrapedAt);
+    const cached = loadCachedCruises(providers.map(provider => provider.id));
+    if (cached) {
+      loadedProviderCounts = cached.counts || new Map();
+      loadedProviderScrapedAts = cached.scrapedAts || new Map();
+      applyCruiseResults(cached.cruises, cached.scrapedAt);
+    }
 
     try {
-      // Try pre-built JSON (GitHub Pages / static hosting)
-      const res = await fetch('./cruises.json');
-      if (!res.ok) throw new Error('not-found');
-      const json = await res.json();
-      if (!Array.isArray(json.cruises) || !json.cruises.length) throw new Error('empty');
-      saveCachedCruises(json.cruises, json.scrapedAt);
-      applyCruiseResults(json.cruises, json.scrapedAt);
+      // Try pre-built provider JSON files (GitHub Pages / static hosting)
+      const providerResults = await Promise.all(providers.map(async (provider) => {
+        const res = await fetch(resolveStaticUrl(provider.cruisesUrl));
+        if (!res.ok) throw new Error(`not-found:${provider.id}`);
+        const json = await res.json();
+        if (!Array.isArray(json.cruises) || !json.cruises.length) throw new Error(`empty:${provider.id}`);
+        return { provider, json };
+      }));
+
+      const allCruises = [];
+      let latestScrapedAt = null;
+      const providerCounts = new Map();
+      const providerScrapedAts = new Map();
+      for (const { provider, json } of providerResults) {
+        saveCachedCruises(provider.id, json.cruises, json.scrapedAt);
+        allCruises.push(...json.cruises);
+        providerCounts.set(provider.id, json.cruises.length);
+        if (json.scrapedAt) providerScrapedAts.set(provider.id, json.scrapedAt);
+        if (json.scrapedAt && (!latestScrapedAt || json.scrapedAt > latestScrapedAt)) latestScrapedAt = json.scrapedAt;
+      }
+      loadedProviderCounts = providerCounts;
+      loadedProviderScrapedAts = providerScrapedAts;
+      saveLegacyCachedCruises(allCruises, latestScrapedAt);
+      applyCruiseResults(allCruises, latestScrapedAt);
       hideStatus();
     } catch {
-      // Fall back to live local API (development server)
-      try {
-        const apiKey = localStorage.getItem('firecrawl_api_key');
-        const headers = apiKey ? { 'X-Firecrawl-API-Key': apiKey } : {};
-        const res  = await fetch('/api/cruises', { headers });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-        if (!json.success) throw new Error(json.error || 'API error');
-        saveCachedCruises(json.cruises, json.scrapedAt);
-        applyCruiseResults(json.cruises, json.scrapedAt);
-        hideStatus();
-      } catch (e) {
-        if (!cached) showStatus('Could not load cruise data: ' + e.message, true);
-        else hideStatus();
-      }
+      if (!cached) showStatus('Could not load cruise data: unable to load the static cruise files.', true);
+      else hideStatus();
     }
   }
 
@@ -690,20 +825,6 @@
     document.getElementById('statusBar').className = '';
   }
 
-  // ── Cache helpers ──────────────────────────────────────────────────────────
-  function loadCachedCruises() {
-    try {
-      const raw = localStorage.getItem('cached_cruises');
-      if (!raw) return null;
-      const c = JSON.parse(raw);
-      return c && Array.isArray(c.cruises) ? c : null;
-    } catch { return null; }
-  }
-
-  function saveCachedCruises(cruises, scrapedAt) {
-    try { localStorage.setItem('cached_cruises', JSON.stringify({ cruises, scrapedAt })); } catch {}
-  }
-
   // ── Apply results ──────────────────────────────────────────────────────────
   function applyCruiseResults(cruises, scrapedAt) {
     allCruises = cruises || [];
@@ -719,7 +840,35 @@
       }) + ' UTC';
     }
 
+    renderProviderStats(allCruises);
+
     applyFilters();
+  }
+
+  function renderProviderStats(cruises) {
+    const container = document.getElementById('providerStats');
+    const chips = (loadedProviders.length ? loadedProviders : [{ id: 'unknown', name: 'Unknown' }]).map(provider => {
+      const count = loadedProviderCounts.get(provider.id) || 0;
+      const scrapedAt = loadedProviderScrapedAts.get(provider.id);
+      const updatedText = scrapedAt ? formatProviderUpdatedAt(scrapedAt) : 'Updated: —';
+      return `<span class="provider-chip"><span><strong>${escHtml(provider.name)}</strong> ${count.toLocaleString()}</span><small>${escHtml(updatedText)}</small></span>`;
+    });
+
+    container.innerHTML = chips.length ? chips.join('') : '<span class="provider-chip"><strong>No providers</strong> 0</span>';
+  }
+
+  function formatProviderUpdatedAt(scrapedAt) {
+    const d = new Date(scrapedAt);
+    if (Number.isNaN(d.getTime())) return 'Updated: —';
+    return 'Updated: ' + d.toLocaleString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'UTC',
+      timeZoneName: 'short',
+    });
   }
 
   // ── Render ─────────────────────────────────────────────────────────────────

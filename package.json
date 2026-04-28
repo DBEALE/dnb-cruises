@@ -1,18 +1,17 @@
 {
   "name": "dnb-cruises",
   "version": "1.0.0",
-  "description": "Royal Caribbean GBR cruise scraper and viewer",
+  "description": "Multi-provider cruise scraper and viewer for the UK market",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
     "build": "node scripts/generate-build-info.js",
-    "test": "node --test test/api-key.test.js test/cruises-route.test.js test/ui-api-key.test.js && playwright test",
+    "test": "node --test test/ui-provider-load.test.js && playwright test",
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@mendable/firecrawl-js": "^4.18.0",
-    "@netlify/blobs": "^10.7.0",
+    "cheerio": "^1.2.0",
     "express": "^4.18.2"
   },
   "engines": {

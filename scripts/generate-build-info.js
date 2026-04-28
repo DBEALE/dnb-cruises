@@ -4,8 +4,8 @@
  * generate-build-info.js
  *
  * Writes public/build-info.json with the current UTC timestamp.
- * Run as part of the Netlify build step so that the deployed static
- * site can display when it was last built.
+ * Run as part of the static deployment workflow so the site can display
+ * when it was last built.
  */
 
 const fs   = require('node:fs');

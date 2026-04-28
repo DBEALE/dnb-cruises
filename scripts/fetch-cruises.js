@@ -4,6 +4,72 @@ const fs        = require('fs');
 const path      = require('path');
 const providers = require('../providers');
 
+const PUBLIC_DIR          = path.join(__dirname, '..', 'public');
+const PROVIDERS_DIR       = path.join(PUBLIC_DIR, 'providers');
+const PROVIDER_INDEX_PATH = path.join(PROVIDERS_DIR, 'index.json');
+
+function getProvidersToProcess(providerId) {
+  if (!providerId || providerId === 'all') return providers;
+  const provider = providers.find(entry => entry.id === providerId);
+  if (!provider) {
+    const known = providers.map(entry => entry.id).join(', ');
+    throw new Error(`Unknown provider "${providerId}". Known providers: ${known}`);
+  }
+  return [provider];
+}
+
+function parseCommandLineArgs(argv) {
+  const args = argv.slice(2);
+  const flags = new Set(args.filter(arg => arg.startsWith('--')));
+  const providerId = args.find(arg => !arg.startsWith('--')) || 'all';
+
+  return {
+    providerId,
+    providerOnly: flags.has('--provider-only') || flags.has('--isolated'),
+    writeManifest: providerId === 'all' || flags.has('--write-manifest'),
+  };
+}
+
+function getProviderOutputPath(providerId) {
+  return path.join(PROVIDERS_DIR, providerId, 'cruises.json');
+}
+
+function readPreviousCruiseIds(providerId) {
+  try {
+    const prev = JSON.parse(fs.readFileSync(getProviderOutputPath(providerId), 'utf8'));
+    return new Set((prev.cruises || []).map(c => c.id).filter(Boolean));
+  } catch {
+    return new Set();
+  }
+}
+
+function writeProviderSnapshot(provider, cruises, scrapedAt) {
+  const outPath = getProviderOutputPath(provider.id);
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, JSON.stringify({
+    success:   true,
+    count:     cruises.length,
+    provider:  { id: provider.id, name: provider.name },
+    cruises,
+    scrapedAt,
+  }, null, 2) + '\n');
+  console.log(`  ✓ Wrote ${cruises.length} cruises to ${outPath}`);
+}
+
+function writeProviderIndex(scrapedAt) {
+  fs.mkdirSync(PROVIDERS_DIR, { recursive: true });
+  fs.writeFileSync(PROVIDER_INDEX_PATH, JSON.stringify({
+    defaultProviderId: providers[0]?.id || null,
+    providers: providers.map(provider => ({
+      id:         provider.id,
+      name:       provider.name,
+      cruisesUrl: `./providers/${provider.id}/cruises.json`,
+    })),
+    scrapedAt,
+  }, null, 2) + '\n');
+  console.log(`  ✓ Wrote provider index to ${PROVIDER_INDEX_PATH}`);
+}
+
 // ── Alert matching ─────────────────────────────────────────────────────────────
 
 function matchesAlert(cruise, alert) {
@@ -127,15 +193,16 @@ async function checkAlerts(newCruises, previousIds, usdToGbp) {
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
-  const outPath = path.join(__dirname, '../public/cruises.json');
+  const { providerId, providerOnly, writeManifest } = parseCommandLineArgs(process.argv);
+  const activeProviders = getProvidersToProcess(providerId);
 
   // Load previous IDs for new-cruise detection
   let previousIds = new Set();
-  try {
-    const prev = JSON.parse(fs.readFileSync(outPath, 'utf8'));
-    previousIds = new Set((prev.cruises || []).map(c => c.id).filter(Boolean));
-    console.log(`Previous scan: ${previousIds.size} cruise IDs across all providers.`);
-  } catch { /* first run */ }
+  for (const provider of activeProviders) {
+    const providerIds = readPreviousCruiseIds(provider.id);
+    for (const id of providerIds) previousIds.add(id);
+  }
+  console.log(`Previous scan: ${previousIds.size} cruise IDs across ${providerId === 'all' ? 'all providers' : providerId}.`);
 
   // Live exchange rate
   let usdToGbp = 0.79;
@@ -147,25 +214,31 @@ async function main() {
 
   // Fetch from all active providers
   const allCruises = [];
-  for (const provider of providers) {
+  const providerSnapshots = [];
+  const scrapedAt = new Date().toISOString();
+  for (const provider of activeProviders) {
     console.log(`\nFetching from ${provider.name}…`);
     try {
       const cruises = await provider.fetchCruises();
       console.log(`  ✓ ${cruises.length} cruises from ${provider.name}`);
       allCruises.push(...cruises);
+      providerSnapshots.push({ provider, cruises });
     } catch (err) {
       console.error(`  ✗ ${provider.name} failed: ${err.message}`);
     }
   }
 
-  // Write combined output
-  fs.writeFileSync(outPath, JSON.stringify({
-    success:   true,
-    count:     allCruises.length,
-    cruises:   allCruises,
-    scrapedAt: new Date().toISOString(),
-  }));
-  console.log(`\n✓ Wrote ${allCruises.length} total cruises to ${outPath}`);
+  // Write provider-specific outputs plus a manifest for the frontend
+  for (const { provider, cruises } of providerSnapshots) {
+    writeProviderSnapshot(provider, cruises, scrapedAt);
+  }
+
+  if (writeManifest && !providerOnly) {
+    writeProviderIndex(scrapedAt);
+  } else if (providerOnly) {
+    console.log('  ✓ Skipped provider index refresh (--provider-only)');
+  }
+  console.log(`\n✓ Wrote ${allCruises.length} total cruises across ${providerSnapshots.length} provider(s).`);
 
   // Check alerts
   await checkAlerts(allCruises, previousIds, usdToGbp);

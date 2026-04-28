@@ -1,5 +1,6 @@
 'use strict';
 
+const GraphQLCruiseProvider = require('./graphql-cruise-provider');
 const { getDepartureRegion } = require('./shared');
 
 const CRUISE_GRAPH_URL        = 'https://www.royalcaribbean.com/cruises/graph';
@@ -132,72 +133,39 @@ function normalizeCruise(cruise) {
   };
 }
 
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
+  constructor() {
+    super({
+      name: 'Royal Caribbean',
+      id: 'royal-caribbean',
+      graphUrl: CRUISE_GRAPH_URL,
+      pageSize: CRUISE_SEARCH_PAGE_SIZE,
+      operationName: 'cruiseSearch_Cruises',
+      query: CRUISE_SEARCH_QUERY,
+      requestHeaders: {
+        'origin': 'https://www.royalcaribbean.com',
+        'referer': 'https://www.royalcaribbean.com/gbr/en/cruises',
+      },
+      requestTimeoutLabel: 'RC',
+      progressPrefix: '[RC]',
+      dedupeById: true,
+      requestDelayMs: 500,
+    });
+  }
 
-async function fetchPage({ pagination }, attempt = 1) {
-  const body = JSON.stringify({
-    operationName: 'cruiseSearch_Cruises',
-    variables: {
-      filters:    CRUISE_SEARCH_FILTERS,
+  buildRequestVariables(skip) {
+    return {
+      filters: CRUISE_SEARCH_FILTERS,
       qualifiers: '',
-      nlSearch:   '',
-      sort:       CRUISE_SEARCH_SORT,
-      pagination,
-    },
-    query: CRUISE_SEARCH_QUERY,
-  });
-  const res = await fetch(CRUISE_GRAPH_URL, {
-    method: 'POST',
-    headers: {
-      'content-type':    'application/json',
-      'accept':          'application/json',
-      'accept-language': 'en-GB,en;q=0.9',
-      'user-agent':      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-      'origin':          'https://www.royalcaribbean.com',
-      'referer':         'https://www.royalcaribbean.com/gbr/en/cruises',
-    },
-    body,
-  });
-  if (!res.ok) {
-    if (attempt < 4) {
-      const delay = attempt * 3000;
-      console.log(`  [RC] HTTP ${res.status} — retrying in ${delay / 1000}s (attempt ${attempt}/3)…`);
-      await sleep(delay);
-      return fetchPage({ pagination }, attempt + 1);
-    }
-    throw new Error(`RC API returned HTTP ${res.status} after 3 retries`);
+      nlSearch: '',
+      sort: CRUISE_SEARCH_SORT,
+      pagination: { count: CRUISE_SEARCH_PAGE_SIZE, skip },
+    };
   }
-  const payload = await res.json();
-  const results = payload?.data?.cruiseSearch?.results;
-  if (!results) throw new Error(payload?.errors?.[0]?.message || 'No results in RC API response');
-  return results;
+
+  normalizeCruise(cruise) {
+    return normalizeCruise(cruise);
+  }
 }
 
-async function fetchCruises() {
-  const cruises = [];
-  const seenIds = new Set();
-  let total     = Number.POSITIVE_INFINITY;
-  let skip      = 0;
-
-  while (skip < total) {
-    const count   = Math.min(CRUISE_SEARCH_PAGE_SIZE, total - skip);
-    const results = await fetchPage({ pagination: { count, skip } });
-    total = Number.isFinite(results.total) ? results.total : total;
-
-    const page = Array.isArray(results.cruises) ? results.cruises : [];
-    if (page.length === 0) break;
-
-    for (const c of page) {
-      if (!c?.id || seenIds.has(c.id)) continue;
-      seenIds.add(c.id);
-      cruises.push(normalizeCruise(c));
-    }
-
-    skip += page.length;
-    console.log(`  [RC] ${cruises.length} / ${total}`);
-    await sleep(500);
-  }
-  return cruises;
-}
-
-module.exports = { name: 'Royal Caribbean', id: 'royal-caribbean', fetchCruises };
+module.exports = new RoyalCaribbeanProvider();

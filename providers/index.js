@@ -8,7 +8,7 @@
  */
 const providers = [
   require('./royal-caribbean'),
-  // require('./celebrity-cruises'),
+  require('./celebrity-cruises'),
   // require('./msc-cruises'),
   // require('./p-and-o'),
 ];
