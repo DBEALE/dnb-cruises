@@ -492,15 +492,21 @@
         font-size: 0.9rem;
       }
 
-      tbody,
-      tr,
+      tbody {
+        display: block;
+      }
+
+      tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
       td {
         display: block;
-        width: 100%;
       }
 
       tbody tr {
-        margin: 0 12px 12px;
+        margin: 0 12px 10px;
         border: 1px solid var(--gray-200);
         border-radius: 14px;
         overflow: hidden;
@@ -514,18 +520,26 @@
 
       td {
         border-bottom: 1px solid #edf1f7;
-        padding: 10px 12px;
+        padding: 7px 10px;
       }
 
-      td:last-child {
+      /* Ship, Port, and Price span both columns */
+      td.col-ship,
+      td.col-port,
+      td.col-price {
+        grid-column: 1 / -1;
+      }
+
+      /* Price is the last visible cell — remove its bottom border */
+      td.col-price {
         border-bottom: 0;
       }
 
       td::before {
         content: attr(data-label);
         display: block;
-        margin-bottom: 4px;
-        font-size: 0.68rem;
+        margin-bottom: 3px;
+        font-size: 0.65rem;
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
@@ -567,7 +581,15 @@
         font-size: 1.02rem;
       }
 
-      /* Price doubles as the booking link — style it as a button */
+      td.col-duration {
+        text-align: left;
+      }
+
+      .empty-row td {
+        grid-column: 1 / -1;
+        border-bottom: 0;
+        border-radius: 14px;
+      }
       td.price {
         font-size: 1rem;
       }
@@ -585,11 +607,6 @@
       }
 
       td.price a:active { opacity: .85; }
-
-      .empty-row td {
-        margin: 0 12px 12px;
-        border-radius: 14px;
-      }
 
       /* Mobile sort/filter panel */
       #mobileControls {
