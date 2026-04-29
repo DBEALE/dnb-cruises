@@ -417,6 +417,9 @@
     /* Hidden on desktop; shown only inside the mobile card layout */
     .mobile-ship-details { display: none; }
 
+    /* ── Mobile sort/filter controls ────────────────────────────────────────── */
+    #mobileControls { display: none; }
+
     /* ── Class dots ──────────────────────────────────────────────────────────── */
     .class-cell { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 
@@ -587,6 +590,106 @@
         margin: 0 12px 12px;
         border-radius: 14px;
       }
+
+      /* Mobile sort/filter panel */
+      #mobileControls {
+        display: block;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 12px;
+        overflow: hidden;
+      }
+
+      .mob-sort-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+
+      .mob-sort-row label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--gray-600);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      #mobileSortSelect {
+        flex: 1;
+        min-width: 0;
+        border: 1px solid var(--gray-200);
+        border-radius: 7px;
+        padding: 6px 8px;
+        font-size: 0.82rem;
+        background: var(--gray-50);
+        color: var(--gray-800);
+        outline: none;
+      }
+
+      #mobFilterToggle {
+        flex-shrink: 0;
+        border: 1px solid var(--blue);
+        background: white;
+        color: var(--blue);
+        border-radius: 7px;
+        padding: 6px 12px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      #mobFilterToggle[aria-expanded="true"] {
+        background: var(--blue);
+        color: white;
+      }
+
+      #mobFilters {
+        padding: 10px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      #mobFilters[hidden] { display: none; }
+
+      .mob-filter-row {
+        display: flex;
+        gap: 8px;
+      }
+
+      .mob-filter {
+        flex: 1;
+        min-width: 0;
+        border: 1px solid var(--gray-200);
+        border-radius: 7px;
+        padding: 7px 10px;
+        font-size: 0.82rem;
+        background: var(--gray-50);
+        color: var(--gray-800);
+        outline: none;
+      }
+
+      .mob-filter:focus { border-color: var(--blue); background: white; }
+
+      select.mob-filter { cursor: pointer; }
+
+      #mobClearFilters {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid var(--gray-200);
+        border-radius: 7px;
+        background: var(--gray-100);
+        color: var(--gray-600);
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
     }
 
     /* ── Fade in on load ─────────────────────────────────────────────────────── */
@@ -649,6 +752,55 @@
         </div>
       </label>
       <span id="rateNote"></span>
+    </div>
+  </div>
+
+  <div id="mobileControls" aria-label="Sort and filter">
+    <div class="mob-sort-row">
+      <label for="mobileSortSelect">Sort</label>
+      <select id="mobileSortSelect" onchange="mobileSortChange()">
+        <option value="">Price: Low → High (default)</option>
+        <option value="11-asc">Price: Low → High</option>
+        <option value="11-desc">Price: High → Low</option>
+        <option value="7-asc">Departure: Soonest first</option>
+        <option value="7-desc">Departure: Latest first</option>
+        <option value="8-asc">Nights: Shortest first</option>
+        <option value="8-desc">Nights: Longest first</option>
+        <option value="1-asc">Ship: A → Z</option>
+        <option value="1-desc">Ship: Z → A</option>
+      </select>
+      <button id="mobFilterToggle" onclick="toggleMobileFilters()" aria-expanded="false" aria-controls="mobFilters">Filter</button>
+    </div>
+    <div id="mobFilters" hidden>
+      <div class="mob-filter-row">
+        <input class="mob-filter" data-field="shipName" placeholder="Ship…" oninput="mobileFilterSync(this)">
+        <input class="mob-filter" data-field="provider" placeholder="Cruise line…" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-row">
+        <input class="mob-filter" data-field="destination" placeholder="Destination…" oninput="mobileFilterSync(this)">
+        <select class="mob-filter" data-field="departureRegion" onchange="mobileFilterSync(this)">
+          <option value="">All regions</option>
+          <option>UK &amp; Ireland</option>
+          <option>Northern Europe</option>
+          <option>Mediterranean</option>
+          <option>Caribbean</option>
+          <option>Americas</option>
+          <option>Asia &amp; Far East</option>
+          <option>Middle East</option>
+          <option>Africa</option>
+          <option>Australia &amp; Pacific</option>
+          <option>South America</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="mob-filter-row">
+        <input class="mob-filter" data-field="departureDate" placeholder="Departure (e.g. Jun)…" oninput="mobileFilterSync(this)">
+        <input class="mob-filter" data-field="duration" placeholder="Min nights…" type="number" min="0" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-row">
+        <input class="mob-filter" data-field="maxPrice" id="mobMaxPrice" placeholder="Max £…" type="number" min="0" oninput="mobileFilterSync(this)">
+        <button id="mobClearFilters" onclick="clearMobileFilters()">Clear filters</button>
+      </div>
     </div>
   </div>
 
@@ -1048,6 +1200,43 @@
     applyFilters();
   }
 
+  // ── Mobile sort/filter controls ────────────────────────────────────────────
+  function mobileSortChange() {
+    const val = document.getElementById('mobileSortSelect').value;
+    document.querySelectorAll('.sort-row th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+    if (!val) {
+      sortColIndex = -1;
+      sortAsc = true;
+    } else {
+      const [col, dir] = val.split('-');
+      sortColIndex = parseInt(col, 10);
+      sortAsc = dir === 'asc';
+      const ths = document.querySelectorAll('.sort-row th');
+      if (ths[sortColIndex]) ths[sortColIndex].classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+    }
+    applyFilters();
+  }
+
+  function mobileFilterSync(el) {
+    const target = document.querySelector(`.col-filter[data-field="${el.dataset.field}"]`);
+    if (target) target.value = el.value;
+    applyFilters();
+  }
+
+  function toggleMobileFilters() {
+    const btn = document.getElementById('mobFilterToggle');
+    const panel = document.getElementById('mobFilters');
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    panel.hidden = expanded;
+  }
+
+  function clearMobileFilters() {
+    document.querySelectorAll('.mob-filter').forEach(el => { el.value = ''; });
+    document.querySelectorAll('.col-filter').forEach(el => { el.value = ''; });
+    applyFilters();
+  }
+
   function getCellValue(c, col) {
     switch (col) {
       case 1:  return c.shipName        || '';
@@ -1127,7 +1316,10 @@
   // ── GBP toggle ─────────────────────────────────────────────────────────────
   async function toggleGBP() {
     showInGbp = document.getElementById('gbpToggle').checked;
-    document.querySelector('[data-field="maxPrice"]').placeholder = showInGbp ? 'Max £…' : 'Max $…';
+    const placeholder = showInGbp ? 'Max £…' : 'Max $…';
+    document.querySelector('[data-field="maxPrice"]').placeholder = placeholder;
+    const mobMaxPrice = document.getElementById('mobMaxPrice');
+    if (mobMaxPrice) mobMaxPrice.placeholder = showInGbp ? 'Max £…' : 'Max $…';
     applyFilters();
   }
 
