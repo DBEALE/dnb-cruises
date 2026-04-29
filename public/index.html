@@ -414,6 +414,12 @@
     td.book a:hover { opacity: .9; transform: translateY(-1px); }
     td.book a:active { transform: translateY(0); }
 
+    /* Hidden on desktop; shown only inside the mobile card layout */
+    .mobile-ship-details { display: none; }
+
+    /* ── Mobile sort/filter controls ────────────────────────────────────────── */
+    #mobileControls { display: none; }
+
     /* ── Class dots ──────────────────────────────────────────────────────────── */
     .class-cell { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 
@@ -486,15 +492,21 @@
         font-size: 0.9rem;
       }
 
-      tbody,
-      tr,
+      tbody {
+        display: block;
+      }
+
+      tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
       td {
         display: block;
-        width: 100%;
       }
 
       tbody tr {
-        margin: 0 12px 12px;
+        margin: 0 12px 10px;
         border: 1px solid var(--gray-200);
         border-radius: 14px;
         overflow: hidden;
@@ -508,38 +520,60 @@
 
       td {
         border-bottom: 1px solid #edf1f7;
-        padding: 10px 12px;
+        padding: 7px 10px;
       }
 
-      td:last-child {
+      /* Ship, Port, and Price span both columns */
+      td.col-ship,
+      td.col-port,
+      td.col-price {
+        grid-column: 1 / -1;
+      }
+
+      /* Price is the last visible cell — remove its bottom border */
+      td.col-price {
         border-bottom: 0;
       }
 
       td::before {
         content: attr(data-label);
         display: block;
-        margin-bottom: 4px;
-        font-size: 0.68rem;
+        margin-bottom: 3px;
+        font-size: 0.65rem;
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--gray-400);
       }
 
+      /* Hide # column, individual provider/class columns, and book column */
       td.col-num,
+      td.col-provider,
+      td.col-class,
       td.col-book {
-        width: auto;
-      }
-
-      td.col-num {
-        font-weight: 700;
-        color: var(--gray-500);
-      }
-
-      td.col-num::before,
-      td.col-book::before {
-        content: '';
         display: none;
+      }
+
+      /* Combined ship info: cruise line and class shown below ship name */
+      .mobile-ship-details {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        margin-top: 4px;
+      }
+
+      .mobile-provider {
+        font-size: 0.82rem;
+        color: var(--gray-600);
+        font-weight: 500;
+      }
+
+      .mobile-class {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.8rem;
+        color: var(--gray-600);
       }
 
       td.ship-name {
@@ -547,22 +581,131 @@
         font-size: 1.02rem;
       }
 
+      td.col-duration {
+        text-align: left;
+      }
+
+      .empty-row td {
+        grid-column: 1 / -1;
+        border-bottom: 0;
+        border-radius: 14px;
+      }
       td.price {
         font-size: 1rem;
       }
 
-      td.book {
-        padding-top: 14px;
+      td.price a {
+        display: inline-block;
+        padding: 7px 18px;
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+        color: #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(29,78,216,.3);
       }
 
-      td.book a {
+      td.price a:active { opacity: .85; }
+
+      /* Mobile sort/filter panel */
+      #mobileControls {
         display: block;
-        text-align: center;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 12px;
+        overflow: hidden;
       }
 
-      .empty-row td {
-        margin: 0 12px 12px;
-        border-radius: 14px;
+      .mob-sort-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+
+      .mob-sort-row label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--gray-600);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      #mobileSortSelect {
+        flex: 1;
+        min-width: 0;
+        border: 1px solid var(--gray-200);
+        border-radius: 7px;
+        padding: 6px 8px;
+        font-size: 0.82rem;
+        background: var(--gray-50);
+        color: var(--gray-800);
+        outline: none;
+      }
+
+      #mobFilterToggle {
+        flex-shrink: 0;
+        border: 1px solid var(--blue);
+        background: white;
+        color: var(--blue);
+        border-radius: 7px;
+        padding: 6px 12px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      #mobFilterToggle[aria-expanded="true"] {
+        background: var(--blue);
+        color: white;
+      }
+
+      #mobFilters {
+        padding: 10px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      #mobFilters[hidden] { display: none; }
+
+      .mob-filter-row {
+        display: flex;
+        gap: 8px;
+      }
+
+      .mob-filter {
+        flex: 1;
+        min-width: 0;
+        border: 1px solid var(--gray-200);
+        border-radius: 7px;
+        padding: 7px 10px;
+        font-size: 0.82rem;
+        background: var(--gray-50);
+        color: var(--gray-800);
+        outline: none;
+      }
+
+      .mob-filter:focus { border-color: var(--blue); background: white; }
+
+      select.mob-filter { cursor: pointer; }
+
+      #mobClearFilters {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid var(--gray-200);
+        border-radius: 7px;
+        background: var(--gray-100);
+        color: var(--gray-600);
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
       }
     }
 
@@ -626,6 +769,55 @@
         </div>
       </label>
       <span id="rateNote"></span>
+    </div>
+  </div>
+
+  <div id="mobileControls" aria-label="Sort and filter">
+    <div class="mob-sort-row">
+      <label for="mobileSortSelect">Sort</label>
+      <select id="mobileSortSelect" onchange="mobileSortChange()">
+        <option value="">Price: Low → High (default)</option>
+        <option value="11-asc">Price: Low → High</option>
+        <option value="11-desc">Price: High → Low</option>
+        <option value="7-asc">Departure: Soonest first</option>
+        <option value="7-desc">Departure: Latest first</option>
+        <option value="8-asc">Nights: Shortest first</option>
+        <option value="8-desc">Nights: Longest first</option>
+        <option value="1-asc">Ship: A → Z</option>
+        <option value="1-desc">Ship: Z → A</option>
+      </select>
+      <button id="mobFilterToggle" onclick="toggleMobileFilters()" aria-expanded="false" aria-controls="mobFilters">Filter</button>
+    </div>
+    <div id="mobFilters" hidden>
+      <div class="mob-filter-row">
+        <input class="mob-filter" data-field="shipName" placeholder="Ship…" oninput="mobileFilterSync(this)">
+        <input class="mob-filter" data-field="provider" placeholder="Cruise line…" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-row">
+        <input class="mob-filter" data-field="destination" placeholder="Destination…" oninput="mobileFilterSync(this)">
+        <select class="mob-filter" data-field="departureRegion" onchange="mobileFilterSync(this)">
+          <option value="">All regions</option>
+          <option>UK &amp; Ireland</option>
+          <option>Northern Europe</option>
+          <option>Mediterranean</option>
+          <option>Caribbean</option>
+          <option>Americas</option>
+          <option>Asia &amp; Far East</option>
+          <option>Middle East</option>
+          <option>Africa</option>
+          <option>Australia &amp; Pacific</option>
+          <option>South America</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="mob-filter-row">
+        <input class="mob-filter" data-field="departureDate" placeholder="Departure (e.g. Jun)…" oninput="mobileFilterSync(this)">
+        <input class="mob-filter" data-field="duration" placeholder="Min nights…" type="number" min="0" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-row">
+        <input class="mob-filter" data-field="maxPrice" id="mobMaxPrice" placeholder="Max £…" type="number" min="0" oninput="mobileFilterSync(this)">
+        <button id="mobClearFilters" onclick="clearMobileFilters()">Clear filters</button>
+      </div>
     </div>
   </div>
 
@@ -972,6 +1164,13 @@
     });
   }
 
+  function mobileShipDetails(c) {
+    const classHtml = c.shipClass
+      ? `<span class="mobile-class"><span class="class-cell">${escHtml(c.shipClass)}${classDots(c.shipClass)}</span></span>`
+      : '';
+    return `<span class="mobile-ship-details"><span class="mobile-provider">${escHtml(c.provider || '—')}</span>${classHtml}</span>`;
+  }
+
   // ── Render ─────────────────────────────────────────────────────────────────
   function renderBody(list) {
     const tbody = document.getElementById('cruiseBody');
@@ -991,7 +1190,7 @@
 
       return `<tr>
         <td class="col-num" data-label="#">${i + 1}</td>
-        <td class="col-ship ship-name" data-label="Ship">${escHtml(c.shipName || '—')}</td>
+        <td class="col-ship ship-name" data-label="Ship">${escHtml(c.shipName || '—')}${mobileShipDetails(c)}</td>
         <td class="col-provider" data-label="Cruise line">${escHtml(c.provider || '—')}</td>
         <td class="col-class" data-label="Class"><span class="class-cell">${escHtml(c.shipClass || '—')}${classDots(c.shipClass)}</span></td>
         <td class="col-launch" data-label="Launch">${c.shipLaunchYear || '—'}</td>
@@ -1015,6 +1214,43 @@
       th.classList.remove('sort-asc', 'sort-desc');
       if (i === colIndex) th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
     });
+    applyFilters();
+  }
+
+  // ── Mobile sort/filter controls ────────────────────────────────────────────
+  function mobileSortChange() {
+    const val = document.getElementById('mobileSortSelect').value;
+    document.querySelectorAll('.sort-row th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+    if (!val) {
+      sortColIndex = -1;
+      sortAsc = true;
+    } else {
+      const [col, dir] = val.split('-');
+      sortColIndex = parseInt(col, 10);
+      sortAsc = dir === 'asc';
+      const ths = document.querySelectorAll('.sort-row th');
+      if (ths[sortColIndex]) ths[sortColIndex].classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+    }
+    applyFilters();
+  }
+
+  function mobileFilterSync(el) {
+    const target = document.querySelector(`.col-filter[data-field="${el.dataset.field}"]`);
+    if (target) target.value = el.value;
+    applyFilters();
+  }
+
+  function toggleMobileFilters() {
+    const btn = document.getElementById('mobFilterToggle');
+    const panel = document.getElementById('mobFilters');
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    panel.hidden = expanded;
+  }
+
+  function clearMobileFilters() {
+    document.querySelectorAll('.mob-filter').forEach(el => { el.value = ''; });
+    document.querySelectorAll('.col-filter').forEach(el => { el.value = ''; });
     applyFilters();
   }
 
@@ -1097,7 +1333,10 @@
   // ── GBP toggle ─────────────────────────────────────────────────────────────
   async function toggleGBP() {
     showInGbp = document.getElementById('gbpToggle').checked;
-    document.querySelector('[data-field="maxPrice"]').placeholder = showInGbp ? 'Max £…' : 'Max $…';
+    const placeholder = showInGbp ? 'Max £…' : 'Max $…';
+    document.querySelector('[data-field="maxPrice"]').placeholder = placeholder;
+    const mobMaxPrice = document.getElementById('mobMaxPrice');
+    if (mobMaxPrice) mobMaxPrice.placeholder = showInGbp ? 'Max £…' : 'Max $…';
     applyFilters();
   }
 
