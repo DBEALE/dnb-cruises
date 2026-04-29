@@ -462,7 +462,7 @@
     }
 
     @media (max-width: 860px) {
-      .col-itinerary, .col-region { display: none; }
+      .col-region { display: none; }
       table { min-width: 0; }
     }
 
@@ -525,6 +525,7 @@
 
       /* Re-show columns hidden by intermediate breakpoints */
       td.col-itinerary,
+      td.col-port,
       td.col-region,
       td.col-destination,
       td.col-launch {
@@ -558,7 +559,6 @@
       td.col-num,
       td.col-provider,
       td.col-class,
-      td.col-port,
       td.col-book {
         display: none;
       }
@@ -819,15 +819,21 @@
     <div id="mobFilters" hidden>
       <div class="mob-filter-group">
         <label for="mobFilterShip">Ship</label>
-        <input id="mobFilterShip" class="mob-filter" data-field="shipName" placeholder="Type ship name…" oninput="mobileFilterSync(this)">
+        <select id="mobFilterShip" class="mob-filter" data-field="shipName" onchange="mobileFilterSync(this)">
+          <option value="">All ships</option>
+        </select>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterProvider">Cruise line</label>
-        <input id="mobFilterProvider" class="mob-filter" data-field="provider" placeholder="e.g. Royal Caribbean" oninput="mobileFilterSync(this)">
+        <select id="mobFilterProvider" class="mob-filter" data-field="provider" onchange="mobileFilterSync(this)">
+          <option value="">All cruise lines</option>
+        </select>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterClass">Ship class</label>
-        <input id="mobFilterClass" class="mob-filter" data-field="shipClass" placeholder="e.g. Oasis" oninput="mobileFilterSync(this)">
+        <select id="mobFilterClass" class="mob-filter" data-field="shipClass" onchange="mobileFilterSync(this)">
+          <option value="">All classes</option>
+        </select>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterLaunch">Min launch year</label>
@@ -894,7 +900,7 @@
             <th class="col-destination" onclick="sortTable(6)">Destination</th>
             <th class="col-date"        onclick="sortTable(7)">Departure</th>
             <th class="col-duration"    onclick="sortTable(8)">Nights</th>
-            <th class="col-port"        onclick="sortTable(9)">Port</th>
+            <th class="col-port"        onclick="sortTable(9)">Departure port</th>
             <th class="col-region"      onclick="sortTable(10)">Region</th>
             <th class="col-price"       onclick="sortTable(11)" data-col="11">Price</th>
             <th class="col-book">Book</th>
@@ -902,13 +908,19 @@
           <tr id="filterRow">
             <td class="col-num"></td>
             <td class="col-ship">
-              <input class="col-filter" data-field="shipName" placeholder="Ship…" oninput="applyFilters()">
+              <select class="col-filter" data-field="shipName" onchange="applyFilters()">
+                <option value="">All ships</option>
+              </select>
             </td>
             <td class="col-provider">
-              <input class="col-filter" data-field="provider" placeholder="Cruise line…" oninput="applyFilters()">
+              <select class="col-filter" data-field="provider" onchange="applyFilters()">
+                <option value="">All cruise lines</option>
+              </select>
             </td>
             <td class="col-class">
-              <input class="col-filter" data-field="shipClass" placeholder="Filter class…" oninput="applyFilters()">
+              <select class="col-filter" data-field="shipClass" onchange="applyFilters()">
+                <option value="">All classes</option>
+              </select>
             </td>
             <td class="col-launch">
               <input class="col-filter" data-field="minLaunch" placeholder="Min yr…" type="number" min="1990" oninput="applyFilters()">
@@ -1006,6 +1018,31 @@
       name: provider?.name || id,
       cruisesUrl: provider?.cruisesUrl || provider?.cruisesPath || `./providers/${id}/cruises.json`,
     };
+  }
+
+  function populateDropdownFilters(cruises) {
+    const config = {
+      shipName: 'All ships',
+      provider: 'All cruise lines',
+      shipClass: 'All classes',
+    };
+
+    for (const [field, label] of Object.entries(config)) {
+      const values = Array.from(new Set((cruises || [])
+        .map(cruise => String(cruise?.[field] || '').trim())
+        .filter(Boolean)))
+        .sort((left, right) => left.localeCompare(right, 'en', { numeric: true, sensitivity: 'base' }));
+
+      const selects = document.querySelectorAll(`.col-filter[data-field="${field}"], .mob-filter[data-field="${field}"]`);
+      const currentValue = Array.from(selects).find(select => select.value)?.value || '';
+
+      selects.forEach(select => {
+        select.innerHTML = `<option value="">${escHtml(label)}</option>` + values
+          .map(value => `<option value="${escHtml(value)}">${escHtml(value)}</option>`)
+          .join('');
+        select.value = currentValue && values.includes(currentValue) ? currentValue : '';
+      });
+    }
   }
 
   function resolveStaticUrl(resourcePath) {
@@ -1181,6 +1218,8 @@
   function applyCruiseResults(cruises, scrapedAt) {
     allCruises = cruises || [];
 
+    populateDropdownFilters(allCruises);
+
     // Header stats
     document.getElementById('totalCount').textContent = allCruises.length.toLocaleString();
     const ships = new Set(allCruises.map(c => c.shipName).filter(Boolean));
@@ -1257,7 +1296,7 @@
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
         <td class="col-date" data-label="Departure">${escHtml(date)}</td>
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
-        <td class="col-port" data-label="Port">${escHtml(c.departurePort || '—')}</td>
+        <td class="col-port" data-label="Departure port">${escHtml(c.departurePort || '—')}</td>
         <td class="col-region" data-label="Region">${escHtml(c.departureRegion || '—')}</td>
         <td class="col-price price" data-label="Price">${priceCell}</td>
         <td class="col-book book" data-label="Book">${bookCell}</td>

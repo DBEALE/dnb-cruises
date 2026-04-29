@@ -27,6 +27,17 @@ function readFrontendScript() {
   return match[1];
 }
 
+test('ship, cruise line, and class filters are dropdowns and port is labeled departure port', () => {
+  const htmlPath = path.join(__dirname, '..', 'public', 'index.html');
+  const html = fs.readFileSync(htmlPath, 'utf8');
+
+  assert.match(html, /<select class="col-filter" data-field="shipName" onchange="applyFilters\(\)">/);
+  assert.match(html, /<select class="col-filter" data-field="provider" onchange="applyFilters\(\)">/);
+  assert.match(html, /<select class="col-filter" data-field="shipClass" onchange="applyFilters\(\)">/);
+  assert.match(html, /<select id="mobFilterShip" class="mob-filter" data-field="shipName" onchange="mobileFilterSync\(this\)">/);
+  assert.match(html, /Departure port/);
+});
+
 function createElement(initial = {}) {
   return {
     value: initial.value || '',
