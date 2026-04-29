@@ -489,7 +489,7 @@
 
       table {
         min-width: 0;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
       }
 
       tbody {
@@ -506,12 +506,12 @@
       }
 
       tbody tr {
-        margin: 0 12px 10px;
+        margin: 0 10px 8px;
         border: 1px solid var(--gray-200);
-        border-radius: 14px;
+        border-radius: 12px;
         overflow: hidden;
         background: #fff;
-        box-shadow: 0 10px 24px rgba(13, 27, 46, .08);
+        box-shadow: 0 4px 12px rgba(13, 27, 46, .07);
       }
 
       tbody tr:nth-child(even) {
@@ -520,12 +520,20 @@
 
       td {
         border-bottom: 1px solid #edf1f7;
-        padding: 7px 10px;
+        padding: 5px 8px;
       }
 
-      /* Ship, Port, and Price span both columns */
+      /* Re-show columns hidden by intermediate breakpoints */
+      td.col-itinerary,
+      td.col-region,
+      td.col-destination,
+      td.col-launch {
+        display: block;
+      }
+
+      /* Ship, Itinerary, and Price span both columns */
       td.col-ship,
-      td.col-port,
+      td.col-itinerary,
       td.col-price {
         grid-column: 1 / -1;
       }
@@ -538,18 +546,19 @@
       td::before {
         content: attr(data-label);
         display: block;
-        margin-bottom: 3px;
-        font-size: 0.65rem;
+        margin-bottom: 2px;
+        font-size: 0.6rem;
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--gray-400);
       }
 
-      /* Hide # column, individual provider/class columns, and book column */
+      /* Hide # column, individual provider/class columns, port, and book column */
       td.col-num,
       td.col-provider,
       td.col-class,
+      td.col-port,
       td.col-book {
         display: none;
       }
@@ -558,12 +567,12 @@
       .mobile-ship-details {
         display: flex;
         flex-direction: column;
-        gap: 3px;
-        margin-top: 4px;
+        gap: 2px;
+        margin-top: 3px;
       }
 
       .mobile-provider {
-        font-size: 0.82rem;
+        font-size: 0.8rem;
         color: var(--gray-600);
         font-weight: 500;
       }
@@ -572,13 +581,13 @@
         display: flex;
         align-items: center;
         gap: 4px;
-        font-size: 0.8rem;
+        font-size: 0.78rem;
         color: var(--gray-600);
       }
 
       td.ship-name {
         white-space: normal;
-        font-size: 1.02rem;
+        font-size: 1rem;
       }
 
       td.col-duration {
@@ -588,7 +597,7 @@
       .empty-row td {
         grid-column: 1 / -1;
         border-bottom: 0;
-        border-radius: 14px;
+        border-radius: 12px;
       }
       td.price {
         font-size: 1rem;
@@ -596,7 +605,7 @@
 
       td.price a {
         display: inline-block;
-        padding: 7px 18px;
+        padding: 6px 16px;
         background: linear-gradient(135deg, #1d4ed8, #2563eb);
         color: #fff;
         border-radius: 8px;
@@ -668,24 +677,43 @@
 
       #mobFilters {
         padding: 10px 12px;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 8px;
       }
 
       #mobFilters[hidden] { display: none; }
 
       .mob-filter-row {
+        display: contents;
+      }
+
+      .mob-filter-group {
         display: flex;
-        gap: 8px;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+      }
+
+      .mob-filter-group.mob-filter-full {
+        grid-column: 1 / -1;
+      }
+
+      .mob-filter-group label {
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--gray-600);
+        white-space: nowrap;
       }
 
       .mob-filter {
-        flex: 1;
+        width: 100%;
         min-width: 0;
         border: 1px solid var(--gray-200);
         border-radius: 7px;
-        padding: 7px 10px;
+        padding: 7px 8px;
         font-size: 0.82rem;
         background: var(--gray-50);
         color: var(--gray-800);
@@ -789,13 +817,33 @@
       <button id="mobFilterToggle" onclick="toggleMobileFilters()" aria-expanded="false" aria-controls="mobFilters">Filter</button>
     </div>
     <div id="mobFilters" hidden>
-      <div class="mob-filter-row">
-        <input class="mob-filter" data-field="shipName" placeholder="Ship…" oninput="mobileFilterSync(this)">
-        <input class="mob-filter" data-field="provider" placeholder="Cruise line…" oninput="mobileFilterSync(this)">
+      <div class="mob-filter-group">
+        <label for="mobFilterShip">Ship</label>
+        <input id="mobFilterShip" class="mob-filter" data-field="shipName" placeholder="Type ship name…" oninput="mobileFilterSync(this)">
       </div>
-      <div class="mob-filter-row">
-        <input class="mob-filter" data-field="destination" placeholder="Destination…" oninput="mobileFilterSync(this)">
-        <select class="mob-filter" data-field="departureRegion" onchange="mobileFilterSync(this)">
+      <div class="mob-filter-group">
+        <label for="mobFilterProvider">Cruise line</label>
+        <input id="mobFilterProvider" class="mob-filter" data-field="provider" placeholder="e.g. Royal Caribbean" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-group">
+        <label for="mobFilterClass">Ship class</label>
+        <input id="mobFilterClass" class="mob-filter" data-field="shipClass" placeholder="e.g. Oasis" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-group">
+        <label for="mobFilterLaunch">Min launch year</label>
+        <input id="mobFilterLaunch" class="mob-filter" data-field="minLaunch" placeholder="e.g. 2018" type="number" min="1990" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-group mob-filter-full">
+        <label for="mobFilterItinerary">Itinerary</label>
+        <input id="mobFilterItinerary" class="mob-filter" data-field="itinerary" placeholder="e.g. Caribbean" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-group">
+        <label for="mobFilterDestination">Destination</label>
+        <input id="mobFilterDestination" class="mob-filter" data-field="destination" placeholder="Type…" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-group">
+        <label for="mobFilterRegion">Region</label>
+        <select id="mobFilterRegion" class="mob-filter" data-field="departureRegion" onchange="mobileFilterSync(this)">
           <option value="">All regions</option>
           <option>UK &amp; Ireland</option>
           <option>Northern Europe</option>
@@ -810,13 +858,24 @@
           <option>Other</option>
         </select>
       </div>
-      <div class="mob-filter-row">
-        <input class="mob-filter" data-field="departureDate" placeholder="Departure (e.g. Jun)…" oninput="mobileFilterSync(this)">
-        <input class="mob-filter" data-field="duration" placeholder="Min nights…" type="number" min="0" oninput="mobileFilterSync(this)">
+      <div class="mob-filter-group">
+        <label for="mobFilterDate">Departure</label>
+        <input id="mobFilterDate" class="mob-filter" data-field="departureDate" placeholder="e.g. Jun 2026" oninput="mobileFilterSync(this)">
       </div>
-      <div class="mob-filter-row">
-        <input class="mob-filter" data-field="maxPrice" id="mobMaxPrice" placeholder="Max £…" type="number" min="0" oninput="mobileFilterSync(this)">
-        <button id="mobClearFilters" onclick="clearMobileFilters()">Clear filters</button>
+      <div class="mob-filter-group">
+        <label for="mobFilterPort">Departure port</label>
+        <input id="mobFilterPort" class="mob-filter" data-field="departurePort" placeholder="e.g. Southampton" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-group">
+        <label for="mobFilterDuration">Min nights</label>
+        <input id="mobFilterDuration" class="mob-filter" data-field="duration" placeholder="e.g. 7" type="number" min="0" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-group">
+        <label for="mobMaxPrice">Max price (£)</label>
+        <input id="mobMaxPrice" class="mob-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="mobileFilterSync(this)">
+      </div>
+      <div class="mob-filter-group mob-filter-full">
+        <button id="mobClearFilters" onclick="clearMobileFilters()">Clear all filters</button>
       </div>
     </div>
   </div>
@@ -1334,9 +1393,7 @@
   async function toggleGBP() {
     showInGbp = document.getElementById('gbpToggle').checked;
     const placeholder = showInGbp ? 'Max £…' : 'Max $…';
-    document.querySelector('[data-field="maxPrice"]').placeholder = placeholder;
-    const mobMaxPrice = document.getElementById('mobMaxPrice');
-    if (mobMaxPrice) mobMaxPrice.placeholder = showInGbp ? 'Max £…' : 'Max $…';
+    document.querySelectorAll('[data-field="maxPrice"]').forEach(el => { el.placeholder = placeholder; });
     applyFilters();
   }
 
