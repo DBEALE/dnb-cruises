@@ -32,8 +32,14 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
       - name: Fetch cruise data
-        run: node scripts/fetch-cruises.js royal-caribbean
+        run: node scripts/fetch-cruises.js
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           ALERT_EMAIL:    ${{ secrets.ALERT_EMAIL }}
