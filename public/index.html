@@ -414,6 +414,9 @@
     td.book a:hover { opacity: .9; transform: translateY(-1px); }
     td.book a:active { transform: translateY(0); }
 
+    /* Hidden on desktop; shown only inside the mobile card layout */
+    .mobile-ship-details { display: none; }
+
     /* ── Class dots ──────────────────────────────────────────────────────────── */
     .class-cell { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 
@@ -526,20 +529,34 @@
         color: var(--gray-400);
       }
 
+      /* Hide # column, individual provider/class columns, and book column */
       td.col-num,
+      td.col-provider,
+      td.col-class,
       td.col-book {
-        width: auto;
-      }
-
-      td.col-num {
-        font-weight: 700;
-        color: var(--gray-500);
-      }
-
-      td.col-num::before,
-      td.col-book::before {
-        content: '';
         display: none;
+      }
+
+      /* Combined ship info: cruise line and class shown below ship name */
+      .mobile-ship-details {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        margin-top: 4px;
+      }
+
+      .mobile-provider {
+        font-size: 0.82rem;
+        color: var(--gray-600);
+        font-weight: 500;
+      }
+
+      .mobile-class {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.8rem;
+        color: var(--gray-600);
       }
 
       td.ship-name {
@@ -547,18 +564,24 @@
         font-size: 1.02rem;
       }
 
+      /* Price doubles as the booking link — style it as a button */
       td.price {
         font-size: 1rem;
       }
 
-      td.book {
-        padding-top: 14px;
+      td.price a {
+        display: inline-block;
+        padding: 7px 18px;
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+        color: #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(29,78,216,.3);
       }
 
-      td.book a {
-        display: block;
-        text-align: center;
-      }
+      td.price a:active { opacity: .85; }
 
       .empty-row td {
         margin: 0 12px 12px;
@@ -972,6 +995,13 @@
     });
   }
 
+  function mobileShipDetails(c) {
+    const classHtml = c.shipClass
+      ? `<span class="mobile-class"><span class="class-cell">${escHtml(c.shipClass)}${classDots(c.shipClass)}</span></span>`
+      : '';
+    return `<span class="mobile-ship-details"><span class="mobile-provider">${escHtml(c.provider || '—')}</span>${classHtml}</span>`;
+  }
+
   // ── Render ─────────────────────────────────────────────────────────────────
   function renderBody(list) {
     const tbody = document.getElementById('cruiseBody');
@@ -991,7 +1021,7 @@
 
       return `<tr>
         <td class="col-num" data-label="#">${i + 1}</td>
-        <td class="col-ship ship-name" data-label="Ship">${escHtml(c.shipName || '—')}</td>
+        <td class="col-ship ship-name" data-label="Ship">${escHtml(c.shipName || '—')}${mobileShipDetails(c)}</td>
         <td class="col-provider" data-label="Cruise line">${escHtml(c.provider || '—')}</td>
         <td class="col-class" data-label="Class"><span class="class-cell">${escHtml(c.shipClass || '—')}${classDots(c.shipClass)}</span></td>
         <td class="col-launch" data-label="Launch">${c.shipLaunchYear || '—'}</td>
