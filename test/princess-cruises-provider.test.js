@@ -35,7 +35,7 @@ test('normalizes a Princess Cruises product + sailing into a standard cruise obj
     destination:     'Europe',
     priceFrom:       '',
     currency:        'GBP',
-    bookingUrl:      'https://www.princess.com/en-us/itinerary/ECI12A/YP/2026/',
+    bookingUrl:      'https://www.princess.com/cruise-search/results/?resType=C',
   });
 });
 
@@ -159,8 +159,8 @@ test('returns "Cruise" for unknown trade codes', () => {
 
 test('builds a valid Princess Cruises booking URL', () => {
   assert.equal(
-    provider.buildBookingUrl('ECI12A', 'YP', '20261014'),
-    'https://www.princess.com/en-us/itinerary/ECI12A/YP/2026/',
+    provider.buildBookingUrl('ECI12A'),
+    'https://www.princess.com/itinerary-details/?voyageCode=ECI12A',
   );
 });
 
