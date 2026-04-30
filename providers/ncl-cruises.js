@@ -102,6 +102,110 @@ function extractItineraryCode(href) {
   }
 }
 
+/**
+ * Extracts itinerary stop names from an NCL booking URL slug.
+ * NCL booking URLs encode the itinerary ports in their path, e.g.:
+ *   /uk/en/cruises/7-day-caribbean-round-trip-new-orleans-cozumel-and-costa-maya-{CODE}
+ * The departure port is excluded from the returned list.
+ *
+ * @param {string} bookingUrl - Full NCL booking URL or relative path.
+ * @param {string} [departurePort] - Known departure port name (used to skip the home port).
+ * @returns {string[]} Port names in title case, excluding the departure port.
+ */
+function extractPortsFromSlug(bookingUrl, departurePort) {
+  try {
+    const fullUrl = bookingUrl.startsWith('/') ? `${NCL_BASE_URL}${bookingUrl}` : bookingUrl;
+    const url = new URL(fullUrl);
+    const pathMatch = url.pathname.match(/\/cruises\/(.+)/);
+    if (!pathMatch) return [];
+
+    const itineraryCode = url.searchParams.get('itineraryCode') || '';
+    let slug = pathMatch[1];
+
+    // Remove itinerary code suffix
+    if (itineraryCode) {
+      slug = slug.replace(new RegExp(`-?${itineraryCode}$`, 'i'), '');
+    }
+
+    // Remove duration prefix (e.g. "7-day-", "14-night-")
+    slug = slug.replace(/^\d+(?:-day|-night|-nite)-/i, '');
+
+    // Remove region/destination + trip-type/direction prefix.
+    // Handles: "caribbean-round-trip-", "europe-from-", "western-caribbean-from-",
+    //          "northern-europe-round-trip-", "british-isles-round-trip-", etc.
+    slug = slug.replace(/^.*?-(?:round-trip|roundtrip|one-way|oneway|from)-/i, '');
+
+    // Remove departure city slug from the start of the remaining slug.
+    // Extract only the city name (before any parenthetical or comma qualifier).
+    if (departurePort) {
+      const cityName = cleanText(departurePort.split(/[,(]/)[0]);
+      const citySlug = cityName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+      if (citySlug) {
+        if (slug.toLowerCase().startsWith(`${citySlug}-`)) {
+          slug = slug.slice(citySlug.length + 1);
+        } else if (slug.toLowerCase() === citySlug) {
+          slug = '';
+        }
+      }
+    }
+
+    // Remove "to-{destination}" prefix left over from "from X to Y" URL patterns.
+    // Handles destination names up to four hyphenated words (e.g. "to-new-york-",
+    // "to-auckland", "to-fort-lauderdale-"). Matches with or without a trailing "-"
+    // so that slugs ending in the destination (no further ports) are also stripped.
+    slug = slug.replace(/^to-[a-z]+(?:-[a-z]+){0,3}(?:-|$)/i, '');
+
+    if (!slug) return [];
+
+    // Split on "-and-" first: the final segment may be a multi-word port (e.g. "costa-maya").
+    const andParts = slug.split(/-and-/i);
+    const ports = [];
+
+    // All parts before the last -and-: split on "-" (treats each hyphenated word as a
+    // separate port name). This works correctly for single-word ports such as "Cozumel"
+    // or "Reykjavik". Multi-word ports (e.g. "new-orleans") only appear reliably after
+    // the final "-and-" separator in NCL URL slugs, so they are handled by the last-part
+    // branch below.
+    for (let i = 0; i < andParts.length - 1; i++) {
+      andParts[i].split('-').forEach(p => {
+        const port = formatTitleCase(p);
+        if (port) ports.push(port);
+      });
+    }
+
+    // Last part: replace "-" with " " to preserve multi-word port names like "Costa Maya".
+    const lastPart = formatTitleCase(andParts[andParts.length - 1].replace(/-/g, ' '));
+    if (lastPart) ports.push(lastPart);
+
+    return ports;
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Builds a detailed itinerary string by appending extracted port names to the base
+ * itinerary title, unless the title already contains port details (indicated by a colon).
+ * Mirrors the Royal Caribbean `buildDetailedItinerary` pattern.
+ *
+ * NCL card titles consistently use the format "Region: Port1, Port2 & PortN" when port
+ * detail is present (e.g. "Iceland: Reykjavik, Edinburgh & Bergen"). A colon in the title
+ * therefore reliably signals that the card already carries port information and no further
+ * enrichment is needed.
+ *
+ * @param {string} baseItinerary - The raw itinerary title from the cruise card.
+ * @param {string[]} ports - Port names extracted from the booking URL slug.
+ * @returns {string} Enriched itinerary string, e.g. "Western Caribbean: Cozumel, Costa Maya".
+ */
+function buildDetailedNclItinerary(baseItinerary, ports) {
+  if (!ports || ports.length === 0) return baseItinerary;
+  if (!baseItinerary) return ports.join(', ');
+  // NCL titles that already include port detail follow the "Region: ports" pattern;
+  // the presence of a colon is a reliable indicator that no enrichment is needed.
+  if (baseItinerary.includes(':')) return baseItinerary;
+  return `${baseItinerary}: ${ports.join(', ')}`;
+}
+
 function buildDepartureDate(departureDate, returnDate) {
   const departure = extractFirstDateText(departureDate);
   const returnValue = extractFirstDateText(returnDate);
@@ -200,6 +304,8 @@ function normalizeCruise(detail, bookingUrl) {
   const departurePort = cleanText(detail?.embarkationPort?.title);
   const sailing = Array.isArray(detail?.sailings) ? detail.sailings[0] : null;
   const itineraryCode = cleanText(detail?.code || sailing?.itineraryCode);
+  const baseItinerary = cleanText(detail?.shortTitle || detail?.title);
+  const ports = extractPortsFromSlug(bookingUrl, departurePort);
 
   return {
     provider: 'Norwegian Cruise Line',
@@ -207,7 +313,7 @@ function normalizeCruise(detail, bookingUrl) {
     shipName,
     shipClass: SHIP_CLASS[shipName] || '',
     shipLaunchYear: SHIP_LAUNCH_YEAR[shipName] || null,
-    itinerary: cleanText(detail?.shortTitle || detail?.title),
+    itinerary: buildDetailedNclItinerary(baseItinerary, ports),
     departureDate: buildDepartureDate(sailing?.departureDate || sailing?.sailStartDate, sailing?.returnDate || detail?.returnDate),
     duration: cleanText(detail?.duration?.text || ''),
     departurePort,
@@ -371,3 +477,5 @@ module.exports.collectCruiseCards = collectCruiseCards;
 module.exports.extractFirstDateText = extractFirstDateText;
 module.exports.extractPriceFromText = extractPriceFromText;
 module.exports.extractDateFromText = extractDateFromText;
+module.exports.extractPortsFromSlug = extractPortsFromSlug;
+module.exports.buildDetailedNclItinerary = buildDetailedNclItinerary;

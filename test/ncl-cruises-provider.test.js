@@ -78,3 +78,96 @@ test('extracts the first sailing date from NCL date-range text', () => {
 
   assert.equal(date, 'Sun 31 May 2026');
 });
+
+test('extracts port names from NCL booking URL slug', () => {
+  assert.deepEqual(
+    provider.extractPortsFromSlug(
+      'https://www.ncl.com/uk/en/cruises/7-day-caribbean-round-trip-new-orleans-cozumel-and-costa-maya-BREAKAWAY7MSYCZMRTBBZECMAMSY?itineraryCode=BREAKAWAY7MSYCZMRTBBZECMAMSY',
+      'New Orleans, Louisiana'
+    ),
+    ['Cozumel', 'Costa Maya']
+  );
+});
+
+test('extracts multiple single-word ports from NCL booking URL slug', () => {
+  assert.deepEqual(
+    provider.extractPortsFromSlug(
+      'https://www.ncl.com/uk/en/cruises/14-day-iceland-round-trip-london-reykjavik-edinburgh-and-bergen-STAR14SOUNWHIVGR?itineraryCode=STAR14SOUNWHIVGR',
+      'London (Southampton), United Kingdom'
+    ),
+    ['Reykjavik', 'Edinburgh', 'Bergen']
+  );
+});
+
+test('returns empty array when no port names are in the booking URL slug', () => {
+  assert.deepEqual(
+    provider.extractPortsFromSlug(
+      'https://www.ncl.com/uk/en/cruises/7-day-bermuda-round-trip-boston-BREAKAWAY7BOSWRFBOS?itineraryCode=BREAKAWAY7BOSWRFBOS',
+      'Boston, Massachusetts'
+    ),
+    []
+  );
+});
+
+test('returns empty array for "from X to Y" URL with no intermediate port stops', () => {
+  assert.deepEqual(
+    provider.extractPortsFromSlug(
+      'https://www.ncl.com/uk/en/cruises/11-day-australia-and-new-zealand-from-sydney-to-auckland-SPIRIT11SYDQDNBWTMELORRTMUTAUAKL?itineraryCode=SPIRIT11SYDQDNBWTMELORRTMUTAUAKL',
+      'Sydney, Australia'
+    ),
+    []
+  );
+});
+
+test('builds detailed NCL itinerary from base title and port names', () => {
+  assert.equal(
+    provider.buildDetailedNclItinerary('Western Caribbean', ['Cozumel', 'Costa Maya']),
+    'Western Caribbean: Cozumel, Costa Maya'
+  );
+});
+
+test('leaves itinerary unchanged when it already contains port detail', () => {
+  assert.equal(
+    provider.buildDetailedNclItinerary('Iceland: Reykjavik, Edinburgh & Bergen', ['Reykjavik', 'Edinburgh', 'Bergen']),
+    'Iceland: Reykjavik, Edinburgh & Bergen'
+  );
+});
+
+test('returns base itinerary unchanged when no port names are available', () => {
+  assert.equal(
+    provider.buildDetailedNclItinerary('Bermuda', []),
+    'Bermuda'
+  );
+});
+
+test('normalizeCruise enriches itinerary with port names from URL slug', () => {
+  const cruise = provider.normalizeCruise({
+    code: 'BREAKAWAY7MSYCZMRTBBZECMAMSY',
+    title: 'Western Caribbean',
+    shortTitle: 'Western Caribbean',
+    duration: { text: '7-day Cruise' },
+    currency: 'USD',
+    ship: { title: 'Norwegian Breakaway' },
+    destination: { title: 'Western Caribbean' },
+    embarkationPort: { title: 'New Orleans, Louisiana' },
+    sailings: [{ departureDate: '2026-01-07', staterooms: [{ combinedPrice: '599.00' }] }],
+  }, 'https://www.ncl.com/uk/en/cruises/7-day-caribbean-round-trip-new-orleans-cozumel-and-costa-maya-BREAKAWAY7MSYCZMRTBBZECMAMSY?itineraryCode=BREAKAWAY7MSYCZMRTBBZECMAMSY');
+
+  assert.equal(cruise.itinerary, 'Western Caribbean: Cozumel, Costa Maya');
+});
+
+test('normalizeCruise leaves simple itinerary unchanged when URL has no intermediate ports', () => {
+  const cruise = provider.normalizeCruise({
+    code: 'BREAKAWAY7BOSWRFBOS',
+    title: 'Bermuda',
+    shortTitle: 'Bermuda',
+    duration: { text: '7-day Cruise' },
+    currency: 'GBP',
+    ship: { title: 'Norwegian Breakaway' },
+    destination: { title: 'Bermuda' },
+    embarkationPort: { title: 'Boston, Massachusetts' },
+    sailings: [{ departureDate: '2026-06-01', staterooms: [{ combinedPrice: '799.00' }] }],
+  }, 'https://www.ncl.com/uk/en/cruises/7-day-bermuda-round-trip-boston-BREAKAWAY7BOSWRFBOS?itineraryCode=BREAKAWAY7BOSWRFBOS');
+
+  assert.equal(cruise.itinerary, 'Bermuda');
+});
