@@ -189,3 +189,83 @@ test('returns destination only when portNames is empty and nights is absent', ()
   assert.equal(provider.buildItinerary([], '', 'Europe'), 'Europe');
   assert.equal(provider.buildItinerary(null, '', 'Cruise'), 'Cruise');
 });
+
+// ─── getLowestFare ─────────────────────────────────────────────────────────────
+
+test('extracts price from lowestPrice object with amount and currencyCode', () => {
+  const result = provider.getLowestFare({ lowestPrice: { amount: 799, currencyCode: 'GBP' } });
+  assert.deepEqual(result, { amount: '799', currency: 'GBP' });
+});
+
+test('extracts price from startingFrom object', () => {
+  const result = provider.getLowestFare({ startingFrom: { amount: 1299.50, currencyCode: 'GBP' } });
+  assert.deepEqual(result, { amount: '1300', currency: 'GBP' });
+});
+
+test('extracts price from lowestFare object', () => {
+  const result = provider.getLowestFare({ lowestFare: { fare: 849, currency: 'GBP' } });
+  assert.deepEqual(result, { amount: '849', currency: 'GBP' });
+});
+
+test('extracts price from a scalar number field', () => {
+  const result = provider.getLowestFare({ lowestPrice: 599 });
+  assert.deepEqual(result, { amount: '599', currency: 'GBP' });
+});
+
+test('extracts price from a numeric string field', () => {
+  const result = provider.getLowestFare({ fare: '1100' });
+  assert.deepEqual(result, { amount: '1100', currency: 'GBP' });
+});
+
+test('returns null when no price fields are present', () => {
+  assert.equal(provider.getLowestFare({}), null);
+  assert.equal(provider.getLowestFare(null), null);
+  assert.equal(provider.getLowestFare(undefined), null);
+});
+
+test('returns null when price fields are zero or negative', () => {
+  assert.equal(provider.getLowestFare({ lowestPrice: 0 }), null);
+  assert.equal(provider.getLowestFare({ lowestPrice: { amount: -5, currencyCode: 'GBP' } }), null);
+});
+
+test('falls back to GBP when currency is absent from price object', () => {
+  const result = provider.getLowestFare({ lowestPrice: { amount: 999 } });
+  assert.deepEqual(result, { amount: '999', currency: 'GBP' });
+});
+
+// ─── normalizeCruise with price ────────────────────────────────────────────────
+
+test('includes price when ship object has lowestPrice data', () => {
+  const cruise = provider.normalizeCruise(
+    {
+      id:            'ECI12A',
+      trades:        [{ id: 'E' }],
+      embkDbkPortIds: ['SOU', 'SOU'],
+      cruiseDuration: 12,
+    },
+    '20261014',
+    'YP',
+    'Sky Princess',
+    'Southampton (for London), England',
+    [],
+    { id: 'YP', sailDates: ['20261014'], lowestPrice: { amount: 1199, currencyCode: 'GBP' } },
+  );
+
+  assert.equal(cruise.priceFrom, '1199');
+  assert.equal(cruise.currency, 'GBP');
+});
+
+test('priceFrom is empty string when ship has no price data', () => {
+  const cruise = provider.normalizeCruise(
+    { id: 'CAR07B', trades: [{ id: 'C' }], embkDbkPortIds: ['FLL'], cruiseDuration: 7 },
+    '20270115',
+    'MJ',
+    'Majestic Princess',
+    'Ft. Lauderdale, Florida',
+    [],
+    { id: 'MJ', sailDates: ['20270115'] },
+  );
+
+  assert.equal(cruise.priceFrom, '');
+  assert.equal(cruise.currency, 'GBP');
+});
