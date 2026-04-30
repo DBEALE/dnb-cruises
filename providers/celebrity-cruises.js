@@ -6,7 +6,8 @@ const { randomUUID } = require('node:crypto');
 const GraphQLCruiseProvider = require('./graphql-cruise-provider');
 const { getDepartureRegion } = require('./shared');
 
-const CELEBRITY_GRAPH_URL     = 'https://www.celebritycruises.com/cruises/graph';
+const CELEBRITY_GRAPH_URL              = 'https://www.celebritycruises.com/cruises/graph';
+const CELEBRITY_ROOM_SELECTION_API_URL = 'https://www.celebritycruises.com/room-selection/api/v1/rooms';
 const CELEBRITY_CRUISES_URL   = 'https://www.celebritycruises.com/gb/cruises?country=GBR';
 const CELEBRITY_SEARCH_FILTERS = 'voyageType:OCEAN';
 const CELEBRITY_SEARCH_SORT    = { by: 'RECOMMENDED' };
@@ -209,6 +210,117 @@ function normalizeCruise(cruise) {
   };
 }
 
+// ─── Room-selection itinerary enrichment ──────────────────────────────────────
+
+/**
+ * Parses a Celebrity booking URL and returns the filter fields needed to call
+ * the room-selection API.  Celebrity uses two URL formats:
+ *   - /booking-cruise/selectRoom/…?pID=<pkg>&sDT=<date>&country=<cc>
+ *   - /gb/itinerary/…?packageCode=<pkg>&sailDate=<date>&country=<cc>
+ */
+function parseBookingContext(bookingUrl) {
+  if (!bookingUrl) return null;
+
+  try {
+    const url = new URL(bookingUrl);
+    const packageCode = cleanText(url.searchParams.get('packageCode') || url.searchParams.get('pID'));
+    const sailDate    = cleanText(url.searchParams.get('sailDate')    || url.searchParams.get('sDT'));
+    const country     = cleanText(url.searchParams.get('country')) || 'GBR';
+
+    if (!packageCode || !sailDate) return null;
+
+    return { packageCode, sailDate, selectedCurrencyCode: 'GBP', country };
+  } catch {
+    return null;
+  }
+}
+
+function formatChapterPort(port) {
+  const name   = cleanText(port?.name);
+  const region = cleanText(port?.region);
+  if (!name) return '';
+  if (!region || /^cruising$/i.test(name)) return name;
+  if (name.toLowerCase().includes(region.toLowerCase())) return name;
+  return `${name}, ${region}`;
+}
+
+/** Returns an ordered list of port labels from a room-selection API chapters array. */
+function extractPortSequenceFromChapters(chapters) {
+  if (!Array.isArray(chapters)) return [];
+  return chapters.map(chapter => formatChapterPort(chapter?.port)).filter(Boolean);
+}
+
+/**
+ * Builds a detailed itinerary string of the form:
+ *   "<summaryName>: <stop1>, <stop2>, …"
+ * The first port in the sequence (the departure port) is omitted from the
+ * stops list.  If the ports list is empty or contains only one non-cruising
+ * entry the original summary name is returned unchanged.
+ */
+function buildDetailedItinerary(summaryName, ports) {
+  const normalizedPorts  = Array.from(new Set((ports || []).map(cleanText).filter(Boolean)));
+  const nonCruisingPorts = normalizedPorts.filter(port => !/^cruising$/i.test(port));
+  if (nonCruisingPorts.length <= 1) return cleanText(summaryName);
+
+  const stops = nonCruisingPorts.slice(1);
+  if (stops.length === 0) return cleanText(summaryName);
+
+  return `${cleanText(summaryName)}: ${stops.join(', ')}`;
+}
+
+function buildRoomSelectionFilter(context) {
+  return {
+    countryCode:  context.country,
+    packageId:    context.packageCode,
+    sailDate:     context.sailDate,
+    currencyCode: context.selectedCurrencyCode,
+    language:     'en',
+    options:      false,
+    roomNumbers:  false,
+    rooms:        [{ adultCount: 2, childCount: 0 }],
+  };
+}
+
+async function fetchRoomSelectionPorts(context) {
+  const filter = buildRoomSelectionFilter(context);
+  const params = new URLSearchParams({
+    filter: JSON.stringify(filter),
+    or: 'https://www.celebritycruises.com',
+  });
+
+  const response = await fetch(`${CELEBRITY_ROOM_SELECTION_API_URL}?${params}`, {
+    headers: {
+      brand:              'C',
+      country:            context.country,
+      'content-type':     'application/json',
+      'accept-language':  'en-GB,en;q=0.9',
+      'user-agent':       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    },
+  });
+
+  if (!response.ok) return [];
+
+  const payload = await response.json();
+  return extractPortSequenceFromChapters(payload?.sailing?.itinerary?.chapters);
+}
+
+async function enrichCruiseItinerary(cruise) {
+  if (!cruise?.bookingUrl) return cruise;
+
+  const context = parseBookingContext(cruise.bookingUrl);
+  if (!context) return cruise;
+
+  try {
+    const ports             = await fetchRoomSelectionPorts(context);
+    const detailedItinerary = buildDetailedItinerary(cruise.itinerary, ports);
+
+    if (!detailedItinerary || detailedItinerary === cruise.itinerary) return cruise;
+    return { ...cruise, itinerary: detailedItinerary };
+  } catch {
+    return cruise;
+  }
+}
+
 function parseCruisesFromHtml(html) {
   const $ = cheerio.load(html);
   return $('[data-testid^="cruise-card-container_"]')
@@ -262,6 +374,51 @@ class CelebrityCruisesProvider extends GraphQLCruiseProvider {
   normalizeCruise(cruise) {
     return normalizeCruise(cruise);
   }
+
+  async fetchCruises() {
+    const cruises         = await super.fetchCruises();
+    const cache           = new Map();
+    const enrichedCruises = new Array(cruises.length);
+    const concurrency     = 6;
+    let cursor            = 0;
+
+    const worker = async () => {
+      while (cursor < cruises.length) {
+        const index   = cursor;
+        cursor       += 1;
+        const cruise  = cruises[index];
+        const context = parseBookingContext(cruise.bookingUrl);
+        const cacheKey = context
+          ? `${context.packageCode}|${context.sailDate}|${context.selectedCurrencyCode}|${context.country}`
+          : null;
+
+        if (!cacheKey) {
+          enrichedCruises[index] = cruise;
+          continue;
+        }
+
+        if (!cache.has(cacheKey)) {
+          cache.set(cacheKey, enrichCruiseItinerary(cruise));
+        }
+
+        enrichedCruises[index] = await cache.get(cacheKey);
+      }
+    };
+
+    await Promise.all(Array.from({ length: concurrency }, () => worker()));
+
+    if (enrichedCruises.length > 0) {
+      console.log(`  ${this.progressPrefix} itinerary enrichment complete (${enrichedCruises.length} sailings)`);
+    }
+
+    return enrichedCruises;
+  }
 }
 
-module.exports = new CelebrityCruisesProvider();
+const provider = new CelebrityCruisesProvider();
+
+provider.extractPortSequenceFromChapters = extractPortSequenceFromChapters;
+provider.buildDetailedItinerary          = buildDetailedItinerary;
+provider.parseBookingContext             = parseBookingContext;
+
+module.exports = provider;

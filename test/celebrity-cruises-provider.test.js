@@ -71,6 +71,11 @@ test('fetchCruises downloads and parses the Celebrity page', async () => {
   const originalFetch = global.fetch;
   const requests = [];
   global.fetch = async (url, options = {}) => {
+    // Stub room-selection API calls that arise from itinerary enrichment
+    if (String(url).startsWith('https://www.celebritycruises.com/room-selection/api/v1/rooms')) {
+      return { ok: true, status: 200, json: async () => ({}) };
+    }
+
     requests.push({ url, options });
     const body = JSON.parse(options.body);
     const skip = body.variables.pagination.skip;
@@ -192,6 +197,161 @@ test('fetchCruises downloads and parses the Celebrity page', async () => {
     assert.equal(cruises[1].departurePort, 'Rome (Civitavecchia), Italy');
     assert.equal(cruises[1].duration, '11 Nights');
     assert.equal(cruises[2].shipName, 'Celebrity Solstice');
+  } finally {
+    global.fetch = originalFetch;
+  }
+});
+
+// ─── Itinerary enrichment helpers ─────────────────────────────────────────────
+
+const SAMPLE_CHAPTERS = [
+  { days: [1], port: { name: 'Miami', region: 'Florida' } },
+  { days: [2], port: { name: 'Cruising', region: '' } },
+  { days: [3], port: { name: 'Tortola', region: 'BVI' } },
+  { days: [4], port: { name: 'Philipsburg', region: 'St. Maarten' } },
+  { days: [5], port: { name: 'Puerto Plata', region: 'Dominican Republic' } },
+];
+
+test('extractPortSequenceFromChapters reads ports from chapter objects', () => {
+  assert.deepEqual(provider.extractPortSequenceFromChapters(SAMPLE_CHAPTERS), [
+    'Miami, Florida',
+    'Cruising',
+    'Tortola, BVI',
+    'Philipsburg, St. Maarten',
+    'Puerto Plata, Dominican Republic',
+  ]);
+});
+
+test('buildDetailedItinerary appends non-cruising stops after the summary name', () => {
+  assert.equal(
+    provider.buildDetailedItinerary('Tortola, St. Maarten & Puerto Plata', [
+      'Miami, Florida',
+      'Cruising',
+      'Tortola, BVI',
+      'Philipsburg, St. Maarten',
+      'Puerto Plata, Dominican Republic',
+      'Miami, Florida',
+    ]),
+    'Tortola, St. Maarten & Puerto Plata: Tortola, BVI, Philipsburg, St. Maarten, Puerto Plata, Dominican Republic',
+  );
+});
+
+test('buildDetailedItinerary returns summary name unchanged when no ports are supplied', () => {
+  assert.equal(
+    provider.buildDetailedItinerary('Best of Greece', []),
+    'Best of Greece',
+  );
+});
+
+test('parseBookingContext extracts fields from a /booking-cruise/ URL (pID / sDT params)', () => {
+  assert.deepEqual(
+    provider.parseBookingContext(
+      'https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=BY07MIA-56550375&pID=BY07E468&sDT=2026-08-30&sCD=BY&sCT=CO&country=GBR',
+    ),
+    {
+      packageCode:           'BY07E468',
+      sailDate:              '2026-08-30',
+      selectedCurrencyCode:  'GBP',
+      country:               'GBR',
+    },
+  );
+});
+
+test('parseBookingContext extracts fields from a /gb/itinerary/ URL (packageCode / sailDate params)', () => {
+  assert.deepEqual(
+    provider.parseBookingContext(
+      'https://www.celebritycruises.com/gb/itinerary/7-nt-tortola-st-maarten-puerto-plata-from-miami-on-celebrity-BY07E468?sailDate=2026-08-30&packageCode=BY07E468&groupId=BY07MIA-56550375&country=GBR',
+    ),
+    {
+      packageCode:           'BY07E468',
+      sailDate:              '2026-08-30',
+      selectedCurrencyCode:  'GBP',
+      country:               'GBR',
+    },
+  );
+});
+
+test('fetchCruises enriches itinerary with port sequence from room-selection API', async () => {
+  const originalFetch = global.fetch;
+
+  global.fetch = async (url, options = {}) => {
+    const urlStr = String(url);
+
+    if (urlStr.startsWith('https://www.celebritycruises.com/room-selection/api/v1/rooms')) {
+      const params      = new URL(urlStr).searchParams;
+      const filter      = JSON.parse(params.get('filter') || '{}');
+      const packageCode = filter.packageId;
+
+      if (packageCode === 'BY07E468') {
+        return {
+          ok: true, status: 200,
+          json: async () => ({
+            sailing: {
+              itinerary: {
+                chapters: [
+                  { port: { name: 'Miami', region: 'Florida' } },
+                  { port: { name: 'Tortola', region: 'BVI' } },
+                  { port: { name: 'Philipsburg', region: 'St. Maarten' } },
+                  { port: { name: 'Puerto Plata', region: 'Dominican Republic' } },
+                ],
+              },
+            },
+          }),
+        };
+      }
+
+      return { ok: true, status: 200, json: async () => ({}) };
+    }
+
+    // GraphQL
+    const body = JSON.parse(options.body);
+    const skip = body.variables.pagination.skip;
+
+    if (skip === 0) {
+      return {
+        ok: true, status: 200,
+        json: async () => ({
+          data: {
+            cruiseSearch: {
+              results: {
+                total: 1,
+                cruises: [
+                  {
+                    id: 'BY07MIA-56550375',
+                    productViewLink: 'itinerary/7-nt-tortola-st-maarten-puerto-plata-from-miami-on-celebrity-BY07E468?sailDate=2026-08-30&packageCode=BY07E468&groupId=BY07MIA-56550375&country=GBR',
+                    lowestPriceSailing: {
+                      bookingLink: '/booking-cruise/selectRoom/stateroomQuantity?groupId=BY07MIA-56550375&pID=BY07E468&sDT=2026-08-30&sCD=BY&sCT=CO&country=GBR',
+                      sailDate: '2026-08-30',
+                      lowestStateroomClassPrice: { price: { value: 489, currency: { code: 'GBP' } } },
+                    },
+                    masterSailing: {
+                      itinerary: {
+                        name: 'Tortola, St. Maarten & Puerto Plata',
+                        totalNights: 7,
+                        departurePort: { name: 'Miami, Florida' },
+                        destination: { name: 'Tortola, St. Maarten & Puerto Plata' },
+                        ship: { name: 'Celebrity Beyond', code: 'BY' },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        }),
+      };
+    }
+
+    throw new Error(`Unexpected skip: ${skip}`);
+  };
+
+  try {
+    const cruises = await provider.fetchCruises();
+    assert.equal(cruises.length, 1);
+    assert.equal(
+      cruises[0].itinerary,
+      'Tortola, St. Maarten & Puerto Plata: Tortola, BVI, Philipsburg, St. Maarten, Puerto Plata, Dominican Republic',
+    );
   } finally {
     global.fetch = originalFetch;
   }
