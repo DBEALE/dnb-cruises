@@ -150,9 +150,13 @@ function extractPortsFromSlug(bookingUrl, departurePort) {
     }
 
     // Remove "to-{destination}-" prefix left over from "from X to Y" URL patterns.
-    // Handles destination names up to three hyphenated words (e.g. "to-new-york-",
-    // "to-fort-lauderdale-").
-    slug = slug.replace(/^to-[a-z]+(?:-[a-z]+){0,2}-/i, '');
+    // Handles destination names up to four hyphenated words (e.g. "to-new-york-",
+    // "to-fort-lauderdale-"). If the destination has more words the prefix will not be
+    // stripped, leaving a "to-…" fragment that simply produces no ports, which is
+    // acceptable because in practice NCL destination cities have at most three words and
+    // the itinerary title from the page card (which takes priority) already contains the
+    // port names for those cruises.
+    slug = slug.replace(/^to-[a-z]+(?:-[a-z]+){0,3}-/i, '');
 
     if (!slug) return [];
 
@@ -187,6 +191,11 @@ function extractPortsFromSlug(bookingUrl, departurePort) {
  * itinerary title, unless the title already contains port details (indicated by a colon).
  * Mirrors the Royal Caribbean `buildDetailedItinerary` pattern.
  *
+ * NCL card titles consistently use the format "Region: Port1, Port2 & PortN" when port
+ * detail is present (e.g. "Iceland: Reykjavik, Edinburgh & Bergen"). A colon in the title
+ * therefore reliably signals that the card already carries port information and no further
+ * enrichment is needed.
+ *
  * @param {string} baseItinerary - The raw itinerary title from the cruise card.
  * @param {string[]} ports - Port names extracted from the booking URL slug.
  * @returns {string} Enriched itinerary string, e.g. "Western Caribbean: Cozumel, Costa Maya".
@@ -194,7 +203,8 @@ function extractPortsFromSlug(bookingUrl, departurePort) {
 function buildDetailedNclItinerary(baseItinerary, ports) {
   if (!ports || ports.length === 0) return baseItinerary;
   if (!baseItinerary) return ports.join(', ');
-  // If the title already carries port detail (contains a colon) leave it untouched.
+  // NCL titles that already include port detail follow the "Region: ports" pattern;
+  // the presence of a colon is a reliable indicator that no enrichment is needed.
   if (baseItinerary.includes(':')) return baseItinerary;
   return `${baseItinerary}: ${ports.join(', ')}`;
 }
