@@ -416,6 +416,8 @@
 
     /* Hidden on desktop; shown only inside the mobile card layout */
     .mobile-ship-details { display: none; }
+    .mobile-ship-header { display: contents; }
+    .mobile-launch-year { display: none; }
 
     /* ── Mobile sort/filter controls ────────────────────────────────────────── */
     #mobileControls { display: none; }
@@ -555,12 +557,30 @@
         color: var(--gray-400);
       }
 
-      /* Hide # column, individual provider/class columns, port, and book column */
+      /* Hide # column, individual provider/class/launch columns, and book column */
       td.col-num,
       td.col-provider,
       td.col-class,
+      td.col-launch,
       td.col-book {
         display: none;
+      }
+
+      /* Ship name row: name on left, launch year on right */
+      .mobile-ship-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        width: 100%;
+      }
+
+      .mobile-launch-year {
+        display: inline-block;
+        font-size: 0.72rem;
+        color: var(--gray-400);
+        font-weight: 500;
+        white-space: nowrap;
+        margin-left: 8px;
       }
 
       /* Combined ship info: cruise line and class shown below ship name */
@@ -1262,6 +1282,13 @@
     });
   }
 
+  function mobileShipHeader(c) {
+    const yearHtml = c.shipLaunchYear
+      ? `<span class="mobile-launch-year">${c.shipLaunchYear}</span>`
+      : '';
+    return `<span class="mobile-ship-header"><span>${escHtml(c.shipName || '—')}</span>${yearHtml}</span>`;
+  }
+
   function mobileShipDetails(c) {
     const classHtml = c.shipClass
       ? `<span class="mobile-class"><span class="class-cell">${escHtml(c.shipClass)}${classDots(c.shipClass)}</span></span>`
@@ -1288,7 +1315,7 @@
 
       return `<tr>
         <td class="col-num" data-label="#">${i + 1}</td>
-        <td class="col-ship ship-name" data-label="Ship">${escHtml(c.shipName || '—')}${mobileShipDetails(c)}</td>
+        <td class="col-ship ship-name" data-label="Ship">${mobileShipHeader(c)}${mobileShipDetails(c)}</td>
         <td class="col-provider" data-label="Cruise line">${escHtml(c.provider || '—')}</td>
         <td class="col-class" data-label="Class"><span class="class-cell">${escHtml(c.shipClass || '—')}${classDots(c.shipClass)}</span></td>
         <td class="col-launch" data-label="Launch">${c.shipLaunchYear || '—'}</td>
