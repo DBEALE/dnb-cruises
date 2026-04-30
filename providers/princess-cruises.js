@@ -148,22 +148,68 @@ function buildItinerary(portNames, nights, destination) {
 }
 
 /**
+ * Extracts the lowest per-person fare from a ship entry returned by the
+ * Princess products API.  Multiple field-name patterns are tried in priority
+ * order so that the extraction continues to work even if the API response
+ * structure changes slightly between versions.
+ *
+ * @param {object} ship - Ship entry nested inside a product's `ships` array.
+ * @returns {{amount: string, currency: string} | null}
+ */
+function getLowestFare(ship) {
+  const candidates = [
+    ship?.lowestPrice,
+    ship?.startingFrom,
+    ship?.lowestFare,
+    ship?.fare,
+    ship?.price,
+  ];
+
+  for (const c of candidates) {
+    if (c == null) continue;
+
+    // Scalar number or numeric string
+    if (typeof c === 'number' || (typeof c === 'string' && c !== '')) {
+      const n = parseFloat(c);
+      if (Number.isFinite(n) && n > 0) return { amount: String(Math.round(n)), currency: 'GBP' };
+    }
+
+    // Object with an amount-like field
+    if (typeof c === 'object') {
+      const amountField = c.amount ?? c.fare ?? c.value ?? c.price;
+      const currencyField = cleanText(c.currencyCode ?? c.currency ?? c.code ?? '');
+      const n = parseFloat(amountField);
+      if (Number.isFinite(n) && n > 0) {
+        return { amount: String(Math.round(n)), currency: currencyField || 'GBP' };
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
  * Normalizes a Princess Cruises product + sailing into a standard cruise object.
  *
- * @param {object}   product   - Product entry from the Princess products API.
- * @param {string}   sailDate  - Eight-digit sail date string.
- * @param {string}   shipId    - Princess ship code.
- * @param {string}   shipName  - Human-readable ship name.
- * @param {string}   portName  - Human-readable embarkation port name.
+ * @param {object}   product     - Product entry from the Princess products API.
+ * @param {string}   sailDate    - Eight-digit sail date string.
+ * @param {string}   shipId      - Princess ship code.
+ * @param {string}   shipName    - Human-readable ship name.
+ * @param {string}   portName    - Human-readable embarkation port name.
  * @param {string[]} [portNames=[]] - Ordered list of resolved port names for the full itinerary.
+ * @param {object}   [ship={}]   - Raw ship entry from the products API (used for price extraction).
  * @returns {object} Normalized cruise object.
  */
-function normalizeCruise(product, sailDate, shipId, shipName, portName, portNames = []) {
+function normalizeCruise(product, sailDate, shipId, shipName, portName, portNames = [], ship = {}) {
   const productId    = cleanText(product.id);
   const name         = cleanText(shipName);
   const destination  = getDestination(product.trades);
   const nights       = product.cruiseDuration ? String(product.cruiseDuration) : '';
   const itinerary    = buildItinerary(portNames, nights, destination);
+
+  const fare     = getLowestFare(ship);
+  const priceFrom = fare ? fare.amount : '';
+  const currency  = fare ? fare.currency : 'GBP';
 
   return {
     provider:        'Princess Cruises',
@@ -177,8 +223,8 @@ function normalizeCruise(product, sailDate, shipId, shipName, portName, portName
     departurePort:   cleanText(portName),
     departureRegion: getDepartureRegion(portName),
     destination,
-    priceFrom:       '',
-    currency:        'GBP',
+    priceFrom,
+    currency,
     bookingUrl:      buildBookingUrl(productId, shipId, sailDate),
   };
 }
@@ -194,7 +240,10 @@ function normalizeCruise(product, sailDate, shipId, shipName, portName, portName
  * call the products, ships, and ports endpoints ourselves from within the
  * page context (so CORS / auth tokens are handled transparently).
  *
- * @returns {Promise<{products?: object, ships?: object, ports?: object}>}
+ * Any additional endpoints auto-fetched by the page (e.g. a pricing endpoint)
+ * are also captured and returned under their endpoint name as the map key.
+ *
+ * @returns {Promise<{products?: object, ships?: object, ports?: object, [key: string]: object}>}
  */
 async function collectCruiseData() {
   const browser = await chromium.launch({
@@ -254,7 +303,13 @@ async function collectCruiseData() {
       if (firstApiResponseAt && Date.now() - firstApiResponseAt >= PRINCESS_SETTLE_WAIT_MS) break;
     }
 
-    // If some endpoints weren't auto-fetched but we captured credentials, request them
+    // Log captured endpoints so we can diagnose missing data in CI
+    console.log(`  [Princess] captured API keys: ${Object.keys(apiData).join(', ') || '(none)'}`);
+
+    // If some endpoints weren't auto-fetched but we captured credentials, request them.
+    // Only 'products', 'ships', and 'ports' are fetched manually because their URL
+    // structure is known.  A separate 'prices' endpoint will only be used if the page
+    // auto-fetches it (captured above via the response listener).
     const needed = ['products', 'ships', 'ports'].filter(k => !apiData[k]);
     if (needed.length > 0 && appId && clientId) {
       const fetched = await page.evaluate(
@@ -280,6 +335,18 @@ async function collectCruiseData() {
         { base: PRINCESS_API_BASE, appId, clientId, needed },
       );
       Object.assign(apiData, fetched);
+    }
+
+    // Diagnostic: log the first product's and ship's field names so that the
+    // correct price field can be identified from the CI logs if prices are still
+    // missing after the initial extraction attempt.
+    const firstProduct = apiData.products?.products?.[0];
+    if (firstProduct) {
+      console.log(`  [Princess] first product keys: ${Object.keys(firstProduct).join(', ')}`);
+      const firstShip = firstProduct.ships?.[0];
+      if (firstShip) {
+        console.log(`  [Princess] first ship keys: ${Object.keys(firstShip).join(', ')}`);
+      }
     }
 
     return apiData;
@@ -338,13 +405,14 @@ class PrincessCruisesProvider {
           if (seen.has(key)) continue;
           seen.add(key);
 
-          const cruise = normalizeCruise(product, sailDate, shipId, shipName, portName, portNames);
+          const cruise = normalizeCruise(product, sailDate, shipId, shipName, portName, portNames, ship);
           if (cruise?.id && cruise.shipName) cruises.push(cruise);
         }
       }
     }
 
-    console.log(`  [Princess] ${cruises.length} sailings from ${products.length} products`);
+    const withPrice = cruises.filter(c => c.priceFrom !== '').length;
+    console.log(`  [Princess] ${cruises.length} sailings from ${products.length} products (${withPrice} with price)`);
     return cruises;
   }
 }
@@ -359,3 +427,4 @@ module.exports.buildBookingUrl = buildBookingUrl;
 module.exports.buildItinerary  = buildItinerary;
 module.exports.formatSailDate  = formatSailDate;
 module.exports.getDestination  = getDestination;
+module.exports.getLowestFare   = getLowestFare;
