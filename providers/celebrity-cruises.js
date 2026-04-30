@@ -225,7 +225,7 @@ function parseBookingContext(bookingUrl) {
     const url = new URL(bookingUrl);
     const packageCode = cleanText(url.searchParams.get('packageCode') || url.searchParams.get('pID'));
     const sailDate    = cleanText(url.searchParams.get('sailDate')    || url.searchParams.get('sDT'));
-    const country     = cleanText(url.searchParams.get('country') || 'GBR') || 'GBR';
+    const country     = cleanText(url.searchParams.get('country')) || 'GBR';
 
     if (!packageCode || !sailDate) return null;
 
