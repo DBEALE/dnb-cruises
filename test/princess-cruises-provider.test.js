@@ -39,6 +39,46 @@ test('normalizes a Princess Cruises product + sailing into a standard cruise obj
   });
 });
 
+test('uses port names as itinerary when portNames are provided', () => {
+  const portNames = ['Southampton', 'Lisbon', 'Gibraltar', 'Barcelona', 'Rome (Civitavecchia)', 'Southampton'];
+  const cruise = provider.normalizeCruise(
+    {
+      id:            'ECI12A',
+      trades:        [{ id: 'E' }],
+      embkDbkPortIds: ['SOU', 'SOU'],
+      portIds:       ['SOU', 'LIS', 'GIB', 'BCN', 'CIV', 'SOU'],
+      cruiseDuration: 12,
+    },
+    '20261014',
+    'YP',
+    'Sky Princess',
+    'Southampton (for London), England',
+    portNames,
+  );
+
+  assert.equal(cruise.itinerary, 'Southampton → Lisbon → Gibraltar → Barcelona → Rome (Civitavecchia) → Southampton');
+  assert.equal(cruise.destination, 'Europe');
+  assert.equal(cruise.duration, '12 Nights');
+});
+
+test('falls back to N-Night Destination when portNames is empty', () => {
+  const cruise = provider.normalizeCruise(
+    {
+      id:            'CAR07B',
+      trades:        [{ id: 'C' }],
+      embkDbkPortIds: ['FLL', 'FLL'],
+      cruiseDuration: 7,
+    },
+    '20270115',
+    'MJ',
+    'Majestic Princess',
+    'Ft. Lauderdale, Florida',
+    [],
+  );
+
+  assert.equal(cruise.itinerary, '7-Night Caribbean');
+});
+
 test('normalizes a Caribbean cruise from Fort Lauderdale', () => {
   const cruise = provider.normalizeCruise(
     {
@@ -129,4 +169,23 @@ test('falls back to the search page URL when productId is missing', () => {
     provider.buildBookingUrl('', 'YP', '20261014'),
     'https://www.princess.com/cruise-search/results/?resType=C',
   );
+});
+
+// ─── buildItinerary ────────────────────────────────────────────────────────────
+
+test('joins port names with → when portNames is provided', () => {
+  assert.equal(
+    provider.buildItinerary(['Fort Lauderdale', 'Nassau', 'Half Moon Cay', 'Fort Lauderdale'], '7', 'Caribbean'),
+    'Fort Lauderdale → Nassau → Half Moon Cay → Fort Lauderdale',
+  );
+});
+
+test('falls back to N-Night Destination when portNames is empty', () => {
+  assert.equal(provider.buildItinerary([], '7', 'Caribbean'), '7-Night Caribbean');
+  assert.equal(provider.buildItinerary(null, '7', 'Caribbean'), '7-Night Caribbean');
+});
+
+test('returns destination only when portNames is empty and nights is absent', () => {
+  assert.equal(provider.buildItinerary([], '', 'Europe'), 'Europe');
+  assert.equal(provider.buildItinerary(null, '', 'Cruise'), 'Cruise');
 });

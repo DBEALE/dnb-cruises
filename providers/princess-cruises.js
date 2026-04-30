@@ -129,21 +129,41 @@ function buildBookingUrl(productId, shipId, sailDate) {
 }
 
 /**
+ * Builds a human-readable itinerary string.
+ *
+ * When `portNames` contains at least one entry the itinerary is expressed as
+ * the ordered port list (e.g. "Southampton → Lisbon → Gibraltar → Barcelona").
+ * Otherwise it falls back to the generic "{N}-Night {Destination}" format so
+ * that existing snapshots continue to render something meaningful before the
+ * next data refresh.
+ *
+ * @param {string[]} portNames   - Ordered list of port names for the itinerary.
+ * @param {string}   nights      - Cruise duration in nights (as a string).
+ * @param {string}   destination - Human-readable destination name.
+ * @returns {string} Itinerary string.
+ */
+function buildItinerary(portNames, nights, destination) {
+  if (portNames && portNames.length > 0) return portNames.join(' → ');
+  return nights ? `${nights}-Night ${destination}` : destination;
+}
+
+/**
  * Normalizes a Princess Cruises product + sailing into a standard cruise object.
  *
- * @param {object} product  - Product entry from the Princess products API.
- * @param {string} sailDate - Eight-digit sail date string.
- * @param {string} shipId   - Princess ship code.
- * @param {string} shipName - Human-readable ship name.
- * @param {string} portName - Human-readable embarkation port name.
+ * @param {object}   product   - Product entry from the Princess products API.
+ * @param {string}   sailDate  - Eight-digit sail date string.
+ * @param {string}   shipId    - Princess ship code.
+ * @param {string}   shipName  - Human-readable ship name.
+ * @param {string}   portName  - Human-readable embarkation port name.
+ * @param {string[]} [portNames=[]] - Ordered list of resolved port names for the full itinerary.
  * @returns {object} Normalized cruise object.
  */
-function normalizeCruise(product, sailDate, shipId, shipName, portName) {
+function normalizeCruise(product, sailDate, shipId, shipName, portName, portNames = []) {
   const productId    = cleanText(product.id);
   const name         = cleanText(shipName);
   const destination  = getDestination(product.trades);
   const nights       = product.cruiseDuration ? String(product.cruiseDuration) : '';
-  const itinerary    = nights ? `${nights}-Night ${destination}` : destination;
+  const itinerary    = buildItinerary(portNames, nights, destination);
 
   return {
     provider:        'Princess Cruises',
@@ -302,6 +322,13 @@ class PrincessCruisesProvider {
       const embarkPortId = product.embkDbkPortIds?.[0];
       const portName     = portMap.get(embarkPortId) || cleanText(embarkPortId);
 
+      // Resolve the ordered port-of-call list from the product's portIds field.
+      // The field may be absent in some API responses, so the list may be empty.
+      const rawPortIds = Array.isArray(product.portIds) ? product.portIds : [];
+      const portNames  = rawPortIds
+        .map(id => portMap.get(id) || cleanText(id))
+        .filter(Boolean);
+
       for (const ship of product.ships) {
         const shipId   = ship.id;
         const shipName = shipMap.get(shipId) || cleanText(shipId);
@@ -311,7 +338,7 @@ class PrincessCruisesProvider {
           if (seen.has(key)) continue;
           seen.add(key);
 
-          const cruise = normalizeCruise(product, sailDate, shipId, shipName, portName);
+          const cruise = normalizeCruise(product, sailDate, shipId, shipName, portName, portNames);
           if (cruise?.id && cruise.shipName) cruises.push(cruise);
         }
       }
@@ -329,5 +356,6 @@ const provider = new PrincessCruisesProvider();
 module.exports               = provider;
 module.exports.normalizeCruise = normalizeCruise;
 module.exports.buildBookingUrl = buildBookingUrl;
+module.exports.buildItinerary  = buildItinerary;
 module.exports.formatSailDate  = formatSailDate;
 module.exports.getDestination  = getDestination;

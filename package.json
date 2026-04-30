@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "build": "node scripts/generate-build-info.js",
-    "test": "node --test test/ui-provider-load.test.js && playwright test",
+    "test": "node --test test/ui-provider-load.test.js test/princess-cruises-provider.test.js && playwright test",
     "test:e2e": "playwright test"
   },
   "dependencies": {
