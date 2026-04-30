@@ -149,14 +149,11 @@ function extractPortsFromSlug(bookingUrl, departurePort) {
       }
     }
 
-    // Remove "to-{destination}-" prefix left over from "from X to Y" URL patterns.
+    // Remove "to-{destination}" prefix left over from "from X to Y" URL patterns.
     // Handles destination names up to four hyphenated words (e.g. "to-new-york-",
-    // "to-fort-lauderdale-"). If the destination has more words the prefix will not be
-    // stripped, leaving a "to-…" fragment that simply produces no ports, which is
-    // acceptable because in practice NCL destination cities have at most three words and
-    // the itinerary title from the page card (which takes priority) already contains the
-    // port names for those cruises.
-    slug = slug.replace(/^to-[a-z]+(?:-[a-z]+){0,3}-/i, '');
+    // "to-auckland", "to-fort-lauderdale-"). Matches with or without a trailing "-"
+    // so that slugs ending in the destination (no further ports) are also stripped.
+    slug = slug.replace(/^to-[a-z]+(?:-[a-z]+){0,3}(?:-|$)/i, '');
 
     if (!slug) return [];
 

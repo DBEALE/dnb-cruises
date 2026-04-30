@@ -109,6 +109,16 @@ test('returns empty array when no port names are in the booking URL slug', () =>
   );
 });
 
+test('returns empty array for "from X to Y" URL with no intermediate port stops', () => {
+  assert.deepEqual(
+    provider.extractPortsFromSlug(
+      'https://www.ncl.com/uk/en/cruises/11-day-australia-and-new-zealand-from-sydney-to-auckland-SPIRIT11SYDQDNBWTMELORRTMUTAUAKL?itineraryCode=SPIRIT11SYDQDNBWTMELORRTMUTAUAKL',
+      'Sydney, Australia'
+    ),
+    []
+  );
+});
+
 test('builds detailed NCL itinerary from base title and port names', () => {
   assert.equal(
     provider.buildDetailedNclItinerary('Western Caribbean', ['Cozumel', 'Costa Maya']),
