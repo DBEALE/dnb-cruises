@@ -4,11 +4,14 @@ const { chromium } = require('@playwright/test');
 
 const { getDepartureRegion } = require('./shared');
 
-const PRINCESS_SEARCH_URL = 'https://www.princess.com/cruise-search/results/?resType=C';
-const PRINCESS_BASE_URL   = 'https://www.princess.com';
-const PRINCESS_API_HOST   = 'gw.api.princess.com';
-const PRINCESS_API_BASE   = 'https://gw.api.princess.com/pcl-web/internal/resdb/p1.0';
-const PRINCESS_PAGE_WAIT_MS = 22000;
+const PRINCESS_SEARCH_URL     = 'https://www.princess.com/cruise-search/results/?resType=C';
+const PRINCESS_BASE_URL       = 'https://www.princess.com';
+const PRINCESS_API_HOST       = 'gw.api.princess.com';
+const PRINCESS_API_BASE       = 'https://gw.api.princess.com/pcl-web/internal/resdb/p1.0';
+/** Maximum milliseconds to wait for page API calls after domcontentloaded. */
+const PRINCESS_PAGE_WAIT_MS   = 25000;
+/** Milliseconds to wait after the first API response to allow subsequent calls to settle. */
+const PRINCESS_SETTLE_WAIT_MS = 4000;
 
 // ─── Destination / trade code mapping ─────────────────────────────────────────
 const TRADE_DESTINATION = {
@@ -180,38 +183,56 @@ async function collectCruiseData() {
   });
   const page = await browser.newPage({
     viewport:  { width: 1440, height: 900 },
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
   });
 
   const apiData  = {};
   let   appId    = null;
   let   clientId = null;
+  let   firstApiResponseAt = 0;
+
+  /** Returns true only when the URL hostname exactly matches the Princess API host. */
+  function isPrincessApiUrl(rawUrl) {
+    try { return new URL(rawUrl).hostname === PRINCESS_API_HOST; }
+    catch { return false; }
+  }
 
   // Capture auth credentials from outgoing requests
   page.on('request', req => {
-    if (!req.url().includes(PRINCESS_API_HOST)) return;
+    if (!isPrincessApiUrl(req.url())) return;
     const h = req.headers();
-    if (h.appid && !appId)              appId    = h.appid;
+    if (h.appid && !appId)               appId    = h.appid;
     if (h['pcl-client-id'] && !clientId) clientId = h['pcl-client-id'];
   });
 
   // Capture JSON responses from the internal API
   page.on('response', async res => {
-    if (!res.url().includes(PRINCESS_API_HOST)) return;
+    if (!isPrincessApiUrl(res.url())) return;
     if (res.status() !== 200) return;
     const ct = res.headers()['content-type'] || '';
     if (!ct.includes('json')) return;
     try {
-      const body = await res.json();
+      const body     = await res.json();
       const pathname = new URL(res.url()).pathname;
       const key      = pathname.split('/').pop().split('?')[0];
-      if (!apiData[key]) apiData[key] = body;
+      if (!apiData[key]) {
+        apiData[key] = body;
+        if (!firstApiResponseAt) firstApiResponseAt = Date.now();
+      }
     } catch { /* ignore parse errors */ }
   });
 
   try {
     await page.goto(PRINCESS_SEARCH_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await page.waitForTimeout(PRINCESS_PAGE_WAIT_MS);
+
+    // Wait until the first Princess API response has been received, then give
+    // additional time for ships/ports responses to arrive.  Fall back to the
+    // maximum timeout when the API is not reached at all.
+    const deadline = Date.now() + PRINCESS_PAGE_WAIT_MS;
+    while (Date.now() < deadline) {
+      await page.waitForTimeout(500);
+      if (firstApiResponseAt && Date.now() - firstApiResponseAt >= PRINCESS_SETTLE_WAIT_MS) break;
+    }
 
     // If some endpoints weren't auto-fetched but we captured credentials, request them
     const needed = ['products', 'ships', 'ports'].filter(k => !apiData[k]);
