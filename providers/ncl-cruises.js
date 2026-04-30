@@ -150,7 +150,9 @@ function extractPortsFromSlug(bookingUrl, departurePort) {
     }
 
     // Remove "to-{destination}-" prefix left over from "from X to Y" URL patterns.
-    slug = slug.replace(/^to-[a-z]+(?:-[a-z]+)?-/i, '');
+    // Handles destination names up to three hyphenated words (e.g. "to-new-york-",
+    // "to-fort-lauderdale-").
+    slug = slug.replace(/^to-[a-z]+(?:-[a-z]+){0,2}-/i, '');
 
     if (!slug) return [];
 
@@ -158,7 +160,11 @@ function extractPortsFromSlug(bookingUrl, departurePort) {
     const andParts = slug.split(/-and-/i);
     const ports = [];
 
-    // All parts before the last -and-: split on "-" (treats each word as a single-word port).
+    // All parts before the last -and-: split on "-" (treats each hyphenated word as a
+    // separate port name). This works correctly for single-word ports such as "Cozumel"
+    // or "Reykjavik". Multi-word ports (e.g. "new-orleans") only appear reliably after
+    // the final "-and-" separator in NCL URL slugs, so they are handled by the last-part
+    // branch below.
     for (let i = 0; i < andParts.length - 1; i++) {
       andParts[i].split('-').forEach(p => {
         const port = formatTitleCase(p);

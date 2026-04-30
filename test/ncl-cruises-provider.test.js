@@ -145,3 +145,19 @@ test('normalizeCruise enriches itinerary with port names from URL slug', () => {
 
   assert.equal(cruise.itinerary, 'Western Caribbean: Cozumel, Costa Maya');
 });
+
+test('normalizeCruise leaves simple itinerary unchanged when URL has no intermediate ports', () => {
+  const cruise = provider.normalizeCruise({
+    code: 'BREAKAWAY7BOSWRFBOS',
+    title: 'Bermuda',
+    shortTitle: 'Bermuda',
+    duration: { text: '7-day Cruise' },
+    currency: 'GBP',
+    ship: { title: 'Norwegian Breakaway' },
+    destination: { title: 'Bermuda' },
+    embarkationPort: { title: 'Boston, Massachusetts' },
+    sailings: [{ departureDate: '2026-06-01', staterooms: [{ combinedPrice: '799.00' }] }],
+  }, 'https://www.ncl.com/uk/en/cruises/7-day-bermuda-round-trip-boston-BREAKAWAY7BOSWRFBOS?itineraryCode=BREAKAWAY7BOSWRFBOS');
+
+  assert.equal(cruise.itinerary, 'Bermuda');
+});
