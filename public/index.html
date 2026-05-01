@@ -394,6 +394,41 @@
 
     td.price a:hover { text-decoration: underline; }
 
+    /* ── Multi-room-type price grid ─────────────────────────────────────────── */
+    .prices-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 100px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      line-height: 1.2;
+    }
+
+    .price-lbl {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      min-width: 36px;
+      flex-shrink: 0;
+    }
+
+    .price-val {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--blue);
+    }
+
+    .price-val.price-from {
+      font-size: 0.95rem;
+    }
+
     td.duration { text-align: center; white-space: nowrap; }
 
     td.book { white-space: nowrap; }
@@ -625,17 +660,42 @@
 
       td.price a {
         display: inline-block;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      td.price a:active { opacity: .85; }
+
+      /* On mobile, multi-price grids flow horizontally */
+      td.price .prices-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px 10px;
+      }
+
+      td.price .price-row {
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      td.price .price-lbl {
+        font-size: 0.58rem;
+      }
+
+      td.price .price-val {
+        font-size: 0.9rem;
+      }
+
+      /* Single fallback price on mobile gets the old button style */
+      td.price a:has(.price-from) {
         padding: 6px 16px;
         background: linear-gradient(135deg, #1d4ed8, #2563eb);
         color: #fff;
         border-radius: 8px;
-        text-decoration: none;
         font-size: 1rem;
         font-weight: 700;
         box-shadow: 0 2px 8px rgba(29,78,216,.3);
       }
-
-      td.price a:active { opacity: .85; }
 
       /* Mobile sort/filter panel */
       #mobileControls {
@@ -1297,6 +1357,35 @@
   }
 
   // ── Render ─────────────────────────────────────────────────────────────────
+  function buildPriceCell(c, url) {
+    const roomTypes = [
+      { key: 'inside',   label: 'Inside'  },
+      { key: 'oceanView',label: 'Sea'     },
+      { key: 'balcony',  label: 'Balcony' },
+      { key: 'suite',    label: 'Suite'   },
+    ];
+    const prices = c.prices || {};
+    const hasMulti = roomTypes.some(rt => prices[rt.key] != null);
+
+    if (hasMulti) {
+      const rows = roomTypes
+        .filter(rt => prices[rt.key] != null)
+        .map(rt => {
+          const formatted = formatPriceDisplay(prices[rt.key], c.currency);
+          return `<div class="price-row"><span class="price-lbl">${escHtml(rt.label)}</span><span class="price-val">${escHtml(formatted)}</span></div>`;
+        })
+        .join('');
+      const grid = `<div class="prices-grid">${rows}</div>`;
+      return url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${grid}</a>` : grid;
+    }
+
+    // Fallback: single price display
+    const price = formatPriceDisplay(c.priceFrom, c.currency);
+    if (price === '—') return '—';
+    const inner = `<span class="price-val price-from">${escHtml(price)}</span>`;
+    return url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${inner}</a>` : inner;
+  }
+
   function renderBody(list) {
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
@@ -1304,14 +1393,11 @@
       return;
     }
     tbody.innerHTML = list.map((c, i) => {
-      const price    = formatPriceDisplay(c.priceFrom, c.currency);
       const date     = formatDateDisplay(c.departureDate);
       const duration = formatDurationDisplay(c.duration);
       const url      = c.bookingUrl ? escHtml(absoluteUrl(c.bookingUrl)) : '';
       const bookCell = url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">Book →</a>` : '—';
-      const priceCell = url && price !== '—'
-        ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${price}</a>`
-        : price;
+      const priceCell = buildPriceCell(c, url);
 
       return `<tr>
         <td class="col-num" data-label="#">${i + 1}</td>

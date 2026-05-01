@@ -42,6 +42,7 @@ test('normalizes Norwegian Cruise Line itinerary details', () => {
     priceFrom: '999',
     currency: 'GBP',
     bookingUrl: 'https://www.ncl.com/uk/en/cruises/british-isles-test-SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU?itineraryCode=SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU',
+    prices: { inside: null, oceanView: null, balcony: null, suite: null },
   });
 });
 

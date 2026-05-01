@@ -57,6 +57,7 @@ test('parses Celebrity Cruises cards from rendered HTML', () => {
     priceFrom: '489',
     currency: 'GBP',
     bookingUrl: 'https://www.celebritycruises.com/gb/itinerary/7-nt-tortola-st-maarten-puerto-plata-from-miami-on-celebrity-BY07E468?sailDate=2026-08-30&packageCode=BY07E468&groupId=BY07MIA-56550375&country=GBR',
+    prices: { inside: null, oceanView: null, balcony: null, suite: null },
   });
   assert.equal(cruises[1].shipName, 'Celebrity Ascent');
   assert.equal(cruises[1].departurePort, 'Rome (Civitavecchia), Italy');
@@ -355,4 +356,55 @@ test('fetchCruises enriches itinerary with port sequence from room-selection API
   } finally {
     global.fetch = originalFetch;
   }
+});
+// ─── Room-type price extraction ────────────────────────────────────────────────
+
+test('classifyRoomType identifies inside / ocean view / balcony / suite entries', () => {
+  assert.equal(provider.classifyRoomType({ id: 'X', name: 'Interior' }), 'inside');
+  assert.equal(provider.classifyRoomType({ id: 'I', name: 'Inside Cabin' }), 'inside');
+  assert.equal(provider.classifyRoomType({ id: 'N', name: 'Ocean View' }), 'oceanView');
+  assert.equal(provider.classifyRoomType({ id: 'OV', name: 'Oceanview' }), 'oceanView');
+  assert.equal(provider.classifyRoomType({ id: 'B', name: 'Balcony' }), 'balcony');
+  assert.equal(provider.classifyRoomType({ id: 'S', name: 'Suite' }), 'suite');
+  assert.equal(provider.classifyRoomType({ id: 'GS', name: 'Grand Suite' }), 'suite');
+  assert.equal(provider.classifyRoomType({ id: 'ZZ', name: 'Unknown' }), null);
+});
+
+test('extractRoomTypePricesFromPayload reads per-class prices from sailing.stateroomClasses', () => {
+  const payload = {
+    sailing: {
+      itinerary: { chapters: [] },
+      stateroomClasses: [
+        { id: 'X', name: 'Interior',   lowestPrice: { amount: 599 } },
+        { id: 'N', name: 'Ocean View', lowestPrice: { amount: 799 } },
+        { id: 'B', name: 'Balcony',    lowestPrice: { amount: 999 } },
+        { id: 'S', name: 'Suite',      lowestPrice: { amount: 1499 } },
+      ],
+    },
+  };
+  assert.deepEqual(provider.extractRoomTypePricesFromPayload(payload), {
+    inside:    '599',
+    oceanView: '799',
+    balcony:   '999',
+    suite:     '1499',
+  });
+});
+
+test('extractRoomTypePricesFromPayload returns all nulls when payload is empty', () => {
+  assert.deepEqual(provider.extractRoomTypePricesFromPayload({}), {
+    inside: null, oceanView: null, balcony: null, suite: null,
+  });
+});
+
+test('extractRoomTypePricesFromPayload reads prices from sailing.categories fallback', () => {
+  const payload = {
+    sailing: {
+      categories: [
+        { classId: 'B', className: 'Balcony', price: { value: 1099 } },
+      ],
+    },
+  };
+  const result = provider.extractRoomTypePricesFromPayload(payload);
+  assert.equal(result.balcony, '1099');
+  assert.equal(result.inside, null);
 });
