@@ -186,7 +186,71 @@ function buildRoomSelectionFilter(context) {
   };
 }
 
-async function fetchRoomSelectionPorts(context) {
+/**
+ * Classifies a stateroom entry from the room-selection API into one of the
+ * four standard room types: inside, oceanView, balcony, or suite.
+ * Returns null when the entry cannot be mapped.
+ *
+ * @param {object} entry - A stateroom-class / category entry from the API payload.
+ * @returns {'inside'|'oceanView'|'balcony'|'suite'|null}
+ */
+function classifyRoomType(entry) {
+  const id   = String(entry?.id   || entry?.classId   || entry?.code  || entry?.type  || '').toUpperCase();
+  const name = String(entry?.name || entry?.className || entry?.label || '').toLowerCase();
+
+  if (/^(x|i|int|interior|inside)$/.test(id) || /\b(interior|inside)\b/.test(name))   return 'inside';
+  if (/^(n|o|ov|ocean|oceanview|seaview|seaView)$/.test(id) || /\b(ocean.?view|sea.?view|oceanfront)\b/.test(name)) return 'oceanView';
+  if (/^(b|bal|balcony)$/.test(id) || /\bbalcony\b/.test(name))                        return 'balcony';
+  if (/^(s|gs|js|suite|suites)$/.test(id) || /\bsuite\b/.test(name))                  return 'suite';
+  return null;
+}
+
+/**
+ * Extracts a per-person price amount from various possible price object shapes
+ * returned by the Royal Caribbean room-selection API.
+ *
+ * @param {*} priceObj - Price field from an API stateroom entry.
+ * @returns {number|null} Rounded price in the sailing currency, or null.
+ */
+function extractPriceFromEntry(priceObj) {
+  if (!priceObj) return null;
+  // Scalar value
+  const scalar = parseFloat(priceObj?.amount ?? priceObj?.value ?? priceObj?.fare ?? (typeof priceObj === 'number' ? priceObj : null));
+  if (Number.isFinite(scalar) && scalar > 0) return Math.round(scalar * 100) / 100;
+  return null;
+}
+
+/**
+ * Extracts per-room-type prices from a room-selection API payload.
+ * Handles the various response shapes used by Royal Caribbean / Celebrity.
+ *
+ * @param {object} payload - Parsed JSON response from the room-selection API.
+ * @returns {{ inside: string|null, oceanView: string|null, balcony: string|null, suite: string|null }}
+ */
+function extractRoomTypePricesFromPayload(payload) {
+  const prices = { inside: null, oceanView: null, balcony: null, suite: null };
+
+  // Try multiple locations where stateroom-class pricing may appear
+  const candidates = [
+    ...(Array.isArray(payload?.sailing?.stateroomClasses) ? payload.sailing.stateroomClasses : []),
+    ...(Array.isArray(payload?.sailing?.categories)       ? payload.sailing.categories       : []),
+    ...(Array.isArray(payload?.stateroomClasses)          ? payload.stateroomClasses          : []),
+    ...(Array.isArray(payload?.categories)                ? payload.categories                : []),
+  ];
+
+  for (const entry of candidates) {
+    const type = classifyRoomType(entry);
+    if (!type || prices[type] !== null) continue;
+
+    const priceField = entry?.lowestPrice ?? entry?.price ?? entry?.perPersonPrice ?? entry?.startingFrom ?? entry?.fare;
+    const amount = extractPriceFromEntry(priceField);
+    if (amount !== null) prices[type] = String(amount);
+  }
+
+  return prices;
+}
+
+async function fetchRoomSelectionData(context) {
   const filter = buildRoomSelectionFilter(context);
   const params = new URLSearchParams({
     filter: JSON.stringify(filter),
@@ -203,10 +267,19 @@ async function fetchRoomSelectionPorts(context) {
     },
   });
 
-  if (!response.ok) return [];
+  if (!response.ok) return { ports: [], prices: { inside: null, oceanView: null, balcony: null, suite: null } };
 
   const payload = await response.json();
-  return extractPortSequenceFromChapters(payload?.sailing?.itinerary?.chapters);
+  return {
+    ports:  extractPortSequenceFromChapters(payload?.sailing?.itinerary?.chapters),
+    prices: extractRoomTypePricesFromPayload(payload),
+  };
+}
+
+/** @deprecated Use fetchRoomSelectionData instead. */
+async function fetchRoomSelectionPorts(context) {
+  const { ports } = await fetchRoomSelectionData(context);
+  return ports;
 }
 
 function normalizeCruise(cruise) {
@@ -230,6 +303,7 @@ function normalizeCruise(cruise) {
     priceFrom:       price?.value != null ? String(price.value) : '',
     currency:        price?.currency?.code || 'USD',
     bookingUrl:      resolveBookingUrl(sailing?.bookingLink || cruise?.productViewLink || ''),
+    prices:          { inside: null, oceanView: null, balcony: null, suite: null },
   };
 }
 
@@ -240,11 +314,19 @@ async function enrichCruiseItinerary(cruise) {
   if (!context) return cruise;
 
   try {
-    const ports = await fetchRoomSelectionPorts(context);
+    const { ports, prices } = await fetchRoomSelectionData(context);
     const detailedItinerary = buildDetailedItinerary(cruise.itinerary, ports);
 
-    if (!detailedItinerary || detailedItinerary === cruise.itinerary) return cruise;
-    return { ...cruise, itinerary: detailedItinerary };
+    const updatedPrices = { ...cruise.prices };
+    for (const type of ['inside', 'oceanView', 'balcony', 'suite']) {
+      if (prices[type] !== null) updatedPrices[type] = prices[type];
+    }
+
+    return {
+      ...cruise,
+      itinerary: detailedItinerary || cruise.itinerary,
+      prices: updatedPrices,
+    };
   } catch {
     return cruise;
   }
@@ -326,9 +408,11 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
 
 const provider = new RoyalCaribbeanProvider();
 
-provider.extractPortSequenceFromChapters = extractPortSequenceFromChapters;
-provider.buildDetailedItinerary = buildDetailedItinerary;
-provider.resolveBookingUrl = resolveBookingUrl;
-provider.parseBookingContext = parseBookingContext;
+provider.extractPortSequenceFromChapters  = extractPortSequenceFromChapters;
+provider.extractRoomTypePricesFromPayload = extractRoomTypePricesFromPayload;
+provider.classifyRoomType                 = classifyRoomType;
+provider.buildDetailedItinerary           = buildDetailedItinerary;
+provider.resolveBookingUrl                = resolveBookingUrl;
+provider.parseBookingContext              = parseBookingContext;
 
 module.exports = provider;

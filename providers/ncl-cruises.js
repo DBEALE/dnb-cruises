@@ -322,6 +322,7 @@ function normalizeCruise(detail, bookingUrl) {
     priceFrom: getLowestPrice(detail)?.toString() || '',
     currency: cleanText(detail?.currency) || 'GBP',
     bookingUrl: resolveUrl(bookingUrl),
+    prices: { inside: null, oceanView: null, balcony: null, suite: null },
   };
 }
 

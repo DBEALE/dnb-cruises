@@ -36,6 +36,7 @@ test('normalizes a Princess Cruises product + sailing into a standard cruise obj
     priceFrom:       '',
     currency:        'GBP',
     bookingUrl:      'https://www.princess.com/cruise-search/results/?resType=C',
+    prices:          { inside: null, oceanView: null, balcony: null, suite: null },
   });
 });
 

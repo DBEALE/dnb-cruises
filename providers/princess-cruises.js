@@ -297,6 +297,7 @@ function normalizeCruise(product, sailDate, shipId, shipName, portName, portName
     priceFrom,
     currency,
     bookingUrl:      buildBookingUrl(voyageId),
+    prices:          { inside: null, oceanView: null, balcony: null, suite: null },
   };
 }
 
