@@ -30,6 +30,10 @@ const CELEBRITY_SEARCH_QUERY = `query cruiseSearch_CruisesRiver($filters: String
               }
             }
           }
+          stateroomClassPricing {
+            stateroomClass { name }
+            price { value currency { code } }
+          }
         }
         displaySailing {
           bookingLink
@@ -41,6 +45,10 @@ const CELEBRITY_SEARCH_QUERY = `query cruiseSearch_CruisesRiver($filters: String
                 code
               }
             }
+          }
+          stateroomClassPricing {
+            stateroomClass { name }
+            price { value currency { code } }
           }
         }
         masterSailing {
@@ -208,7 +216,7 @@ function normalizeCruise(cruise) {
     priceFrom: price?.value != null ? String(price.value) : '',
     currency: price?.currency?.code || 'GBP',
     bookingUrl: resolveBookingUrl(sailing?.bookingLink || cruise?.productViewLink || ''),
-    prices: { inside: null, oceanView: null, balcony: null, suite: null },
+    prices: extractPricesFromClassPricing(sailing?.stateroomClassPricing),
   };
 }
 
@@ -295,10 +303,10 @@ function classifyRoomType(entry) {
   const id   = String(entry?.id   || entry?.classId   || entry?.code  || entry?.type  || '').toUpperCase();
   const name = String(entry?.name || entry?.className || entry?.label || '').toLowerCase();
 
-  if (/^(x|i|int|interior|inside)$/.test(id) || /\b(interior|inside)\b/.test(name))   return 'inside';
-  if (/^(n|o|ov|ocean|oceanview|seaview|seaView)$/.test(id) || /\b(ocean.?view|sea.?view|oceanfront)\b/.test(name)) return 'oceanView';
-  if (/^(b|bal|balcony)$/.test(id) || /\bbalcony\b/.test(name))                        return 'balcony';
-  if (/^(s|gs|js|suite|suites)$/.test(id) || /\bsuite\b/.test(name))                  return 'suite';
+  if (/^(x|i|int|interior|inside)$/i.test(id) || /\b(interior|inside)\b/.test(name))         return 'inside';
+  if (/^(n|o|ov|ocean|oceanview|seaview)$/i.test(id) || /\b(ocean.?view|sea.?view|oceanfront|outside.?view)\b/.test(name)) return 'oceanView';
+  if (/^(b|bal|balcony)$/i.test(id) || /\b(balcony|veranda)\b/.test(name))                   return 'balcony';
+  if (/^(s|gs|js|suite|suites)$/i.test(id) || /\b(suite|retreat)\b/.test(name))              return 'suite';
   return null;
 }
 
@@ -343,6 +351,18 @@ function extractRoomTypePricesFromPayload(payload) {
   return prices;
 }
 
+function extractPricesFromClassPricing(stateroomClassPricing) {
+  const prices = { inside: null, oceanView: null, balcony: null, suite: null };
+  if (!Array.isArray(stateroomClassPricing)) return prices;
+  for (const item of stateroomClassPricing) {
+    const type = classifyRoomType({ name: item?.stateroomClass?.name || '' });
+    if (!type || prices[type] !== null) continue;
+    const value = item?.price?.value;
+    if (value != null) prices[type] = String(value);
+  }
+  return prices;
+}
+
 async function fetchRoomSelectionData(context) {
   const filter = buildRoomSelectionFilter(context);
   const params = new URLSearchParams({
@@ -382,19 +402,9 @@ async function enrichCruiseItinerary(cruise) {
   if (!context) return cruise;
 
   try {
-    const { ports, prices } = await fetchRoomSelectionData(context);
+    const { ports } = await fetchRoomSelectionData(context);
     const detailedItinerary = buildDetailedItinerary(cruise.itinerary, ports);
-
-    const updatedPrices = { ...cruise.prices };
-    for (const type of ['inside', 'oceanView', 'balcony', 'suite']) {
-      if (prices[type] !== null) updatedPrices[type] = prices[type];
-    }
-
-    return {
-      ...cruise,
-      itinerary: detailedItinerary || cruise.itinerary,
-      prices: updatedPrices,
-    };
+    return { ...cruise, itinerary: detailedItinerary || cruise.itinerary };
   } catch {
     return cruise;
   }

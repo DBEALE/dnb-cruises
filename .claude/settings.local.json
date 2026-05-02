@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(pkill -f \"node server.js\")",
-      "Bash(node server.js)"
+      "Bash(node server.js)",
+      "Bash(node -e ' *)",
+      "Bash(node scripts/fetch-cruises.js royal-caribbean celebrity-cruises)",
+      "Bash(node scripts/fetch-cruises.js celebrity-cruises)",
+      "Bash(npm test *)"
     ]
   }
 }

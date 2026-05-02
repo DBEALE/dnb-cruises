@@ -29,6 +29,12 @@ npm start
 
 Then open **http://localhost:3000** in your browser and click **Fetch Cruises**.
 
+To manually refresh all provider cruise data locally, run:
+
+```bash
+node scripts/fetch-cruises.js
+```
+
 > The first fetch can take up to 90 seconds because Puppeteer launches a full headless Chrome instance to render the dynamic page.
 
 ### Deploy to GitHub Pages
