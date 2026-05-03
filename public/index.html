@@ -829,6 +829,165 @@
     }
 
     .table-card { animation: fadeUp .35s ease both; }
+
+    /* ── Notify Me button ───────────────────────────────────────────────────── */
+    #notifyBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s, transform .1s;
+      white-space: nowrap;
+    }
+    #notifyBtn:hover  { background: #1e40af; }
+    #notifyBtn:active { transform: scale(.97); }
+
+    /* ── Modal overlay ──────────────────────────────────────────────────────── */
+    #notifyModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+      backdrop-filter: blur(3px);
+    }
+    #notifyModal[hidden] { display: none; }
+
+    .notify-box {
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      width: 100%;
+      max-width: 460px;
+      padding: 28px;
+      position: relative;
+    }
+
+    .notify-box h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .notify-box p {
+      font-size: 0.84rem;
+      color: var(--gray-600);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    #notifyCriteriaSummary {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: var(--gray-600);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    #notifyCriteriaSummary strong { color: var(--gray-800); }
+    #notifyCriteriaSummary em     { color: var(--gray-400); font-style: normal; }
+
+    .notify-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 16px;
+    }
+
+    .notify-field label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+
+    .notify-field input {
+      padding: 9px 12px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color .15s;
+    }
+    .notify-field input:focus { border-color: var(--blue); }
+
+    .notify-field small {
+      font-size: 0.76rem;
+      color: var(--gray-400);
+    }
+
+    #notifyError {
+      font-size: 0.8rem;
+      color: #dc2626;
+      margin-bottom: 12px;
+      min-height: 1.2em;
+    }
+
+    .notify-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    #notifySubmit {
+      padding: 9px 20px;
+      background: var(--blue);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    #notifySubmit:hover    { background: #1e40af; }
+    #notifySubmit:disabled { background: var(--gray-400); cursor: not-allowed; }
+
+    #notifyCancelBtn {
+      padding: 9px 16px;
+      background: var(--gray-100);
+      color: var(--gray-600);
+      border: none;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #notifyCancelBtn:hover { background: var(--gray-200); }
+
+    #notifySuccess {
+      text-align: center;
+      padding: 12px 0 4px;
+    }
+    #notifySuccess .success-icon { font-size: 2.4rem; margin-bottom: 8px; }
+    #notifySuccess h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    #notifySuccess p  { font-size: 0.83rem; color: var(--gray-600); margin: 0; }
+
+    #notifyCloseSuccess {
+      display: block;
+      margin: 18px auto 0;
+      padding: 9px 24px;
+      background: var(--gray-100);
+      color: var(--gray-700);
+      border: none;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #notifyCloseSuccess:hover { background: var(--gray-200); }
   </style>
 </head>
 <body>
@@ -882,6 +1041,7 @@
         </div>
       </label>
       <span id="rateNote"></span>
+      <button id="notifyBtn" onclick="openNotifyModal()">🔔 Notify Me</button>
     </div>
   </div>
 
@@ -1055,6 +1215,40 @@
       </table>
     </div>
   </div>
+  <!-- Notify Me modal -->
+  <div id="notifyModal" hidden role="dialog" aria-modal="true" aria-labelledby="notifyTitle">
+    <div class="notify-box">
+
+      <div id="notifyForm">
+        <h2 id="notifyTitle">🔔 Notify Me on WhatsApp</h2>
+        <p>You'll receive a one-off WhatsApp message when new cruises matching your current filters appear. Reply <strong>CONTINUE</strong> to keep alerts going.</p>
+
+        <div id="notifyCriteriaSummary"></div>
+
+        <div class="notify-field">
+          <label for="notifyPhone">WhatsApp number</label>
+          <input id="notifyPhone" type="tel" placeholder="+447700900123" autocomplete="tel" />
+          <small>International format including country code, e.g. +44 for UK</small>
+        </div>
+
+        <div id="notifyError"></div>
+
+        <div class="notify-actions">
+          <button id="notifyCancelBtn" onclick="closeNotifyModal()">Cancel</button>
+          <button id="notifySubmit" onclick="submitNotify()">Subscribe</button>
+        </div>
+      </div>
+
+      <div id="notifySuccess" hidden>
+        <div class="success-icon">✅</div>
+        <h3>You're subscribed!</h3>
+        <p>We'll WhatsApp you when new matching cruises appear.<br>Reply <strong>CONTINUE</strong> to keep alerts after the first one.</p>
+        <button id="notifyCloseSuccess" onclick="closeNotifyModal()">Done</button>
+      </div>
+
+    </div>
+  </div>
+
 </main>
 
 <footer>
@@ -1594,6 +1788,109 @@
     return String(str)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;')
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  // ── Notify Me ──────────────────────────────────────────────────────────────
+
+  const SUBSCRIBE_URL = 'https://yttgqscwgmsnewdjqbcc.supabase.co/functions/v1/subscribe';
+
+  const CRITERIA_LABELS = {
+    shipName:        'Ship',
+    provider:        'Cruise line',
+    shipClass:       'Ship class',
+    minLaunch:       'Min launch year',
+    itinerary:       'Itinerary',
+    destination:     'Destination',
+    departureDate:   'Departure',
+    duration:        'Min nights',
+    departurePort:   'Departure port',
+    departureRegion: 'Region',
+    maxPrice:        'Max price (£)',
+  };
+
+  function getCurrentCriteria() {
+    const seen = new Set();
+    const criteria = {};
+    document.querySelectorAll('[data-field]').forEach(el => {
+      const field = el.dataset.field;
+      if (seen.has(field)) return;
+      const val = el.value.trim();
+      if (!val) return;
+      seen.add(field);
+      if (['minLaunch', 'duration', 'maxPrice'].includes(field)) {
+        const n = parseFloat(val);
+        if (!isNaN(n)) criteria[field] = n;
+      } else {
+        criteria[field] = val;
+      }
+    });
+    return criteria;
+  }
+
+  function openNotifyModal() {
+    const criteria = getCurrentCriteria();
+    const entries  = Object.entries(criteria);
+
+    const summary = document.getElementById('notifyCriteriaSummary');
+    if (entries.length === 0) {
+      summary.innerHTML = '<em>No filters active — you will be notified about any new cruise.</em>';
+    } else {
+      summary.innerHTML = '<strong>Active filters:</strong><br>' +
+        entries.map(([k, v]) => `${CRITERIA_LABELS[k] ?? k}: <strong>${escHtml(String(v))}</strong>`).join(' · ');
+    }
+
+    document.getElementById('notifyForm').hidden    = false;
+    document.getElementById('notifySuccess').hidden = true;
+    document.getElementById('notifyError').textContent = '';
+    document.getElementById('notifyPhone').value    = '';
+    document.getElementById('notifyModal').hidden   = false;
+    document.getElementById('notifyPhone').focus();
+  }
+
+  function closeNotifyModal() {
+    document.getElementById('notifyModal').hidden = true;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeNotifyModal();
+  });
+
+  async function submitNotify() {
+    const phone   = document.getElementById('notifyPhone').value.trim();
+    const errEl   = document.getElementById('notifyError');
+    const btn     = document.getElementById('notifySubmit');
+    errEl.textContent = '';
+
+    if (!/^\+\d{7,15}$/.test(phone)) {
+      errEl.textContent = 'Please enter a valid number in international format, e.g. +447700900123';
+      return;
+    }
+
+    btn.disabled      = true;
+    btn.textContent   = 'Subscribing…';
+
+    try {
+      const res = await fetch(SUBSCRIBE_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          whatsappNumber: phone,
+          criteria:       getCurrentCriteria(),
+          seenCruiseIds:  allCruises.map(c => c.id).filter(Boolean),
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Subscription failed');
+
+      document.getElementById('notifyForm').hidden    = true;
+      document.getElementById('notifySuccess').hidden = false;
+    } catch (err) {
+      errEl.textContent = err.message;
+    } finally {
+      btn.disabled    = false;
+      btn.textContent = 'Subscribe';
+    }
   }
 </script>
 </body>
