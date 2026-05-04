@@ -32,7 +32,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { whatsappNumber, criteria, seenCruiseIds } = await req.json();
+    const { whatsappNumber, criteria } = await req.json();
 
     if (!whatsappNumber || !/^\+\d{7,15}$/.test(whatsappNumber)) {
       return new Response(
@@ -47,19 +47,6 @@ Deno.serve(async (req) => {
       active:          true,
     });
     const sub = Array.isArray(rows) ? rows[0] : rows;
-
-    if (Array.isArray(seenCruiseIds) && seenCruiseIds.length > 0) {
-      const seenRows = seenCruiseIds
-        .filter((id: unknown) => typeof id === 'string' && id.length > 0)
-        .map((id: string) => ({ subscription_id: sub.id, cruise_id: id }));
-      if (seenRows.length > 0) {
-        try {
-          await dbFetch('POST', 'seen_cruises', seenRows);
-        } catch (e) {
-          console.error('seen_cruises insert failed:', e);
-        }
-      }
-    }
 
     return new Response(
       JSON.stringify({ success: true, id: sub.id }),
