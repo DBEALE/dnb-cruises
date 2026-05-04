@@ -1,9 +1,26 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'content-type',
 };
+
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
+const SERVICE_KEY  = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+
+async function dbFetch(method: string, path: string, body?: unknown) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    method,
+    headers: {
+      'Authorization': `Bearer ${SERVICE_KEY}`,
+      'apikey':        SERVICE_KEY,
+      'Content-Type':  'application/json',
+      'Prefer':        'return=representation',
+    },
+    body: body != null ? JSON.stringify(body) : undefined,
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`DB ${method} ${path} → ${res.status}: ${text}`);
+  return text ? JSON.parse(text) : null;
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -23,27 +40,23 @@ Deno.serve(async (req) => {
       );
     }
 
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
-    );
+    const [sub] = await dbFetch('POST', 'subscriptions', {
+      whatsapp_number: whatsappNumber,
+      criteria:        criteria ?? {},
+      active:          true,
+    });
 
-    const { data: sub, error: subErr } = await supabase
-      .from('subscriptions')
-      .insert({ whatsapp_number: whatsappNumber, criteria: criteria ?? {}, active: true })
-      .select('id')
-      .single();
-
-    if (subErr) throw subErr;
-
-    // Seed all currently-known cruise IDs as seen so the user is only notified about future new cruises
+    // Seed currently-known cruise IDs so user is only notified about future new cruises
     if (Array.isArray(seenCruiseIds) && seenCruiseIds.length > 0) {
       const rows = seenCruiseIds
         .filter((id: unknown) => typeof id === 'string' && id.length > 0)
         .map((id: string) => ({ subscription_id: sub.id, cruise_id: id }));
       if (rows.length > 0) {
-        const { error: seenErr } = await supabase.from('seen_cruises').insert(rows);
-        if (seenErr) console.error('seen_cruises insert error:', seenErr.message);
+        try {
+          await dbFetch('POST', 'seen_cruises', rows);
+        } catch (e) {
+          console.error('seen_cruises insert failed:', e);
+        }
       }
     }
 
@@ -52,8 +65,10 @@ Deno.serve(async (req) => {
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
     );
   } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('subscribe error:', message);
     return new Response(
-      JSON.stringify({ error: (err as Error).message }),
+      JSON.stringify({ error: message }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
     );
   }
