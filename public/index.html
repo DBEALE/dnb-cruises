@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cruise Explorer</title>
+  <link rel="icon" href="data:,">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1410,7 +1411,7 @@
     loadData();
     fetchGBPRate();
 
-    fetch(resolveStaticUrl('/build-info.json'), { cache: 'no-store' })
+    fetch(resolveStaticUrl('./build-info.json'), { cache: 'no-store' })
       .then(r => r.ok ? r.json() : null)
       .then(info => {
         if (!info?.builtAt) return;

@@ -42,6 +42,9 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
+      - name: Generate build info
+        run: node scripts/generate-build-info.js
+
       - name: Fetch cruise data
         run: node scripts/fetch-cruises.js
         env:
