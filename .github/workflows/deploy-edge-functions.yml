@@ -17,6 +17,8 @@ jobs:
           version: latest
 
       - name: Deploy edge functions
-        run: supabase functions deploy --project-ref yttgqscwgmsnewdjqbcc
+        run: |
+          supabase functions deploy subscribe --project-ref yttgqscwgmsnewdjqbcc --no-verify-jwt
+          supabase functions deploy twilio-webhook --project-ref yttgqscwgmsnewdjqbcc --no-verify-jwt
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
