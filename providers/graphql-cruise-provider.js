@@ -16,7 +16,7 @@ class GraphQLCruiseProvider {
     requestTimeoutLabel,
     progressPrefix,
     dedupeById = true,
-    requestDelayMs = 500,
+    requestDelayMs = 100,
   }) {
     this.name = name;
     this.id = id;

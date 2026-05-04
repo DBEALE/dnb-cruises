@@ -212,21 +212,26 @@ async function main() {
   } catch {}
   console.log(`Exchange rate: 1 USD = £${usdToGbp.toFixed(4)}`);
 
-  // Fetch from all active providers
-  const allCruises = [];
-  const providerSnapshots = [];
+  // Fetch from all active providers in parallel
   const scrapedAt = new Date().toISOString();
-  for (const provider of activeProviders) {
-    console.log(`\nFetching from ${provider.name}…`);
-    try {
-      const cruises = await provider.fetchCruises();
-      console.log(`  ✓ ${cruises.length} cruises from ${provider.name}`);
-      allCruises.push(...cruises);
-      providerSnapshots.push({ provider, cruises });
-    } catch (err) {
-      console.error(`  ✗ ${provider.name} failed: ${err.message}`);
-    }
-  }
+  const settled = await Promise.allSettled(
+    activeProviders.map(async provider => {
+      console.log(`Fetching from ${provider.name}…`);
+      try {
+        const cruises = await provider.fetchCruises();
+        console.log(`  ✓ ${cruises.length} cruises from ${provider.name}`);
+        return { provider, cruises };
+      } catch (err) {
+        console.error(`  ✗ ${provider.name} failed: ${err.message}`);
+        throw err;
+      }
+    })
+  );
+
+  const providerSnapshots = settled
+    .filter(r => r.status === 'fulfilled')
+    .map(r => r.value);
+  const allCruises = providerSnapshots.flatMap(s => s.cruises);
 
   // Write provider-specific outputs plus a manifest for the frontend
   for (const { provider, cruises } of providerSnapshots) {

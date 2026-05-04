@@ -10,7 +10,7 @@ const PRINCESS_API_HOST       = 'gw.api.princess.com';
 const PRINCESS_API_BASE       = 'https://gw.api.princess.com/pcl-web/internal/resdb/p1.0';
 const PRINCESS_PRICING_URL    = 'https://gw.api.princess.com/pcl-web/internal/caps/pc/pricing/v1/cruises';
 /** Maximum milliseconds to wait for page API calls after domcontentloaded. */
-const PRINCESS_PAGE_WAIT_MS   = 25000;
+const PRINCESS_PAGE_WAIT_MS   = 12000;
 /** Milliseconds to wait after the first API response to allow subsequent calls to settle. */
 const PRINCESS_SETTLE_WAIT_MS = 4000;
 /** Voyage IDs per pricing POST request. */

@@ -6,7 +6,7 @@ const { getDepartureRegion } = require('./shared');
 
 const NCL_BASE_URL = 'https://www.ncl.com';
 const NCL_CRUISES_URL = 'https://www.ncl.com/uk/en/vacations';
-const NCL_PAGE_WAIT_MS = 1200;
+const NCL_PAGE_WAIT_MS = 800;
 const NCL_MAX_PAGINATION_STEPS = 60;
 
 const SHIP_CLASS = {
