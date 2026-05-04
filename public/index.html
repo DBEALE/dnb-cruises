@@ -383,8 +383,7 @@
 
     th.col-price,
     td.col-price {
-      width: 200px;
-      min-width: 200px;
+      min-width: 175px;
     }
 
     td.price {
@@ -403,14 +402,15 @@
 
     /* ── Multi-room-type price grid ─────────────────────────────────────────── */
     .prices-grid {
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
       gap: 3px;
-      min-width: 100px;
+      min-width: 160px;
     }
 
     .price-row {
-      display: flex;
+      display: grid;
+      grid-template-columns: 56px 1fr;
       align-items: center;
       gap: 5px;
       line-height: 1.2;
@@ -422,8 +422,7 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--gray-400);
-      min-width: 52px;
-      flex-shrink: 0;
+      overflow: hidden;
     }
 
     .price-val {
