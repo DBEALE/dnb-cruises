@@ -410,8 +410,7 @@
     }
 
     .price-row {
-      display: grid;
-      grid-template-columns: 56px 1fr;
+      display: flex;
       align-items: center;
       gap: 5px;
       line-height: 1.2;
@@ -423,7 +422,8 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--gray-400);
-      overflow: hidden;
+      width: 56px;
+      flex-shrink: 0;
     }
 
     .price-val {
