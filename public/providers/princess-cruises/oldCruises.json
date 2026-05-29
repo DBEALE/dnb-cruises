@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 177,
+  "count": 181,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -3831,35 +3831,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ASG070_RP_20260613",
-      "shipName": "Royal Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2013,
-      "itinerary": "Seattle, Washington → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Ketchikan, Alaska → Victoria, Canada → Seattle, Washington",
-      "departureDate": "2026-06-13",
-      "duration": "7 Nights",
-      "departurePort": "Seattle, Washington",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "999",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1626",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 999
-        }
-      ],
-      "lastSeenAt": "2026-05-29T11:23:56.779Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_CFR14J_GP_20260808",
       "shipName": "Regal Princess",
       "shipClass": "Royal",
@@ -4147,6 +4118,189 @@
         }
       ],
       "lastSeenAt": "2026-05-29T14:53:57.578Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ASG070_RP_20260530",
+      "shipName": "Royal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2013,
+      "itinerary": "Seattle, Washington → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Ketchikan, Alaska → Victoria, Canada → Seattle, Washington",
+      "departureDate": "2026-05-30",
+      "duration": "7 Nights",
+      "departurePort": "Seattle, Washington",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "898",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1624",
+      "prices": {
+        "inside": "898",
+        "oceanView": null,
+        "balcony": "1599",
+        "suite": "2589"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 898,
+            "balcony": 1599,
+            "suite": 2589
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T18:29:37.417Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AYR14A_AP_20260905",
+      "shipName": "Grand Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 1998,
+      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Skagway, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
+      "departureDate": "2026-09-05",
+      "duration": "14 Nights",
+      "departurePort": "Vancouver, Canada",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "1459",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A635A",
+      "prices": {
+        "inside": "1459",
+        "oceanView": "1782",
+        "balcony": "5048",
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1338
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1459,
+            "oceanView": 1782,
+            "balcony": 5048
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T18:29:37.417Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ERA07G_SU_20260905",
+      "shipName": "Sun Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2024,
+      "itinerary": "Civitavecchia (for Rome), Italy → Naples, Italy (for Capri & Pompeii) → Crete (Chania), Greece → Kusadasi, Turkey (for Ephesus) → Mykonos, Greece → Athens (Piraeus), Greece",
+      "departureDate": "2026-09-05",
+      "duration": "7 Nights",
+      "departurePort": "Civitavecchia (for Rome), Italy",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "929",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=U635",
+      "prices": {
+        "inside": "929",
+        "oceanView": "1129",
+        "balcony": null,
+        "suite": "1404"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 929
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 929,
+            "oceanView": 1129,
+            "suite": 1404
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T18:29:37.417Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_TFR12A_CB_20261030",
+      "shipName": "Caribbean Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Ft. Lauderdale, Florida → Curacao → Cartagena, Colombia → Panama Canal Partial Transit New Locks → Colon, Panama → Limon, Costa Rica → Celebration Key, Bahamas → Ft. Lauderdale, Florida",
+      "departureDate": "2026-10-30",
+      "duration": "12 Nights",
+      "departurePort": "Ft. Lauderdale, Florida",
+      "departureRegion": "Americas",
+      "destination": "South Pacific",
+      "priceFrom": "899",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=B637",
+      "prices": {
+        "inside": "899",
+        "oceanView": "1099",
+        "balcony": "1599",
+        "suite": "2469"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 899
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 1099,
+            "balcony": 1599,
+            "suite": 2469
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T18:29:37.417Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_EAT31D_EX_20270904",
+      "shipName": "Enchanted Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2020,
+      "itinerary": "Athens (Piraeus), Greece → Santorini, Greece → Crete (Chania), Greece → Katakolon (for Olympia), Greece → Sicily (Messina), Italy → Valletta, Malta → Dubrovnik, Croatia → Kotor, Montenegro → Kotor, Montenegro → Split, Croatia → Trieste (for Venice), Italy → Zadar, Croatia → Bar, Montenegro → Kotor, Montenegro → Kotor, Montenegro → Corfu, Greece → Valletta, Malta → Sicily (Palermo), Italy → Sicily (Messina), Italy → Naples, Italy (for Capri & Pompeii) → Civitavecchia (for Rome), Italy → Livorno (for Florence/Pisa), Italy → Corsica (Ajaccio), France → Sardinia (Alghero), Italy → Valletta, Malta → Kotor, Montenegro → Dubrovnik, Croatia → Split, Croatia → Trieste (for Venice), Italy",
+      "departureDate": "2027-09-04",
+      "duration": "31 Nights",
+      "departurePort": "Athens (Piraeus), Greece",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "6777",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N727B",
+      "prices": {
+        "inside": "6777",
+        "oceanView": "9914",
+        "balcony": "10003",
+        "suite": "11847"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 6777
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 6777,
+            "oceanView": 9914,
+            "balcony": 10003,
+            "suite": 11847
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T18:29:37.417Z"
     }
   ]
 }

@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 63,
+  "count": 65,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -1433,32 +1433,123 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_SR07YVR-2251394957",
-      "shipName": "Serenade of the Seas",
+      "id": "rc_BR07TRS-4049809292",
+      "shipName": "Brilliance of the Seas",
       "shipClass": "Radiance",
-      "shipLaunchYear": 2003,
-      "itinerary": "Alaska Inside Passage Cruise: Inside Passage (Cruising), Canada, Endicott Arm & Dawes Glacier (Cruising), Alaska, Juneau, Alaska, Ketchikan, Alaska, Prince Rupert, British Columbia",
-      "departureDate": "2026-07-26",
+      "shipLaunchYear": 2002,
+      "itinerary": "Italy, Croatia & The Adriatic: Koper, Slovenia, Split, Croatia, Dubrovnik, Croatia, Kotor, Montenegro, Naples / Capri, Italy, Rome (Civitavecchia), Italy",
+      "departureDate": "2026-08-10",
       "duration": "7 Nights",
-      "departurePort": "Vancouver",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "2039.07",
+      "departurePort": "Trieste",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "1064.47",
       "currency": "USD",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=SR07YVR-2251394957&sailDate=2026-07-26&shipCode=SR&packageCode=SR07A424&destinationCode=ALCAN&selectedCurrencyCode=USD&country=USA",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=BR07TRS-4049809292&sailDate=2026-08-10&shipCode=BR&packageCode=BR07M816&destinationCode=EUROP&selectedCurrencyCode=USD&country=USA",
       "prices": {
-        "inside": "2039.07",
-        "oceanView": "2582.07",
-        "balcony": "3133.07",
+        "inside": "1064.47",
+        "oceanView": "1554.47",
+        "balcony": "1866.97",
+        "suite": "4096.47"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1064.47
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1064.47,
+            "oceanView": 1554.47,
+            "balcony": 1866.97,
+            "suite": 4096.47
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T18:29:37.417Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LE07ROM-1515208124",
+      "shipName": "Legend of the Seas",
+      "shipClass": "",
+      "shipLaunchYear": null,
+      "itinerary": "Western Mediterranean: Naples / Capri, Italy, Provence (Marseille), France, Palma De Mallorca, Spain, Barcelona, Spain",
+      "departureDate": "2026-07-18",
+      "duration": "7 Nights",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "3115.33",
+      "currency": "USD",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LE07ROM-1515208124&sailDate=2026-07-18&shipCode=LE&packageCode=LE07M873&destinationCode=EUROP&selectedCurrencyCode=USD&country=USA",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "3115.33",
         "suite": null
       },
       "priceHistory": [
         {
           "at": "2026-05-29T09:33:04.484Z",
-          "price": 2039.07
+          "price": 2013.33
+        },
+        {
+          "at": "2026-05-29T14:53:57.578Z",
+          "price": 3115.33
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "balcony": 3115.33
+          }
         }
       ],
-      "lastSeenAt": "2026-05-29T14:53:57.578Z"
+      "lastSeenAt": "2026-05-29T18:29:37.417Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LE08ROM-901008908",
+      "shipName": "Legend of the Seas",
+      "shipClass": "",
+      "shipLaunchYear": null,
+      "itinerary": "Western Mediterranean: Florence / Pisa (La Spezia), Italy, Naples / Capri, Italy, Palma De Mallorca, Spain, Málaga, Spain, Barcelona, Spain",
+      "departureDate": "2026-07-25",
+      "duration": "8 Nights",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "54128.61",
+      "currency": "USD",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LE08ROM-901008908&sailDate=2026-07-25&shipCode=LE&packageCode=LE08M173&destinationCode=EUROP&selectedCurrencyCode=USD&country=USA",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "54128.61"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3488.61
+        },
+        {
+          "at": "2026-05-29T11:23:56.779Z",
+          "price": 5528.11
+        },
+        {
+          "at": "2026-05-29T14:53:57.578Z",
+          "price": 10128.61
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "suite": 54128.61
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T18:29:37.417Z"
     }
   ]
 }
