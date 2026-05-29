@@ -3,4 +3,8 @@ npm-debug.log*
 .env
 .DS_Store
 public/build-info.json
+# Cruise data lives on GitHub Pages, not in the repo. Workflows fetch the live
+# copy before building/scraping so the deployed state is the source of truth.
+public/providers/*/cruises.json
+public/providers/*/oldCruises.json
 test-results/

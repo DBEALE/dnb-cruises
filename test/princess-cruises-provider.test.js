@@ -270,3 +270,80 @@ test('priceFrom is empty string when ship has no price data', () => {
   assert.equal(cruise.priceFrom, '');
   assert.equal(cruise.currency, 'GBP');
 });
+
+// ─── classifyPrincessCategory ──────────────────────────────────────────────────
+
+test('classifies Princess cabin category codes into the four buckets', () => {
+  assert.equal(provider.classifyPrincessCategory('IF'), 'inside');
+  assert.equal(provider.classifyPrincessCategory('IA'), 'inside');
+  assert.equal(provider.classifyPrincessCategory('OF'), 'oceanView');
+  assert.equal(provider.classifyPrincessCategory('BF'), 'balcony');
+  assert.equal(provider.classifyPrincessCategory('ME'), 'suite');
+  assert.equal(provider.classifyPrincessCategory('S6'), 'suite');
+  assert.equal(provider.classifyPrincessCategory('PH'), 'suite');
+  assert.equal(provider.classifyPrincessCategory('XX'), null);
+  assert.equal(provider.classifyPrincessCategory(''), null);
+  assert.equal(provider.classifyPrincessCategory(null), null);
+});
+
+// ─── extractRoomTypePrices ─────────────────────────────────────────────────────
+
+test('extracts lowest per-cabin fare per bucket, using double-occupancy guests only', () => {
+  const pricing = {
+    fares: [{
+      categories: [
+        { id: 'IF', guests: [{ id: 1, fare: 569 }, { id: 2, fare: 569 }, { id: 3, fare: 131 }] },
+        { id: 'OF', guests: [{ id: 1, fare: 699 }, { id: 2, fare: 699 }] },
+        { id: 'BF', guests: [{ id: 1, fare: 829 }, { id: 2, fare: 829 }] },
+        { id: 'ME', guests: [{ id: 1, fare: 1159 }, { id: 2, fare: 1159 }] },
+        { id: 'S6', guests: [{ id: 1, fare: 2969 }, { id: 2, fare: 2969 }] },
+      ],
+    }],
+  };
+  assert.deepEqual(provider.extractRoomTypePrices(pricing), {
+    inside: '569', oceanView: '699', balcony: '829', suite: '1159',
+  });
+});
+
+test('extractRoomTypePrices picks the lower of mini-suite (M*) and full suite (S*)', () => {
+  const pricing = {
+    fares: [{
+      categories: [
+        { id: 'ME', guests: [{ id: 1, fare: 1500 }, { id: 2, fare: 1500 }] },
+        { id: 'S6', guests: [{ id: 1, fare: 1200 }, { id: 2, fare: 1200 }] },
+      ],
+    }],
+  };
+  assert.equal(provider.extractRoomTypePrices(pricing).suite, '1200');
+});
+
+test('extractRoomTypePrices prefers totalFare over fare when both are present', () => {
+  const pricing = {
+    fares: [{
+      categories: [
+        { id: 'IF', guests: [{ id: 1, totalFare: 600, fare: 569 }] },
+      ],
+    }],
+  };
+  assert.equal(provider.extractRoomTypePrices(pricing).inside, '600');
+});
+
+test('extractRoomTypePrices returns all nulls for empty / missing pricing', () => {
+  const empty = { inside: null, oceanView: null, balcony: null, suite: null };
+  assert.deepEqual(provider.extractRoomTypePrices(null), empty);
+  assert.deepEqual(provider.extractRoomTypePrices({}), empty);
+  assert.deepEqual(provider.extractRoomTypePrices({ fares: [] }), empty);
+});
+
+test('normalizeCruise accepts roomPrices and merges them onto the default shape', () => {
+  const cruise = provider.normalizeCruise(
+    { id: 'ECI12A', trades: [{ id: 'E' }], cruiseDuration: 12 },
+    '20260807', 'RG', 'Regal Princess', 'Southampton',
+    ['Southampton', 'Lisbon'],
+    { lowestPrice: 569, lowestPriceCurrency: 'GBP' },
+    'A643',
+    { inside: '569', oceanView: '699', balcony: '829', suite: '1159' },
+  );
+  assert.deepEqual(cruise.prices, { inside: '569', oceanView: '699', balcony: '829', suite: '1159' });
+});
+

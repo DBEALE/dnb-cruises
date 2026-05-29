@@ -259,6 +259,62 @@ function extractPricingFare(pricing) {
 }
 
 /**
+ * Maps a Princess cabin-category code (e.g. "BF", "ME", "S6") to one of the
+ * four cabin buckets used elsewhere in the app. Returns null for codes we
+ * don't recognise so they're skipped rather than mis-classified.
+ *
+ * Princess uses an alpha prefix per stateroom category:
+ *   I = Interior, O = Oceanview, B = Balcony, M = Mini-suite,
+ *   S = Suite, P = Penthouse, D = Deluxe Suite.
+ * Mini-suites are bucketed with suites — they're materially more expensive
+ * than balconies and "from suite" pricing for shoppers is more useful when
+ * the mini-suite fare is included.
+ */
+function classifyPrincessCategory(id) {
+  const c = String(id || '').toUpperCase();
+  switch (c[0]) {
+    case 'I': return 'inside';
+    case 'O': return 'oceanView';
+    case 'B': return 'balcony';
+    case 'M':
+    case 'S':
+    case 'P':
+    case 'D': return 'suite';
+    default:  return null;
+  }
+}
+
+/**
+ * Walks pricing.fares[].categories[] and returns the lowest per-person fare
+ * per cabin bucket. Only guests 1 and 2 are considered — guests 3+ are
+ * discounted extra-berth rates that don't reflect the per-person price.
+ *
+ * @param {object} pricing - Pricing object from caps/pc/pricing/v1/cruises.
+ * @returns {{inside: string|null, oceanView: string|null, balcony: string|null, suite: string|null}}
+ */
+function extractRoomTypePrices(pricing) {
+  const prices = { inside: null, oceanView: null, balcony: null, suite: null };
+  if (!pricing || typeof pricing !== 'object') return prices;
+
+  const lowest = { inside: Infinity, oceanView: Infinity, balcony: Infinity, suite: Infinity };
+  for (const fare of pricing.fares || []) {
+    for (const category of fare.categories || []) {
+      const bucket = classifyPrincessCategory(category.id);
+      if (!bucket) continue;
+      for (const guest of category.guests || []) {
+        if (guest?.id !== 1 && guest?.id !== 2) continue;
+        const n = parseFloat(guest?.totalFare ?? guest?.fare);
+        if (Number.isFinite(n) && n > 0 && n < lowest[bucket]) lowest[bucket] = n;
+      }
+    }
+  }
+  for (const key of Object.keys(prices)) {
+    if (lowest[key] !== Infinity) prices[key] = String(Math.round(lowest[key]));
+  }
+  return prices;
+}
+
+/**
  * Normalizes a Princess Cruises product + sailing into a standard cruise object.
  *
  * @param {object}   product     - Product entry from the Princess products API.
@@ -271,7 +327,7 @@ function extractPricingFare(pricing) {
  * @param {string}   [voyageId]  - Princess voyage code used for booking link generation.
  * @returns {object} Normalized cruise object.
  */
-function normalizeCruise(product, sailDate, shipId, shipName, portName, portNames = [], ship = {}, voyageId = '') {
+function normalizeCruise(product, sailDate, shipId, shipName, portName, portNames = [], ship = {}, voyageId = '', roomPrices = null) {
   const productId    = cleanText(product.id);
   const name         = cleanText(shipName);
   const destination  = getDestination(product.trades);
@@ -281,6 +337,10 @@ function normalizeCruise(product, sailDate, shipId, shipName, portName, portName
   const fare     = getLowestFare(ship);
   const priceFrom = fare ? fare.amount : '';
   const currency  = fare ? fare.currency : 'GBP';
+
+  const prices = roomPrices && typeof roomPrices === 'object'
+    ? { inside: null, oceanView: null, balcony: null, suite: null, ...roomPrices }
+    : { inside: null, oceanView: null, balcony: null, suite: null };
 
   return {
     provider:        'Princess Cruises',
@@ -297,7 +357,7 @@ function normalizeCruise(product, sailDate, shipId, shipName, portName, portName
     priceFrom,
     currency,
     bookingUrl:      buildBookingUrl(voyageId),
-    prices:          { inside: null, oceanView: null, balcony: null, suite: null },
+    prices,
   };
 }
 
@@ -509,16 +569,23 @@ class PrincessCruisesProvider {
     const portMap = new Map();
     for (const p of data.ports?.ports || []) portMap.set(p.id, p.name);
 
-    // Build voyage-id → price lookup from the pricing endpoint (loaded on demand
-    // by the page — may only cover a subset of all voyages).
+    // Build voyage-id → { fare, prices } lookup. The pricing endpoint carries
+    // full fare-category data, which we destructure into the same four cabin
+    // buckets (inside/oceanView/balcony/suite) the rest of the app uses.
     const priceMap = new Map();
+    let withRoomPrices = 0;
     for (const pp of data.cruises?.products || []) {
       for (const vc of pp.cruises || []) {
-        const parsed = extractPricingFare(vc.pricing);
-        if (parsed) priceMap.set(vc.id, parsed);
+        const fare       = extractPricingFare(vc.pricing);
+        const roomPrices = extractRoomTypePrices(vc.pricing);
+        const hasAnyRoom = Object.values(roomPrices).some(v => v !== null);
+        if (fare || hasAnyRoom) {
+          priceMap.set(vc.id, { fare, roomPrices: hasAnyRoom ? roomPrices : null });
+          if (hasAnyRoom) withRoomPrices++;
+        }
       }
     }
-    console.log(`  [Princess] priceMap populated: ${priceMap.size} voyage(s) with price from pricing endpoint`);
+    console.log(`  [Princess] priceMap populated: ${priceMap.size} voyage(s) with price (${withRoomPrices} with per-cabin breakdown)`);
 
     const cruises = [];
     const seen    = new Set();
@@ -549,13 +616,16 @@ class PrincessCruisesProvider {
         const productProxy = { ...product, cruiseDuration: voyage.duration };
 
         // Synthesize a ship-like object with pricing if available.
-        // Primary: pricing endpoint (partial coverage, ~40% of sailings).
+        // Primary: pricing endpoint (partial coverage, ~40% of sailings) —
+        // carries full per-cabin breakdown.
         // Fallback: pricing embedded in the sailing or voyage objects returned
-        // by the products API (potentially full coverage).
+        // by the products API (potentially full coverage, single fare only).
         const pricingEntry = priceMap.get(sailing.id);
         let shipProxy = {};
-        if (pricingEntry) {
-          shipProxy = { lowestPrice: parseFloat(pricingEntry.amount), lowestPriceCurrency: pricingEntry.currency };
+        let roomPrices = null;
+        if (pricingEntry?.fare) {
+          shipProxy = { lowestPrice: parseFloat(pricingEntry.fare.amount), lowestPriceCurrency: pricingEntry.fare.currency };
+          roomPrices = pricingEntry.roomPrices;
         } else {
           // Try fields that Princess products API may embed directly on the
           // sailing or voyage objects (e.g. startingFrom, lowestPrice, fare).
@@ -565,7 +635,7 @@ class PrincessCruisesProvider {
           }
         }
 
-        const cruise = normalizeCruise(productProxy, sailDate, shipId, shipName, portName, portNames, shipProxy, sailing.id);
+        const cruise = normalizeCruise(productProxy, sailDate, shipId, shipName, portName, portNames, shipProxy, sailing.id, roomPrices);
         if (cruise?.id && cruise.shipName && cruise.priceFrom !== '') cruises.push(cruise);
       }
     }
@@ -587,3 +657,5 @@ module.exports.formatSailDate  = formatSailDate;
 module.exports.getDestination  = getDestination;
 module.exports.getLowestFare   = getLowestFare;
 module.exports.extractPricingFare = extractPricingFare;
+module.exports.extractRoomTypePrices = extractRoomTypePrices;
+module.exports.classifyPrincessCategory = classifyPrincessCategory;

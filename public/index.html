@@ -60,35 +60,6 @@
       padding-bottom: 48px;
     }
 
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 999px;
-      padding: 5px 14px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      backdrop-filter: blur(8px);
-    }
-
-    .live-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #4ade80;
-      box-shadow: 0 0 6px #4ade80;
-      animation: livepulse 2s ease-in-out infinite;
-    }
-
-    @keyframes livepulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: .5; transform: scale(.8); }
-    }
-
     header h1 {
       font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 800;
@@ -600,6 +571,7 @@
       .header-stats { gap: 20px; }
       .hstat-val { font-size: 1.3rem; }
       .col-class { display: none; }
+      .sort-hint { display: none; }   /* card layout has no column headers */
       td, .sort-row th { padding: 9px 8px; }
       td.book a { padding: 4px 10px; }
       .toolbar { gap: 10px; }
@@ -1083,9 +1055,7 @@
 
 <header>
   <div class="header-inner">
-    <div class="live-badge"><span class="live-dot"></span> Updated Hourly</div>
     <h1>🚢 Cruise <em>Explorer</em></h1>
-    <p>Browse sailings across the available providers — prices converted to GBP and sorted by lowest fare.</p>
     <div class="header-stats">
       <div class="hstat">
         <span class="hstat-val" id="totalCount">—</span>
@@ -2002,8 +1972,8 @@
       return true;
     });
 
-    document.getElementById('summary').textContent = filtered.length === allCruises.length
-      ? `Showing all ${allCruises.length.toLocaleString()} sailings — tap a column header to sort.`
+    document.getElementById('summary').innerHTML = filtered.length === allCruises.length
+      ? `Showing all ${allCruises.length.toLocaleString()} sailings<span class="sort-hint"> — tap a column header to sort.</span>`
       : `Showing ${filtered.length.toLocaleString()} of ${allCruises.length.toLocaleString()} sailings.`;
 
     const sorted = sortColIndex >= 0

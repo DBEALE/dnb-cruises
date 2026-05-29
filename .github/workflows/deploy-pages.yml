@@ -2,11 +2,11 @@ name: Scrape and Deploy
 
 on:
   schedule:
-    - cron: '0 */2 * * *'  # every 4 hours
+    - cron: '0 */2 * * *'  # every 2 hours (GitHub may skip during high load)
   workflow_dispatch:
 
 permissions:
-  contents: write   # needed to push price-history updates back to main
+  contents: write   # needed to push audit snapshots to the 'data' branch
   pages:    write
   id-token: write
 
@@ -45,22 +45,57 @@ jobs:
       - name: Generate build info
         run: node scripts/generate-build-info.js
 
+      # The deployed Pages copy is the source of truth for cruise data — pull
+      # it into the workspace so fetch-cruises.js can merge against last-known
+      # state (price history, archive). 404s on first deploy are tolerated.
+      - name: Fetch live cruise data from Pages
+        run: node scripts/fetch-live-cruise-data.js
+
       - name: Fetch cruise data
         run: node scripts/fetch-cruises.js
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           ALERT_EMAIL:    ${{ secrets.ALERT_EMAIL }}
 
-      - name: Commit price-history snapshot
+      # Persist the fresh cruises.json + oldCruises.json to the 'data' branch
+      # as an audit log. The branch is an orphan (no shared history with main)
+      # holding only the cruise files — small clones, easy to prune.
+      - name: Persist data snapshot to 'data' branch
+        continue-on-error: true   # audit log is best-effort; never block the Pages deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -euo pipefail
+          DATA_DIR="$RUNNER_TEMP/data-branch"
+          REPO_URL="https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}.git"
+
+          if git ls-remote --exit-code --heads "$REPO_URL" data >/dev/null 2>&1; then
+            git clone --branch data --single-branch --depth 1 "$REPO_URL" "$DATA_DIR"
+          else
+            echo "→ 'data' branch does not exist; creating as orphan"
+            git clone --depth 1 "$REPO_URL" "$DATA_DIR"
+            (cd "$DATA_DIR" && git checkout --orphan data && git rm -rf . || true)
+          fi
+
+          # Mirror fresh data files into the data-branch checkout
+          for provider_dir in public/providers/*/; do
+            provider=$(basename "$provider_dir")
+            mkdir -p "$DATA_DIR/public/providers/$provider"
+            for f in cruises.json oldCruises.json; do
+              src="$provider_dir$f"
+              [ -f "$src" ] && cp "$src" "$DATA_DIR/public/providers/$provider/$f"
+            done
+          done
+
+          cd "$DATA_DIR"
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/providers/*/cruises.json public/providers/*/oldCruises.json
+          git add public/providers
           if git diff --cached --quiet; then
-            echo "No cruise data changes to commit."
+            echo "No cruise data changes; nothing to commit."
           else
-            git commit -m "chore(data): update cruise snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
-            git push
+            git commit -m "data: snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push origin data
           fi
 
       - name: Notify WhatsApp subscribers

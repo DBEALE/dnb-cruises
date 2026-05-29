@@ -3,11 +3,6 @@ name: Deploy on Push
 on:
   push:
     branches: [main]
-    # Scheduled scrape commits cruises.json back to main; ignore those
-    # paths so the bot commit doesn't re-trigger a redundant code deploy.
-    paths-ignore:
-      - 'public/providers/**'
-      - 'public/build-info.json'
   workflow_dispatch:
 
 permissions:
@@ -37,6 +32,12 @@ jobs:
 
       - name: Generate build info
         run: node scripts/generate-build-info.js
+
+      # Cruise data is gitignored; the deployed Pages copy is master. Pull
+      # it into public/ so the redeploy preserves it instead of publishing
+      # an empty providers/ directory.
+      - name: Fetch live cruise data from Pages
+        run: node scripts/fetch-live-cruise-data.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
