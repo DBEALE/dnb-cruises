@@ -474,18 +474,22 @@
 
     /* ── Price-history dialog ───────────────────────────────────────────────── */
     dialog#priceHistoryDialog {
+      position: fixed;
+      inset: 0;
+      margin: auto;
       border: none;
       border-radius: 14px;
       padding: 0;
-      max-width: 520px;
-      width: calc(100% - 32px);
+      width: min(560px, calc(100vw - 32px));
+      height: max-content;
+      max-height: calc(100vh - 32px);
       box-shadow: 0 20px 60px rgba(0,0,0,.25);
     }
     dialog#priceHistoryDialog::backdrop {
       background: rgba(0,0,0,.45);
       backdrop-filter: blur(3px);
     }
-    .ph-box { padding: 22px 24px 20px; }
+    .ph-box { padding: 22px 24px 20px; max-height: calc(100vh - 32px); overflow-y: auto; }
     .ph-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
     .ph-head h2 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 0 0 4px; }
     .ph-head .ph-sub { font-size: 0.82rem; color: var(--gray-600); line-height: 1.4; }
@@ -509,7 +513,7 @@
     .ph-chart .ph-line      { fill: none; stroke: var(--blue); stroke-width: 1.8; stroke-linejoin: round; }
     .ph-chart .ph-dot       { fill: var(--blue); }
     .ph-chart .ph-axis-text { font-size: 10px; fill: var(--gray-400); font-family: inherit; }
-    .ph-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .ph-table { width: 100%; min-width: 0; border-collapse: collapse; font-size: 0.85rem; }
     .ph-table th, .ph-table td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--gray-100); }
     .ph-table th { font-weight: 600; color: var(--gray-600); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
     .ph-table td.ph-price { font-weight: 700; color: var(--navy); text-align: right; white-space: nowrap; }
