@@ -6,7 +6,12 @@
       "Bash(node -e ' *)",
       "Bash(node scripts/fetch-cruises.js royal-caribbean celebrity-cruises)",
       "Bash(node scripts/fetch-cruises.js celebrity-cruises)",
-      "Bash(npm test *)"
+      "Bash(npm test *)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "Bash(node *)",
+      "Bash(curl -s http://localhost:3000/ship-wiki-links.json)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(npx playwright *)"
     ]
   }
 }

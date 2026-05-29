@@ -381,6 +381,17 @@
       white-space: nowrap;
     }
 
+    a.wiki-link {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px dotted var(--gray-400);
+    }
+
+    a.wiki-link:hover {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+    }
+
     th.col-price,
     td.col-price {
       min-width: 175px;
@@ -1272,6 +1283,9 @@
   let sortAsc      = true;
   let usdToGbp     = null;
   let showInGbp    = true;
+  let shipWikiLinks     = {};
+  let providerWikiLinks = {};
+  let classWikiLinks    = {};
   const DEFAULT_PROVIDER = {
     id:        'royal-caribbean',
     name:      'Royal Caribbean',
@@ -1413,6 +1427,7 @@
     showStatus('Loading cruise data…');
     loadData();
     fetchGBPRate();
+    fetchShipWikiLinks();
 
     fetch(resolveStaticUrl('./build-info.json'), { cache: 'no-store' })
       .then(r => r.ok ? r.json() : null)
@@ -1469,6 +1484,32 @@
       if (!cached) showStatus('Could not load cruise data: unable to load the static cruise files.', true);
       else hideStatus();
     }
+  }
+
+  async function fetchShipWikiLinks() {
+    try {
+      const res = await fetch(resolveStaticUrl('./ship-wiki-links.json'), { cache: 'no-store' });
+      if (!res.ok) return;
+      const data = await res.json();
+      shipWikiLinks     = data?.ships     || {};
+      providerWikiLinks = data?.providers || {};
+      classWikiLinks    = data?.classes   || {};
+      if (allCruises.length) applyFilters();
+    } catch {}
+  }
+
+  function lookupWikiUrl(table, value) {
+    if (!value) return null;
+    return table[value.trim().toLowerCase()] || null;
+  }
+  const shipWikiUrl     = name => lookupWikiUrl(shipWikiLinks,     name);
+  const providerWikiUrl = name => lookupWikiUrl(providerWikiLinks, name);
+  const classWikiUrl    = name => lookupWikiUrl(classWikiLinks,    name);
+
+  function wikiLink(value, url, fallback = '—') {
+    const text = escHtml(value || fallback);
+    if (!url) return text;
+    return `<a class="wiki-link" href="${escHtml(url)}" target="_blank" rel="noopener noreferrer" title="View on Wikipedia">${text}</a>`;
   }
 
   async function fetchGBPRate() {
@@ -1549,14 +1590,16 @@
     const yearHtml = c.shipLaunchYear
       ? `<span class="mobile-launch-year">${c.shipLaunchYear}</span>`
       : '';
-    return `<span class="mobile-ship-header"><span>${escHtml(c.shipName || '—')}</span>${yearHtml}</span>`;
+    const nameHtml = wikiLink(c.shipName, shipWikiUrl(c.shipName));
+    return `<span class="mobile-ship-header"><span>${nameHtml}</span>${yearHtml}</span>`;
   }
 
   function mobileShipDetails(c) {
     const classHtml = c.shipClass
-      ? `<span class="mobile-class"><span class="class-cell">${escHtml(c.shipClass)}${classDots(c.shipClass)}</span></span>`
+      ? `<span class="mobile-class"><span class="class-cell">${wikiLink(c.shipClass, classWikiUrl(c.shipClass))}${classDots(c.shipClass)}</span></span>`
       : '';
-    return `<span class="mobile-ship-details"><span class="mobile-provider">${escHtml(c.provider || '—')}</span>${classHtml}</span>`;
+    const providerHtml = wikiLink(c.provider, providerWikiUrl(c.provider));
+    return `<span class="mobile-ship-details"><span class="mobile-provider">${providerHtml}</span>${classHtml}</span>`;
   }
 
   // ── Render ─────────────────────────────────────────────────────────────────
@@ -1605,8 +1648,8 @@
       return `<tr>
         <td class="col-num" data-label="#">${i + 1}</td>
         <td class="col-ship ship-name" data-label="Ship">${mobileShipHeader(c)}${mobileShipDetails(c)}</td>
-        <td class="col-provider" data-label="Cruise line">${escHtml(c.provider || '—')}</td>
-        <td class="col-class" data-label="Class"><span class="class-cell">${escHtml(c.shipClass || '—')}${classDots(c.shipClass)}</span></td>
+        <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerWikiUrl(c.provider))}</td>
+        <td class="col-class" data-label="Class"><span class="class-cell">${wikiLink(c.shipClass, classWikiUrl(c.shipClass))}${classDots(c.shipClass)}</span></td>
         <td class="col-launch" data-label="Launch">${c.shipLaunchYear || '—'}</td>
         <td class="col-itinerary" data-label="Itinerary">${escHtml(c.itinerary || '—')}</td>
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
