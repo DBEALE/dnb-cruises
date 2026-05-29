@@ -34,17 +34,39 @@ function getProviderOutputPath(providerId) {
   return path.join(PROVIDERS_DIR, providerId, 'cruises.json');
 }
 
-function readPreviousProviderSnapshot(providerId) {
+function getProviderArchivePath(providerId) {
+  return path.join(PROVIDERS_DIR, providerId, 'oldCruises.json');
+}
+
+function readCruiseMap(filePath) {
   try {
-    const prev = JSON.parse(fs.readFileSync(getProviderOutputPath(providerId), 'utf8'));
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const byId = new Map();
-    for (const cruise of prev.cruises || []) {
+    for (const cruise of data.cruises || []) {
       if (cruise.id) byId.set(cruise.id, cruise);
     }
     return byId;
   } catch {
     return new Map();
   }
+}
+
+function readPreviousProviderSnapshot(providerId) {
+  return readCruiseMap(getProviderOutputPath(providerId));
+}
+
+function readPreviousArchive(providerId) {
+  return readCruiseMap(getProviderArchivePath(providerId));
+}
+
+// Archive pruning threshold: drop cruises whose departureDate is more than
+// 2 years in the past. Kept generous so retrospective analysis stays useful.
+const ARCHIVE_RETENTION_MS = 2 * 365.25 * 24 * 60 * 60 * 1000;
+
+function shouldPruneFromArchive(cruise, nowMs) {
+  const departed = Date.parse(cruise.departureDate);
+  if (!Number.isFinite(departed)) return false; // keep if unparseable
+  return (nowMs - departed) > ARCHIVE_RETENTION_MS;
 }
 
 // Append a {at, price} entry only when priceFrom differs from the last
@@ -73,6 +95,17 @@ function writeProviderSnapshot(provider, cruises, scrapedAt) {
     scrapedAt,
   }, null, 2) + '\n');
   console.log(`  ✓ Wrote ${cruises.length} cruises to ${outPath}`);
+}
+
+function writeProviderArchive(provider, archived) {
+  const outPath = getProviderArchivePath(provider.id);
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, JSON.stringify({
+    provider: { id: provider.id, name: provider.name },
+    count:    archived.length,
+    cruises:  archived,
+  }, null, 2) + '\n');
+  console.log(`  ✓ Wrote ${archived.length} archived cruises to ${outPath}`);
 }
 
 function writeProviderIndex(scrapedAt) {
@@ -215,15 +248,19 @@ async function main() {
   const { providerId, providerOnly, writeManifest } = parseCommandLineArgs(process.argv);
   const activeProviders = getProvidersToProcess(providerId);
 
-  // Load previous snapshots for new-cruise detection and price-history continuity
-  const previousByProvider = new Map();
+  // Load previous active + archive snapshots so price history follows cruises
+  // when they expire (move to archive) or get re-listed (come back to active).
+  const previousActiveByProvider  = new Map();
+  const previousArchiveByProvider = new Map();
   let previousIds = new Set();
   for (const provider of activeProviders) {
-    const prev = readPreviousProviderSnapshot(provider.id);
-    previousByProvider.set(provider.id, prev);
-    for (const id of prev.keys()) previousIds.add(id);
+    const prevActive  = readPreviousProviderSnapshot(provider.id);
+    const prevArchive = readPreviousArchive(provider.id);
+    previousActiveByProvider.set(provider.id, prevActive);
+    previousArchiveByProvider.set(provider.id, prevArchive);
+    for (const id of prevActive.keys()) previousIds.add(id);
   }
-  console.log(`Previous scan: ${previousIds.size} cruise IDs across ${providerId === 'all' ? 'all providers' : providerId}.`);
+  console.log(`Previous scan: ${previousIds.size} active cruise IDs across ${providerId === 'all' ? 'all providers' : providerId}.`);
 
   // Live exchange rate
   let usdToGbp = 0.79;
@@ -254,18 +291,42 @@ async function main() {
     .map(r => r.value);
   const allCruises = providerSnapshots.flatMap(s => s.cruises);
 
-  // Carry forward price history and append new {at, price} when priceFrom changed.
+  // Carry price history forward and partition into active / archive based on
+  // whether each known cruise still appears in the fresh scrape.
+  const scrapedNowMs = Date.parse(scrapedAt);
   for (const snapshot of providerSnapshots) {
-    const prevById = previousByProvider.get(snapshot.provider.id) || new Map();
+    const prevActive  = previousActiveByProvider.get(snapshot.provider.id)  || new Map();
+    const prevArchive = previousArchiveByProvider.get(snapshot.provider.id) || new Map();
+    // Union: active wins on duplicate ids so re-listed cruises pull the freshest record.
+    const knownById = new Map([...prevArchive, ...prevActive]);
+    const freshIds  = new Set(snapshot.cruises.map(c => c.id).filter(Boolean));
+
+    // Active list: tag with lastSeenAt so the archive transition is bookkeeping-free.
     snapshot.cruises = snapshot.cruises.map(cruise => ({
       ...cruise,
-      priceHistory: mergePriceHistory(prevById.get(cruise.id), cruise, scrapedAt),
+      priceHistory: mergePriceHistory(knownById.get(cruise.id), cruise, scrapedAt),
+      lastSeenAt:   scrapedAt,
     }));
+
+    // Archive list: everything we've known about that wasn't in the fresh scrape,
+    // minus entries whose departureDate is more than 2 years past.
+    const archive = [];
+    let pruned = 0;
+    for (const [id, prevCruise] of knownById) {
+      if (freshIds.has(id)) continue;
+      if (shouldPruneFromArchive(prevCruise, scrapedNowMs)) { pruned++; continue; }
+      // First-time transition from active → archive may lack lastSeenAt on
+      // pre-existing data; fall back to the current scrapedAt in that case.
+      archive.push({ ...prevCruise, lastSeenAt: prevCruise.lastSeenAt || scrapedAt });
+    }
+    snapshot.archive = archive;
+    if (pruned) console.log(`  ${snapshot.provider.name}: pruned ${pruned} cruise(s) past the 2-year retention.`);
   }
 
   // Write provider-specific outputs plus a manifest for the frontend
-  for (const { provider, cruises } of providerSnapshots) {
+  for (const { provider, cruises, archive } of providerSnapshots) {
     writeProviderSnapshot(provider, cruises, scrapedAt);
+    writeProviderArchive(provider, archive);
   }
 
   if (writeManifest && !providerOnly) {
