@@ -81,10 +81,11 @@ function extractShipLinks(html) {
   return links;
 }
 
-function collectAppProvidersAndClasses() {
+function collectAppData() {
   const providers = new Set();
   const classes   = new Set();
-  if (!fs.existsSync(PROVIDER_DIR)) return { providers, classes };
+  const ships     = new Set();
+  if (!fs.existsSync(PROVIDER_DIR)) return { providers, classes, ships };
 
   for (const entry of fs.readdirSync(PROVIDER_DIR)) {
     const cruisesPath = path.join(PROVIDER_DIR, entry, 'cruises.json');
@@ -94,44 +95,48 @@ function collectAppProvidersAndClasses() {
       for (const c of data.cruises || []) {
         if (c.provider)  providers.add(c.provider);
         if (c.shipClass) classes.add(c.shipClass);
+        if (c.shipName)  ships.add(c.shipName);
       }
     } catch {}
   }
-  return { providers, classes };
+  return { providers, classes, ships };
 }
 
 function titleToWikiUrl(title) {
   return 'https://en.wikipedia.org/wiki/' + encodeURIComponent(title.replace(/ /g, '_')).replace(/%2F/g, '/');
 }
 
+// Returns Map<requestedTitle, { finalTitle, isDisambig }>. Wikipedia caps
+// `titles` at 50 per request, so we chunk transparently.
 async function queryExistingTitles(titles) {
-  if (!titles.length) return new Set();
-  const url = 'https://en.wikipedia.org/w/api.php?' + new URLSearchParams({
-    action:    'query',
-    format:    'json',
-    titles:    titles.join('|'),
-    redirects: '1',
-  });
-  const res = await fetch(url, { headers: { 'User-Agent': 'dnb-cruises/1.0 (build script)' } });
-  if (!res.ok) throw new Error(`Wikipedia API failed: ${res.status} ${res.statusText}`);
-  const data = await res.json();
+  const result = new Map();
+  for (let i = 0; i < titles.length; i += 50) {
+    const chunk = titles.slice(i, i + 50);
+    const url = 'https://en.wikipedia.org/w/api.php?' + new URLSearchParams({
+      action:    'query',
+      format:    'json',
+      titles:    chunk.join('|'),
+      redirects: '1',
+      prop:      'pageprops',
+    });
+    const res = await fetch(url, { headers: { 'User-Agent': 'dnb-cruises/1.0 (build script)' } });
+    if (!res.ok) throw new Error(`Wikipedia API failed: ${res.status} ${res.statusText}`);
+    const data = await res.json();
 
-  const existing = new Set();
-  for (const page of Object.values(data.query?.pages || {})) {
-    if (page.missing === undefined) existing.add(page.title);
-  }
-  // Walk normalization + redirect chains so we know which *requested* titles resolved.
-  const chainBack = new Map();
-  for (const n of data.query?.normalized || []) chainBack.set(n.to, n.from);
-  for (const r of data.query?.redirects  || []) chainBack.set(r.to, r.from);
+    const chainBack = new Map();
+    for (const n of data.query?.normalized || []) chainBack.set(n.to, n.from);
+    for (const r of data.query?.redirects  || []) chainBack.set(r.to, r.from);
 
-  const resolved = new Set();
-  for (const finalTitle of existing) {
-    let t = finalTitle;
-    while (chainBack.has(t)) t = chainBack.get(t);
-    resolved.add(t);
+    for (const page of Object.values(data.query?.pages || {})) {
+      if (page.missing !== undefined) continue;
+      const finalTitle = page.title;
+      const isDisambig = page.pageprops?.disambiguation !== undefined;
+      let requested = finalTitle;
+      while (chainBack.has(requested)) requested = chainBack.get(requested);
+      result.set(requested, { finalTitle, isDisambig });
+    }
   }
-  return resolved;
+  return result;
 }
 
 async function buildProviderLinks(providers) {
@@ -153,6 +158,47 @@ async function buildProviderLinks(providers) {
     }
   }
   return links;
+}
+
+// Many of the newer/just-announced cruise ships our scrapers see aren't
+// listed in `List_of_cruise_ships` yet. Fall back to the Wikipedia API:
+// try the bare ship name, year-suffixed variants (newest first), and the
+// "(ship)" disambiguation suffix; pick the first match that exists and
+// isn't a disambig page. Sun Princess → /wiki/Sun_Princess_(2024) etc.
+const SHIP_CANDIDATE_YEARS = [2024, 2025, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015];
+
+function shipCandidateTitles(shipName) {
+  const list = [shipName];
+  for (const y of SHIP_CANDIDATE_YEARS) list.push(`${shipName} (${y})`);
+  list.push(`${shipName} (ship)`);
+  return list;
+}
+
+async function fillShipsFromApi(missingShipNames, shipLinks) {
+  if (!missingShipNames.length) return 0;
+
+  const candidatesByShip = new Map();
+  const allCandidates    = [];
+  for (const name of missingShipNames) {
+    const list = shipCandidateTitles(name);
+    candidatesByShip.set(name, list);
+    allCandidates.push(...list);
+  }
+
+  const resolved = await queryExistingTitles(allCandidates);
+
+  let added = 0;
+  for (const [shipName, candidates] of candidatesByShip) {
+    for (const candidate of candidates) {
+      const hit = resolved.get(candidate);
+      if (hit && !hit.isDisambig) {
+        shipLinks[normalizeShipName(shipName)] = titleToWikiUrl(hit.finalTitle);
+        added++;
+        break;
+      }
+    }
+  }
+  return added;
 }
 
 async function buildClassLinks(classes) {
@@ -185,11 +231,16 @@ async function main() {
   }
 
   console.log('→ Building provider + class maps from cruises.json');
-  const { providers, classes } = collectAppProvidersAndClasses();
+  const { providers, classes, ships: appShips } = collectAppData();
   const [providerLinks, classLinks] = await Promise.all([
     buildProviderLinks(providers),
     buildClassLinks(classes),
   ]);
+
+  // API fallback for ships present in the app data but not in the scraped table.
+  const missing = [...appShips].filter(name => !ships[normalizeShipName(name)]);
+  console.log(`→ Resolving ${missing.length} unmatched app ship name(s) via Wikipedia API…`);
+  const apiAdded = await fillShipsFromApi(missing, ships);
 
   fs.writeFileSync(OUT_PATH, JSON.stringify({
     source:    SOURCE_URL,
@@ -199,7 +250,7 @@ async function main() {
     classes:   classLinks,
   }, null, 2) + '\n');
 
-  console.log(`✓ Wrote ${Object.keys(ships).length} ships, ${Object.keys(providerLinks).length}/${providers.size} providers, ${Object.keys(classLinks).length}/${classes.size} classes → ${OUT_PATH}`);
+  console.log(`✓ Wrote ${Object.keys(ships).length} ships (+${apiAdded} via API), ${Object.keys(providerLinks).length}/${providers.size} providers, ${Object.keys(classLinks).length}/${classes.size} classes → ${OUT_PATH}`);
 }
 
 main().catch(err => {
