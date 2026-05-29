@@ -71,17 +71,21 @@ function shouldPruneFromArchive(cruise, nowMs) {
 
 // Append a {at, price} entry only when priceFrom differs from the last
 // recorded entry. Currency is intentionally not stored — it's a property
-// of the cruise itself, not of each price observation.
+// of the cruise itself, not of each price observation. Trimmed to the
+// last MAX_PRICE_HISTORY observations to keep payload bounded over years
+// of scrapes; older points are dropped, newest are kept.
+const MAX_PRICE_HISTORY = 60;
+
 function mergePriceHistory(prevCruise, newCruise, scrapedAt) {
   const history = Array.isArray(prevCruise?.priceHistory) ? [...prevCruise.priceHistory] : [];
   const newPrice = parseFloat(newCruise.priceFrom);
-  if (!Number.isFinite(newPrice)) return history;
+  if (!Number.isFinite(newPrice)) return history.slice(-MAX_PRICE_HISTORY);
 
   const last = history[history.length - 1];
   if (!last || last.price !== newPrice) {
     history.push({ at: scrapedAt, price: newPrice });
   }
-  return history;
+  return history.slice(-MAX_PRICE_HISTORY);
 }
 
 function writeProviderSnapshot(provider, cruises, scrapedAt) {

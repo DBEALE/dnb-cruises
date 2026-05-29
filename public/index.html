@@ -175,6 +175,20 @@
       font-weight: 500;
     }
 
+    .show-all-btn {
+      appearance: none;
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      color: var(--blue);
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .show-all-btn:hover { color: var(--navy); }
+
     .toolbar-right {
       display: flex;
       align-items: center;
@@ -1344,6 +1358,11 @@
   let sortAsc      = true;
   let usdToGbp     = null;
   let showInGbp    = true;
+  // First-paint cap on rendered rows. Rendering 3000+ at once costs ~2s and
+  // every filter change triggers a full re-render; capping to a couple
+  // hundred keeps the page interactive. Opt out with "Show all".
+  const ROW_CAP    = 300;
+  let showAll      = false;
   let shipWikiLinks     = {};
   let providerWikiLinks = {};
   let classWikiLinks    = {};
@@ -1972,15 +1991,30 @@
       return true;
     });
 
-    document.getElementById('summary').innerHTML = filtered.length === allCruises.length
-      ? `Showing all ${allCruises.length.toLocaleString()} sailings<span class="sort-hint"> — tap a column header to sort.</span>`
-      : `Showing ${filtered.length.toLocaleString()} of ${allCruises.length.toLocaleString()} sailings.`;
-
     const sorted = sortColIndex >= 0
       ? [...filtered].sort((a, b) => compare(getCellValue(a, sortColIndex), getCellValue(b, sortColIndex), !sortAsc))
       : filtered;
 
-    renderBody(sorted);
+    const capped = !showAll && sorted.length > ROW_CAP ? sorted.slice(0, ROW_CAP) : sorted;
+    const allLabel = `${allCruises.length.toLocaleString()}`;
+    const showAllLink = `<button type="button" class="show-all-btn" onclick="enableShowAll()">Show all</button>`;
+    const sortHint = `<span class="sort-hint"> — tap a column header to sort.</span>`;
+    let summary;
+    if (capped.length < sorted.length) {
+      summary = `Showing first ${capped.length.toLocaleString()} of ${sorted.length.toLocaleString()} sailings · ${showAllLink}${sortHint}`;
+    } else if (filtered.length === allCruises.length) {
+      summary = `Showing all ${allLabel} sailings${sortHint}`;
+    } else {
+      summary = `Showing ${filtered.length.toLocaleString()} of ${allLabel} sailings.`;
+    }
+    document.getElementById('summary').innerHTML = summary;
+
+    renderBody(capped);
+  }
+
+  function enableShowAll() {
+    showAll = true;
+    applyFilters();
   }
 
   // ── GBP toggle ─────────────────────────────────────────────────────────────
