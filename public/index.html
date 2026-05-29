@@ -447,6 +447,76 @@
       font-size: 0.95rem;
     }
 
+    /* ── Price-history sparkline ────────────────────────────────────────────── */
+    .price-cell-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .price-spark {
+      appearance: none;
+      background: transparent;
+      border: none;
+      padding: 1px 3px;
+      margin: 0;
+      cursor: pointer;
+      line-height: 0;
+      border-radius: 3px;
+    }
+    .price-spark:hover { background: var(--gray-50); }
+    .price-spark:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+    .price-spark svg { display: block; }
+    .price-spark .spark-up   { stroke: #dc2626; }
+    .price-spark .spark-down { stroke: #16a34a; }
+    .price-spark .spark-flat { stroke: var(--gray-400); }
+
+    /* ── Price-history dialog ───────────────────────────────────────────────── */
+    dialog#priceHistoryDialog {
+      border: none;
+      border-radius: 14px;
+      padding: 0;
+      max-width: 520px;
+      width: calc(100% - 32px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    dialog#priceHistoryDialog::backdrop {
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(3px);
+    }
+    .ph-box { padding: 22px 24px 20px; }
+    .ph-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
+    .ph-head h2 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 0 0 4px; }
+    .ph-head .ph-sub { font-size: 0.82rem; color: var(--gray-600); line-height: 1.4; }
+    .ph-close {
+      appearance: none;
+      background: var(--gray-100);
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 1rem;
+      color: var(--gray-600);
+      cursor: pointer;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .ph-close:hover { background: var(--gray-200); color: var(--navy); }
+    .ph-chart { background: var(--gray-50); border-radius: 8px; padding: 12px; margin-bottom: 16px; }
+    .ph-chart svg { width: 100%; height: 140px; display: block; }
+    .ph-chart .ph-axis-line { stroke: var(--gray-200); stroke-width: 1; }
+    .ph-chart .ph-line      { fill: none; stroke: var(--blue); stroke-width: 1.8; stroke-linejoin: round; }
+    .ph-chart .ph-dot       { fill: var(--blue); }
+    .ph-chart .ph-axis-text { font-size: 10px; fill: var(--gray-400); font-family: inherit; }
+    .ph-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .ph-table th, .ph-table td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--gray-100); }
+    .ph-table th { font-weight: 600; color: var(--gray-600); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .ph-table td.ph-price { font-weight: 700; color: var(--navy); text-align: right; white-space: nowrap; }
+    .ph-table td.ph-delta { text-align: right; font-size: 0.78rem; white-space: nowrap; }
+    .ph-delta.up   { color: #dc2626; }
+    .ph-delta.down { color: #16a34a; }
+
     td.duration { text-align: center; white-space: nowrap; }
 
     td.book { white-space: nowrap; }
@@ -1266,6 +1336,23 @@
 
 </main>
 
+<dialog id="priceHistoryDialog" aria-labelledby="phTitle">
+  <div class="ph-box">
+    <div class="ph-head">
+      <div>
+        <h2 id="phTitle">Price history</h2>
+        <div class="ph-sub" id="phSub"></div>
+      </div>
+      <button type="button" class="ph-close" id="phClose" aria-label="Close">×</button>
+    </div>
+    <div class="ph-chart" id="phChart"></div>
+    <table class="ph-table">
+      <thead><tr><th>When (UTC)</th><th style="text-align:right">Price</th><th style="text-align:right">Change</th></tr></thead>
+      <tbody id="phTableBody"></tbody>
+    </table>
+  </div>
+</dialog>
+
 <footer>
   Data sourced from
   <a href="https://www.royalcaribbean.com/gbr/en/cruises" target="_blank" rel="noopener">royalcaribbean.com</a>.
@@ -1428,6 +1515,7 @@
     loadData();
     fetchGBPRate();
     fetchShipWikiLinks();
+    wirePriceHistoryHandlers();
 
     fetch(resolveStaticUrl('./build-info.json'), { cache: 'no-store' })
       .then(r => r.ok ? r.json() : null)
@@ -1613,6 +1701,7 @@
     const prices = c.prices || {};
     const hasMulti = roomTypes.some(rt => prices[rt.key] != null);
 
+    let priceHtml;
     if (hasMulti) {
       const rows = roomTypes
         .filter(rt => prices[rt.key] != null)
@@ -1622,14 +1711,46 @@
         })
         .join('');
       const grid = `<div class="prices-grid">${rows}</div>`;
-      return url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${grid}</a>` : grid;
+      priceHtml = url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${grid}</a>` : grid;
+    } else {
+      const price = formatPriceDisplay(c.priceFrom, c.currency);
+      if (price === '—') {
+        priceHtml = '—';
+      } else {
+        const inner = `<span class="price-val price-from">${escHtml(price)}</span>`;
+        priceHtml = url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${inner}</a>` : inner;
+      }
     }
 
-    // Fallback: single price display
-    const price = formatPriceDisplay(c.priceFrom, c.currency);
-    if (price === '—') return '—';
-    const inner = `<span class="price-val price-from">${escHtml(price)}</span>`;
-    return url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${inner}</a>` : inner;
+    const sparkHtml = sparklineButton(c);
+    return `<div class="price-cell-content">${priceHtml}${sparkHtml}</div>`;
+  }
+
+  // Renders a small inline-SVG sparkline button. Returns '' when there's
+  // not yet enough history to draw a meaningful trend.
+  function sparklineButton(c) {
+    const history = Array.isArray(c.priceHistory) ? c.priceHistory : [];
+    if (history.length < 2) return '';
+
+    const w = 60, h = 16, padX = 1, padY = 2;
+    const prices = history.map(p => p.price);
+    const min = Math.min(...prices), max = Math.max(...prices);
+    const range = max - min || 1;
+    const points = history.map((p, i) => {
+      const x = padX + (i / (history.length - 1)) * (w - 2 * padX);
+      const y = (h - padY) - ((p.price - min) / range) * (h - 2 * padY);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+
+    const first = prices[0], last = prices[prices.length - 1];
+    const trendClass = last < first ? 'spark-down' : (last > first ? 'spark-up' : 'spark-flat');
+    const title = `${history.length} price observations — click for details`;
+
+    return `<button type="button" class="price-spark" data-cruise-id="${escHtml(c.id || '')}" title="${escHtml(title)}" aria-label="Show price history">
+      <svg class="${trendClass}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" preserveAspectRatio="none">
+        <polyline points="${points}" fill="none" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+      </svg>
+    </button>`;
   }
 
   function renderBody(list) {
@@ -1661,6 +1782,107 @@
         <td class="col-book book" data-label="Book">${bookCell}</td>
       </tr>`;
     }).join('');
+  }
+
+  // ── Price-history dialog ───────────────────────────────────────────────────
+  function openPriceHistory(cruiseId) {
+    const dialog = document.getElementById('priceHistoryDialog');
+    const cruise = allCruises.find(c => c.id === cruiseId);
+    const history = cruise && Array.isArray(cruise.priceHistory) ? cruise.priceHistory : [];
+    if (!cruise || history.length < 2) return;
+
+    document.getElementById('phTitle').textContent = cruise.shipName || 'Price history';
+    const subParts = [cruise.itinerary, formatDateDisplay(cruise.departureDate)].filter(Boolean);
+    document.getElementById('phSub').textContent = subParts.join(' — ');
+
+    document.getElementById('phChart').innerHTML = renderHistoryChart(history, cruise.currency);
+    document.getElementById('phTableBody').innerHTML = renderHistoryTable(history, cruise.currency);
+
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', '');
+  }
+
+  function renderHistoryChart(history, currency) {
+    const w = 460, h = 140, padL = 44, padR = 8, padT = 10, padB = 22;
+    const prices = history.map(p => p.price);
+    const min = Math.min(...prices), max = Math.max(...prices);
+    const range = max - min || 1;
+    const innerW = w - padL - padR;
+    const innerH = h - padT - padB;
+
+    const xy = history.map((p, i) => {
+      const x = padL + (i / (history.length - 1)) * innerW;
+      const y = padT + innerH - ((p.price - min) / range) * innerH;
+      return { x, y };
+    });
+    const path = 'M' + xy.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' L');
+    const dots = xy.map(p => `<circle class="ph-dot" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="2.5" />`).join('');
+
+    const yLabel = (val) => escHtml(formatPriceDisplay(val, currency));
+    const xLabel = (idx) => {
+      const d = new Date(history[idx].at);
+      if (Number.isNaN(d.getTime())) return '';
+      return escHtml(d.toLocaleDateString('en-GB', { day:'numeric', month:'short', timeZone:'UTC' }));
+    };
+
+    return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
+      <line class="ph-axis-line" x1="${padL}" y1="${padT}"            x2="${padL}"  y2="${padT + innerH}" />
+      <line class="ph-axis-line" x1="${padL}" y1="${padT + innerH}"   x2="${w - padR}" y2="${padT + innerH}" />
+      <text class="ph-axis-text" x="${padL - 4}" y="${padT + 4}"          text-anchor="end">${yLabel(max)}</text>
+      <text class="ph-axis-text" x="${padL - 4}" y="${padT + innerH}"     text-anchor="end">${yLabel(min)}</text>
+      <text class="ph-axis-text" x="${padL}"     y="${h - 6}"             text-anchor="start">${xLabel(0)}</text>
+      <text class="ph-axis-text" x="${w - padR}" y="${h - 6}"             text-anchor="end">${xLabel(history.length - 1)}</text>
+      <path class="ph-line" d="${path}" />
+      ${dots}
+    </svg>`;
+  }
+
+  function renderHistoryTable(history, currency) {
+    const rows = [...history].reverse();
+    return rows.map((entry, i) => {
+      const next = rows[i + 1]; // previous in chronological order
+      const d = new Date(entry.at);
+      const when = Number.isNaN(d.getTime()) ? '—' : d.toLocaleString('en-GB', {
+        day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', timeZone:'UTC',
+      });
+      let delta = '—', deltaClass = '';
+      if (next) {
+        const diff = entry.price - next.price;
+        if (diff !== 0) {
+          const sign = diff > 0 ? '+' : '−';
+          delta = `${sign}${escHtml(formatPriceDisplay(Math.abs(diff), currency))}`;
+          deltaClass = diff > 0 ? 'up' : 'down';
+        }
+      }
+      return `<tr>
+        <td>${escHtml(when)}</td>
+        <td class="ph-price">${escHtml(formatPriceDisplay(entry.price, currency))}</td>
+        <td class="ph-delta ${deltaClass}">${delta}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function wirePriceHistoryHandlers() {
+    const tbody = document.getElementById('cruiseBody');
+    if (tbody && !tbody.dataset.phWired) {
+      tbody.dataset.phWired = '1';
+      tbody.addEventListener('click', (ev) => {
+        const btn = ev.target.closest('.price-spark');
+        if (!btn) return;
+        ev.preventDefault();
+        openPriceHistory(btn.dataset.cruiseId);
+      });
+    }
+    const dialog = document.getElementById('priceHistoryDialog');
+    const closeBtn = document.getElementById('phClose');
+    if (dialog && closeBtn && !dialog.dataset.phWired) {
+      dialog.dataset.phWired = '1';
+      closeBtn.addEventListener('click', () => dialog.close());
+      // Click on backdrop also closes
+      dialog.addEventListener('click', (ev) => {
+        if (ev.target === dialog) dialog.close();
+      });
+    }
   }
 
   // ── Sort ───────────────────────────────────────────────────────────────────

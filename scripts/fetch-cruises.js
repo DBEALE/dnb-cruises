@@ -34,13 +34,32 @@ function getProviderOutputPath(providerId) {
   return path.join(PROVIDERS_DIR, providerId, 'cruises.json');
 }
 
-function readPreviousCruiseIds(providerId) {
+function readPreviousProviderSnapshot(providerId) {
   try {
     const prev = JSON.parse(fs.readFileSync(getProviderOutputPath(providerId), 'utf8'));
-    return new Set((prev.cruises || []).map(c => c.id).filter(Boolean));
+    const byId = new Map();
+    for (const cruise of prev.cruises || []) {
+      if (cruise.id) byId.set(cruise.id, cruise);
+    }
+    return byId;
   } catch {
-    return new Set();
+    return new Map();
   }
+}
+
+// Append a {at, price} entry only when priceFrom differs from the last
+// recorded entry. Currency is intentionally not stored — it's a property
+// of the cruise itself, not of each price observation.
+function mergePriceHistory(prevCruise, newCruise, scrapedAt) {
+  const history = Array.isArray(prevCruise?.priceHistory) ? [...prevCruise.priceHistory] : [];
+  const newPrice = parseFloat(newCruise.priceFrom);
+  if (!Number.isFinite(newPrice)) return history;
+
+  const last = history[history.length - 1];
+  if (!last || last.price !== newPrice) {
+    history.push({ at: scrapedAt, price: newPrice });
+  }
+  return history;
 }
 
 function writeProviderSnapshot(provider, cruises, scrapedAt) {
@@ -196,11 +215,13 @@ async function main() {
   const { providerId, providerOnly, writeManifest } = parseCommandLineArgs(process.argv);
   const activeProviders = getProvidersToProcess(providerId);
 
-  // Load previous IDs for new-cruise detection
+  // Load previous snapshots for new-cruise detection and price-history continuity
+  const previousByProvider = new Map();
   let previousIds = new Set();
   for (const provider of activeProviders) {
-    const providerIds = readPreviousCruiseIds(provider.id);
-    for (const id of providerIds) previousIds.add(id);
+    const prev = readPreviousProviderSnapshot(provider.id);
+    previousByProvider.set(provider.id, prev);
+    for (const id of prev.keys()) previousIds.add(id);
   }
   console.log(`Previous scan: ${previousIds.size} cruise IDs across ${providerId === 'all' ? 'all providers' : providerId}.`);
 
@@ -232,6 +253,15 @@ async function main() {
     .filter(r => r.status === 'fulfilled')
     .map(r => r.value);
   const allCruises = providerSnapshots.flatMap(s => s.cruises);
+
+  // Carry forward price history and append new {at, price} when priceFrom changed.
+  for (const snapshot of providerSnapshots) {
+    const prevById = previousByProvider.get(snapshot.provider.id) || new Map();
+    snapshot.cruises = snapshot.cruises.map(cruise => ({
+      ...cruise,
+      priceHistory: mergePriceHistory(prevById.get(cruise.id), cruise, scrapedAt),
+    }));
+  }
 
   // Write provider-specific outputs plus a manifest for the frontend
   for (const { provider, cruises } of providerSnapshots) {

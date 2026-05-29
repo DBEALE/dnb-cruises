@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
+  contents: write   # needed to push price-history updates back to main
+  pages:    write
   id-token: write
 
 concurrency:
@@ -50,6 +50,18 @@ jobs:
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           ALERT_EMAIL:    ${{ secrets.ALERT_EMAIL }}
+
+      - name: Commit price-history snapshot
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/providers/*/cruises.json
+          if git diff --cached --quiet; then
+            echo "No cruise data changes to commit."
+          else
+            git commit -m "chore(data): update cruise snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push
+          fi
 
       - name: Notify WhatsApp subscribers
         run: node scripts/notify-subscribers.js
