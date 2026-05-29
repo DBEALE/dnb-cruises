@@ -69,21 +69,54 @@ function shouldPruneFromArchive(cruise, nowMs) {
   return (nowMs - departed) > ARCHIVE_RETENTION_MS;
 }
 
-// Append a {at, price} entry only when priceFrom differs from the last
-// recorded entry. Currency is intentionally not stored — it's a property
-// of the cruise itself, not of each price observation. Trimmed to the
-// last MAX_PRICE_HISTORY observations to keep payload bounded over years
-// of scrapes; older points are dropped, newest are kept.
+// Each priceHistory entry is { at, prices: { inside, oceanView, balcony, suite } }
+// — one number per cabin bucket the provider published. When the provider
+// returns no per-cabin breakdown we fall back to a single-value entry
+// { at, price } that matches the pre-2026 format; readers (frontend) treat
+// the two shapes interchangeably for legacy data.
+//
+// A new entry is appended when *any* bucket's price differs from the last
+// recorded entry. Trimmed to MAX_PRICE_HISTORY so payload stays bounded.
 const MAX_PRICE_HISTORY = 60;
+const PRICE_BUCKETS     = ['inside', 'oceanView', 'balcony', 'suite'];
+
+function buildHistoryEntry(cruise, scrapedAt) {
+  const filteredPrices = {};
+  let hasAnyBucket = false;
+  for (const bucket of PRICE_BUCKETS) {
+    const n = parseFloat(cruise.prices?.[bucket]);
+    if (Number.isFinite(n)) {
+      filteredPrices[bucket] = n;
+      hasAnyBucket = true;
+    }
+  }
+  if (hasAnyBucket) return { at: scrapedAt, prices: filteredPrices };
+
+  // No per-cabin breakdown — keep the legacy single-value shape so older
+  // providers without prices.* keep producing valid entries.
+  const fallback = parseFloat(cruise.priceFrom);
+  if (!Number.isFinite(fallback)) return null;
+  return { at: scrapedAt, price: fallback };
+}
+
+function entrySignature(entry) {
+  if (!entry) return '';
+  if (entry.prices) {
+    return PRICE_BUCKETS
+      .map(b => entry.prices[b] != null ? String(entry.prices[b]) : '-')
+      .join('|');
+  }
+  return entry.price != null ? `~${entry.price}` : '';
+}
 
 function mergePriceHistory(prevCruise, newCruise, scrapedAt) {
   const history = Array.isArray(prevCruise?.priceHistory) ? [...prevCruise.priceHistory] : [];
-  const newPrice = parseFloat(newCruise.priceFrom);
-  if (!Number.isFinite(newPrice)) return history.slice(-MAX_PRICE_HISTORY);
+  const newEntry = buildHistoryEntry(newCruise, scrapedAt);
+  if (!newEntry) return history.slice(-MAX_PRICE_HISTORY);
 
   const last = history[history.length - 1];
-  if (!last || last.price !== newPrice) {
-    history.push({ at: scrapedAt, price: newPrice });
+  if (entrySignature(last) !== entrySignature(newEntry)) {
+    history.push(newEntry);
   }
   return history.slice(-MAX_PRICE_HISTORY);
 }

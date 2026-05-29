@@ -516,6 +516,13 @@
     .ph-table td.ph-delta { text-align: right; font-size: 0.78rem; white-space: nowrap; }
     .ph-delta.up   { color: #dc2626; }
     .ph-delta.down { color: #16a34a; }
+    .ph-arrow      { font-size: 0.65rem; margin-left: 4px; vertical-align: middle; }
+    .ph-arrow.up   { color: #dc2626; }
+    .ph-arrow.down { color: #16a34a; }
+    .ph-missing    { color: var(--gray-400); font-weight: 500; }
+    .ph-legend     { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; font-size: 0.78rem; color: var(--gray-600); }
+    .ph-legend-item   { display: inline-flex; align-items: center; gap: 5px; }
+    .ph-legend-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 
     td.duration { text-align: center; white-space: nowrap; }
 
@@ -1131,6 +1138,8 @@
           <option value="14-desc">Price (Balcony): High → Low</option>
           <option value="15-asc">Price (Suite): Low → High</option>
           <option value="15-desc">Price (Suite): High → Low</option>
+          <option value="16-asc">Biggest price drop</option>
+          <option value="16-desc">Biggest price rise</option>
           <option value="7-asc">Departure: Soonest first</option>
           <option value="7-desc">Departure: Latest first</option>
           <option value="8-asc">Nights: Shortest first</option>
@@ -1167,6 +1176,8 @@
         <option value="14-desc">Price (Balcony): High → Low</option>
         <option value="15-asc">Price (Suite): Low → High</option>
         <option value="15-desc">Price (Suite): High → Low</option>
+        <option value="16-asc">Biggest price drop</option>
+        <option value="16-desc">Biggest price rise</option>
         <option value="7-asc">Departure: Soonest first</option>
         <option value="7-desc">Departure: Latest first</option>
         <option value="8-asc">Nights: Shortest first</option>
@@ -1377,7 +1388,7 @@
     </div>
     <div class="ph-chart" id="phChart"></div>
     <table class="ph-table">
-      <thead><tr><th>When (UTC)</th><th style="text-align:right">Price</th><th style="text-align:right">Change</th></tr></thead>
+      <thead id="phTableHead"></thead>
       <tbody id="phTableBody"></tbody>
     </table>
   </div>
@@ -1761,29 +1772,36 @@
     return `<div class="price-cell-content">${priceHtml}${sparkHtml}</div>`;
   }
 
-  // Renders a small inline-SVG sparkline button. Returns '' when there's
-  // not yet enough history to draw a meaningful trend.
+  // Renders a small inline-SVG sparkline button. Tracks the cheapest-cabin
+  // price per observation so the shape matches what the row's "from" price
+  // shows. Returns '' when there isn't yet enough history to draw.
   function sparklineButton(c) {
     const history = Array.isArray(c.priceHistory) ? c.priceHistory : [];
     if (history.length < 2) return '';
 
-    const w = 60, h = 16, padX = 1, padY = 2;
-    const prices = history.map(p => p.price);
-    const min = Math.min(...prices), max = Math.max(...prices);
-    const range = max - min || 1;
-    const points = history.map((p, i) => {
-      const x = padX + (i / (history.length - 1)) * (w - 2 * padX);
-      const y = (h - padY) - ((p.price - min) / range) * (h - 2 * padY);
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    }).join(' ');
+    const prices = history.map(entryMinPrice).map(v => Number.isFinite(v) ? v : null);
+    const valid  = prices.filter(v => v !== null);
+    if (valid.length < 2) return '';
 
-    const first = prices[0], last = prices[prices.length - 1];
+    const w = 60, h = 16, padX = 1, padY = 2;
+    const min = Math.min(...valid), max = Math.max(...valid);
+    const range = max - min || 1;
+    let path = '', inPath = false;
+    prices.forEach((p, i) => {
+      if (p === null) { inPath = false; return; }
+      const x = padX + (i / (history.length - 1)) * (w - 2 * padX);
+      const y = (h - padY) - ((p - min) / range) * (h - 2 * padY);
+      path += (inPath ? ' L' : ' M') + `${x.toFixed(1)},${y.toFixed(1)}`;
+      inPath = true;
+    });
+
+    const first = valid[0], last = valid[valid.length - 1];
     const trendClass = last < first ? 'spark-down' : (last > first ? 'spark-up' : 'spark-flat');
     const title = `${history.length} price observations — click for details`;
 
     return `<button type="button" class="price-spark" data-cruise-id="${escHtml(c.id || '')}" title="${escHtml(title)}" aria-label="Show price history">
       <svg class="${trendClass}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" preserveAspectRatio="none">
-        <polyline points="${points}" fill="none" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+        <path d="${path.trim()}" fill="none" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
       </svg>
     </button>`;
   }
@@ -1830,28 +1848,48 @@
     const subParts = [cruise.itinerary, formatDateDisplay(cruise.departureDate)].filter(Boolean);
     document.getElementById('phSub').textContent = subParts.join(' — ');
 
-    document.getElementById('phChart').innerHTML = renderHistoryChart(history, cruise.currency);
-    document.getElementById('phTableBody').innerHTML = renderHistoryTable(history, cruise.currency);
+    const buckets = historyBuckets(history); // empty → all legacy entries
+    document.getElementById('phChart').innerHTML       = renderHistoryChart(history, cruise.currency, buckets);
+    document.getElementById('phTableHead').innerHTML   = renderHistoryTableHead(buckets);
+    document.getElementById('phTableBody').innerHTML   = renderHistoryTableBody(history, cruise.currency, buckets);
 
     if (typeof dialog.showModal === 'function') dialog.showModal();
     else dialog.setAttribute('open', '');
   }
 
-  function renderHistoryChart(history, currency) {
-    const w = 460, h = 140, padL = 44, padR = 8, padT = 10, padB = 22;
-    const prices = history.map(p => p.price);
-    const min = Math.min(...prices), max = Math.max(...prices);
-    const range = max - min || 1;
+  function renderHistoryChart(history, currency, buckets) {
+    const w = 460, h = 160, padL = 50, padR = 10, padT = 10, padB = 22;
     const innerW = w - padL - padR;
     const innerH = h - padT - padB;
 
-    const xy = history.map((p, i) => {
-      const x = padL + (i / (history.length - 1)) * innerW;
-      const y = padT + innerH - ((p.price - min) / range) * innerH;
-      return { x, y };
-    });
-    const path = 'M' + xy.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' L');
-    const dots = xy.map(p => `<circle class="ph-dot" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="2.5" />`).join('');
+    // For legacy-only histories, treat the single value as one virtual series.
+    const seriesSpec = buckets.length
+      ? buckets.map(b => ({ key: b, label: BUCKET_LABEL[b], color: BUCKET_COLOR[b], getValue: e => entryPrice(e, b) }))
+      : [{ key: 'legacy', label: 'Price', color: LEGACY_COLOR, getValue: e => entryPrice(e, null) }];
+
+    // Global min/max across every series for a shared Y axis.
+    let min = Infinity, max = -Infinity;
+    for (const s of seriesSpec) {
+      for (const e of history) {
+        const v = s.getValue(e);
+        if (Number.isFinite(v)) { if (v < min) min = v; if (v > max) max = v; }
+      }
+    }
+    if (!Number.isFinite(min) || !Number.isFinite(max)) return '<div style="color:var(--gray-400);font-size:.85rem">No price data to plot.</div>';
+    const range = max - min || 1;
+
+    const paths = seriesSpec.map(s => {
+      let d = '', inPath = false;
+      history.forEach((e, i) => {
+        const v = s.getValue(e);
+        if (!Number.isFinite(v)) { inPath = false; return; }
+        const x = padL + (i / (history.length - 1)) * innerW;
+        const y = padT + innerH - ((v - min) / range) * innerH;
+        d += (inPath ? ' L' : ' M') + `${x.toFixed(1)},${y.toFixed(1)}`;
+        inPath = true;
+      });
+      return `<path d="${d.trim()}" fill="none" stroke="${s.color}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" />`;
+    }).join('');
 
     const yLabel = (val) => escHtml(formatPriceDisplay(val, currency));
     const xLabel = (idx) => {
@@ -1860,40 +1898,71 @@
       return escHtml(d.toLocaleDateString('en-GB', { day:'numeric', month:'short', timeZone:'UTC' }));
     };
 
-    return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
+    const legend = seriesSpec.length > 1
+      ? `<div class="ph-legend">${seriesSpec.map(s => `<span class="ph-legend-item"><span class="ph-legend-swatch" style="background:${s.color}"></span>${escHtml(s.label)}</span>`).join('')}</div>`
+      : '';
+
+    return `${legend}<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
       <line class="ph-axis-line" x1="${padL}" y1="${padT}"            x2="${padL}"  y2="${padT + innerH}" />
       <line class="ph-axis-line" x1="${padL}" y1="${padT + innerH}"   x2="${w - padR}" y2="${padT + innerH}" />
       <text class="ph-axis-text" x="${padL - 4}" y="${padT + 4}"          text-anchor="end">${yLabel(max)}</text>
       <text class="ph-axis-text" x="${padL - 4}" y="${padT + innerH}"     text-anchor="end">${yLabel(min)}</text>
       <text class="ph-axis-text" x="${padL}"     y="${h - 6}"             text-anchor="start">${xLabel(0)}</text>
       <text class="ph-axis-text" x="${w - padR}" y="${h - 6}"             text-anchor="end">${xLabel(history.length - 1)}</text>
-      <path class="ph-line" d="${path}" />
-      ${dots}
+      ${paths}
     </svg>`;
   }
 
-  function renderHistoryTable(history, currency) {
+  function renderHistoryTableHead(buckets) {
+    if (!buckets.length) {
+      return `<tr><th>When (UTC)</th><th style="text-align:right">Price</th><th style="text-align:right">Change</th></tr>`;
+    }
+    const cabinHeads = buckets.map(b => `<th style="text-align:right">${escHtml(BUCKET_LABEL[b])}</th>`).join('');
+    return `<tr><th>When (UTC)</th>${cabinHeads}</tr>`;
+  }
+
+  function renderHistoryTableBody(history, currency, buckets) {
     const rows = [...history].reverse();
     return rows.map((entry, i) => {
-      const next = rows[i + 1]; // previous in chronological order
+      const next = rows[i + 1]; // chronologically previous
       const d = new Date(entry.at);
       const when = Number.isNaN(d.getTime()) ? '—' : d.toLocaleString('en-GB', {
         day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', timeZone:'UTC',
       });
-      let delta = '—', deltaClass = '';
-      if (next) {
-        const diff = entry.price - next.price;
-        if (diff !== 0) {
-          const sign = diff > 0 ? '+' : '−';
-          delta = `${sign}${escHtml(formatPriceDisplay(Math.abs(diff), currency))}`;
-          deltaClass = diff > 0 ? 'up' : 'down';
+
+      if (!buckets.length) {
+        // Legacy single-value rendering — keep the Change column.
+        const cur = entryPrice(entry, null);
+        const prv = next ? entryPrice(next, null) : null;
+        let delta = '—', deltaClass = '';
+        if (cur != null && prv != null) {
+          const diff = cur - prv;
+          if (diff !== 0) {
+            delta = (diff > 0 ? '+' : '−') + escHtml(formatPriceDisplay(Math.abs(diff), currency));
+            deltaClass = diff > 0 ? 'up' : 'down';
+          }
         }
+        return `<tr>
+          <td>${escHtml(when)}</td>
+          <td class="ph-price">${escHtml(formatPriceDisplay(cur, currency))}</td>
+          <td class="ph-delta ${deltaClass}">${delta}</td>
+        </tr>`;
       }
-      return `<tr>
-        <td>${escHtml(when)}</td>
-        <td class="ph-price">${escHtml(formatPriceDisplay(entry.price, currency))}</td>
-        <td class="ph-delta ${deltaClass}">${delta}</td>
-      </tr>`;
+
+      const cells = buckets.map(b => {
+        const cur = entryPrice(entry, b);
+        const prv = next ? entryPrice(next, b) : null;
+        if (cur == null) return '<td class="ph-price ph-missing">—</td>';
+        let arrow = '';
+        if (prv != null && cur !== prv) {
+          arrow = cur > prv
+            ? '<span class="ph-arrow up" aria-hidden="true">▲</span>'
+            : '<span class="ph-arrow down" aria-hidden="true">▼</span>';
+        }
+        return `<td class="ph-price">${escHtml(formatPriceDisplay(cur, currency))}${arrow}</td>`;
+      }).join('');
+
+      return `<tr><td>${escHtml(when)}</td>${cells}</tr>`;
     }).join('');
   }
 
@@ -1996,6 +2065,7 @@
       case 13: return getRoomPrice(c, 'oceanView');
       case 14: return getRoomPrice(c, 'balcony');
       case 15: return getRoomPrice(c, 'suite');
+      case 16: return getPricePctChange(c);
       default: return '';
     }
   }
@@ -2094,6 +2164,70 @@
     const n = parseFloat(raw);
     if (!Number.isFinite(n)) return NaN;
     return (showInGbp && usdToGbp && c.currency === 'USD') ? n * usdToGbp : n;
+  }
+
+  // Cabin buckets in the order we present them everywhere.
+  const PRICE_BUCKETS  = ['inside', 'oceanView', 'balcony', 'suite'];
+  const BUCKET_LABEL   = { inside: 'Inside', oceanView: 'Sea view', balcony: 'Balcony', suite: 'Suite' };
+  const BUCKET_COLOR   = { inside: '#2563eb', oceanView: '#0891b2', balcony: '#16a34a', suite: '#9333ea' };
+  const LEGACY_COLOR   = '#2563eb';
+
+  // Reads a single bucket's price out of a priceHistory entry. Falls back
+  // to the legacy { at, price } shape (treats it as inside-equivalent for
+  // continuity with older snapshots) so all callers see one interface.
+  function entryPrice(entry, bucket) {
+    if (!entry) return null;
+    if (entry.prices) {
+      const v = parseFloat(entry.prices[bucket]);
+      return Number.isFinite(v) ? v : null;
+    }
+    if (entry.price != null) {
+      const v = parseFloat(entry.price);
+      return Number.isFinite(v) ? v : null;
+    }
+    return null;
+  }
+
+  // Min across populated cabins for one entry — the "from" trend point.
+  function entryMinPrice(entry) {
+    if (!entry) return null;
+    if (entry.prices) {
+      let min = Infinity;
+      for (const b of PRICE_BUCKETS) {
+        const v = parseFloat(entry.prices[b]);
+        if (Number.isFinite(v) && v < min) min = v;
+      }
+      return min === Infinity ? null : min;
+    }
+    if (entry.price != null) {
+      const v = parseFloat(entry.price);
+      return Number.isFinite(v) ? v : null;
+    }
+    return null;
+  }
+
+  // Set of cabin buckets that appear in at least one entry; falls back to
+  // a synthetic 'price' bucket for histories made entirely of legacy entries.
+  function historyBuckets(history) {
+    const buckets = [];
+    for (const b of PRICE_BUCKETS) {
+      if (history.some(e => e?.prices && e.prices[b] != null)) buckets.push(b);
+    }
+    return buckets;
+  }
+
+  // Percentage change from the first to the latest "min cabin" price.
+  // Negative for drops, positive for rises. NaN when there isn't yet a
+  // second observation (so the cruise sorts to the bottom either way).
+  // Using % rather than absolute £ surfaces genuinely-discounted cruises:
+  // a 30% drop on a £500 sailing ranks above a 5% drop on a £5,000 one.
+  function getPricePctChange(c) {
+    const hist = Array.isArray(c.priceHistory) ? c.priceHistory : [];
+    if (hist.length < 2) return NaN;
+    const first = entryMinPrice(hist[0]);
+    const last  = entryMinPrice(hist[hist.length - 1]);
+    if (!Number.isFinite(first) || !Number.isFinite(last) || first === 0) return NaN;
+    return ((last - first) / first) * 100;
   }
 
   // Min across all populated cabin buckets, with priceFrom as fallback for
