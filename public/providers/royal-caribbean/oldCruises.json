@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 65,
+  "count": 67,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -1433,44 +1433,6 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_BR07TRS-4049809292",
-      "shipName": "Brilliance of the Seas",
-      "shipClass": "Radiance",
-      "shipLaunchYear": 2002,
-      "itinerary": "Italy, Croatia & The Adriatic: Koper, Slovenia, Split, Croatia, Dubrovnik, Croatia, Kotor, Montenegro, Naples / Capri, Italy, Rome (Civitavecchia), Italy",
-      "departureDate": "2026-08-10",
-      "duration": "7 Nights",
-      "departurePort": "Trieste",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "priceFrom": "1064.47",
-      "currency": "USD",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=BR07TRS-4049809292&sailDate=2026-08-10&shipCode=BR&packageCode=BR07M816&destinationCode=EUROP&selectedCurrencyCode=USD&country=USA",
-      "prices": {
-        "inside": "1064.47",
-        "oceanView": "1554.47",
-        "balcony": "1866.97",
-        "suite": "4096.47"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 1064.47
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 1064.47,
-            "oceanView": 1554.47,
-            "balcony": 1866.97,
-            "suite": 4096.47
-          }
-        }
-      ],
-      "lastSeenAt": "2026-05-29T18:29:37.417Z"
-    },
-    {
-      "provider": "Royal Caribbean",
       "id": "rc_LE07ROM-1515208124",
       "shipName": "Legend of the Seas",
       "shipClass": "",
@@ -1550,6 +1512,136 @@
         }
       ],
       "lastSeenAt": "2026-05-29T18:29:37.417Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_QN07LAX-1983939879",
+      "shipName": "Quantum of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2014,
+      "itinerary": "Cabo Overnight Catalina & Ensenada: Catalina Island, California, Cabo San Lucas, Mexico, Ensenada, Mexico",
+      "departureDate": "2026-06-05",
+      "duration": "7 Nights",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexico",
+      "priceFrom": "1328.41",
+      "currency": "USD",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=QN07LAX-1983939879&sailDate=2026-06-05&shipCode=QN&packageCode=QN07X064&destinationCode=MEXCO&selectedCurrencyCode=USD&country=USA",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "1328.41",
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 2748.91
+        },
+        {
+          "at": "2026-05-29T14:53:57.578Z",
+          "price": 1511.41
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1142.91,
+            "balcony": 1328.41
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "balcony": 1328.41
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T21:50:03.590Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13YVR-1748940657",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Grand Mountain Marvels CruiseTour (Post Tour): Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Anchorage, Alaska, Talkeetna, Alaska, Denali, Alaska, Fairbanks, Alaska",
+      "departureDate": "2026-09-04",
+      "duration": "13 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "7151.37",
+      "currency": "USD",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13YVR-1748940657&sailDate=2026-09-04&shipCode=OV&packageCode=OV13AI07&destinationCode=ALCAN&selectedCurrencyCode=USD&country=USA",
+      "prices": {
+        "inside": "7151.37",
+        "oceanView": "8159.37",
+        "balcony": "8453.37",
+        "suite": "16065.37"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T11:23:56.779Z",
+          "price": 7151.37
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 7151.37,
+            "oceanView": 8159.37,
+            "balcony": 8453.37,
+            "suite": 16065.37
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T21:50:03.590Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13SWD-1585686405",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Alaska Wilderness Spectacular CruiseTour (Pre Tour)",
+      "departureDate": "2026-08-28",
+      "duration": "13 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "7230.54",
+      "currency": "USD",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13SWD-1585686405&sailDate=2026-08-28&shipCode=OV&packageCode=OV13BQ08&destinationCode=ALCAN&selectedCurrencyCode=USD&country=USA",
+      "prices": {
+        "inside": "7230.54",
+        "oceanView": "8430.54",
+        "balcony": "8725.54",
+        "suite": "12609.54"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T11:23:56.779Z",
+          "price": 7230.54
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 7230.54,
+            "oceanView": 8430.54,
+            "suite": 12609.54
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "inside": 7230.54,
+            "oceanView": 8430.54,
+            "balcony": 8725.54,
+            "suite": 12609.54
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T21:50:03.590Z"
     }
   ]
 }
