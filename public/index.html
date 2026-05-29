@@ -196,6 +196,17 @@
       flex-wrap: wrap;
     }
 
+    /* Sort dropdown (desktop) */
+    .sort-wrap { display: inline-flex; align-items: center; gap: 8px; }
+    .sort-wrap .sort-label {
+      font-size: 0.85rem; font-weight: 600; color: var(--gray-700); letter-spacing: 0.02em;
+    }
+    .sort-wrap select {
+      font-size: 0.85rem; padding: 6px 10px; border: 1px solid var(--gray-200);
+      border-radius: 8px; background: white; color: var(--gray-800); cursor: pointer;
+    }
+    .sort-wrap select:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+
     /* GBP toggle */
     .toggle-wrap {
       display: flex;
@@ -586,6 +597,7 @@
       .hstat-val { font-size: 1.3rem; }
       .col-class { display: none; }
       .sort-hint { display: none; }   /* card layout has no column headers */
+      .sort-wrap { display: none; }   /* mobileControls has its own sort dropdown */
       td, .sort-row th { padding: 9px 8px; }
       td.book a { padding: 4px 10px; }
       .toolbar { gap: 10px; }
@@ -1105,6 +1117,28 @@
   <div class="toolbar">
     <span id="summary"></span>
     <div class="toolbar-right">
+      <label class="sort-wrap" for="sortSelect">
+        <span class="sort-label">Sort</span>
+        <select id="sortSelect" onchange="sortSelectChange(this)">
+          <option value="">Default (Price: Low → High)</option>
+          <option value="11-asc">Price (lowest cabin): Low → High</option>
+          <option value="11-desc">Price (lowest cabin): High → Low</option>
+          <option value="12-asc">Price (Inside): Low → High</option>
+          <option value="12-desc">Price (Inside): High → Low</option>
+          <option value="13-asc">Price (Sea view): Low → High</option>
+          <option value="13-desc">Price (Sea view): High → Low</option>
+          <option value="14-asc">Price (Balcony): Low → High</option>
+          <option value="14-desc">Price (Balcony): High → Low</option>
+          <option value="15-asc">Price (Suite): Low → High</option>
+          <option value="15-desc">Price (Suite): High → Low</option>
+          <option value="7-asc">Departure: Soonest first</option>
+          <option value="7-desc">Departure: Latest first</option>
+          <option value="8-asc">Nights: Shortest first</option>
+          <option value="8-desc">Nights: Longest first</option>
+          <option value="1-asc">Ship: A → Z</option>
+          <option value="1-desc">Ship: Z → A</option>
+        </select>
+      </label>
       <label class="toggle-wrap" for="gbpToggle">
         <span class="toggle-label">Prices in £ GBP</span>
         <div class="toggle-switch">
@@ -1123,8 +1157,16 @@
       <label for="mobileSortSelect">Sort</label>
       <select id="mobileSortSelect" onchange="mobileSortChange()">
         <option value="">Price: Low → High (default)</option>
-        <option value="11-asc">Price: Low → High</option>
-        <option value="11-desc">Price: High → Low</option>
+        <option value="11-asc">Price (lowest cabin): Low → High</option>
+        <option value="11-desc">Price (lowest cabin): High → Low</option>
+        <option value="12-asc">Price (Inside): Low → High</option>
+        <option value="12-desc">Price (Inside): High → Low</option>
+        <option value="13-asc">Price (Sea view): Low → High</option>
+        <option value="13-desc">Price (Sea view): High → Low</option>
+        <option value="14-asc">Price (Balcony): Low → High</option>
+        <option value="14-desc">Price (Balcony): High → Low</option>
+        <option value="15-asc">Price (Suite): Low → High</option>
+        <option value="15-desc">Price (Suite): High → Low</option>
         <option value="7-asc">Departure: Soonest first</option>
         <option value="7-desc">Departure: Latest first</option>
         <option value="8-asc">Nights: Shortest first</option>
@@ -1886,12 +1928,12 @@
       th.classList.remove('sort-asc', 'sort-desc');
       if (i === colIndex) th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
     });
+    syncSortSelects(`${colIndex}-${sortAsc ? 'asc' : 'desc'}`);
     applyFilters();
   }
 
   // ── Mobile sort/filter controls ────────────────────────────────────────────
-  function mobileSortChange() {
-    const val = document.getElementById('mobileSortSelect').value;
+  function applySortValue(val) {
     document.querySelectorAll('.sort-row th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
     if (!val) {
       sortColIndex = -1;
@@ -1903,7 +1945,18 @@
       const ths = document.querySelectorAll('.sort-row th');
       if (ths[sortColIndex]) ths[sortColIndex].classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
     }
+    syncSortSelects(val);
     applyFilters();
+  }
+
+  function mobileSortChange()    { applySortValue(document.getElementById('mobileSortSelect').value); }
+  function sortSelectChange(sel) { applySortValue(sel.value); }
+
+  function syncSortSelects(val) {
+    for (const id of ['sortSelect', 'mobileSortSelect']) {
+      const el = document.getElementById(id);
+      if (el && el.value !== val) el.value = val;
+    }
   }
 
   function mobileFilterSync(el) {
@@ -1938,7 +1991,11 @@
       case 8:  return Number.isFinite(parseFloat(c.duration)) ? parseFloat(c.duration) : null;
       case 9:  return c.departurePort   || '';
       case 10: return c.departureRegion || '';
-      case 11: return getGBPPrice(c);
+      case 11: return getLowestRoomPrice(c);
+      case 12: return getRoomPrice(c, 'inside');
+      case 13: return getRoomPrice(c, 'oceanView');
+      case 14: return getRoomPrice(c, 'balcony');
+      case 15: return getRoomPrice(c, 'suite');
       default: return '';
     }
   }
@@ -2029,6 +2086,27 @@
     const n = parseFloat(c.priceFrom);
     if (isNaN(n)) return NaN;
     return (showInGbp && usdToGbp && c.currency === 'USD') ? n * usdToGbp : n;
+  }
+
+  // GBP-normalised price for one cabin bucket; NaN when that cabin isn't priced.
+  function getRoomPrice(c, bucket) {
+    const raw = c.prices?.[bucket];
+    const n = parseFloat(raw);
+    if (!Number.isFinite(n)) return NaN;
+    return (showInGbp && usdToGbp && c.currency === 'USD') ? n * usdToGbp : n;
+  }
+
+  // Min across all populated cabin buckets, with priceFrom as fallback for
+  // providers that don't publish a per-cabin breakdown. Used as the cruise's
+  // "from" sort key — guarantees Price: Low→High always reflects the
+  // cheapest cabin available, not whatever priceFrom happens to be.
+  function getLowestRoomPrice(c) {
+    let min = Infinity;
+    for (const bucket of ['inside', 'oceanView', 'balcony', 'suite']) {
+      const p = getRoomPrice(c, bucket);
+      if (Number.isFinite(p) && p < min) min = p;
+    }
+    return min === Infinity ? getGBPPrice(c) : min;
   }
 
   // ── Formatting ─────────────────────────────────────────────────────────────

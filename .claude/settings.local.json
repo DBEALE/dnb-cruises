@@ -11,7 +11,12 @@
       "Bash(node *)",
       "Bash(curl -s http://localhost:3000/ship-wiki-links.json)",
       "Bash(curl -s http://localhost:3000/)",
-      "Bash(npx playwright *)"
+      "Bash(npx playwright *)",
+      "Bash(curl -sI https://dbeale.github.io/dnb-cruises/providers/royal-caribbean/cruises.json)",
+      "Bash(curl -sI http://localhost:3000/)",
+      "Bash(git stash *)",
+      "Bash(git commit *)",
+      "Bash(npm run *)"
     ]
   }
 }
