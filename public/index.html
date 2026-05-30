@@ -411,10 +411,23 @@
     .prices-grid {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 5px;
       min-width: 160px;
       white-space: normal;
     }
+
+    .cabin-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .cabin-price-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .cabin-price-link:hover .price-val { text-decoration: underline; }
 
     .price-row {
       display: flex;
@@ -467,6 +480,16 @@
     .price-spark .spark-up   { stroke: #dc2626; }
     .price-spark .spark-down { stroke: #16a34a; }
     .price-spark .spark-flat { stroke: var(--gray-400); }
+
+    /* Per-cabin sparkline sits directly beneath its price row — thinner,
+       narrower, no padding so it visually belongs to the row above. */
+    .cabin-spark {
+      padding: 0;
+      width: 100%;
+      max-width: 160px;
+      height: 8px;
+    }
+    .cabin-spark svg { width: 100%; height: 100%; }
 
     /* ── Price-history dialog ───────────────────────────────────────────────── */
     dialog#priceHistoryDialog {
@@ -1764,39 +1787,108 @@
     const prices = c.prices || {};
     const hasMulti = roomTypes.some(rt => prices[rt.key] != null);
 
-    let priceHtml;
     if (hasMulti) {
-      const rows = roomTypes
+      // Each cabin = its price row (clickable to book) plus a thin
+      // sparkline of that specific cabin's history beneath it.
+      const blocks = roomTypes
         .filter(rt => prices[rt.key] != null)
         .map(rt => {
           const formatted = formatPriceDisplay(prices[rt.key], c.currency);
-          return `<div class="price-row"><span class="price-lbl">${escHtml(rt.label)}</span><span class="price-val">${escHtml(formatted)}</span></div>`;
+          const row = `<div class="price-row"><span class="price-lbl">${escHtml(rt.label)}</span><span class="price-val">${escHtml(formatted)}</span></div>`;
+          const linkedRow = url
+            ? `<a class="cabin-price-link" href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${row}</a>`
+            : row;
+          const spark = cabinSparklineButton(c, rt.key);
+          return `<div class="cabin-block">${linkedRow}${spark}</div>`;
         })
         .join('');
-      const grid = `<div class="prices-grid">${rows}</div>`;
-      priceHtml = url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${grid}</a>` : grid;
-    } else {
-      const price = formatPriceDisplay(c.priceFrom, c.currency);
-      if (price === '—') {
-        priceHtml = '—';
-      } else {
-        const inner = `<span class="price-val price-from">${escHtml(price)}</span>`;
-        priceHtml = url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${inner}</a>` : inner;
-      }
+      return `<div class="price-cell-content"><div class="prices-grid">${blocks}</div></div>`;
     }
 
+    // Single-price fallback: keep the original "lowest cabin / biggest fall"
+    // sparkline below the price.
+    let priceHtml;
+    const price = formatPriceDisplay(c.priceFrom, c.currency);
+    if (price === '—') {
+      priceHtml = '—';
+    } else {
+      const inner = `<span class="price-val price-from">${escHtml(price)}</span>`;
+      priceHtml = url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${inner}</a>` : inner;
+    }
     const sparkHtml = sparklineButton(c);
     return `<div class="price-cell-content">${priceHtml}${sparkHtml}</div>`;
   }
 
-  // Renders a small inline-SVG sparkline button. Tracks the cheapest-cabin
-  // price per observation so the shape matches what the row's "from" price
-  // shows. Returns '' when there isn't yet enough history to draw.
+  // Per-cabin sparkline — same shape as sparklineButton but locked to one
+  // bucket. Returns '' when that cabin has fewer than 2 observations.
+  function cabinSparklineButton(c, bucket) {
+    const history = Array.isArray(c.priceHistory) ? c.priceHistory : [];
+    if (history.length < 2) return '';
+
+    const prices = history.map(e => entryPrice(e, bucket)).map(v => Number.isFinite(v) ? v : null);
+    const valid  = prices.filter(v => v !== null);
+    if (valid.length < 2) return '';
+
+    const w = 60, h = 8, padX = 1, padY = 1;
+    const min = Math.min(...valid), max = Math.max(...valid);
+    const range = max - min || 1;
+    let path = '', inPath = false;
+    prices.forEach((p, i) => {
+      if (p === null) { inPath = false; return; }
+      const x = padX + (i / (history.length - 1)) * (w - 2 * padX);
+      const y = (h - padY) - ((p - min) / range) * (h - 2 * padY);
+      path += (inPath ? ' L' : ' M') + `${x.toFixed(1)},${y.toFixed(1)}`;
+      inPath = true;
+    });
+    if (!path) return '';
+
+    const first = valid[0], last = valid[valid.length - 1];
+    const trendClass = last < first ? 'spark-down' : (last > first ? 'spark-up' : 'spark-flat');
+    const label = BUCKET_LABEL[bucket] || bucket;
+    const title = `${label} — ${valid.length} observations, click for details`;
+
+    return `<button type="button" class="price-spark cabin-spark" data-cruise-id="${escHtml(c.id || '')}" title="${escHtml(title)}" aria-label="Show ${escHtml(label)} price history">
+      <svg class="${trendClass}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" preserveAspectRatio="none">
+        <path d="${path.trim()}" fill="none" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" />
+      </svg>
+    </button>`;
+  }
+
+  // Picks the cabin bucket with the most extreme pct change from first to
+  // last observation. direction = 'fall' picks most-negative; 'rise' picks
+  // most-positive. Returns null when nothing moved in that direction —
+  // caller then falls back to the cheapest-cabin trend.
+  function extremeChangeBucket(history, direction) {
+    let chosen = null, extremePct = 0;
+    for (const b of historyBuckets(history)) {
+      const first = history.find(e => entryPrice(e, b) != null);
+      const last  = [...history].reverse().find(e => entryPrice(e, b) != null);
+      if (!first || !last || first === last) continue;
+      const f = entryPrice(first, b), l = entryPrice(last, b);
+      if (!Number.isFinite(f) || !Number.isFinite(l) || f === 0) continue;
+      const pct = ((l - f) / f) * 100;
+      const isMore = direction === 'rise' ? pct > extremePct : pct < extremePct;
+      if (isMore) { extremePct = pct; chosen = b; }
+    }
+    return chosen;
+  }
+
+  // Renders a small inline-SVG sparkline button. By default plots the cabin
+  // that has fallen the most over the cruise's observed history; when the
+  // user is explicitly sorted by "Biggest price rise" we flip and plot the
+  // biggest-rise cabin instead. Falls back to cheapest-cabin trend when
+  // nothing has moved in the relevant direction.
   function sparklineButton(c) {
     const history = Array.isArray(c.priceHistory) ? c.priceHistory : [];
     if (history.length < 2) return '';
 
-    const prices = history.map(entryMinPrice).map(v => Number.isFinite(v) ? v : null);
+    const isRiseSort = sortColIndex === 16 && !sortAsc;
+    const direction  = isRiseSort ? 'rise' : 'fall';
+    const chosen = extremeChangeBucket(history, direction);
+    const getter = chosen ? (e => entryPrice(e, chosen)) : entryMinPrice;
+    const label  = chosen ? BUCKET_LABEL[chosen] : 'Lowest cabin';
+
+    const prices = history.map(getter).map(v => Number.isFinite(v) ? v : null);
     const valid  = prices.filter(v => v !== null);
     if (valid.length < 2) return '';
 
@@ -1814,7 +1906,7 @@
 
     const first = valid[0], last = valid[valid.length - 1];
     const trendClass = last < first ? 'spark-down' : (last > first ? 'spark-up' : 'spark-flat');
-    const title = `${history.length} price observations — click for details`;
+    const title = `${label} trend over ${history.length} observations — click for details`;
 
     return `<button type="button" class="price-spark" data-cruise-id="${escHtml(c.id || '')}" title="${escHtml(title)}" aria-label="Show price history">
       <svg class="${trendClass}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" preserveAspectRatio="none">
