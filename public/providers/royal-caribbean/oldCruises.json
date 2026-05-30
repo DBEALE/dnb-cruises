@@ -53,29 +53,6 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_LB02STH-1080712040",
-      "shipName": "Liberty of the Seas",
-      "shipClass": "Freedom",
-      "shipLaunchYear": 2007,
-      "itinerary": "Weekend Getaway Cruise: Paris (Le Havre), France",
-      "departureDate": "2026-06-12",
-      "duration": "2 Nights",
-      "departurePort": "Southampton",
-      "departureRegion": "UK & Ireland",
-      "destination": "Europe",
-      "priceFrom": "646.65",
-      "currency": "USD",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LB02STH-1080712040&sailDate=2026-06-12&shipCode=LB&packageCode=LB02U010&destinationCode=EUROP&selectedCurrencyCode=USD&country=USA",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": "646.65",
-        "suite": null
-      },
-      "lastSeenAt": "2026-05-29T09:33:04.484Z"
-    },
-    {
-      "provider": "Royal Caribbean",
       "id": "rc_AL05MIA-2694212250",
       "shipName": "Allure of the Seas",
       "shipClass": "Oasis",
@@ -1642,6 +1619,41 @@
         }
       ],
       "lastSeenAt": "2026-05-29T21:50:03.590Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_BR07ROM-1687072719",
+      "shipName": "Brilliance of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2002,
+      "itinerary": "Italy, Croatia & Malta Cruise: Naples / Capri, Italy, Sicily (Messina), Italy, Valletta, Malta, Dubrovnik, Croatia, Split, Croatia, Ravenna (Venice), Italy",
+      "departureDate": "2026-10-19",
+      "duration": "7 Nights",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "4679.68",
+      "currency": "USD",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=BR07ROM-1687072719&sailDate=2026-10-19&shipCode=BR&packageCode=BR07M822&destinationCode=EUROP&selectedCurrencyCode=USD&country=USA",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "4679.68"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 4679.68
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "suite": 4679.68
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T23:08:29.615Z"
     }
   ]
 }

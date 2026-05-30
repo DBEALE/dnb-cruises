@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 181,
+  "count": 183,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -871,29 +871,6 @@
       "priceFrom": "9791",
       "currency": "GBP",
       "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3613M",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "lastSeenAt": "2026-05-29T09:33:04.484Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_ERR07G_EX_20260602",
-      "shipName": "Enchanted Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2020,
-      "itinerary": "Civitavecchia (for Rome), Italy → Corfu, Greece → Dubrovnik, Croatia → Kotor, Montenegro → Naples, Italy (for Capri & Pompeii) → Civitavecchia (for Rome), Italy",
-      "departureDate": "2026-06-02",
-      "duration": "7 Nights",
-      "departurePort": "Civitavecchia (for Rome), Italy",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "priceFrom": "691",
-      "currency": "GBP",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N616",
       "prices": {
         "inside": null,
         "oceanView": null,
@@ -4301,6 +4278,114 @@
         }
       ],
       "lastSeenAt": "2026-05-29T18:29:37.417Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ASG070_RP_20260613",
+      "shipName": "Royal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2013,
+      "itinerary": "Seattle, Washington → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Ketchikan, Alaska → Victoria, Canada → Seattle, Washington",
+      "departureDate": "2026-06-13",
+      "duration": "7 Nights",
+      "departurePort": "Seattle, Washington",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "999",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1626",
+      "prices": {
+        "inside": "999",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 999
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "inside": 999
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T23:08:29.615Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ERR07G_EX_20260825",
+      "shipName": "Enchanted Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2020,
+      "itinerary": "Civitavecchia (for Rome), Italy → Corfu, Greece → Dubrovnik, Croatia → Kotor, Montenegro → Naples, Italy (for Capri & Pompeii) → Civitavecchia (for Rome), Italy",
+      "departureDate": "2026-08-25",
+      "duration": "7 Nights",
+      "departurePort": "Civitavecchia (for Rome), Italy",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "1245",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N628",
+      "prices": {
+        "inside": "1245",
+        "oceanView": null,
+        "balcony": "1405",
+        "suite": "1990"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1245
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1245,
+            "balcony": 1405,
+            "suite": 1990
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T23:08:29.615Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AYR14B_XP_20270529",
+      "shipName": "Discovery Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2022,
+      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Icy Strait Point, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
+      "departureDate": "2027-05-29",
+      "duration": "14 Nights",
+      "departurePort": "Vancouver, Canada",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "1458",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=X723A",
+      "prices": {
+        "inside": "1458",
+        "oceanView": null,
+        "balcony": null,
+        "suite": "3807"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1458
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1458,
+            "suite": 3807
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-29T23:08:29.615Z"
     }
   ]
 }
