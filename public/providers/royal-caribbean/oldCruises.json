@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 62,
+  "count": 63,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -1442,6 +1442,65 @@
         }
       ],
       "lastSeenAt": "2026-05-29T23:08:29.615Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LB15STH-3581088626",
+      "shipName": "Liberty of the Seas",
+      "shipClass": "Freedom",
+      "shipLaunchYear": 2007,
+      "itinerary": "Spain & Portugal Transatlantic: Vigo, Spain, Lisbon, Portugal, Madeira (Funchal), Portugal, Galveston, Texas",
+      "departureDate": "2026-10-16",
+      "duration": "15 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Transatlantic",
+      "priceFrom": "1534.27",
+      "currency": "USD",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LB15STH-3581088626&sailDate=2026-10-16&shipCode=LB&packageCode=LB15T245&destinationCode=T.ATL&selectedCurrencyCode=USD&country=USA",
+      "prices": {
+        "inside": null,
+        "oceanView": "1534.27",
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1291.27
+        },
+        {
+          "at": "2026-05-29T11:23:56.779Z",
+          "price": 13537.77
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 965.27,
+            "balcony": 2146.27
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "oceanView": 1534.27
+          }
+        },
+        {
+          "at": "2026-05-29T23:08:29.615Z",
+          "prices": {
+            "inside": 1291.27,
+            "oceanView": 1534.27
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "oceanView": 1534.27
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-30T06:42:50.024Z"
     }
   ]
 }

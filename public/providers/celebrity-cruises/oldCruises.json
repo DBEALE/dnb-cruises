@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 39,
+  "count": 40,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -901,6 +901,44 @@
         "suite": null
       },
       "lastSeenAt": "2026-05-29T09:33:04.484Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_SM07YVR-922765186",
+      "shipName": "Celebrity Summit",
+      "shipClass": "Millennium",
+      "shipLaunchYear": 2001,
+      "itinerary": "Alaska Explorer: Inside Passage (Cruising), Icy Strait Point, Alaska, Skagway, Alaska, Juneau, Alaska, Ketchikan, Alaska",
+      "departureDate": "2027-05-09",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "1215.58",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SM07YVR-922765186&pID=SM07A445&sDT=2027-05-09&sCD=SM&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1215.58",
+        "oceanView": "1384.58",
+        "balcony": "2744.58",
+        "suite": "6555.58"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1215.58
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1215.58,
+            "oceanView": 1384.58,
+            "balcony": 2744.58,
+            "suite": 6555.58
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-30T06:42:50.024Z"
     }
   ]
 }
