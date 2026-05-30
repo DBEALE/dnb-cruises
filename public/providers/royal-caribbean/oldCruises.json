@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 65,
+  "count": 66,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -1591,6 +1591,51 @@
         }
       ],
       "lastSeenAt": "2026-05-30T09:55:04.493Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LE07ROM-1515208124",
+      "shipName": "Legend of the Seas",
+      "shipClass": "",
+      "shipLaunchYear": null,
+      "itinerary": "Western Mediterranean: Naples / Capri, Italy, Provence (Marseille), France, Palma De Mallorca, Spain, Barcelona, Spain",
+      "departureDate": "2026-07-18",
+      "duration": "7 Nights",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "6210.78",
+      "currency": "USD",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LE07ROM-1515208124&sailDate=2026-07-18&shipCode=LE&packageCode=LE07M873&destinationCode=EUROP&selectedCurrencyCode=USD&country=USA",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "6210.78"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 2013.33
+        },
+        {
+          "at": "2026-05-29T14:53:57.578Z",
+          "price": 3115.33
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "balcony": 3115.33
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "suite": 6210.78
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-30T11:17:25.606Z"
     }
   ]
 }
