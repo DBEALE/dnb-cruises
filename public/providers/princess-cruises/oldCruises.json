@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 385,
+  "count": 386,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -5852,39 +5852,6 @@
             "inside": 2643,
             "balcony": 3794,
             "suite": 4278
-          }
-        }
-      ],
-      "lastSeenAt": "2026-05-30T13:18:20.949Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_CFR14R_SU_20261227",
-      "shipName": "Sun Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2024,
-      "itinerary": "Ft. Lauderdale, Florida → Cozumel, Mexico → Belize City, Belize → Roatan (Isla Tropicale), Honduras → Ft. Lauderdale, Florida → Grand Turk, Turks & Caicos → San Juan, Puerto Rico → Amber Cove, Dominican Republic → Ft. Lauderdale, Florida",
-      "departureDate": "2026-12-27",
-      "duration": "14 Nights",
-      "departurePort": "Ft. Lauderdale, Florida",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "1863",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=U701A",
-      "prices": {
-        "inside": "1863",
-        "oceanView": "2343",
-        "balcony": null,
-        "suite": "2818"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 1863,
-            "oceanView": 2343,
-            "suite": 2818
           }
         }
       ],
@@ -12236,6 +12203,78 @@
         }
       ],
       "lastSeenAt": "2026-05-30T13:18:20.949Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ANG07A_AP_20260613",
+      "shipName": "Grand Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 1998,
+      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska",
+      "departureDate": "2026-06-13",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver, Canada",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "649",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A623",
+      "prices": {
+        "inside": "649",
+        "oceanView": null,
+        "balcony": "1559",
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 649
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 649,
+            "balcony": 1559
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-30T15:02:32.875Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_CFR14R_GP_20260725",
+      "shipName": "Regal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2014,
+      "itinerary": "Ft. Lauderdale, Florida → Roatan (Isla Tropicale), Honduras → Belize City, Belize → Cozumel, Mexico → Ft. Lauderdale, Florida → Princess Cays, Bahamas → San Juan, Puerto Rico → St. Maarten → Ft. Lauderdale, Florida",
+      "departureDate": "2026-07-25",
+      "duration": "14 Nights",
+      "departurePort": "Ft. Lauderdale, Florida",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1600",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=G630A",
+      "prices": {
+        "inside": "1600",
+        "oceanView": null,
+        "balcony": null,
+        "suite": "2733"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1600
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1600,
+            "suite": 2733
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-30T15:02:32.875Z"
     }
   ]
 }
