@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 41,
+  "count": 42,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -996,6 +996,48 @@
         }
       ],
       "lastSeenAt": "2026-05-30T19:06:05.550Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_SI13BYE-2917821311",
+      "shipName": "Celebrity Silhouette",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2011,
+      "itinerary": "Greenland & Iceland: Cruising (Cruising), Halifax, Nova Scotia, Sydney, Nova Scotia, St. John's, Newfoundland, Qaqortoq, Greenland, Prins Christian Sund (Cruising), Akureyri, Iceland, Isafjordur, Iceland, Reykjavik, Iceland",
+      "departureDate": "2026-06-21",
+      "duration": "13 Nights",
+      "departurePort": "Cape Liberty",
+      "departureRegion": "Americas",
+      "destination": "Repositioning",
+      "priceFrom": "4387.25",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SI13BYE-2917821311&pID=SI13U155&sDT=2026-06-21&sCD=SI&sCT=CO&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "4387.25",
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 4603.25
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2867.25,
+            "balcony": 4387.25
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "balcony": 4387.25
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-30T20:51:20.392Z"
     }
   ]
 }
