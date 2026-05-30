@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 40,
+  "count": 42,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -939,6 +939,109 @@
         }
       ],
       "lastSeenAt": "2026-05-30T06:42:50.024Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_SL18HNL-232378251",
+      "shipName": "Celebrity Solstice",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2008,
+      "itinerary": "Treasures of Tahiti & Fiji: Cruising (Cruising), Papeete, Tahiti, Moorea, French Polynesia, Raiatea, French Polynesia, International Dateline (Cruising), Suva, Fiji, Lautoka, Fiji, Bay Of Islands, New Zealand, Auckland, New Zealand",
+      "departureDate": "2026-09-29",
+      "duration": "18 Nights",
+      "departurePort": "Honolulu (Oahu)",
+      "departureRegion": "Americas",
+      "destination": "Australia and New Zealand",
+      "priceFrom": "2984.9",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL18HNL-232378251&pID=SL18T050&sDT=2026-09-29&sCD=SL&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "2984.9",
+        "oceanView": "3450.9",
+        "balcony": "4004.9",
+        "suite": "20187.9"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 2984.9
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2984.9,
+            "oceanView": 3450.9,
+            "balcony": 4004.9,
+            "suite": 22498.9
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "inside": 2984.9,
+            "oceanView": 3450.9,
+            "balcony": 4415.9,
+            "suite": 22498.9
+          }
+        },
+        {
+          "at": "2026-05-29T23:08:29.615Z",
+          "prices": {
+            "inside": 2984.9,
+            "oceanView": 3450.9,
+            "balcony": 4004.9,
+            "suite": 22498.9
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "inside": 2984.9,
+            "oceanView": 3450.9,
+            "balcony": 4004.9,
+            "suite": 20187.9
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-30T09:55:04.493Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_BY06FLL-600490490",
+      "shipName": "Celebrity Beyond",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2022,
+      "itinerary": "Mexico & Belize: Cruising (Cruising), Falmouth, Jamaica, George Town, Grand Cayman, Cozumel, Mexico",
+      "departureDate": "2028-01-23",
+      "duration": "6 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1410.65",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=BY06FLL-600490490&pID=BY06W333&sDT=2028-01-23&sCD=BY&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1410.65",
+        "oceanView": "1581.65",
+        "balcony": "1872.65",
+        "suite": "4646.65"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1410.65
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1410.65,
+            "oceanView": 1581.65,
+            "balcony": 1872.65,
+            "suite": 4646.65
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-30T09:55:04.493Z"
     }
   ]
 }
