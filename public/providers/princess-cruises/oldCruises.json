@@ -6668,44 +6668,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_LVL07D_KP_20270920",
-      "shipName": "Crown Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2006,
-      "itinerary": "Vancouver, Canada → San Francisco, California → San Diego, California → Catalina Island, California → Los Angeles, California",
-      "departureDate": "2027-09-20",
-      "duration": "7 Nights",
-      "departurePort": "Vancouver, Canada",
-      "departureRegion": "Americas",
-      "destination": "South America",
-      "priceFrom": "704",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3738",
-      "prices": {
-        "inside": "704",
-        "oceanView": "974",
-        "balcony": "1074",
-        "suite": "1399"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 704
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 704,
-            "oceanView": 974,
-            "balcony": 1074,
-            "suite": 1399
-          }
-        }
-      ],
-      "lastSeenAt": "2026-05-30T13:18:20.949Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_HRL16A_EP_20261128",
       "shipName": "Emerald Princess",
       "shipClass": "Grand",
@@ -12275,6 +12237,44 @@
         }
       ],
       "lastSeenAt": "2026-05-30T15:02:32.875Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_LVL07D_XP_20260926",
+      "shipName": "Discovery Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2022,
+      "itinerary": "Vancouver, Canada → San Francisco, California → San Diego, California → Santa Barbara, California → Los Angeles, California",
+      "departureDate": "2026-09-26",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver, Canada",
+      "departureRegion": "Americas",
+      "destination": "South America",
+      "priceFrom": "698",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=X633",
+      "prices": {
+        "inside": "698",
+        "oceanView": "904",
+        "balcony": "895",
+        "suite": "1249"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 698
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 698,
+            "oceanView": 904,
+            "balcony": 895,
+            "suite": 1249
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-30T16:57:19.215Z"
     }
   ]
 }
