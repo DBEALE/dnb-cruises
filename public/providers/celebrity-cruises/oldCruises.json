@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 39,
+  "count": 40,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -901,6 +901,48 @@
         "suite": null
       },
       "lastSeenAt": "2026-05-29T09:33:04.484Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_BY07MIA-2497592247",
+      "shipName": "Celebrity Beyond",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2022,
+      "itinerary": "San Juan, St. Kitts & Perfect Day: Perfect Day CocoCay, Bahamas, Cruising (Cruising), San Juan, Puerto Rico, Basseterre, St Kitts & Nevis",
+      "departureDate": "2026-06-21",
+      "duration": "7 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1991.8",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=BY07MIA-2497592247&pID=BY07E495&sDT=2026-06-21&sCD=BY&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1991.8",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1991.8
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1991.8,
+            "oceanView": 2039.8
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 1991.8
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-30T13:18:20.949Z"
     }
   ]
 }
