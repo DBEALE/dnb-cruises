@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 62,
+  "count": 63,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -1448,6 +1448,61 @@
         }
       ],
       "lastSeenAt": "2026-05-30T09:55:04.493Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LE08ROM-901008908",
+      "shipName": "Legend of the Seas",
+      "shipClass": "",
+      "shipLaunchYear": null,
+      "itinerary": "Western Mediterranean: Florence / Pisa (La Spezia), Italy, Naples / Capri, Italy, Palma De Mallorca, Spain, Málaga, Spain, Barcelona, Spain",
+      "departureDate": "2026-07-25",
+      "duration": "8 Nights",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "2016.61",
+      "currency": "USD",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LE08ROM-901008908&sailDate=2026-07-25&shipCode=LE&packageCode=LE08M173&destinationCode=EUROP&selectedCurrencyCode=USD&country=USA",
+      "prices": {
+        "inside": "2016.61",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3488.61
+        },
+        {
+          "at": "2026-05-29T11:23:56.779Z",
+          "price": 5528.11
+        },
+        {
+          "at": "2026-05-29T14:53:57.578Z",
+          "price": 10128.61
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "suite": 54128.61
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "inside": 2276.11
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 2016.61
+          }
+        }
+      ],
+      "lastSeenAt": "2026-05-31T10:11:52.714Z"
     }
   ]
 }
