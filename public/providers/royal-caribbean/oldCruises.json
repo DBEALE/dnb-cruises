@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 66,
+  "count": 65,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -1583,97 +1583,67 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_FR04MIA-3280107330",
-      "shipName": "Freedom of the Seas",
-      "shipClass": "Freedom",
-      "shipLaunchYear": 2006,
-      "itinerary": "Eastern Caribbean Cruise: Grand Turk, Turks & Caicos",
-      "departureDate": "2026-12-17",
-      "duration": "4 Nights",
-      "departurePort": "Miami",
+      "id": "rc_QN07LAX-1983939879",
+      "shipName": "Quantum of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2014,
+      "itinerary": "Cabo Overnight Catalina & Ensenada: Catalina Island, California, Cabo San Lucas, Mexico, Ensenada, Mexico",
+      "departureDate": "2026-06-05",
+      "duration": "7 Nights",
+      "departurePort": "Los Angeles",
       "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "334.5",
+      "destination": "Mexico",
+      "priceFrom": "1235.5",
       "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=FR04MIA-3280107330&sailDate=2026-12-17&shipCode=FR&packageCode=FR04E029&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=QN07LAX-1983939879&sailDate=2026-06-05&shipCode=QN&packageCode=QN07X064&destinationCode=MEXCO&selectedCurrencyCode=GBP&country=GBR",
       "prices": {
-        "inside": "334.5",
-        "oceanView": "382.5",
-        "balcony": "545.5",
-        "suite": "637.5"
+        "inside": null,
+        "oceanView": null,
+        "balcony": "1235.5",
+        "suite": null
       },
       "priceHistory": [
         {
           "at": "2026-05-29T09:33:04.484Z",
-          "price": 480.67
+          "price": 2748.91
+        },
+        {
+          "at": "2026-05-29T14:53:57.578Z",
+          "price": 1511.41
         },
         {
           "at": "2026-05-29T18:29:37.417Z",
           "prices": {
-            "inside": 480.67,
-            "oceanView": 553.17,
-            "balcony": 801.67,
-            "suite": 952.17
+            "inside": 1142.91,
+            "balcony": 1328.41
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "balcony": 1328.41
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "balcony": 1511.41
           }
         },
         {
           "at": "2026-05-31T12:12:25.302Z",
           "prices": {
-            "inside": 334.5,
-            "oceanView": 382.5,
-            "balcony": 545.5,
-            "suite": 637.5
-          }
-        }
-      ],
-      "lastSeenAt": "2026-05-31T15:15:42.439Z"
-    },
-    {
-      "provider": "Royal Caribbean",
-      "id": "rc_EX05PCN-1902275401",
-      "shipName": "Explorer of the Seas",
-      "shipClass": "Voyager",
-      "shipLaunchYear": 2000,
-      "itinerary": "Eastern Caribbean Cruise: Grand Turk, Turks & Caicos, Nassau, Bahamas",
-      "departureDate": "2026-11-13",
-      "duration": "5 Nights",
-      "departurePort": "Orlando (Port Canaveral)",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "463.5",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=EX05PCN-1902275401&sailDate=2026-11-13&shipCode=EX&packageCode=EX05E061&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": "463.5",
-        "oceanView": "507.5",
-        "balcony": "687.5",
-        "suite": "1052.5"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 608.8
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 608.8,
-            "oceanView": 669.3,
-            "balcony": 911.8,
-            "suite": 1398.8
+            "balcony": 1134.5
           }
         },
         {
-          "at": "2026-05-31T12:12:25.302Z",
+          "at": "2026-05-31T20:54:05.330Z",
           "prices": {
-            "inside": 463.5,
-            "oceanView": 507.5,
-            "balcony": 687.5,
-            "suite": 1052.5
+            "balcony": 1235.5
           }
         }
       ],
-      "lastSeenAt": "2026-05-31T15:15:42.439Z"
+      "lastSeenAt": "2026-05-31T20:54:05.330Z"
     }
   ]
 }
