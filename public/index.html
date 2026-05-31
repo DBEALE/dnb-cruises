@@ -554,6 +554,17 @@
 
     td.duration { text-align: center; white-space: nowrap; }
 
+    td.per-night {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--blue);
+      white-space: nowrap;
+      text-align: right;
+    }
+    td.per-night .per-night-suffix {
+      font-size: 0.65rem; font-weight: 500; color: var(--gray-400); margin-left: 2px;
+    }
+
     td.book { white-space: nowrap; }
 
     td.book a {
@@ -618,7 +629,7 @@
 
     /* ── Responsive column hiding ────────────────────────────────────────────── */
     @media (max-width: 1100px) {
-      .col-launch, .col-destination { display: none; }
+      .col-launch, .col-destination, .col-per-night { display: none; }
     }
 
     @media (max-width: 860px) {
@@ -690,7 +701,8 @@
       td.col-port,
       td.col-region,
       td.col-destination,
-      td.col-launch {
+      td.col-launch,
+      td.col-per-night {
         display: block;
       }
 
@@ -988,6 +1000,65 @@
     #notifyBtn:hover  { background: #1e40af; }
     #notifyBtn:active { transform: scale(.97); }
 
+    /* ── Settings ⚙ button ──────────────────────────────────────────────────── */
+    #settingsBtn {
+      appearance: none;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      width: 34px; height: 34px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--gray-700);
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    #settingsBtn:hover { background: var(--gray-50); color: var(--navy); border-color: var(--gray-300); }
+
+    /* ── Settings dialog ───────────────────────────────────────────────────── */
+    dialog#settingsDialog {
+      position: fixed; inset: 0; margin: auto;
+      border: none; border-radius: 14px; padding: 0;
+      width: min(480px, calc(100vw - 32px));
+      height: max-content; max-height: calc(100vh - 32px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    dialog#settingsDialog::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(3px); }
+    .settings-box  { padding: 22px 24px 20px; max-height: calc(100vh - 32px); overflow-y: auto; }
+    .settings-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 6px; }
+    .settings-head h2 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 0; }
+    .settings-hint { font-size: 0.8rem; color: var(--gray-600); margin: 0 0 16px; line-height: 1.4; }
+    .settings-list { list-style: none; padding: 0; margin: 0 0 14px; }
+    .settings-list li { padding: 10px 0; border-bottom: 1px solid var(--gray-100); }
+    .settings-list li:last-child { border-bottom: none; }
+    .settings-list label {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      align-items: start;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--gray-800);
+    }
+    .settings-list input[type=checkbox] { width: 16px; height: 16px; margin-top: 3px; accent-color: var(--blue); cursor: pointer; }
+    .settings-list label span  { grid-column: 2; font-weight: 600; display: block; }
+    .settings-list label small { grid-column: 2; display: block; font-size: 0.76rem; font-weight: 400; color: var(--gray-600); margin-top: 2px; }
+    .settings-footer { display: flex; justify-content: flex-end; }
+    .settings-reset {
+      appearance: none; background: transparent; border: 1px solid var(--gray-200);
+      border-radius: 6px; padding: 6px 12px; font-size: 0.8rem; color: var(--gray-600);
+      cursor: pointer;
+    }
+    .settings-reset:hover { background: var(--gray-50); color: var(--navy); }
+
+    /* Toggle-driven visibility classes on <body> */
+    body.hide-sparklines  .price-spark              { display: none !important; }
+    body.hide-per-night   .col-per-night            { display: none !important; }
+    body.hide-wiki-links  a.wiki-link               { border-bottom: none; color: inherit; }
+    body.hide-wiki-links  a.wiki-link:hover         { color: inherit; }
+    body.hide-class-dots  .class-dots               { display: none !important; }
+    body.hide-launch-year .col-launch,
+    body.hide-launch-year .mobile-launch-year       { display: none !important; }
+
     /* ── Modal overlay ──────────────────────────────────────────────────────── */
     #notifyModal {
       position: fixed;
@@ -1182,6 +1253,8 @@
           <option value="14-desc">Price (Balcony): High → Low</option>
           <option value="15-asc">Price (Suite): Low → High</option>
           <option value="15-desc">Price (Suite): High → Low</option>
+          <option value="17-asc">Price per night: Low → High</option>
+          <option value="17-desc">Price per night: High → Low</option>
           <option value="16-asc">Biggest price drop</option>
           <option value="16-desc">Biggest price rise</option>
           <option value="7-asc">Departure: Soonest first</option>
@@ -1201,6 +1274,7 @@
         </div>
       </label>
       <span id="rateNote"></span>
+      <button id="settingsBtn" type="button" onclick="openSettings()" title="Display options" aria-label="Display options">⚙</button>
       <button id="notifyBtn" onclick="openNotifyModal()">🔔 Notify Me</button>
     </div>
   </div>
@@ -1220,6 +1294,8 @@
         <option value="14-desc">Price (Balcony): High → Low</option>
         <option value="15-asc">Price (Suite): Low → High</option>
         <option value="15-desc">Price (Suite): High → Low</option>
+        <option value="17-asc">Price per night: Low → High</option>
+        <option value="17-desc">Price per night: High → Low</option>
         <option value="16-asc">Biggest price drop</option>
         <option value="16-desc">Biggest price rise</option>
         <option value="7-asc">Departure: Soonest first</option>
@@ -1320,6 +1396,7 @@
             <th class="col-port"        onclick="sortTable(9)">Departure port</th>
             <th class="col-region"      onclick="sortTable(10)">Region</th>
             <th class="col-price"       onclick="sortTable(11)" data-col="11">Price</th>
+            <th class="col-per-night"   onclick="sortTable(17)">£/night</th>
             <th class="col-book">Book</th>
           </tr>
           <tr id="filterRow">
@@ -1376,12 +1453,13 @@
             <td class="col-price">
               <input class="col-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="applyFilters()">
             </td>
+            <td class="col-per-night"></td>
             <td class="col-book"></td>
           </tr>
         </thead>
         <tbody id="cruiseBody">
           <tr class="empty-row">
-            <td colspan="13">Loading cruise data…</td>
+            <td colspan="14">Loading cruise data…</td>
           </tr>
         </tbody>
       </table>
@@ -1423,6 +1501,26 @@
 
 </main>
 
+<dialog id="settingsDialog" aria-labelledby="settingsTitle">
+  <div class="settings-box">
+    <div class="settings-head">
+      <h2 id="settingsTitle">Display options</h2>
+      <button type="button" class="ph-close" id="settingsClose" aria-label="Close">×</button>
+    </div>
+    <p class="settings-hint">Toggle features off to declutter the table. Choices save automatically to this browser.</p>
+    <ul class="settings-list">
+      <li><label><input type="checkbox" data-setting="sparklines">  <span>Price-history sparklines</span><small>The small trend line beneath each cabin price.</small></label></li>
+      <li><label><input type="checkbox" data-setting="perNight">    <span>Price per night column</span><small>Adds a sortable £/night column on wide screens.</small></label></li>
+      <li><label><input type="checkbox" data-setting="wikiLinks">   <span>Wikipedia links</span><small>Underlined ship / cruise line / class names.</small></label></li>
+      <li><label><input type="checkbox" data-setting="classDots">   <span>Class quality dots</span><small>The four green dots next to ship-class names.</small></label></li>
+      <li><label><input type="checkbox" data-setting="launchYear">  <span>Ship launch year</span><small>The year column (desktop) and grey year next to ship name (mobile).</small></label></li>
+    </ul>
+    <div class="settings-footer">
+      <button type="button" id="settingsReset" class="settings-reset">Reset to defaults</button>
+    </div>
+  </div>
+</dialog>
+
 <dialog id="priceHistoryDialog" aria-labelledby="phTitle">
   <div class="ph-box">
     <div class="ph-head">
@@ -1450,6 +1548,19 @@
 <script>
   // ── State ──────────────────────────────────────────────────────────────────
   let allCruises   = [];
+  let cruiseById   = new Map();   // id → cruise, for O(1) lookups from the sparkline observer
+
+  // Display-options state (toggles persisted to localStorage). Declared up
+  // here so the init IIFE can call loadSettings() without TDZ errors.
+  const SETTINGS_KEY = 'cruise-explorer-settings';
+  const SETTINGS_DEFAULTS = {
+    sparklines: true,
+    perNight:   true,
+    wikiLinks:  true,
+    classDots:  true,
+    launchYear: true,
+  };
+  let settings = { ...SETTINGS_DEFAULTS };
   let loadedProviders = [];
   let loadedProviderCounts = new Map();
   let loadedProviderScrapedAts = new Map();
@@ -1607,6 +1718,8 @@
     loadData();
     fetchGBPRate();
     fetchShipWikiLinks();
+    loadSettings();
+    wireSettingsHandlers();
     wirePriceHistoryHandlers();
 
     fetch(resolveStaticUrl('./build-info.json'), { cache: 'no-store' })
@@ -1721,6 +1834,7 @@
   // ── Apply results ──────────────────────────────────────────────────────────
   function applyCruiseResults(cruises, scrapedAt) {
     allCruises = cruises || [];
+    cruiseById = new Map(allCruises.map(c => [c.id, c]));
 
     populateDropdownFilters(allCruises);
 
@@ -1737,6 +1851,9 @@
 
     renderProviderStats(allCruises);
 
+    // Apply any sort / filter state from the URL hash before the first render
+    // so refreshes and shared links land on the same view.
+    applyUrlState();
     applyFilters();
   }
 
@@ -1827,13 +1944,14 @@
 
   // Per-cabin sparkline — same shape as sparklineButton but locked to one
   // bucket. Returns '' when that cabin has fewer than 2 observations.
-  function cabinSparklineButton(c, bucket) {
+  // Returns the SVG markup for one cabin's history, or null when there
+  // aren't enough points. Pure — no DOM/state reads beyond the cruise itself.
+  function buildCabinSparkSvg(c, bucket) {
     const history = Array.isArray(c.priceHistory) ? c.priceHistory : [];
-    if (history.length < 2) return '';
-
+    if (history.length < 2) return null;
     const prices = history.map(e => entryPrice(e, bucket)).map(v => Number.isFinite(v) ? v : null);
     const valid  = prices.filter(v => v !== null);
-    if (valid.length < 2) return '';
+    if (valid.length < 2) return null;
 
     const w = 60, h = 8, padX = 1, padY = 1;
     const min = Math.min(...valid), max = Math.max(...valid);
@@ -1846,18 +1964,29 @@
       path += (inPath ? ' L' : ' M') + `${x.toFixed(1)},${y.toFixed(1)}`;
       inPath = true;
     });
-    if (!path) return '';
-
+    if (!path) return null;
     const first = valid[0], last = valid[valid.length - 1];
-    const trendClass = last < first ? 'spark-down' : (last > first ? 'spark-up' : 'spark-flat');
-    const label = BUCKET_LABEL[bucket] || bucket;
-    const title = `${label} — ${valid.length} observations, click for details`;
+    const trend = last < first ? 'spark-down' : (last > first ? 'spark-up' : 'spark-flat');
+    return {
+      svg: `<svg class="${trend}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" preserveAspectRatio="none"><path d="${path.trim()}" fill="none" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" /></svg>`,
+      count: valid.length,
+    };
+  }
 
-    return `<button type="button" class="price-spark cabin-spark" data-cruise-id="${escHtml(c.id || '')}" title="${escHtml(title)}" aria-label="Show ${escHtml(label)} price history">
-      <svg class="${trendClass}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" preserveAspectRatio="none">
-        <path d="${path.trim()}" fill="none" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" />
-      </svg>
-    </button>`;
+  // Cheap pre-check so we don't render a placeholder for cabins with no story.
+  function cabinHasPlottableHistory(c, bucket) {
+    const history = Array.isArray(c.priceHistory) ? c.priceHistory : [];
+    if (history.length < 2) return false;
+    let n = 0;
+    for (const e of history) if (Number.isFinite(entryPrice(e, bucket))) n++;
+    return n >= 2;
+  }
+
+  function cabinSparklineButton(c, bucket) {
+    if (!cabinHasPlottableHistory(c, bucket)) return '';
+    const label = BUCKET_LABEL[bucket] || bucket;
+    // Placeholder — observer populates the SVG when the row scrolls into view.
+    return `<button type="button" class="price-spark cabin-spark" data-cruise-id="${escHtml(c.id || '')}" data-spark-bucket="${escHtml(bucket)}" title="${escHtml(label + ' — click for details')}" aria-label="Show ${escHtml(label)} price history"></button>`;
   }
 
   // Picks the cabin bucket with the most extreme pct change from first to
@@ -1884,9 +2013,11 @@
   // user is explicitly sorted by "Biggest price rise" we flip and plot the
   // biggest-rise cabin instead. Falls back to cheapest-cabin trend when
   // nothing has moved in the relevant direction.
-  function sparklineButton(c) {
+  // SVG for the legacy fallback sparkline (single line, picks the biggest-fall
+  // cabin per current sort direction; falls back to lowest-cabin trend).
+  function buildSingleSparkSvg(c) {
     const history = Array.isArray(c.priceHistory) ? c.priceHistory : [];
-    if (history.length < 2) return '';
+    if (history.length < 2) return null;
 
     const isRiseSort = sortColIndex === 16 && !sortAsc;
     const direction  = isRiseSort ? 'rise' : 'fall';
@@ -1896,7 +2027,7 @@
 
     const prices = history.map(getter).map(v => Number.isFinite(v) ? v : null);
     const valid  = prices.filter(v => v !== null);
-    if (valid.length < 2) return '';
+    if (valid.length < 2) return null;
 
     const w = 60, h = 16, padX = 1, padY = 2;
     const min = Math.min(...valid), max = Math.max(...valid);
@@ -1909,22 +2040,66 @@
       path += (inPath ? ' L' : ' M') + `${x.toFixed(1)},${y.toFixed(1)}`;
       inPath = true;
     });
-
+    if (!path) return null;
     const first = valid[0], last = valid[valid.length - 1];
-    const trendClass = last < first ? 'spark-down' : (last > first ? 'spark-up' : 'spark-flat');
-    const title = `${label} trend over ${history.length} observations — click for details`;
+    const trend = last < first ? 'spark-down' : (last > first ? 'spark-up' : 'spark-flat');
+    return {
+      svg: `<svg class="${trend}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" preserveAspectRatio="none"><path d="${path.trim()}" fill="none" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" /></svg>`,
+      title: `${label} trend over ${history.length} observations — click for details`,
+    };
+  }
 
-    return `<button type="button" class="price-spark" data-cruise-id="${escHtml(c.id || '')}" title="${escHtml(title)}" aria-label="Show price history">
-      <svg class="${trendClass}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" preserveAspectRatio="none">
-        <path d="${path.trim()}" fill="none" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
-      </svg>
-    </button>`;
+  function sparklineButton(c) {
+    const history = Array.isArray(c.priceHistory) ? c.priceHistory : [];
+    if (history.length < 2) return '';
+    // Placeholder — observer populates the SVG and the rich title when visible.
+    return `<button type="button" class="price-spark" data-cruise-id="${escHtml(c.id || '')}" data-spark-bucket="" title="Click for price history" aria-label="Show price history"></button>`;
+  }
+
+  // Lazily fills sparkline placeholders with their SVGs when they enter the
+  // viewport. Cuts initial DOM cost by ~3-4× since only the first viewport
+  // worth of buttons ever materialises immediately.
+  let sparkObserver = null;
+  function ensureSparkObserver() {
+    if (sparkObserver || typeof IntersectionObserver === 'undefined') return;
+    sparkObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const btn = entry.target;
+        sparkObserver.unobserve(btn);
+        fillSparkButton(btn);
+      }
+    }, { rootMargin: '200px 0px' });
+  }
+  function fillSparkButton(btn) {
+    if (btn.dataset.sparkFilled === '1') return;
+    const c = cruiseById.get(btn.dataset.cruiseId);
+    if (!c) { btn.dataset.sparkFilled = '1'; return; }
+    const bucket = btn.dataset.sparkBucket;
+    const result = bucket ? buildCabinSparkSvg(c, bucket) : buildSingleSparkSvg(c);
+    if (!result) { btn.dataset.sparkFilled = '1'; return; }
+    btn.innerHTML = result.svg;
+    if (result.title) btn.title = result.title;
+    else if (bucket && result.count != null) {
+      const label = BUCKET_LABEL[bucket] || bucket;
+      btn.title = `${label} — ${result.count} observations, click for details`;
+    }
+    btn.dataset.sparkFilled = '1';
+  }
+  function observeNewSparks() {
+    if (!sparkObserver) ensureSparkObserver();
+    // Fallback: no IntersectionObserver → fill everything synchronously.
+    if (!sparkObserver) {
+      document.querySelectorAll('.price-spark:not([data-spark-filled])').forEach(fillSparkButton);
+      return;
+    }
+    document.querySelectorAll('.price-spark:not([data-spark-filled])').forEach(btn => sparkObserver.observe(btn));
   }
 
   function renderBody(list) {
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="13">No cruises match your filters.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="14">No cruises match your filters.</td></tr>';
       return;
     }
     tbody.innerHTML = list.map((c, i) => {
@@ -1933,6 +2108,10 @@
       const url      = c.bookingUrl ? escHtml(absoluteUrl(c.bookingUrl)) : '';
       const bookCell = url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">Book →</a>` : '—';
       const priceCell = buildPriceCell(c, url);
+      const perNight  = getPricePerNight(c);
+      const perNightCell = Number.isFinite(perNight)
+        ? `${escHtml(formatPriceDisplay(perNight, c.currency))}<span class="per-night-suffix">/night</span>`
+        : '—';
 
       return `<tr>
         <td class="col-num" data-label="#">${i + 1}</td>
@@ -1947,9 +2126,11 @@
         <td class="col-port" data-label="Departure port">${escHtml(c.departurePort || '—')}</td>
         <td class="col-region" data-label="Region">${escHtml(c.departureRegion || '—')}</td>
         <td class="col-price price" data-label="Price">${priceCell}</td>
+        <td class="col-per-night per-night" data-label="£/night">${perNightCell}</td>
         <td class="col-book book" data-label="Book">${bookCell}</td>
       </tr>`;
     }).join('');
+    observeNewSparks();
   }
 
   // ── Price-history dialog ───────────────────────────────────────────────────
@@ -2083,6 +2264,66 @@
     }).join('');
   }
 
+  // ── Display options (settings dialog + localStorage) ─────────────────────
+  // SETTINGS_KEY / SETTINGS_DEFAULTS / settings are declared up with the
+  // other module-level state so init's loadSettings() doesn't hit the
+  // temporal-dead-zone.
+  function loadSettings() {
+    try {
+      const raw = localStorage.getItem(SETTINGS_KEY);
+      if (raw) settings = { ...SETTINGS_DEFAULTS, ...JSON.parse(raw) };
+    } catch {}
+    applySettingsToDom();
+  }
+  function saveSettings() {
+    try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch {}
+  }
+  // Drive visibility via classes on <body> so toggling is instant — no
+  // re-render needed. Sparklines are lazy anyway; placeholder buttons just
+  // get display:none when off.
+  function applySettingsToDom() {
+    document.body.classList.toggle('hide-sparklines', !settings.sparklines);
+    document.body.classList.toggle('hide-per-night',  !settings.perNight);
+    document.body.classList.toggle('hide-wiki-links', !settings.wikiLinks);
+    document.body.classList.toggle('hide-class-dots', !settings.classDots);
+    document.body.classList.toggle('hide-launch-year',!settings.launchYear);
+  }
+  function openSettings() {
+    const dlg = document.getElementById('settingsDialog');
+    if (!dlg) return;
+    // Sync checkbox states with current settings every open.
+    dlg.querySelectorAll('input[data-setting]').forEach(cb => {
+      cb.checked = !!settings[cb.dataset.setting];
+    });
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open', '');
+  }
+  function wireSettingsHandlers() {
+    const dlg = document.getElementById('settingsDialog');
+    if (!dlg || dlg.dataset.wired) return;
+    dlg.dataset.wired = '1';
+
+    dlg.querySelectorAll('input[data-setting]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        settings[cb.dataset.setting] = cb.checked;
+        applySettingsToDom();
+        saveSettings();
+      });
+    });
+
+    document.getElementById('settingsClose').addEventListener('click', () => dlg.close());
+    document.getElementById('settingsReset').addEventListener('click', () => {
+      settings = { ...SETTINGS_DEFAULTS };
+      dlg.querySelectorAll('input[data-setting]').forEach(cb => {
+        cb.checked = !!settings[cb.dataset.setting];
+      });
+      applySettingsToDom();
+      saveSettings();
+    });
+    // Backdrop click closes
+    dlg.addEventListener('click', ev => { if (ev.target === dlg) dlg.close(); });
+  }
+
   function wirePriceHistoryHandlers() {
     const tbody = document.getElementById('cruiseBody');
     if (tbody && !tbody.dataset.phWired) {
@@ -2183,6 +2424,7 @@
       case 14: return getRoomPrice(c, 'balcony');
       case 15: return getRoomPrice(c, 'suite');
       case 16: return getPricePctChange(c);
+      case 17: return getPricePerNight(c);
       default: return '';
     }
   }
@@ -2254,11 +2496,64 @@
     document.getElementById('summary').innerHTML = summary;
 
     renderBody(capped);
+    writeUrlState();
   }
 
   function enableShowAll() {
     showAll = true;
     applyFilters();
+  }
+
+  // ── URL state ──────────────────────────────────────────────────────────────
+  // Serialize filters / sort / showAll / gbp into the URL hash so a refresh
+  // and the back button preserve them, and the view is shareable. Only
+  // non-default values are written — a clean URL = default state.
+  function serializeUrlState() {
+    const p = new URLSearchParams();
+    if (sortColIndex >= 0) p.set('sort', `${sortColIndex}-${sortAsc ? 'asc' : 'desc'}`);
+    if (showAll)           p.set('all', '1');
+    if (!showInGbp)        p.set('gbp', '0');
+    document.querySelectorAll('.col-filter').forEach(el => {
+      if (el.value) p.set(el.dataset.field, el.value);
+    });
+    return p.toString();
+  }
+
+  function writeUrlState() {
+    const s = serializeUrlState();
+    const desired = s ? '#' + s : window.location.pathname + window.location.search;
+    const newHref = s ? (window.location.pathname + window.location.search + '#' + s)
+                      : (window.location.pathname + window.location.search);
+    if (window.location.hash !== (s ? '#' + s : '')) {
+      try { history.replaceState(null, '', newHref); } catch {}
+    }
+  }
+
+  function applyUrlState() {
+    const hash = window.location.hash.replace(/^#/, '');
+    if (!hash) return;
+    const p = new URLSearchParams(hash);
+
+    const sortVal = p.get('sort');
+    if (sortVal && /^\d+-(asc|desc)$/.test(sortVal)) {
+      const [col, dir] = sortVal.split('-');
+      sortColIndex = parseInt(col, 10);
+      sortAsc = dir === 'asc';
+      syncSortSelects(sortVal);
+      const ths = document.querySelectorAll('.sort-row th');
+      if (ths[sortColIndex]) ths[sortColIndex].classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+    }
+    if (p.get('all') === '1') showAll = true;
+    if (p.get('gbp') === '0') {
+      showInGbp = false;
+      const t = document.getElementById('gbpToggle');
+      if (t) t.checked = false;
+    }
+    // Filter inputs (both the desktop col-filter row and the mobile filter panel).
+    document.querySelectorAll('.col-filter, .mob-filter').forEach(el => {
+      const v = p.get(el.dataset.field);
+      if (v != null) el.value = v;
+    });
   }
 
   // ── GBP toggle ─────────────────────────────────────────────────────────────
@@ -2358,6 +2653,15 @@
       if (Number.isFinite(p) && p < min) min = p;
     }
     return min === Infinity ? getGBPPrice(c) : min;
+  }
+
+  // Lowest-cabin price normalised to a per-night figure. Cruises of different
+  // lengths become directly comparable. NaN when nights or price unknown.
+  function getPricePerNight(c) {
+    const price  = getLowestRoomPrice(c);
+    const nights = parseInt(c.duration, 10);
+    if (!Number.isFinite(price) || !Number.isFinite(nights) || nights <= 0) return NaN;
+    return price / nights;
   }
 
   // ── Formatting ─────────────────────────────────────────────────────────────
