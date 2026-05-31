@@ -3,6 +3,15 @@
   let cruiseById   = new Map();   // id → cruise, for O(1) lookups from the sparkline observer
   let stickySummaryObserver = null;
 
+  // Region groupings used by the departureRegion filter. Picking
+  // `group:europe` matches cruises departing from any of these atomic
+  // regions; same pattern as the ship-size tier filter.
+  const REGION_GROUP_MEMBERS = {
+    'europe':       ['UK & Ireland', 'Northern Europe', 'Mediterranean'],
+    'americas':     ['Americas', 'South America', 'Caribbean'],
+    'asia-pacific': ['Asia & Far East', 'Australia & Pacific'],
+  };
+
   // Display-options state (toggles persisted to localStorage). Declared up
   // here so the init IIFE can call loadSettings() without TDZ errors.
   const SETTINGS_KEY = 'cruise-explorer-settings';
@@ -1042,7 +1051,7 @@
     });
 
     const filtered = allCruises.filter(c => {
-      const text = ['shipName', 'provider', 'itinerary', 'destination', 'departurePort', 'departureRegion'];
+      const text = ['shipName', 'provider', 'itinerary', 'destination', 'departurePort'];
       for (const f of text) {
         if (colFilters[f] && !(c[f] || '').toLowerCase().includes(colFilters[f].toLowerCase())) return false;
       }
@@ -1054,6 +1063,18 @@
         if (cls.startsWith('tier:')) {
           if (SHIP_TIER_BY_CLASS[c.shipClass] !== cls.slice(5)) return false;
         } else if (!(c.shipClass || '').toLowerCase().includes(cls.toLowerCase())) {
+          return false;
+        }
+      }
+      // departureRegion is similarly bi-modal: `group:<area>` matches any
+      // of the regions in REGION_GROUP_MEMBERS; anything else is a
+      // substring match against the region name.
+      const region = colFilters.departureRegion;
+      if (region) {
+        if (region.startsWith('group:')) {
+          const members = REGION_GROUP_MEMBERS[region.slice(6)];
+          if (!members || !members.includes(c.departureRegion)) return false;
+        } else if (!(c.departureRegion || '').toLowerCase().includes(region.toLowerCase())) {
           return false;
         }
       }

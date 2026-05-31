@@ -154,17 +154,24 @@
         <label for="mobFilterRegion">Region</label>
         <select id="mobFilterRegion" class="mob-filter" data-field="departureRegion" onchange="mobileFilterSync(this)">
           <option value="">All regions</option>
-          <option>UK &amp; Ireland</option>
-          <option>Northern Europe</option>
-          <option>Mediterranean</option>
-          <option>Caribbean</option>
-          <option>Americas</option>
-          <option>Asia &amp; Far East</option>
-          <option>Middle East</option>
-          <option>Africa</option>
-          <option>Australia &amp; Pacific</option>
-          <option>South America</option>
-          <option>Other</option>
+          <optgroup label="By area">
+            <option value="group:europe">Europe (UK, N. Europe, Med.)</option>
+            <option value="group:americas">Americas (N + S + Caribbean)</option>
+            <option value="group:asia-pacific">Asia &amp; Pacific</option>
+          </optgroup>
+          <optgroup label="By region">
+            <option>UK &amp; Ireland</option>
+            <option>Northern Europe</option>
+            <option>Mediterranean</option>
+            <option>Caribbean</option>
+            <option>Americas</option>
+            <option>Asia &amp; Far East</option>
+            <option>Middle East</option>
+            <option>Africa</option>
+            <option>Australia &amp; Pacific</option>
+            <option>South America</option>
+            <option>Other</option>
+          </optgroup>
         </select>
       </div>
       <div class="mob-filter-group">
@@ -260,17 +267,24 @@
             <td class="col-region">
               <select class="col-filter" data-field="departureRegion" onchange="applyFilters()">
                 <option value="">All regions</option>
-                <option>UK & Ireland</option>
-                <option>Northern Europe</option>
-                <option>Mediterranean</option>
-                <option>Caribbean</option>
-                <option>Americas</option>
-                <option>Asia & Far East</option>
-                <option>Middle East</option>
-                <option>Africa</option>
-                <option>Australia & Pacific</option>
-                <option>South America</option>
-                <option>Other</option>
+                <optgroup label="By area">
+                  <option value="group:europe">Europe (UK, N. Europe, Med.)</option>
+                  <option value="group:americas">Americas (N + S + Caribbean)</option>
+                  <option value="group:asia-pacific">Asia & Pacific</option>
+                </optgroup>
+                <optgroup label="By region">
+                  <option>UK & Ireland</option>
+                  <option>Northern Europe</option>
+                  <option>Mediterranean</option>
+                  <option>Caribbean</option>
+                  <option>Americas</option>
+                  <option>Asia & Far East</option>
+                  <option>Middle East</option>
+                  <option>Africa</option>
+                  <option>Australia & Pacific</option>
+                  <option>South America</option>
+                  <option>Other</option>
+                </optgroup>
               </select>
             </td>
             <td class="col-price">
