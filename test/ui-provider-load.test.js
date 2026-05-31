@@ -16,15 +16,10 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 function readFrontendScript() {
-  const htmlPath = path.join(__dirname, '..', 'public', 'index.html');
-  const html = fs.readFileSync(htmlPath, 'utf8');
-  const match = html.match(/<script>([\s\S]*)<\/script>\s*<\/body>/i);
-
-  if (!match) {
-    throw new Error('Could not find the inline frontend script in public/index.html');
-  }
-
-  return match[1];
+  // app.js was previously inline in index.html; since the split it lives
+  // alongside index.html in public/. Read it from there directly.
+  const scriptPath = path.join(__dirname, '..', 'public', 'app.js');
+  return fs.readFileSync(scriptPath, 'utf8');
 }
 
 test('ship, cruise line, and class filters are dropdowns and port is labeled departure port', () => {
@@ -49,13 +44,20 @@ function createElement(initial = {}) {
     checked: Boolean(initial.checked),
     style: initial.style || {},
     focused: false,
+    dataset: {},
     classList: {
       add() {},
       remove() {},
+      toggle() {},
+      contains: () => false,
     },
+    addEventListener() {},
+    setAttribute() {},
+    removeAttribute() {},
     querySelector() {
       return { style: {} };
     },
+    querySelectorAll() { return []; },
     focus() {
       this.focused = true;
     },
@@ -117,9 +119,18 @@ async function createSandbox({
       },
     },
     window: {
-      location: { protocol: 'http:', origin: 'http://127.0.0.1:3000' },
+      location: { protocol: 'http:', origin: 'http://127.0.0.1:3000', pathname: '/', search: '', hash: '' },
     },
+    history: { replaceState() {}, pushState() {} },
+    IntersectionObserver: class { observe() {} unobserve() {} disconnect() {} },
     document: {
+      // <body> stub — the settings loader toggles classes on it.
+      body: {
+        className: '',
+        classList: { add() {}, remove() {}, toggle() {}, contains: () => false },
+      },
+      addEventListener() {},
+      removeEventListener() {},
       getElementById(id) {
         return elements[id];
       },
@@ -209,6 +220,8 @@ async function createSandbox({
     Map,
     Error,
     URL,
+    URLSearchParams,
+    performance: { now: () => Date.now() },
   };
 
   sandbox.globalThis = sandbox;
@@ -238,7 +251,8 @@ test('loads the provider manifest and provider-specific cruise file on init', as
   assert.equal(providerIndexCall.options.cache, 'no-store');
   assert.equal(providerCruisesCall.options.cache, 'no-store');
   assert.equal(elements.statusBar.className, '');
-  assert.match(elements.summary.textContent, /Showing all 1 sailings/);
+  // Summary line is set via innerHTML (it includes an inline "Show all" button).
+  assert.match(elements.summary.innerHTML, /Showing all 1 sailings/);
   assert.match(elements.cruiseBody.innerHTML, /Harmony of the Seas/);
   assert.match(elements.cruiseBody.innerHTML, /data-label="Cruise line"/);
   assert.match(elements.cruiseBody.innerHTML, /data-label="Book"/);
@@ -265,7 +279,7 @@ test('cached cruises are rendered immediately on init', async () => {
 
   const { elements } = await createSandbox({ cachedCruises: cached, providerCruises: cached.cruises });
 
-  assert.match(elements.summary.textContent, /Showing all 1 sailings/);
+  assert.match(elements.summary.innerHTML, /Showing all 1 sailings/);
   assert.match(elements.cruiseBody.innerHTML, /Wonder of the Seas/);
 });
 
