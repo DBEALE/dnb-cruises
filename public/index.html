@@ -240,22 +240,22 @@
               </select>
             </td>
             <td class="col-launch">
-              <input class="col-filter" data-field="minLaunch" placeholder="Min yr…" type="number" min="1990" oninput="applyFilters()">
+              <input class="col-filter" data-field="minLaunch" placeholder="Min yr…" type="number" min="1990" oninput="debouncedApplyFilters()">
             </td>
             <td class="col-itinerary">
-              <input class="col-filter" data-field="itinerary" placeholder="Filter…" oninput="applyFilters()">
+              <input class="col-filter" data-field="itinerary" placeholder="Filter…" oninput="debouncedApplyFilters()">
             </td>
             <td class="col-destination">
-              <input class="col-filter" data-field="destination" placeholder="Filter…" oninput="applyFilters()">
+              <input class="col-filter" data-field="destination" placeholder="Filter…" oninput="debouncedApplyFilters()">
             </td>
             <td class="col-date">
-              <input class="col-filter" data-field="departureDate" placeholder="e.g. Jun…" oninput="applyFilters()">
+              <input class="col-filter" data-field="departureDate" placeholder="e.g. Jun…" oninput="debouncedApplyFilters()">
             </td>
             <td class="col-duration">
-              <input class="col-filter" data-field="duration" placeholder="Min…" type="number" min="0" oninput="applyFilters()">
+              <input class="col-filter" data-field="duration" placeholder="Min…" type="number" min="0" oninput="debouncedApplyFilters()">
             </td>
             <td class="col-port">
-              <input class="col-filter" data-field="departurePort" placeholder="Filter…" oninput="applyFilters()">
+              <input class="col-filter" data-field="departurePort" placeholder="Filter…" oninput="debouncedApplyFilters()">
             </td>
             <td class="col-region">
               <select class="col-filter" data-field="departureRegion" onchange="applyFilters()">
@@ -274,7 +274,7 @@
               </select>
             </td>
             <td class="col-price">
-              <input class="col-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="applyFilters()">
+              <input class="col-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="debouncedApplyFilters()">
             </td>
             <td class="col-per-night"></td>
             <td class="col-book"></td>

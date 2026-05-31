@@ -149,6 +149,16 @@ test.describe('Sort and filter', () => {
     await expect(page.locator('#summary')).toContainText('1 of 3');
     expect(await page.locator('tbody tr').count()).toBe(1);
   });
+
+  test('ship-size filter (tier:large) keeps only ships whose class maps to large', async ({ page }) => {
+    await gotoFresh(page);
+    // All three fixtures are Oasis class (mega), so tier:mega keeps all and
+    // tier:small drops them all — proves the tier filter is wired.
+    await page.locator('.col-filter[data-field="shipClass"]').selectOption('tier:small');
+    await expect(page.locator('#summary')).toContainText('0 of 3');
+    await page.locator('.col-filter[data-field="shipClass"]').selectOption('tier:mega');
+    await expect(page.locator('#summary')).toContainText('all 3');
+  });
 });
 
 test.describe('URL state', () => {

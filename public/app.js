@@ -70,7 +70,6 @@
     const config = {
       shipName: 'All ships',
       provider: 'All cruise lines',
-      shipClass: 'All classes',
     };
 
     for (const [field, label] of Object.entries(config)) {
@@ -89,6 +88,47 @@
         select.value = currentValue && values.includes(currentValue) ? currentValue : '';
       });
     }
+
+    populateClassFilter(cruises);
+  }
+
+  // The Class dropdown gets two sections: ship-size tiers at the top
+  // (Mega/Large/Medium/Small, value prefixed `tier:`), then every individual
+  // class found in the data. applyFilters distinguishes by the prefix.
+  function populateClassFilter(cruises) {
+    const classes = Array.from(new Set((cruises || [])
+      .map(c => String(c?.shipClass || '').trim()).filter(Boolean)))
+      .sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }));
+
+    const TIER_OPTIONS = [
+      ['mega',   'Mega (5,500+ pax)'],
+      ['large',  'Large (3,000–5,500)'],
+      ['medium', 'Medium (2,000–3,000)'],
+      ['small',  'Small (≤2,000)'],
+    ];
+    const tierHtml = TIER_OPTIONS
+      .map(([t, label]) => `<option value="tier:${t}">${escHtml(label)}</option>`)
+      .join('');
+    const classHtml = classes
+      .map(c => `<option value="${escHtml(c)}">${escHtml(c)}</option>`)
+      .join('');
+    const html =
+      `<option value="">All classes</option>` +
+      `<optgroup label="By size">${tierHtml}</optgroup>` +
+      `<optgroup label="By class">${classHtml}</optgroup>`;
+
+    const selects = document.querySelectorAll(
+      '.col-filter[data-field="shipClass"], .mob-filter[data-field="shipClass"]'
+    );
+    const currentValue = Array.from(selects).find(s => s.value)?.value || '';
+    const stillValid = !currentValue ||
+      currentValue.startsWith('tier:') ||
+      classes.includes(currentValue);
+
+    selects.forEach(s => {
+      s.innerHTML = html;
+      s.value = stillValid ? currentValue : '';
+    });
   }
 
   function resolveStaticUrl(resourcePath) {
@@ -896,10 +936,27 @@
     }
   }
 
+  // Debounced filter trigger. Typing in a text/number filter would otherwise
+  // re-filter + re-render on every keystroke (3000 cruises × 300 rendered =
+  // ~50ms of work per keystroke, which feels laggy under fast typing).
+  // 180ms is below the perceptual "instant" threshold but long enough to
+  // coalesce typing bursts.
+  const FILTER_DEBOUNCE_MS = 180;
+  let _filterDebounceTimer = null;
+  function debouncedApplyFilters() {
+    if (_filterDebounceTimer) clearTimeout(_filterDebounceTimer);
+    _filterDebounceTimer = setTimeout(() => {
+      _filterDebounceTimer = null;
+      applyFilters();
+    }, FILTER_DEBOUNCE_MS);
+  }
+
   function mobileFilterSync(el) {
+    // Sync the visible value to its desktop twin immediately so both panels
+    // stay in step while typing, but defer the actual filter pass.
     const target = document.querySelector(`.col-filter[data-field="${el.dataset.field}"]`);
     if (target) target.value = el.value;
-    applyFilters();
+    debouncedApplyFilters();
   }
 
   function toggleMobileFilters() {
@@ -985,9 +1042,20 @@
     });
 
     const filtered = allCruises.filter(c => {
-      const text = ['shipName', 'provider', 'shipClass', 'itinerary', 'destination', 'departurePort', 'departureRegion'];
+      const text = ['shipName', 'provider', 'itinerary', 'destination', 'departurePort', 'departureRegion'];
       for (const f of text) {
         if (colFilters[f] && !(c[f] || '').toLowerCase().includes(colFilters[f].toLowerCase())) return false;
+      }
+      // shipClass filter is bi-modal: `tier:<size>` filters by computed
+      // size tier from SHIP_TIER_BY_CLASS; anything else is a substring
+      // match against the class name (unchanged behaviour).
+      const cls = colFilters.shipClass;
+      if (cls) {
+        if (cls.startsWith('tier:')) {
+          if (SHIP_TIER_BY_CLASS[c.shipClass] !== cls.slice(5)) return false;
+        } else if (!(c.shipClass || '').toLowerCase().includes(cls.toLowerCase())) {
+          return false;
+        }
       }
       if (colFilters.departureDate && !formatDateDisplay(c.departureDate).toLowerCase().includes(colFilters.departureDate.toLowerCase())) return false;
       if (colFilters.minLaunch) {
