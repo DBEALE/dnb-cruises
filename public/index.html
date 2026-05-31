@@ -49,28 +49,19 @@
       <label class="sort-wrap" for="sortSelect">
         <span class="sort-label">Sort</span>
         <select id="sortSelect" onchange="sortSelectChange(this)">
-          <option value="">Default (Price: Low → High)</option>
-          <option value="11-asc">Price (lowest cabin): Low → High</option>
-          <option value="11-desc">Price (lowest cabin): High → Low</option>
-          <option value="12-asc">Price (Inside): Low → High</option>
-          <option value="12-desc">Price (Inside): High → Low</option>
-          <option value="13-asc">Price (Sea view): Low → High</option>
-          <option value="13-desc">Price (Sea view): High → Low</option>
-          <option value="14-asc">Price (Balcony): Low → High</option>
-          <option value="14-desc">Price (Balcony): High → Low</option>
-          <option value="15-asc">Price (Suite): Low → High</option>
-          <option value="15-desc">Price (Suite): High → Low</option>
-          <option value="17-asc">Price per night: Low → High</option>
-          <option value="17-desc">Price per night: High → Low</option>
-          <option value="16-asc">Biggest price drop</option>
-          <option value="16-desc">Biggest price rise</option>
-          <option value="7-asc">Departure: Soonest first</option>
-          <option value="7-desc">Departure: Latest first</option>
-          <option value="8-asc">Nights: Shortest first</option>
-          <option value="8-desc">Nights: Longest first</option>
-          <option value="1-asc">Ship: A → Z</option>
-          <option value="1-desc">Ship: Z → A</option>
+          <option value="">Default</option>
+          <option value="11">Price (lowest cabin)</option>
+          <option value="12">Price (Inside)</option>
+          <option value="13">Price (Sea view)</option>
+          <option value="14">Price (Balcony)</option>
+          <option value="15">Price (Suite)</option>
+          <option value="17">Price per night</option>
+          <option value="16">Price change</option>
+          <option value="7">Departure date</option>
+          <option value="8">Nights</option>
+          <option value="1">Ship name</option>
         </select>
+        <button id="sortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
       </label>
       <label class="toggle-wrap" for="gbpToggle">
         <span class="toggle-label">Prices in £ GBP</span>
@@ -90,28 +81,19 @@
     <div class="mob-sort-row">
       <label for="mobileSortSelect">Sort</label>
       <select id="mobileSortSelect" onchange="mobileSortChange()">
-        <option value="">Price: Low → High (default)</option>
-        <option value="11-asc">Price (lowest cabin): Low → High</option>
-        <option value="11-desc">Price (lowest cabin): High → Low</option>
-        <option value="12-asc">Price (Inside): Low → High</option>
-        <option value="12-desc">Price (Inside): High → Low</option>
-        <option value="13-asc">Price (Sea view): Low → High</option>
-        <option value="13-desc">Price (Sea view): High → Low</option>
-        <option value="14-asc">Price (Balcony): Low → High</option>
-        <option value="14-desc">Price (Balcony): High → Low</option>
-        <option value="15-asc">Price (Suite): Low → High</option>
-        <option value="15-desc">Price (Suite): High → Low</option>
-        <option value="17-asc">Price per night: Low → High</option>
-        <option value="17-desc">Price per night: High → Low</option>
-        <option value="16-asc">Biggest price drop</option>
-        <option value="16-desc">Biggest price rise</option>
-        <option value="7-asc">Departure: Soonest first</option>
-        <option value="7-desc">Departure: Latest first</option>
-        <option value="8-asc">Nights: Shortest first</option>
-        <option value="8-desc">Nights: Longest first</option>
-        <option value="1-asc">Ship: A → Z</option>
-        <option value="1-desc">Ship: Z → A</option>
+        <option value="">Default</option>
+        <option value="11">Price (lowest cabin)</option>
+        <option value="12">Price (Inside)</option>
+        <option value="13">Price (Sea view)</option>
+        <option value="14">Price (Balcony)</option>
+        <option value="15">Price (Suite)</option>
+        <option value="17">Price per night</option>
+        <option value="16">Price change</option>
+        <option value="7">Departure date</option>
+        <option value="8">Nights</option>
+        <option value="1">Ship name</option>
       </select>
+      <button id="mobileSortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
       <button id="mobFilterToggle" onclick="toggleMobileFilters()" aria-expanded="false" aria-controls="mobFilters">Filter</button>
     </div>
     <dialog id="mobFilters" aria-labelledby="mobFiltersTitle">

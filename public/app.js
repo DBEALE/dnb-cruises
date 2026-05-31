@@ -907,42 +907,62 @@
   }
 
   // ── Sort ───────────────────────────────────────────────────────────────────
+  // Header click: toggle direction if same column, else switch to it ascending.
   function sortTable(colIndex) {
     sortAsc = sortColIndex === colIndex ? !sortAsc : true;
     sortColIndex = colIndex;
-    document.querySelectorAll('.sort-row th').forEach((th, i) => {
-      th.classList.remove('sort-asc', 'sort-desc');
-      if (i === colIndex) th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
-    });
-    syncSortSelects(`${colIndex}-${sortAsc ? 'asc' : 'desc'}`);
+    syncSortControls();
     applyFilters();
   }
 
-  // ── Mobile sort/filter controls ────────────────────────────────────────────
-  function applySortValue(val) {
-    document.querySelectorAll('.sort-row th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+  // Dropdown change: switch to the chosen column ascending. Direction is then
+  // controlled by the toggle button next to the dropdown.
+  function applySortColumn(val) {
     if (!val) {
       sortColIndex = -1;
       sortAsc = true;
     } else {
-      const [col, dir] = val.split('-');
-      sortColIndex = parseInt(col, 10);
-      sortAsc = dir === 'asc';
-      const ths = document.querySelectorAll('.sort-row th');
-      if (ths[sortColIndex]) ths[sortColIndex].classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+      sortColIndex = parseInt(val, 10);
+      sortAsc = true;
     }
-    syncSortSelects(val);
+    syncSortControls();
+    applyFilters();
+  }
+  function mobileSortChange()    { applySortColumn(document.getElementById('mobileSortSelect').value); }
+  function sortSelectChange(sel) { applySortColumn(sel.value); }
+
+  // Direction toggle button.
+  function toggleSortDir() {
+    if (sortColIndex < 0) return;   // no-op until a sort column is picked
+    sortAsc = !sortAsc;
+    syncSortControls();
     applyFilters();
   }
 
-  function mobileSortChange()    { applySortValue(document.getElementById('mobileSortSelect').value); }
-  function sortSelectChange(sel) { applySortValue(sel.value); }
-
-  function syncSortSelects(val) {
+  // Keep all sort UI in step: both dropdowns show the column, both ↑/↓
+  // buttons reflect the current direction, and the header gets its arrow class.
+  function syncSortControls() {
+    const val = sortColIndex >= 0 ? String(sortColIndex) : '';
     for (const id of ['sortSelect', 'mobileSortSelect']) {
       const el = document.getElementById(id);
       if (el && el.value !== val) el.value = val;
     }
+    const enabled = sortColIndex >= 0;
+    const arrow = sortAsc ? '↑' : '↓';
+    const titleText = !enabled
+      ? 'Pick a sort column first'
+      : (sortAsc ? 'Ascending — click to reverse' : 'Descending — click to reverse');
+    for (const id of ['sortDirBtn', 'mobileSortDirBtn']) {
+      const btn = document.getElementById(id);
+      if (!btn) continue;
+      btn.textContent = arrow;
+      btn.disabled = !enabled;
+      btn.title = titleText;
+    }
+    document.querySelectorAll('.sort-row th').forEach((th, i) => {
+      th.classList.remove('sort-asc', 'sort-desc');
+      if (i === sortColIndex) th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+    });
   }
 
   // Debounced filter trigger. Typing in a text/number filter would otherwise
@@ -1183,9 +1203,7 @@
       const [col, dir] = sortVal.split('-');
       sortColIndex = parseInt(col, 10);
       sortAsc = dir === 'asc';
-      syncSortSelects(sortVal);
-      const ths = document.querySelectorAll('.sort-row th');
-      if (ths[sortColIndex]) ths[sortColIndex].classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+      syncSortControls();
     }
     if (p.get('all') === '1') showAll = true;
     if (p.get('gbp') === '0') {

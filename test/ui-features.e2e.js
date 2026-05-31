@@ -126,21 +126,34 @@ test.describe('Sparklines', () => {
 });
 
 test.describe('Sort and filter', () => {
-  test('sort dropdown reorders rows', async ({ page }) => {
+  test('sort dropdown + direction toggle reorders rows', async ({ page }) => {
     await gotoFresh(page);
-    await page.selectOption('#sortSelect', '17-desc'); // £/night high → low
+    // Picking from the dropdown applies ascending by default; the toggle
+    // button flips direction.
+    await page.selectOption('#sortSelect', '17');        // £/night, ascending
+    await page.click('#sortDirBtn');                     // flip to descending
     // Harmony 14n £1200 = £85/n, Anthem 7n £500 = £71/n, Edge 10n £900 = £90/n
     // Edge (90) > Harmony (85) > Anthem (71)
     const firstShip = await page.locator('tbody tr:first-child .col-ship').innerText();
     expect(firstShip).toContain('Celebrity Edge');
+    // Direction button reflects the flipped state
+    await expect(page.locator('#sortDirBtn')).toHaveText('↓');
   });
 
   test('per-cabin sort uses that cabin\'s price', async ({ page }) => {
     await gotoFresh(page);
-    await page.selectOption('#sortSelect', '15-asc'); // Suite asc
+    await page.selectOption('#sortSelect', '15');        // Suite, ascending
     // Anthem suite 1800, Edge suite 2500, Harmony suite 3500
     const firstShip = await page.locator('tbody tr:first-child .col-ship').innerText();
     expect(firstShip).toContain('Anthem');
+  });
+
+  test('direction button is disabled until a sort column is picked', async ({ page }) => {
+    await gotoFresh(page);
+    await expect(page.locator('#sortDirBtn')).toBeDisabled();
+    await page.selectOption('#sortSelect', '11');
+    await expect(page.locator('#sortDirBtn')).toBeEnabled();
+    await expect(page.locator('#sortDirBtn')).toHaveText('↑');
   });
 
   test('column filter narrows results and updates summary count', async ({ page }) => {
@@ -164,14 +177,16 @@ test.describe('Sort and filter', () => {
 test.describe('URL state', () => {
   test('sort + filter persist across reload via URL hash', async ({ page }) => {
     await gotoFresh(page);
-    await page.selectOption('#sortSelect', '14-asc');
+    await page.selectOption('#sortSelect', '14');
     await page.locator('.col-filter[data-field="provider"]').selectOption('Royal Caribbean');
     await page.waitForFunction(() => location.hash.includes('sort=14-asc') && location.hash.includes('provider=Royal'));
     const urlBefore = page.url();
     await setupRoutes(page); // re-arm routes for the reload
     await page.goto(urlBefore);
     await page.waitForSelector('tbody tr:not(.empty-row)');
-    expect(await page.locator('#sortSelect').inputValue()).toBe('14-asc');
+    // Dropdown holds column index; direction lives on the toggle button.
+    expect(await page.locator('#sortSelect').inputValue()).toBe('14');
+    await expect(page.locator('#sortDirBtn')).toHaveText('↑');
     expect(await page.locator('.col-filter[data-field="provider"]').inputValue()).toBe('Royal Caribbean');
   });
 });

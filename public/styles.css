@@ -244,6 +244,22 @@
     }
     .sort-wrap select:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
 
+    /* Direction toggle button — shown next to each sort dropdown. */
+    .sort-dir-btn {
+      appearance: none;
+      width: 32px; height: 32px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      background: white;
+      color: var(--navy);
+      font-size: 1rem; font-weight: 700; line-height: 1;
+      cursor: pointer;
+      transition: background .12s, color .12s, border-color .12s, transform .08s;
+    }
+    .sort-dir-btn:hover:not(:disabled) { background: var(--blue-pale); border-color: var(--blue); color: var(--blue); }
+    .sort-dir-btn:active:not(:disabled) { transform: scale(.94); }
+    .sort-dir-btn:disabled { color: var(--gray-400); cursor: default; background: var(--gray-50); }
+
     /* GBP toggle */
     .toggle-wrap {
       display: flex;
