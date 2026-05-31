@@ -553,6 +553,15 @@
     document.querySelectorAll('.price-spark:not([data-spark-filled])').forEach(btn => sparkObserver.observe(btn));
   }
 
+  // Wraps a departure-region name in a colour-coded pill. The CSS class
+  // matches a slugified version of the region so adding a new region just
+  // needs a single CSS rule.
+  function regionBadge(region) {
+    if (!region) return '—';
+    const slug = String(region).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    return `<span class="region-badge region-${escHtml(slug)}">${escHtml(region)}</span>`;
+  }
+
   function renderBody(list) {
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
@@ -570,7 +579,7 @@
         ? `${escHtml(formatPriceDisplay(perNight, c.currency))}<span class="per-night-suffix">/night</span>`
         : '—';
 
-      return `<tr>
+      return `<tr data-provider="${escHtml(c.provider || '')}">
         <td class="col-num" data-label="#">${i + 1}</td>
         <td class="col-ship ship-name" data-label="Ship">${mobileShipHeader(c)}${mobileShipDetails(c)}</td>
         <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerWikiUrl(c.provider))}</td>
@@ -581,7 +590,7 @@
         <td class="col-date" data-label="Departure">${escHtml(date)}</td>
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
         <td class="col-port" data-label="Departure port">${escHtml(c.departurePort || '—')}</td>
-        <td class="col-region" data-label="Region">${escHtml(c.departureRegion || '—')}</td>
+        <td class="col-region" data-label="Region">${regionBadge(c.departureRegion)}</td>
         <td class="col-price price" data-label="Price">${priceCell}</td>
         <td class="col-per-night per-night" data-label="£/night">${perNightCell}</td>
         <td class="col-book book" data-label="Book">${bookCell}</td>

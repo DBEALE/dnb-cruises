@@ -359,6 +359,38 @@
     tbody tr:nth-child(even) { background: #fafbfd; }
     tbody tr:hover { background: var(--blue-pale); }
 
+    /* ── Cruise-line accent stripe ──────────────────────────────────────────── */
+    /* Each tr exposes its provider via data-provider; --brand is picked up by
+       the first-cell inset shadow (desktop) and the card border-left (mobile). */
+    tbody tr[data-provider="Royal Caribbean"]       { --brand: #c8102e; }
+    tbody tr[data-provider="Celebrity Cruises"]     { --brand: #00747e; }
+    tbody tr[data-provider="Norwegian Cruise Line"] { --brand: #0066cc; }
+    tbody tr[data-provider="Princess Cruises"]      { --brand: #1a2a6c; }
+    tbody tr[data-provider] td:first-child         { box-shadow: inset 4px 0 0 var(--brand, transparent); }
+
+    /* ── Region badges ───────────────────────────────────────────────────────── */
+    .region-badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: var(--region-bg, var(--gray-100));
+      color:      var(--region-fg, var(--gray-700));
+      white-space: nowrap;
+    }
+    .region-badge.region-caribbean           { --region-bg: #cffafe; --region-fg: #155e75; }
+    .region-badge.region-mediterranean       { --region-bg: #ffedd5; --region-fg: #9a3412; }
+    .region-badge.region-northern-europe     { --region-bg: #dbeafe; --region-fg: #1e40af; }
+    .region-badge.region-uk-ireland          { --region-bg: #dcfce7; --region-fg: #166534; }
+    .region-badge.region-asia-far-east       { --region-bg: #fee2e2; --region-fg: #991b1b; }
+    .region-badge.region-australia-pacific   { --region-bg: #fef9c3; --region-fg: #854d0e; }
+    .region-badge.region-americas            { --region-bg: #ede9fe; --region-fg: #5b21b6; }
+    .region-badge.region-south-america       { --region-bg: #d1fae5; --region-fg: #065f46; }
+    .region-badge.region-africa              { --region-bg: #fef3c7; --region-fg: #92400e; }
+
     td {
       padding: 10px 11px;
       border-bottom: 1px solid #edf1f7;
@@ -678,6 +710,13 @@
         background: #fff;
         box-shadow: 0 4px 12px rgba(13, 27, 46, .07);
       }
+
+      /* On the mobile card layout the inset shadow is hidden by overflow:hidden;
+         use a fat coloured left border instead so the stripe shows. */
+      tbody tr[data-provider] {
+        border-left: 4px solid var(--brand, var(--gray-200));
+      }
+      tbody tr[data-provider] td:first-child { box-shadow: none; }
 
       tbody tr:nth-child(even) {
         background: #fff;
