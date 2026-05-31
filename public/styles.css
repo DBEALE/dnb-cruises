@@ -1214,6 +1214,34 @@
     body.hide-class-dots  .class-dots               { display: none !important; }
     body.hide-launch-year .col-launch,
     body.hide-launch-year .mobile-launch-year       { display: none !important; }
+    body.hide-ship-icons  .ship-icon-wrap           { display: none !important; }
+
+    /* ── Ship icons ─────────────────────────────────────────────────────────── */
+    /* Empty span; CSS mask-image takes the silhouette PNG's alpha channel
+       and uses it as a stencil over the brand colour, so the ship is
+       painted in the row's --brand (red / teal / blue / navy).
+       Sizes per tier convey size hierarchy at a glance. */
+    .ship-icon-wrap {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+      background-color: var(--brand, var(--gray-400));
+      -webkit-mask-repeat: no-repeat;
+              mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+              mask-position: center;
+      -webkit-mask-size: contain;
+              mask-size: contain;
+      flex-shrink: 0;
+    }
+    .ship-icon-wrap.tier-mega   { width: 44px; height: 18px;
+      -webkit-mask-image: url(./img/ship-mega.png);   mask-image: url(./img/ship-mega.png);   }
+    .ship-icon-wrap.tier-large  { width: 38px; height: 14px;
+      -webkit-mask-image: url(./img/ship-large.png);  mask-image: url(./img/ship-large.png);  }
+    .ship-icon-wrap.tier-medium { width: 32px; height: 10px;
+      -webkit-mask-image: url(./img/ship-medium.png); mask-image: url(./img/ship-medium.png); }
+    .ship-icon-wrap.tier-small  { width: 26px; height: 9px;
+      -webkit-mask-image: url(./img/ship-small.png);  mask-image: url(./img/ship-small.png);  }
 
     /* ── Modal overlay ──────────────────────────────────────────────────────── */
     #notifyModal {

@@ -17,6 +17,7 @@
     wikiLinks:  true,
     classDots:  true,
     launchYear: true,
+    shipIcons:  true,
   };
   let settings = { ...SETTINGS_DEFAULTS };
   let loadedProviders = [];
@@ -343,12 +344,51 @@
     });
   }
 
+  // Ship-class → silhouette tier (drives CSS .tier-mega/large/medium/small).
+  // Tiers chosen by typical passenger capacity per class.
+  const SHIP_TIER_BY_CLASS = {
+    // Mega — 5,500+ pax
+    'Icon':           'mega',
+    'Oasis':          'mega',
+    // Large — 3,000–5,500 pax
+    'Quantum':        'large',
+    'Voyager':        'large',
+    'Freedom':        'large',
+    'Edge':           'large',
+    'Breakaway':      'large',
+    'Breakaway Plus': 'large',
+    'Prima':          'large',
+    'Royal':          'large',
+    'Grand':          'large',
+    // Medium — 2,000–3,000 pax
+    'Radiance':       'medium',
+    'Vision':         'medium',
+    'Millennium':     'medium',
+    'Solstice':       'medium',
+    'Jewel':          'medium',
+    'Dawn':           'medium',
+    'Sun':            'medium',
+    'Epic':           'medium',
+    'Coral':          'medium',
+    // Small — ≤2,000 pax
+    'Spirit':         'small',
+    'America':        'small',
+    'Galapagos':      'small',
+  };
+  function shipIconTier(c) {
+    return SHIP_TIER_BY_CLASS[c.shipClass] || 'medium';
+  }
+
   function mobileShipHeader(c) {
     const yearHtml = c.shipLaunchYear
       ? `<span class="mobile-launch-year">${c.shipLaunchYear}</span>`
       : '';
+    const tier = shipIconTier(c);
+    // Empty span — CSS mask-image + background-color paints the silhouette
+    // in the row's --brand colour (red / teal / blue / navy).
+    const iconHtml = `<span class="ship-icon-wrap tier-${tier}" aria-hidden="true"></span>`;
     const nameHtml = wikiLink(c.shipName, shipWikiUrl(c.shipName));
-    return `<span class="mobile-ship-header"><span>${nameHtml}</span>${yearHtml}</span>`;
+    return `<span class="mobile-ship-header"><span>${iconHtml}${nameHtml}</span>${yearHtml}</span>`;
   }
 
   function mobileShipDetails(c) {
@@ -756,6 +796,7 @@
     document.body.classList.toggle('hide-wiki-links', !settings.wikiLinks);
     document.body.classList.toggle('hide-class-dots', !settings.classDots);
     document.body.classList.toggle('hide-launch-year',!settings.launchYear);
+    document.body.classList.toggle('hide-ship-icons', !settings.shipIcons);
   }
   function openSettings() {
     const dlg = document.getElementById('settingsDialog');
