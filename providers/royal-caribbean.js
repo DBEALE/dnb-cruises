@@ -119,11 +119,21 @@ function cleanText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
 }
 
+// Resolves an RC booking/itinerary URL to an absolute UK URL.
+//   /booking/landing?...    → https://www.royalcaribbean.com/booking/landing?...
+//                             (booking handoff is global; carries country=GBR
+//                              and selectedCurrencyCode=GBP via query params
+//                              already supplied by the localised API.)
+//   itinerary/<slug>?...    → https://www.royalcaribbean.com/gbr/en/itinerary/<slug>?...
+//                             (product pages are region-pathed; prefix /gbr/en/
+//                              so the user's URL bar shows the UK site directly
+//                              rather than relying on a country= redirect.)
 function resolveBookingUrl(url) {
   if (!url) return '';
   if (/^https?:\/\//i.test(url)) return url;
-  if (url.startsWith('/')) return `https://www.royalcaribbean.com${url}`;
-  return `https://www.royalcaribbean.com/${url.replace(/^\.\//, '')}`;
+  const path = url.replace(/^\.\//, '');
+  if (path.startsWith('/')) return `https://www.royalcaribbean.com${path}`;
+  return `https://www.royalcaribbean.com/gbr/en/${path}`;
 }
 
 function buildDetailedItinerary(summaryName, ports) {
@@ -348,8 +358,14 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
       operationName: 'cruiseSearch_Cruises',
       query: CRUISE_SEARCH_QUERY,
       requestHeaders: {
-        'origin': 'https://www.royalcaribbean.com',
+        'origin':  'https://www.royalcaribbean.com',
         'referer': 'https://www.royalcaribbean.com/gbr/en/cruises',
+        // Locale headers: 'currency' is load-bearing for GBP prices on the
+        // cruiseSearch GraphQL endpoint; 'country' changes the cruise
+        // result set / sort to UK-relevant sailings. Both verified by
+        // direct API probing.
+        'country':  'GBR',
+        'currency': 'GBP',
       },
       requestTimeoutLabel: 'RC',
       progressPrefix: '[RC]',

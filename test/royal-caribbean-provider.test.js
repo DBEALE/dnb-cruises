@@ -99,3 +99,33 @@ test('extractRoomTypePricesFromPayload reads prices from top-level categories fa
   assert.equal(result.suite,   '2499');
   assert.equal(result.inside,  null);
 });
+
+// ─── resolveBookingUrl (UK localisation) ───────────────────────────────────────
+
+test('resolveBookingUrl passes absolute URLs through unchanged', () => {
+  assert.equal(
+    provider.resolveBookingUrl('https://www.royalcaribbean.com/booking/landing?x=1'),
+    'https://www.royalcaribbean.com/booking/landing?x=1',
+  );
+});
+
+test('resolveBookingUrl keeps absolute /booking paths host-prefixed (global handoff)', () => {
+  assert.equal(
+    provider.resolveBookingUrl('/booking/landing?selectedCurrencyCode=GBP&country=GBR'),
+    'https://www.royalcaribbean.com/booking/landing?selectedCurrencyCode=GBP&country=GBR',
+  );
+});
+
+test('resolveBookingUrl prefixes /gbr/en/ for bare itinerary paths so users land on the UK site', () => {
+  assert.equal(
+    provider.resolveBookingUrl('itinerary/4-night-western-caribbean-getaway-from-tampa-on-radiance-RD04W232?country=GBR'),
+    'https://www.royalcaribbean.com/gbr/en/itinerary/4-night-western-caribbean-getaway-from-tampa-on-radiance-RD04W232?country=GBR',
+  );
+});
+
+test('resolveBookingUrl returns "" for empty/falsy input', () => {
+  assert.equal(provider.resolveBookingUrl(''), '');
+  assert.equal(provider.resolveBookingUrl(undefined), '');
+  assert.equal(provider.resolveBookingUrl(null), '');
+});
+
