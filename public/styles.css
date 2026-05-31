@@ -166,6 +166,46 @@
       padding: 0 2px;
     }
 
+    /* Sticky compact summary — slides in from the top once the main one
+       scrolls out, taps scroll the page back to the filters/sort area. */
+    #stickySummary {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex; justify-content: center;
+      padding: 10px;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-100%);
+      transition: opacity .18s ease, transform .22s ease;
+    }
+    #stickySummary.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .sticky-summary-btn {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 999px;
+      box-shadow: 0 6px 20px rgba(13,27,46,.14);
+      cursor: pointer;
+      color: var(--navy);
+      font-size: 0.84rem;
+      font-weight: 600;
+      max-width: calc(100vw - 32px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sticky-summary-btn:hover { background: var(--gray-50); }
+    .sticky-summary-up { color: var(--blue); font-weight: 700; }
+
     #summary {
       font-size: 0.875rem;
       color: var(--gray-600);
@@ -390,6 +430,41 @@
     .region-badge.region-americas            { --region-bg: #ede9fe; --region-fg: #5b21b6; }
     .region-badge.region-south-america       { --region-bg: #d1fae5; --region-fg: #065f46; }
     .region-badge.region-africa              { --region-bg: #fef3c7; --region-fg: #92400e; }
+
+    /* ── Loading skeleton ───────────────────────────────────────────────────── */
+    .skeleton-row td {
+      padding: 14px 16px;
+      background: #fff;
+      border-bottom: 1px solid #edf1f7;
+    }
+    .skeleton-card {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      max-width: 720px;
+    }
+    .skeleton-row-h { display: flex; gap: 8px; align-items: center; background: none !important; animation: none !important; height: auto; }
+    .skeleton {
+      display: block;
+      background: linear-gradient(90deg, #eef1f6 0%, #f8fafc 50%, #eef1f6 100%);
+      background-size: 200% 100%;
+      border-radius: 6px;
+      animation: skeleton-shimmer 1.6s ease-in-out infinite;
+    }
+    .skeleton-line  { height: 14px; }
+    .skeleton-price { height: 22px; width: 110px; border-radius: 8px; margin-top: 4px; }
+    .skeleton-chip  { display: inline-block; width: 70px; height: 18px; border-radius: 999px; }
+    .skeleton-chip.narrow { width: 48px; }
+    .w40 { width: 40%; }  .w50 { width: 50%; }  .w60 { width: 60%; }
+    .w70 { width: 70%; }  .w80 { width: 80%; }  .w90 { width: 90%; }
+    @keyframes skeleton-shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    /* On the mobile card layout, skeleton-row td still spans full width. */
+    @media (max-width: 480px) {
+      .skeleton-row td { padding: 16px; margin: 0 10px 8px; border-radius: 12px; box-shadow: 0 4px 12px rgba(13,27,46,.07); }
+    }
 
     td {
       padding: 10px 11px;
@@ -942,14 +1017,64 @@
         color: white;
       }
 
-      #mobFilters {
-        padding: 10px 12px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
+      /* Bottom-sheet filter dialog on mobile — slides up from the bottom.
+         Note: only the [open] selector sets `display`. Closed <dialog>s keep
+         the browser-default `display: none` so they stay hidden. */
+      dialog#mobFilters {
+        position: fixed;
+        inset: auto 0 0 0;            /* pin to bottom, full width */
+        margin: 0;
+        width: 100%; max-width: 100%;
+        max-height: 88vh;
+        padding: 0;
+        border: none;
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -12px 40px rgba(0,0,0,.28);
+        background: white;
+        overflow: hidden;             /* the inner grid scrolls instead */
       }
+      dialog#mobFilters[open] {
+        display: grid;
+        grid-template-rows: auto 1fr; /* head + scrollable body */
+        animation: sheet-slide-up .22s cubic-bezier(.2,.7,.3,1) both;
+      }
+      dialog#mobFilters::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(2px); }
+      @keyframes sheet-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-      #mobFilters[hidden] { display: none; }
+      .mob-filters-head {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 18px 18px 12px;
+        border-bottom: 1px solid var(--gray-100);
+        position: relative;
+      }
+      /* iOS-style grabber */
+      .mob-filters-head::before {
+        content: '';
+        position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+        width: 38px; height: 4px; border-radius: 2px; background: var(--gray-200);
+      }
+      .mob-filters-head h2 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 0; }
+      .mob-filters-close {
+        appearance: none; background: var(--gray-100); border: none;
+        width: 30px; height: 30px; border-radius: 50%;
+        font-size: 1.1rem; color: var(--gray-700); cursor: pointer;
+      }
+      .mob-filters-close:hover { background: var(--gray-200); color: var(--navy); }
+
+      .mob-filter-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        padding: 14px 14px 18px;
+        overflow-y: auto;
+      }
+      .mob-filter-actions {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        margin-top: 6px;
+      }
+      #mobApplyFilters {
+        width: 100%; padding: 10px; border: none; border-radius: 8px;
+        background: var(--blue); color: white; font-weight: 700; cursor: pointer;
+      }
+      #mobApplyFilters:hover { background: #1e40af; }
 
       .mob-filter-row {
         display: contents;

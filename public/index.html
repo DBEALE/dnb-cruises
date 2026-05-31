@@ -114,7 +114,12 @@
       </select>
       <button id="mobFilterToggle" onclick="toggleMobileFilters()" aria-expanded="false" aria-controls="mobFilters">Filter</button>
     </div>
-    <div id="mobFilters" hidden>
+    <dialog id="mobFilters" aria-labelledby="mobFiltersTitle">
+      <div class="mob-filters-head">
+        <h2 id="mobFiltersTitle">Filters</h2>
+        <button type="button" class="mob-filters-close" id="mobFiltersClose" aria-label="Close filters">×</button>
+      </div>
+      <div class="mob-filter-grid">
       <div class="mob-filter-group">
         <label for="mobFilterShip">Ship</label>
         <select id="mobFilterShip" class="mob-filter" data-field="shipName" onchange="mobileFilterSync(this)">
@@ -178,13 +183,24 @@
         <label for="mobMaxPrice">Max price (£)</label>
         <input id="mobMaxPrice" class="mob-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="mobileFilterSync(this)">
       </div>
-      <div class="mob-filter-group mob-filter-full">
-        <button id="mobClearFilters" onclick="clearMobileFilters()">Clear all filters</button>
+      <div class="mob-filter-group mob-filter-full mob-filter-actions">
+        <button type="button" id="mobClearFilters" onclick="clearMobileFilters()">Clear all</button>
+        <button type="button" id="mobApplyFilters" onclick="closeMobileFilters()">Done</button>
       </div>
-    </div>
+      </div>
+    </dialog>
   </div>
 
   <div class="summary-bar"><span id="summary"></span></div>
+
+  <!-- Sticky compact bar that fades in once the main summary scrolls off-screen.
+       Clicking the count scrolls back to the filters. -->
+  <div id="stickySummary" aria-hidden="true">
+    <button type="button" class="sticky-summary-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+      <span id="stickySummaryText">Showing all</span>
+      <span class="sticky-summary-up" aria-hidden="true">↑</span>
+    </button>
+  </div>
 
   <div class="table-card">
     <div class="table-wrapper">
@@ -265,8 +281,49 @@
           </tr>
         </thead>
         <tbody id="cruiseBody">
-          <tr class="empty-row">
-            <td colspan="14">Loading cruise data…</td>
+          <!-- Skeleton rows shown until applyCruiseResults() replaces them.
+               Mimic the real card structure so the layout doesn't reflow. -->
+          <tr class="skeleton-row">
+            <td colspan="14">
+              <div class="skeleton-card">
+                <div class="skeleton skeleton-line w70"></div>
+                <div class="skeleton skeleton-line w50"></div>
+                <div class="skeleton skeleton-row-h">
+                  <span class="skeleton skeleton-chip"></span>
+                  <span class="skeleton skeleton-chip narrow"></span>
+                </div>
+                <div class="skeleton skeleton-line w90"></div>
+                <div class="skeleton skeleton-price"></div>
+              </div>
+            </td>
+          </tr>
+          <tr class="skeleton-row">
+            <td colspan="14">
+              <div class="skeleton-card">
+                <div class="skeleton skeleton-line w60"></div>
+                <div class="skeleton skeleton-line w40"></div>
+                <div class="skeleton skeleton-row-h">
+                  <span class="skeleton skeleton-chip"></span>
+                  <span class="skeleton skeleton-chip narrow"></span>
+                </div>
+                <div class="skeleton skeleton-line w80"></div>
+                <div class="skeleton skeleton-price"></div>
+              </div>
+            </td>
+          </tr>
+          <tr class="skeleton-row">
+            <td colspan="14">
+              <div class="skeleton-card">
+                <div class="skeleton skeleton-line w80"></div>
+                <div class="skeleton skeleton-line w50"></div>
+                <div class="skeleton skeleton-row-h">
+                  <span class="skeleton skeleton-chip"></span>
+                  <span class="skeleton skeleton-chip narrow"></span>
+                </div>
+                <div class="skeleton skeleton-line w70"></div>
+                <div class="skeleton skeleton-price"></div>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>

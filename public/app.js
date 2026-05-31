@@ -1,6 +1,7 @@
   // ── State ──────────────────────────────────────────────────────────────────
   let allCruises   = [];
   let cruiseById   = new Map();   // id → cruise, for O(1) lookups from the sparkline observer
+  let stickySummaryObserver = null;
 
   // Display-options state (toggles persisted to localStorage). Declared up
   // here so the init IIFE can call loadSettings() without TDZ errors.
@@ -177,7 +178,9 @@
     fetchShipWikiLinks();
     loadSettings();
     wireSettingsHandlers();
+    wireMobileFilterSheet();
     wirePriceHistoryHandlers();
+    wireStickySummary();
 
     fetch(resolveStaticUrl('./build-info.json'), { cache: 'no-store' })
       .then(r => r.ok ? r.json() : null)
@@ -859,11 +862,30 @@
   }
 
   function toggleMobileFilters() {
+    const dlg = document.getElementById('mobFilters');
     const btn = document.getElementById('mobFilterToggle');
-    const panel = document.getElementById('mobFilters');
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!expanded));
-    panel.hidden = expanded;
+    if (!dlg) return;
+    if (dlg.open) {
+      dlg.close();
+      btn?.setAttribute('aria-expanded', 'false');
+    } else {
+      if (typeof dlg.showModal === 'function') dlg.showModal();
+      else dlg.setAttribute('open', '');
+      btn?.setAttribute('aria-expanded', 'true');
+    }
+  }
+  function closeMobileFilters() {
+    const dlg = document.getElementById('mobFilters');
+    if (dlg?.open) dlg.close();
+    document.getElementById('mobFilterToggle')?.setAttribute('aria-expanded', 'false');
+  }
+  function wireMobileFilterSheet() {
+    const dlg = document.getElementById('mobFilters');
+    if (!dlg || dlg.dataset.wired) return;
+    dlg.dataset.wired = '1';
+    document.getElementById('mobFiltersClose')?.addEventListener('click', closeMobileFilters);
+    // Backdrop click closes
+    dlg.addEventListener('click', (ev) => { if (ev.target === dlg) closeMobileFilters(); });
   }
 
   function clearMobileFilters() {
@@ -960,9 +982,35 @@
       summary = `Showing ${filtered.length.toLocaleString()} of ${allLabel} sailings.`;
     }
     document.getElementById('summary').innerHTML = summary;
+    syncStickySummary(capped.length, sorted.length, filtered.length === allCruises.length);
 
     renderBody(capped);
     writeUrlState();
+  }
+
+  // Plain-text version of the summary for the sticky-pill button.
+  function syncStickySummary(shownCount, totalAvailable, isAllUnfiltered) {
+    const el = document.getElementById('stickySummaryText');
+    if (!el) return;
+    el.textContent = shownCount < totalAvailable
+      ? `Showing first ${shownCount.toLocaleString()} of ${totalAvailable.toLocaleString()}`
+      : isAllUnfiltered
+        ? `Showing all ${totalAvailable.toLocaleString()} sailings`
+        : `Showing ${totalAvailable.toLocaleString()} of ${allCruises.length.toLocaleString()}`;
+  }
+
+  // Reveal the sticky pill only when the original summary bar is off-screen.
+  // (stickySummaryObserver is declared up with the other module-level state
+  // so init's wireStickySummary() doesn't hit TDZ.)
+  function wireStickySummary() {
+    if (stickySummaryObserver || typeof IntersectionObserver === 'undefined') return;
+    const sticky = document.getElementById('stickySummary');
+    const summaryBar = document.querySelector('.summary-bar');
+    if (!sticky || !summaryBar) return;
+    stickySummaryObserver = new IntersectionObserver((entries) => {
+      for (const e of entries) sticky.classList.toggle('visible', !e.isIntersecting);
+    }, { rootMargin: '0px 0px 0px 0px' });
+    stickySummaryObserver.observe(summaryBar);
   }
 
   function enableShowAll() {
