@@ -31,9 +31,15 @@
       </div>
     </div>
   </div>
-  <div class="header-wave">
-    <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,28 C240,56 480,0 720,28 C960,56 1200,0 1440,28 L1440,56 L0,56 Z" fill="#f8fafc"/>
+  <div class="header-wave" aria-hidden="true">
+    <!-- Two SVGs at different translation speeds give a parallax sense of
+         water moving. Each path contains two identical wave cycles, so
+         translating from 0% to -50% loops seamlessly. -->
+    <svg class="wave wave-back" viewBox="0 0 2880 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C240,58 480,2 720,30 C960,58 1200,2 1440,30 C1680,58 1920,2 2160,30 C2400,58 2640,2 2880,30 L2880,56 L0,56 Z" fill="#f8fafc" opacity="0.55"/>
+    </svg>
+    <svg class="wave wave-front" viewBox="0 0 2880 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,28 C240,56 480,0 720,28 C960,56 1200,0 1440,28 C1680,56 1920,0 2160,28 C2400,56 2640,0 2880,28 L2880,56 L0,56 Z" fill="#f8fafc"/>
     </svg>
   </div>
 </header>
@@ -72,7 +78,8 @@
         </div>
       </label>
       <span id="rateNote"></span>
-      <button id="settingsBtn" type="button" onclick="openSettings()" title="Display options" aria-label="Display options">⚙</button>
+      <button id="savedViewsBtn" type="button" onclick="openSavedViews()" title="Saved views" aria-label="Saved views">★</button>
+      <button id="settingsBtn"   type="button" onclick="openSettings()" title="Display options" aria-label="Display options">⚙</button>
       <button id="notifyBtn" onclick="openNotifyModal()">🔔 Notify Me</button>
     </div>
   </div>
@@ -361,6 +368,24 @@
 
 </main>
 
+<dialog id="savedViewsDialog" aria-labelledby="svTitle">
+  <div class="sv-box">
+    <div class="sv-head">
+      <h2 id="svTitle">Saved views</h2>
+      <button type="button" class="ph-close" id="svClose" aria-label="Close">×</button>
+    </div>
+    <p class="sv-hint">Save the current filters + sort under a name and recall it with a click. Stored in this browser.</p>
+
+    <form id="svSaveForm" class="sv-save-form">
+      <input id="svNameInput" type="text" placeholder="Name this view (e.g. UK summer balconies)" maxlength="60" required>
+      <button type="submit">Save current view</button>
+    </form>
+
+    <ul id="svList" class="sv-list"></ul>
+    <p id="svEmpty" class="sv-empty" hidden>No saved views yet.</p>
+  </div>
+</dialog>
+
 <dialog id="settingsDialog" aria-labelledby="settingsTitle">
   <div class="settings-box">
     <div class="settings-head">
@@ -376,6 +401,19 @@
       <li><label><input type="checkbox" data-setting="launchYear">  <span>Ship launch year</span><small>The year column (desktop) and grey year next to ship name (mobile).</small></label></li>
       <li><label><input type="checkbox" data-setting="shipIcons">   <span>Ship icons</span><small>A small cruise-line-coloured ship icon next to each ship name.</small></label></li>
     </ul>
+
+    <details class="settings-legend">
+      <summary>What do the class dots mean?</summary>
+      <p class="settings-legend-intro">The dots next to each ship class are a 1–5 rating of how modern / flagship-class the ship is.</p>
+      <ul class="legend-tiers">
+        <li><span class="class-dots dots-static"><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span></span> <strong>Newest flagship</strong> — Icon</li>
+        <li><span class="class-dots dots-static"><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span></span></span> <strong>Modern flagship</strong> — Oasis, Quantum, Edge, Prima, Breakaway Plus</li>
+        <li><span class="class-dots dots-static"><span class="filled mid"></span><span class="filled mid"></span><span class="filled mid"></span><span></span><span></span></span> <strong>Recent generation</strong> — Freedom, Solstice, Breakaway, Epic</li>
+        <li><span class="class-dots dots-static"><span class="filled old"></span><span class="filled old"></span><span></span><span></span><span></span></span> <strong>Older generation</strong> — Radiance, Voyager, Millennium, Jewel, Spirit, Dawn, America</li>
+        <li><span class="class-dots dots-static"><span class="filled old"></span><span></span><span></span><span></span><span></span></span> <strong>Legacy class</strong> — Vision, Sun, Galapagos</li>
+      </ul>
+    </details>
+
     <div class="settings-footer">
       <button type="button" id="settingsReset" class="settings-reset">Reset to defaults</button>
     </div>

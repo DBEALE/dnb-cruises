@@ -55,6 +55,14 @@
   // ── Ship class score ───────────────────────────────────────────────────────
   const CLASS_TIER   = { Icon: 5, Oasis: 4, Quantum: 4, Freedom: 3, Radiance: 2, Voyager: 2, Vision: 1, Edge: 4, Solstice: 3, Millennium: 2, Galapagos: 1, Prima: 4, 'Breakaway Plus': 4, Breakaway: 3, Epic: 3, Dawn: 2, Jewel: 2, Spirit: 2, America: 2, Sun: 1 };
   const TIER_COLOUR  = { 5: 'new', 4: 'new', 3: 'mid', 2: 'old', 1: 'old' };
+  // Plain-language label per tier. Used in tooltips and the settings legend.
+  const TIER_LABEL   = {
+    5: 'Newest flagship',
+    4: 'Modern flagship',
+    3: 'Recent generation',
+    2: 'Older generation',
+    1: 'Legacy class',
+  };
 
   function classDots(shipClass) {
     const tier = CLASS_TIER[shipClass];
@@ -63,7 +71,8 @@
     const dots = Array.from({ length: 5 }, (_, i) =>
       `<span class="${i < tier ? 'filled ' + colour : ''}"></span>`
     ).join('');
-    return `<span class="class-dots" title="${shipClass} class — ${tier}/5">${dots}</span>`;
+    const tip = `${shipClass} class — ${TIER_LABEL[tier]} (${tier}/5)`;
+    return `<span class="class-dots" title="${escHtml(tip)}">${dots}</span>`;
   }
 
   function normalizeProvider(provider) {
@@ -229,6 +238,7 @@
     loadSettings();
     wireSettingsHandlers();
     wireMobileFilterSheet();
+    wireSavedViewsHandlers();
     wirePriceHistoryHandlers();
     wireStickySummary();
 
@@ -883,6 +893,121 @@
     dlg.addEventListener('click', ev => { if (ev.target === dlg) dlg.close(); });
   }
 
+  // ── Saved views (localStorage) ────────────────────────────────────────────
+  const SAVED_VIEWS_KEY = 'cruise-explorer-saved-views';
+
+  function loadSavedViews() {
+    try {
+      const raw = localStorage.getItem(SAVED_VIEWS_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    } catch { return []; }
+  }
+  function persistSavedViews(views) {
+    try { localStorage.setItem(SAVED_VIEWS_KEY, JSON.stringify(views)); } catch {}
+  }
+  function openSavedViews() {
+    const dlg = document.getElementById('savedViewsDialog');
+    if (!dlg) return;
+    renderSavedViewsList();
+    document.getElementById('svNameInput').value = '';
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open', '');
+    setTimeout(() => document.getElementById('svNameInput')?.focus(), 50);
+  }
+  function renderSavedViewsList() {
+    const list  = document.getElementById('svList');
+    const empty = document.getElementById('svEmpty');
+    const views = loadSavedViews();
+    if (!views.length) {
+      list.innerHTML = '';
+      empty.hidden = false;
+      return;
+    }
+    empty.hidden = true;
+    list.innerHTML = views
+      .slice() // don't mutate
+      .sort((a, b) => (b.savedAt || '').localeCompare(a.savedAt || ''))
+      .map(v => `<li class="sv-item">
+        <button type="button" class="sv-apply" data-id="${escHtml(v.id)}">
+          <span class="sv-name">${escHtml(v.name)}</span>
+          <span class="sv-hash">${escHtml(humanSummariseHash(v.hash))}</span>
+        </button>
+        <button type="button" class="sv-delete" data-id="${escHtml(v.id)}" aria-label="Delete ${escHtml(v.name)}" title="Delete">×</button>
+      </li>`)
+      .join('');
+  }
+  // Human-readable one-liner for a saved view's URL hash, shown beneath the name.
+  function humanSummariseHash(hash) {
+    if (!hash) return 'No filters';
+    const p = new URLSearchParams(hash);
+    const parts = [];
+    const sort = p.get('sort');
+    if (sort) {
+      const [col, dir] = sort.split('-');
+      const labels = { 1:'Ship', 7:'Departure', 8:'Nights', 11:'Price', 12:'Price (Inside)',
+                       13:'Price (Sea)', 14:'Price (Balcony)', 15:'Price (Suite)',
+                       16:'Price change', 17:'£/night' };
+      parts.push(`Sort: ${labels[col] || ('col '+col)} ${dir === 'asc' ? '↑' : '↓'}`);
+    }
+    for (const [k, v] of p) {
+      if (k === 'sort' || k === 'all' || k === 'gbp') continue;
+      parts.push(`${k}=${v}`);
+    }
+    return parts.length ? parts.join(' · ') : 'No filters';
+  }
+  function saveCurrentView(name) {
+    const trimmed = String(name || '').trim();
+    if (!trimmed) return;
+    const hash = serializeUrlState(); // existing helper
+    const views = loadSavedViews();
+    views.push({
+      id:      `v_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
+      name:    trimmed,
+      hash,
+      savedAt: new Date().toISOString(),
+    });
+    persistSavedViews(views);
+    renderSavedViewsList();
+  }
+  function applySavedView(id) {
+    const view = loadSavedViews().find(v => v.id === id);
+    if (!view) return;
+    // Reset state, write the saved hash, re-apply.
+    document.querySelectorAll('.col-filter, .mob-filter').forEach(el => { el.value = ''; });
+    sortColIndex = -1; sortAsc = true; showAll = false;
+    try {
+      history.replaceState(null, '',
+        window.location.pathname + window.location.search +
+        (view.hash ? '#' + view.hash : ''));
+    } catch {}
+    applyUrlState();
+    applyFilters();
+    document.getElementById('savedViewsDialog')?.close();
+  }
+  function deleteSavedView(id) {
+    persistSavedViews(loadSavedViews().filter(v => v.id !== id));
+    renderSavedViewsList();
+  }
+  function wireSavedViewsHandlers() {
+    const dlg = document.getElementById('savedViewsDialog');
+    if (!dlg || dlg.dataset.wired) return;
+    dlg.dataset.wired = '1';
+    document.getElementById('svClose')?.addEventListener('click', () => dlg.close());
+    document.getElementById('svSaveForm')?.addEventListener('submit', ev => {
+      ev.preventDefault();
+      saveCurrentView(document.getElementById('svNameInput').value);
+      document.getElementById('svNameInput').value = '';
+    });
+    document.getElementById('svList')?.addEventListener('click', ev => {
+      const apply = ev.target.closest('.sv-apply');
+      const del   = ev.target.closest('.sv-delete');
+      if (apply) applySavedView(apply.dataset.id);
+      else if (del) deleteSavedView(del.dataset.id);
+    });
+    dlg.addEventListener('click', ev => { if (ev.target === dlg) dlg.close(); });
+  }
+
   function wirePriceHistoryHandlers() {
     const tbody = document.getElementById('cruiseBody');
     if (tbody && !tbody.dataset.phWired) {
@@ -1115,9 +1240,15 @@
       return true;
     });
 
-    const sorted = sortColIndex >= 0
-      ? [...filtered].sort((a, b) => compare(getCellValue(a, sortColIndex), getCellValue(b, sortColIndex), !sortAsc))
-      : filtered;
+    // When no sort is explicitly chosen ("Default"), fall back to price-low
+    // ascending (col 11 = lowest cabin) so the "first 300 of N" cap is always
+    // anchored to a meaningful ordering — never an arbitrary chunk of the
+    // provider load order.
+    const effectiveSortCol = sortColIndex >= 0 ? sortColIndex : 11;
+    const effectiveSortAsc = sortColIndex >= 0 ? sortAsc : true;
+    const sorted = [...filtered].sort((a, b) =>
+      compare(getCellValue(a, effectiveSortCol), getCellValue(b, effectiveSortCol), !effectiveSortAsc)
+    );
 
     const capped = !showAll && sorted.length > ROW_CAP ? sorted.slice(0, ROW_CAP) : sorted;
     const allLabel = `${allCruises.length.toLocaleString()}`;

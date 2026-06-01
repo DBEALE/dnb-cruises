@@ -301,5 +301,5 @@ test('renders class score dots for Celebrity series ships', async () => {
   });
 
   assert.match(elements.cruiseBody.innerHTML, /Celebrity Apex/);
-  assert.match(elements.cruiseBody.innerHTML, /title="Edge class — 4\/5"/);
+  assert.match(elements.cruiseBody.innerHTML, /title="Edge class — Modern flagship \(4\/5\)"/);
 });

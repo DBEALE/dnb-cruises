@@ -136,13 +136,34 @@
       font-weight: 800;
     }
 
-    /* Wave divider */
+    /* Wave divider — two stacked, slowly-translating SVGs for a parallax
+       drift. Each SVG has TWO identical wave cycles in its viewBox, and the
+       animation translates by exactly -50% so the loop is seamless. */
     .header-wave {
       line-height: 0;
       margin-top: -1px;
+      position: relative;
+      overflow: hidden;
+      height: 56px;
     }
-
-    .header-wave svg { display: block; width: 100%; }
+    .header-wave .wave {
+      position: absolute;
+      left: 0; top: 0;
+      width: 200%;       /* SVG holds 2 cycles; doubles up so half can scroll off-screen */
+      height: 100%;
+      display: block;
+      will-change: transform;
+    }
+    .header-wave .wave-back  { animation: wave-drift 24s linear infinite; }
+    .header-wave .wave-front { animation: wave-drift 16s linear infinite; }
+    @keyframes wave-drift {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    /* Respect the user's motion preference. */
+    @media (prefers-reduced-motion: reduce) {
+      .header-wave .wave { animation: none; }
+    }
 
     /* ── Main ───────────────────────────────────────────────────────────────── */
     main {
@@ -1173,7 +1194,7 @@
     #notifyBtn:active { transform: scale(.97); }
 
     /* ── Settings ⚙ button ──────────────────────────────────────────────────── */
-    #settingsBtn {
+    #settingsBtn, #savedViewsBtn {
       appearance: none;
       background: white;
       border: 1px solid var(--gray-200);
@@ -1184,7 +1205,75 @@
       color: var(--gray-700);
       transition: background .15s, color .15s, border-color .15s;
     }
-    #settingsBtn:hover { background: var(--gray-50); color: var(--navy); border-color: var(--gray-300); }
+    #settingsBtn:hover,
+    #savedViewsBtn:hover { background: var(--gray-50); color: var(--navy); border-color: var(--gray-300); }
+    #savedViewsBtn { color: #d4b800; }   /* gold star tint */
+
+    /* ── Saved-views dialog ────────────────────────────────────────────────── */
+    dialog#savedViewsDialog {
+      position: fixed; inset: 0; margin: auto;
+      border: none; border-radius: 14px; padding: 0;
+      width: min(520px, calc(100vw - 32px));
+      max-height: calc(100vh - 32px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    dialog#savedViewsDialog::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(3px); }
+    .sv-box  { padding: 22px 24px 20px; max-height: calc(100vh - 32px); overflow-y: auto; }
+    .sv-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 6px; }
+    .sv-head h2 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 0; }
+    .sv-hint { font-size: 0.82rem; color: var(--gray-600); margin: 4px 0 14px; line-height: 1.45; }
+    .sv-save-form { display: flex; gap: 8px; margin-bottom: 16px; }
+    .sv-save-form input {
+      flex: 1; min-width: 0;
+      padding: 8px 10px;
+      border: 1px solid var(--gray-200); border-radius: 8px;
+      font-size: 0.88rem;
+    }
+    .sv-save-form input:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
+    .sv-save-form button {
+      padding: 8px 14px;
+      background: var(--blue);
+      border: none; border-radius: 8px;
+      color: white; font-weight: 700; cursor: pointer;
+      font-size: 0.86rem;
+      white-space: nowrap;
+    }
+    .sv-save-form button:hover { background: #1e40af; }
+    .sv-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+    .sv-item {
+      display: flex; gap: 6px;
+      border: 1px solid var(--gray-100);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .sv-apply {
+      appearance: none;
+      flex: 1; min-width: 0;
+      background: transparent;
+      border: none;
+      padding: 9px 12px;
+      text-align: left;
+      cursor: pointer;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .sv-apply:hover { background: var(--gray-50); }
+    .sv-apply .sv-name { font-weight: 600; color: var(--navy); font-size: 0.92rem; }
+    .sv-apply .sv-hash {
+      font-size: 0.72rem; color: var(--gray-600);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .sv-delete {
+      appearance: none;
+      background: transparent;
+      border: none;
+      width: 36px;
+      color: var(--gray-400);
+      cursor: pointer;
+      font-size: 1.1rem;
+      border-left: 1px solid var(--gray-100);
+    }
+    .sv-delete:hover { background: var(--gray-100); color: #dc2626; }
+    .sv-empty { text-align: center; color: var(--gray-400); font-size: 0.85rem; padding: 18px 0; }
 
     /* ── Settings dialog ───────────────────────────────────────────────────── */
     dialog#settingsDialog {
@@ -1214,6 +1303,31 @@
     .settings-list input[type=checkbox] { width: 16px; height: 16px; margin-top: 3px; accent-color: var(--blue); cursor: pointer; }
     .settings-list label span  { grid-column: 2; font-weight: 600; display: block; }
     .settings-list label small { grid-column: 2; display: block; font-size: 0.76rem; font-weight: 400; color: var(--gray-600); margin-top: 2px; }
+    /* Inline help section explaining what the class dots mean. */
+    .settings-legend {
+      margin: 0 0 14px;
+      padding: 10px 12px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: var(--gray-700);
+    }
+    .settings-legend summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--navy);
+      padding: 2px 0;
+    }
+    .settings-legend-intro { margin: 8px 0; color: var(--gray-600); line-height: 1.45; }
+    .legend-tiers { list-style: none; padding: 0; margin: 6px 0 0; display: flex; flex-direction: column; gap: 6px; }
+    .legend-tiers li { display: flex; align-items: center; gap: 10px; line-height: 1.35; }
+    .legend-tiers strong { color: var(--navy); }
+    /* Force the static dots in the legend to display even when the global
+       "Class quality dots" setting is turned off (otherwise the legend
+       references invisible dots, which is silly). */
+    body.hide-class-dots .settings-legend .class-dots { display: inline-flex !important; }
+
     .settings-footer { display: flex; justify-content: flex-end; }
     .settings-reset {
       appearance: none; background: transparent; border: 1px solid var(--gray-200);
