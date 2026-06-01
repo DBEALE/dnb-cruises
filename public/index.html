@@ -10,6 +10,7 @@
 <body>
 
 <header>
+  <button id="settingsBtn" type="button" onclick="openSettings()" title="Display options" aria-label="Display options">⚙</button>
   <div class="header-inner">
     <h1>🚢 Cruise <em>Explorer</em></h1>
     <div class="header-stats">
@@ -30,6 +31,7 @@
         <div id="providerStats" class="provider-stats"></div>
       </div>
     </div>
+    <span id="rateNote" class="rate-note" aria-live="polite"></span>
   </div>
   <div class="header-wave" aria-hidden="true">
     <!-- Two SVGs at different translation speeds give a parallax sense of
@@ -69,17 +71,7 @@
         </select>
         <button id="sortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
       </label>
-      <label class="toggle-wrap" for="gbpToggle">
-        <span class="toggle-label">Prices in £ GBP</span>
-        <div class="toggle-switch">
-          <input type="checkbox" id="gbpToggle" checked onchange="toggleGBP()">
-          <span class="toggle-track"></span>
-          <span class="toggle-thumb"></span>
-        </div>
-      </label>
-      <span id="rateNote"></span>
       <button id="savedViewsBtn" type="button" onclick="openSavedViews()" title="Saved views" aria-label="Saved views">★</button>
-      <button id="settingsBtn"   type="button" onclick="openSettings()" title="Display options" aria-label="Display options">⚙</button>
       <button id="notifyBtn" onclick="openNotifyModal()">🔔 Notify Me</button>
     </div>
   </div>
@@ -101,6 +93,7 @@
         <option value="1">Ship name</option>
       </select>
       <button id="mobileSortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
+      <button id="mobSavedViewsBtn" type="button" onclick="openSavedViews()" aria-label="Saved views" title="Saved views">★</button>
       <button id="mobFilterToggle" onclick="toggleMobileFilters()" aria-expanded="false" aria-controls="mobFilters">Filter</button>
     </div>
     <dialog id="mobFilters" aria-labelledby="mobFiltersTitle">

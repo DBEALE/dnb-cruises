@@ -1337,11 +1337,9 @@
       syncSortControls();
     }
     if (p.get('all') === '1') showAll = true;
-    if (p.get('gbp') === '0') {
-      showInGbp = false;
-      const t = document.getElementById('gbpToggle');
-      if (t) t.checked = false;
-    }
+    // `gbp=0` was the old USD-display toggle. The toggle's been removed
+    // from the UI (prices always display in GBP) but we still parse the
+    // URL param so legacy bookmarks don't crash. Effectively a no-op now.
     // Filter inputs (both the desktop col-filter row and the mobile filter panel).
     document.querySelectorAll('.col-filter, .mob-filter').forEach(el => {
       const v = p.get(el.dataset.field);
@@ -1349,13 +1347,9 @@
     });
   }
 
-  // ── GBP toggle ─────────────────────────────────────────────────────────────
-  async function toggleGBP() {
-    showInGbp = document.getElementById('gbpToggle').checked;
-    const placeholder = showInGbp ? 'Max £…' : 'Max $…';
-    document.querySelectorAll('[data-field="maxPrice"]').forEach(el => { el.placeholder = placeholder; });
-    applyFilters();
-  }
+  // toggleGBP was the UI handler for the now-removed Prices-in-GBP switch.
+  // showInGbp stays `true` permanently; client-side USD→GBP conversion still
+  // happens for providers that return USD (Celebrity, NCL).
 
   function getGBPPrice(c) {
     const n = parseFloat(c.priceFrom);

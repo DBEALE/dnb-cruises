@@ -780,6 +780,7 @@
       .col-class { display: none; }
       .sort-hint { display: none; }   /* card layout has no column headers */
       .sort-wrap { display: none; }   /* mobileControls has its own sort dropdown */
+      #savedViewsBtn { display: none; } /* mob-sort-row has its own ★ */
       td, .sort-row th { padding: 9px 8px; }
       td.book a { padding: 4px 10px; }
       .toolbar { gap: 10px; }
@@ -1193,8 +1194,39 @@
     #notifyBtn:hover  { background: #1e40af; }
     #notifyBtn:active { transform: scale(.97); }
 
-    /* ── Settings ⚙ button ──────────────────────────────────────────────────── */
-    #settingsBtn, #savedViewsBtn {
+    /* ── ⚙ button — lives in the dark header, top-right ────────────────────── */
+    #settingsBtn {
+      position: absolute;
+      top: 16px; right: 16px;
+      z-index: 3;
+      appearance: none;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      width: 36px; height: 36px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: rgba(255,255,255,.85);
+      transition: background .15s, color .15s, border-color .15s, transform .08s;
+      backdrop-filter: blur(8px);
+    }
+    #settingsBtn:hover  { background: rgba(255,255,255,.15); color: #fff; border-color: rgba(255,255,255,.28); }
+    #settingsBtn:active { transform: scale(.94); }
+
+    /* Reference exchange-rate text — small line under the stats inside the
+       dark header. Was previously a control alongside the GBP toggle, now
+       purely informational. */
+    .rate-note {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,.55);
+      letter-spacing: 0.04em;
+    }
+    .rate-note:empty { display: none; }
+
+    /* ── ★ Saved views button — light theme, lives in toolbar ───────────── */
+    #savedViewsBtn, #mobSavedViewsBtn {
       appearance: none;
       background: white;
       border: 1px solid var(--gray-200);
@@ -1202,12 +1234,11 @@
       width: 34px; height: 34px;
       cursor: pointer;
       font-size: 1rem;
-      color: var(--gray-700);
+      color: #d4b800;             /* gold star tint */
       transition: background .15s, color .15s, border-color .15s;
     }
-    #settingsBtn:hover,
-    #savedViewsBtn:hover { background: var(--gray-50); color: var(--navy); border-color: var(--gray-300); }
-    #savedViewsBtn { color: #d4b800; }   /* gold star tint */
+    #savedViewsBtn:hover,
+    #mobSavedViewsBtn:hover { background: var(--gray-50); border-color: var(--gray-300); }
 
     /* ── Saved-views dialog ────────────────────────────────────────────────── */
     dialog#savedViewsDialog {
