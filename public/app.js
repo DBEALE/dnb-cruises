@@ -2,6 +2,7 @@
   let allCruises   = [];
   let cruiseById   = new Map();   // id → cruise, for O(1) lookups from the sparkline observer
   let stickySummaryObserver = null;
+  const SAVED_VIEWS_KEY = 'cruise-explorer-saved-views';
 
   // Region groupings used by the departureRegion filter. Picking
   // `group:europe` matches cruises departing from any of these atomic
@@ -239,6 +240,7 @@
     wireSettingsHandlers();
     wireMobileFilterSheet();
     wireSavedViewsHandlers();
+    refreshMobileSavedSelect();
     wirePriceHistoryHandlers();
     wireStickySummary();
 
@@ -924,7 +926,8 @@
   }
 
   // ── Saved views (localStorage) ────────────────────────────────────────────
-  const SAVED_VIEWS_KEY = 'cruise-explorer-saved-views';
+  // SAVED_VIEWS_KEY is declared up with the other module-level state so
+  // init's refreshMobileSavedSelect() doesn't hit the temporal-dead-zone.
 
   function loadSavedViews() {
     try {
@@ -946,6 +949,43 @@
     else dlg.setAttribute('open', '');
     setTimeout(() => document.getElementById('svNameInput')?.focus(), 50);
   }
+  // Quick-pick dropdown for saved views on mobile (sits where the Sort
+  // dropdown used to live). Picking a view applies it; "Manage…" opens
+  // the management dialog. Rebuilt whenever views change.
+  function refreshMobileSavedSelect() {
+    const sel = document.getElementById('mobileSavedSelect');
+    if (!sel) return;
+    const views = loadSavedViews()
+      .slice()
+      .sort((a, b) => (b.savedAt || '').localeCompare(a.savedAt || ''));
+    const opts = ['<option value="">Saved views…</option>'];
+    opts.push('<option value="__save__">＋ Save current view…</option>');
+    if (views.length) {
+      opts.push('<optgroup label="Your views">');
+      for (const v of views) opts.push(`<option value="${escHtml(v.id)}">${escHtml(v.name)}</option>`);
+      opts.push('</optgroup>');
+      opts.push('<option value="__manage__">Manage saved views…</option>');
+    }
+    sel.innerHTML = opts.join('');
+    sel.value = '';
+  }
+  function mobileSavedSelectChange() {
+    const sel = document.getElementById('mobileSavedSelect');
+    if (!sel) return;
+    const v = sel.value;
+    sel.value = '';   // act like a menu — reset to placeholder
+    if (!v) return;
+    if (v === '__manage__' || v === '__save__') {
+      openSavedViews();
+      // For "Save current view", focus the name input so the user can type
+      // straight away. The dialog is already focused on the name input by
+      // default, this is a no-op safety in case that ever changes.
+      if (v === '__save__') setTimeout(() => document.getElementById('svNameInput')?.focus(), 80);
+    } else {
+      applySavedView(v);
+    }
+  }
+
   function renderSavedViewsList() {
     const list  = document.getElementById('svList');
     const empty = document.getElementById('svEmpty');
@@ -1008,6 +1048,7 @@
     });
     persistSavedViews(views);
     renderSavedViewsList();
+    refreshMobileSavedSelect();
   }
   function applySavedView(id) {
     const view = loadSavedViews().find(v => v.id === id);
@@ -1082,6 +1123,7 @@
     v.notifySubscribedAt = new Date().toISOString();
     persistSavedViews(views);
     renderSavedViewsList();
+    refreshMobileSavedSelect();
   }
   // Parse a saved view's URL hash back into the same criteria shape the
   // subscribe API expects (matches what getCurrentCriteria emits live).

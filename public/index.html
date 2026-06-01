@@ -10,6 +10,18 @@
 <body>
 
 <header>
+  <!-- Animated waves sit behind the header content (z-index 0); the rest
+       of the header lives on top via .header-inner (z-index 1). Each wave
+       SVG holds two identical cycles and translates by -50% for a seamless
+       loop. -->
+  <div class="header-wave" aria-hidden="true">
+    <svg class="wave wave-back" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,55 C240,85 480,25 720,55 C960,85 1200,25 1440,55 C1680,85 1920,25 2160,55 C2400,85 2640,25 2880,55 L2880,100 L0,100 Z" fill="rgba(255,255,255,0.05)"/>
+    </svg>
+    <svg class="wave wave-front" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,70 C240,100 480,40 720,70 C960,100 1200,40 1440,70 C1680,100 1920,40 2160,70 C2400,100 2640,40 2880,70 L2880,100 L0,100 Z" fill="rgba(255,255,255,0.07)"/>
+    </svg>
+  </div>
   <button id="settingsBtn" type="button" onclick="openSettings()" title="Display options" aria-label="Display options">⚙</button>
   <div class="header-inner">
     <h1>🚢 Cruise <em>Explorer</em></h1>
@@ -32,17 +44,6 @@
       </div>
     </div>
     <span id="rateNote" class="rate-note" aria-live="polite"></span>
-  </div>
-  <div class="header-wave" aria-hidden="true">
-    <!-- Two SVGs at different translation speeds give a parallax sense of
-         water moving. Each path contains two identical wave cycles, so
-         translating from 0% to -50% loops seamlessly. -->
-    <svg class="wave wave-back" viewBox="0 0 2880 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,30 C240,58 480,2 720,30 C960,58 1200,2 1440,30 C1680,58 1920,2 2160,30 C2400,58 2640,2 2880,30 L2880,56 L0,56 Z" fill="#f8fafc" opacity="0.55"/>
-    </svg>
-    <svg class="wave wave-front" viewBox="0 0 2880 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,28 C240,56 480,0 720,28 C960,56 1200,0 1440,28 C1680,56 1920,0 2160,28 C2400,56 2640,0 2880,28 L2880,56 L0,56 Z" fill="#f8fafc"/>
-    </svg>
   </div>
 </header>
 
@@ -75,34 +76,42 @@
     </div>
   </div>
 
-  <div id="mobileControls" aria-label="Sort and filter">
+  <div id="mobileControls" aria-label="Saved views and filter">
     <div class="mob-sort-row">
-      <label for="mobileSortSelect">Sort</label>
-      <select id="mobileSortSelect" onchange="mobileSortChange()">
-        <option value="">Default</option>
-        <option value="11">Price (lowest cabin)</option>
-        <option value="12">Price (Inside)</option>
-        <option value="13">Price (Sea view)</option>
-        <option value="14">Price (Balcony)</option>
-        <option value="15">Price (Suite)</option>
-        <option value="17">Price per night</option>
-        <option value="16">Price change</option>
-        <option value="7">Departure date</option>
-        <option value="8">Nights</option>
-        <option value="1">Ship name</option>
+      <label for="mobileSavedSelect">Views</label>
+      <select id="mobileSavedSelect" onchange="mobileSavedSelectChange()">
+        <option value="">Saved views…</option>
       </select>
-      <button id="mobileSortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
-      <button id="mobSavedViewsBtn" type="button" onclick="openSavedViews()" aria-label="Saved views" title="Saved views">★</button>
-      <button id="mobFilterToggle" onclick="toggleMobileFilters()" aria-expanded="false" aria-controls="mobFilters" aria-label="Filter" title="Filter">
+      <button id="mobFilterToggle" onclick="toggleMobileFilters()" aria-expanded="false" aria-controls="mobFilters" aria-label="Sort & filter" title="Sort & filter">
         <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v1.6a1 1 0 01-.3.7l-4.7 4.7v6L8 18.4v-7.4L3.3 6.3a1 1 0 01-.3-.7V4z"/></svg>
       </button>
     </div>
     <dialog id="mobFilters" aria-labelledby="mobFiltersTitle">
       <div class="mob-filters-head">
-        <h2 id="mobFiltersTitle">Filters</h2>
+        <h2 id="mobFiltersTitle">Sort &amp; filter</h2>
         <button type="button" class="mob-filters-close" id="mobFiltersClose" aria-label="Close filters">×</button>
       </div>
       <div class="mob-filter-grid">
+      <!-- Sort is now part of the filter sheet — single tap to access. -->
+      <div class="mob-filter-group mob-filter-full mob-sort-inline">
+        <label for="mobileSortSelect">Sort by</label>
+        <div class="mob-sort-controls">
+          <select id="mobileSortSelect" onchange="mobileSortChange()">
+            <option value="">Default</option>
+            <option value="11">Price (lowest cabin)</option>
+            <option value="12">Price (Inside)</option>
+            <option value="13">Price (Sea view)</option>
+            <option value="14">Price (Balcony)</option>
+            <option value="15">Price (Suite)</option>
+            <option value="17">Price per night</option>
+            <option value="16">Price change</option>
+            <option value="7">Departure date</option>
+            <option value="8">Nights</option>
+            <option value="1">Ship name</option>
+          </select>
+          <button id="mobileSortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
+        </div>
+      </div>
       <div class="mob-filter-group">
         <label for="mobFilterShip">Ship</label>
         <select id="mobFilterShip" class="mob-filter" data-field="shipName" onchange="mobileFilterSync(this)">
