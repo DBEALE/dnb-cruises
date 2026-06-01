@@ -928,13 +928,21 @@
     list.innerHTML = views
       .slice() // don't mutate
       .sort((a, b) => (b.savedAt || '').localeCompare(a.savedAt || ''))
-      .map(v => `<li class="sv-item">
-        <button type="button" class="sv-apply" data-id="${escHtml(v.id)}">
-          <span class="sv-name">${escHtml(v.name)}</span>
-          <span class="sv-hash">${escHtml(humanSummariseHash(v.hash))}</span>
-        </button>
-        <button type="button" class="sv-delete" data-id="${escHtml(v.id)}" aria-label="Delete ${escHtml(v.name)}" title="Delete">×</button>
-      </li>`)
+      .map(v => {
+        const notifyOn   = !!v.notify;
+        const notifyCls  = notifyOn ? 'sv-notify on' : 'sv-notify';
+        const notifyHint = notifyOn
+          ? 'Subscribed — reply STOP on WhatsApp to unsubscribe'
+          : 'Get a WhatsApp message when new cruises match this view';
+        return `<li class="sv-item">
+          <button type="button" class="sv-apply" data-id="${escHtml(v.id)}">
+            <span class="sv-name">${escHtml(v.name)}</span>
+            <span class="sv-hash">${escHtml(humanSummariseHash(v.hash))}</span>
+          </button>
+          <button type="button" class="${notifyCls}" data-id="${escHtml(v.id)}" aria-label="${escHtml(notifyHint)}" title="${escHtml(notifyHint)}" ${notifyOn ? 'disabled' : ''}>🔔</button>
+          <button type="button" class="sv-delete" data-id="${escHtml(v.id)}" aria-label="Delete ${escHtml(v.name)}" title="Delete">×</button>
+        </li>`;
+      })
       .join('');
   }
   // Human-readable one-liner for a saved view's URL hash, shown beneath the name.
@@ -989,6 +997,58 @@
     persistSavedViews(loadSavedViews().filter(v => v.id !== id));
     renderSavedViewsList();
   }
+
+  // Notify subscription per saved view. Opens the existing notify modal
+  // pre-filled with that view's criteria (parsed from its stored URL hash)
+  // and a phone number remembered from any prior successful subscribe.
+  let _pendingNotifyViewId = null;
+  function openNotifyForView(viewId) {
+    const view = loadSavedViews().find(v => v.id === viewId);
+    if (!view) return;
+    _pendingNotifyViewId = view.id;
+    const criteria = criteriaFromHash(view.hash);
+    openNotifyModal(criteria);
+  }
+  function markViewNotifyEnabled(viewId) {
+    const views = loadSavedViews();
+    const v = views.find(x => x.id === viewId);
+    if (!v) return;
+    v.notify = true;
+    v.notifySubscribedAt = new Date().toISOString();
+    persistSavedViews(views);
+    renderSavedViewsList();
+  }
+  // Parse a saved view's URL hash back into the same criteria shape the
+  // subscribe API expects (matches what getCurrentCriteria emits live).
+  function criteriaFromHash(hash) {
+    const c = {};
+    if (!hash) return c;
+    const p = new URLSearchParams(hash);
+    const FIELDS = ['shipName','provider','shipClass','itinerary','destination',
+                    'departureDate','duration','departurePort','departureRegion'];
+    const NUMERIC = ['minLaunch','duration','maxPrice'];
+    for (const f of FIELDS) {
+      const v = p.get(f);
+      if (v) c[f] = v;
+    }
+    for (const f of NUMERIC) {
+      const v = p.get(f);
+      if (v != null && v !== '') {
+        const n = parseFloat(v);
+        if (!Number.isNaN(n)) c[f] = n;
+      }
+    }
+    return c;
+  }
+
+  // Phone number remembered across saved-view subscribes.
+  const PHONE_KEY = 'cruise-explorer-phone';
+  function rememberedPhone() {
+    try { return localStorage.getItem(PHONE_KEY) || ''; } catch { return ''; }
+  }
+  function rememberPhone(phone) {
+    try { localStorage.setItem(PHONE_KEY, phone); } catch {}
+  }
   function wireSavedViewsHandlers() {
     const dlg = document.getElementById('savedViewsDialog');
     if (!dlg || dlg.dataset.wired) return;
@@ -1000,10 +1060,12 @@
       document.getElementById('svNameInput').value = '';
     });
     document.getElementById('svList')?.addEventListener('click', ev => {
-      const apply = ev.target.closest('.sv-apply');
-      const del   = ev.target.closest('.sv-delete');
+      const apply  = ev.target.closest('.sv-apply');
+      const del    = ev.target.closest('.sv-delete');
+      const notify = ev.target.closest('.sv-notify');
       if (apply) applySavedView(apply.dataset.id);
       else if (del) deleteSavedView(del.dataset.id);
+      else if (notify && !notify.disabled) openNotifyForView(notify.dataset.id);
     });
     dlg.addEventListener('click', ev => { if (ev.target === dlg) dlg.close(); });
   }
@@ -1524,9 +1586,13 @@
     return criteria;
   }
 
-  function openNotifyModal() {
-    const criteria = getCurrentCriteria();
-    const entries  = Object.entries(criteria);
+  // Always called from a saved-view bell click these days. `criteria` is
+  // either the saved view's criteria (parsed from its hash) or, if invoked
+  // without args, falls back to the live page filters (legacy path; not
+  // currently reachable from the UI but kept harmless).
+  function openNotifyModal(criteria) {
+    const c       = criteria || getCurrentCriteria();
+    const entries = Object.entries(c);
 
     const summary = document.getElementById('notifyCriteriaSummary');
     if (entries.length === 0) {
@@ -1539,7 +1605,7 @@
     document.getElementById('notifyForm').hidden    = false;
     document.getElementById('notifySuccess').hidden = true;
     document.getElementById('notifyError').textContent = '';
-    document.getElementById('notifyPhone').value    = '';
+    document.getElementById('notifyPhone').value    = rememberedPhone();
     document.getElementById('notifyModal').hidden   = false;
     document.getElementById('notifyPhone').focus();
   }
@@ -1566,19 +1632,32 @@
     btn.disabled      = true;
     btn.textContent   = 'Subscribing…';
 
+    // If this submit was triggered for a saved view, use that view's
+    // criteria (parsed from its stored hash). Otherwise fall back to the
+    // current live filter values.
+    let criteria;
+    if (_pendingNotifyViewId) {
+      const v = loadSavedViews().find(x => x.id === _pendingNotifyViewId);
+      criteria = v ? criteriaFromHash(v.hash) : getCurrentCriteria();
+    } else {
+      criteria = getCurrentCriteria();
+    }
+
     try {
       const res = await fetch(SUBSCRIBE_URL, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          whatsappNumber: phone,
-          criteria:       getCurrentCriteria(),
-        }),
+        body: JSON.stringify({ whatsappNumber: phone, criteria }),
       });
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Subscription failed');
 
+      rememberPhone(phone);
+      if (_pendingNotifyViewId) {
+        markViewNotifyEnabled(_pendingNotifyViewId);
+        _pendingNotifyViewId = null;
+      }
       document.getElementById('notifyForm').hidden    = true;
       document.getElementById('notifySuccess').hidden = false;
     } catch (err) {

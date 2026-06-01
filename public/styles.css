@@ -1040,15 +1040,18 @@
 
       #mobFilterToggle {
         flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px; height: 34px;
         border: 1px solid var(--blue);
         background: white;
         color: var(--blue);
-        border-radius: 7px;
-        padding: 6px 12px;
-        font-size: 0.82rem;
-        font-weight: 600;
+        border-radius: 8px;
         cursor: pointer;
+        padding: 0;
       }
+      #mobFilterToggle svg { width: 18px; height: 18px; display: block; }
 
       #mobFilterToggle[aria-expanded="true"] {
         background: var(--blue);
@@ -1262,13 +1265,15 @@
     }
     .sv-save-form input:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
     .sv-save-form button {
-      padding: 8px 14px;
+      flex-shrink: 0;
+      width: 38px; height: 38px;
+      padding: 0;
       background: var(--blue);
       border: none; border-radius: 8px;
-      color: white; font-weight: 700; cursor: pointer;
-      font-size: 0.86rem;
-      white-space: nowrap;
+      color: white; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
     }
+    .sv-save-form button svg { width: 18px; height: 18px; display: block; }
     .sv-save-form button:hover { background: #1e40af; }
     .sv-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
     .sv-item {
@@ -1293,17 +1298,20 @@
       font-size: 0.72rem; color: var(--gray-600);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .sv-delete {
+    .sv-notify, .sv-delete {
       appearance: none;
       background: transparent;
       border: none;
       width: 36px;
       color: var(--gray-400);
       cursor: pointer;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       border-left: 1px solid var(--gray-100);
     }
-    .sv-delete:hover { background: var(--gray-100); color: #dc2626; }
+    .sv-notify:hover  { background: var(--gray-100); color: var(--blue); }
+    .sv-notify.on     { color: var(--blue); cursor: default; }
+    .sv-notify.on:hover { background: transparent; }
+    .sv-delete:hover  { background: var(--gray-100); color: #dc2626; }
     .sv-empty { text-align: center; color: var(--gray-400); font-size: 0.85rem; padding: 18px 0; }
 
     /* ── Settings dialog ───────────────────────────────────────────────────── */
