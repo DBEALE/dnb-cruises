@@ -1451,77 +1451,6 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_LB15STH-3581088626",
-      "shipName": "Liberty of the Seas",
-      "shipClass": "Freedom",
-      "shipLaunchYear": 2007,
-      "itinerary": "Spain & Portugal Transatlantic: Vigo, Spain, Lisbon, Portugal, Madeira (Funchal), Portugal, Galveston, Texas",
-      "departureDate": "2026-10-16",
-      "duration": "15 Nights",
-      "departurePort": "Southampton",
-      "departureRegion": "UK & Ireland",
-      "destination": "Transatlantic",
-      "priceFrom": "1611.5",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LB15STH-3581088626&sailDate=2026-10-16&shipCode=LB&packageCode=LB15T245&destinationCode=T.ATL&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": "1611.5",
-        "suite": null
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 1291.27
-        },
-        {
-          "at": "2026-05-29T11:23:56.779Z",
-          "price": 13537.77
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 965.27,
-            "balcony": 2146.27
-          }
-        },
-        {
-          "at": "2026-05-29T21:50:03.590Z",
-          "prices": {
-            "oceanView": 1534.27
-          }
-        },
-        {
-          "at": "2026-05-29T23:08:29.615Z",
-          "prices": {
-            "inside": 1291.27,
-            "oceanView": 1534.27
-          }
-        },
-        {
-          "at": "2026-05-30T02:39:17.160Z",
-          "prices": {
-            "oceanView": 1534.27
-          }
-        },
-        {
-          "at": "2026-05-30T20:51:20.392Z",
-          "prices": {
-            "balcony": 2146.27
-          }
-        },
-        {
-          "at": "2026-05-31T12:12:25.302Z",
-          "prices": {
-            "balcony": 1611.5
-          }
-        }
-      ],
-      "lastSeenAt": "2026-05-31T13:26:40.132Z"
-    },
-    {
-      "provider": "Royal Caribbean",
       "id": "rc_QN07LAX-1983939879",
       "shipName": "Quantum of the Seas",
       "shipClass": "Quantum",
@@ -1702,6 +1631,47 @@
         }
       ],
       "lastSeenAt": "2026-06-01T03:33:08.553Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_BR07ROM-1597949050",
+      "shipName": "Brilliance of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2002,
+      "itinerary": "Italy, Spain & French Riviera: Florence/Pisa (Livorno), Italy, Santa Margherita, Italy, Nice (Villefranche), France, Provence (Marseille), France, Ibiza, Spain, Barcelona, Spain",
+      "departureDate": "2026-06-15",
+      "duration": "7 Nights",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "771.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=BR07ROM-1597949050&sailDate=2026-06-15&shipCode=BR&packageCode=BR07M814&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "771.5",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1024.69
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1024.69
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 771.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-01T15:52:12.787Z"
     }
   ]
 }
