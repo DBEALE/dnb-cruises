@@ -1314,6 +1314,70 @@
     .sv-delete:hover  { background: var(--gray-100); color: #dc2626; }
     .sv-empty { text-align: center; color: var(--gray-400); font-size: 0.85rem; padding: 18px 0; }
 
+    /* Inline status banner above the saved-views list (subscribe feedback). */
+    .sv-status {
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .sv-status.ok      { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+    .sv-status.err     { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+    .sv-status.pending { background: var(--gray-50); color: var(--gray-700); border: 1px solid var(--gray-200); }
+
+    /* WhatsApp number field inside the Settings dialog. */
+    .settings-phone {
+      padding: 12px;
+      background: var(--blue-pale);
+      border: 1px solid #cfdcfb;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+    .settings-phone label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.84rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .settings-phone input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      background: white;
+    }
+    .settings-phone input:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
+    .settings-phone input.flash { animation: phone-flash .9s ease-out 1; }
+    @keyframes phone-flash {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(29,78,216,0); }
+      35%      { box-shadow: 0 0 0 4px rgba(29,78,216,.25); }
+    }
+    .settings-phone small {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--gray-600);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    .settings-phone small code {
+      background: rgba(0,0,0,.06);
+      padding: 0 4px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .settings-phone-status {
+      display: block;
+      font-size: 0.74rem;
+      margin-top: 6px;
+      min-height: 1em;
+    }
+    .settings-phone-status.ok    { color: #065f46; }
+    .settings-phone-status.err   { color: #991b1b; }
+    .settings-phone-status.muted { color: var(--gray-500); }
+
     /* ── Settings dialog ───────────────────────────────────────────────────── */
     dialog#settingsDialog {
       position: fixed; inset: 0; margin: auto;
@@ -1412,142 +1476,3 @@
     .ship-icon-wrap.tier-small  { width: 26px; height: 9px;
       -webkit-mask-image: url(./img/ship-small.png);  mask-image: url(./img/ship-small.png);  }
 
-    /* ── Modal overlay ──────────────────────────────────────────────────────── */
-    #notifyModal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.45);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 16px;
-      backdrop-filter: blur(3px);
-    }
-    #notifyModal[hidden] { display: none; }
-
-    .notify-box {
-      background: white;
-      border-radius: 14px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
-      width: 100%;
-      max-width: 460px;
-      padding: 28px;
-      position: relative;
-    }
-
-    .notify-box h2 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 6px;
-    }
-
-    .notify-box p {
-      font-size: 0.84rem;
-      color: var(--gray-600);
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
-
-    #notifyCriteriaSummary {
-      background: var(--gray-50);
-      border: 1px solid var(--gray-200);
-      border-radius: 8px;
-      padding: 12px 14px;
-      font-size: 0.82rem;
-      color: var(--gray-600);
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-    #notifyCriteriaSummary strong { color: var(--gray-800); }
-    #notifyCriteriaSummary em     { color: var(--gray-400); font-style: normal; }
-
-    .notify-field {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      margin-bottom: 16px;
-    }
-
-    .notify-field label {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--gray-800);
-    }
-
-    .notify-field input {
-      padding: 9px 12px;
-      border: 1.5px solid var(--gray-200);
-      border-radius: 8px;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color .15s;
-    }
-    .notify-field input:focus { border-color: var(--blue); }
-
-    .notify-field small {
-      font-size: 0.76rem;
-      color: var(--gray-400);
-    }
-
-    #notifyError {
-      font-size: 0.8rem;
-      color: #dc2626;
-      margin-bottom: 12px;
-      min-height: 1.2em;
-    }
-
-    .notify-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-    }
-
-    #notifySubmit {
-      padding: 9px 20px;
-      background: var(--blue);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .15s;
-    }
-    #notifySubmit:hover    { background: #1e40af; }
-    #notifySubmit:disabled { background: var(--gray-400); cursor: not-allowed; }
-
-    #notifyCancelBtn {
-      padding: 9px 16px;
-      background: var(--gray-100);
-      color: var(--gray-600);
-      border: none;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    #notifyCancelBtn:hover { background: var(--gray-200); }
-
-    #notifySuccess {
-      text-align: center;
-      padding: 12px 0 4px;
-    }
-    #notifySuccess .success-icon { font-size: 2.4rem; margin-bottom: 8px; }
-    #notifySuccess h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-    #notifySuccess p  { font-size: 0.83rem; color: var(--gray-600); margin: 0; }
-
-    #notifyCloseSuccess {
-      display: block;
-      margin: 18px auto 0;
-      padding: 9px 24px;
-      background: var(--gray-100);
-      color: var(--gray-700);
-      border: none;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    #notifyCloseSuccess:hover { background: var(--gray-200); }

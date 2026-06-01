@@ -857,15 +857,23 @@
     document.body.classList.toggle('hide-launch-year',!settings.launchYear);
     document.body.classList.toggle('hide-ship-icons', !settings.shipIcons);
   }
-  function openSettings() {
+  // `focusPhone=true` opens the dialog with the phone field highlighted —
+  // used when the user taps 🔔 on a saved view but hasn't set a phone yet.
+  function openSettings(focusPhone) {
     const dlg = document.getElementById('settingsDialog');
     if (!dlg) return;
-    // Sync checkbox states with current settings every open.
     dlg.querySelectorAll('input[data-setting]').forEach(cb => {
       cb.checked = !!settings[cb.dataset.setting];
     });
+    const phoneInput = document.getElementById('settingsPhone');
+    if (phoneInput) phoneInput.value = rememberedPhone();
+    document.getElementById('settingsPhoneStatus').textContent = '';
     if (typeof dlg.showModal === 'function') dlg.showModal();
     else dlg.setAttribute('open', '');
+    if (focusPhone && phoneInput) {
+      phoneInput.classList.add('flash');
+      setTimeout(() => { phoneInput.classList.remove('flash'); phoneInput.focus(); }, 150);
+    }
   }
   function wireSettingsHandlers() {
     const dlg = document.getElementById('settingsDialog');
@@ -880,6 +888,27 @@
       });
     });
 
+    // Phone number — save on every change, lightly validate, show inline status.
+    const phoneInput  = document.getElementById('settingsPhone');
+    const phoneStatus = document.getElementById('settingsPhoneStatus');
+    if (phoneInput && phoneStatus) {
+      phoneInput.addEventListener('input', () => {
+        const v = phoneInput.value.trim();
+        if (!v) {
+          rememberPhone('');
+          phoneStatus.textContent = 'Cleared';
+          phoneStatus.className = 'settings-phone-status muted';
+        } else if (/^\+\d{7,15}$/.test(v)) {
+          rememberPhone(v);
+          phoneStatus.textContent = 'Saved';
+          phoneStatus.className = 'settings-phone-status ok';
+        } else {
+          phoneStatus.textContent = 'Use international format, e.g. +447700900123';
+          phoneStatus.className = 'settings-phone-status err';
+        }
+      });
+    }
+
     document.getElementById('settingsClose').addEventListener('click', () => dlg.close());
     document.getElementById('settingsReset').addEventListener('click', () => {
       settings = { ...SETTINGS_DEFAULTS };
@@ -888,8 +917,9 @@
       });
       applySettingsToDom();
       saveSettings();
+      // Reset does NOT clear the phone number — that's user data, not a
+      // display preference. They can clear it themselves by emptying the field.
     });
-    // Backdrop click closes
     dlg.addEventListener('click', ev => { if (ev.target === dlg) dlg.close(); });
   }
 
@@ -911,6 +941,7 @@
     if (!dlg) return;
     renderSavedViewsList();
     document.getElementById('svNameInput').value = '';
+    setSavedViewStatus('', null);
     if (typeof dlg.showModal === 'function') dlg.showModal();
     else dlg.setAttribute('open', '');
     setTimeout(() => document.getElementById('svNameInput')?.focus(), 50);
@@ -998,16 +1029,50 @@
     renderSavedViewsList();
   }
 
-  // Notify subscription per saved view. Opens the existing notify modal
-  // pre-filled with that view's criteria (parsed from its stored URL hash)
-  // and a phone number remembered from any prior successful subscribe.
-  let _pendingNotifyViewId = null;
-  function openNotifyForView(viewId) {
-    const view = loadSavedViews().find(v => v.id === viewId);
+  // One-tap subscribe from a saved view. The phone number lives in Settings
+  // → reuse it silently. Without a phone, bounce the user to Settings with
+  // the phone field highlighted.
+  async function openNotifyForView(viewId) {
+    const view  = loadSavedViews().find(v => v.id === viewId);
     if (!view) return;
-    _pendingNotifyViewId = view.id;
-    const criteria = criteriaFromHash(view.hash);
-    openNotifyModal(criteria);
+    const phone = rememberedPhone();
+    if (!phone) {
+      // Close saved-views, open Settings with the phone field flashed.
+      document.getElementById('savedViewsDialog')?.close();
+      openSettings(true);
+      setSavedViewStatus('Add your WhatsApp number in Settings, then tap 🔔 again.', 'err');
+      return;
+    }
+    await subscribeSavedView(view, phone);
+  }
+
+  async function subscribeSavedView(view, phone) {
+    setSavedViewStatus(`Subscribing for "${view.name}"…`, 'pending');
+    try {
+      const res = await fetch(SUBSCRIBE_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          whatsappNumber: phone,
+          criteria:       criteriaFromHash(view.hash),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Subscription failed');
+      markViewNotifyEnabled(view.id);
+      setSavedViewStatus(`Subscribed! You'll get WhatsApp alerts for "${view.name}". Reply STOP to unsubscribe.`, 'ok');
+    } catch (err) {
+      setSavedViewStatus(err.message || 'Subscription failed', 'err');
+    }
+  }
+
+  function setSavedViewStatus(text, kind) {
+    const el = document.getElementById('svStatus');
+    if (!el) return;
+    if (!text) { el.hidden = true; el.textContent = ''; return; }
+    el.hidden = false;
+    el.textContent = text;
+    el.className = 'sv-status ' + (kind || '');
   }
   function markViewNotifyEnabled(viewId) {
     const views = loadSavedViews();
@@ -1549,121 +1614,8 @@
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
-  // ── Notify Me ──────────────────────────────────────────────────────────────
-
+  // ── Notify subscribe endpoint ──────────────────────────────────────────────
+  // Phone number lives in the Settings dialog (stored in localStorage); the
+  // bell on each saved view subscribes one-tap via subscribeSavedView()
+  // above. No on-page notify modal any more.
   const SUBSCRIBE_URL = 'https://yttgqscwgmsnewdjqbcc.supabase.co/functions/v1/subscribe';
-
-  const CRITERIA_LABELS = {
-    shipName:        'Ship',
-    provider:        'Cruise line',
-    shipClass:       'Ship class',
-    minLaunch:       'Min launch year',
-    itinerary:       'Itinerary',
-    destination:     'Destination',
-    departureDate:   'Departure',
-    duration:        'Min nights',
-    departurePort:   'Departure port',
-    departureRegion: 'Region',
-    maxPrice:        'Max price (£)',
-  };
-
-  function getCurrentCriteria() {
-    const seen = new Set();
-    const criteria = {};
-    document.querySelectorAll('[data-field]').forEach(el => {
-      const field = el.dataset.field;
-      if (seen.has(field)) return;
-      const val = el.value.trim();
-      if (!val) return;
-      seen.add(field);
-      if (['minLaunch', 'duration', 'maxPrice'].includes(field)) {
-        const n = parseFloat(val);
-        if (!isNaN(n)) criteria[field] = n;
-      } else {
-        criteria[field] = val;
-      }
-    });
-    return criteria;
-  }
-
-  // Always called from a saved-view bell click these days. `criteria` is
-  // either the saved view's criteria (parsed from its hash) or, if invoked
-  // without args, falls back to the live page filters (legacy path; not
-  // currently reachable from the UI but kept harmless).
-  function openNotifyModal(criteria) {
-    const c       = criteria || getCurrentCriteria();
-    const entries = Object.entries(c);
-
-    const summary = document.getElementById('notifyCriteriaSummary');
-    if (entries.length === 0) {
-      summary.innerHTML = '<em>No filters active — you will be notified about any new cruise.</em>';
-    } else {
-      summary.innerHTML = '<strong>Active filters:</strong><br>' +
-        entries.map(([k, v]) => `${CRITERIA_LABELS[k] ?? k}: <strong>${escHtml(String(v))}</strong>`).join(' · ');
-    }
-
-    document.getElementById('notifyForm').hidden    = false;
-    document.getElementById('notifySuccess').hidden = true;
-    document.getElementById('notifyError').textContent = '';
-    document.getElementById('notifyPhone').value    = rememberedPhone();
-    document.getElementById('notifyModal').hidden   = false;
-    document.getElementById('notifyPhone').focus();
-  }
-
-  function closeNotifyModal() {
-    document.getElementById('notifyModal').hidden = true;
-  }
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeNotifyModal();
-  });
-
-  async function submitNotify() {
-    const phone   = document.getElementById('notifyPhone').value.trim();
-    const errEl   = document.getElementById('notifyError');
-    const btn     = document.getElementById('notifySubmit');
-    errEl.textContent = '';
-
-    if (!/^\+\d{7,15}$/.test(phone)) {
-      errEl.textContent = 'Please enter a valid number in international format, e.g. +447700900123';
-      return;
-    }
-
-    btn.disabled      = true;
-    btn.textContent   = 'Subscribing…';
-
-    // If this submit was triggered for a saved view, use that view's
-    // criteria (parsed from its stored hash). Otherwise fall back to the
-    // current live filter values.
-    let criteria;
-    if (_pendingNotifyViewId) {
-      const v = loadSavedViews().find(x => x.id === _pendingNotifyViewId);
-      criteria = v ? criteriaFromHash(v.hash) : getCurrentCriteria();
-    } else {
-      criteria = getCurrentCriteria();
-    }
-
-    try {
-      const res = await fetch(SUBSCRIBE_URL, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ whatsappNumber: phone, criteria }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Subscription failed');
-
-      rememberPhone(phone);
-      if (_pendingNotifyViewId) {
-        markViewNotifyEnabled(_pendingNotifyViewId);
-        _pendingNotifyViewId = null;
-      }
-      document.getElementById('notifyForm').hidden    = true;
-      document.getElementById('notifySuccess').hidden = false;
-    } catch (err) {
-      errEl.textContent = err.message;
-    } finally {
-      btn.disabled    = false;
-      btn.textContent = 'Subscribe';
-    }
-  }
