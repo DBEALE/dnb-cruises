@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 65,
+  "count": 66,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -1522,67 +1522,6 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_LE08ROM-901008908",
-      "shipName": "Legend of the Seas",
-      "shipClass": "",
-      "shipLaunchYear": null,
-      "itinerary": "Western Mediterranean: Florence/Pisa (La Spezia), Italy, Naples/Capri, Italy, Palma de Mallorca, Spain, Málaga, Spain, Barcelona, Spain",
-      "departureDate": "2026-07-25",
-      "duration": "8 Nights",
-      "departurePort": "Rome (Civitavecchia)",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "priceFrom": "2614.5",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LE08ROM-901008908&sailDate=2026-07-25&shipCode=LE&packageCode=LE08M173&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": null,
-        "suite": "2614.5"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 3488.61
-        },
-        {
-          "at": "2026-05-29T11:23:56.779Z",
-          "price": 5528.11
-        },
-        {
-          "at": "2026-05-29T14:53:57.578Z",
-          "price": 10128.61
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "suite": 54128.61
-          }
-        },
-        {
-          "at": "2026-05-30T06:42:50.024Z",
-          "prices": {
-            "inside": 2276.11
-          }
-        },
-        {
-          "at": "2026-05-31T07:41:32.283Z",
-          "prices": {
-            "inside": 2016.61
-          }
-        },
-        {
-          "at": "2026-05-31T13:26:40.132Z",
-          "prices": {
-            "suite": 2614.5
-          }
-        }
-      ],
-      "lastSeenAt": "2026-05-31T13:26:40.132Z"
-    },
-    {
-      "provider": "Royal Caribbean",
       "id": "rc_QN07LAX-1983939879",
       "shipName": "Quantum of the Seas",
       "shipClass": "Quantum",
@@ -1644,6 +1583,125 @@
         }
       ],
       "lastSeenAt": "2026-05-31T20:54:05.330Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LB02STH-1080712040",
+      "shipName": "Liberty of the Seas",
+      "shipClass": "Freedom",
+      "shipLaunchYear": 2007,
+      "itinerary": "Weekend Getaway Cruise: Paris (Le Havre), France",
+      "departureDate": "2026-06-12",
+      "duration": "2 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "priceFrom": "722",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LB02STH-1080712040&sailDate=2026-06-12&shipCode=LB&packageCode=LB02U010&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "722"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "suite": 962.65
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "suite": 722
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-01T03:33:08.553Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LB07STH-1630525221",
+      "shipName": "Liberty of the Seas",
+      "shipClass": "Freedom",
+      "shipLaunchYear": 2007,
+      "itinerary": "Spain & Portugal Cruise: Vigo, Spain, Lisbon, Portugal, La Coruna, Spain",
+      "departureDate": "2026-07-05",
+      "duration": "7 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "priceFrom": "1243.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LB07STH-1630525221&sailDate=2026-07-05&shipCode=LB&packageCode=LB07U247&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1243.5",
+        "oceanView": "1548.5",
+        "balcony": "1325.5",
+        "suite": "1516.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1243.45
+        },
+        {
+          "at": "2026-05-29T11:23:56.779Z",
+          "price": 1560.45
+        },
+        {
+          "at": "2026-05-29T14:53:57.578Z",
+          "price": 1243.45
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1611.45,
+            "oceanView": 2062.95,
+            "balcony": 1560.45,
+            "suite": 2022.95
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "inside": 1243.45,
+            "oceanView": 2062.95,
+            "balcony": 1560.45,
+            "suite": 2022.95
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 1275.45,
+            "oceanView": 2062.95,
+            "balcony": 1560.45,
+            "suite": 2022.95
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 958.5,
+            "oceanView": 1548.5,
+            "balcony": 1170.5,
+            "suite": 1516.5
+          }
+        },
+        {
+          "at": "2026-06-01T03:33:08.553Z",
+          "prices": {
+            "inside": 1243.5,
+            "oceanView": 1548.5,
+            "balcony": 1325.5,
+            "suite": 1516.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-01T03:33:08.553Z"
     }
   ]
 }

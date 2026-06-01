@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 33,
+  "count": 35,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -829,6 +829,64 @@
         }
       ],
       "lastSeenAt": "2026-05-31T02:56:26.204Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JOY9SEAKTNSITSGYICYVICSEA",
+      "shipName": "Norwegian Joy",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2017,
+      "itinerary": "Alaska: Ketchikan, Skagway & Icy Strait Point",
+      "departureDate": "Mon 1 Jun 2026",
+      "duration": "9-day Cruise",
+      "departurePort": "Seattle, Washington",
+      "departureRegion": "Americas",
+      "destination": "Alaska: Ketchikan, Skagway & Icy Strait Point",
+      "priceFrom": "758",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/9-day-alaska-round-trip-seattle-ketchinkan-skagway-and-icy-strait-point-JOY9SEAKTNSITSGYICYVICSEA?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JOY9SEAKTNSITSGYICYVICSEA",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 758
+        }
+      ],
+      "lastSeenAt": "2026-06-01T03:33:08.553Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SUN7SOUZEEIJMKIEWARCPH",
+      "shipName": "Norwegian Sun",
+      "shipClass": "Sun",
+      "shipLaunchYear": 2001,
+      "itinerary": "Europe: France, Germany & Belgium",
+      "departureDate": "Mon 1 Jun 2026",
+      "duration": "7-day Cruise",
+      "departurePort": "London (Southampton), United Kingdom",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe: France, Germany & Belgium",
+      "priceFrom": "405",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-europe-from-london-to-cophenhagen-france-germany-and-belgium-SUN7SOUZEEIJMKIEWARCPH?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SUN7SOUZEEIJMKIEWARCPH",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 405
+        }
+      ],
+      "lastSeenAt": "2026-06-01T03:33:08.553Z"
     }
   ]
 }
