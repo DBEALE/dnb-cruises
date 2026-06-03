@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 104,
+  "count": 122,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -1515,43 +1515,6 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_LB02STH-1080712040",
-      "shipName": "Liberty of the Seas",
-      "shipClass": "Freedom",
-      "shipLaunchYear": 2007,
-      "itinerary": "Weekend Getaway Cruise: Paris (Le Havre), France",
-      "departureDate": "2026-06-12",
-      "duration": "2 Nights",
-      "departurePort": "Southampton",
-      "departureRegion": "UK & Ireland",
-      "destination": "Europe",
-      "priceFrom": "722",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LB02STH-1080712040&sailDate=2026-06-12&shipCode=LB&packageCode=LB02U010&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": null,
-        "suite": "722"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-30T02:39:17.160Z",
-          "prices": {
-            "suite": 962.65
-          }
-        },
-        {
-          "at": "2026-05-31T12:12:25.302Z",
-          "prices": {
-            "suite": 722
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-01T03:33:08.553Z"
-    },
-    {
-      "provider": "Royal Caribbean",
       "id": "rc_BR07ROM-1597949050",
       "shipName": "Brilliance of the Seas",
       "shipClass": "Radiance",
@@ -1621,136 +1584,6 @@
         }
       ],
       "lastSeenAt": "2026-06-02T08:24:13.015Z"
-    },
-    {
-      "provider": "Royal Caribbean",
-      "id": "rc_HM13BCN-713440655",
-      "shipName": "Harmony of the Seas",
-      "shipClass": "Oasis",
-      "shipLaunchYear": 2016,
-      "itinerary": "Spain Transatlantic: Palma de Mallorca, Spain, Cartagena, Spain, Málaga, Spain, Seville (Cadiz), Spain, Orlando (Port Canaveral), Florida",
-      "departureDate": "2026-07-26",
-      "duration": "13 Nights",
-      "departurePort": "Barcelona",
-      "departureRegion": "Mediterranean",
-      "destination": "Transatlantic",
-      "priceFrom": "1323.5",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=HM13BCN-713440655&sailDate=2026-07-26&shipCode=HM&packageCode=HM13T148&destinationCode=T.ATL&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": "1323.5",
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 1402.13
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 1402.13,
-            "balcony": 6943.13
-          }
-        },
-        {
-          "at": "2026-05-30T02:39:17.160Z",
-          "prices": {
-            "inside": 1445.63,
-            "balcony": 7209.63
-          }
-        },
-        {
-          "at": "2026-05-30T06:42:50.024Z",
-          "prices": {
-            "inside": 1445.63,
-            "balcony": 1989.13,
-            "suite": 6923.13
-          }
-        },
-        {
-          "at": "2026-05-30T13:18:20.949Z",
-          "prices": {
-            "inside": 1445.63,
-            "balcony": 1989.13,
-            "suite": 5212.63
-          }
-        },
-        {
-          "at": "2026-05-30T16:57:19.215Z",
-          "prices": {
-            "inside": 1445.63,
-            "balcony": 1989.13
-          }
-        },
-        {
-          "at": "2026-05-30T19:06:05.550Z",
-          "prices": {
-            "inside": 1445.63,
-            "balcony": 7022.63
-          }
-        },
-        {
-          "at": "2026-05-31T12:12:25.302Z",
-          "prices": {
-            "inside": 1087.5,
-            "balcony": 5264.5
-          }
-        },
-        {
-          "at": "2026-05-31T20:54:05.330Z",
-          "prices": {
-            "inside": 1087.5,
-            "balcony": 5404.5
-          }
-        },
-        {
-          "at": "2026-05-31T22:56:38.105Z",
-          "prices": {
-            "inside": 1087.5,
-            "balcony": 5404.5,
-            "suite": 5189.5
-          }
-        },
-        {
-          "at": "2026-06-01T03:33:08.553Z",
-          "prices": {
-            "inside": 1087.5,
-            "balcony": 5404.5
-          }
-        },
-        {
-          "at": "2026-06-01T20:13:35.019Z",
-          "prices": {
-            "inside": 1085.5,
-            "balcony": 5654.5
-          }
-        },
-        {
-          "at": "2026-06-02T03:30:12.803Z",
-          "prices": {
-            "inside": 1085.5,
-            "balcony": 1487.5,
-            "suite": 3902.5
-          }
-        },
-        {
-          "at": "2026-06-02T08:24:13.015Z",
-          "prices": {
-            "inside": 1085.5,
-            "balcony": 5654.5
-          }
-        },
-        {
-          "at": "2026-06-02T13:57:43.544Z",
-          "prices": {
-            "inside": 1323.5
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-02T13:57:43.544Z"
     },
     {
       "provider": "Royal Caribbean",
@@ -5279,115 +5112,2464 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_BR07ROM-1687072719",
-      "shipName": "Brilliance of the Seas",
-      "shipClass": "Radiance",
-      "shipLaunchYear": 2002,
-      "itinerary": "Italy, Croatia & Malta Cruise: Naples/Capri, Italy, Sicily (Messina), Italy, Valletta, Malta, Dubrovnik, Croatia, Split, Croatia, Ravenna, Italy",
-      "departureDate": "2026-10-19",
+      "id": "rc_OV07SWD-3892106298",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Southbound Alaska & Hubbard Glacier: Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Vancouver, British Columbia",
+      "departureDate": "2026-08-28",
       "duration": "7 Nights",
-      "departurePort": "Rome (Civitavecchia)",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "priceFrom": "3503",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "566.5",
       "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=BR07ROM-1687072719&sailDate=2026-10-19&shipCode=BR&packageCode=BR07M822&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV07SWD-3892106298&sailDate=2026-08-28&shipCode=OV&packageCode=OV07A420&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
       "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": null,
-        "suite": "3503"
+        "inside": "566.5",
+        "oceanView": "581.5",
+        "balcony": "880.5",
+        "suite": "1635.5"
       },
       "priceHistory": [
         {
           "at": "2026-05-29T09:33:04.484Z",
-          "price": 4679.68
+          "price": 514.11
         },
         {
           "at": "2026-05-29T18:29:37.417Z",
           "prices": {
-            "suite": 4679.68
+            "inside": 514.11,
+            "oceanView": 764.61,
+            "balcony": 851.11,
+            "suite": 5345.61
           }
         },
         {
           "at": "2026-05-31T12:12:25.302Z",
           "prices": {
-            "suite": 3508
+            "inside": 579.5,
+            "oceanView": 600.5,
+            "balcony": 1074.5,
+            "suite": 4032.5
           }
         },
         {
-          "at": "2026-06-01T03:33:08.553Z",
+          "at": "2026-06-01T15:52:12.787Z",
           "prices": {
-            "suite": 3483
-          }
-        },
-        {
-          "at": "2026-06-01T23:24:11.880Z",
-          "prices": {
-            "suite": 3503
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-03T03:37:29.400Z"
-    },
-    {
-      "provider": "Royal Caribbean",
-      "id": "rc_LB07STH-3745121605",
-      "shipName": "Liberty of the Seas",
-      "shipClass": "Freedom",
-      "shipLaunchYear": 2007,
-      "itinerary": "Norwegian Fjords Cruise: Bruges/Zeebruge (Brussels), Belgium, Haugesund, Norway, Olden, Norway, Stavanger, Norway",
-      "departureDate": "2026-07-12",
-      "duration": "7 Nights",
-      "departurePort": "Southampton",
-      "departureRegion": "UK & Ireland",
-      "destination": "Europe",
-      "priceFrom": "7323.5",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LB07STH-3745121605&sailDate=2026-07-12&shipCode=LB&packageCode=LB07U248&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": null,
-        "suite": "7323.5"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 3399.86
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "suite": 3399.86
-          }
-        },
-        {
-          "at": "2026-05-31T07:41:32.283Z",
-          "prices": {
-            "suite": 3296.86
-          }
-        },
-        {
-          "at": "2026-05-31T12:12:25.302Z",
-          "prices": {
-            "suite": 2471.5
+            "inside": 579.5,
+            "oceanView": 600.5,
+            "balcony": 1284.5,
+            "suite": 4032.5
           }
         },
         {
           "at": "2026-06-01T20:13:35.019Z",
           "prices": {
-            "suite": 7303.5
+            "inside": 624.5,
+            "oceanView": 545.5,
+            "balcony": 640.5,
+            "suite": 3984.5
           }
         },
         {
           "at": "2026-06-01T23:24:11.880Z",
           "prices": {
-            "suite": 7323.5
+            "inside": 583,
+            "oceanView": 545.5,
+            "balcony": 640.5,
+            "suite": 4004.5
+          }
+        },
+        {
+          "at": "2026-06-03T03:37:29.400Z",
+          "prices": {
+            "inside": 566.5,
+            "oceanView": 581.5,
+            "balcony": 880.5,
+            "suite": 1635.5
           }
         }
       ],
-      "lastSeenAt": "2026-06-03T03:37:29.400Z"
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV07YVR-2655490873",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Northbound Alaska & Hubbard Glacier: Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
+      "departureDate": "2026-08-07",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "609.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV07YVR-2655490873&sailDate=2026-08-07&shipCode=OV&packageCode=OV07A417&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "609.5",
+        "oceanView": "881.5",
+        "balcony": "1243.5",
+        "suite": "2532.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1013.87
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1013.87,
+            "oceanView": 1023.87,
+            "balcony": 1323.37,
+            "suite": 4781.87
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 1013.87,
+            "oceanView": 1023.87,
+            "balcony": 2017.37,
+            "suite": 4781.87
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 765.5,
+            "oceanView": 772.5,
+            "balcony": 1515.5,
+            "suite": 3586.5
+          }
+        },
+        {
+          "at": "2026-05-31T20:54:05.330Z",
+          "prices": {
+            "inside": 765.5,
+            "oceanView": 772.5,
+            "suite": 3586.5
+          }
+        },
+        {
+          "at": "2026-06-01T03:33:08.553Z",
+          "prices": {
+            "inside": 765.5,
+            "oceanView": 772.5,
+            "balcony": 1327.5,
+            "suite": 3586.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 765.5,
+            "oceanView": 772.5,
+            "balcony": 995.5,
+            "suite": 1886.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 609.5,
+            "oceanView": 881.5,
+            "balcony": 1734.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 609.5,
+            "oceanView": 881.5,
+            "balcony": 1065.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 609.5,
+            "oceanView": 881.5,
+            "balcony": 1354.5
+          }
+        },
+        {
+          "at": "2026-06-03T03:37:29.400Z",
+          "prices": {
+            "inside": 609.5,
+            "oceanView": 881.5,
+            "balcony": 1243.5,
+            "suite": 2532.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV07YVR-2526894620",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Northbound Alaska & Hubbard Glacier: Icy Strait Point, Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
+      "departureDate": "2026-08-21",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "660.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV07YVR-2526894620&sailDate=2026-08-21&shipCode=OV&packageCode=OV07A419&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "660.5",
+        "oceanView": null,
+        "balcony": null,
+        "suite": "4353.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1109.42
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1109.42,
+            "oceanView": 1128.42,
+            "balcony": 1428.42,
+            "suite": 2065.92
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 1109.42,
+            "oceanView": 1128.42,
+            "suite": 2065.92
+          }
+        },
+        {
+          "at": "2026-05-30T19:06:05.550Z",
+          "prices": {
+            "inside": 1109.42,
+            "oceanView": 1128.42,
+            "suite": 5816.92
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 1109.42,
+            "oceanView": 1128.42,
+            "balcony": 1847.92,
+            "suite": 5226.42
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 821,
+            "oceanView": 835,
+            "balcony": 1388.5,
+            "suite": 4361.5
+          }
+        },
+        {
+          "at": "2026-05-31T13:26:40.132Z",
+          "prices": {
+            "inside": 821,
+            "oceanView": 835,
+            "balcony": 1058,
+            "suite": 4361.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 821,
+            "oceanView": 835,
+            "balcony": 1566.5,
+            "suite": 4361.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 660.5,
+            "oceanView": 669.5,
+            "suite": 4333.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 660.5,
+            "oceanView": 669.5,
+            "suite": 4353.5
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 660.5,
+            "oceanView": 669.5,
+            "balcony": 1380.5,
+            "suite": 4353.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 660.5,
+            "oceanView": 669.5,
+            "suite": 4353.5
+          }
+        },
+        {
+          "at": "2026-06-02T18:05:24.346Z",
+          "prices": {
+            "inside": 660.5,
+            "oceanView": 669.5,
+            "balcony": 1557.5,
+            "suite": 4353.5
+          }
+        },
+        {
+          "at": "2026-06-02T22:20:25.582Z",
+          "prices": {
+            "inside": 660.5,
+            "oceanView": 669.5,
+            "suite": 4353.5
+          }
+        },
+        {
+          "at": "2026-06-03T03:37:29.400Z",
+          "prices": {
+            "inside": 660.5,
+            "suite": 4353.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV08LAX-2908299596",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Cabo Catalina & Ensenada Holiday: Catalina Island, California, Cabo San Lucas, Mexico, Ensenada, Mexico",
+      "departureDate": "2026-12-21",
+      "duration": "8 Nights",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexico",
+      "priceFrom": "779",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV08LAX-2908299596&sailDate=2026-12-21&shipCode=OV&packageCode=OV08X009&destinationCode=MEXCO&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "779",
+        "oceanView": "928",
+        "balcony": "957",
+        "suite": "1806"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1036.19
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1036.19,
+            "oceanView": 1236.19,
+            "balcony": 1277.19,
+            "suite": 2394.69
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 783,
+            "oceanView": 933,
+            "balcony": 962,
+            "suite": 1798
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 779,
+            "oceanView": 928,
+            "balcony": 957,
+            "suite": 1786
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 779,
+            "oceanView": 928,
+            "balcony": 957,
+            "suite": 1806
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV06LAX-2361069865",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Cabo Overnight & Ensenada Holiday: Ensenada, Mexico, Cabo San Lucas, Mexico",
+      "departureDate": "2026-12-29",
+      "duration": "6 Nights",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexico",
+      "priceFrom": "792",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV06LAX-2361069865&sailDate=2026-12-29&shipCode=OV&packageCode=OV06X021&destinationCode=MEXCO&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "792",
+        "oceanView": "1001",
+        "balcony": "1011",
+        "suite": "1740"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1054.68
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1054.68,
+            "oceanView": 1336.18,
+            "balcony": 1351.68,
+            "suite": 2308.18
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 796,
+            "oceanView": 1007,
+            "balcony": 1017,
+            "suite": 1732
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 792,
+            "oceanView": 1001,
+            "balcony": 1011,
+            "suite": 1720
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 792,
+            "oceanView": 1001,
+            "balcony": 1011,
+            "suite": 1740
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_BR07TRS-4049809292",
+      "shipName": "Brilliance of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2002,
+      "itinerary": "Italy, Croatia & The Adriatic: Koper, Slovenia, Split, Croatia, Dubrovnik, Croatia, Kotor, Montenegro, Naples/Capri, Italy, Rome (Civitavecchia), Italy",
+      "departureDate": "2026-08-10",
+      "duration": "7 Nights",
+      "departurePort": "Trieste",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "812.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=BR07TRS-4049809292&sailDate=2026-08-10&shipCode=BR&packageCode=BR07M816&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "812.5",
+        "oceanView": "1162.5",
+        "balcony": "1422.5",
+        "suite": "3071.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1064.47
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1064.47,
+            "oceanView": 1554.47,
+            "balcony": 1866.97,
+            "suite": 4096.47
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 1083.47,
+            "oceanView": 1554.47,
+            "balcony": 1905.47,
+            "suite": 4096.47
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 816.5,
+            "oceanView": 1169.5,
+            "balcony": 1430.5,
+            "suite": 3071.5
+          }
+        },
+        {
+          "at": "2026-05-31T22:56:38.105Z",
+          "prices": {
+            "inside": 1276.5,
+            "oceanView": 1169.5,
+            "balcony": 1430.5,
+            "suite": 3071.5
+          }
+        },
+        {
+          "at": "2026-06-01T03:33:08.553Z",
+          "prices": {
+            "inside": 816.5,
+            "oceanView": 1169.5,
+            "balcony": 1430.5,
+            "suite": 3071.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 1276.5,
+            "oceanView": 1169.5,
+            "balcony": 1430.5,
+            "suite": 3071.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 1269.5,
+            "oceanView": 1162.5,
+            "balcony": 1422.5,
+            "suite": 3051.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 1269.5,
+            "oceanView": 1162.5,
+            "balcony": 1422.5,
+            "suite": 3071.5
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 812.5,
+            "oceanView": 1162.5,
+            "balcony": 1422.5,
+            "suite": 3071.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV07YVR-2191223072",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Northbound Alaska & Hubbard Glacier: Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
+      "departureDate": "2026-07-24",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "1141.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV07YVR-2191223072&sailDate=2026-07-24&shipCode=OV&packageCode=OV07A415&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1141.5",
+        "oceanView": null,
+        "balcony": "1436.5",
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1523.76
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1523.76,
+            "oceanView": 1773.76,
+            "balcony": 1923.76,
+            "suite": 5081.76
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 1523.76,
+            "oceanView": 1773.76,
+            "suite": 5081.76
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "inside": 1523.76,
+            "suite": 5081.76
+          }
+        },
+        {
+          "at": "2026-05-30T09:55:04.493Z",
+          "prices": {
+            "inside": 1523.76
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 1523.76,
+            "balcony": 2327.76
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 1148.5,
+            "balcony": 1747.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 1148.5,
+            "balcony": 1444.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 1141.5,
+            "balcony": 1436.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 1141.5
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 1141.5,
+            "balcony": 1737.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 1141.5,
+            "balcony": 1436.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV12SWD-637522827",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Fjord and Tundra National Parks Explorer CruiseTour (Pre Tour)",
+      "departureDate": "2026-08-14",
+      "duration": "12 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2322.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV12SWD-637522827&sailDate=2026-08-14&shipCode=OV&packageCode=OV12BP06&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2322.5",
+        "oceanView": "2885.5",
+        "balcony": "3350.5",
+        "suite": "4922.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3212.81
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3212.81,
+            "oceanView": 3322.81,
+            "balcony": 3782.81,
+            "suite": 5545.81
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "inside": 3212.81,
+            "oceanView": 3322.81,
+            "balcony": 3762.31,
+            "suite": 5545.81
+          }
+        },
+        {
+          "at": "2026-05-29T23:08:29.615Z",
+          "prices": {
+            "inside": 3212.81,
+            "oceanView": 3322.81,
+            "balcony": 3762.31,
+            "suite": 5485.31
+          }
+        },
+        {
+          "at": "2026-05-30T22:54:48.241Z",
+          "prices": {
+            "inside": 3212.81,
+            "oceanView": 3322.81,
+            "balcony": 3782.81,
+            "suite": 5485.31
+          }
+        },
+        {
+          "at": "2026-05-31T02:56:26.204Z",
+          "prices": {
+            "inside": 3212.81,
+            "oceanView": 3322.81,
+            "balcony": 4106.31,
+            "suite": 5485.31
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 3212.81,
+            "oceanView": 3322.81,
+            "balcony": 3762.31,
+            "suite": 5485.31
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2322.5,
+            "oceanView": 2885.5,
+            "balcony": 2930.5,
+            "suite": 4032.5
+          }
+        },
+        {
+          "at": "2026-06-01T03:33:08.553Z",
+          "prices": {
+            "inside": 2322.5,
+            "oceanView": 2885.5,
+            "balcony": 3147.5,
+            "suite": 4032.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2322.5,
+            "oceanView": 2885.5,
+            "balcony": 2930.5,
+            "suite": 4902.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2322.5,
+            "oceanView": 2885.5,
+            "balcony": 2930.5,
+            "suite": 4922.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2322.5,
+            "oceanView": 2885.5,
+            "suite": 4922.5
+          }
+        },
+        {
+          "at": "2026-06-02T22:20:25.582Z",
+          "prices": {
+            "inside": 2322.5,
+            "oceanView": 2885.5,
+            "balcony": 3350.5,
+            "suite": 4922.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV12SWD-2685456232",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Mountain Panorama Adventure CruiseTour (Pre Tour): Talkeetna, Alaska, Denali, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Vancouver, British Columbia",
+      "departureDate": "2026-08-14",
+      "duration": "12 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2330.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV12SWD-2685456232&sailDate=2026-08-14&shipCode=OV&packageCode=OV12BP05&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2330.5",
+        "oceanView": "2892.5",
+        "balcony": "3357.5",
+        "suite": "4930.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3120.81
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3120.81,
+            "oceanView": 3230.81,
+            "balcony": 3691.31,
+            "suite": 5453.81
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "inside": 3120.81,
+            "oceanView": 3230.81,
+            "balcony": 3670.81,
+            "suite": 5393.81
+          }
+        },
+        {
+          "at": "2026-05-30T22:54:48.241Z",
+          "prices": {
+            "inside": 3120.81,
+            "oceanView": 3230.81,
+            "balcony": 3691.31,
+            "suite": 5393.81
+          }
+        },
+        {
+          "at": "2026-05-31T02:56:26.204Z",
+          "prices": {
+            "inside": 3120.81,
+            "oceanView": 3230.81,
+            "balcony": 4014.31,
+            "suite": 5393.81
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 3120.81,
+            "oceanView": 3230.81,
+            "balcony": 3670.81,
+            "suite": 5393.81
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2330.5,
+            "oceanView": 2892.5,
+            "balcony": 2937.5,
+            "suite": 4040.5
+          }
+        },
+        {
+          "at": "2026-06-01T03:33:08.553Z",
+          "prices": {
+            "inside": 2330.5,
+            "oceanView": 2892.5,
+            "balcony": 3155.5,
+            "suite": 4040.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2330.5,
+            "oceanView": 2892.5,
+            "balcony": 2937.5,
+            "suite": 4910.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2330.5,
+            "oceanView": 2892.5,
+            "balcony": 2937.5,
+            "suite": 4930.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2330.5,
+            "oceanView": 2892.5,
+            "suite": 4930.5
+          }
+        },
+        {
+          "at": "2026-06-02T22:20:25.582Z",
+          "prices": {
+            "inside": 2330.5,
+            "oceanView": 2892.5,
+            "balcony": 3357.5,
+            "suite": 4930.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV10SWD-2509400815",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Kenai Trek and Inland Wildlife CruiseTour (Pre Tour): Denali, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Vancouver, British Columbia",
+      "departureDate": "2026-08-28",
+      "duration": "10 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2335.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV10SWD-2509400815&sailDate=2026-08-28&shipCode=OV&packageCode=OV12BQ12&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2335.5",
+        "oceanView": "2755.5",
+        "balcony": "2800.5",
+        "suite": "3832.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 2362.04
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2362.04,
+            "oceanView": 2392.04,
+            "suite": 3702.04
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "inside": 2362.04,
+            "oceanView": 2392.04,
+            "balcony": 2712.54,
+            "suite": 3702.04
+          }
+        },
+        {
+          "at": "2026-05-30T20:51:20.392Z",
+          "prices": {
+            "inside": 2362.04,
+            "oceanView": 2392.04,
+            "balcony": 2712.54,
+            "suite": 6914.04
+          }
+        },
+        {
+          "at": "2026-05-30T22:54:48.241Z",
+          "prices": {
+            "inside": 2362.04,
+            "oceanView": 2392.04,
+            "balcony": 2966.54,
+            "suite": 6914.04
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2335.5,
+            "oceanView": 2755.5,
+            "balcony": 2972.5,
+            "suite": 5297.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2335.5,
+            "oceanView": 2755.5,
+            "balcony": 3047.5,
+            "suite": 5297.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2335.5,
+            "oceanView": 2755.5,
+            "balcony": 2800.5,
+            "suite": 5317.5
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 2335.5,
+            "oceanView": 2755.5,
+            "balcony": 2972.5,
+            "suite": 4110.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2335.5,
+            "oceanView": 2755.5,
+            "balcony": 2800.5,
+            "suite": 3832.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV10SWD-2244729292",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Kenai Trek and Inland Wildlife CruiseTour (Pre Tour)",
+      "departureDate": "2026-09-11",
+      "duration": "10 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2335.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV10SWD-2244729292&sailDate=2026-09-11&shipCode=OV&packageCode=OV12BR12&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2335.5",
+        "oceanView": "2717.5",
+        "balcony": "2762.5",
+        "suite": "5190.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 2291.61
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2291.61,
+            "oceanView": 2361.61,
+            "balcony": 2462.11,
+            "suite": 6883.61
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2335.5,
+            "oceanView": 2717.5,
+            "balcony": 2762.5,
+            "suite": 5170.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2387.5,
+            "oceanView": 2717.5,
+            "balcony": 2762.5,
+            "suite": 5170.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2335.5,
+            "oceanView": 2717.5,
+            "balcony": 2762.5,
+            "suite": 5190.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13YVR-2670184566",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Homer Adventure and Interior Wildlife CruiseTour (Post Tour): Icy Strait Point, Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Homer, Alaska, Alyeska (Girdwood), Alaska, Denali, Alaska, Anchorage, Alaska",
+      "departureDate": "2026-08-21",
+      "duration": "13 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2441.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13YVR-2670184566&sailDate=2026-08-21&shipCode=OV&packageCode=OV13AH10&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2441.5",
+        "oceanView": null,
+        "balcony": null,
+        "suite": "6031.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3616.92
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3616.92,
+            "oceanView": 3637.42,
+            "balcony": 3936.42,
+            "suite": 4478.42
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 3616.92,
+            "oceanView": 3637.42,
+            "suite": 4478.42
+          }
+        },
+        {
+          "at": "2026-05-30T19:06:05.550Z",
+          "prices": {
+            "inside": 3616.92,
+            "oceanView": 3637.42,
+            "suite": 8229.92
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 3616.92,
+            "oceanView": 3637.42,
+            "balcony": 4260.42,
+            "suite": 7639.92
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2441.5,
+            "oceanView": 2891.5,
+            "balcony": 3123.5,
+            "suite": 6011.5
+          }
+        },
+        {
+          "at": "2026-05-31T13:26:40.132Z",
+          "prices": {
+            "inside": 2441.5,
+            "oceanView": 2891.5,
+            "balcony": 2936.5,
+            "suite": 6011.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2441.5,
+            "oceanView": 2891.5,
+            "balcony": 3168.5,
+            "suite": 6011.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2441.5,
+            "oceanView": 2891.5,
+            "suite": 6011.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2441.5,
+            "oceanView": 2891.5,
+            "suite": 6031.5
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 2441.5,
+            "oceanView": 2891.5,
+            "balcony": 3123.5,
+            "suite": 6031.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2441.5,
+            "oceanView": 2891.5,
+            "suite": 6031.5
+          }
+        },
+        {
+          "at": "2026-06-02T18:05:24.346Z",
+          "prices": {
+            "inside": 2441.5,
+            "oceanView": 2891.5,
+            "balcony": 3168.5,
+            "suite": 6031.5
+          }
+        },
+        {
+          "at": "2026-06-02T22:20:25.582Z",
+          "prices": {
+            "inside": 2441.5,
+            "oceanView": 2891.5,
+            "suite": 6031.5
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2441.5,
+            "suite": 6031.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13YVR-648741150",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Alaska Wilderness Spectacular CruiseTour (Post Tour)",
+      "departureDate": "2026-09-04",
+      "duration": "13 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2461.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13YVR-648741150&sailDate=2026-09-04&shipCode=OV&packageCode=OV13AI08&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2461.5",
+        "oceanView": "2814.5",
+        "balcony": "2934.5",
+        "suite": "4071.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3529.87
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3529.87,
+            "oceanView": 3539.37,
+            "balcony": 3839.37,
+            "suite": 7297.87
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 3529.87,
+            "oceanView": 3539.37,
+            "balcony": 4532.87,
+            "suite": 7297.87
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2461.5,
+            "oceanView": 2814.5,
+            "balcony": 3061.5,
+            "suite": 5176.5
+          }
+        },
+        {
+          "at": "2026-05-31T20:54:05.330Z",
+          "prices": {
+            "inside": 2461.5,
+            "oceanView": 2814.5,
+            "suite": 5176.5
+          }
+        },
+        {
+          "at": "2026-06-01T03:33:08.553Z",
+          "prices": {
+            "inside": 2461.5,
+            "oceanView": 2814.5,
+            "balcony": 3061.5,
+            "suite": 5176.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2461.5,
+            "oceanView": 2814.5,
+            "balcony": 2859.5,
+            "suite": 4164.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2461.5,
+            "oceanView": 2814.5,
+            "balcony": 2859.5,
+            "suite": 5176.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2461.5,
+            "oceanView": 2814.5,
+            "balcony": 2934.5,
+            "suite": 5196.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2461.5,
+            "oceanView": 2814.5,
+            "balcony": 2859.5,
+            "suite": 5196.5
+          }
+        },
+        {
+          "at": "2026-06-02T18:05:24.346Z",
+          "prices": {
+            "inside": 2461.5,
+            "oceanView": 2814.5,
+            "balcony": 2859.5,
+            "suite": 4071.5
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2461.5,
+            "oceanView": 2814.5,
+            "balcony": 2934.5,
+            "suite": 4071.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13YVR-2467252953",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Homer Adventure and Interior Wildlife CruiseTour (Post Tour): Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Homer, Alaska, Alyeska (Girdwood), Alaska, Denali, Alaska, Anchorage, Alaska",
+      "departureDate": "2026-08-07",
+      "duration": "13 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2466.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13YVR-2467252953&sailDate=2026-08-07&shipCode=OV&packageCode=OV13AG10&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2466.5",
+        "oceanView": "3088.5",
+        "balcony": "3291.5",
+        "suite": "4376.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3437.56
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3437.56,
+            "oceanView": 3587.56,
+            "balcony": 3837.56,
+            "suite": 5604.06
+          }
+        },
+        {
+          "at": "2026-05-30T22:54:48.241Z",
+          "prices": {
+            "inside": 3437.56,
+            "oceanView": 3587.56,
+            "balcony": 4141.56,
+            "suite": 5604.06
+          }
+        },
+        {
+          "at": "2026-05-31T02:56:26.204Z",
+          "prices": {
+            "inside": 3437.56,
+            "oceanView": 3587.56,
+            "balcony": 4736.56,
+            "suite": 5604.06
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 3437.56,
+            "oceanView": 3587.56,
+            "balcony": 4141.56,
+            "suite": 5604.06
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2466.5,
+            "oceanView": 3088.5,
+            "balcony": 3358.5,
+            "suite": 3958.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2466.5,
+            "oceanView": 3088.5,
+            "balcony": 3133.5,
+            "suite": 3958.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2466.5,
+            "oceanView": 3088.5,
+            "balcony": 3861.5,
+            "suite": 3958.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2466.5,
+            "oceanView": 3088.5,
+            "balcony": 3133.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2466.5,
+            "oceanView": 3088.5,
+            "balcony": 3516.5
+          }
+        },
+        {
+          "at": "2026-06-02T22:20:25.582Z",
+          "prices": {
+            "inside": 2466.5,
+            "oceanView": 3088.5,
+            "balcony": 3546.5
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2466.5,
+            "oceanView": 3088.5,
+            "balcony": 3291.5,
+            "suite": 4376.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13YVR-1748940657",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Grand Mountain Marvels CruiseTour (Post Tour): Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Anchorage, Alaska, Talkeetna, Alaska, Denali, Alaska, Fairbanks, Alaska",
+      "departureDate": "2026-09-04",
+      "duration": "13 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2476.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13YVR-1748940657&sailDate=2026-09-04&shipCode=OV&packageCode=OV13AI07&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2476.5",
+        "oceanView": "2829.5",
+        "balcony": "2949.5",
+        "suite": "4086.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T11:23:56.779Z",
+          "price": 7151.37
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 7151.37,
+            "oceanView": 8159.37,
+            "balcony": 8453.37,
+            "suite": 16065.37
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "inside": 7151.37,
+            "oceanView": 8159.37,
+            "balcony": 9032.37,
+            "suite": 16065.37
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2476.5,
+            "oceanView": 2829.5,
+            "balcony": 3076.5,
+            "suite": 5191.5
+          }
+        },
+        {
+          "at": "2026-05-31T20:54:05.330Z",
+          "prices": {
+            "inside": 2476.5,
+            "oceanView": 2829.5,
+            "suite": 5191.5
+          }
+        },
+        {
+          "at": "2026-06-01T03:33:08.553Z",
+          "prices": {
+            "inside": 2476.5,
+            "oceanView": 2829.5,
+            "balcony": 3076.5,
+            "suite": 5191.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2476.5,
+            "oceanView": 2829.5,
+            "balcony": 2874.5,
+            "suite": 4179.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2476.5,
+            "oceanView": 2829.5,
+            "balcony": 2874.5,
+            "suite": 5191.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2476.5,
+            "oceanView": 2829.5,
+            "balcony": 2949.5,
+            "suite": 5211.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2476.5,
+            "oceanView": 2829.5,
+            "balcony": 2874.5,
+            "suite": 5211.5
+          }
+        },
+        {
+          "at": "2026-06-02T18:05:24.346Z",
+          "prices": {
+            "inside": 2476.5,
+            "oceanView": 2829.5,
+            "balcony": 2874.5,
+            "suite": 4086.5
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2476.5,
+            "oceanView": 2829.5,
+            "balcony": 2949.5,
+            "suite": 4086.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13YVR-1863831376",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Grand Mountain Marvels CruiseTour (Post Tour): Icy Strait Point, Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Anchorage, Alaska, Talkeetna, Alaska, Denali, Alaska, Fairbanks, Alaska",
+      "departureDate": "2026-08-21",
+      "duration": "13 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2516.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13YVR-1863831376&sailDate=2026-08-21&shipCode=OV&packageCode=OV13AH07&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2516.5",
+        "oceanView": null,
+        "balcony": null,
+        "suite": "6106.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3742.42
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3742.42,
+            "oceanView": 3762.42,
+            "balcony": 4061.92,
+            "suite": 4603.92
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 3742.42,
+            "oceanView": 3762.42,
+            "suite": 4603.92
+          }
+        },
+        {
+          "at": "2026-05-30T19:06:05.550Z",
+          "prices": {
+            "inside": 3742.42,
+            "oceanView": 3762.42,
+            "suite": 8355.42
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 3742.42,
+            "oceanView": 3762.42,
+            "balcony": 4385.92,
+            "suite": 7764.92
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2516.5,
+            "oceanView": 2966.5,
+            "balcony": 3198.5,
+            "suite": 6086.5
+          }
+        },
+        {
+          "at": "2026-05-31T13:26:40.132Z",
+          "prices": {
+            "inside": 2516.5,
+            "oceanView": 2966.5,
+            "balcony": 3011.5,
+            "suite": 6086.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2516.5,
+            "oceanView": 2966.5,
+            "balcony": 3243.5,
+            "suite": 6086.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2516.5,
+            "oceanView": 2966.5,
+            "suite": 6086.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2516.5,
+            "oceanView": 2966.5,
+            "suite": 6106.5
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 2516.5,
+            "oceanView": 2966.5,
+            "balcony": 3198.5,
+            "suite": 6106.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2516.5,
+            "oceanView": 2966.5,
+            "suite": 6106.5
+          }
+        },
+        {
+          "at": "2026-06-02T18:05:24.346Z",
+          "prices": {
+            "inside": 2516.5,
+            "oceanView": 2966.5,
+            "balcony": 3243.5,
+            "suite": 6106.5
+          }
+        },
+        {
+          "at": "2026-06-02T22:20:25.582Z",
+          "prices": {
+            "inside": 2516.5,
+            "oceanView": 2966.5,
+            "suite": 6106.5
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2516.5,
+            "suite": 6106.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13YVR-1035208144",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Alaska Wilderness Spectacular CruiseTour (Post Tour)",
+      "departureDate": "2026-08-07",
+      "duration": "13 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2526.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13YVR-1035208144&sailDate=2026-08-07&shipCode=OV&packageCode=OV13AG08&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2526.5",
+        "oceanView": "3148.5",
+        "balcony": "3351.5",
+        "suite": "4436.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3540.56
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3540.56,
+            "oceanView": 3690.56,
+            "balcony": 3940.56,
+            "suite": 5707.06
+          }
+        },
+        {
+          "at": "2026-05-30T20:51:20.392Z",
+          "prices": {
+            "inside": 3540.56,
+            "oceanView": 3690.56,
+            "balcony": 4244.56,
+            "suite": 5707.06
+          }
+        },
+        {
+          "at": "2026-05-31T02:56:26.204Z",
+          "prices": {
+            "inside": 3540.56,
+            "oceanView": 3690.56,
+            "balcony": 4839.56,
+            "suite": 5707.06
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 3540.56,
+            "oceanView": 3690.56,
+            "balcony": 4244.56,
+            "suite": 5707.06
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2526.5,
+            "oceanView": 3148.5,
+            "balcony": 3418.5,
+            "suite": 4018.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2526.5,
+            "oceanView": 3148.5,
+            "balcony": 3193.5,
+            "suite": 4018.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2526.5,
+            "oceanView": 3148.5,
+            "balcony": 3921.5,
+            "suite": 4018.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2526.5,
+            "oceanView": 3148.5,
+            "balcony": 3193.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2526.5,
+            "oceanView": 3148.5,
+            "balcony": 3576.5
+          }
+        },
+        {
+          "at": "2026-06-02T22:20:25.582Z",
+          "prices": {
+            "inside": 2526.5,
+            "oceanView": 3148.5,
+            "balcony": 3606.5
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2526.5,
+            "oceanView": 3148.5,
+            "balcony": 3351.5,
+            "suite": 4436.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13YVR-1666069439",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Grand Mountain Marvels CruiseTour (Post Tour): Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Anchorage, Alaska, Talkeetna, Alaska, Denali, Alaska, Fairbanks, Alaska",
+      "departureDate": "2026-08-07",
+      "duration": "13 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2541.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13YVR-1666069439&sailDate=2026-08-07&shipCode=OV&packageCode=OV13AG07&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2541.5",
+        "oceanView": "3163.5",
+        "balcony": "3366.5",
+        "suite": "4451.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3563.06
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3563.06,
+            "oceanView": 3712.56,
+            "balcony": 3963.06,
+            "suite": 5729.56
+          }
+        },
+        {
+          "at": "2026-05-30T20:51:20.392Z",
+          "prices": {
+            "inside": 3563.06,
+            "oceanView": 3712.56,
+            "balcony": 4266.56,
+            "suite": 5729.56
+          }
+        },
+        {
+          "at": "2026-05-31T02:56:26.204Z",
+          "prices": {
+            "inside": 3563.06,
+            "oceanView": 3712.56,
+            "balcony": 4861.56,
+            "suite": 5729.56
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 3563.06,
+            "oceanView": 3712.56,
+            "balcony": 4266.56,
+            "suite": 5729.56
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2541.5,
+            "oceanView": 3163.5,
+            "balcony": 3433.5,
+            "suite": 4033.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2541.5,
+            "oceanView": 3163.5,
+            "balcony": 3208.5,
+            "suite": 4033.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2541.5,
+            "oceanView": 3163.5,
+            "balcony": 3936.5,
+            "suite": 4033.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2541.5,
+            "oceanView": 3163.5,
+            "balcony": 3208.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2541.5,
+            "oceanView": 3163.5,
+            "balcony": 3591.5
+          }
+        },
+        {
+          "at": "2026-06-02T22:20:25.582Z",
+          "prices": {
+            "inside": 2541.5,
+            "oceanView": 3163.5,
+            "balcony": 3621.5
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2541.5,
+            "oceanView": 3163.5,
+            "balcony": 3366.5,
+            "suite": 4451.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13SWD-1585686405",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Alaska Wilderness Spectacular CruiseTour (Pre Tour)",
+      "departureDate": "2026-08-28",
+      "duration": "13 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2545.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13SWD-1585686405&sailDate=2026-08-28&shipCode=OV&packageCode=OV13BQ08&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2545.5",
+        "oceanView": "2965.5",
+        "balcony": "3010.5",
+        "suite": "4042.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T11:23:56.779Z",
+          "price": 7230.54
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 7230.54,
+            "oceanView": 8430.54,
+            "suite": 12609.54
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "inside": 7230.54,
+            "oceanView": 8430.54,
+            "balcony": 8725.54,
+            "suite": 12609.54
+          }
+        },
+        {
+          "at": "2026-05-30T20:51:20.392Z",
+          "prices": {
+            "inside": 7230.54,
+            "oceanView": 8430.54,
+            "balcony": 8725.54,
+            "suite": 16851.54
+          }
+        },
+        {
+          "at": "2026-05-30T22:54:48.241Z",
+          "prices": {
+            "inside": 7230.54,
+            "oceanView": 8430.54,
+            "balcony": 9217.54,
+            "suite": 16851.54
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2545.5,
+            "oceanView": 2965.5,
+            "balcony": 3182.5,
+            "suite": 5507.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2545.5,
+            "oceanView": 2965.5,
+            "balcony": 3257.5,
+            "suite": 5507.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2545.5,
+            "oceanView": 2965.5,
+            "balcony": 3010.5,
+            "suite": 5527.5
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 2545.5,
+            "oceanView": 2965.5,
+            "balcony": 3182.5,
+            "suite": 4320.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2545.5,
+            "oceanView": 2965.5,
+            "balcony": 3010.5,
+            "suite": 4042.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13SWD-2057491434",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Grand Mountain Marvels CruiseTour (Pre Tour): Denali, Alaska, Talkeetna, Alaska, Anchorage, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Vancouver, British Columbia",
+      "departureDate": "2026-08-28",
+      "duration": "13 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2560.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13SWD-2057491434&sailDate=2026-08-28&shipCode=OV&packageCode=OV13BQ07&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2560.5",
+        "oceanView": "2980.5",
+        "balcony": "3025.5",
+        "suite": "4057.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3362.54
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3362.54,
+            "oceanView": 3392.54,
+            "suite": 4702.04
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "inside": 3362.54,
+            "oceanView": 3392.54,
+            "balcony": 3712.54,
+            "suite": 4702.04
+          }
+        },
+        {
+          "at": "2026-05-30T20:51:20.392Z",
+          "prices": {
+            "inside": 3362.54,
+            "oceanView": 3392.54,
+            "balcony": 3712.54,
+            "suite": 7915.04
+          }
+        },
+        {
+          "at": "2026-05-30T22:54:48.241Z",
+          "prices": {
+            "inside": 3362.54,
+            "oceanView": 3392.54,
+            "balcony": 3967.04,
+            "suite": 7915.04
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2560.5,
+            "oceanView": 2980.5,
+            "balcony": 3197.5,
+            "suite": 5522.5
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2560.5,
+            "oceanView": 2980.5,
+            "balcony": 3272.5,
+            "suite": 5522.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2560.5,
+            "oceanView": 2980.5,
+            "balcony": 3025.5,
+            "suite": 5542.5
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 2560.5,
+            "oceanView": 2980.5,
+            "balcony": 3197.5,
+            "suite": 4335.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 2560.5,
+            "oceanView": 2980.5,
+            "balcony": 3025.5,
+            "suite": 4057.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13SWD-1944685193",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Grand Mountain Marvels CruiseTour (Pre Tour): Denali, Alaska, Talkeetna, Alaska, Anchorage, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Vancouver, British Columbia",
+      "departureDate": "2026-09-11",
+      "duration": "13 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2560.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13SWD-1944685193&sailDate=2026-09-11&shipCode=OV&packageCode=OV13BR07&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2560.5",
+        "oceanView": "2942.5",
+        "balcony": "2987.5",
+        "suite": "5415.5"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3292.11
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3292.11,
+            "oceanView": 3362.11,
+            "balcony": 3462.61,
+            "suite": 7884.11
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2560.5,
+            "oceanView": 2942.5,
+            "balcony": 2987.5,
+            "suite": 5395.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2612.5,
+            "oceanView": 2942.5,
+            "balcony": 2987.5,
+            "suite": 5395.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2560.5,
+            "oceanView": 2942.5,
+            "balcony": 2987.5,
+            "suite": 5415.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13SWD-716480603",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Alaska Wilderness Spectacular CruiseTour (Pre Tour): Denali, Alaska, Talkeetna, Alaska, Anchorage, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Vancouver, British Columbia",
+      "departureDate": "2026-07-31",
+      "duration": "13 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2621.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13SWD-716480603&sailDate=2026-07-31&shipCode=OV&packageCode=OV13BO08&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2621.5",
+        "oceanView": "3296.5",
+        "balcony": "3911.5",
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3639.95
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3639.95,
+            "oceanView": 3940.45,
+            "balcony": 5574.95,
+            "suite": 8774.45
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "inside": 3389.95,
+            "oceanView": 3940.45,
+            "balcony": 5574.95,
+            "suite": 8774.45
+          }
+        },
+        {
+          "at": "2026-05-30T19:06:05.550Z",
+          "prices": {
+            "inside": 3498.45,
+            "oceanView": 3940.45,
+            "balcony": 5574.95,
+            "suite": 8774.45
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 3498.45,
+            "oceanView": 3940.45,
+            "balcony": 4743.95,
+            "suite": 8774.45
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 2681.5,
+            "oceanView": 3296.5,
+            "balcony": 3746.5,
+            "suite": 5809.5
+          }
+        },
+        {
+          "at": "2026-05-31T15:15:42.439Z",
+          "prices": {
+            "inside": 2681.5,
+            "oceanView": 3296.5,
+            "balcony": 3746.5
+          }
+        },
+        {
+          "at": "2026-05-31T20:54:05.330Z",
+          "prices": {
+            "inside": 2681.5,
+            "oceanView": 3296.5,
+            "balcony": 3746.5,
+            "suite": 5809.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2681.5,
+            "oceanView": 3296.5,
+            "balcony": 3911.5,
+            "suite": 5809.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 2621.5,
+            "oceanView": 3296.5,
+            "balcony": 3911.5,
+            "suite": 5829.5
+          }
+        },
+        {
+          "at": "2026-06-02T18:05:24.346Z",
+          "prices": {
+            "inside": 2621.5,
+            "oceanView": 3296.5,
+            "balcony": 3746.5,
+            "suite": 5829.5
+          }
+        },
+        {
+          "at": "2026-06-02T22:20:25.582Z",
+          "prices": {
+            "inside": 2621.5,
+            "oceanView": 3296.5,
+            "balcony": 3911.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-03T08:51:23.558Z"
     }
   ]
 }
