@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 484,
+  "count": 485,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -18500,42 +18500,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ASG070_RP_20260620",
-      "shipName": "Royal Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2013,
-      "itinerary": "Seattle, Washington → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Ketchikan, Alaska → Victoria, Canada → Seattle, Washington",
-      "departureDate": "2026-06-20",
-      "duration": "7 Nights",
-      "departurePort": "Seattle, Washington",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "899",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1627",
-      "prices": {
-        "inside": "899",
-        "oceanView": null,
-        "balcony": "1749",
-        "suite": null
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 899
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 899,
-            "balcony": 1749
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-04T16:51:20.118Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_OSS26B_RP_20261030",
       "shipName": "Royal Princess",
       "shipClass": "Royal",
@@ -19140,6 +19104,91 @@
         }
       ],
       "lastSeenAt": "2026-06-05T02:54:54.938Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ASG070_RP_20270508",
+      "shipName": "Royal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2013,
+      "itinerary": "Seattle, Washington → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Ketchikan, Alaska → Victoria, Canada → Seattle, Washington",
+      "departureDate": "2027-05-08",
+      "duration": "7 Nights",
+      "departurePort": "Seattle, Washington",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "1024",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1714",
+      "prices": {
+        "inside": "1024",
+        "oceanView": "1624",
+        "balcony": "1624",
+        "suite": "1799"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 1049,
+            "balcony": 1674,
+            "suite": 1899
+          }
+        },
+        {
+          "at": "2026-06-04T19:59:26.626Z",
+          "prices": {
+            "inside": 1024,
+            "oceanView": 1624,
+            "balcony": 1624,
+            "suite": 1799
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-05T08:02:38.303Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OLS33A_SA_20261122",
+      "shipName": "Sapphire Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Los Angeles, California → Kahului, Hawaii → Hilo, Hawaii → Kona, Hawaii → Honolulu, Hawaii → Kauai (Nawiliwili), Hawaii → Cross International Date Line → Tokyo, Japan → Kagoshima, Japan → Okinawa, Japan → Hong Kong → Da Nang/Hue (Chan May),Vietnam → Cam Ranh (Nha Trang), Vietnam → Ho Chi Minh City (Phu My), Vietnam → Singapore",
+      "departureDate": "2026-11-22",
+      "duration": "33 Nights",
+      "departurePort": "Los Angeles, California",
+      "departureRegion": "Americas",
+      "destination": "Other",
+      "priceFrom": "3729",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H630A",
+      "prices": {
+        "inside": "3729",
+        "oceanView": "4152",
+        "balcony": "4586",
+        "suite": "6474"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-06-04T03:32:48.128Z",
+          "prices": {
+            "inside": 3729,
+            "oceanView": 4152,
+            "balcony": 4817,
+            "suite": 6474
+          }
+        },
+        {
+          "at": "2026-06-04T19:59:26.626Z",
+          "prices": {
+            "inside": 3729,
+            "oceanView": 4152,
+            "balcony": 4586,
+            "suite": 6474
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-05T08:02:38.303Z"
     }
   ]
 }

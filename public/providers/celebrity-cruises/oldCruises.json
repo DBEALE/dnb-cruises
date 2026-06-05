@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 40,
+  "count": 41,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -948,6 +948,75 @@
         }
       ],
       "lastSeenAt": "2026-06-04T19:59:26.626Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_AX14STH-2506003489",
+      "shipName": "Celebrity Apex",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2020,
+      "itinerary": "Norwegian Fjords & Arctic Circle: Cruising (Cruising), Haugesund, Norway, Flam, Norway, Olden, Norway, Arctic Circle (Cruising), Norway, Tromso, Norway, Honningsvag, Norway, Molde, Norway, Alesund, Norway, Geiranger, Norway, Bruges, (Zeebrugge)",
+      "departureDate": "2026-06-06",
+      "duration": "14 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "priceFrom": "5075.36",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AX14STH-2506003489&pID=AX14U117&sDT=2026-06-06&sCD=AX&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "5075.36",
+        "oceanView": "7028.36",
+        "balcony": "7631.36",
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 5075.36
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 5075.36,
+            "oceanView": 6183.36,
+            "balcony": 6350.36
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 5075.36,
+            "oceanView": 7266.36,
+            "balcony": 6350.36
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 5075.36,
+            "oceanView": 7347.36,
+            "balcony": 6350.36
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 5075.36,
+            "oceanView": 6183.36,
+            "balcony": 6350.36
+          }
+        },
+        {
+          "at": "2026-06-04T16:51:20.118Z",
+          "prices": {
+            "inside": 5075.36,
+            "oceanView": 7028.36,
+            "balcony": 7631.36
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-05T08:02:38.303Z"
     }
   ]
 }
