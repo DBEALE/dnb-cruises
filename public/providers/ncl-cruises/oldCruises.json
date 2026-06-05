@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 35,
+  "count": 36,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -887,6 +887,55 @@
         }
       ],
       "lastSeenAt": "2026-06-01T03:33:08.553Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_VIVA10ISTKUSJTRJMKPIRKAKCFUDBVBARZADRAV",
+      "shipName": "Norwegian Viva",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2023,
+      "itinerary": "Greek Isles: Santorini & Athens",
+      "departureDate": "Fri 5 Jun 2026",
+      "duration": "10-day Cruise",
+      "departurePort": "Istanbul, Turkey",
+      "departureRegion": "Mediterranean",
+      "destination": "Greek Isles: Santorini & Athens",
+      "priceFrom": "1255",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/10-day-greek-isles-from-istanbul-to-venice-ravenna-santorini-and-athens-VIVA10ISTKUSJTRJMKPIRKAKCFUDBVBARZADRAV?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=VIVA10ISTKUSJTRJMKPIRKAKCFUDBVBARZADRAV",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1600
+        },
+        {
+          "at": "2026-05-30T09:55:04.493Z",
+          "price": 1255
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "price": 1285
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "price": 3610
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "price": 1285
+        },
+        {
+          "at": "2026-06-02T18:05:24.346Z",
+          "price": 1255
+        }
+      ],
+      "lastSeenAt": "2026-06-05T12:33:37.524Z"
     }
   ]
 }
