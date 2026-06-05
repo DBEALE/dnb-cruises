@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 66,
+  "count": 67,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -1808,6 +1808,77 @@
         }
       ],
       "lastSeenAt": "2026-06-04T19:59:26.626Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LB07STH-3745121605",
+      "shipName": "Liberty of the Seas",
+      "shipClass": "Freedom",
+      "shipLaunchYear": 2007,
+      "itinerary": "Norwegian Fjords Cruise: Bruges/Zeebruge (Brussels), Belgium, Haugesund, Norway, Olden, Norway, Stavanger, Norway",
+      "departureDate": "2026-07-12",
+      "duration": "7 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "priceFrom": "5636",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LB07STH-3745121605&sailDate=2026-07-12&shipCode=LB&packageCode=LB07U248&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "5636"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3399.86
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "suite": 3399.86
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "suite": 3296.86
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "suite": 2471.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "suite": 7303.5
+          }
+        },
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "suite": 7323.5
+          }
+        },
+        {
+          "at": "2026-06-03T14:25:08.048Z",
+          "prices": {
+            "suite": 5618.5
+          }
+        },
+        {
+          "at": "2026-06-04T23:05:48.621Z",
+          "prices": {
+            "suite": 5636
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-05T19:48:07.083Z"
     }
   ]
 }
