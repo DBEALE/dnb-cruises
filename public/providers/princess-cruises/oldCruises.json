@@ -9648,49 +9648,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ERR07G_EX_20260630",
-      "shipName": "Enchanted Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2020,
-      "itinerary": "Civitavecchia (for Rome), Italy → Corfu, Greece → Dubrovnik, Croatia → Kotor, Montenegro → Naples, Italy (for Capri & Pompeii) → Civitavecchia (for Rome), Italy",
-      "departureDate": "2026-06-30",
-      "duration": "7 Nights",
-      "departurePort": "Civitavecchia (for Rome), Italy",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "priceFrom": "1155",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N620",
-      "prices": {
-        "inside": "1155",
-        "oceanView": "1385",
-        "balcony": "1487",
-        "suite": "1755"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-31T22:56:38.105Z",
-          "prices": {
-            "inside": 1155,
-            "oceanView": 1385,
-            "balcony": 1385,
-            "suite": 1755
-          }
-        },
-        {
-          "at": "2026-06-05T21:21:41.187Z",
-          "prices": {
-            "inside": 1155,
-            "oceanView": 1385,
-            "balcony": 1487,
-            "suite": 1755
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-06T15:10:22.563Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_OTR09A_DI_20260702",
       "shipName": "Diamond Princess",
       "shipClass": "Grand",
@@ -20486,6 +20443,58 @@
         }
       ],
       "lastSeenAt": "2026-06-06T17:06:52.452Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ERR07G_EX_20260825",
+      "shipName": "Enchanted Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2020,
+      "itinerary": "Civitavecchia (for Rome), Italy → Corfu, Greece → Dubrovnik, Croatia → Kotor, Montenegro → Naples, Italy (for Capri & Pompeii) → Civitavecchia (for Rome), Italy",
+      "departureDate": "2026-08-25",
+      "duration": "7 Nights",
+      "departurePort": "Civitavecchia (for Rome), Italy",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "1135",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N628",
+      "prices": {
+        "inside": "1135",
+        "oceanView": null,
+        "balcony": "1285",
+        "suite": "1665"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1245
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1245,
+            "balcony": 1405,
+            "suite": 1990
+          }
+        },
+        {
+          "at": "2026-06-03T03:37:29.400Z",
+          "prices": {
+            "inside": 1135,
+            "balcony": 1285
+          }
+        },
+        {
+          "at": "2026-06-04T03:32:48.128Z",
+          "prices": {
+            "inside": 1135,
+            "balcony": 1285,
+            "suite": 1665
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-06T19:14:21.054Z"
     }
   ]
 }
