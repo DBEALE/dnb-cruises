@@ -7728,39 +7728,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_OTR42B_SA_20270123",
-      "shipName": "Sapphire Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2004,
-      "itinerary": "Tokyo, Japan → Kagoshima, Japan → Okinawa, Japan → Kaohsiung, Taiwan → Hong Kong → Da Nang/Hue (Chan May),Vietnam → Ho Chi Minh City (Phu My), Vietnam → Singapore → Ko Samui, Thailand → Laem Chabang (for Bangkok),Thailand → Sihanoukville, Cambodia → Ho Chi Minh City (Phu My), Vietnam → Langkawi, Malaysia → Phuket, Thailand → Penang, Malaysia → Kuala Lumpur (Port Kelang), Malaysia → Singapore → Cam Ranh (Nha Trang), Vietnam → Halong Bay/Hanoi (Cai Lan), Vietnam → Halong Bay/Hanoi (Cai Lan), Vietnam → Scenic Cruising Halong Bay → Hong Kong → Taipei (Keelung) → Ishigaki, Japan → Nagasaki, Japan → Tokyo, Japan",
-      "departureDate": "2027-01-23",
-      "duration": "42 Nights",
-      "departurePort": "Tokyo, Japan",
-      "departureRegion": "Asia & Far East",
-      "destination": "Other",
-      "priceFrom": "7262",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H703B",
-      "prices": {
-        "inside": "7262",
-        "oceanView": "7584",
-        "balcony": "11319",
-        "suite": null
-      },
-      "priceHistory": [
-        {
-          "at": "2026-06-04T08:16:06.414Z",
-          "prices": {
-            "inside": 7262,
-            "oceanView": 7584,
-            "balcony": 11319
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-05T02:54:54.938Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_CFF14E_ST_20261024",
       "shipName": "Star Princess",
       "shipClass": "Grand",
@@ -8108,6 +8075,71 @@
         }
       ],
       "lastSeenAt": "2026-06-05T23:03:17.163Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OSR28A_SA_20270109",
+      "shipName": "Sapphire Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Singapore → Cam Ranh (Nha Trang), Vietnam → Halong Bay/Hanoi (Cai Lan), Vietnam → Halong Bay/Hanoi (Cai Lan), Vietnam → Scenic Cruising Halong Bay → Hong Kong → Taipei (Keelung) → Miyakojima, Japan → Nagasaki, Japan → Tokyo, Japan → Kagoshima, Japan → Okinawa, Japan → Kaohsiung, Taiwan → Hong Kong → Da Nang/Hue (Chan May),Vietnam → Ho Chi Minh City (Phu My), Vietnam → Singapore",
+      "departureDate": "2027-01-09",
+      "duration": "28 Nights",
+      "departurePort": "Singapore",
+      "departureRegion": "Asia & Far East",
+      "destination": "Other",
+      "priceFrom": "3528",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H702A",
+      "prices": {
+        "inside": "3528",
+        "oceanView": "4590",
+        "balcony": "5337",
+        "suite": "7319"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3628
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3628,
+            "oceanView": 4690,
+            "balcony": 5617,
+            "suite": 7154
+          }
+        },
+        {
+          "at": "2026-05-30T16:57:19.215Z",
+          "prices": {
+            "inside": 3628,
+            "oceanView": 4690,
+            "balcony": 5617,
+            "suite": 7519
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 3628,
+            "oceanView": 4690,
+            "balcony": 5487,
+            "suite": 7519
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 3528,
+            "oceanView": 4590,
+            "balcony": 5337,
+            "suite": 7319
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-06T02:41:55.783Z"
     }
   ]
 }
