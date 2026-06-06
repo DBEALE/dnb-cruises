@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 41,
+  "count": 42,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -1017,6 +1017,44 @@
         }
       ],
       "lastSeenAt": "2026-06-05T08:02:38.303Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_SL12YOK-1259723610",
+      "shipName": "Celebrity Solstice",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2008,
+      "itinerary": "Best of Japan: Mt Fuji (Shimizu), Japan, Cruising (Cruising), Kumamoto (Yatsushiro), Japan, Busan, South Korea, Fukuoka, Japan, Okinawa, Japan, Kobe, Japan",
+      "departureDate": "2028-03-28",
+      "duration": "12 Nights",
+      "departurePort": "Tokyo (Yokohama)",
+      "departureRegion": "Asia & Far East",
+      "destination": "Asia",
+      "priceFrom": "3321.96",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL12YOK-1259723610&pID=SL12I236&sDT=2028-03-28&sCD=SL&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "3321.96",
+        "oceanView": "3948.96",
+        "balcony": "4849.96",
+        "suite": "12706.96"
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3321.96
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3321.96,
+            "oceanView": 3948.96,
+            "balcony": 4849.96,
+            "suite": 12706.96
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-06T06:50:03.097Z"
     }
   ]
 }
