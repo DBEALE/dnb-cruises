@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 41,
+  "count": 42,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -1017,6 +1017,91 @@
         }
       ],
       "lastSeenAt": "2026-06-05T08:02:38.303Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_BY07MIA-3322822492",
+      "shipName": "Celebrity Beyond",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2022,
+      "itinerary": "Mexico, Belize & Perfect Day: Perfect Day CocoCay, Bahamas, Cruising (Cruising), Cozumel, Mexico, Belize City, Costa Maya, Mexico",
+      "departureDate": "2026-06-28",
+      "duration": "7 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "3189.52",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=BY07MIA-3322822492&pID=BY07W713&sDT=2026-06-28&sCD=BY&sCT=CO&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": "3189.52",
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 4577.52
+        },
+        {
+          "at": "2026-05-29T14:53:57.578Z",
+          "price": 2031.52
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2031.52
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "suite": 7411.52
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "balcony": 3422.52
+          }
+        },
+        {
+          "at": "2026-06-03T19:45:18.339Z",
+          "prices": {
+            "inside": 1940.52,
+            "oceanView": 2090.52
+          }
+        },
+        {
+          "at": "2026-06-04T03:32:48.128Z",
+          "prices": {
+            "inside": 1940.52,
+            "oceanView": 2090.52,
+            "balcony": 4005.52
+          }
+        },
+        {
+          "at": "2026-06-04T12:42:06.638Z",
+          "prices": {
+            "inside": 1940.52,
+            "oceanView": 2090.52
+          }
+        },
+        {
+          "at": "2026-06-05T19:48:07.083Z",
+          "prices": {
+            "oceanView": 2090.52
+          }
+        },
+        {
+          "at": "2026-06-06T06:50:03.097Z",
+          "prices": {
+            "oceanView": 3189.52
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-06T13:21:46.760Z"
     }
   ]
 }
