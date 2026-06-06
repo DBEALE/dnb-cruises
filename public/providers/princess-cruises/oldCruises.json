@@ -8706,40 +8706,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ANG07A_KP_20270508",
-      "shipName": "Crown Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2006,
-      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska",
-      "departureDate": "2027-05-08",
-      "duration": "7 Nights",
-      "departurePort": "Vancouver, Canada",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "674",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3719",
-      "prices": {
-        "inside": "674",
-        "oceanView": "924",
-        "balcony": "1374",
-        "suite": "1799"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-06-03T14:25:08.048Z",
-          "prices": {
-            "inside": 674,
-            "oceanView": 924,
-            "balcony": 1374,
-            "suite": 1799
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-06T15:10:22.563Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_AYR14A_KP_20270828",
       "shipName": "Crown Princess",
       "shipClass": "Grand",
@@ -20495,6 +20461,82 @@
         }
       ],
       "lastSeenAt": "2026-06-06T19:14:21.054Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ANG07A_AP_20260627",
+      "shipName": "Grand Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 1998,
+      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska",
+      "departureDate": "2026-06-27",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver, Canada",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "649",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A625",
+      "prices": {
+        "inside": "649",
+        "oceanView": "1149",
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 649
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 649,
+            "oceanView": 1149,
+            "balcony": 1199
+          }
+        },
+        {
+          "at": "2026-05-30T09:55:04.493Z",
+          "prices": {
+            "inside": 649,
+            "oceanView": 1149,
+            "balcony": 1199,
+            "suite": 1509
+          }
+        },
+        {
+          "at": "2026-05-30T16:57:19.215Z",
+          "prices": {
+            "inside": 649,
+            "oceanView": 1149,
+            "balcony": 1199
+          }
+        },
+        {
+          "at": "2026-06-04T16:51:20.118Z",
+          "prices": {
+            "inside": 649,
+            "oceanView": 1149
+          }
+        },
+        {
+          "at": "2026-06-05T08:02:38.303Z",
+          "prices": {
+            "inside": 649,
+            "oceanView": 1149,
+            "balcony": 1199
+          }
+        },
+        {
+          "at": "2026-06-05T21:21:41.187Z",
+          "prices": {
+            "inside": 649,
+            "oceanView": 1149
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-06T20:59:25.617Z"
     }
   ]
 }
