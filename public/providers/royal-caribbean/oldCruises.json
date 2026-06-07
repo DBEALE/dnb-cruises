@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 66,
+  "count": 67,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -1906,6 +1906,61 @@
         }
       ],
       "lastSeenAt": "2026-06-06T09:59:50.771Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LB02STH-1080712040",
+      "shipName": "Liberty of the Seas",
+      "shipClass": "Freedom",
+      "shipLaunchYear": 2007,
+      "itinerary": "Weekend Getaway Cruise: Paris (Le Havre), France",
+      "departureDate": "2026-06-12",
+      "duration": "2 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "priceFrom": "379",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LB02STH-1080712040&sailDate=2026-06-12&shipCode=LB&packageCode=LB02U010&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "379",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "suite": 962.65
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "suite": 722
+          }
+        },
+        {
+          "at": "2026-06-03T14:25:08.048Z",
+          "prices": {
+            "suite": 718
+          }
+        },
+        {
+          "at": "2026-06-05T16:28:16.747Z",
+          "prices": {
+            "inside": 383
+          }
+        },
+        {
+          "at": "2026-06-06T19:14:21.054Z",
+          "prices": {
+            "inside": 379
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-07T07:51:14.509Z"
     }
   ]
 }
