@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 71,
+  "count": 72,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -2487,6 +2487,154 @@
         }
       ],
       "lastSeenAt": "2026-06-07T15:21:21.360Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_HM13BCN-713440655",
+      "shipName": "Harmony of the Seas",
+      "shipClass": "Oasis",
+      "shipLaunchYear": 2016,
+      "itinerary": "Spain Transatlantic: Palma de Mallorca, Spain, Cartagena, Spain, Málaga, Spain, Seville (Cadiz), Spain, Orlando (Port Canaveral), Florida",
+      "departureDate": "2026-07-26",
+      "duration": "13 Nights",
+      "departurePort": "Barcelona",
+      "departureRegion": "Mediterranean",
+      "destination": "Transatlantic",
+      "priceFrom": "1709.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=HM13BCN-713440655&sailDate=2026-07-26&shipCode=HM&packageCode=HM13T148&destinationCode=T.ATL&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "1709.5",
+        "suite": null
+      },
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1402.13
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1402.13,
+            "balcony": 6943.13
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 1445.63,
+            "balcony": 7209.63
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "inside": 1445.63,
+            "balcony": 1989.13,
+            "suite": 6923.13
+          }
+        },
+        {
+          "at": "2026-05-30T13:18:20.949Z",
+          "prices": {
+            "inside": 1445.63,
+            "balcony": 1989.13,
+            "suite": 5212.63
+          }
+        },
+        {
+          "at": "2026-05-30T16:57:19.215Z",
+          "prices": {
+            "inside": 1445.63,
+            "balcony": 1989.13
+          }
+        },
+        {
+          "at": "2026-05-30T19:06:05.550Z",
+          "prices": {
+            "inside": 1445.63,
+            "balcony": 7022.63
+          }
+        },
+        {
+          "at": "2026-05-31T12:12:25.302Z",
+          "prices": {
+            "inside": 1087.5,
+            "balcony": 5264.5
+          }
+        },
+        {
+          "at": "2026-05-31T20:54:05.330Z",
+          "prices": {
+            "inside": 1087.5,
+            "balcony": 5404.5
+          }
+        },
+        {
+          "at": "2026-05-31T22:56:38.105Z",
+          "prices": {
+            "inside": 1087.5,
+            "balcony": 5404.5,
+            "suite": 5189.5
+          }
+        },
+        {
+          "at": "2026-06-01T03:33:08.553Z",
+          "prices": {
+            "inside": 1087.5,
+            "balcony": 5404.5
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 1085.5,
+            "balcony": 5654.5
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 1085.5,
+            "balcony": 1487.5,
+            "suite": 3902.5
+          }
+        },
+        {
+          "at": "2026-06-02T08:24:13.015Z",
+          "prices": {
+            "inside": 1085.5,
+            "balcony": 5654.5
+          }
+        },
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 1323.5
+          }
+        },
+        {
+          "at": "2026-06-03T14:25:08.048Z",
+          "prices": {
+            "balcony": 1978.5
+          }
+        },
+        {
+          "at": "2026-06-04T08:16:06.414Z",
+          "prices": {
+            "balcony": 1487.5
+          }
+        },
+        {
+          "at": "2026-06-07T07:51:14.509Z",
+          "prices": {
+            "balcony": 1709.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-07T19:14:50.671Z"
     }
   ]
 }
