@@ -10,22 +10,20 @@
 <body>
 
 <header>
-  <!-- Animated waves sit behind the header content (z-index 0); the rest
-       of the header lives on top via .header-inner (z-index 1). Each wave
-       SVG holds two identical cycles and translates by -50% for a seamless
-       loop. -->
-  <div class="header-wave" aria-hidden="true">
-    <svg class="wave wave-back" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,55 C240,85 480,25 720,55 C960,85 1200,25 1440,55 C1680,85 1920,25 2160,55 C2400,85 2640,25 2880,55 L2880,100 L0,100 Z" fill="rgba(255,255,255,0.05)"/>
-    </svg>
-    <svg class="wave wave-front" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,70 C240,100 480,40 720,70 C960,100 1200,40 1440,70 C1680,100 1920,40 2160,70 C2400,100 2640,40 2880,70 L2880,100 L0,100 Z" fill="rgba(255,255,255,0.07)"/>
-    </svg>
-  </div>
   <button id="siteChangesBtn" type="button" onclick="openSiteChanges()" title="Site changes" aria-label="Site changes">i</button>
   <button id="settingsBtn" type="button" onclick="openSettings()" title="Display options" aria-label="Display options">⚙</button>
   <div class="header-inner">
-    <h1>🚢 Cruise <em>Explorer</em></h1>
+    <h1>
+      <span class="header-title-text">🚢 Cruise <em>Explorer</em></span>
+      <span class="header-wave" aria-hidden="true">
+        <svg class="wave wave-back" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,58 C180,92 360,18 540,58 C720,98 900,18 1080,58 C1260,92 1440,18 1620,58 C1800,98 1980,18 2160,58 C2340,92 2520,18 2700,58 C2760,70 2820,70 2880,58 L2880,100 L0,100 Z"/>
+        </svg>
+        <svg class="wave wave-front" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,66 C160,96 320,34 480,66 C640,98 800,34 960,66 C1120,96 1280,34 1440,66 C1600,98 1760,34 1920,66 C2080,96 2240,34 2400,66 C2560,98 2720,34 2880,66 L2880,100 L0,100 Z"/>
+        </svg>
+      </span>
+    </h1>
     <div class="header-stats">
       <div class="hstat">
         <span class="hstat-val" id="totalCount">—</span>
@@ -86,6 +84,26 @@
       <button id="mobFilterToggle" onclick="toggleMobileFilters()" aria-expanded="false" aria-controls="mobFilters" aria-label="Sort & filter" title="Sort & filter">
         <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v1.6a1 1 0 01-.3.7l-4.7 4.7v6L8 18.4v-7.4L3.3 6.3a1 1 0 01-.3-.7V4z"/></svg>
       </button>
+    </div>
+    <div class="mob-sort-row mob-page-sort-row">
+      <label for="mobilePageSortSelect">Sort</label>
+      <div class="mob-sort-controls">
+        <select id="mobilePageSortSelect" onchange="mobilePageSortChange()">
+          <option value="">Default</option>
+          <option value="11">Price (lowest cabin)</option>
+          <option value="12">Price (Inside)</option>
+          <option value="13">Price (Sea view)</option>
+          <option value="14">Price (Balcony)</option>
+          <option value="15">Price (Suite)</option>
+          <option value="17">Price per night</option>
+          <option value="16">Price change</option>
+          <option value="18">Recently found</option>
+          <option value="7">Departure date</option>
+          <option value="8">Nights</option>
+          <option value="1">Ship name</option>
+        </select>
+        <button id="mobilePageSortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
+      </div>
     </div>
     <dialog id="mobFilters" aria-labelledby="mobFiltersTitle">
       <div class="mob-filters-head">

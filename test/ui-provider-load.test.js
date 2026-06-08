@@ -30,6 +30,8 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /<select class="col-filter" data-field="provider" onchange="applyFilters\(\)">/);
   assert.match(html, /<select class="col-filter" data-field="shipClass" onchange="applyFilters\(\)">/);
   assert.match(html, /<select id="mobFilterShip" class="mob-filter" data-field="shipName" onchange="mobileFilterSync\(this\)">/);
+  assert.match(html, /<select id="mobilePageSortSelect" onchange="mobilePageSortChange\(\)">/);
+  assert.match(html, /id="mobilePageSortDirBtn"/);
   assert.match(html, /data-field="departureStart"/);
   assert.match(html, /data-field="departureEnd"/);
   assert.match(html, /id="departureRangeDialog"/);

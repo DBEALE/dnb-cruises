@@ -52,6 +52,22 @@
   const SITE_CHANGES = [
     {
       date: '8 Jun 2026',
+      title: 'Header and sort alignment polish',
+      items: [
+        'Centered the mobile Sort label with its dropdown.',
+        'Tightened the mobile header spacing around the title, stats, sync time, and controls.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Mobile sort shortcut',
+      items: [
+        'Added a second sort dropdown directly under the Views dropdown on the main mobile page.',
+        'The new sort control stays synced with the existing toolbar and filter-sheet sort controls.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
       title: 'Departure date range filter',
       items: [
         'Replaced the free-text departure filter with a start/end date popup.',
@@ -1636,6 +1652,7 @@
     applyFilters();
   }
   function mobileSortChange()    { applySortColumn(document.getElementById('mobileSortSelect').value); }
+  function mobilePageSortChange() { applySortColumn(document.getElementById('mobilePageSortSelect').value); }
   function sortSelectChange(sel) { applySortColumn(sel.value); }
 
   // Direction toggle button.
@@ -1650,7 +1667,7 @@
   // buttons reflect the current direction, and the header gets its arrow class.
   function syncSortControls() {
     const val = sortColIndex >= 0 ? String(sortColIndex) : '';
-    for (const id of ['sortSelect', 'mobileSortSelect']) {
+    for (const id of ['sortSelect', 'mobileSortSelect', 'mobilePageSortSelect']) {
       const el = document.getElementById(id);
       if (el && el.value !== val) el.value = val;
     }
@@ -1659,7 +1676,7 @@
     const titleText = !enabled
       ? 'Pick a sort column first'
       : (sortAsc ? 'Ascending — click to reverse' : 'Descending — click to reverse');
-    for (const id of ['sortDirBtn', 'mobileSortDirBtn']) {
+    for (const id of ['sortDirBtn', 'mobileSortDirBtn', 'mobilePageSortDirBtn']) {
       const btn = document.getElementById(id);
       if (!btn) continue;
       btn.textContent = arrow;
