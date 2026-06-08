@@ -22,6 +22,7 @@
       <path d="M0,70 C240,100 480,40 720,70 C960,100 1200,40 1440,70 C1680,100 1920,40 2160,70 C2400,100 2640,40 2880,70 L2880,100 L0,100 Z" fill="rgba(255,255,255,0.07)"/>
     </svg>
   </div>
+  <button id="siteChangesBtn" type="button" onclick="openSiteChanges()" title="Site changes" aria-label="Site changes">i</button>
   <button id="settingsBtn" type="button" onclick="openSettings()" title="Display options" aria-label="Display options">⚙</button>
   <div class="header-inner">
     <h1>🚢 Cruise <em>Explorer</em></h1>
@@ -168,8 +169,10 @@
         </select>
       </div>
       <div class="mob-filter-group">
-        <label for="mobFilterDate">Departure</label>
-        <input id="mobFilterDate" class="mob-filter" data-field="departureDate" placeholder="e.g. Jun 2026" oninput="mobileFilterSync(this)">
+        <label for="mobDepartureRangeBtn">Departure</label>
+        <input id="mobFilterDepartureStart" class="mob-filter" data-field="departureStart" type="hidden">
+        <input id="mobFilterDepartureEnd" class="mob-filter" data-field="departureEnd" type="hidden">
+        <button id="mobDepartureRangeBtn" class="date-range-btn date-range-mobile" type="button" onclick="openDepartureRange()" aria-label="Choose departure date range">Any date</button>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterPort">Departure port</label>
@@ -255,7 +258,9 @@
               <input class="col-filter" data-field="destination" placeholder="Filter…" oninput="debouncedApplyFilters()">
             </td>
             <td class="col-date">
-              <input class="col-filter" data-field="departureDate" placeholder="e.g. Jun…" oninput="debouncedApplyFilters()">
+              <input id="filterDepartureStart" class="col-filter" data-field="departureStart" type="hidden">
+              <input id="filterDepartureEnd" class="col-filter" data-field="departureEnd" type="hidden">
+              <button id="departureRangeBtn" class="date-range-btn" type="button" onclick="openDepartureRange()" aria-label="Choose departure date range">Any date</button>
             </td>
             <td class="col-duration">
               <input class="col-filter" data-field="duration" placeholder="Min…" type="number" min="0" oninput="debouncedApplyFilters()">
@@ -390,6 +395,7 @@
       <li><label><input type="checkbox" data-setting="sparklines">  <span>Price-history sparklines</span><small>The small trend line beneath each cabin price.</small></label></li>
       <li><label><input type="checkbox" data-setting="perNight">    <span>Price per night column</span><small>Adds a sortable £/night column on wide screens.</small></label></li>
       <li><label><input type="checkbox" data-setting="wikiLinks">   <span>Wikipedia links</span><small>Underlined ship / cruise line / class names.</small></label></li>
+      <li><label><input type="checkbox" data-setting="companyLinks"> <span>Cruise-company link targets</span><small>Open ship, cruise line, and class links on the cruise company website instead of Wikipedia.</small></label></li>
       <li><label><input type="checkbox" data-setting="classDots">   <span>Class quality dots</span><small>The four green dots next to ship-class names.</small></label></li>
       <li><label><input type="checkbox" data-setting="launchYear">  <span>Ship launch year</span><small>The year column (desktop) and grey year next to ship name (mobile).</small></label></li>
       <li><label><input type="checkbox" data-setting="shipIcons">   <span>Ship icons</span><small>A small cruise-line-coloured ship icon next to each ship name.</small></label></li>
@@ -410,6 +416,50 @@
     <div class="settings-footer">
       <button type="button" id="settingsReset" class="settings-reset">Reset to defaults</button>
     </div>
+  </div>
+</dialog>
+
+<dialog id="departureRangeDialog" aria-labelledby="departureRangeTitle">
+  <div class="date-range-box">
+    <div class="date-range-head">
+      <div>
+        <h2 id="departureRangeTitle">Departure dates</h2>
+        <p>Select sailings departing between these dates, inclusive.</p>
+      </div>
+      <button type="button" class="ph-close" id="departureRangeClose" aria-label="Close">×</button>
+    </div>
+
+    <div class="date-range-fields">
+      <label for="departureRangeStart">
+        <span>Start date</span>
+        <input id="departureRangeStart" type="date">
+      </label>
+      <label for="departureRangeEnd">
+        <span>End date</span>
+        <input id="departureRangeEnd" type="date">
+      </label>
+    </div>
+
+    <div id="departureRangePreview" class="date-range-preview">Range: Any date</div>
+
+    <div class="date-range-actions">
+      <button type="button" id="departureRangeClear" class="date-range-clear">Clear</button>
+      <button type="button" id="departureRangeCancel" class="date-range-cancel">Cancel</button>
+      <button type="button" id="departureRangeApply" class="date-range-apply">Apply</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="siteChangesDialog" aria-labelledby="changesTitle">
+  <div class="changes-box">
+    <div class="changes-head">
+      <div>
+        <h2 id="changesTitle">Site changes</h2>
+        <p>Latest updates first. This list is updated as user-facing features ship.</p>
+      </div>
+      <button type="button" class="ph-close" id="changesClose" aria-label="Close">×</button>
+    </div>
+    <ol id="siteChangesList" class="changes-list"></ol>
   </div>
 </dialog>
 

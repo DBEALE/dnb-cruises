@@ -25,6 +25,7 @@
     sparklines: false,
     perNight:   false,
     wikiLinks:  true,
+    companyLinks: false,
     classDots:  true,
     launchYear: true,
     shipIcons:  true,
@@ -45,6 +46,78 @@
   let shipWikiLinks     = {};
   let providerWikiLinks = {};
   let classWikiLinks    = {};
+
+  // User-facing changelog. Add new entries at the top whenever features,
+  // controls, or layout changes ship so the Site changes dialog stays useful.
+  const SITE_CHANGES = [
+    {
+      date: '8 Jun 2026',
+      title: 'Departure date range filter',
+      items: [
+        'Replaced the free-text departure filter with a start/end date popup.',
+        'Departure filtering now includes sailings on the start and end dates.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Princess company links fixed',
+      items: [
+        'Princess ship links now use the official UK ship pages from the Princess fleet page.',
+        'Unknown or retired Princess ships fall back to the Princess UK fleet page.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Link destination option',
+      items: [
+        'Added a Display options toggle for ship, cruise line, and class links.',
+        'Links can now point to cruise-company pages instead of Wikipedia.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Cleaner mobile cruise cards',
+      items: [
+        'Removed the duplicate destination row from mobile cards.',
+        'Tightened the region badge so each card uses less vertical space.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'First seen and recently found sorting',
+      items: [
+        'Added first-seen date and time to cruise cards.',
+        'Added a Recently found sort that defaults to newest-first.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Saved view names',
+      items: [
+        'Suggested saved-view names are now shorter and easier to scan.',
+        'Full filter and sort details stay visible underneath each saved view.',
+        'Long saved-view names are shortened in the compact mobile dropdown.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Header and display options',
+      items: [
+        'Replaced provider panels with a cruise-line count in the main stats.',
+        'Moved the USD exchange rate into Display options.',
+        'Moved the animated waves behind the Cruise Explorer title.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Navigation polish',
+      items: [
+        'Added a back-to-top button after scrolling.',
+        'Simplified repeated country names in arrow-separated itineraries.',
+      ],
+    },
+  ];
+
   const DEFAULT_PROVIDER = {
     id:        'royal-caribbean',
     name:      'Royal Caribbean',
@@ -240,6 +313,9 @@
     wireSettingsHandlers();
     wireMobileFilterSheet();
     wireSavedViewsHandlers();
+    renderSiteChanges();
+    wireSiteChangesHandlers();
+    wireDepartureRangeHandlers();
     refreshMobileSavedSelect();
     wirePriceHistoryHandlers();
     wireStickySummary();
@@ -321,10 +397,97 @@
   const providerWikiUrl = name => lookupWikiUrl(providerWikiLinks, name);
   const classWikiUrl    = name => lookupWikiUrl(classWikiLinks,    name);
 
+  function slugifyPath(value) {
+    return String(value || '')
+      .trim()
+      .toLowerCase()
+      .replace(/&/g, 'and')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  }
+
+  function providerOfficialBase(provider) {
+    switch (String(provider || '').toLowerCase()) {
+      case 'royal caribbean': return 'https://www.royalcaribbean.com/gbr/en';
+      case 'celebrity cruises': return 'https://www.celebritycruises.com/gb';
+      case 'norwegian cruise line': return 'https://www.ncl.com/uk/en';
+      case 'princess cruises': return 'https://www.princess.com/en-uk';
+      default: return '';
+    }
+  }
+
+  function companyProviderUrl(provider) {
+    switch (String(provider || '').toLowerCase()) {
+      case 'royal caribbean': return 'https://www.royalcaribbean.com/gbr/en/cruises';
+      case 'celebrity cruises': return 'https://www.celebritycruises.com/gb/cruises';
+      case 'norwegian cruise line': return 'https://www.ncl.com/uk/en/vacations';
+      case 'princess cruises': return 'https://www.princess.com/en-uk/cruise-search/results/?resType=C';
+      default: return '';
+    }
+  }
+
+  function companyShipUrl(c) {
+    const provider = String(c?.provider || '').toLowerCase();
+    const slug = slugifyPath(c?.shipName);
+    if (!slug) return '';
+    if (provider === 'royal caribbean') return `https://www.royalcaribbean.com/gbr/en/cruise-ships/${slug}`;
+    if (provider === 'celebrity cruises') return `https://www.celebritycruises.com/gb/cruise-ships/${slug}`;
+    if (provider === 'norwegian cruise line') return `https://www.ncl.com/uk/en/cruise-ship/${slug}`;
+    if (provider === 'princess cruises') {
+      const princessShipSlugs = {
+        'caribbean-princess': 'cb-caribbean-princess',
+        'coral-princess': 'co-coral-princess',
+        'crown-princess': 'kp-crown-princess',
+        'diamond-princess': 'di-diamond-princess',
+        'discovery-princess': 'xp-discovery-princess',
+        'emerald-princess': 'ep-emerald-princess',
+        'enchanted-princess': 'ex-enchanted-princess',
+        'grand-princess': 'ap-grand-princess',
+        'island-princess': 'ip-island-princess',
+        'majestic-princess': 'mj-majestic-princess',
+        'regal-princess': 'gp-regal-princess',
+        'royal-princess': 'rp-royal-princess',
+        'ruby-princess': 'ru-ruby-princess',
+        'sapphire-princess': 'sa-sapphire-princess',
+        'sky-princess': 'yp-sky-princess',
+        'star-princess': 'st-star-princess',
+        'sun-princess': 'su-sun-princess',
+      };
+      const princessSlug = princessShipSlugs[slug];
+      return princessSlug
+        ? `https://www.princess.com/en-uk/ships-and-experience/ships/${princessSlug}`
+        : 'https://www.princess.com/en-uk/ships-and-experience/ships';
+    }
+    return '';
+  }
+
+  function companyClassUrl(c) {
+    const base = providerOfficialBase(c?.provider);
+    const query = `${c?.shipClass || ''} class ships`.trim();
+    if (!base || !query) return '';
+    if (String(c?.provider || '').toLowerCase() === 'princess cruises') {
+      return `https://www.princess.com/en-uk/search/?q=${encodeURIComponent(query)}`;
+    }
+    return `${base}/search?keyword=${encodeURIComponent(query)}`;
+  }
+
+  function shipLinkUrl(c) {
+    return settings.companyLinks ? companyShipUrl(c) : shipWikiUrl(c?.shipName);
+  }
+
+  function providerLinkUrl(c) {
+    return settings.companyLinks ? companyProviderUrl(c?.provider) : providerWikiUrl(c?.provider);
+  }
+
+  function classLinkUrl(c) {
+    return settings.companyLinks ? companyClassUrl(c) : classWikiUrl(c?.shipClass);
+  }
+
   function wikiLink(value, url, fallback = '—') {
     const text = escHtml(value || fallback);
     if (!url) return text;
-    return `<a class="wiki-link" href="${escHtml(url)}" target="_blank" rel="noopener noreferrer" title="View on Wikipedia">${text}</a>`;
+    const title = settings.companyLinks ? 'View on cruise company website' : 'View on Wikipedia';
+    return `<a class="wiki-link" href="${escHtml(url)}" target="_blank" rel="noopener noreferrer" title="${escHtml(title)}">${text}</a>`;
   }
 
   async function fetchGBPRate() {
@@ -433,15 +596,15 @@
     // Empty span — CSS mask-image + background-color paints the silhouette
     // in the row's --brand colour (red / teal / blue / navy).
     const iconHtml = `<span class="ship-icon-wrap tier-${tier}" aria-hidden="true"></span>`;
-    const nameHtml = wikiLink(c.shipName, shipWikiUrl(c.shipName));
+    const nameHtml = wikiLink(c.shipName, shipLinkUrl(c));
     return `<span class="mobile-ship-header"><span>${iconHtml}${nameHtml}</span>${yearHtml}</span>`;
   }
 
   function mobileShipDetails(c) {
     const classHtml = c.shipClass
-      ? `<span class="mobile-class"><span class="class-cell">${wikiLink(c.shipClass, classWikiUrl(c.shipClass))}${classDots(c.shipClass)}</span></span>`
+      ? `<span class="mobile-class"><span class="class-cell">${wikiLink(c.shipClass, classLinkUrl(c))}${classDots(c.shipClass)}</span></span>`
       : '';
-    const providerHtml = wikiLink(c.provider, providerWikiUrl(c.provider));
+    const providerHtml = wikiLink(c.provider, providerLinkUrl(c));
     return `<span class="mobile-ship-details"><span class="mobile-provider">${providerHtml}</span>${classHtml}</span>`;
   }
 
@@ -695,8 +858,8 @@
       return `<tr data-provider="${escHtml(c.provider || '')}">
         <td class="col-num" data-label="#">${i + 1}</td>
         <td class="col-ship ship-name" data-label="Ship">${mobileShipHeader(c)}${mobileShipDetails(c)}</td>
-        <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerWikiUrl(c.provider))}</td>
-        <td class="col-class" data-label="Class"><span class="class-cell">${wikiLink(c.shipClass, classWikiUrl(c.shipClass))}${classDots(c.shipClass)}</span></td>
+        <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerLinkUrl(c))}</td>
+        <td class="col-class" data-label="Class"><span class="class-cell">${wikiLink(c.shipClass, classLinkUrl(c))}${classDots(c.shipClass)}</span></td>
         <td class="col-launch" data-label="Launch">${c.shipLaunchYear || '—'}</td>
         <td class="col-itinerary" data-label="Itinerary">${escHtml(simplifyItinerary(c.itinerary) || '—')}</td>
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
@@ -897,6 +1060,7 @@
         settings[cb.dataset.setting] = cb.checked;
         applySettingsToDom();
         saveSettings();
+        if (cb.dataset.setting === 'companyLinks' && allCruises.length) applyFilters();
       });
     });
 
@@ -932,6 +1096,135 @@
       // Reset does NOT clear the phone number — that's user data, not a
       // display preference. They can clear it themselves by emptying the field.
     });
+    dlg.addEventListener('click', ev => { if (ev.target === dlg) dlg.close(); });
+  }
+
+  function renderSiteChanges() {
+    const list = document.getElementById('siteChangesList');
+    if (!list) return;
+    list.innerHTML = SITE_CHANGES.map(entry => `
+      <li class="changes-item">
+        <div class="changes-date">${escHtml(entry.date)}</div>
+        <h3>${escHtml(entry.title)}</h3>
+        <ul>
+          ${entry.items.map(item => `<li>${escHtml(item)}</li>`).join('')}
+        </ul>
+      </li>
+    `).join('');
+  }
+
+  function openSiteChanges() {
+    renderSiteChanges();
+    const dlg = document.getElementById('siteChangesDialog');
+    if (!dlg) return;
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open', '');
+  }
+
+  function wireSiteChangesHandlers() {
+    const dlg = document.getElementById('siteChangesDialog');
+    if (!dlg || dlg.dataset.wired) return;
+    dlg.dataset.wired = '1';
+    document.getElementById('changesClose')?.addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', ev => { if (ev.target === dlg) dlg.close(); });
+  }
+
+  function dateInputToDisplay(value) {
+    if (!value) return '';
+    const d = new Date(`${value}T00:00:00Z`);
+    if (Number.isNaN(d.getTime())) return value;
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+  }
+
+  function departureRangeLabel(start, end) {
+    if (start && end) return `${dateInputToDisplay(start)} - ${dateInputToDisplay(end)}`;
+    if (start) return `From ${dateInputToDisplay(start)}`;
+    if (end) return `Until ${dateInputToDisplay(end)}`;
+    return 'Any date';
+  }
+
+  function getFilterFieldValue(field) {
+    return document.querySelector(`.col-filter[data-field="${field}"]`)?.value || '';
+  }
+
+  function setFilterFieldValue(field, value) {
+    document.querySelectorAll(`.col-filter[data-field="${field}"], .mob-filter[data-field="${field}"]`)
+      .forEach(el => { el.value = value || ''; });
+  }
+
+  function normalizeDateRange(start, end) {
+    if (start && end && start > end) return { start: end, end: start };
+    return { start: start || '', end: end || '' };
+  }
+
+  function setDepartureRange(start, end) {
+    const range = normalizeDateRange(start, end);
+    setFilterFieldValue('departureStart', range.start);
+    setFilterFieldValue('departureEnd', range.end);
+    updateDepartureRangeControls();
+  }
+
+  function updateDepartureRangeControls() {
+    const start = getFilterFieldValue('departureStart');
+    const end = getFilterFieldValue('departureEnd');
+    const label = departureRangeLabel(start, end);
+    for (const id of ['departureRangeBtn', 'mobDepartureRangeBtn']) {
+      const btn = document.getElementById(id);
+      if (!btn) continue;
+      btn.textContent = label;
+      btn.title = label === 'Any date' ? 'Choose departure date range' : `Departure: ${label}`;
+      btn.classList.toggle('has-value', label !== 'Any date');
+    }
+  }
+
+  function updateDepartureRangePreview() {
+    const start = document.getElementById('departureRangeStart')?.value || '';
+    const end = document.getElementById('departureRangeEnd')?.value || '';
+    const range = normalizeDateRange(start, end);
+    const preview = document.getElementById('departureRangePreview');
+    if (preview) preview.textContent = `Range: ${departureRangeLabel(range.start, range.end)}`;
+  }
+
+  function openDepartureRange() {
+    const dlg = document.getElementById('departureRangeDialog');
+    if (!dlg) return;
+    const start = document.getElementById('departureRangeStart');
+    const end = document.getElementById('departureRangeEnd');
+    if (start) start.value = getFilterFieldValue('departureStart');
+    if (end) end.value = getFilterFieldValue('departureEnd');
+    updateDepartureRangePreview();
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open', '');
+  }
+
+  function applyDepartureRange() {
+    const start = document.getElementById('departureRangeStart')?.value || '';
+    const end = document.getElementById('departureRangeEnd')?.value || '';
+    setDepartureRange(start, end);
+    document.getElementById('departureRangeDialog')?.close();
+    applyFilters();
+  }
+
+  function clearDepartureRange() {
+    setDepartureRange('', '');
+    const start = document.getElementById('departureRangeStart');
+    const end = document.getElementById('departureRangeEnd');
+    if (start) start.value = '';
+    if (end) end.value = '';
+    updateDepartureRangePreview();
+    applyFilters();
+  }
+
+  function wireDepartureRangeHandlers() {
+    const dlg = document.getElementById('departureRangeDialog');
+    if (!dlg || dlg.dataset.wired) return;
+    dlg.dataset.wired = '1';
+    document.getElementById('departureRangeClose')?.addEventListener('click', () => dlg.close());
+    document.getElementById('departureRangeCancel')?.addEventListener('click', () => dlg.close());
+    document.getElementById('departureRangeApply')?.addEventListener('click', applyDepartureRange);
+    document.getElementById('departureRangeClear')?.addEventListener('click', clearDepartureRange);
+    document.getElementById('departureRangeStart')?.addEventListener('input', updateDepartureRangePreview);
+    document.getElementById('departureRangeEnd')?.addEventListener('input', updateDepartureRangePreview);
     dlg.addEventListener('click', ev => { if (ev.target === dlg) dlg.close(); });
   }
 
@@ -1062,10 +1355,19 @@
       parts.push(`Sort: ${SAVED_VIEW_SORT_LABELS[col] || ('col '+col)} ${dir === 'asc' ? '↑' : '↓'}`);
     }
     for (const [k, v] of p) {
-      if (k === 'sort' || k === 'all' || k === 'gbp') continue;
+      if (k === 'sort' || k === 'all' || k === 'gbp' || k === 'departureStart' || k === 'departureEnd') continue;
       parts.push(`${k}=${v}`);
     }
+    const departure = savedViewDepartureRangeLabel(p);
+    if (departure) parts.push(departure);
     return parts.length ? parts.join(' · ') : 'No filters';
+  }
+
+  function savedViewDepartureRangeLabel(params) {
+    const start = params.get('departureStart') || '';
+    const end = params.get('departureEnd') || '';
+    if (!start && !end) return '';
+    return `Departure ${departureRangeLabel(start, end)}`;
   }
 
   function savedViewFilterLabel(key, value) {
@@ -1085,10 +1387,28 @@
     if (key === 'destination') return v;
     if (key === 'itinerary') return v;
     if (key === 'departureDate') return v;
+    if (key === 'departureStart') return `From ${dateInputToDisplay(v)}`;
+    if (key === 'departureEnd') return `Until ${dateInputToDisplay(v)}`;
     if (key === 'minLaunch') return `Ships ${v}+`;
     if (key === 'duration') return `${v}+ nights`;
     if (key === 'maxPrice') return `Under GBP ${Number(v).toLocaleString('en-GB')}`;
     return v;
+  }
+
+  function savedViewSortName(sort) {
+    if (!sort) return '';
+    const [col] = sort.split('-');
+    const names = {
+      11: 'Lowest price',
+      12: 'Inside',
+      13: 'Sea view',
+      14: 'Balcony',
+      15: 'Suite',
+      16: 'Price change',
+      17: 'GBP/night',
+      18: 'Recently found',
+    };
+    return names[col] || '';
   }
 
   function buildSuggestedSavedViewName(hash) {
@@ -1101,7 +1421,6 @@
       'departureRegion',
       'departurePort',
       'itinerary',
-      'departureDate',
       'duration',
       'maxPrice',
       'minLaunch',
@@ -1109,20 +1428,16 @@
     const parts = preferredFields
       .map(field => savedViewFilterLabel(field, p.get(field)))
       .filter(Boolean)
-      .slice(0, 3);
+      .slice(0, 2);
 
-    const sort = p.get('sort');
-    if (sort) {
-      const [col, dir] = sort.split('-');
-      const label = SAVED_VIEW_SORT_LABELS[col] || `Column ${col}`;
-      const direction = col === '18'
-        ? (dir === 'asc' ? 'oldest' : 'newest')
-        : (dir === 'asc' ? 'low-high' : 'high-low');
-      parts.push(`${label} ${direction}`);
-    }
+    const departure = savedViewDepartureRangeLabel(p);
+    if (departure && !parts.some(part => part.toLowerCase().startsWith('departure '))) parts.push(departure);
+
+    const sortName = savedViewSortName(p.get('sort'));
+    if (sortName && !parts.some(part => part.toLowerCase().includes(sortName.toLowerCase()))) parts.push(sortName);
 
     const name = parts.length ? parts.join(' · ') : 'All sailings';
-    return name.length > 60 ? `${name.slice(0, 57).trim()}...` : name;
+    return name.length > 42 ? `${name.slice(0, 39).trim()}...` : name;
   }
 
   function setSuggestedSavedViewName() {
@@ -1152,6 +1467,7 @@
     if (!view) return;
     // Reset state, write the saved hash, re-apply.
     document.querySelectorAll('.col-filter, .mob-filter').forEach(el => { el.value = ''; });
+    updateDepartureRangeControls();
     sortColIndex = -1; sortAsc = true; showAll = false;
     try {
       history.replaceState(null, '',
@@ -1229,7 +1545,7 @@
     if (!hash) return c;
     const p = new URLSearchParams(hash);
     const FIELDS = ['shipName','provider','shipClass','itinerary','destination',
-                    'departureDate','duration','departurePort','departureRegion'];
+                    'departureDate','departureStart','departureEnd','duration','departurePort','departureRegion'];
     const NUMERIC = ['minLaunch','duration','maxPrice'];
     for (const f of FIELDS) {
       const v = p.get(f);
@@ -1409,6 +1725,7 @@
   function clearMobileFilters() {
     document.querySelectorAll('.mob-filter').forEach(el => { el.value = ''; });
     document.querySelectorAll('.col-filter').forEach(el => { el.value = ''; });
+    updateDepartureRangeControls();
     applyFilters();
   }
 
@@ -1454,6 +1771,25 @@
     return descending ? -result : result;
   }
 
+  function cruiseDepartureDateKey(raw) {
+    const value = String(raw || '').trim();
+    if (!value) return '';
+    const iso = value.match(/^(\d{4}-\d{2}-\d{2})/);
+    if (iso) return iso[1];
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return '';
+    return d.toISOString().slice(0, 10);
+  }
+
+  function cruiseMatchesDepartureRange(cruise, start, end) {
+    if (!start && !end) return true;
+    const key = cruiseDepartureDateKey(cruise?.departureDate);
+    if (!key) return false;
+    if (start && key < start) return false;
+    if (end && key > end) return false;
+    return true;
+  }
+
   // ── Filter ─────────────────────────────────────────────────────────────────
   function applyFilters() {
     const colFilters = {};
@@ -1490,7 +1826,7 @@
           return false;
         }
       }
-      if (colFilters.departureDate && !formatDateDisplay(c.departureDate).toLowerCase().includes(colFilters.departureDate.toLowerCase())) return false;
+      if (!cruiseMatchesDepartureRange(c, colFilters.departureStart, colFilters.departureEnd)) return false;
       if (colFilters.minLaunch) {
         const min = parseInt(colFilters.minLaunch, 10);
         if (!isNaN(min) && (!c.shipLaunchYear || c.shipLaunchYear < min)) return false;
@@ -1620,6 +1956,7 @@
       const v = p.get(el.dataset.field);
       if (v != null) el.value = v;
     });
+    updateDepartureRangeControls();
   }
 
   // toggleGBP was the UI handler for the now-removed Prices-in-GBP switch.

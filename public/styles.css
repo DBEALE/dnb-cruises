@@ -418,6 +418,35 @@
     select.col-filter { cursor: pointer; }
     select.col-filter option { background: #1a2f4e; color: #fff; }
 
+    .date-range-btn {
+      appearance: none;
+      width: 100%;
+      min-width: 0;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 6px;
+      padding: 5px 8px;
+      font-size: 0.75rem;
+      background: rgba(255,255,255,.07);
+      color: rgba(255,255,255,.82);
+      text-align: left;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: border-color .15s, background .15s, color .15s;
+    }
+    .date-range-btn:hover,
+    .date-range-btn:focus-visible {
+      border-color: #60a5fa;
+      background: rgba(255,255,255,.13);
+      color: #fff;
+      outline: none;
+    }
+    .date-range-btn.has-value {
+      border-color: rgba(96,165,250,.55);
+      color: #fff;
+    }
+
     /* ── Table body ──────────────────────────────────────────────────────────── */
     tbody tr { transition: background .1s; }
     tbody tr:nth-child(even) { background: #fafbfd; }
@@ -832,11 +861,21 @@
       td.col-itinerary,
       td.col-port,
       td.col-region,
-      td.col-destination,
       td.col-launch,
       td.col-first-seen,
       td.col-per-night {
         display: block;
+      }
+
+      td.col-destination {
+        display: none;
+      }
+
+      td.col-region .region-badge {
+        padding: 1px 6px;
+        font-size: 0.58rem;
+        letter-spacing: 0.04em;
+        line-height: 1.45;
       }
 
       /* Ship, Itinerary, and Price span both columns */
@@ -1175,6 +1214,26 @@
 
       select.mob-filter { cursor: pointer; }
 
+      .date-range-mobile {
+        border: 1px solid var(--gray-200);
+        border-radius: 7px;
+        padding: 7px 8px;
+        font-size: 0.82rem;
+        background: var(--gray-50);
+        color: var(--gray-800);
+      }
+      .date-range-mobile:hover,
+      .date-range-mobile:focus-visible {
+        border-color: var(--blue);
+        background: white;
+        color: var(--gray-800);
+      }
+      .date-range-mobile.has-value {
+        border-color: var(--blue);
+        background: var(--blue-pale);
+        color: var(--navy);
+      }
+
       #mobClearFilters {
         width: 100%;
         padding: 8px;
@@ -1215,10 +1274,11 @@
     #notifyBtn:hover  { background: #1e40af; }
     #notifyBtn:active { transform: scale(.97); }
 
-    /* ── ⚙ button — lives in the dark header, top-right ────────────────────── */
-    #settingsBtn {
+    /* Header utility buttons — live in the dark header, top-right. */
+    #settingsBtn,
+    #siteChangesBtn {
       position: absolute;
-      top: 16px; right: 16px;
+      top: 16px;
       z-index: 3;
       appearance: none;
       background: rgba(255,255,255,.08);
@@ -1231,8 +1291,18 @@
       transition: background .15s, color .15s, border-color .15s, transform .08s;
       backdrop-filter: blur(8px);
     }
-    #settingsBtn:hover  { background: rgba(255,255,255,.15); color: #fff; border-color: rgba(255,255,255,.28); }
-    #settingsBtn:active { transform: scale(.94); }
+    #settingsBtn { right: 16px; }
+    #siteChangesBtn {
+      right: 60px;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1;
+    }
+    #settingsBtn:hover,
+    #siteChangesBtn:hover  { background: rgba(255,255,255,.15); color: #fff; border-color: rgba(255,255,255,.28); }
+    #settingsBtn:active,
+    #siteChangesBtn:active { transform: scale(.94); }
 
     /* Reference exchange-rate text inside Display options. */
     .settings-info {
@@ -1467,6 +1537,129 @@
       cursor: pointer;
     }
     .settings-reset:hover { background: var(--gray-50); color: var(--navy); }
+
+    /* ── Site changes dialog ───────────────────────────────────────────────── */
+    dialog#siteChangesDialog {
+      position: fixed; inset: 0; margin: auto;
+      border: none; border-radius: 14px; padding: 0;
+      width: min(560px, calc(100vw - 32px));
+      height: max-content; max-height: calc(100vh - 32px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    dialog#siteChangesDialog::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(3px); }
+    .changes-box { padding: 22px 24px 20px; max-height: calc(100vh - 32px); overflow-y: auto; }
+    .changes-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 14px; }
+    .changes-head h2 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 0 0 4px; }
+    .changes-head p { margin: 0; font-size: 0.8rem; color: var(--gray-600); line-height: 1.4; }
+    .changes-list { list-style: none; margin: 0; padding: 0; }
+    .changes-item {
+      position: relative;
+      padding: 0 0 16px 22px;
+      border-left: 2px solid var(--gray-200);
+    }
+    .changes-item:last-child { padding-bottom: 0; }
+    .changes-item::before {
+      content: '';
+      position: absolute;
+      left: -6px; top: 2px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 3px white;
+    }
+    .changes-date { font-size: 0.72rem; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+    .changes-item h3 { margin: 0 0 6px; font-size: 0.92rem; color: var(--navy); }
+    .changes-item ul { margin: 0; padding-left: 16px; color: var(--gray-700); font-size: 0.84rem; line-height: 1.45; }
+    .changes-item li + li { margin-top: 3px; }
+
+    /* Departure date range dialog */
+    dialog#departureRangeDialog {
+      position: fixed; inset: 0; margin: auto;
+      border: none; border-radius: 14px; padding: 0;
+      width: min(620px, calc(100vw - 32px));
+      height: max-content; max-height: calc(100vh - 32px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    dialog#departureRangeDialog::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(3px); }
+    .date-range-box { padding: 22px 24px 20px; max-height: calc(100vh - 32px); overflow-y: auto; }
+    .date-range-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 18px; }
+    .date-range-head h2 { font-size: 1.08rem; font-weight: 700; color: var(--navy); margin: 0 0 4px; }
+    .date-range-head p { margin: 0; font-size: 0.82rem; color: var(--gray-600); line-height: 1.4; }
+    .date-range-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .date-range-fields label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .date-range-fields input {
+      width: 100%;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 10px 11px;
+      font-size: 0.96rem;
+      color: var(--navy);
+      background: var(--gray-50);
+    }
+    .date-range-fields input:focus { outline: 2px solid var(--blue); outline-offset: 1px; background: #fff; }
+    .date-range-preview {
+      padding: 11px 12px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      background: var(--blue-pale);
+      color: var(--navy);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .date-range-actions {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+    }
+    .date-range-actions button {
+      appearance: none;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .date-range-clear {
+      justify-self: start;
+      border: 1px solid var(--gray-200);
+      background: var(--gray-50);
+      color: var(--gray-600);
+    }
+    .date-range-cancel {
+      border: 1px solid var(--blue);
+      background: #fff;
+      color: var(--blue);
+    }
+    .date-range-apply {
+      border: 1px solid var(--blue);
+      background: var(--blue);
+      color: #fff;
+    }
+    .date-range-clear:hover { background: var(--gray-100); color: var(--navy); }
+    .date-range-cancel:hover { background: var(--blue-pale); }
+    .date-range-apply:hover { background: #1e40af; }
+
+    @media (max-width: 560px) {
+      .date-range-fields { grid-template-columns: 1fr; }
+      .date-range-actions { grid-template-columns: 1fr 1fr; }
+      .date-range-clear { grid-column: 1 / -1; justify-self: stretch; }
+    }
 
     /* Toggle-driven visibility classes on <body> */
     body.hide-sparklines  .price-spark              { display: none !important; }

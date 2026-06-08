@@ -18,13 +18,13 @@ const PROVIDER_INDEX = {
 };
 
 // Helper — build a cruise with the priceHistory shape the UI expects.
-function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, days = 7, port = 'Southampton' }) {
+function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton' }) {
   return {
     id, shipName, provider,
     shipClass:       'Oasis',
     shipLaunchYear:  2020,
     itinerary:       `${days}-Night ${port} Sample`,
-    departureDate:   '2026-09-01',
+    departureDate,
     duration:        `${days} Nights`,
     departurePort:   port,
     departureRegion: 'UK & Ireland',
@@ -43,7 +43,7 @@ const CRUISES_RC = {
   cruises: [
     cruise({
       id: 'rc_a', shipName: 'Anthem of the Seas', provider: 'Royal Caribbean',
-      priceFrom: 500, days: 7, firstSeenAt: '2026-05-01T10:00:00Z',
+      priceFrom: 500, days: 7, departureDate: '2026-08-31', firstSeenAt: '2026-05-01T10:00:00Z',
       prices: { inside: '500', oceanView: '650', balcony: '800', suite: '1800' },
       history: [
         { at: '2026-05-01T10:00:00Z', prices: { inside: 600, oceanView: 720, balcony: 900, suite: 2000 } },
@@ -68,7 +68,7 @@ const CRUISES_CEL = {
   cruises: [
     cruise({
       id: 'cel_a', shipName: 'Celebrity Edge', provider: 'Celebrity Cruises',
-      priceFrom: 900, days: 10, port: 'Barcelona', firstSeenAt: '2026-05-20T10:00:00Z',
+      priceFrom: 900, days: 10, port: 'Barcelona', departureDate: '2026-09-02', firstSeenAt: '2026-05-20T10:00:00Z',
       prices: { inside: '900', oceanView: null, balcony: '1300', suite: '2500' },
     }),
   ],
@@ -79,7 +79,15 @@ async function setupRoutes(page) {
   await page.route('**/providers/index.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(PROVIDER_INDEX) }));
   await page.route('**/providers/royal-caribbean/cruises.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CRUISES_RC) }));
   await page.route('**/providers/celebrity-cruises/cruises.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CRUISES_CEL) }));
-  await page.route('**/ship-wiki-links.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ships: {}, providers: {}, classes: {} }) }));
+  await page.route('**/ship-wiki-links.json', r => r.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify({
+      ships: { 'anthem of the seas': 'https://en.wikipedia.org/wiki/Anthem_of_the_Seas' },
+      providers: { 'royal caribbean': 'https://en.wikipedia.org/wiki/Royal_Caribbean_International' },
+      classes: { oasis: 'https://en.wikipedia.org/wiki/Oasis-class_cruise_ship' },
+    }),
+  }));
   await page.route('**/build-info.json', r => r.fulfill({ status: 404, body: '' }));
   await page.route('**/open.er-api.com/**', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ rates: { GBP: 1 } }) }));
 }
@@ -172,6 +180,20 @@ test.describe('Sort and filter', () => {
     expect(await page.locator('tbody tr').count()).toBe(1);
   });
 
+  test('departure date range filters inclusively', async ({ page }) => {
+    await gotoFresh(page);
+    await page.click('#departureRangeBtn');
+    await page.fill('#departureRangeStart', '2026-08-31');
+    await page.fill('#departureRangeEnd', '2026-09-01');
+    await page.click('#departureRangeApply');
+
+    await expect(page.locator('#summary')).toContainText('2 of 3');
+    await expect(page.locator('tbody')).toContainText('Anthem of the Seas');
+    await expect(page.locator('tbody')).toContainText('Harmony of the Seas');
+    await expect(page.locator('tbody')).not.toContainText('Celebrity Edge');
+    await expect(page.locator('#departureRangeBtn')).toContainText('31 Aug 2026 - 1 Sept 2026');
+  });
+
   test('ship-size filter (tier:large) keeps only ships whose class maps to large', async ({ page }) => {
     await gotoFresh(page);
     // All three fixtures are Oasis class (mega), so tier:mega keeps all and
@@ -208,11 +230,13 @@ test.describe('Saved views', () => {
 
     await page.click('#savedViewsBtn');
     await page.waitForSelector('dialog#savedViewsDialog[open]');
-    await expect(page.locator('#svNameInput')).toHaveValue('Royal Caribbean · Price (Balcony) low-high');
+    await expect(page.locator('#svNameInput')).toHaveValue('Royal Caribbean · Balcony');
 
     await page.locator('#svNameInput').fill('My balcony shortlist');
     await page.locator('#svSaveForm button[type="submit"]').click();
     await expect(page.locator('.sv-name').first()).toHaveText('My balcony shortlist');
+    await expect(page.locator('.sv-hash').first()).toContainText('Sort: Price (Balcony)');
+    await expect(page.locator('.sv-hash').first()).toContainText('provider=Royal Caribbean');
   });
 });
 
@@ -247,6 +271,17 @@ test.describe('Settings dialog', () => {
     await expect(page.locator('.col-per-night').first()).toBeVisible();
   });
 
+  test('link target toggle switches ship links from Wikipedia to cruise company pages', async ({ page }) => {
+    await gotoFresh(page);
+    await page.waitForFunction(() => document.querySelector('tbody tr:first-child .col-ship a')?.href.includes('wikipedia.org'));
+    await expect(page.locator('tbody tr:first-child .col-ship a')).toHaveAttribute('href', 'https://en.wikipedia.org/wiki/Anthem_of_the_Seas');
+
+    await page.click('#settingsBtn');
+    await page.waitForSelector('dialog#settingsDialog[open]');
+    await page.locator('#settingsDialog input[data-setting="companyLinks"]').check();
+    await expect(page.locator('tbody tr:first-child .col-ship a')).toHaveAttribute('href', 'https://www.royalcaribbean.com/gbr/en/cruise-ships/anthem-of-the-seas');
+  });
+
   test('Reset to defaults restores first-time-visitor state', async ({ page }) => {
     // Start with everything on, then reset — should land on sparklines/perNight off.
     await gotoFresh(page, ALL_ON);
@@ -256,6 +291,7 @@ test.describe('Settings dialog', () => {
     expect(await page.locator('#settingsDialog input[data-setting="sparklines"]').isChecked()).toBe(false);
     expect(await page.locator('#settingsDialog input[data-setting="perNight"]').isChecked()).toBe(false);
     expect(await page.locator('#settingsDialog input[data-setting="wikiLinks"]').isChecked()).toBe(true);
+    expect(await page.locator('#settingsDialog input[data-setting="companyLinks"]').isChecked()).toBe(false);
     await expect(page.locator('body')).toHaveClass(/hide-sparklines/);
   });
 });
