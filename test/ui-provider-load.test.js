@@ -99,8 +99,8 @@ async function createSandbox({
     rateNote: createElement(),
     totalCount: createElement(),
     totalShips: createElement(),
+    totalProviders: createElement(),
     updatedAt: createElement(),
-    providerStats: createElement(),
     cruiseBody: createElement(),
     buildInfo: createElement(),
     gbpToggle: createElement({ checked: true }),
@@ -257,8 +257,8 @@ test('loads the provider manifest and provider-specific cruise file on init', as
   assert.match(elements.cruiseBody.innerHTML, /data-label="Cruise line"/);
   assert.match(elements.cruiseBody.innerHTML, /data-label="Book"/);
   assert.match(elements.cruiseBody.innerHTML, /Royal Caribbean/);
-  assert.match(elements.providerStats.innerHTML, /Royal Caribbean/);
-  assert.match(elements.providerStats.innerHTML, /Updated:/);
+  assert.equal(elements.totalProviders.textContent, '1');
+  assert.match(elements.updatedAt.textContent, /27 Apr 2026/);
   assert.ok(sandbox.localStorage.getItem('cached_cruises:royal-caribbean'));
   assert.ok(sandbox.localStorage.getItem('cached_cruises'));
 });

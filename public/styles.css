@@ -30,7 +30,7 @@
     header {
       background: linear-gradient(135deg, #060f1e 0%, #0d2045 40%, #1a3a6b 100%);
       color: #fff;
-      padding: 28px 24px 32px;        /* tighter than before — waves now live behind, not below */
+      padding: 28px 24px 32px;
       position: relative;
       overflow: hidden;
     }
@@ -103,40 +103,6 @@
       letter-spacing: 0.06em;
     }
 
-    .provider-stats {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-    }
-
-    .provider-chip {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.92);
-      font-size: 0.8rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .provider-chip small {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,.68);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .provider-chip strong {
-      color: #fff;
-      font-weight: 800;
-    }
-
     /* Animated waves drift behind the header content (z-index 0). Each SVG
        holds two identical cycles and translates by exactly -50% so the loop
        is seamless. */
@@ -149,9 +115,9 @@
     }
     .header-wave .wave {
       position: absolute;
-      left: 0; top: 0;
+      left: 0; top: 8px;
       width: 200%;
-      height: 100%;
+      height: 120px;
       display: block;
       will-change: transform;
     }
@@ -353,11 +319,6 @@
     }
 
     .toggle-switch input:checked ~ .toggle-thumb { transform: translateX(20px); }
-
-    #rateNote {
-      font-size: 0.75rem;
-      color: var(--gray-400);
-    }
 
     /* ── Status bar ──────────────────────────────────────────────────────────── */
     #statusBar {
@@ -899,6 +860,11 @@
         color: var(--gray-400);
       }
 
+      td.col-ship::before {
+        content: none;
+        display: none;
+      }
+
       /* Hide # column, individual provider/class/launch columns, and book column */
       td.col-num,
       td.col-provider,
@@ -1052,6 +1018,7 @@
         flex-shrink: 0;
       }
 
+      #mobileSavedSelect,
       #mobileSortSelect {
         flex: 1;
         min-width: 0;
@@ -1265,17 +1232,28 @@
     #settingsBtn:hover  { background: rgba(255,255,255,.15); color: #fff; border-color: rgba(255,255,255,.28); }
     #settingsBtn:active { transform: scale(.94); }
 
-    /* Reference exchange-rate text — small line under the stats inside the
-       dark header. Was previously a control alongside the GBP toggle, now
-       purely informational. */
-    .rate-note {
-      display: inline-block;
-      margin-top: 14px;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,.55);
-      letter-spacing: 0.04em;
+    /* Reference exchange-rate text inside Display options. */
+    .settings-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      margin-bottom: 14px;
+      font-size: 0.82rem;
     }
-    .rate-note:empty { display: none; }
+    .settings-info-label {
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .rate-note {
+      color: var(--gray-600);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
 
     /* ── ★ Saved views button — light theme, lives in toolbar ───────────── */
     #savedViewsBtn, #mobSavedViewsBtn {
@@ -1524,4 +1502,3 @@
       -webkit-mask-image: url(./img/ship-medium.png); mask-image: url(./img/ship-medium.png); }
     .ship-icon-wrap.tier-small  { width: 26px; height: 9px;
       -webkit-mask-image: url(./img/ship-small.png);  mask-image: url(./img/ship-small.png);  }
-

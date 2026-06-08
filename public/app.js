@@ -336,7 +336,7 @@
       document.getElementById('rateNote').textContent = `1 USD = £${usdToGbp.toFixed(4)}`;
     } catch {
       usdToGbp = 0.79;
-      document.getElementById('rateNote').textContent = 'Rate: £0.79 / $1 (est.)';
+      document.getElementById('rateNote').textContent = '1 USD = £0.7900 (est.)';
     }
     if (allCruises.length) applyFilters();
   }
@@ -364,31 +364,16 @@
     document.getElementById('totalCount').textContent = allCruises.length.toLocaleString();
     const ships = new Set(allCruises.map(c => c.shipName).filter(Boolean));
     document.getElementById('totalShips').textContent = ships.size;
+    const providers = new Set(allCruises.map(c => c.provider).filter(Boolean));
+    document.getElementById('totalProviders').textContent = providers.size.toLocaleString();
     if (scrapedAt) {
-      const d = new Date(scrapedAt);
-      document.getElementById('updatedAt').textContent = d.toLocaleTimeString('en-GB', {
-        hour: '2-digit', minute: '2-digit', timeZone: 'UTC',
-      }) + ' UTC';
+      document.getElementById('updatedAt').textContent = formatProviderUpdatedAt(scrapedAt).replace(/^Updated:\s*/, '');
     }
-
-    renderProviderStats(allCruises);
 
     // Apply any sort / filter state from the URL hash before the first render
     // so refreshes and shared links land on the same view.
     applyUrlState();
     applyFilters();
-  }
-
-  function renderProviderStats(cruises) {
-    const container = document.getElementById('providerStats');
-    const chips = (loadedProviders.length ? loadedProviders : [{ id: 'unknown', name: 'Unknown' }]).map(provider => {
-      const count = loadedProviderCounts.get(provider.id) || 0;
-      const scrapedAt = loadedProviderScrapedAts.get(provider.id);
-      const updatedText = scrapedAt ? formatProviderUpdatedAt(scrapedAt) : 'Updated: —';
-      return `<span class="provider-chip"><span><strong>${escHtml(provider.name)}</strong> ${count.toLocaleString()}</span><small>${escHtml(updatedText)}</small></span>`;
-    });
-
-    container.innerHTML = chips.length ? chips.join('') : '<span class="provider-chip"><strong>No providers</strong> 0</span>';
   }
 
   function formatProviderUpdatedAt(scrapedAt) {
@@ -966,11 +951,15 @@
     const dlg = document.getElementById('savedViewsDialog');
     if (!dlg) return;
     renderSavedViewsList();
-    document.getElementById('svNameInput').value = '';
+    setSuggestedSavedViewName();
     setSavedViewStatus('', null);
     if (typeof dlg.showModal === 'function') dlg.showModal();
     else dlg.setAttribute('open', '');
-    setTimeout(() => document.getElementById('svNameInput')?.focus(), 50);
+    setTimeout(() => {
+      const input = document.getElementById('svNameInput');
+      input?.focus();
+      input?.select();
+    }, 50);
   }
   // Quick-pick dropdown for saved views on mobile (sits where the Sort
   // dropdown used to live). Picking a view applies it; "Manage…" opens
@@ -985,13 +974,20 @@
     opts.push('<option value="__save__">＋ Save current view…</option>');
     if (views.length) {
       opts.push('<optgroup label="Your views">');
-      for (const v of views) opts.push(`<option value="${escHtml(v.id)}">${escHtml(v.name)}</option>`);
+      for (const v of views) opts.push(`<option value="${escHtml(v.id)}">${escHtml(compactSavedViewMenuName(v.name))}</option>`);
       opts.push('</optgroup>');
       opts.push('<option value="__manage__">Manage saved views…</option>');
     }
     sel.innerHTML = opts.join('');
     sel.value = '';
   }
+
+  function compactSavedViewMenuName(name) {
+    const text = String(name || 'Untitled view').replace(/\s+/g, ' ').trim();
+    if (text.length <= 32) return text;
+    return `${text.slice(0, 29).trim()}...`;
+  }
+
   function mobileSavedSelectChange() {
     const sel = document.getElementById('mobileSavedSelect');
     if (!sel) return;
@@ -1040,6 +1036,19 @@
       .join('');
   }
   // Human-readable one-liner for a saved view's URL hash, shown beneath the name.
+  const SAVED_VIEW_SORT_LABELS = {
+    1: 'Ship',
+    7: 'Departure',
+    8: 'Nights',
+    11: 'Price',
+    12: 'Price (Inside)',
+    13: 'Price (Sea)',
+    14: 'Price (Balcony)',
+    15: 'Price (Suite)',
+    16: 'Price change',
+    17: 'GBP/night',
+  };
+
   function humanSummariseHash(hash) {
     if (!hash) return 'No filters';
     const p = new URLSearchParams(hash);
@@ -1047,10 +1056,7 @@
     const sort = p.get('sort');
     if (sort) {
       const [col, dir] = sort.split('-');
-      const labels = { 1:'Ship', 7:'Departure', 8:'Nights', 11:'Price', 12:'Price (Inside)',
-                       13:'Price (Sea)', 14:'Price (Balcony)', 15:'Price (Suite)',
-                       16:'Price change', 17:'£/night' };
-      parts.push(`Sort: ${labels[col] || ('col '+col)} ${dir === 'asc' ? '↑' : '↓'}`);
+      parts.push(`Sort: ${SAVED_VIEW_SORT_LABELS[col] || ('col '+col)} ${dir === 'asc' ? '↑' : '↓'}`);
     }
     for (const [k, v] of p) {
       if (k === 'sort' || k === 'all' || k === 'gbp') continue;
@@ -1058,6 +1064,67 @@
     }
     return parts.length ? parts.join(' · ') : 'No filters';
   }
+
+  function savedViewFilterLabel(key, value) {
+    const v = String(value || '').trim();
+    if (!v) return '';
+    if (key === 'provider') return v;
+    if (key === 'shipName') return v;
+    if (key === 'shipClass') {
+      if (v.startsWith('tier:')) {
+        const tier = v.slice(5);
+        return tier ? `${tier[0].toUpperCase()}${tier.slice(1)} ships` : '';
+      }
+      return `${v} class`;
+    }
+    if (key === 'departureRegion') return v;
+    if (key === 'departurePort') return `From ${v}`;
+    if (key === 'destination') return v;
+    if (key === 'itinerary') return v;
+    if (key === 'departureDate') return v;
+    if (key === 'minLaunch') return `Ships ${v}+`;
+    if (key === 'duration') return `${v}+ nights`;
+    if (key === 'maxPrice') return `Under GBP ${Number(v).toLocaleString('en-GB')}`;
+    return v;
+  }
+
+  function buildSuggestedSavedViewName(hash) {
+    const p = new URLSearchParams(hash || '');
+    const preferredFields = [
+      'provider',
+      'shipName',
+      'shipClass',
+      'destination',
+      'departureRegion',
+      'departurePort',
+      'itinerary',
+      'departureDate',
+      'duration',
+      'maxPrice',
+      'minLaunch',
+    ];
+    const parts = preferredFields
+      .map(field => savedViewFilterLabel(field, p.get(field)))
+      .filter(Boolean)
+      .slice(0, 3);
+
+    const sort = p.get('sort');
+    if (sort) {
+      const [col, dir] = sort.split('-');
+      const label = SAVED_VIEW_SORT_LABELS[col] || `Column ${col}`;
+      parts.push(`${label} ${dir === 'asc' ? 'low-high' : 'high-low'}`);
+    }
+
+    const name = parts.length ? parts.join(' · ') : 'All sailings';
+    return name.length > 60 ? `${name.slice(0, 57).trim()}...` : name;
+  }
+
+  function setSuggestedSavedViewName() {
+    const input = document.getElementById('svNameInput');
+    if (!input) return;
+    input.value = buildSuggestedSavedViewName(serializeUrlState());
+  }
+
   function saveCurrentView(name) {
     const trimmed = String(name || '').trim();
     if (!trimmed) return;
@@ -1072,6 +1139,7 @@
     persistSavedViews(views);
     renderSavedViewsList();
     refreshMobileSavedSelect();
+    setSuggestedSavedViewName();
   }
   function applySavedView(id) {
     const view = loadSavedViews().find(v => v.id === id);
@@ -1187,7 +1255,7 @@
     document.getElementById('svSaveForm')?.addEventListener('submit', ev => {
       ev.preventDefault();
       saveCurrentView(document.getElementById('svNameInput').value);
-      document.getElementById('svNameInput').value = '';
+      document.getElementById('svNameInput')?.select();
     });
     document.getElementById('svList')?.addEventListener('click', ev => {
       const apply  = ev.target.closest('.sv-apply');

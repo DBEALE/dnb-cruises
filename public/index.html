@@ -35,15 +35,14 @@
         <span class="hstat-lbl">Ships</span>
       </div>
       <div class="hstat">
+        <span class="hstat-val" id="totalProviders">—</span>
+        <span class="hstat-lbl">Cruise lines</span>
+      </div>
+      <div class="hstat">
         <span class="hstat-val" id="updatedAt">—</span>
         <span class="hstat-lbl">Latest sync</span>
       </div>
-      <div class="hstat">
-        <span class="hstat-lbl">By provider</span>
-        <div id="providerStats" class="provider-stats"></div>
-      </div>
     </div>
-    <span id="rateNote" class="rate-note" aria-live="polite"></span>
   </div>
 </header>
 
@@ -370,6 +369,11 @@
       <button type="button" class="ph-close" id="settingsClose" aria-label="Close">×</button>
     </div>
     <p class="settings-hint">Toggle features off to declutter the table. Choices save automatically to this browser.</p>
+
+    <div class="settings-info">
+      <span class="settings-info-label">USD exchange rate</span>
+      <span id="rateNote" class="rate-note" aria-live="polite">Loading...</span>
+    </div>
 
     <div class="settings-phone">
       <label for="settingsPhone">WhatsApp number for cruise alerts</label>

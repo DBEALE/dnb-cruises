@@ -191,6 +191,22 @@ test.describe('URL state', () => {
   });
 });
 
+test.describe('Saved views', () => {
+  test('suggests an editable name from current filters and sort', async ({ page }) => {
+    await gotoFresh(page);
+    await page.selectOption('#sortSelect', '14');
+    await page.locator('.col-filter[data-field="provider"]').selectOption('Royal Caribbean');
+
+    await page.click('#savedViewsBtn');
+    await page.waitForSelector('dialog#savedViewsDialog[open]');
+    await expect(page.locator('#svNameInput')).toHaveValue('Royal Caribbean · Price (Balcony) low-high');
+
+    await page.locator('#svNameInput').fill('My balcony shortlist');
+    await page.locator('#svSaveForm button[type="submit"]').click();
+    await expect(page.locator('.sv-name').first()).toHaveText('My balcony shortlist');
+  });
+});
+
 test.describe('Settings dialog', () => {
   test('first-time visitors get sparklines and £/night off; the body class reflects it', async ({ page }) => {
     await gotoFresh(page);
