@@ -52,6 +52,53 @@
   const SITE_CHANGES = [
     {
       date: '8 Jun 2026',
+      title: 'Celebrity room-tab pricing',
+      items: [
+        'Celebrity cards now read the room-type prices from the type-and-subtype page tabs.',
+        'That keeps the displayed cabin prices aligned with the live room-selection page.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Celebrity room type detection',
+      items: [
+        'Celebrity live room-page prices now use the visible room copy to identify the cabin type.',
+        'That lets the live price replace the matching cabin bucket instead of only updating the from-price.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Celebrity room-page price capture',
+      items: [
+        'Celebrity cards now read the live room page price when the booking flow exposes it in the HTML.',
+        'That live room price can now override the older scraped price on the card.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Footer cleanup',
+      items: [
+        'Removed the Royal Caribbean data source footer line from the page.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Celebrity room-selection prices',
+      items: [
+        'Celebrity cruise cards now use live room-selection pricing when it is available.',
+        'The displayed from-price falls back to the GraphQL scrape only when the room-selection page has no cabin prices.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
+      title: 'Summary line filter details',
+      items: [
+        'The Showing sailings line now includes a short summary of the active filters.',
+        'The count still leads, so the overall result size stays easy to scan.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
       title: 'Header and sort alignment polish',
       items: [
         'Centered the mobile Sort label with its dropdown.',
@@ -1427,6 +1474,28 @@
     return names[col] || '';
   }
 
+  function selectedFilterSummary(filters) {
+    const parts = [];
+    const add = (label) => { if (label) parts.push(label); };
+    const source = filters || {};
+    add(savedViewFilterLabel('provider', source.provider));
+    add(savedViewFilterLabel('shipName', source.shipName));
+    add(savedViewFilterLabel('shipClass', source.shipClass));
+    add(savedViewFilterLabel('departureRegion', source.departureRegion));
+    add(savedViewFilterLabel('departurePort', source.departurePort));
+    const departureParams = new URLSearchParams();
+    if (source.departureStart) departureParams.set('departureStart', source.departureStart);
+    if (source.departureEnd) departureParams.set('departureEnd', source.departureEnd);
+    const departure = savedViewDepartureRangeLabel(departureParams);
+    add(departure);
+    add(savedViewFilterLabel('destination', source.destination));
+    add(savedViewFilterLabel('itinerary', source.itinerary));
+    add(savedViewFilterLabel('minLaunch', source.minLaunch));
+    add(savedViewFilterLabel('duration', source.duration));
+    add(savedViewFilterLabel('maxPrice', source.maxPrice));
+    return parts.slice(0, 3).join(' · ');
+  }
+
   function buildSuggestedSavedViewName(hash) {
     const p = new URLSearchParams(hash || '');
     const preferredFields = [
@@ -1874,13 +1943,15 @@
     const allLabel = `${allCruises.length.toLocaleString()}`;
     const showAllLink = `<button type="button" class="show-all-btn" onclick="enableShowAll()">Show all</button>`;
     const sortHint = `<span class="sort-hint"> — tap a column header to sort.</span>`;
+    const filterSummary = selectedFilterSummary(colFilters);
+    const filterSuffix = filterSummary ? ` · ${filterSummary}` : '';
     let summary;
     if (capped.length < sorted.length) {
-      summary = `Showing first ${capped.length.toLocaleString()} of ${sorted.length.toLocaleString()} sailings · ${showAllLink}${sortHint}`;
+      summary = `Showing first ${capped.length.toLocaleString()} of ${sorted.length.toLocaleString()} sailings${filterSuffix} · ${showAllLink}${sortHint}`;
     } else if (filtered.length === allCruises.length) {
-      summary = `Showing all ${allLabel} sailings${sortHint}`;
+      summary = `Showing all ${allLabel} sailings${filterSuffix}${sortHint}`;
     } else {
-      summary = `Showing ${filtered.length.toLocaleString()} of ${allLabel} sailings.`;
+      summary = `Showing ${filtered.length.toLocaleString()} of ${allLabel} sailings${filterSuffix}.`;
     }
     document.getElementById('summary').innerHTML = summary;
     syncStickySummary(capped.length, sorted.length, filtered.length === allCruises.length);

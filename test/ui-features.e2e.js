@@ -177,6 +177,7 @@ test.describe('Sort and filter', () => {
     await gotoFresh(page);
     await page.locator('.col-filter[data-field="provider"]').selectOption('Celebrity Cruises');
     await expect(page.locator('#summary')).toContainText('1 of 3');
+    await expect(page.locator('#summary')).toContainText('Cruise line: Celebrity Cruises');
     expect(await page.locator('tbody tr').count()).toBe(1);
   });
 
@@ -188,6 +189,7 @@ test.describe('Sort and filter', () => {
     await page.click('#departureRangeApply');
 
     await expect(page.locator('#summary')).toContainText('2 of 3');
+    await expect(page.locator('#summary')).toContainText('Departure: 31 Aug 2026 - 1 Sept 2026');
     await expect(page.locator('tbody')).toContainText('Anthem of the Seas');
     await expect(page.locator('tbody')).toContainText('Harmony of the Seas');
     await expect(page.locator('tbody')).not.toContainText('Celebrity Edge');

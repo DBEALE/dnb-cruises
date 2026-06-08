@@ -72,12 +72,34 @@ test('fetchCruises downloads and parses the Celebrity page', async () => {
   const originalFetch = global.fetch;
   const requests = [];
   global.fetch = async (url, options = {}) => {
+    requests.push({ url, options });
+
+    if (String(url).startsWith('https://www.celebritycruises.com/gb/room-selection/type-and-subtype')) {
+      return {
+        ok: true,
+        status: 200,
+        url: String(url),
+        text: async () => `
+          <html>
+            <body>
+              <div>Inside From £929*</div>
+              <div>Ocean View From £905*</div>
+              <div>Veranda From £903*</div>
+              <div>Concierge Class From £1,004*</div>
+              <div>AquaClass From £1,200*</div>
+              <div>The Retreat From £3,109*</div>
+              <h1>Celebrity selects your room</h1>
+              <p data-testid="main-price-amount">£929</p>
+            </body>
+          </html>`,
+      };
+    }
+
     // Stub room-selection API calls that arise from itinerary enrichment
     if (String(url).startsWith('https://www.celebritycruises.com/room-selection/api/v1/rooms')) {
       return { ok: true, status: 200, json: async () => ({}) };
     }
 
-    requests.push({ url, options });
     const body = JSON.parse(options.body);
     const skip = body.variables.pagination.skip;
 
@@ -192,7 +214,7 @@ test('fetchCruises downloads and parses the Celebrity page', async () => {
   try {
     const cruises = await provider.fetchCruises();
     assert.equal(cruises.length, 3);
-    assert.equal(requests.length, 2);
+    assert.equal(requests.filter(req => String(req.url).startsWith('https://www.celebritycruises.com/gb/room-selection/type-and-subtype')).length, 3);
     assert.equal(cruises[0].provider, 'Celebrity Cruises');
     assert.equal(cruises[0].bookingUrl, 'https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=BY07MIA-56550375&pID=BY07E468&sDT=2026-08-30&sCD=BY&sCT=CO&country=GBR');
     assert.equal(cruises[1].departurePort, 'Rome (Civitavecchia), Italy');
@@ -252,6 +274,8 @@ test('parseBookingContext extracts fields from a /booking-cruise/ URL (pID / sDT
     {
       packageCode:           'BY07E468',
       sailDate:              '2026-08-30',
+      groupId:               'BY07MIA-56550375',
+      shipCode:              'BY',
       selectedCurrencyCode:  'GBP',
       country:               'GBR',
     },
@@ -266,14 +290,46 @@ test('parseBookingContext extracts fields from a /gb/itinerary/ URL (packageCode
     {
       packageCode:           'BY07E468',
       sailDate:              '2026-08-30',
+      groupId:               'BY07MIA-56550375',
+      shipCode:              '',
       selectedCurrencyCode:  'GBP',
       country:               'GBR',
     },
   );
 });
 
-test('fetchCruises enriches itinerary with port sequence from room-selection API', async () => {
+test('fetchCruises enriches itinerary with port sequence and room-tab prices from the type-and-subtype page', async () => {
   const originalFetch = global.fetch;
+  const roomSelectionHtml = `
+    <html>
+      <body>
+        <div class="RoomTypeTabs">
+          <div>Inside From £929*</div>
+          <div>Ocean View From £905*</div>
+          <div>Veranda From £903*</div>
+          <div>Concierge Class From £1,004*</div>
+          <div>AquaClass From £1,200*</div>
+          <div>The Retreat From £3,109*</div>
+        </div>
+        <h1>Celebrity selects your room</h1>
+        <div class="RoomAndGuestsCard_pricingWrapper__1ad9m7mh">
+          <h2>We choose your Inside Stateroom</h2>
+          <div class="RoomPrice_root__1anub7d2 RoomPrice_affirmClass__1anub7d0" data-testid="room-details-price">
+            <div class="RoomPrice_pricingWithLabelContainer__1anub7d3">
+              <div class="RoomPrice_startingFrom__1anub7d4 typography_fontSubtextSemi__wevhxyf" data-testid="room-price-starting-label">Starting from</div>
+              <div class="RoomPrice_pricingWrapper__1anub7d9">
+                <p class="RoomPrice_pricingLabel__1anub7d7 typography_fontHeading2__wevhxy2" data-testid="main-price-amount">£929</p>
+                <div class="RoomPrice_priceLabel__1anub7da typography_fontCaptionReg__wevhxyp" data-testid="main-price-label">Avg GBP/person*</div>
+                <div class="RoomPrice_perPersonLabel__1anub7d8 typography_fontLabelSmallReg__wevhxyn" data-testid="secondary-price">
+                  <span class="RoomPrice_secondaryPriceLabel__1anub7db typography_fontCaptionBold__wevhxyo">£1,858</span>
+                  <span class="RoomPrice_priceLabel__1anub7da typography_fontCaptionReg__wevhxyp">Total/Room</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>`;
 
   global.fetch = async (url, options = {}) => {
     const urlStr = String(url);
@@ -288,6 +344,12 @@ test('fetchCruises enriches itinerary with port sequence from room-selection API
           ok: true, status: 200,
           json: async () => ({
             sailing: {
+              stateroomClasses: [
+                { id: 'X', name: 'Interior',   lowestPrice: { amount: 1571 } },
+                { id: 'N', name: 'Ocean View', lowestPrice: { amount: 1810 } },
+                { id: 'B', name: 'Balcony',    lowestPrice: { amount: 1599 } },
+                { id: 'S', name: 'Suite',      lowestPrice: { amount: 3699 } },
+              ],
               itinerary: {
                 chapters: [
                   { port: { name: 'Miami', region: 'Florida' } },
@@ -302,6 +364,15 @@ test('fetchCruises enriches itinerary with port sequence from room-selection API
       }
 
       return { ok: true, status: 200, json: async () => ({}) };
+    }
+
+    if (urlStr.startsWith('https://www.celebritycruises.com/gb/room-selection/type-and-subtype')) {
+      return {
+        ok: true,
+        status: 200,
+        url: urlStr,
+        text: async () => roomSelectionHtml,
+      };
     }
 
     // GraphQL
@@ -353,21 +424,63 @@ test('fetchCruises enriches itinerary with port sequence from room-selection API
       cruises[0].itinerary,
       'Tortola, St. Maarten & Puerto Plata: Tortola, BVI, Philipsburg, St. Maarten, Puerto Plata, Dominican Republic',
     );
+    assert.equal(cruises[0].priceFrom, '903');
+    assert.equal(cruises[0].currency, 'GBP');
+    assert.deepEqual(cruises[0].prices, {
+      inside: '929',
+      oceanView: '905',
+      balcony: '903',
+      suite: '3109',
+    });
+    assert.equal(
+      cruises[0].bookingUrl,
+      'https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=BY07MIA-56550375&pID=BY07E468&sDT=2026-08-30&sCD=BY&sCT=CO&country=GBR',
+    );
   } finally {
     global.fetch = originalFetch;
   }
 });
-// ─── Room-type price extraction ────────────────────────────────────────────────
 
-test('classifyRoomType identifies inside / ocean view / balcony / suite entries', () => {
-  assert.equal(provider.classifyRoomType({ id: 'X', name: 'Interior' }), 'inside');
-  assert.equal(provider.classifyRoomType({ id: 'I', name: 'Inside Cabin' }), 'inside');
-  assert.equal(provider.classifyRoomType({ id: 'N', name: 'Ocean View' }), 'oceanView');
-  assert.equal(provider.classifyRoomType({ id: 'OV', name: 'Oceanview' }), 'oceanView');
-  assert.equal(provider.classifyRoomType({ id: 'B', name: 'Balcony' }), 'balcony');
-  assert.equal(provider.classifyRoomType({ id: 'S', name: 'Suite' }), 'suite');
-  assert.equal(provider.classifyRoomType({ id: 'GS', name: 'Grand Suite' }), 'suite');
-  assert.equal(provider.classifyRoomType({ id: 'ZZ', name: 'Unknown' }), null);
+// Room-type price extraction
+test('extractRoomSelectionPriceFromHtml reads the live room price from the booking page', () => {
+  assert.equal(
+    provider.extractRoomSelectionPriceFromHtml(`
+      <div data-testid="room-details-price">
+        <p data-testid="main-price-amount">£495</p>
+        <div data-testid="secondary-price"><span>£989</span></div>
+      </div>
+    `),
+    '495',
+  );
+});
+
+test('extractRoomTypePricesFromRoomSelectionHtml reads the room tabs from the type-and-subtype page', () => {
+  assert.deepEqual(
+    provider.extractRoomTypePricesFromRoomSelectionHtml(`
+      <body>
+        <div>We choose your Inside Stateroom</div>
+        <p data-testid="main-price-amount">£929</p>
+        <div>Inside From £371*</div>
+        <div>Ocean View From £408*</div>
+        <div>Veranda From £528*</div>
+        <div>Concierge Class From £629*</div>
+        <div>AquaClass From £677*</div>
+        <div>The Retreat From £1,767*</div>
+        <h1>Celebrity selects your room</h1>
+      </body>
+    `),
+    {
+      inside: '371',
+      oceanView: '408',
+      balcony: '528',
+      suite: '1767',
+    },
+  );
+});
+
+test('inferRoomTypeFromRoomSelectionHtml reads the visible room type from the room page copy', () => {
+  assert.equal(provider.inferRoomTypeFromRoomSelectionHtml('<body><h1>We choose your Inside Stateroom</h1></body>'), 'inside');
+  assert.equal(provider.inferRoomTypeFromRoomSelectionHtml('<body><h1>Ocean View Stateroom</h1></body>'), 'oceanView');
 });
 
 test('extractRoomTypePricesFromPayload reads per-class prices from sailing.stateroomClasses', () => {

@@ -235,11 +235,13 @@ function parseBookingContext(bookingUrl) {
     const url = new URL(bookingUrl);
     const packageCode = cleanText(url.searchParams.get('packageCode') || url.searchParams.get('pID'));
     const sailDate    = cleanText(url.searchParams.get('sailDate')    || url.searchParams.get('sDT'));
+    const groupId     = cleanText(url.searchParams.get('groupId'));
+    const shipCode    = cleanText(url.searchParams.get('shipCode') || url.searchParams.get('sCD'));
     const country     = cleanText(url.searchParams.get('country')) || 'GBR';
 
     if (!packageCode || !sailDate) return null;
 
-    return { packageCode, sailDate, selectedCurrencyCode: 'GBP', country };
+    return { packageCode, sailDate, groupId, shipCode, selectedCurrencyCode: 'GBP', country };
   } catch {
     return null;
   }
@@ -289,6 +291,31 @@ function buildRoomSelectionFilter(context) {
     roomNumbers:  false,
     rooms:        [{ adultCount: 2, childCount: 0 }],
   };
+}
+
+function buildRoomSelectionTypeUrl(context, roomType = 'INTERIOR') {
+  if (!context?.packageCode || !context?.sailDate || !context?.groupId || !context?.shipCode) return '';
+
+  const url = new URL('https://www.celebritycruises.com/gb/room-selection/type-and-subtype');
+  url.searchParams.set('groupId', context.groupId);
+  url.searchParams.set('country', context.country || 'GBR');
+  url.searchParams.set('selectedCurrencyCode', context.selectedCurrencyCode || 'GBP');
+  url.searchParams.set('packageCode', context.packageCode);
+  url.searchParams.set('sailDate', context.sailDate);
+  url.searchParams.set('shipCode', context.shipCode);
+  url.searchParams.set('roomIndex', '0');
+  url.searchParams.set('r0a', '2');
+  url.searchParams.set('r0c', '0');
+  url.searchParams.set('r0b', 'n');
+  url.searchParams.set('r0r', 'n');
+  url.searchParams.set('r0s', 'n');
+  url.searchParams.set('r0q', 'n');
+  url.searchParams.set('r0t', 'n');
+  url.searchParams.set('r0d', roomType || 'INTERIOR');
+  url.searchParams.set('r0D', 'y');
+  url.searchParams.set('rgVisited', 'true');
+  url.searchParams.set('r0C', 'y');
+  return url.toString();
 }
 
 /**
@@ -363,6 +390,125 @@ function extractPricesFromClassPricing(stateroomClassPricing) {
   return prices;
 }
 
+function inferRoomTypeFromRoomSelectionUrl(url) {
+  const value = cleanText(url).toUpperCase();
+  const query = value.includes('?') ? value.slice(value.indexOf('?') + 1) : value;
+  const params = new URLSearchParams(query);
+  const raw = cleanText(params.get('R0D') || params.get('r0d') || '');
+
+  if (/INTERIOR|INSIDE/.test(raw)) return 'inside';
+  if (/OCEAN/.test(raw)) return 'oceanView';
+  if (/BALCONY|VERANDA/.test(raw)) return 'balcony';
+  if (/SUITE/.test(raw)) return 'suite';
+
+  if (/INTERIOR|INSIDE/.test(value)) return 'inside';
+  if (/OCEAN/.test(value)) return 'oceanView';
+  if (/BALCONY|VERANDA/.test(value)) return 'balcony';
+  if (/SUITE/.test(value)) return 'suite';
+  return null;
+}
+
+function extractRoomSelectionPriceFromHtml(html) {
+  const $ = cheerio.load(html || '');
+  const primary = cleanText($('[data-testid="main-price-amount"]').first().text());
+  return parsePrice(primary);
+}
+
+function extractTabbedRoomPrice(text, labelPatterns, disallowPatterns = []) {
+  const value = cleanText(text);
+  if (!value) return null;
+
+  const candidates = [];
+  for (const pattern of labelPatterns) {
+    const regex = new RegExp(`${pattern.source}[\\s\\S]{0,140}?£\\s*[\\d,.]+`, 'ig');
+    for (const match of value.matchAll(regex)) {
+      const chunk = match[0];
+      if (disallowPatterns.some(disallow => disallow.test(chunk))) continue;
+      const price = parsePrice(chunk);
+      if (price) candidates.push({ index: match.index ?? value.indexOf(chunk), price });
+    }
+  }
+
+  candidates.sort((a, b) => a.index - b.index);
+  return candidates.length > 0 ? candidates[0].price : null;
+}
+
+function extractRoomTypePricesFromRoomSelectionHtml(html) {
+  const prices = { inside: null, oceanView: null, balcony: null, suite: null };
+  const $ = cheerio.load(html || '');
+  const text = cleanText($('body').text() || $.root().text());
+
+  prices.inside = extractTabbedRoomPrice(text, [
+    /\bInside\b/i,
+  ], [
+    /\bstateroom\b/i,
+    /\bstarting\s+from\b/i,
+    /\bavg\s+gbp\/person\b/i,
+    /\btotal\/room\b/i,
+  ]);
+
+  prices.oceanView = extractTabbedRoomPrice(text, [
+    /\bOcean View\b/i,
+  ], [
+    /\bstateroom\b/i,
+    /\bstarting\s+from\b/i,
+    /\bavg\s+gbp\/person\b/i,
+    /\btotal\/room\b/i,
+  ]);
+
+  prices.balcony = extractTabbedRoomPrice(text, [
+    /\bVeranda\b/i,
+    /\bBalcony\b/i,
+  ], [
+    /\bstateroom\b/i,
+    /\bstarting\s+from\b/i,
+    /\bavg\s+gbp\/person\b/i,
+    /\btotal\/room\b/i,
+  ]);
+
+  prices.suite = extractTabbedRoomPrice(text, [
+    /\bThe Retreat\b/i,
+    /\bSuite\b/i,
+  ], [
+    /\bstateroom\b/i,
+    /\bstarting\s+from\b/i,
+    /\bavg\s+gbp\/person\b/i,
+    /\btotal\/room\b/i,
+  ]);
+
+  return prices;
+}
+
+function inferRoomTypeFromRoomSelectionHtml(html) {
+  const $ = cheerio.load(html || '');
+  const text = cleanText($('body').text() || $.root().text());
+
+  if (/\bInside Stateroom\b/i.test(text) || /\bInside\b/i.test(text)) return 'inside';
+  if (/\bOcean View Stateroom\b/i.test(text) || /\bOcean View\b/i.test(text)) return 'oceanView';
+  if (/\bConcierge Class\b/i.test(text) || /\bAquaClass\b/i.test(text) || /\bVeranda\b/i.test(text) || /\bBalcony\b/i.test(text)) return 'balcony';
+  if (/\bSuite\b/i.test(text)) return 'suite';
+  return null;
+}
+
+function mergeRoomTypePrices(basePrices, overridePrices) {
+  const merged = { inside: null, oceanView: null, balcony: null, suite: null };
+  for (const key of Object.keys(merged)) {
+    const override = cleanText(overridePrices?.[key]);
+    const base = cleanText(basePrices?.[key]);
+    merged[key] = override || base || null;
+  }
+  return merged;
+}
+
+function getLowestRoomTypePrice(prices) {
+  const values = Object.values(prices || {})
+    .map(value => parseFloat(value))
+    .filter(value => Number.isFinite(value) && value > 0)
+    .sort((a, b) => a - b);
+
+  return values.length > 0 ? String(values[0]) : '';
+}
+
 async function fetchRoomSelectionData(context) {
   const filter = buildRoomSelectionFilter(context);
   const params = new URLSearchParams({
@@ -389,6 +535,43 @@ async function fetchRoomSelectionData(context) {
   };
 }
 
+async function fetchRoomSelectionPagePrice(context) {
+  const roomSelectionUrl = buildRoomSelectionTypeUrl(context);
+  if (!roomSelectionUrl) {
+    return {
+      roomType: null,
+      price: '',
+      prices: { inside: null, oceanView: null, balcony: null, suite: null },
+    };
+  }
+
+  const response = await fetch(roomSelectionUrl, {
+    headers: {
+      'accept':        'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      'accept-language': 'en-GB,en;q=0.9',
+      'user-agent':    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    },
+  });
+
+  if (!response.ok) {
+    return {
+      roomType: null,
+      price: '',
+      prices: { inside: null, oceanView: null, balcony: null, suite: null },
+    };
+  }
+
+  const html = await response.text();
+  const roomType = inferRoomTypeFromRoomSelectionHtml(html)
+    || inferRoomTypeFromRoomSelectionUrl(roomSelectionUrl)
+    || inferRoomTypeFromRoomSelectionUrl(response.url || '');
+  return {
+    roomType,
+    price: extractRoomSelectionPriceFromHtml(html),
+    prices: extractRoomTypePricesFromRoomSelectionHtml(html),
+  };
+}
+
 /** @deprecated Use fetchRoomSelectionData instead. */
 async function fetchRoomSelectionPorts(context) {
   const { ports } = await fetchRoomSelectionData(context);
@@ -402,9 +585,29 @@ async function enrichCruiseItinerary(cruise) {
   if (!context) return cruise;
 
   try {
-    const { ports } = await fetchRoomSelectionData(context);
+    const [{ ports, prices }, pagePrice] = await Promise.all([
+      fetchRoomSelectionData(context),
+      fetchRoomSelectionPagePrice(context),
+    ]);
     const detailedItinerary = buildDetailedItinerary(cruise.itinerary, ports);
-    return { ...cruise, itinerary: detailedItinerary || cruise.itinerary };
+    const mergedPrices = mergeRoomTypePrices(
+      mergeRoomTypePrices(cruise.prices, prices),
+      pagePrice.prices,
+    );
+    if (pagePrice.price && pagePrice.roomType) {
+      mergedPrices[pagePrice.roomType] = pagePrice.price;
+    }
+    const livePriceFrom = getLowestRoomTypePrice(mergedPrices) || pagePrice.price;
+    const hasLivePagePrices = Object.values(pagePrice.prices || {}).some(value => Boolean(cleanText(value)));
+    return {
+      ...cruise,
+      itinerary: detailedItinerary || cruise.itinerary,
+      prices: mergedPrices,
+      priceFrom: livePriceFrom || cruise.priceFrom,
+      currency: (hasLivePagePrices || pagePrice.price)
+        ? (context.selectedCurrencyCode || cruise.currency || 'GBP')
+        : cruise.currency,
+    };
   } catch {
     return cruise;
   }
@@ -511,5 +714,11 @@ provider.extractRoomTypePricesFromPayload = extractRoomTypePricesFromPayload;
 provider.classifyRoomType                 = classifyRoomType;
 provider.buildDetailedItinerary          = buildDetailedItinerary;
 provider.parseBookingContext             = parseBookingContext;
+provider.buildRoomSelectionTypeUrl       = buildRoomSelectionTypeUrl;
+provider.extractRoomSelectionPriceFromHtml = extractRoomSelectionPriceFromHtml;
+provider.extractRoomTypePricesFromRoomSelectionHtml = extractRoomTypePricesFromRoomSelectionHtml;
+provider.inferRoomTypeFromRoomSelectionHtml = inferRoomTypeFromRoomSelectionHtml;
+provider.mergeRoomTypePrices             = mergeRoomTypePrices;
+provider.getLowestRoomTypePrice          = getLowestRoomTypePrice;
 
 module.exports = provider;
