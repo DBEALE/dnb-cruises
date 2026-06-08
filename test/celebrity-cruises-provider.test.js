@@ -457,17 +457,40 @@ test('extractRoomSelectionPriceFromHtml reads the live room price from the booki
 test('extractRoomTypePricesFromRoomSelectionHtml reads the room tabs from the type-and-subtype page', () => {
   assert.deepEqual(
     provider.extractRoomTypePricesFromRoomSelectionHtml(`
-      <body>
-        <div>We choose your Inside Stateroom</div>
-        <p data-testid="main-price-amount">£929</p>
-        <div>Inside From £371*</div>
-        <div>Ocean View From £408*</div>
-        <div>Veranda From £528*</div>
-        <div>Concierge Class From £629*</div>
-        <div>AquaClass From £677*</div>
-        <div>The Retreat From £1,767*</div>
-        <h1>Celebrity selects your room</h1>
-      </body>
+      <div data-testid="type-and-subtype">
+        <div role="tablist" aria-label="Room type options. Use arrow keys to navigate between options.">
+          <button data-testid="tab-INTERIOR" type="button">
+            <span>Inside</span>
+            <div class="RoomTypeTabs_roomTypePrice__1hjx1voa"><span aria-hidden="true">From £371*</span></div>
+          </button>
+          <button data-testid="tab-OUTSIDE" type="button">
+            <span>Ocean View</span>
+            <div class="RoomTypeTabs_roomTypePrice__1hjx1voa"><span aria-hidden="true">From £408*</span></div>
+          </button>
+          <button data-testid="tab-BALCONY" type="button">
+            <span>Veranda</span>
+            <div class="RoomTypeTabs_roomTypePrice__1hjx1voa"><span aria-hidden="true">From £528*</span></div>
+          </button>
+          <button data-testid="tab-CONCIERGE" type="button">
+            <span>Concierge Class</span>
+            <div class="RoomTypeTabs_roomTypePrice__1hjx1voa"><span aria-hidden="true">From £629*</span></div>
+          </button>
+          <button data-testid="tab-AQUA" type="button">
+            <span>AquaClass</span>
+            <div class="RoomTypeTabs_roomTypePrice__1hjx1voa"><span aria-hidden="true">From £677*</span></div>
+          </button>
+          <button data-testid="tab-DELUXE" type="button">
+            <span>The Retreat</span>
+            <div class="RoomTypeTabs_roomTypePrice__1hjx1voa"><span aria-hidden="true">From £1,767*</span></div>
+          </button>
+        </div>
+        <div class="RoomSubtypesList_container__1o4z18e1">
+          <h3>Celebrity selects your room</h3>
+          <div data-testid="room-card-Z" aria-label="Celebrity selects your Inside Stateroom, Starting from ?371 GBP average per person, Lowest Price">
+            <p data-testid="main-price-amount">?371</p>
+          </div>
+        </div>
+      </div>
     `),
     {
       inside: '371',

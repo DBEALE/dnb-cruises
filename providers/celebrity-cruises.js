@@ -414,67 +414,42 @@ function extractRoomSelectionPriceFromHtml(html) {
   return parsePrice(primary);
 }
 
-function extractTabbedRoomPrice(text, labelPatterns, disallowPatterns = []) {
-  const value = cleanText(text);
-  if (!value) return null;
-
-  const candidates = [];
-  for (const pattern of labelPatterns) {
-    const regex = new RegExp(`${pattern.source}[\\s\\S]{0,140}?£\\s*[\\d,.]+`, 'ig');
-    for (const match of value.matchAll(regex)) {
-      const chunk = match[0];
-      if (disallowPatterns.some(disallow => disallow.test(chunk))) continue;
-      const price = parsePrice(chunk);
-      if (price) candidates.push({ index: match.index ?? value.indexOf(chunk), price });
-    }
-  }
-
-  candidates.sort((a, b) => a.index - b.index);
-  return candidates.length > 0 ? candidates[0].price : null;
-}
-
 function extractRoomTypePricesFromRoomSelectionHtml(html) {
   const prices = { inside: null, oceanView: null, balcony: null, suite: null };
   const $ = cheerio.load(html || '');
-  const text = cleanText($('body').text() || $.root().text());
 
-  prices.inside = extractTabbedRoomPrice(text, [
-    /\bInside\b/i,
-  ], [
-    /\bstateroom\b/i,
-    /\bstarting\s+from\b/i,
-    /\bavg\s+gbp\/person\b/i,
-    /\btotal\/room\b/i,
-  ]);
+  const readTabPrice = (testId) => {
+    const text = cleanText($(`button[data-testid="${testId}"] span[aria-hidden="true"]`).first().text());
+    const price = parsePrice(text);
+    return price || null;
+  };
 
-  prices.oceanView = extractTabbedRoomPrice(text, [
-    /\bOcean View\b/i,
-  ], [
-    /\bstateroom\b/i,
-    /\bstarting\s+from\b/i,
-    /\bavg\s+gbp\/person\b/i,
-    /\btotal\/room\b/i,
-  ]);
+  prices.inside = readTabPrice('tab-INTERIOR');
+  prices.oceanView = readTabPrice('tab-OUTSIDE');
+  prices.balcony = readTabPrice('tab-BALCONY');
+  prices.suite = readTabPrice('tab-DELUXE');
 
-  prices.balcony = extractTabbedRoomPrice(text, [
-    /\bVeranda\b/i,
-    /\bBalcony\b/i,
-  ], [
-    /\bstateroom\b/i,
-    /\bstarting\s+from\b/i,
-    /\bavg\s+gbp\/person\b/i,
-    /\btotal\/room\b/i,
-  ]);
+  if (Object.values(prices).some(Boolean)) return prices;
 
-  prices.suite = extractTabbedRoomPrice(text, [
-    /\bThe Retreat\b/i,
-    /\bSuite\b/i,
-  ], [
-    /\bstateroom\b/i,
-    /\bstarting\s+from\b/i,
-    /\bavg\s+gbp\/person\b/i,
-    /\btotal\/room\b/i,
-  ]);
+  const bodyText = cleanText($('body').text() || $.root().text());
+  const scriptText = cleanText($('script').map((_, el) => $(el).text()).get().join(' '));
+  const text = [scriptText, bodyText].filter(Boolean).join(' ');
+
+  const extractByLabel = (patterns) => {
+    const match = patterns
+      .map(pattern => {
+        const regex = new RegExp(`${pattern.source}[\\s\\S]{0,180}?£\\s*[\\d,.]+`, 'ig');
+        return [...text.matchAll(regex)].map(result => result[0]);
+      })
+      .flat()
+      .find(chunk => !/\bstateroom\b/i.test(chunk) && !/\bstarting\s+from\b/i.test(chunk));
+    return match ? parsePrice(match) : null;
+  };
+
+  prices.inside = prices.inside || extractByLabel([/\bInside\b/i]);
+  prices.oceanView = prices.oceanView || extractByLabel([/\bOcean View\b/i]);
+  prices.balcony = prices.balcony || extractByLabel([/\bVeranda\b/i, /\bBalcony\b/i]);
+  prices.suite = prices.suite || extractByLabel([/\bThe Retreat\b/i, /\bSuite\b/i]);
 
   return prices;
 }
