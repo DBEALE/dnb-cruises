@@ -201,6 +201,11 @@
     </button>
   </div>
 
+  <!-- Back-to-top FAB. Fades in once the page is scrolled past a threshold. -->
+  <button type="button" id="backToTopFab" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 4l-6 6h4v6h4v-6h4z"/></svg>
+  </button>
+
   <div class="table-card">
     <div class="table-wrapper">
       <table id="cruiseTable">

@@ -228,6 +228,31 @@
     .sticky-summary-btn:hover { background: var(--gray-50); }
     .sticky-summary-up { color: var(--blue); font-weight: 700; }
 
+    /* Back-to-top FAB — bottom-right, visible once you've scrolled. */
+    #backToTopFab {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      z-index: 60;
+      width: 44px; height: 44px;
+      border: none; border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(13,27,46,.28);
+      display: inline-flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease, background .15s;
+    }
+    #backToTopFab.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #backToTopFab:hover   { background: #1e40af; }
+    #backToTopFab svg     { width: 20px; height: 20px; }
+    /* On small screens, give it a wider safe-area offset away from the corner. */
+    @media (max-width: 480px) {
+      #backToTopFab { bottom: 16px; right: 16px; width: 42px; height: 42px; }
+    }
+
     #summary {
       font-size: 0.875rem;
       color: var(--gray-600);

@@ -666,6 +666,27 @@
     return `<span class="region-badge region-${escHtml(slug)}">${escHtml(region)}</span>`;
   }
 
+  // Collapse trailing country names when every port in an arrow-separated
+  // itinerary shares it. "Sydney, Australia → Brisbane, Australia" becomes
+  // "Sydney → Brisbane" — much easier to scan on mobile where lines wrap.
+  // Anything without " → " (e.g. RC's "Western Caribbean Getaway: <port>"
+  // format) is passed through unchanged.
+  function simplifyItinerary(text) {
+    if (!text || !text.includes(' → ')) return text || '';
+    const ports = text.split(' → ');
+    if (ports.length < 2) return text;
+    const lastSegment = p => {
+      const parts = p.split(', ');
+      return parts.length > 1 ? parts[parts.length - 1].trim() : null;
+    };
+    const tail = lastSegment(ports[0]);
+    if (!tail) return text;
+    if (!ports.every(p => lastSegment(p) === tail)) return text;
+    return ports
+      .map(p => p.split(', ').slice(0, -1).join(', ').trim())
+      .join(' → ');
+  }
+
   function renderBody(list) {
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
@@ -676,7 +697,9 @@
       const date     = formatDateDisplay(c.departureDate);
       const duration = formatDurationDisplay(c.duration);
       const url      = c.bookingUrl ? escHtml(absoluteUrl(c.bookingUrl)) : '';
-      const bookCell = url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">Book →</a>` : '—';
+      const bookCell = url
+        ? `<a href="${url}" target="_blank" rel="noopener noreferrer">Book<svg class="book-ext" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M8 1h5v5h-2V4.4L5.7 9.7 4.3 8.3 9.6 3H8V1zM2 3h4v2H4v6h6V9h2v4H2V3z"/></svg></a>`
+        : '—';
       const priceCell = buildPriceCell(c, url);
       const perNight  = getPricePerNight(c);
       const perNightCell = Number.isFinite(perNight)
@@ -689,7 +712,7 @@
         <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerWikiUrl(c.provider))}</td>
         <td class="col-class" data-label="Class"><span class="class-cell">${wikiLink(c.shipClass, classWikiUrl(c.shipClass))}${classDots(c.shipClass)}</span></td>
         <td class="col-launch" data-label="Launch">${c.shipLaunchYear || '—'}</td>
-        <td class="col-itinerary" data-label="Itinerary">${escHtml(c.itinerary || '—')}</td>
+        <td class="col-itinerary" data-label="Itinerary">${escHtml(simplifyItinerary(c.itinerary) || '—')}</td>
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
         <td class="col-date" data-label="Departure">${escHtml(date)}</td>
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
@@ -1455,10 +1478,18 @@
   function wireStickySummary() {
     if (stickySummaryObserver || typeof IntersectionObserver === 'undefined') return;
     const sticky = document.getElementById('stickySummary');
+    const fab    = document.getElementById('backToTopFab');
     const summaryBar = document.querySelector('.summary-bar');
     if (!sticky || !summaryBar) return;
     stickySummaryObserver = new IntersectionObserver((entries) => {
-      for (const e of entries) sticky.classList.toggle('visible', !e.isIntersecting);
+      // When the summary bar leaves the viewport, both the sticky pill and
+      // the back-to-top FAB fade in. They have different positions
+      // (top vs. bottom-right) so they don't conflict.
+      for (const e of entries) {
+        const offscreen = !e.isIntersecting;
+        sticky.classList.toggle('visible', offscreen);
+        if (fab) fab.classList.toggle('visible', offscreen);
+      }
     }, { rootMargin: '0px 0px 0px 0px' });
     stickySummaryObserver.observe(summaryBar);
   }
