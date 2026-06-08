@@ -122,7 +122,7 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 2;
-      opacity: .82;
+      opacity: .9;
       mix-blend-mode: screen;
       -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 80%, transparent 100%);
               mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 80%, transparent 100%);
@@ -137,8 +137,15 @@
     }
     .header-wave .wave path { fill: rgba(96,165,250,0.54); }
     .header-wave .wave-front path { fill: rgba(167,139,250,0.58); }
+    .header-wave .wave-crest path {
+      fill: none;
+      stroke: rgba(255,255,255,0.78);
+      stroke-width: 7;
+      stroke-linecap: round;
+    }
     .header-wave .wave-back  { animation: wave-drift 16s linear infinite; }
     .header-wave .wave-front { animation: wave-drift-front 10s linear infinite; }
+    .header-wave .wave-crest { animation: wave-drift-crest 12s linear infinite; }
     @keyframes wave-drift {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
@@ -146,6 +153,10 @@
     @keyframes wave-drift-front {
       from { transform: translateX(-8%); }
       to   { transform: translateX(-58%); }
+    }
+    @keyframes wave-drift-crest {
+      from { transform: translateX(-4%); }
+      to   { transform: translateX(-54%); }
     }
     /* Respect the user's motion preference. */
     @media (prefers-reduced-motion: reduce) {

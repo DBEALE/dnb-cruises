@@ -55,7 +55,7 @@
       title: 'Header and sort alignment polish',
       items: [
         'Centered the mobile Sort label with its dropdown.',
-        'Tightened the mobile header spacing around the title, stats, sync time, and controls.',
+        'Added white crests to the title wave overlay and made it slightly more opaque.',
       ],
     },
     {
