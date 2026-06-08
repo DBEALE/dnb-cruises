@@ -675,7 +675,7 @@
   function renderBody(list) {
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="14">No cruises match your filters.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="15">No cruises match your filters.</td></tr>';
       return;
     }
     tbody.innerHTML = list.map((c, i) => {
@@ -690,6 +690,7 @@
       const perNightCell = Number.isFinite(perNight)
         ? `${escHtml(formatPriceDisplay(perNight, c.currency))}<span class="per-night-suffix">/night</span>`
         : '—';
+      const firstSeen = formatFirstSeenDisplay(c);
 
       return `<tr data-provider="${escHtml(c.provider || '')}">
         <td class="col-num" data-label="#">${i + 1}</td>
@@ -703,6 +704,7 @@
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
         <td class="col-port" data-label="Departure port">${escHtml(c.departurePort || '—')}</td>
         <td class="col-region" data-label="Region">${regionBadge(c.departureRegion)}</td>
+        <td class="col-first-seen" data-label="First seen">${escHtml(firstSeen)}</td>
         <td class="col-price price" data-label="Price">${priceCell}</td>
         <td class="col-per-night per-night" data-label="£/night">${perNightCell}</td>
         <td class="col-book book" data-label="Book">${bookCell}</td>
@@ -1047,6 +1049,7 @@
     15: 'Price (Suite)',
     16: 'Price change',
     17: 'GBP/night',
+    18: 'Recently found',
   };
 
   function humanSummariseHash(hash) {
@@ -1112,7 +1115,10 @@
     if (sort) {
       const [col, dir] = sort.split('-');
       const label = SAVED_VIEW_SORT_LABELS[col] || `Column ${col}`;
-      parts.push(`${label} ${dir === 'asc' ? 'low-high' : 'high-low'}`);
+      const direction = col === '18'
+        ? (dir === 'asc' ? 'oldest' : 'newest')
+        : (dir === 'asc' ? 'low-high' : 'high-low');
+      parts.push(`${label} ${direction}`);
     }
 
     const name = parts.length ? parts.join(' · ') : 'All sailings';
@@ -1300,15 +1306,15 @@
     applyFilters();
   }
 
-  // Dropdown change: switch to the chosen column ascending. Direction is then
-  // controlled by the toggle button next to the dropdown.
+  // Dropdown change: switch to the chosen column. Most sorts start ascending;
+  // "Recently found" starts newest-first because that is the useful default.
   function applySortColumn(val) {
     if (!val) {
       sortColIndex = -1;
       sortAsc = true;
     } else {
       sortColIndex = parseInt(val, 10);
-      sortAsc = true;
+      sortAsc = sortColIndex === 18 ? false : true;
     }
     syncSortControls();
     applyFilters();
@@ -1425,6 +1431,7 @@
       case 15: return getRoomPrice(c, 'suite');
       case 16: return getPricePctChange(c);
       case 17: return getPricePerNight(c);
+      case 18: return getFirstSeenTime(c);
       default: return '';
     }
   }
@@ -1717,6 +1724,39 @@
     const nights = parseInt(c.duration, 10);
     if (!Number.isFinite(price) || !Number.isFinite(nights) || nights <= 0) return NaN;
     return price / nights;
+  }
+
+  function getFirstSeenRaw(c) {
+    if (c?.firstSeenAt) return c.firstSeenAt;
+    const history = Array.isArray(c?.priceHistory) ? c.priceHistory : [];
+    const earliest = history
+      .map(entry => entry?.at)
+      .filter(Boolean)
+      .sort()[0];
+    return earliest || c?.scrapedAt || c?.lastSeenAt || '';
+  }
+
+  function getFirstSeenTime(c) {
+    const raw = getFirstSeenRaw(c);
+    if (!raw) return NaN;
+    const d = new Date(raw);
+    return Number.isNaN(d.getTime()) ? NaN : d.getTime();
+  }
+
+  function formatFirstSeenDisplay(c) {
+    const raw = getFirstSeenRaw(c);
+    if (!raw) return '—';
+    const d = new Date(raw);
+    if (Number.isNaN(d.getTime())) return formatDateDisplay(raw);
+    return d.toLocaleString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'UTC',
+      timeZoneName: 'short',
+    });
   }
 
   // ── Formatting ─────────────────────────────────────────────────────────────

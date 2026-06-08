@@ -121,6 +121,14 @@ function mergePriceHistory(prevCruise, newCruise, scrapedAt) {
   return history.slice(-MAX_PRICE_HISTORY);
 }
 
+function firstSeenAt(prevCruise, priceHistory, scrapedAt) {
+  if (prevCruise?.firstSeenAt) return prevCruise.firstSeenAt;
+  const firstHistoryAt = Array.isArray(priceHistory)
+    ? priceHistory.map(entry => entry?.at).filter(Boolean).sort()[0]
+    : '';
+  return firstHistoryAt || scrapedAt;
+}
+
 function writeProviderSnapshot(provider, cruises, scrapedAt) {
   const outPath = getProviderOutputPath(provider.id);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
@@ -339,11 +347,16 @@ async function main() {
     const freshIds  = new Set(snapshot.cruises.map(c => c.id).filter(Boolean));
 
     // Active list: tag with lastSeenAt so the archive transition is bookkeeping-free.
-    snapshot.cruises = snapshot.cruises.map(cruise => ({
-      ...cruise,
-      priceHistory: mergePriceHistory(knownById.get(cruise.id), cruise, scrapedAt),
-      lastSeenAt:   scrapedAt,
-    }));
+    snapshot.cruises = snapshot.cruises.map(cruise => {
+      const prevCruise = knownById.get(cruise.id);
+      const priceHistory = mergePriceHistory(prevCruise, cruise, scrapedAt);
+      return {
+        ...cruise,
+        firstSeenAt: firstSeenAt(prevCruise, priceHistory, scrapedAt),
+        priceHistory,
+        lastSeenAt:  scrapedAt,
+      };
+    });
 
     // Archive list: everything we've known about that wasn't in the fresh scrape,
     // minus entries whose departureDate is more than 2 years past.

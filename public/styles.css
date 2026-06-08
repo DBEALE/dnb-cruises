@@ -710,6 +710,7 @@
     .mobile-ship-details { display: none; }
     .mobile-ship-header { display: contents; }
     .mobile-launch-year { display: none; }
+    .col-first-seen { display: none; }
 
     /* ── Mobile sort/filter controls ────────────────────────────────────────── */
     #mobileControls { display: none; }
@@ -833,6 +834,7 @@
       td.col-region,
       td.col-destination,
       td.col-launch,
+      td.col-first-seen,
       td.col-per-night {
         display: block;
       }

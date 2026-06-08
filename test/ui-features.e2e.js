@@ -18,7 +18,7 @@ const PROVIDER_INDEX = {
 };
 
 // Helper — build a cruise with the priceHistory shape the UI expects.
-function cruise({ id, shipName, provider, priceFrom, prices, history, days = 7, port = 'Southampton' }) {
+function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, days = 7, port = 'Southampton' }) {
   return {
     id, shipName, provider,
     shipClass:       'Oasis',
@@ -34,6 +34,7 @@ function cruise({ id, shipName, provider, priceFrom, prices, history, days = 7, 
     bookingUrl:      `/booking/${id}`,
     prices:          prices || { inside: null, oceanView: null, balcony: null, suite: null },
     priceHistory:    history || [],
+    firstSeenAt,
   };
 }
 
@@ -42,7 +43,7 @@ const CRUISES_RC = {
   cruises: [
     cruise({
       id: 'rc_a', shipName: 'Anthem of the Seas', provider: 'Royal Caribbean',
-      priceFrom: 500, days: 7,
+      priceFrom: 500, days: 7, firstSeenAt: '2026-05-01T10:00:00Z',
       prices: { inside: '500', oceanView: '650', balcony: '800', suite: '1800' },
       history: [
         { at: '2026-05-01T10:00:00Z', prices: { inside: 600, oceanView: 720, balcony: 900, suite: 2000 } },
@@ -52,7 +53,7 @@ const CRUISES_RC = {
     }),
     cruise({
       id: 'rc_b', shipName: 'Harmony of the Seas', provider: 'Royal Caribbean',
-      priceFrom: 1200, days: 14,
+      priceFrom: 1200, days: 14, firstSeenAt: '2026-06-05T10:00:00Z',
       prices: { inside: '1200', oceanView: '1500', balcony: '1800', suite: '3500' },
       history: [
         { at: '2026-05-01T10:00:00Z', prices: { inside: 1100, oceanView: 1400, balcony: 1700, suite: 3400 } },
@@ -67,7 +68,7 @@ const CRUISES_CEL = {
   cruises: [
     cruise({
       id: 'cel_a', shipName: 'Celebrity Edge', provider: 'Celebrity Cruises',
-      priceFrom: 900, days: 10, port: 'Barcelona',
+      priceFrom: 900, days: 10, port: 'Barcelona', firstSeenAt: '2026-05-20T10:00:00Z',
       prices: { inside: '900', oceanView: null, balcony: '1300', suite: '2500' },
     }),
   ],
@@ -154,6 +155,14 @@ test.describe('Sort and filter', () => {
     await page.selectOption('#sortSelect', '11');
     await expect(page.locator('#sortDirBtn')).toBeEnabled();
     await expect(page.locator('#sortDirBtn')).toHaveText('↑');
+  });
+
+  test('recently found sort defaults to newest first', async ({ page }) => {
+    await gotoFresh(page);
+    await page.selectOption('#sortSelect', '18');
+    const firstShip = await page.locator('tbody tr:first-child .col-ship').innerText();
+    expect(firstShip).toContain('Harmony');
+    await expect(page.locator('#sortDirBtn')).toHaveText('↓');
   });
 
   test('column filter narrows results and updates summary count', async ({ page }) => {
