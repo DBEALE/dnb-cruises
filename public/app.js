@@ -52,6 +52,14 @@
   const SITE_CHANGES = [
     {
       date: '9 Jun 2026',
+      title: 'Async filter updates',
+      items: [
+        'Filter controls now schedule their recalculation asynchronously instead of rendering immediately.',
+        'Typing into text fields such as Destination is debounced so the list updates after a short pause.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
       title: 'Filter clear feedback',
       items: [
         'The mobile Sort & filter Clear all button now shows a busy state while filters are reset.',
@@ -1281,7 +1289,7 @@
     const end = document.getElementById('departureRangeEnd')?.value || '';
     setDepartureRange(start, end);
     document.getElementById('departureRangeDialog')?.close();
-    applyFilters();
+    scheduleApplyFilters();
   }
 
   function clearDepartureRange() {
@@ -1291,7 +1299,7 @@
     if (start) start.value = '';
     if (end) end.value = '';
     updateDepartureRangePreview();
-    applyFilters();
+    scheduleApplyFilters();
   }
 
   function wireDepartureRangeHandlers() {
@@ -1720,7 +1728,7 @@
     sortAsc = sortColIndex === colIndex ? !sortAsc : true;
     sortColIndex = colIndex;
     syncSortControls();
-    applyFilters();
+    scheduleApplyFilters();
   }
 
   // Dropdown change: switch to the chosen column. Most sorts start ascending;
@@ -1734,7 +1742,7 @@
       sortAsc = sortColIndex === 18 ? false : true;
     }
     syncSortControls();
-    applyFilters();
+    scheduleApplyFilters();
   }
   function mobileSortChange()    { applySortColumn(document.getElementById('mobileSortSelect').value); }
   function mobilePageSortChange() { applySortColumn(document.getElementById('mobilePageSortSelect').value); }
@@ -1745,7 +1753,7 @@
     if (sortColIndex < 0) return;   // no-op until a sort column is picked
     sortAsc = !sortAsc;
     syncSortControls();
-    applyFilters();
+    scheduleApplyFilters();
   }
 
   // Keep all sort UI in step: both dropdowns show the column, both ↑/↓
@@ -1777,16 +1785,24 @@
   // Debounced filter trigger. Typing in a text/number filter would otherwise
   // re-filter + re-render on every keystroke (3000 cruises × 300 rendered =
   // ~50ms of work per keystroke, which feels laggy under fast typing).
-  // 180ms is below the perceptual "instant" threshold but long enough to
+  // 320ms is below the perceptual "instant" threshold but long enough to
   // coalesce typing bursts.
-  const FILTER_DEBOUNCE_MS = 180;
+  const FILTER_DEBOUNCE_MS = 320;
   let _filterDebounceTimer = null;
-  function debouncedApplyFilters() {
+  let _filterRunId = 0;
+  function scheduleApplyFilters({ delay = 0 } = {}) {
     if (_filterDebounceTimer) clearTimeout(_filterDebounceTimer);
-    _filterDebounceTimer = setTimeout(() => {
+    const runId = ++_filterRunId;
+    _filterDebounceTimer = setTimeout(async () => {
       _filterDebounceTimer = null;
+      await waitForNextPaint();
+      if (runId !== _filterRunId) return;
       applyFilters();
-    }, FILTER_DEBOUNCE_MS);
+    }, delay);
+  }
+
+  function debouncedApplyFilters() {
+    scheduleApplyFilters({ delay: FILTER_DEBOUNCE_MS });
   }
 
   function mobileFilterSync(el) {
@@ -1794,7 +1810,8 @@
     // stay in step while typing, but defer the actual filter pass.
     const target = document.querySelector(`.col-filter[data-field="${el.dataset.field}"]`);
     if (target) target.value = el.value;
-    debouncedApplyFilters();
+    const isSelect = String(el?.tagName || '').toUpperCase() === 'SELECT';
+    scheduleApplyFilters({ delay: isSelect ? 0 : FILTER_DEBOUNCE_MS });
   }
 
   function toggleMobileFilters() {
@@ -1826,6 +1843,10 @@
 
   function waitForNextPaint() {
     return new Promise(resolve => {
+      if (typeof requestAnimationFrame !== 'function') {
+        setTimeout(resolve, 0);
+        return;
+      }
       requestAnimationFrame(() => requestAnimationFrame(resolve));
     });
   }

@@ -29,9 +29,9 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   const cssPath = path.join(__dirname, '..', 'public', 'styles.css');
   const css = fs.readFileSync(cssPath, 'utf8');
 
-  assert.match(html, /<select class="col-filter" data-field="shipName" onchange="applyFilters\(\)">/);
-  assert.match(html, /<select class="col-filter" data-field="provider" onchange="applyFilters\(\)">/);
-  assert.match(html, /<select class="col-filter" data-field="shipClass" onchange="applyFilters\(\)">/);
+  assert.match(html, /<select class="col-filter" data-field="shipName" onchange="scheduleApplyFilters\(\)">/);
+  assert.match(html, /<select class="col-filter" data-field="provider" onchange="scheduleApplyFilters\(\)">/);
+  assert.match(html, /<select class="col-filter" data-field="shipClass" onchange="scheduleApplyFilters\(\)">/);
   assert.match(html, /<select id="mobFilterShip" class="mob-filter" data-field="shipName" onchange="mobileFilterSync\(this\)">/);
   assert.match(html, /<select id="mobilePageSortSelect" onchange="mobilePageSortChange\(\)">/);
   assert.match(html, /id="mobilePageSortDirBtn"/);
@@ -40,6 +40,8 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /id="departureRangeDialog"/);
   assert.match(html, /Departure port/);
   assert.match(html, /id="mobClearFilters" onclick="clearMobileFilters\(\)"/);
+  assert.match(app, /function scheduleApplyFilters\(\{ delay = 0 \} = \{\}\)/);
+  assert.match(app, /const FILTER_DEBOUNCE_MS = 320/);
   assert.match(app, /async function clearMobileFilters\(\)/);
   assert.match(app, /btn\.textContent = 'Clearing\.\.\.'/);
   assert.match(css, /#mobClearFilters\.is-busy::before/);

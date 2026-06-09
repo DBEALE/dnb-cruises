@@ -255,17 +255,17 @@
           <tr id="filterRow">
             <td class="col-num"></td>
             <td class="col-ship">
-              <select class="col-filter" data-field="shipName" onchange="applyFilters()">
+              <select class="col-filter" data-field="shipName" onchange="scheduleApplyFilters()">
                 <option value="">All ships</option>
               </select>
             </td>
             <td class="col-provider">
-              <select class="col-filter" data-field="provider" onchange="applyFilters()">
+              <select class="col-filter" data-field="provider" onchange="scheduleApplyFilters()">
                 <option value="">All cruise lines</option>
               </select>
             </td>
             <td class="col-class">
-              <select class="col-filter" data-field="shipClass" onchange="applyFilters()">
+              <select class="col-filter" data-field="shipClass" onchange="scheduleApplyFilters()">
                 <option value="">All classes</option>
               </select>
             </td>
@@ -290,7 +290,7 @@
               <input class="col-filter" data-field="departurePort" placeholder="Filter…" oninput="debouncedApplyFilters()">
             </td>
             <td class="col-region">
-              <select class="col-filter" data-field="departureRegion" onchange="applyFilters()">
+              <select class="col-filter" data-field="departureRegion" onchange="scheduleApplyFilters()">
                 <option value="">All regions</option>
                 <optgroup label="By area">
                   <option value="group:europe">Europe (UK, N. Europe, Med.)</option>
