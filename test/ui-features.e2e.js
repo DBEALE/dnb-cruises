@@ -18,12 +18,12 @@ const PROVIDER_INDEX = {
 };
 
 // Helper — build a cruise with the priceHistory shape the UI expects.
-function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton', shipLaunchYear = 2020 }) {
+function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton', itinerary = `${days}-Night ${port} Sample`, shipLaunchYear = 2020 }) {
   return {
     id, shipName, provider,
     shipClass:       'Oasis',
     shipLaunchYear,
-    itinerary:       `${days}-Night ${port} Sample`,
+    itinerary,
     departureDate,
     duration:        `${days} Nights`,
     departurePort:   port,
@@ -71,6 +71,7 @@ const CRUISES_CEL = {
     cruise({
       id: 'cel_a', shipName: 'Celebrity Edge', provider: 'Celebrity Cruises',
       priceFrom: 900, days: 10, port: 'Barcelona', departureDate: '2026-09-02', firstSeenAt: '2026-05-20T10:00:00Z',
+      itinerary: 'Barcelona, Spain Mediterranean Escape',
       prices: { inside: '900', oceanView: null, balcony: '1300', suite: '2500' },
     }),
   ],
@@ -204,6 +205,16 @@ test.describe('Sort and filter', () => {
     await expect(page.locator('#summary')).toContainText('1 of 3');
     await expect(page.locator('#summary')).toContainText('Cruise line: Celebrity Cruises');
     expect(await page.locator('tbody tr').count()).toBe(1);
+  });
+
+  test('itinerary filter matches every word and highlights each one', async ({ page }) => {
+    await gotoFresh(page);
+    await page.locator('.col-filter[data-field="itinerary"]').fill('Barcelona Spain');
+    await page.locator('.col-filter[data-field="itinerary"]').dispatchEvent('input');
+    await expect(page.locator('#summary')).toContainText('1 of 3');
+    await expect(page.locator('tbody tr:first-child .col-itinerary')).toContainText('Barcelona');
+    await expect(page.locator('tbody tr:first-child .col-itinerary')).toContainText('Spain');
+    await expect(page.locator('tbody tr:first-child .col-itinerary .itinerary-highlight')).toHaveCount(2);
   });
 
   test('clear button resets an individual filter', async ({ page }) => {

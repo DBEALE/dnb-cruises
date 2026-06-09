@@ -52,6 +52,8 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /class="wave wave-crest"/);
   assert.match(html, /class="wave wave-surge"/);
   assert.match(html, /class="wave-surge-wave"/);
+  assert.match(app, /function itinerarySearchTerms\(query\)/);
+  assert.match(app, /function highlightItinerary\(text, query\)/);
   assert.match(app, /class="ph-price-line"/);
   assert.match(app, /function wireHeaderWavePress\(\)/);
   assert.match(app, /triggerHeaderWavePress\(\)/);
@@ -80,6 +82,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.filter-entry \{/);
   assert.match(css, /\.filter-clear-btn \{/);
   assert.match(css, /\.first-seen-val \{[^}]*font-size: 0\.8rem/);
+  assert.match(css, /\.itinerary-highlight \{/);
   assert.match(css, /\.launch-year-badge \{/);
   assert.match(css, /\.launch-year-badge\.newness-legacy/);
   assert.match(css, /\.launch-year-badge\.newness-newest/);
@@ -384,4 +387,12 @@ test('renders class dots even for unmapped classes', async () => {
   assert.match(elements.cruiseBody.innerHTML, /Mystery of the Seas/);
   assert.match(elements.cruiseBody.innerHTML, /class="class-dots unknown"/);
   assert.match(elements.cruiseBody.innerHTML, /Class score unavailable/);
+});
+
+test('class dot lookup covers all mapped ship classes', async () => {
+  const { sandbox } = await createSandbox();
+
+  assert.match(sandbox.classDots('Royal'), /title="Royal class — Modern flagship \(4\/5\)"/);
+  assert.match(sandbox.classDots('Grand'), /title="Grand class — Recent generation \(3\/5\)"/);
+  assert.match(sandbox.classDots('Coral'), /title="Coral class — Older generation \(2\/5\)"/);
 });

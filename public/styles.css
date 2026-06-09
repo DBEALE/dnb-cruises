@@ -583,6 +583,19 @@
     .region-badge.region-south-america       { --region-bg: #d1fae5; --region-fg: #065f46; }
     .region-badge.region-africa              { --region-bg: #fef3c7; --region-fg: #92400e; }
 
+    .itinerary-highlight {
+      display: inline;
+      padding: 0 0.22em;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #fffbe6, #fff0b8);
+      color: #9a6b00;
+      border: 1px solid rgba(212,175,55,.7);
+      box-shadow: 0 0 0 1px rgba(212,175,55,.06);
+      font-weight: 600;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
     /* ── Loading skeleton ───────────────────────────────────────────────────── */
     .skeleton-row td {
       padding: 14px 16px;

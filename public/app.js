@@ -54,6 +54,21 @@
   const SITE_CHANGES = [
     {
       date: '9 Jun 2026',
+      title: 'Softer itinerary badges',
+      items: [
+        'Itinerary keyword badges now use a subtler gold treatment.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Itinerary word matching',
+      items: [
+        'Typing multiple words into the itinerary filter now requires every word to appear in the result.',
+        'Each matching word is highlighted with its own gold badge in the itinerary column.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
       title: 'Layered header waves',
       items: [
         'The Cruise Explorer header has its layered water and white crest wave back.',
@@ -329,7 +344,34 @@
   const LEGACY_CACHE_KEY = 'cached_cruises';
 
   // ── Ship class score ───────────────────────────────────────────────────────
-  const CLASS_TIER   = { Icon: 5, Oasis: 4, Quantum: 4, Freedom: 3, Radiance: 2, Voyager: 2, Vision: 1, Edge: 4, Solstice: 3, Millennium: 2, Galapagos: 1, Prima: 4, 'Breakaway Plus': 4, Breakaway: 3, Epic: 3, Dawn: 2, Jewel: 2, Spirit: 2, America: 2, Sun: 1 };
+  // Class-dot scores are grouped by the typical passenger capacity on the
+  // corresponding Wikipedia class/capacity pages. Higher-capacity classes
+  // get more filled dots; older/smaller classes get fewer.
+  const CLASS_TIER   = {
+    Icon: 5,
+    Oasis: 4,
+    Quantum: 4,
+    Edge: 4,
+    Prima: 4,
+    'Breakaway Plus': 4,
+    Freedom: 3,
+    Solstice: 3,
+    Breakaway: 3,
+    Epic: 3,
+    Grand: 3,
+    Radiance: 2,
+    Voyager: 2,
+    Millennium: 2,
+    Dawn: 2,
+    Jewel: 2,
+    Spirit: 2,
+    America: 2,
+    Coral: 2,
+    Royal: 4,
+    Vision: 1,
+    Galapagos: 1,
+    Sun: 1,
+  };
   const TIER_COLOUR  = { 5: 'new', 4: 'new', 3: 'mid', 2: 'old', 1: 'old' };
   // Plain-language label per tier. Used in tooltips and the settings legend.
   const TIER_LABEL   = {
@@ -1143,7 +1185,43 @@
       .join(' → ');
   }
 
-  function renderBody(list) {
+  function itinerarySearchTerms(query) {
+    return Array.from(new Set(
+      String(query || '')
+        .toLowerCase()
+        .split(/\s+/)
+        .map(term => term.trim())
+        .filter(Boolean)
+    ));
+  }
+
+  function highlightItinerary(text, query) {
+    const rawText = text ? String(text) : '';
+    const terms = itinerarySearchTerms(query);
+    const displayText = terms.length ? rawText : simplifyItinerary(rawText);
+    if (!displayText) return '';
+    if (!terms.length) return escHtml(displayText);
+
+    const matcher = new RegExp(terms
+      .map(term => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      .sort((a, b) => b.length - a.length)
+      .join('|'), 'ig');
+
+    let lastIndex = 0;
+    let html = '';
+    let matched = false;
+    for (let match; (match = matcher.exec(displayText)); ) {
+      matched = true;
+      html += escHtml(displayText.slice(lastIndex, match.index));
+      html += `<span class="itinerary-highlight">${escHtml(match[0])}</span>`;
+      lastIndex = match.index + match[0].length;
+    }
+    if (!matched) return escHtml(displayText);
+    html += escHtml(displayText.slice(lastIndex));
+    return html;
+  }
+
+  function renderBody(list, colFilters = {}) {
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
       tbody.innerHTML = '<tr class="empty-row"><td colspan="15">No cruises match your filters.</td></tr>';
@@ -1169,7 +1247,7 @@
         <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerLinkUrl(c))}</td>
         <td class="col-class" data-label="Class"><span class="class-cell">${wikiLink(c.shipClass, classLinkUrl(c))}${classDots(c.shipClass)}</span></td>
         <td class="col-launch" data-label="Launch">${launchYearBadge(c.shipLaunchYear)}</td>
-        <td class="col-itinerary" data-label="Itinerary">${escHtml(simplifyItinerary(c.itinerary) || '—')}</td>
+        <td class="col-itinerary" data-label="Itinerary">${highlightItinerary(c.itinerary, colFilters.itinerary) || '—'}</td>
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
         <td class="col-date" data-label="Departure">${escHtml(date)}</td>
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
@@ -2190,7 +2268,13 @@
     });
 
     const filtered = allCruises.filter(c => {
-      const text = ['shipName', 'provider', 'itinerary', 'destination', 'departurePort'];
+      const itineraryTerms = itinerarySearchTerms(colFilters.itinerary);
+      if (itineraryTerms.length) {
+        const haystack = (c.itinerary || '').toLowerCase();
+        if (!itineraryTerms.every(term => haystack.includes(term))) return false;
+      }
+
+      const text = ['shipName', 'provider', 'destination', 'departurePort'];
       for (const f of text) {
         if (colFilters[f] && !(c[f] || '').toLowerCase().includes(colFilters[f].toLowerCase())) return false;
       }
@@ -2261,7 +2345,7 @@
     document.getElementById('summary').innerHTML = summary;
     syncStickySummary(capped.length, sorted.length, filtered.length === allCruises.length);
 
-    renderBody(capped);
+    renderBody(capped, colFilters);
     writeUrlState();
   }
 
