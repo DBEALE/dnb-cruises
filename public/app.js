@@ -52,6 +52,14 @@
   const SITE_CHANGES = [
     {
       date: '8 Jun 2026',
+      title: 'NCL cabin pricing',
+      items: [
+        'Norwegian Cruise Line cards now read the live search-result itinerary room buckets.',
+        'Inside, ocean view, balcony, and suite prices can now show separately when NCL exposes them.',
+      ],
+    },
+    {
+      date: '8 Jun 2026',
       title: 'Celebrity room-tab pricing',
       items: [
         'Celebrity cards now read the room-type prices from the type-and-subtype page tabs.',

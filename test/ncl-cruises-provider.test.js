@@ -20,8 +20,11 @@ test('normalizes Norwegian Cruise Line itinerary details', () => {
         departureDate: '2026-07-18',
         sailStartDate: '2026-07-18',
         staterooms: [
-          { combinedPrice: '999.00' },
-          { combinedPrice: '1099.00' },
+          { code: 'INSIDE', title: 'Inside', combinedPrice: '999.00' },
+          { code: 'OCEANVIEW', title: 'Oceanview', combinedPrice: '1099.00' },
+          { code: 'BALCONY', title: 'Balcony', combinedPrice: '1299.00' },
+          { code: 'MINISUITE', title: 'Club Balcony Suite', combinedPrice: '1799.00' },
+          { code: 'SUITE', title: 'Suite', combinedPrice: '2299.00' },
         ],
       },
     ],
@@ -42,7 +45,7 @@ test('normalizes Norwegian Cruise Line itinerary details', () => {
     priceFrom: '999',
     currency: 'GBP',
     bookingUrl: 'https://www.ncl.com/uk/en/cruises/british-isles-test-SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU?itineraryCode=SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU',
-    prices: { inside: null, oceanView: null, balcony: null, suite: null },
+    prices: { inside: '999', oceanView: '1099', balcony: '1299', suite: '1799' },
   });
 });
 
@@ -171,4 +174,25 @@ test('normalizeCruise leaves simple itinerary unchanged when URL has no intermed
   }, 'https://www.ncl.com/uk/en/cruises/7-day-bermuda-round-trip-boston-BREAKAWAY7BOSWRFBOS?itineraryCode=BREAKAWAY7BOSWRFBOS');
 
   assert.equal(cruise.itinerary, 'Bermuda');
+});
+
+test('extractRoomTypePrices maps NCL stateroom labels to cabin buckets', () => {
+  const prices = provider.extractRoomTypePrices({
+    sailings: [{
+      staterooms: [
+        { code: 'INSIDE', title: 'Inside', combinedPrice: '902' },
+        { code: 'OCEANVIEW', title: 'Oceanview', combinedPrice: '1126' },
+        { code: 'BALCONY', title: 'Balcony', combinedPrice: '2178' },
+        { code: 'MINISUITE', title: 'Club Balcony Suite', combinedPrice: '2775' },
+        { code: 'SUITE', title: 'Suite', combinedPrice: '3175' },
+      ],
+    }],
+  });
+
+  assert.deepEqual(prices, {
+    inside: '902',
+    oceanView: '1126',
+    balcony: '2178',
+    suite: '2775',
+  });
 });

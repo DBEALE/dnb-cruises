@@ -231,6 +231,56 @@ function getLowestPrice(detail) {
   return null;
 }
 
+function classifyRoomType(room) {
+  const code = cleanText(room?.code).toUpperCase();
+  const title = cleanText(room?.title);
+  const text = `${code} ${title}`.toLowerCase();
+
+  if (
+    /^(INSIDE|INTERIOR|STUDIO)$/.test(code) ||
+    /\b(inside|interior|studio|family inside|solo inside)\b/i.test(text)
+  ) return 'inside';
+
+  if (
+    /^(OCEANVIEW|OCEAN VIEW)$/.test(code) ||
+    /\b(ocean\s*view|oceanview|sea\s*view|seaview|picture window|obstructed oceanview|obstructed sea view)\b/i.test(text)
+  ) return 'oceanView';
+
+  if (
+    /^(MINISUITE|MINI SUITE)$/.test(code) ||
+    /\b(suite|haven|penthouse|owner'?s?|villa)\b/i.test(text)
+  ) return 'suite';
+
+  if (
+    /^(BALCONY|BALCONY SUITE)$/.test(code) ||
+    /\b(balcony|veranda)\b/i.test(text)
+  ) return 'balcony';
+
+  return null;
+}
+
+function extractRoomTypePrices(detail) {
+  const prices = { inside: null, oceanView: null, balcony: null, suite: null };
+  const lowest = { inside: Infinity, oceanView: Infinity, balcony: Infinity, suite: Infinity };
+  const sailings = Array.isArray(detail?.sailings) ? detail.sailings : [];
+
+  for (const sailing of sailings) {
+    const rooms = Array.isArray(sailing?.staterooms) ? sailing.staterooms : [];
+    for (const room of rooms) {
+      const bucket = classifyRoomType(room);
+      if (!bucket) continue;
+      const price = toNumber(room?.combinedPrice ?? room?.price ?? room?.fare ?? room?.amount);
+      if (Number.isFinite(price) && price > 0 && price < lowest[bucket]) lowest[bucket] = price;
+    }
+  }
+
+  for (const [bucket, amount] of Object.entries(lowest)) {
+    if (Number.isFinite(amount) && amount !== Infinity) prices[bucket] = String(Math.round(amount));
+  }
+
+  return prices;
+}
+
 function extractPriceFromText(text) {
   const value = cleanText(text);
   if (!value) return '';
@@ -306,6 +356,7 @@ function normalizeCruise(detail, bookingUrl) {
   const itineraryCode = cleanText(detail?.code || sailing?.itineraryCode);
   const baseItinerary = cleanText(detail?.shortTitle || detail?.title);
   const ports = extractPortsFromSlug(bookingUrl, departurePort);
+  const roomPrices = extractRoomTypePrices(detail);
 
   return {
     provider: 'Norwegian Cruise Line',
@@ -322,13 +373,30 @@ function normalizeCruise(detail, bookingUrl) {
     priceFrom: getLowestPrice(detail)?.toString() || '',
     currency: cleanText(detail?.currency) || 'GBP',
     bookingUrl: resolveUrl(bookingUrl),
-    prices: { inside: null, oceanView: null, balcony: null, suite: null },
+    prices: roomPrices,
   };
 }
 
 async function collectCruiseCards() {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 1800 } });
+  const itineraryDetails = new Map();
+  const itineraryPromises = [];
+
+  page.on('response', response => {
+    const match = response.url().match(/\/api\/vacations\/v2\/search-result-itinerary\/([^?/#]+)/i);
+    if (!match) return;
+
+    const code = cleanText(decodeURIComponent(match[1]));
+    if (!code || itineraryDetails.has(code)) return;
+
+    const pending = response.json()
+      .then(data => {
+        itineraryDetails.set(code, data);
+      })
+      .catch(() => {});
+    itineraryPromises.push(pending);
+  });
 
   try {
     await page.goto(NCL_CRUISES_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -398,6 +466,8 @@ async function collectCruiseCards() {
       lastVisible = visibleCount;
     }
 
+    await Promise.allSettled(itineraryPromises);
+
     const cruises = Array.from(cards.values()).map(card => ({
       code: card.code,
       bookingUrl: card.bookingUrl,
@@ -414,7 +484,13 @@ async function collectCruiseCards() {
           departureDate: buildDepartureDate(card.departureDate, card.returnDate),
           sailStartDate: buildDepartureDate(card.departureDate, card.returnDate),
           returnDate: extractFirstDateText(card.returnDate),
-          staterooms: [{ combinedPrice: card.priceFrom }],
+          staterooms: (() => {
+            const apiSailing = itineraryDetails.get(card.code)?.sailings?.[0];
+            const apiRooms = Array.isArray(apiSailing?.staterooms) ? apiSailing.staterooms : [];
+            return apiRooms.length > 0
+              ? apiRooms
+              : [{ code: 'INSIDE', title: 'Inside', combinedPrice: card.priceFrom }];
+          })(),
         }],
       },
     }));
@@ -480,3 +556,5 @@ module.exports.extractPriceFromText = extractPriceFromText;
 module.exports.extractDateFromText = extractDateFromText;
 module.exports.extractPortsFromSlug = extractPortsFromSlug;
 module.exports.buildDetailedNclItinerary = buildDetailedNclItinerary;
+module.exports.classifyRoomType = classifyRoomType;
+module.exports.extractRoomTypePrices = extractRoomTypePrices;
