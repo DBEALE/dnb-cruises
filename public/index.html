@@ -13,10 +13,10 @@
   <button id="siteChangesBtn" type="button" onclick="openSiteChanges()" title="Site changes" aria-label="Site changes">i</button>
   <button id="settingsBtn" type="button" onclick="openSettings()" title="Display options" aria-label="Display options">⚙</button>
   <div class="header-inner">
-    <h1>
+    <h1 tabindex="0">
       <span class="header-title-text">🚢 Cruise <em>Explorer</em></span>
       <span class="header-wave" aria-hidden="true">
-        <svg class="wave wave-back" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="wave wave-main" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0,58 C180,92 360,18 540,58 C720,98 900,18 1080,58 C1260,92 1440,18 1620,58 C1800,98 1980,18 2160,58 C2340,92 2520,18 2700,58 C2760,70 2820,70 2880,58 L2880,100 L0,100 Z"/>
         </svg>
         <svg class="wave wave-front" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,6 +24,9 @@
         </svg>
         <svg class="wave wave-crest" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0,45 C160,70 320,30 480,45 C640,62 800,30 960,45 C1120,70 1280,30 1440,45 C1600,62 1760,30 1920,45 C2080,70 2240,30 2400,45 C2560,62 2720,30 2880,45"/>
+        </svg>
+        <svg class="wave wave-surge" viewBox="0 0 2880 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="wave-surge-wave" d="M0,62 C140,44 280,28 420,50 C560,72 700,86 840,60 C980,34 1120,18 1260,44 C1400,70 1540,84 1680,58 C1820,32 1960,16 2100,42 C2240,68 2380,82 2520,56 C2660,30 2800,18 2880,48 L2880,100 L0,100 Z"/>
         </svg>
       </span>
     </h1>
@@ -137,75 +140,108 @@
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterShip">Ship</label>
-        <select id="mobFilterShip" class="mob-filter" data-field="shipName" onchange="mobileFilterSync(this)">
-          <option value="">All ships</option>
-        </select>
+        <div class="filter-entry">
+          <select id="mobFilterShip" class="mob-filter" data-field="shipName" onchange="mobileFilterSync(this)">
+            <option value="">All ships</option>
+          </select>
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('shipName')" aria-label="Clear ship filter" title="Clear ship filter">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterProvider">Cruise line</label>
-        <select id="mobFilterProvider" class="mob-filter" data-field="provider" onchange="mobileFilterSync(this)">
-          <option value="">All cruise lines</option>
-        </select>
+        <div class="filter-entry">
+          <select id="mobFilterProvider" class="mob-filter" data-field="provider" onchange="mobileFilterSync(this)">
+            <option value="">All cruise lines</option>
+          </select>
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('provider')" aria-label="Clear cruise line filter" title="Clear cruise line filter">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterClass">Ship class</label>
-        <select id="mobFilterClass" class="mob-filter" data-field="shipClass" onchange="mobileFilterSync(this)">
-          <option value="">All classes</option>
-        </select>
+        <div class="filter-entry">
+          <select id="mobFilterClass" class="mob-filter" data-field="shipClass" onchange="mobileFilterSync(this)">
+            <option value="">All classes</option>
+          </select>
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('shipClass')" aria-label="Clear ship class filter" title="Clear ship class filter">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterLaunch">Min launch year</label>
-        <input id="mobFilterLaunch" class="mob-filter" data-field="minLaunch" placeholder="e.g. 2018" type="number" min="1990" oninput="mobileFilterSync(this)">
+        <div class="filter-entry">
+          <input id="mobFilterLaunch" class="mob-filter" data-field="minLaunch" placeholder="e.g. 2018" type="number" min="1990" oninput="mobileFilterSync(this)">
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('minLaunch')" aria-label="Clear launch year filter" title="Clear launch year filter">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group mob-filter-full">
         <label for="mobFilterItinerary">Itinerary</label>
-        <input id="mobFilterItinerary" class="mob-filter" data-field="itinerary" placeholder="e.g. Caribbean" oninput="mobileFilterSync(this)">
+        <div class="filter-entry">
+          <input id="mobFilterItinerary" class="mob-filter" data-field="itinerary" placeholder="e.g. Caribbean" oninput="mobileFilterSync(this)">
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('itinerary')" aria-label="Clear itinerary filter" title="Clear itinerary filter">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterDestination">Destination</label>
-        <input id="mobFilterDestination" class="mob-filter" data-field="destination" placeholder="Type…" oninput="mobileFilterSync(this)">
+        <div class="filter-entry">
+          <input id="mobFilterDestination" class="mob-filter" data-field="destination" placeholder="Type…" oninput="mobileFilterSync(this)">
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('destination')" aria-label="Clear destination filter" title="Clear destination filter">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterRegion">Region</label>
-        <select id="mobFilterRegion" class="mob-filter" data-field="departureRegion" onchange="mobileFilterSync(this)">
-          <option value="">All regions</option>
-          <optgroup label="By area">
-            <option value="group:europe">Europe (UK, N. Europe, Med.)</option>
-            <option value="group:americas">Americas (N + S + Caribbean)</option>
-            <option value="group:asia-pacific">Asia &amp; Pacific</option>
-          </optgroup>
-          <optgroup label="By region">
-            <option>UK &amp; Ireland</option>
-            <option>Northern Europe</option>
-            <option>Mediterranean</option>
-            <option>Caribbean</option>
-            <option>Americas</option>
-            <option>Asia &amp; Far East</option>
-            <option>Middle East</option>
-            <option>Africa</option>
-            <option>Australia &amp; Pacific</option>
-            <option>South America</option>
-            <option>Other</option>
-          </optgroup>
-        </select>
+        <div class="filter-entry">
+          <select id="mobFilterRegion" class="mob-filter" data-field="departureRegion" onchange="mobileFilterSync(this)">
+            <option value="">All regions</option>
+            <optgroup label="By area">
+              <option value="group:europe">Europe (UK, N. Europe, Med.)</option>
+              <option value="group:americas">Americas (N + S + Caribbean)</option>
+              <option value="group:asia-pacific">Asia &amp; Pacific</option>
+            </optgroup>
+            <optgroup label="By region">
+              <option>UK &amp; Ireland</option>
+              <option>Northern Europe</option>
+              <option>Mediterranean</option>
+              <option>Caribbean</option>
+              <option>Americas</option>
+              <option>Asia &amp; Far East</option>
+              <option>Middle East</option>
+              <option>Africa</option>
+              <option>Australia &amp; Pacific</option>
+              <option>South America</option>
+              <option>Other</option>
+            </optgroup>
+          </select>
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('departureRegion')" aria-label="Clear region filter" title="Clear region filter">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group">
         <label for="mobDepartureRangeBtn">Departure</label>
         <input id="mobFilterDepartureStart" class="mob-filter" data-field="departureStart" type="hidden">
         <input id="mobFilterDepartureEnd" class="mob-filter" data-field="departureEnd" type="hidden">
-        <button id="mobDepartureRangeBtn" class="date-range-btn date-range-mobile" type="button" onclick="openDepartureRange()" aria-label="Choose departure date range">Any date</button>
+        <div class="filter-entry">
+          <button id="mobDepartureRangeBtn" class="date-range-btn date-range-mobile" type="button" onclick="openDepartureRange()" aria-label="Choose departure date range">Any date</button>
+          <button type="button" class="filter-clear-btn" onclick="clearDepartureRange()" aria-label="Clear departure date range" title="Clear departure date range">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterPort">Departure port</label>
-        <input id="mobFilterPort" class="mob-filter" data-field="departurePort" placeholder="e.g. Southampton" oninput="mobileFilterSync(this)">
+        <div class="filter-entry">
+          <input id="mobFilterPort" class="mob-filter" data-field="departurePort" placeholder="e.g. Southampton" oninput="mobileFilterSync(this)">
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('departurePort')" aria-label="Clear departure port filter" title="Clear departure port filter">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group">
         <label for="mobFilterDuration">Min nights</label>
-        <input id="mobFilterDuration" class="mob-filter" data-field="duration" placeholder="e.g. 7" type="number" min="0" oninput="mobileFilterSync(this)">
+        <div class="filter-entry">
+          <input id="mobFilterDuration" class="mob-filter" data-field="duration" placeholder="e.g. 7" type="number" min="0" oninput="mobileFilterSync(this)">
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('duration')" aria-label="Clear nights filter" title="Clear nights filter">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group">
         <label for="mobMaxPrice">Max price (£)</label>
-        <input id="mobMaxPrice" class="mob-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="mobileFilterSync(this)">
+        <div class="filter-entry">
+          <input id="mobMaxPrice" class="mob-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="mobileFilterSync(this)">
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('maxPrice')" aria-label="Clear max price filter" title="Clear max price filter">&times;</button>
+        </div>
       </div>
       <div class="mob-filter-group mob-filter-full mob-filter-actions">
         <button type="button" id="mobClearFilters" onclick="clearMobileFilters()">Clear all</button>
@@ -255,65 +291,98 @@
           <tr id="filterRow">
             <td class="col-num"></td>
             <td class="col-ship">
-              <select class="col-filter" data-field="shipName" onchange="scheduleApplyFilters()">
-                <option value="">All ships</option>
-              </select>
+              <div class="filter-entry">
+                <select class="col-filter" data-field="shipName" onchange="scheduleApplyFilters()">
+                  <option value="">All ships</option>
+                </select>
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('shipName')" aria-label="Clear ship filter" title="Clear ship filter">&times;</button>
+              </div>
             </td>
             <td class="col-provider">
-              <select class="col-filter" data-field="provider" onchange="scheduleApplyFilters()">
-                <option value="">All cruise lines</option>
-              </select>
+              <div class="filter-entry">
+                <select class="col-filter" data-field="provider" onchange="scheduleApplyFilters()">
+                  <option value="">All cruise lines</option>
+                </select>
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('provider')" aria-label="Clear cruise line filter" title="Clear cruise line filter">&times;</button>
+              </div>
             </td>
             <td class="col-class">
-              <select class="col-filter" data-field="shipClass" onchange="scheduleApplyFilters()">
-                <option value="">All classes</option>
-              </select>
+              <div class="filter-entry">
+                <select class="col-filter" data-field="shipClass" onchange="scheduleApplyFilters()">
+                  <option value="">All classes</option>
+                </select>
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('shipClass')" aria-label="Clear ship class filter" title="Clear ship class filter">&times;</button>
+              </div>
             </td>
             <td class="col-launch">
-              <input class="col-filter" data-field="minLaunch" placeholder="Min yr…" type="number" min="1990" oninput="debouncedApplyFilters()">
+              <div class="filter-entry">
+                <input class="col-filter" data-field="minLaunch" placeholder="Min yr…" type="number" min="1990" oninput="debouncedLaunchYearFilters()">
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('minLaunch')" aria-label="Clear launch year filter" title="Clear launch year filter">&times;</button>
+              </div>
             </td>
             <td class="col-itinerary">
-              <input class="col-filter" data-field="itinerary" placeholder="Filter…" oninput="debouncedApplyFilters()">
+              <div class="filter-entry">
+                <input class="col-filter" data-field="itinerary" placeholder="Filter…" oninput="debouncedApplyFilters()">
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('itinerary')" aria-label="Clear itinerary filter" title="Clear itinerary filter">&times;</button>
+              </div>
             </td>
             <td class="col-destination">
-              <input class="col-filter" data-field="destination" placeholder="Filter…" oninput="debouncedApplyFilters()">
+              <div class="filter-entry">
+                <input class="col-filter" data-field="destination" placeholder="Filter…" oninput="debouncedApplyFilters()">
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('destination')" aria-label="Clear destination filter" title="Clear destination filter">&times;</button>
+              </div>
             </td>
             <td class="col-date">
               <input id="filterDepartureStart" class="col-filter" data-field="departureStart" type="hidden">
               <input id="filterDepartureEnd" class="col-filter" data-field="departureEnd" type="hidden">
-              <button id="departureRangeBtn" class="date-range-btn" type="button" onclick="openDepartureRange()" aria-label="Choose departure date range">Any date</button>
+              <div class="filter-entry">
+                <button id="departureRangeBtn" class="date-range-btn" type="button" onclick="openDepartureRange()" aria-label="Choose departure date range">Any date</button>
+                <button type="button" class="filter-clear-btn" onclick="clearDepartureRange()" aria-label="Clear departure date range" title="Clear departure date range">&times;</button>
+              </div>
             </td>
             <td class="col-duration">
-              <input class="col-filter" data-field="duration" placeholder="Min…" type="number" min="0" oninput="debouncedApplyFilters()">
+              <div class="filter-entry">
+                <input class="col-filter" data-field="duration" placeholder="Min…" type="number" min="0" oninput="debouncedApplyFilters()">
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('duration')" aria-label="Clear nights filter" title="Clear nights filter">&times;</button>
+              </div>
             </td>
             <td class="col-port">
-              <input class="col-filter" data-field="departurePort" placeholder="Filter…" oninput="debouncedApplyFilters()">
+              <div class="filter-entry">
+                <input class="col-filter" data-field="departurePort" placeholder="Filter…" oninput="debouncedApplyFilters()">
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('departurePort')" aria-label="Clear departure port filter" title="Clear departure port filter">&times;</button>
+              </div>
             </td>
             <td class="col-region">
-              <select class="col-filter" data-field="departureRegion" onchange="scheduleApplyFilters()">
-                <option value="">All regions</option>
-                <optgroup label="By area">
-                  <option value="group:europe">Europe (UK, N. Europe, Med.)</option>
-                  <option value="group:americas">Americas (N + S + Caribbean)</option>
-                  <option value="group:asia-pacific">Asia & Pacific</option>
-                </optgroup>
-                <optgroup label="By region">
-                  <option>UK & Ireland</option>
-                  <option>Northern Europe</option>
-                  <option>Mediterranean</option>
-                  <option>Caribbean</option>
-                  <option>Americas</option>
-                  <option>Asia & Far East</option>
-                  <option>Middle East</option>
-                  <option>Africa</option>
-                  <option>Australia & Pacific</option>
-                  <option>South America</option>
-                  <option>Other</option>
-                </optgroup>
-              </select>
+              <div class="filter-entry">
+                <select class="col-filter" data-field="departureRegion" onchange="scheduleApplyFilters()">
+                  <option value="">All regions</option>
+                  <optgroup label="By area">
+                    <option value="group:europe">Europe (UK, N. Europe, Med.)</option>
+                    <option value="group:americas">Americas (N + S + Caribbean)</option>
+                    <option value="group:asia-pacific">Asia & Pacific</option>
+                  </optgroup>
+                  <optgroup label="By region">
+                    <option>UK & Ireland</option>
+                    <option>Northern Europe</option>
+                    <option>Mediterranean</option>
+                    <option>Caribbean</option>
+                    <option>Americas</option>
+                    <option>Asia & Far East</option>
+                    <option>Middle East</option>
+                    <option>Africa</option>
+                    <option>Australia & Pacific</option>
+                    <option>South America</option>
+                    <option>Other</option>
+                  </optgroup>
+                </select>
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('departureRegion')" aria-label="Clear region filter" title="Clear region filter">&times;</button>
+              </div>
             </td>
             <td class="col-price">
-              <input class="col-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="debouncedApplyFilters()">
+              <div class="filter-entry">
+                <input class="col-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="debouncedApplyFilters()">
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('maxPrice')" aria-label="Clear max price filter" title="Clear max price filter">&times;</button>
+              </div>
             </td>
             <td class="col-per-night"></td>
             <td class="col-first-seen"></td>
@@ -398,44 +467,46 @@
       <h2 id="settingsTitle">Display options</h2>
       <button type="button" class="ph-close" id="settingsClose" aria-label="Close">×</button>
     </div>
-    <p class="settings-hint">Toggle features off to declutter the table. Choices save automatically to this browser.</p>
+    <div class="settings-scroll">
+      <p class="settings-hint">Toggle features off to declutter the table. Choices save automatically to this browser.</p>
 
-    <div class="settings-info">
-      <span class="settings-info-label">USD exchange rate</span>
-      <span id="rateNote" class="rate-note" aria-live="polite">Loading...</span>
-    </div>
+      <div class="settings-info">
+        <span class="settings-info-label">USD exchange rate</span>
+        <span id="rateNote" class="rate-note" aria-live="polite">Loading...</span>
+      </div>
 
-    <div class="settings-phone">
-      <label for="settingsPhone">WhatsApp number for cruise alerts</label>
-      <input id="settingsPhone" type="tel" placeholder="+447700900123" autocomplete="tel" maxlength="20">
-      <small>Used when you tap 🔔 on a saved view. Stored only in this browser. International format including <code>+</code> and country code.</small>
-      <span id="settingsPhoneStatus" class="settings-phone-status" aria-live="polite"></span>
-    </div>
+      <div class="settings-phone">
+        <label for="settingsPhone">WhatsApp number for cruise alerts</label>
+        <input id="settingsPhone" type="tel" placeholder="+447700900123" autocomplete="tel" maxlength="20">
+        <small>Used when you tap 🔔 on a saved view. Stored only in this browser. International format including <code>+</code> and country code.</small>
+        <span id="settingsPhoneStatus" class="settings-phone-status" aria-live="polite"></span>
+      </div>
 
-    <ul class="settings-list">
-      <li><label><input type="checkbox" data-setting="sparklines">  <span>Price-history sparklines</span><small>The small trend line beneath each cabin price.</small></label></li>
-      <li><label><input type="checkbox" data-setting="perNight">    <span>Price per night column</span><small>Adds a sortable £/night column on wide screens.</small></label></li>
-      <li><label><input type="checkbox" data-setting="wikiLinks">   <span>Wikipedia links</span><small>Underlined ship / cruise line / class names.</small></label></li>
-      <li><label><input type="checkbox" data-setting="companyLinks"> <span>Cruise-company link targets</span><small>Open ship, cruise line, and class links on the cruise company website instead of Wikipedia.</small></label></li>
-      <li><label><input type="checkbox" data-setting="classDots">   <span>Class quality dots</span><small>The four green dots next to ship-class names.</small></label></li>
-      <li><label><input type="checkbox" data-setting="launchYear">  <span>Ship launch year</span><small>The year column (desktop) and grey year next to ship name (mobile).</small></label></li>
-      <li><label><input type="checkbox" data-setting="shipIcons">   <span>Ship icons</span><small>A small cruise-line-coloured ship icon next to each ship name.</small></label></li>
-    </ul>
-
-    <details class="settings-legend">
-      <summary>What do the class dots mean?</summary>
-      <p class="settings-legend-intro">The dots next to each ship class are a 1–5 rating of how modern / flagship-class the ship is.</p>
-      <ul class="legend-tiers">
-        <li><span class="class-dots dots-static"><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span></span> <strong>Newest flagship</strong> — Icon</li>
-        <li><span class="class-dots dots-static"><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span></span></span> <strong>Modern flagship</strong> — Oasis, Quantum, Edge, Prima, Breakaway Plus</li>
-        <li><span class="class-dots dots-static"><span class="filled mid"></span><span class="filled mid"></span><span class="filled mid"></span><span></span><span></span></span> <strong>Recent generation</strong> — Freedom, Solstice, Breakaway, Epic</li>
-        <li><span class="class-dots dots-static"><span class="filled old"></span><span class="filled old"></span><span></span><span></span><span></span></span> <strong>Older generation</strong> — Radiance, Voyager, Millennium, Jewel, Spirit, Dawn, America</li>
-        <li><span class="class-dots dots-static"><span class="filled old"></span><span></span><span></span><span></span><span></span></span> <strong>Legacy class</strong> — Vision, Sun, Galapagos</li>
+      <ul class="settings-list">
+        <li><label><input type="checkbox" data-setting="sparklines">  <span>Price-history sparklines</span><small>The small trend line beneath each cabin price.</small></label></li>
+        <li><label><input type="checkbox" data-setting="perNight">    <span>Price per night column</span><small>Adds a sortable £/night column on wide screens.</small></label></li>
+        <li><label><input type="checkbox" data-setting="wikiLinks">   <span>Wikipedia links</span><small>Underlined ship / cruise line / class names.</small></label></li>
+        <li><label><input type="checkbox" data-setting="companyLinks"> <span>Cruise-company link targets</span><small>Open ship, cruise line, and class links on the cruise company website instead of Wikipedia.</small></label></li>
+        <li><label><input type="checkbox" data-setting="classDots">   <span>Class quality dots</span><small>The four green dots next to ship-class names.</small></label></li>
+        <li><label><input type="checkbox" data-setting="launchYear">  <span>Ship launch year</span><small>The year column (desktop) and grey year next to ship name (mobile).</small></label></li>
+        <li><label><input type="checkbox" data-setting="shipIcons">   <span>Ship icons</span><small>A small cruise-line-coloured ship icon next to each ship name.</small></label></li>
       </ul>
-    </details>
 
-    <div class="settings-footer">
-      <button type="button" id="settingsReset" class="settings-reset">Reset to defaults</button>
+      <details class="settings-legend">
+        <summary>What do the class dots mean?</summary>
+        <p class="settings-legend-intro">The dots next to each ship class are a 1–5 rating of how modern / flagship-class the ship is.</p>
+        <ul class="legend-tiers">
+          <li><span class="class-dots dots-static"><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span></span> <strong>Newest flagship</strong> — Icon</li>
+          <li><span class="class-dots dots-static"><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span class="filled new"></span><span></span></span> <strong>Modern flagship</strong> — Oasis, Quantum, Edge, Prima, Breakaway Plus</li>
+          <li><span class="class-dots dots-static"><span class="filled mid"></span><span class="filled mid"></span><span class="filled mid"></span><span></span><span></span></span> <strong>Recent generation</strong> — Freedom, Solstice, Breakaway, Epic</li>
+          <li><span class="class-dots dots-static"><span class="filled old"></span><span class="filled old"></span><span></span><span></span><span></span></span> <strong>Older generation</strong> — Radiance, Voyager, Millennium, Jewel, Spirit, Dawn, America</li>
+          <li><span class="class-dots dots-static"><span class="filled old"></span><span></span><span></span><span></span><span></span></span> <strong>Legacy class</strong> — Vision, Sun, Galapagos</li>
+        </ul>
+      </details>
+
+      <div class="settings-footer">
+        <button type="button" id="settingsReset" class="settings-reset">Reset to defaults</button>
+      </div>
     </div>
   </div>
 </dialog>
@@ -480,7 +551,9 @@
       </div>
       <button type="button" class="ph-close" id="changesClose" aria-label="Close">×</button>
     </div>
-    <ol id="siteChangesList" class="changes-list"></ol>
+    <div class="changes-scroll">
+      <ol id="siteChangesList" class="changes-list"></ol>
+    </div>
   </div>
 </dialog>
 

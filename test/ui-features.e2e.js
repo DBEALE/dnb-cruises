@@ -18,11 +18,11 @@ const PROVIDER_INDEX = {
 };
 
 // Helper — build a cruise with the priceHistory shape the UI expects.
-function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton' }) {
+function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton', shipLaunchYear = 2020 }) {
   return {
     id, shipName, provider,
     shipClass:       'Oasis',
-    shipLaunchYear:  2020,
+    shipLaunchYear,
     itinerary:       `${days}-Night ${port} Sample`,
     departureDate,
     duration:        `${days} Nights`,
@@ -44,6 +44,7 @@ const CRUISES_RC = {
     cruise({
       id: 'rc_a', shipName: 'Anthem of the Seas', provider: 'Royal Caribbean',
       priceFrom: 500, days: 7, departureDate: '2026-08-31', firstSeenAt: '2026-05-01T10:00:00Z',
+      shipLaunchYear: 2025,
       prices: { inside: '500', oceanView: '650', balcony: '800', suite: '1800' },
       history: [
         { at: '2026-05-01T10:00:00Z', prices: { inside: 600, oceanView: 720, balcony: 900, suite: 2000 } },
@@ -54,6 +55,7 @@ const CRUISES_RC = {
     cruise({
       id: 'rc_b', shipName: 'Harmony of the Seas', provider: 'Royal Caribbean',
       priceFrom: 1200, days: 14, firstSeenAt: '2026-06-05T10:00:00Z',
+      shipLaunchYear: 2000,
       prices: { inside: '1200', oceanView: '1500', balcony: '1800', suite: '3500' },
       history: [
         { at: '2026-05-01T10:00:00Z', prices: { inside: 1100, oceanView: 1400, balcony: 1700, suite: 3400 } },
@@ -134,7 +136,30 @@ test.describe('Sparklines', () => {
   });
 });
 
+test.describe('Header wave', () => {
+  test('pressing the title triggers a single slower sweep', async ({ page }) => {
+    await gotoFresh(page);
+    const wave = page.locator('.header-wave');
+    await expect(page.locator('.header-wave .wave')).toHaveCount(4);
+    await expect(page.locator('.header-wave .wave-crest')).toHaveCount(1);
+    await page.locator('header h1').dispatchEvent('pointerdown', { button: 0 });
+    await expect(wave).toHaveClass(/is-sweeping/);
+    await expect(wave).not.toHaveClass(/is-sweeping/, { timeout: 3500 });
+  });
+});
+
 test.describe('Sort and filter', () => {
+  test('ship launch years render with newness badges', async ({ page }) => {
+    await gotoFresh(page);
+    await expect(page.locator('tbody tr:first-child .col-launch .launch-year-badge')).toHaveClass(/newness-newest/);
+    await expect(page.locator('tbody tr:first-child .col-launch .launch-year-star')).toHaveCount(1);
+  });
+
+  test('older launch years are shown in a muted grey badge', async ({ page }) => {
+    await gotoFresh(page);
+    await expect(page.locator('tbody tr:has-text("Harmony of the Seas") .col-launch .launch-year-badge')).toHaveClass(/newness-legacy/);
+  });
+
   test('sort dropdown + direction toggle reorders rows', async ({ page }) => {
     await gotoFresh(page);
     // Picking from the dropdown applies ascending by default; the toggle
@@ -179,6 +204,16 @@ test.describe('Sort and filter', () => {
     await expect(page.locator('#summary')).toContainText('1 of 3');
     await expect(page.locator('#summary')).toContainText('Cruise line: Celebrity Cruises');
     expect(await page.locator('tbody tr').count()).toBe(1);
+  });
+
+  test('clear button resets an individual filter', async ({ page }) => {
+    await gotoFresh(page);
+    const provider = page.locator('.col-filter[data-field="provider"]');
+    await provider.selectOption('Celebrity Cruises');
+    await expect(page.locator('#summary')).toContainText('1 of 3');
+    await page.locator('#filterRow .col-provider .filter-clear-btn').click();
+    await expect(provider).toHaveValue('');
+    await expect(page.locator('#summary')).toContainText('all 3');
   });
 
   test('departure date range filters inclusively', async ({ page }) => {
@@ -243,6 +278,15 @@ test.describe('Saved views', () => {
 });
 
 test.describe('Settings dialog', () => {
+  test('close button stays visible while display options content scrolls', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 560 });
+    await gotoFresh(page);
+    await page.click('#settingsBtn');
+    await page.waitForSelector('dialog#settingsDialog[open]');
+    await page.locator('.settings-scroll').evaluate(el => { el.scrollTop = el.scrollHeight; });
+    await expect(page.locator('#settingsClose')).toBeInViewport();
+  });
+
   test('first-time visitors get sparklines and £/night off; the body class reflects it', async ({ page }) => {
     await gotoFresh(page);
     await expect(page.locator('body')).toHaveClass(/hide-sparklines/);
@@ -295,5 +339,16 @@ test.describe('Settings dialog', () => {
     expect(await page.locator('#settingsDialog input[data-setting="wikiLinks"]').isChecked()).toBe(true);
     expect(await page.locator('#settingsDialog input[data-setting="companyLinks"]').isChecked()).toBe(false);
     await expect(page.locator('body')).toHaveClass(/hide-sparklines/);
+  });
+});
+
+test.describe('Site changes dialog', () => {
+  test('close button stays visible while the changes list scrolls', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 560 });
+    await gotoFresh(page);
+    await page.click('#siteChangesBtn');
+    await page.waitForSelector('dialog#siteChangesDialog[open]');
+    await page.locator('.changes-scroll').evaluate(el => { el.scrollTop = el.scrollHeight; });
+    await expect(page.locator('#changesClose')).toBeInViewport();
   });
 });

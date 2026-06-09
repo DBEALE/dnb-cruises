@@ -54,6 +54,94 @@
   const SITE_CHANGES = [
     {
       date: '9 Jun 2026',
+      title: 'Layered header waves',
+      items: [
+        'The Cruise Explorer header has its layered water and white crest wave back.',
+        'The press-triggered sweep still runs on top of the restored layers.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Class dots everywhere',
+      items: [
+        'Ship class rows now always show dot markers, even when a class is not in the lookup table.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Quieter first-seen text',
+      items: [
+        'First-seen dates on cruise cards now read as lighter supporting text.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Press wave restored',
+      items: [
+        'Pressing the Cruise Explorer title now triggers a single wave sweep again.',
+        'The sweep is slower and stays to one wave instead of the earlier layered effect.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Tighter mobile controls',
+      items: [
+        'The Views and Sort rows in the mobile control strip now sit closer to the divider line.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Launch year star and mute',
+      items: [
+        'Ships under five years old now get a gold star on their launch-year badge.',
+        'Ships over twenty years old now show a much greyer launch-year badge.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Filter clear buttons',
+      items: [
+        'Each search criterion now has its own clear button in the desktop and mobile filter panels.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Fixed dialog close buttons',
+      items: [
+        'Display options and Site changes now keep their close buttons visible while their contents scroll.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Ship newness year badges',
+      items: [
+        'Ship launch years now get a stronger badge treatment for newer ships.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Launch year debounce',
+      items: [
+        'Typing a launch year now waits a little longer before re-filtering the list.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Softer first-seen text',
+      items: [
+        'First-seen dates on cruise cards now use a smaller, quieter text style.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Single title wave',
+      items: [
+        'The Cruise Explorer header now uses one calm wave instead of layered wave shapes.',
+        'The wave moves about half as fast as before.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
       title: 'Price alignment',
       items: [
         'Price-history amounts now use a fixed numeric width so the columns are easier to compare at a glance.',
@@ -253,14 +341,17 @@
   };
 
   function classDots(shipClass) {
-    const tier = CLASS_TIER[shipClass];
-    if (!tier) return '';
-    const colour = TIER_COLOUR[tier];
+    const tier = CLASS_TIER[shipClass] || 0;
+    const colour = tier ? TIER_COLOUR[tier] : 'old';
     const dots = Array.from({ length: 5 }, (_, i) =>
       `<span class="${i < tier ? 'filled ' + colour : ''}"></span>`
     ).join('');
-    const tip = `${shipClass} class — ${TIER_LABEL[tier]} (${tier}/5)`;
-    return `<span class="class-dots" title="${escHtml(tip)}">${dots}</span>`;
+    const label = shipClass || 'Unknown';
+    const tip = tier
+      ? `${label} class — ${TIER_LABEL[tier]} (${tier}/5)`
+      : `${label} class — Class score unavailable`;
+    const extraClass = tier ? '' : ' unknown';
+    return `<span class="class-dots${extraClass}" title="${escHtml(tip)}">${dots}</span>`;
   }
 
   function normalizeProvider(provider) {
@@ -432,6 +523,7 @@
     wireDepartureRangeHandlers();
     refreshMobileSavedSelect();
     wirePriceHistoryHandlers();
+    wireHeaderWavePress();
     wireStickySummary();
     recordVisitorCount();
 
@@ -538,6 +630,34 @@
     } catch {
       target.textContent = 'Visitors unavailable';
     }
+  }
+
+  let headerWavePressTimer = null;
+  function triggerHeaderWavePress() {
+    const wave = document.querySelector('.header-wave');
+    if (!wave) return;
+
+    clearTimeout(headerWavePressTimer);
+    wave.classList.remove('is-sweeping');
+    void wave.offsetWidth;
+    wave.classList.add('is-sweeping');
+    headerWavePressTimer = setTimeout(() => wave.classList.remove('is-sweeping'), 2900);
+  }
+
+  function wireHeaderWavePress() {
+    const title = document.querySelector('header h1');
+    if (!title || title.dataset.wiredWavePress) return;
+    title.dataset.wiredWavePress = '1';
+
+    title.addEventListener('pointerdown', ev => {
+      if (ev.button != null && ev.button !== 0) return;
+      triggerHeaderWavePress();
+    });
+    title.addEventListener('keydown', ev => {
+      if (ev.key !== 'Enter' && ev.key !== ' ') return;
+      ev.preventDefault();
+      triggerHeaderWavePress();
+    });
   }
 
   async function fetchShipWikiLinks() {
@@ -751,9 +871,34 @@
     return SHIP_TIER_BY_CLASS[c.shipClass] || 'medium';
   }
 
+  function launchYearNewnessClass(year) {
+    const n = Number(year);
+    if (!Number.isFinite(n)) return 'unknown';
+    const age = new Date().getFullYear() - n;
+    if (age < 5) return 'newest';
+    if (age < 12) return 'new';
+    if (age < 20) return 'recent';
+    return 'legacy';
+  }
+
+  function launchYearBadge(year, extraClass = '') {
+    if (!year) return '—';
+    const tier = launchYearNewnessClass(year);
+    const classes = ['launch-year-badge', `newness-${tier}`, extraClass].filter(Boolean).join(' ');
+    const label = tier === 'newest'
+      ? `${year} - under 5 years old`
+      : tier === 'legacy'
+        ? `${year} - 20+ years old`
+        : `${year} - ${tier} ship`;
+    const star = tier === 'newest'
+      ? '<span class="launch-year-star" aria-hidden="true">★</span>'
+      : '';
+    return `<span class="${classes}" title="${escHtml(label)}">${escHtml(year)}${star}</span>`;
+  }
+
   function mobileShipHeader(c) {
     const yearHtml = c.shipLaunchYear
-      ? `<span class="mobile-launch-year">${c.shipLaunchYear}</span>`
+      ? launchYearBadge(c.shipLaunchYear, 'mobile-launch-year')
       : '';
     const tier = shipIconTier(c);
     // Empty span — CSS mask-image + background-color paints the silhouette
@@ -1023,14 +1168,14 @@
         <td class="col-ship ship-name" data-label="Ship">${mobileShipHeader(c)}${mobileShipDetails(c)}</td>
         <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerLinkUrl(c))}</td>
         <td class="col-class" data-label="Class"><span class="class-cell">${wikiLink(c.shipClass, classLinkUrl(c))}${classDots(c.shipClass)}</span></td>
-        <td class="col-launch" data-label="Launch">${c.shipLaunchYear || '—'}</td>
+        <td class="col-launch" data-label="Launch">${launchYearBadge(c.shipLaunchYear)}</td>
         <td class="col-itinerary" data-label="Itinerary">${escHtml(simplifyItinerary(c.itinerary) || '—')}</td>
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
         <td class="col-date" data-label="Departure">${escHtml(date)}</td>
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
         <td class="col-port" data-label="Departure port">${escHtml(c.departurePort || '—')}</td>
         <td class="col-region" data-label="Region">${regionBadge(c.departureRegion)}</td>
-        <td class="col-first-seen" data-label="First seen">${escHtml(firstSeen)}</td>
+        <td class="col-first-seen" data-label="First seen"><span class="first-seen-val">${escHtml(firstSeen)}</span></td>
         <td class="col-price price" data-label="Price">${priceCell}</td>
         <td class="col-per-night per-night" data-label="£/night">${perNightCell}</td>
         <td class="col-book book" data-label="Book">${bookCell}</td>
@@ -1318,6 +1463,15 @@
   function setFilterFieldValue(field, value) {
     document.querySelectorAll(`.col-filter[data-field="${field}"], .mob-filter[data-field="${field}"]`)
       .forEach(el => { el.value = value || ''; });
+  }
+
+  function clearFilterField(field) {
+    if (field === 'departureStart' || field === 'departureEnd') {
+      clearDepartureRange();
+      return;
+    }
+    setFilterFieldValue(field, '');
+    scheduleApplyFilters();
   }
 
   function normalizeDateRange(start, end) {
@@ -1869,6 +2023,7 @@
   // 320ms is below the perceptual "instant" threshold but long enough to
   // coalesce typing bursts.
   const FILTER_DEBOUNCE_MS = 320;
+  const LAUNCH_YEAR_DEBOUNCE_MS = 650;
   let _filterDebounceTimer = null;
   let _filterRunId = 0;
   function scheduleApplyFilters({ delay = 0 } = {}) {
@@ -1886,13 +2041,18 @@
     scheduleApplyFilters({ delay: FILTER_DEBOUNCE_MS });
   }
 
+  function debouncedLaunchYearFilters() {
+    scheduleApplyFilters({ delay: LAUNCH_YEAR_DEBOUNCE_MS });
+  }
+
   function mobileFilterSync(el) {
     // Sync the visible value to its desktop twin immediately so both panels
     // stay in step while typing, but defer the actual filter pass.
     const target = document.querySelector(`.col-filter[data-field="${el.dataset.field}"]`);
     if (target) target.value = el.value;
     const isSelect = String(el?.tagName || '').toUpperCase() === 'SELECT';
-    scheduleApplyFilters({ delay: isSelect ? 0 : FILTER_DEBOUNCE_MS });
+    const delay = isSelect ? 0 : (el?.dataset?.field === 'minLaunch' ? LAUNCH_YEAR_DEBOUNCE_MS : FILTER_DEBOUNCE_MS);
+    scheduleApplyFilters({ delay });
   }
 
   function toggleMobileFilters() {

@@ -42,9 +42,28 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /id="mobClearFilters" onclick="clearMobileFilters\(\)"/);
   assert.match(html, /id="visitorStats"/);
   assert.match(html, /class="ph-table-wrap"/);
+  const clearButtonCount = (html.match(/class="filter-clear-btn"/g) || []).length;
+  assert.ok(clearButtonCount >= 20, `expected at least 20 filter clear buttons, found ${clearButtonCount}`);
+  assert.match(html, /class="settings-scroll"/);
+  assert.match(html, /class="changes-scroll"/);
+  assert.match(html, /<h1 tabindex="0">/);
+  assert.match(html, /class="wave wave-main"/);
+  assert.match(html, /class="wave wave-front"/);
+  assert.match(html, /class="wave wave-crest"/);
+  assert.match(html, /class="wave wave-surge"/);
+  assert.match(html, /class="wave-surge-wave"/);
   assert.match(app, /class="ph-price-line"/);
+  assert.match(app, /function wireHeaderWavePress\(\)/);
+  assert.match(app, /triggerHeaderWavePress\(\)/);
+  assert.match(app, /class="first-seen-val"/);
+  assert.match(app, /function launchYearBadge\(year, extraClass = ''\)/);
+  assert.match(app, /return 'newest'/);
+  assert.match(app, /if \(age < 5\) return 'newest'/);
   assert.match(app, /function scheduleApplyFilters\(\{ delay = 0 \} = \{\}\)/);
   assert.match(app, /const FILTER_DEBOUNCE_MS = 320/);
+  assert.match(app, /const LAUNCH_YEAR_DEBOUNCE_MS = 650/);
+  assert.match(app, /function debouncedLaunchYearFilters\(\)/);
+  assert.match(app, /function clearFilterField\(field\)/);
   assert.match(app, /const VISITOR_COUNT_URL = 'https:\/\/yttgqscwgmsnewdjqbcc\.supabase\.co\/functions\/v1\/visitor-count'/);
   assert.match(app, /async function recordVisitorCount\(\)/);
   assert.match(app, /async function clearMobileFilters\(\)/);
@@ -53,6 +72,26 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.ph-table-wrap \{[^}]*overflow: auto/);
   assert.match(css, /\.ph-table th \{[^}]*position: sticky/);
   assert.match(css, /\.ph-price-line \{[^}]*grid-template-columns: minmax\(7ch, 1fr\) 0\.75em/);
+  assert.match(css, /\.settings-box\s+\{[^}]*overflow: hidden/);
+  assert.match(css, /\.settings-scroll \{[^}]*overflow: auto/);
+  assert.match(css, /\.changes-box \{[^}]*overflow: hidden/);
+  assert.match(css, /\.changes-scroll \{[^}]*overflow: auto/);
+  assert.match(css, /\.mob-sort-row \{[^}]*padding: 7px 12px/);
+  assert.match(css, /\.filter-entry \{/);
+  assert.match(css, /\.filter-clear-btn \{/);
+  assert.match(css, /\.first-seen-val \{[^}]*font-size: 0\.8rem/);
+  assert.match(css, /\.launch-year-badge \{/);
+  assert.match(css, /\.launch-year-badge\.newness-legacy/);
+  assert.match(css, /\.launch-year-badge\.newness-newest/);
+  assert.match(css, /\.launch-year-badge\.newness-newest \.launch-year-star/);
+  assert.match(css, /\.class-dots\.unknown span/);
+  assert.match(css, /\.header-wave \.wave-main/);
+  assert.match(css, /\.header-wave \.wave-front/);
+  assert.match(css, /\.header-wave \.wave-crest/);
+  assert.match(css, /\.header-wave \.wave-surge/);
+  assert.match(css, /\.header-wave\.is-sweeping \.wave-surge/);
+  assert.match(css, /@keyframes wave-surge-sweep/);
+  assert.match(css, /animation: wave-drift 32s linear infinite/);
 });
 
 function createElement(initial = {}) {
@@ -324,4 +363,25 @@ test('renders class score dots for Celebrity series ships', async () => {
 
   assert.match(elements.cruiseBody.innerHTML, /Celebrity Apex/);
   assert.match(elements.cruiseBody.innerHTML, /title="Edge class — Modern flagship \(4\/5\)"/);
+});
+
+test('renders class dots even for unmapped classes', async () => {
+  const { elements } = await createSandbox({
+    providerCruises: [{
+      ...buildCruise({
+        shipName: 'Mystery of the Seas',
+        itinerary: 'Atlantic Crossing',
+        departurePort: 'Miami',
+        destination: 'Transatlantic',
+        priceFrom: '899',
+        currency: 'GBP',
+        scrapedAt: '2026-04-27T20:00:00.000Z',
+      }),
+      shipClass: 'Unknown Class',
+    }],
+  });
+
+  assert.match(elements.cruiseBody.innerHTML, /Mystery of the Seas/);
+  assert.match(elements.cruiseBody.innerHTML, /class="class-dots unknown"/);
+  assert.match(elements.cruiseBody.innerHTML, /Class score unavailable/);
 });
