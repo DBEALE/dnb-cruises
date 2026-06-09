@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 43,
+  "count": 44,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -997,39 +997,6 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_AURA13TARMOTCADGIBMIA",
-      "shipName": "Norwegian Aura",
-      "shipClass": "",
-      "shipLaunchYear": null,
-      "itinerary": "Transatlantic: Seville & Gibraltar",
-      "departureDate": "October,2026",
-      "duration": "13-day Cruise",
-      "departurePort": "Barcelona (Tarragona), Spain",
-      "departureRegion": "Mediterranean",
-      "destination": "Transatlantic: Seville & Gibraltar",
-      "priceFrom": "2230",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/13-day-transatlantic-from-barcelona-tarragona-to-miami-seville-and-gibraltar-AURA13TARMOTCADGIBMIA?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=AURA13TARMOTCADGIBMIA",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 2115
-        },
-        {
-          "at": "2026-06-04T16:51:20.118Z",
-          "price": 2230
-        }
-      ],
-      "lastSeenAt": "2026-06-06T02:41:55.783Z"
-    },
-    {
-      "provider": "Norwegian Cruise Line",
       "id": "ncl_SPIRIT21SYDMELADLKANESPALBFRELEMDPSCELSIN",
       "shipName": "Norwegian Spirit",
       "shipClass": "Spirit",
@@ -1163,6 +1130,66 @@
         }
       ],
       "lastSeenAt": "2026-06-08T14:03:15.130Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SPIRIT10SYDQDNBWTMELORRLYTAKL",
+      "shipName": "Norwegian Spirit",
+      "shipClass": "Spirit",
+      "shipLaunchYear": 1998,
+      "itinerary": "Australia & New Zealand: Melbourne, Milford Sound & Wellington",
+      "departureDate": "Wed 10 Mar 2027",
+      "duration": "10-day Cruise",
+      "departurePort": "Sydney, Australia",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand: Melbourne, Milford Sound & Wellington",
+      "priceFrom": "1356",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/10-day-australia-and-new-zealand-from-sydney-to-auckland-SPIRIT10SYDQDNBWTMELORRLYTAKL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT10SYDQDNBWTMELORRLYTAKL",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "firstSeenAt": "2026-06-05T08:02:38.303Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-05T08:02:38.303Z",
+          "price": 1356
+        }
+      ],
+      "lastSeenAt": "2026-06-09T02:41:07.579Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SPIRIT12AKLTAULYTORRMELBWTQDNSYD",
+      "shipName": "Norwegian Spirit",
+      "shipClass": "Spirit",
+      "shipLaunchYear": 1998,
+      "itinerary": "Australia & New Zealand: Dusky Sound & Melbourne",
+      "departureDate": "Sat 20 Mar 2027",
+      "duration": "12-day Cruise",
+      "departurePort": "Auckland, New Zealand",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand: Dusky Sound & Melbourne",
+      "priceFrom": "1565",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-australia-and-new-zealand-from-auckland-to-sydney-SPIRIT12AKLTAULYTORRMELBWTQDNSYD?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12AKLTAULYTORRMELBWTQDNSYD",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "firstSeenAt": "2026-06-05T08:02:38.303Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-05T08:02:38.303Z",
+          "price": 1565
+        }
+      ],
+      "lastSeenAt": "2026-06-09T02:41:07.579Z"
     }
   ]
 }
