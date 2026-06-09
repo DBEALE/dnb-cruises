@@ -54,6 +54,15 @@
   const SITE_CHANGES = [
     {
       date: '9 Jun 2026',
+      title: 'Price alignment',
+      items: [
+        'Price-history amounts now use a fixed numeric width so the columns are easier to compare at a glance.',
+        'Arrows still show changes, but the numbers line up cleanly across each row.',
+        'Change arrows now use a reserved slot so they do not move the price text.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
       title: 'Price history scrolling',
       items: [
         'The price-history window now keeps the close button visible while the price rows scroll.',
@@ -1143,7 +1152,7 @@
         }
         return `<tr>
           <td>${escHtml(when)}</td>
-          <td class="ph-price">${escHtml(formatPriceDisplay(cur, currency))}</td>
+          <td class="ph-price"><span class="ph-price-line"><span class="ph-amount">${escHtml(formatPriceDisplay(cur, currency))}</span></span></td>
           <td class="ph-delta ${deltaClass}">${delta}</td>
         </tr>`;
       }
@@ -1151,14 +1160,15 @@
       const cells = buckets.map(b => {
         const cur = entryPrice(entry, b);
         const prv = prev ? entryPrice(prev, b) : null;
-        if (cur == null) return '<td class="ph-price ph-missing">—</td>';
-        let arrow = '';
+        const emptyArrow = '<span class="ph-arrow ph-arrow-empty" aria-hidden="true"></span>';
+        if (cur == null) return `<td class="ph-price ph-missing"><span class="ph-price-line"><span class="ph-amount ph-missing">—</span>${emptyArrow}</span></td>`;
+        let arrow = emptyArrow;
         if (prv != null && cur !== prv) {
           arrow = cur > prv
             ? '<span class="ph-arrow up" aria-hidden="true">▲</span>'
             : '<span class="ph-arrow down" aria-hidden="true">▼</span>';
         }
-        return `<td class="ph-price">${escHtml(formatPriceDisplay(cur, currency))}${arrow}</td>`;
+        return `<td class="ph-price"><span class="ph-price-line"><span class="ph-amount">${escHtml(formatPriceDisplay(cur, currency))}</span>${arrow}</span></td>`;
       }).join('');
 
       return `<tr><td>${escHtml(when)}</td>${cells}</tr>`;
