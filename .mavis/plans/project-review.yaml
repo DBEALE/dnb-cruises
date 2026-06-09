@@ -1,0 +1,300 @@
+version: 1
+plan:
+  name: "Full project code review for dnb-cruises"
+  max_concurrency: 4
+  max_consecutive_failures: 2
+  max_cycles: 6
+  auto_reject_retries: 1
+  verifier_config:
+    default_verifiers: [verifier]
+    audit_sample_rate: 0.0
+tasks:
+  - id: code-architecture-review
+    title: "Code quality & architecture review"
+    assigned_to: coder
+    verified_by: verifier
+    max_retries: 2
+    prompt: |
+      You are reviewing the project at C:\Users\Admin\Documents\vsCode\git\dnb-cruises
+      for code quality and architecture. Do NOT modify any project files. Produce a
+      single markdown report.
+
+      Scope to inspect (read all relevant files):
+      - server.js
+      - providers/ (all files: index.js, shared.js, royal-caribbean.js, princess-cruises.js,
+        celebrity-cruises.js, ncl-cruises.js, graphql-cruise-provider.js)
+      - scripts/ (all .js files)
+      - supabase/functions/ (subscribe, twilio-webhook, visitor-count)
+      - test/ (all .js files)
+      - playwright.config.cjs, package.json
+
+      Look for and report:
+      1. Duplicated logic across providers that could be hoisted into shared.js
+      2. Inconsistent error handling (silent failures, swallowed errors, missing
+         timeouts on outbound HTTP)
+      3. Hard-coded URLs, magic numbers, duplicated HTML/JSON parsing code
+      4. Provider API contract (what shape does fetchCruises() return? is it
+         documented? are providers in providers/index.js registered consistently?)
+      5. The relationship between scripts/fetch-cruises.js and
+         scripts/fetch-live-cruise-data.js (which is the real entry point? the
+         package.json "cruises:pull" script picks one — is the other dead code?)
+      6. The graphql-cruise-provider.js class — is it used? is the abstraction
+         earned, or premature?
+      7. Any obvious DRY/SRP violations, naming inconsistencies, missing JSDoc on
+         public APIs
+
+      Output:
+      - Write the report to docs/reviews/01-code-architecture.md
+      - Use sections: Summary, Findings (numbered, each with file:line evidence),
+        Recommended fixes (concrete, scoped — not vague advice)
+      - Each finding should have: severity (Critical/High/Medium/Low), file path,
+        line range, description, and a concrete suggested fix
+      - Do NOT propose architectural rewrites; suggest minimal targeted changes
+      - Return a short summary message listing the top 3 findings
+    verify_prompt: |
+      Verify the report at docs/reviews/01-code-architecture.md by independently
+      re-reading the source files cited in the report. PASS only if:
+      - Each finding has a real file:line citation that exists and matches the claim
+      - Each finding's severity is justified by the cited code
+      - Recommended fixes are concrete and minimal (not "refactor everything")
+      - The report does not invent issues that are not in the code
+      FAIL with the specific finding number, the bad citation, and what the code
+      actually says, if any finding is fabricated or misleading.
+
+  - id: security-review
+    title: "Security review"
+    assigned_to: coder
+    verified_by: verifier
+    max_retries: 2
+    prompt: |
+      You are reviewing the project at C:\Users\Admin\Documents\vsCode\git\dnb-cruises
+      for security issues. Do NOT modify any project files. Produce a single
+      markdown report.
+
+      Scope:
+      - server.js — Express endpoints, error leakage, CORS, rate limiting
+      - supabase/functions/ — auth, secrets handling, Twilio webhook signature
+        verification, SQL/PostgREST injection in subscribe function
+      - scripts/ — any code that handles URLs, writes to public/, or talks to
+        external services with credentials
+      - public/app.js — does it trust external JSON? XSS via the cruise fields
+        (ship name, itinerary, destination are scraped — are they escaped before
+        innerHTML?)
+      - .github/workflows/ — are secrets exposed in logs? do workflows have
+        least-privilege permissions?
+      - .gitignore — is .env ignored? are Supabase env files ignored?
+
+      Specifically check:
+      1. server.js /api/cruises — does it call provider.fetchCruises() on every
+         request with no caching, and does it expose the full provider error
+         message in the response?
+      2. public/app.js — find any innerHTML, document.write, or template-string
+         DOM injection. Verify the table render path is HTML-escaped.
+      3. supabase/functions/subscribe — does it validate email? does it talk to
+         a database with parameterized queries? does it leak PII in logs?
+      4. supabase/functions/twilio-webhook — does it verify the X-Twilio-Signature?
+         Can an attacker forge SMS events?
+      5. supabase/functions/visitor-count — does it trust client-supplied data?
+      6. Secrets — is anything committed in alerts.json or .github/workflows
+         that shouldn't be? scan the repo for `sk_`, `Bearer `, service_role keys
+      7. Scrapers — do they send a User-Agent? do they respect robots.txt? do
+         they have request timeouts? do they leak the build environment?
+      8. Dependencies — are cheerio/express pinned to safe versions? any
+         known CVEs in 1.2.0 / 4.18.2?
+
+      Output:
+      - Write to docs/reviews/02-security.md
+      - Sections: Summary, Findings (with severity, file:line, evidence, fix)
+      - Severity scale: Critical (data loss, RCE, account takeover),
+        High (XSS, auth bypass, secret leak), Medium (info disclosure, missing
+        validation), Low (best practice)
+      - Return a short summary message listing the top 3 findings
+    verify_prompt: |
+      Verify docs/reviews/02-security.md by:
+      1. Opening each cited file:line and confirming the claim
+      2. Running: rg -n "innerHTML" public/app.js (or equivalent) to confirm or
+         refute any XSS claim — the report's claim must match what's actually in
+         the file
+      3. Checking supabase/functions/twilio-webhook/index.ts for
+         X-Twilio-Signature verification — confirm whether the report's verdict
+         matches reality
+      4. Confirming any reported secret is actually present (rg for the literal
+         string) — fabricated secrets FAIL
+      PASS only if every finding is grounded in real evidence and the severity
+      is justified. FAIL with the exact fabricated or mis-cited finding.
+
+  - id: frontend-ux-review
+    title: "Frontend & UX review"
+    assigned_to: coder
+    verified_by: verifier
+    max_retries: 2
+    prompt: |
+      Review the user-facing frontend at C:\Users\Admin\Documents\vsCode\git\dnb-cruises
+      for UX, accessibility, and frontend code quality. Do NOT modify any project
+      files. Produce a single markdown report.
+
+      Scope:
+      - public/index.html
+      - public/app.js
+      - public/styles.css
+      - public/providers/index.json
+      - public/ship-wiki-links.json
+      - public/img/ (image asset sizes — flag oversized assets)
+
+      Look for and report:
+      1. Accessibility: missing alt text, ARIA roles, keyboard navigation for
+         sort headers, focus styles, color contrast, semantic HTML
+      2. Filter / sort: is the live text filter debounced? is it accessible
+         (label, aria-live announcement of result count)? does the sort UI
+         indicate current direction for screen readers?
+      3. Loading / error / empty states: what does the user see when fetching,
+         on error, or with zero results? are these states designed or just
+         "the table is empty"?
+      4. Performance: are ship-wiki-links.json and provider cruises.json loaded
+         eagerly? is there any visible blocking? check image sizes
+         (public/img/ship-*.png) — are they sensible for a static site?
+      5. Mobile / responsive: any obvious breakpoints missing? table overflow
+         on narrow screens?
+      6. Browser compatibility: any ES2020+ features that would break in older
+         evergreen browsers? console errors in vanilla JS?
+      7. Code quality: structured as one app.js? IIFE / module pattern? any
+         global pollution? consistent style?
+      8. CSP / meta tags: is there a Content-Security-Policy? viewport meta?
+         theme-color?
+
+      Output:
+      - Write to docs/reviews/03-frontend-ux.md
+      - Sections: Summary, Findings (severity, file:line, evidence, fix)
+      - Return a short summary message listing the top 3 findings
+    verify_prompt: |
+      Verify docs/reviews/03-frontend-ux.md by:
+      1. Reading public/index.html and public/app.js end-to-end
+      2. For any accessibility claim, confirming the element actually lacks the
+         attribute the report says it lacks
+      3. For any performance claim about asset sizes, running
+         Get-ChildItem public/img to confirm the actual byte counts
+      4. For any responsive claim, confirming the CSS actually has or lacks the
+         @media query in question
+      PASS only if every finding is grounded in the real files. FAIL with the
+      exact finding, the file:line, and what the code actually does.
+
+  - id: ops-and-ci-review
+    title: "Operations, CI, and dependencies review"
+    assigned_to: coder
+    verified_by: verifier
+    max_retries: 2
+    prompt: |
+      Review the project's operational concerns at
+      C:\Users\Admin\Documents\vsCode\git\dnb-cruises. Do NOT modify any project
+      files. Produce a single markdown report.
+
+      Scope:
+      - package.json (scripts, deps, devDeps, engines)
+      - package-lock.json (any glaring issues — do not deep-audit every dep,
+        just check declared deps and their major versions)
+      - .github/workflows/ (all three: deploy-pages, deploy-on-push, deploy-edge-functions)
+      - playwright.config.cjs
+      - test/ — are tests run in CI? is coverage measured?
+      - netlify/ — is this directory actually used? README mentions GitHub Pages
+        but netlify/ exists. Flag if dead.
+      - alerts.json — the file is committed in repo root, but its name suggests
+        a runtime config. Is it read by code, or stale? (rg for alerts.json)
+      - supabase/ — config.toml sanity, migrations folder
+      - .vscode/, .claude/ — any settings worth flagging (e.g. .claude/settings
+        committed)?
+
+      Look for and report:
+      1. CI: do workflows have least-privilege `permissions:` blocks? do they
+         pin action SHAs or use mutable tags? are secrets written to logs?
+      2. Tests: the package.json "test" script chains node --test then playwright.
+         Is this actually a single test pipeline or two unrelated ones? Is
+         coverage collected anywhere?
+      3. Dead code / config: netlify/ vs the README saying GitHub Pages;
+         scripts/fetch-cruises.js vs scripts/fetch-live-cruise-data.js (one is
+         probably dead based on package.json); alerts.json
+      4. Dependency hygiene: are cheerio/express current? (cheerio 1.2.0,
+         express 4.18.2 — flag if a major bump is overdue for security or perf).
+         Are there unused devDeps? (jimp is listed but is it used? rg for "jimp")
+      5. The README references Puppeteer for the first fetch, but package.json
+         has no puppeteer dependency. Is the README lying?
+      6. Engines: package.json says node >= 18. Does the code actually use any
+         Node 20+ features? (rg for "??", "structuredClone", etc.)
+      7. .venv/ — is this a Python venv in a Node project? Why? Is it
+         committed-by-accident or used by a sidecar?
+      8. test-results/ — gitignored, good, but does any script rely on it
+         persisting?
+
+      Output:
+      - Write to docs/reviews/04-ops-ci.md
+      - Sections: Summary, Findings (severity, file:line, evidence, fix)
+      - Return a short summary message listing the top 3 findings
+    verify_prompt: |
+      Verify docs/reviews/04-ops-ci.md by:
+      1. For every claim about a dead file, running Get-ChildItem and rg to
+         confirm the file is unreferenced (the report's grep must match)
+      2. For dependency claims, reading package.json directly
+      3. For CI claims, reading the .github/workflows/*.yml files
+      4. For "README mentions Puppeteer but no dep", running rg "puppeteer" in
+         package.json to confirm
+      PASS only if every finding is verified. FAIL with the specific fabricated
+      or mis-attributed claim.
+
+  - id: aggregate-improvements
+    title: "Consolidate into prioritized improvement plan"
+    assigned_to: coder
+    role: verify-as-task
+    depends_on: [code-architecture-review, security-review, frontend-ux-review, ops-and-ci-review]
+    max_retries: 1
+    prompt: |
+      Read all four upstream review reports:
+      - docs/reviews/01-code-architecture.md
+      - docs/reviews/02-security.md
+      - docs/reviews/03-frontend-ux.md
+      - docs/reviews/04-ops-ci.md
+
+      Produce a single consolidated improvement plan at docs/IMPROVEMENTS.md.
+
+      Structure:
+      # Improvement Plan
+      ## TL;DR
+      3-5 sentence executive summary of the project's overall health and the
+      highest-leverage changes.
+
+      ## Prioritized Action List
+      Numbered list of every concrete improvement, grouped by:
+      - P0 — must-fix (security, data loss, broken deploy)
+      - P1 — should-fix (significant UX or maintainability gain)
+      - P2 — nice-to-fix (cleanup, polish, hardening)
+
+      For each item:
+      - Short title
+      - One-line description
+      - Source review file and finding number(s) (e.g. "security #2, #7")
+      - Estimated effort: S (< 1h) / M (1-4h) / L (> 4h)
+      - Suggested order within the priority band
+
+      ## Cross-Cutting Themes
+      2-4 short paragraphs noting patterns that show up across multiple reviews
+      (e.g. "missing input validation shows up in 3 places").
+
+      ## Out of Scope
+      List things the reviews flagged that you are intentionally NOT
+      recommending for this iteration, with one-sentence rationale each.
+
+      Do NOT add new findings — only synthesize what's already in the four
+      upstream reports. Do NOT modify any source files.
+
+      Verification standard (this is a verify-as-task — you are the gate):
+      - Every P0/P1/P2 item must trace to a specific upstream finding
+      - Priorities must be defensible (don't P0 a "rename this variable" item)
+      - The plan must be readable end-to-end in 5 minutes
+      Return a short summary message with the P0 count and top 3 items.
+    verify_prompt: |
+      Verify docs/IMPROVEMENTS.md by:
+      1. Checking every item against the cited upstream finding — if the
+         upstream finding is in docs/reviews/0X-*.md at the cited number, OK
+      2. Reading 5 random items and confirming their priority/effort is sane
+      3. Confirming no fabricated items were added
+      PASS only if the synthesis is faithful to the upstream reports and the
+      priorities are reasonable. FAIL with the specific item number and
+      upstream mismatch.
