@@ -1281,6 +1281,10 @@
 
       #mobClearFilters {
         width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
         padding: 8px;
         border: 1px solid var(--gray-200);
         border-radius: 7px;
@@ -1290,9 +1294,26 @@
         font-weight: 600;
         cursor: pointer;
       }
+      #mobClearFilters:disabled {
+        cursor: wait;
+        opacity: 0.85;
+      }
+      #mobClearFilters.is-busy::before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        border: 2px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: mobBusySpin .7s linear infinite;
+      }
     }
 
     /* ── Fade in on load ─────────────────────────────────────────────────────── */
+    @keyframes mobBusySpin {
+      to { transform: rotate(360deg); }
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }

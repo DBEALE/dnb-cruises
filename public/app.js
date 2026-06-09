@@ -51,6 +51,14 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '9 Jun 2026',
+      title: 'Filter clear feedback',
+      items: [
+        'The mobile Sort & filter Clear all button now shows a busy state while filters are reset.',
+        'This gives visible feedback when a large cruise list takes a moment to recalculate.',
+      ],
+    },
+    {
       date: '8 Jun 2026',
       title: 'NCL cabin pricing',
       items: [
@@ -1816,11 +1824,38 @@
     dlg.addEventListener('click', (ev) => { if (ev.target === dlg) closeMobileFilters(); });
   }
 
-  function clearMobileFilters() {
-    document.querySelectorAll('.mob-filter').forEach(el => { el.value = ''; });
-    document.querySelectorAll('.col-filter').forEach(el => { el.value = ''; });
-    updateDepartureRangeControls();
-    applyFilters();
+  function waitForNextPaint() {
+    return new Promise(resolve => {
+      requestAnimationFrame(() => requestAnimationFrame(resolve));
+    });
+  }
+
+  async function clearMobileFilters() {
+    const btn = document.getElementById('mobClearFilters');
+    if (btn?.classList.contains('is-busy')) return;
+    const originalText = btn?.textContent || 'Clear all';
+
+    if (btn) {
+      btn.classList.add('is-busy');
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = 'Clearing...';
+    }
+
+    try {
+      await waitForNextPaint();
+      document.querySelectorAll('.mob-filter').forEach(el => { el.value = ''; });
+      document.querySelectorAll('.col-filter').forEach(el => { el.value = ''; });
+      updateDepartureRangeControls();
+      applyFilters();
+    } finally {
+      if (btn) {
+        btn.classList.remove('is-busy');
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        btn.textContent = originalText;
+      }
+    }
   }
 
   function getCellValue(c, col) {

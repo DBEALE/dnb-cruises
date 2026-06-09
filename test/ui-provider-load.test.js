@@ -25,6 +25,9 @@ function readFrontendScript() {
 test('ship, cruise line, and class filters are dropdowns and port is labeled departure port', () => {
   const htmlPath = path.join(__dirname, '..', 'public', 'index.html');
   const html = fs.readFileSync(htmlPath, 'utf8');
+  const app = readFrontendScript();
+  const cssPath = path.join(__dirname, '..', 'public', 'styles.css');
+  const css = fs.readFileSync(cssPath, 'utf8');
 
   assert.match(html, /<select class="col-filter" data-field="shipName" onchange="applyFilters\(\)">/);
   assert.match(html, /<select class="col-filter" data-field="provider" onchange="applyFilters\(\)">/);
@@ -36,6 +39,10 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /data-field="departureEnd"/);
   assert.match(html, /id="departureRangeDialog"/);
   assert.match(html, /Departure port/);
+  assert.match(html, /id="mobClearFilters" onclick="clearMobileFilters\(\)"/);
+  assert.match(app, /async function clearMobileFilters\(\)/);
+  assert.match(app, /btn\.textContent = 'Clearing\.\.\.'/);
+  assert.match(css, /#mobClearFilters\.is-busy::before/);
 });
 
 function createElement(initial = {}) {
