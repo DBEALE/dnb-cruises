@@ -128,9 +128,9 @@ test.describe('Sparklines', () => {
     expect(legend).toEqual(expect.arrayContaining(['Inside', 'Sea view', 'Balcony', 'Suite']));
     // Chart path per cabin
     expect(await page.locator('#phChart svg path').count()).toBe(4);
-    // Earliest at the top
+    // Latest at the top
     const firstRowDate = await page.locator('#phTableBody tr:first-child td:first-child').innerText();
-    expect(firstRowDate).toMatch(/1 May/);
+    expect(firstRowDate).toMatch(/31 May/);
   });
 });
 

@@ -20,5 +20,6 @@ jobs:
         run: |
           supabase functions deploy subscribe --project-ref yttgqscwgmsnewdjqbcc --no-verify-jwt
           supabase functions deploy twilio-webhook --project-ref yttgqscwgmsnewdjqbcc --no-verify-jwt
+          supabase functions deploy visitor-count --project-ref yttgqscwgmsnewdjqbcc --no-verify-jwt
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}

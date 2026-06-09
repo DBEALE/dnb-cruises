@@ -46,10 +46,28 @@
   let shipWikiLinks     = {};
   let providerWikiLinks = {};
   let classWikiLinks    = {};
+  const VISITOR_ID_KEY = 'cruise-explorer-visitor-id';
+  const VISITOR_COUNT_URL = 'https://yttgqscwgmsnewdjqbcc.supabase.co/functions/v1/visitor-count';
 
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '9 Jun 2026',
+      title: 'Price history scrolling',
+      items: [
+        'The price-history window now keeps the close button visible while the price rows scroll.',
+        'Price-history rows now show the latest observation first.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Visitor counts',
+      items: [
+        'The footer now shows unique visitors and total visits for the site.',
+        'Visits are counted with an anonymous browser ID stored locally.',
+      ],
+    },
     {
       date: '9 Jun 2026',
       title: 'Async filter updates',
@@ -406,6 +424,7 @@
     refreshMobileSavedSelect();
     wirePriceHistoryHandlers();
     wireStickySummary();
+    recordVisitorCount();
 
     fetch(resolveStaticUrl('./build-info.json'), { cache: 'no-store' })
       .then(r => r.ok ? r.json() : null)
@@ -461,6 +480,54 @@
     } catch {
       if (!cached) showStatus('Could not load cruise data: unable to load the static cruise files.', true);
       else hideStatus();
+    }
+  }
+
+  function getVisitorId() {
+    try {
+      const existing = localStorage.getItem(VISITOR_ID_KEY);
+      if (existing && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(existing)) {
+        return existing;
+      }
+      const webCrypto = globalThis.crypto;
+      const randomByte = () => {
+        if (webCrypto?.getRandomValues) return webCrypto.getRandomValues(new Uint8Array(1))[0];
+        return Math.floor(Math.random() * 256);
+      };
+      const id = webCrypto?.randomUUID?.()
+        || '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c =>
+          (Number(c) ^ randomByte() & 15 >> Number(c) / 4).toString(16)
+        );
+      localStorage.setItem(VISITOR_ID_KEY, id);
+      return id;
+    } catch {
+      return '';
+    }
+  }
+
+  async function recordVisitorCount() {
+    const target = document.getElementById('visitorStats');
+    if (!target) return;
+    const visitorId = getVisitorId();
+    if (!visitorId) {
+      target.textContent = 'Visitors unavailable';
+      return;
+    }
+
+    try {
+      const res = await fetch(VISITOR_COUNT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ visitorId }),
+      });
+      if (!res.ok) throw new Error(`visitor-count ${res.status}`);
+      const data = await res.json();
+      const unique = Number(data?.uniqueVisitors);
+      const total = Number(data?.totalVisits);
+      if (!Number.isFinite(unique) || !Number.isFinite(total)) throw new Error('invalid visitor counts');
+      target.textContent = `Visitors: ${unique.toLocaleString('en-GB')} unique · ${total.toLocaleString('en-GB')} total`;
+    } catch {
+      target.textContent = 'Visitors unavailable';
     }
   }
 
@@ -974,10 +1041,16 @@
     const subParts = [cruise.itinerary, formatDateDisplay(cruise.departureDate)].filter(Boolean);
     document.getElementById('phSub').textContent = subParts.join(' — ');
 
-    const buckets = historyBuckets(history); // empty → all legacy entries
-    document.getElementById('phChart').innerHTML       = renderHistoryChart(history, cruise.currency, buckets);
+    const chronologicalHistory = [...history].sort((a, b) => {
+      const aTime = new Date(a?.at || 0).getTime();
+      const bTime = new Date(b?.at || 0).getTime();
+      return (Number.isNaN(aTime) ? 0 : aTime) - (Number.isNaN(bTime) ? 0 : bTime);
+    });
+
+    const buckets = historyBuckets(chronologicalHistory); // empty → all legacy entries
+    document.getElementById('phChart').innerHTML       = renderHistoryChart(chronologicalHistory, cruise.currency, buckets);
     document.getElementById('phTableHead').innerHTML   = renderHistoryTableHead(buckets);
-    document.getElementById('phTableBody').innerHTML   = renderHistoryTableBody(history, cruise.currency, buckets);
+    document.getElementById('phTableBody').innerHTML   = renderHistoryTableBody(chronologicalHistory, cruise.currency, buckets);
 
     if (typeof dialog.showModal === 'function') dialog.showModal();
     else dialog.setAttribute('open', '');
@@ -1048,11 +1121,9 @@
   }
 
   function renderHistoryTableBody(history, currency, buckets) {
-    // Rows are chronological — earliest at the top, latest at the bottom.
-    // Delta on each row compares to the immediately-prior observation, so
-    // ▲/▼ reads "this scrape was higher/lower than the previous one".
-    return history.map((entry, i) => {
-      const prev = i > 0 ? history[i - 1] : null;
+    // Display latest-first, while each delta still compares to the immediately
+    // prior scrape in chronological order.
+    return history.map((entry, i) => ({ entry, prev: i > 0 ? history[i - 1] : null })).reverse().map(({ entry, prev }) => {
       const d = new Date(entry.at);
       const when = Number.isNaN(d.getTime()) ? '—' : d.toLocaleString('en-GB', {
         day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', timeZone:'UTC',

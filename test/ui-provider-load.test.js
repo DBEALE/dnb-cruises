@@ -40,11 +40,17 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /id="departureRangeDialog"/);
   assert.match(html, /Departure port/);
   assert.match(html, /id="mobClearFilters" onclick="clearMobileFilters\(\)"/);
+  assert.match(html, /id="visitorStats"/);
+  assert.match(html, /class="ph-table-wrap"/);
   assert.match(app, /function scheduleApplyFilters\(\{ delay = 0 \} = \{\}\)/);
   assert.match(app, /const FILTER_DEBOUNCE_MS = 320/);
+  assert.match(app, /const VISITOR_COUNT_URL = 'https:\/\/yttgqscwgmsnewdjqbcc\.supabase\.co\/functions\/v1\/visitor-count'/);
+  assert.match(app, /async function recordVisitorCount\(\)/);
   assert.match(app, /async function clearMobileFilters\(\)/);
   assert.match(app, /btn\.textContent = 'Clearing\.\.\.'/);
   assert.match(css, /#mobClearFilters\.is-busy::before/);
+  assert.match(css, /\.ph-table-wrap \{[^}]*overflow: auto/);
+  assert.match(css, /\.ph-table th \{[^}]*position: sticky/);
 });
 
 function createElement(initial = {}) {

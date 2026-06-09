@@ -494,15 +494,18 @@
       <button type="button" class="ph-close" id="phClose" aria-label="Close">×</button>
     </div>
     <div class="ph-chart" id="phChart"></div>
-    <table class="ph-table">
-      <thead id="phTableHead"></thead>
-      <tbody id="phTableBody"></tbody>
-    </table>
+    <div class="ph-table-wrap">
+      <table class="ph-table">
+        <thead id="phTableHead"></thead>
+        <tbody id="phTableBody"></tbody>
+      </table>
+    </div>
   </div>
 </dialog>
 
 <footer>
   Prices shown per person. Availability and fares subject to change.
+  <br><span id="visitorStats" class="visitor-stats" aria-live="polite">Visitors: loading…</span>
   <br><span id="buildInfo"></span>
 </footer>
 
