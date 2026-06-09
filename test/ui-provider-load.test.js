@@ -37,8 +37,10 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /id="mobilePageSortDirBtn"/);
   assert.match(html, /data-field="departureStart"/);
   assert.match(html, /data-field="departureEnd"/);
+  assert.match(html, /data-field="seaDays"/);
   assert.match(html, /id="departureRangeDialog"/);
   assert.match(html, /Departure port/);
+  assert.match(html, /Sea days/);
   assert.match(html, /id="mobClearFilters" onclick="clearMobileFilters\(\)"/);
   assert.match(html, /id="visitorStats"/);
   assert.match(html, /class="ph-table-wrap"/);
@@ -54,6 +56,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /class="wave-surge-wave"/);
   assert.match(app, /function itinerarySearchTerms\(query\)/);
   assert.match(app, /function highlightItinerary\(text, query\)/);
+  assert.match(app, /function inferSeaDays\(c\)/);
   assert.match(app, /class="ph-price-line"/);
   assert.match(app, /function wireHeaderWavePress\(\)/);
   assert.match(app, /triggerHeaderWavePress\(\)/);
@@ -128,7 +131,7 @@ function createElement(initial = {}) {
   };
 }
 
-function buildCruise({ shipName, itinerary, departurePort, destination, priceFrom, currency, scrapedAt }) {
+function buildCruise({ shipName, itinerary, departurePort, destination, priceFrom, currency, scrapedAt, seaDays = null }) {
   return {
     provider: 'Royal Caribbean',
     shipName,
@@ -139,6 +142,7 @@ function buildCruise({ shipName, itinerary, departurePort, destination, priceFro
     destination,
     priceFrom,
     currency,
+    seaDays,
     bookingUrl: `/cruises/${shipName.toLowerCase().replace(/\s+/g, '-')}`,
     scrapedAt,
   };
@@ -153,6 +157,7 @@ async function createSandbox({
     destination: 'Mediterranean',
     priceFrom: '899',
     currency: 'GBP',
+    seaDays: 3,
     scrapedAt: '2026-04-27T20:00:00.000Z',
   })],
 } = {}) {
@@ -319,8 +324,10 @@ test('loads the provider manifest and provider-specific cruise file on init', as
   assert.match(elements.summary.innerHTML, /Showing all 1 sailings/);
   assert.match(elements.cruiseBody.innerHTML, /Harmony of the Seas/);
   assert.match(elements.cruiseBody.innerHTML, /data-label="Cruise line"/);
+  assert.match(elements.cruiseBody.innerHTML, /data-label="Sea days"/);
   assert.match(elements.cruiseBody.innerHTML, /data-label="Book"/);
   assert.match(elements.cruiseBody.innerHTML, /Royal Caribbean/);
+  assert.match(elements.cruiseBody.innerHTML, /<td class="col-sea-days duration" data-label="Sea days">3<\/td>/);
   assert.equal(elements.totalProviders.textContent, '1');
   assert.match(elements.updatedAt.textContent, /27 Apr 2026/);
   assert.ok(sandbox.localStorage.getItem('cached_cruises:royal-caribbean'));

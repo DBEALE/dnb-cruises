@@ -46,6 +46,7 @@ test('normalizes Norwegian Cruise Line itinerary details', () => {
     currency: 'GBP',
     bookingUrl: 'https://www.ncl.com/uk/en/cruises/british-isles-test-SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU?itineraryCode=SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU',
     prices: { inside: '999', oceanView: '1099', balcony: '1299', suite: '1799' },
+    seaDays: 8,
   });
 });
 
@@ -100,6 +101,16 @@ test('extracts multiple single-word ports from NCL booking URL slug', () => {
       'London (Southampton), United Kingdom'
     ),
     ['Reykjavik', 'Edinburgh', 'Bergen']
+  );
+});
+
+test('keeps "from X to Y" style URLs with intermediate ports intact', () => {
+  assert.deepEqual(
+    provider.extractPortsFromSlug(
+      'https://www.ncl.com/uk/en/cruises/7-day-northern-europe-from-london-to-reykjavik-akureyri-and-stavanger-STAR7SOUKWLBGOAKUISAREY?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=STAR7SOUKWLBGOAKUISAREY',
+      'London (Southampton), United Kingdom'
+    ),
+    ['Reykjavik', 'Akureyri', 'Stavanger']
   );
 });
 
@@ -158,6 +169,22 @@ test('normalizeCruise enriches itinerary with port names from URL slug', () => {
   }, 'https://www.ncl.com/uk/en/cruises/7-day-caribbean-round-trip-new-orleans-cozumel-and-costa-maya-BREAKAWAY7MSYCZMRTBBZECMAMSY?itineraryCode=BREAKAWAY7MSYCZMRTBBZECMAMSY');
 
   assert.equal(cruise.itinerary, 'Western Caribbean: Cozumel, Costa Maya');
+});
+
+test('normalizeCruise estimates sea days from the NCL slug when ports are present', () => {
+  const cruise = provider.normalizeCruise({
+    code: 'STAR7SOUKWLBGOAKUISAREY',
+    title: 'Northern Europe: Akureyri & Stavanger',
+    shortTitle: 'Northern Europe: Akureyri & Stavanger',
+    duration: { text: '7-day Cruise' },
+    currency: 'GBP',
+    ship: { title: 'Norwegian Star' },
+    destination: { title: 'Northern Europe: Akureyri & Stavanger' },
+    embarkationPort: { title: 'London (Southampton), United Kingdom' },
+    sailings: [{ departureDate: '2026-08-02', staterooms: [{ combinedPrice: '676.00' }] }],
+  }, 'https://www.ncl.com/uk/en/cruises/7-day-northern-europe-from-london-to-reykjavik-akureyri-and-stavanger-STAR7SOUKWLBGOAKUISAREY?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=STAR7SOUKWLBGOAKUISAREY');
+
+  assert.equal(cruise.seaDays, 3);
 });
 
 test('normalizeCruise leaves simple itinerary unchanged when URL has no intermediate ports', () => {

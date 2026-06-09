@@ -1,7 +1,7 @@
 'use strict';
 
 const GraphQLCruiseProvider = require('./graphql-cruise-provider');
-const { getDepartureRegion } = require('./shared');
+const { getDepartureRegion, estimateSeaDays } = require('./shared');
 
 const ROOM_SELECTION_API_URL = 'https://www.royalcaribbean.com/room-selection/api/v1/rooms';
 
@@ -342,7 +342,15 @@ async function enrichCruiseItinerary(cruise) {
   try {
     const { ports } = await fetchRoomSelectionData(context);
     const detailedItinerary = buildDetailedItinerary(cruise.itinerary, ports);
-    return { ...cruise, itinerary: detailedItinerary || cruise.itinerary };
+    return {
+      ...cruise,
+      itinerary: detailedItinerary || cruise.itinerary,
+      seaDays: estimateSeaDays({
+        labels: ports,
+        duration: cruise.duration,
+        portsIncludeEndpoints: true,
+      }),
+    };
   } catch {
     return cruise;
   }

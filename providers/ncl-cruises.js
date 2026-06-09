@@ -2,7 +2,7 @@
 
 const { chromium } = require('@playwright/test');
 
-const { getDepartureRegion } = require('./shared');
+const { getDepartureRegion, estimateSeaDays } = require('./shared');
 
 const NCL_BASE_URL = 'https://www.ncl.com';
 const NCL_CRUISES_URL = 'https://www.ncl.com/uk/en/vacations';
@@ -149,11 +149,16 @@ function extractPortsFromSlug(bookingUrl, departurePort) {
       }
     }
 
-    // Remove "to-{destination}" prefix left over from "from X to Y" URL patterns.
-    // Handles destination names up to four hyphenated words (e.g. "to-new-york-",
-    // "to-auckland", "to-fort-lauderdale-"). Matches with or without a trailing "-"
-    // so that slugs ending in the destination (no further ports) are also stripped.
-    slug = slug.replace(/^to-[a-z]+(?:-[a-z]+){0,3}(?:-|$)/i, '');
+    // Remove "to-{destination}" only for simple "from X to Y" slugs.
+    // If the remainder already contains "-and-", it is usually an itinerary
+    // port list (e.g. "to-reykjavik-akureyri-and-stavanger"), so leave it alone.
+    if (slug.toLowerCase().startsWith('to-')) {
+      if (/-and-/i.test(slug)) {
+        slug = slug.slice(3);
+      } else {
+        slug = slug.replace(/^to-[a-z]+(?:-[a-z]+){0,3}(?:-|$)/i, '');
+      }
+    }
 
     if (!slug) return [];
 
@@ -374,6 +379,11 @@ function normalizeCruise(detail, bookingUrl) {
     currency: cleanText(detail?.currency) || 'GBP',
     bookingUrl: resolveUrl(bookingUrl),
     prices: roomPrices,
+    seaDays: estimateSeaDays({
+      labels: ports,
+      duration: detail?.duration?.text || '',
+      portsIncludeEndpoints: false,
+    }),
   };
 }
 

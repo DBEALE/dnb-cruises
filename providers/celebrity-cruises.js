@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 const { randomUUID } = require('node:crypto');
 
 const GraphQLCruiseProvider = require('./graphql-cruise-provider');
-const { getDepartureRegion } = require('./shared');
+const { getDepartureRegion, estimateSeaDays } = require('./shared');
 
 const CELEBRITY_GRAPH_URL              = 'https://www.celebritycruises.com/cruises/graph';
 const CELEBRITY_ROOM_SELECTION_API_URL = 'https://www.celebritycruises.com/room-selection/api/v1/rooms';
@@ -582,6 +582,11 @@ async function enrichCruiseItinerary(cruise) {
       currency: (hasLivePagePrices || pagePrice.price)
         ? (context.selectedCurrencyCode || cruise.currency || 'GBP')
         : cruise.currency,
+      seaDays: estimateSeaDays({
+        labels: ports,
+        duration: cruise.duration,
+        portsIncludeEndpoints: true,
+      }),
     };
   } catch {
     return cruise;

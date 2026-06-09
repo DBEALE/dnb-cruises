@@ -18,7 +18,7 @@ const PROVIDER_INDEX = {
 };
 
 // Helper — build a cruise with the priceHistory shape the UI expects.
-function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton', itinerary = `${days}-Night ${port} Sample`, shipLaunchYear = 2020 }) {
+function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton', itinerary = `${days}-Night ${port} Sample`, shipLaunchYear = 2020, seaDays = null }) {
   return {
     id, shipName, provider,
     shipClass:       'Oasis',
@@ -26,6 +26,7 @@ function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenA
     itinerary,
     departureDate,
     duration:        `${days} Nights`,
+    seaDays,
     departurePort:   port,
     departureRegion: 'UK & Ireland',
     destination:     'Northern Europe',
@@ -45,6 +46,7 @@ const CRUISES_RC = {
       id: 'rc_a', shipName: 'Anthem of the Seas', provider: 'Royal Caribbean',
       priceFrom: 500, days: 7, departureDate: '2026-08-31', firstSeenAt: '2026-05-01T10:00:00Z',
       shipLaunchYear: 2025,
+      seaDays: 3,
       prices: { inside: '500', oceanView: '650', balcony: '800', suite: '1800' },
       history: [
         { at: '2026-05-01T10:00:00Z', prices: { inside: 600, oceanView: 720, balcony: 900, suite: 2000 } },
@@ -56,6 +58,7 @@ const CRUISES_RC = {
       id: 'rc_b', shipName: 'Harmony of the Seas', provider: 'Royal Caribbean',
       priceFrom: 1200, days: 14, firstSeenAt: '2026-06-05T10:00:00Z',
       shipLaunchYear: 2000,
+      seaDays: 9,
       prices: { inside: '1200', oceanView: '1500', balcony: '1800', suite: '3500' },
       history: [
         { at: '2026-05-01T10:00:00Z', prices: { inside: 1100, oceanView: 1400, balcony: 1700, suite: 3400 } },
@@ -72,6 +75,7 @@ const CRUISES_CEL = {
       id: 'cel_a', shipName: 'Celebrity Edge', provider: 'Celebrity Cruises',
       priceFrom: 900, days: 10, port: 'Barcelona', departureDate: '2026-09-02', firstSeenAt: '2026-05-20T10:00:00Z',
       itinerary: 'Barcelona, Spain Mediterranean Escape',
+      seaDays: 2,
       prices: { inside: '900', oceanView: null, balcony: '1300', suite: '2500' },
     }),
   ],
@@ -161,6 +165,17 @@ test.describe('Sort and filter', () => {
     await expect(page.locator('tbody tr:has-text("Harmony of the Seas") .col-launch .launch-year-badge')).toHaveClass(/newness-legacy/);
   });
 
+  test('sea days render in the new column', async ({ page }) => {
+    await gotoFresh(page);
+    await expect(page.locator('tbody tr:first-child .col-sea-days')).toContainText('3');
+  });
+
+  test('sea days sort orders by the new column', async ({ page }) => {
+    await gotoFresh(page);
+    await page.selectOption('#sortSelect', '19');
+    await expect(page.locator('tbody tr:first-child .col-ship')).toContainText('Celebrity Edge');
+  });
+
   test('sort dropdown + direction toggle reorders rows', async ({ page }) => {
     await gotoFresh(page);
     // Picking from the dropdown applies ascending by default; the toggle
@@ -169,8 +184,7 @@ test.describe('Sort and filter', () => {
     await page.click('#sortDirBtn');                     // flip to descending
     // Harmony 14n £1200 = £85/n, Anthem 7n £500 = £71/n, Edge 10n £900 = £90/n
     // Edge (90) > Harmony (85) > Anthem (71)
-    const firstShip = await page.locator('tbody tr:first-child .col-ship').innerText();
-    expect(firstShip).toContain('Celebrity Edge');
+    await expect(page.locator('tbody tr:first-child .col-ship')).toContainText('Celebrity Edge');
     // Direction button reflects the flipped state
     await expect(page.locator('#sortDirBtn')).toHaveText('↓');
   });
@@ -194,8 +208,7 @@ test.describe('Sort and filter', () => {
   test('recently found sort defaults to newest first', async ({ page }) => {
     await gotoFresh(page);
     await page.selectOption('#sortSelect', '18');
-    const firstShip = await page.locator('tbody tr:first-child .col-ship').innerText();
-    expect(firstShip).toContain('Harmony');
+    await expect(page.locator('tbody tr:first-child .col-ship')).toContainText('Harmony');
     await expect(page.locator('#sortDirBtn')).toHaveText('↓');
   });
 
@@ -203,8 +216,19 @@ test.describe('Sort and filter', () => {
     await gotoFresh(page);
     await page.locator('.col-filter[data-field="provider"]').selectOption('Celebrity Cruises');
     await expect(page.locator('#summary')).toContainText('1 of 3');
-    await expect(page.locator('#summary')).toContainText('Cruise line: Celebrity Cruises');
+    await expect(page.locator('#summary')).toContainText('Celebrity Cruises');
     expect(await page.locator('tbody tr').count()).toBe(1);
+  });
+
+  test('sea days filter narrows results and updates summary count', async ({ page }) => {
+    await gotoFresh(page);
+    await page.locator('.col-filter[data-field="seaDays"]').fill('4');
+    await page.locator('.col-filter[data-field="seaDays"]').dispatchEvent('input');
+    await expect(page.locator('#summary')).toContainText('2 of 3');
+    await expect(page.locator('#summary')).toContainText('Max 4 sea days');
+    expect(await page.locator('tbody tr').count()).toBe(2);
+    await expect(page.locator('tbody tr:first-child .col-ship')).toContainText('Anthem of the Seas');
+    await expect(page.locator('tbody tr:nth-child(2) .col-ship')).toContainText('Celebrity Edge');
   });
 
   test('itinerary filter matches every word and highlights each one', async ({ page }) => {
@@ -235,10 +259,10 @@ test.describe('Sort and filter', () => {
     await page.click('#departureRangeApply');
 
     await expect(page.locator('#summary')).toContainText('2 of 3');
-    await expect(page.locator('#summary')).toContainText('Departure: 31 Aug 2026 - 1 Sept 2026');
-    await expect(page.locator('tbody')).toContainText('Anthem of the Seas');
-    await expect(page.locator('tbody')).toContainText('Harmony of the Seas');
-    await expect(page.locator('tbody')).not.toContainText('Celebrity Edge');
+    await expect(page.locator('#summary')).toContainText('Departure 31 Aug 2026 - 1 Sept 2026');
+    await expect(page.locator('#cruiseBody')).toContainText('Anthem of the Seas');
+    await expect(page.locator('#cruiseBody')).toContainText('Harmony of the Seas');
+    await expect(page.locator('#cruiseBody')).not.toContainText('Celebrity Edge');
     await expect(page.locator('#departureRangeBtn')).toContainText('31 Aug 2026 - 1 Sept 2026');
   });
 
@@ -331,12 +355,12 @@ test.describe('Settings dialog', () => {
   test('link target toggle switches ship links from Wikipedia to cruise company pages', async ({ page }) => {
     await gotoFresh(page);
     await page.waitForFunction(() => document.querySelector('tbody tr:first-child .col-ship a')?.href.includes('wikipedia.org'));
-    await expect(page.locator('tbody tr:first-child .col-ship a')).toHaveAttribute('href', 'https://en.wikipedia.org/wiki/Anthem_of_the_Seas');
+    await expect(page.locator('#cruiseBody tr:first-child .col-ship a').first()).toHaveAttribute('href', 'https://en.wikipedia.org/wiki/Anthem_of_the_Seas');
 
     await page.click('#settingsBtn');
     await page.waitForSelector('dialog#settingsDialog[open]');
     await page.locator('#settingsDialog input[data-setting="companyLinks"]').check();
-    await expect(page.locator('tbody tr:first-child .col-ship a')).toHaveAttribute('href', 'https://www.royalcaribbean.com/gbr/en/cruise-ships/anthem-of-the-seas');
+    await expect(page.locator('#cruiseBody tr:first-child .col-ship a').first()).toHaveAttribute('href', 'https://www.royalcaribbean.com/gbr/en/cruise-ships/anthem-of-the-seas');
   });
 
   test('Reset to defaults restores first-time-visitor state', async ({ page }) => {

@@ -37,6 +37,7 @@ test('normalizes a Princess Cruises product + sailing into a standard cruise obj
     currency:        'GBP',
     bookingUrl:      'https://www.princess.com/cruise-search/results/?resType=C',
     prices:          { inside: null, oceanView: null, balcony: null, suite: null },
+    seaDays:         null,
   });
 });
 
@@ -60,6 +61,31 @@ test('uses port names as itinerary when portNames are provided', () => {
   assert.equal(cruise.itinerary, 'Southampton → Lisbon → Gibraltar → Barcelona → Rome (Civitavecchia) → Southampton');
   assert.equal(cruise.destination, 'Europe');
   assert.equal(cruise.duration, '12 Nights');
+});
+
+test('does not count scenic cruising as a sea day', () => {
+  const cruise = provider.normalizeCruise(
+    {
+      id:            'Y822',
+      trades:        [{ id: 'N' }],
+      embkDbkPortIds: ['SOU', 'SOU'],
+      cruiseDuration: 7,
+    },
+    '20280708',
+    'YP',
+    'Sky Princess',
+    'Southampton (for London), England',
+    [
+      'Southampton (for London), England',
+      'Hardangerfjord (Scenic Cruising), Norway',
+      'Skjolden/Sognefjord, Norway',
+      'Nordfjordeid, Norway',
+      'Bergen, Norway',
+      'Southampton (for London), England',
+    ],
+  );
+
+  assert.equal(cruise.seaDays, 2);
 });
 
 test('falls back to N-Night Destination when portNames is empty', () => {

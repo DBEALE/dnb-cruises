@@ -428,7 +428,7 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 0.83rem;
-      min-width: 1350px;
+      min-width: 1420px;
     }
 
     /* ── Sort header row ─────────────────────────────────────────────────────── */
@@ -452,6 +452,7 @@
 
     .sort-row th:last-child { border-right: none; }
     .sort-row th:hover { background: #1e3d72; }
+    .sort-row th.col-sea-days { cursor: pointer; }
     .sort-row th.sort-asc::after  { content: " ▲"; font-size: .65em; opacity: .7; }
     .sort-row th.sort-desc::after { content: " ▼"; font-size: .65em; opacity: .7; }
 
@@ -828,6 +829,7 @@
     .ph-legend-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 
     td.duration { text-align: center; white-space: nowrap; }
+    td.col-sea-days { text-align: center; white-space: nowrap; }
 
     td.per-night {
       font-weight: 700;
@@ -1167,6 +1169,10 @@
       }
 
       td.col-duration {
+        text-align: left;
+      }
+
+      td.col-sea-days {
         text-align: left;
       }
 

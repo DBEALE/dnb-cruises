@@ -54,6 +54,22 @@
   const SITE_CHANGES = [
     {
       date: '9 Jun 2026',
+      title: 'NCL sea days',
+      items: [
+        'Norwegian Cruise Line sea days now derive from intermediate ports in the booking URL.',
+        'Long "from X to Y" NCL slugs no longer collapse to nights minus one.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
+      title: 'Sea days and scenic cruising',
+      items: [
+        'Scenic cruising no longer counts as a sea day.',
+        'Princess itineraries now infer sea days from the full route instead of counting scenic labels.',
+      ],
+    },
+    {
+      date: '9 Jun 2026',
       title: 'Softer itinerary badges',
       items: [
         'Itinerary keyword badges now use a subtler gold treatment.',
@@ -1221,10 +1237,118 @@
     return html;
   }
 
+  function titleCaseToken(text) {
+    return String(text || '')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .map(part => part ? part[0].toUpperCase() + part.slice(1).toLowerCase() : '')
+      .filter(Boolean)
+      .join(' ');
+  }
+
+  function inferSeaDays(c) {
+    const itinerary = String(c?.itinerary || '').trim();
+    const fromField = parseFloat(c?.seaDays);
+    if (Number.isFinite(fromField) && !/scenic cruising/i.test(itinerary)) {
+      return Math.max(0, Math.round(fromField));
+    }
+
+    const nights = parseFloat(String(c?.duration || '').match(/(\d+)/)?.[1] || '');
+    if (!Number.isFinite(nights)) return null;
+
+    if (!itinerary) return Math.max(0, nights - 1);
+
+    const explicitSeaDays = (itinerary.match(/\b(?:Cruising\s*\(Cruising\)|At Sea|Sea Day|Day at Sea)\b/gi) || []).length;
+    if (explicitSeaDays > 0) return explicitSeaDays;
+
+    if (/ncl\.com/i.test(String(c?.bookingUrl || ''))) {
+      try {
+        const url = new URL(String(c.bookingUrl || ''), window.location.href);
+        const pathMatch = url.pathname.match(/\/cruises\/(.+)/);
+        if (pathMatch) {
+          const itineraryCode = url.searchParams.get('itineraryCode') || '';
+          let slug = pathMatch[1];
+
+          if (itineraryCode) {
+            slug = slug.replace(new RegExp(`-?${itineraryCode}$`, 'i'), '');
+          }
+
+          slug = slug.replace(/^\d+(?:-day|-night|-nite)-/i, '');
+          slug = slug.replace(/^.*?-(?:round-trip|roundtrip|one-way|oneway|from)-/i, '');
+
+          const departurePort = String(c?.departurePort || '').trim();
+          if (departurePort) {
+            const cityName = departurePort.split(/[,(]/)[0].trim();
+            const citySlug = cityName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            if (citySlug) {
+              if (slug.toLowerCase().startsWith(`${citySlug}-`)) {
+                slug = slug.slice(citySlug.length + 1);
+              } else if (slug.toLowerCase() === citySlug) {
+                slug = '';
+              }
+            }
+          }
+
+          if (slug.toLowerCase().startsWith('to-')) {
+            if (/-and-/i.test(slug)) {
+              slug = slug.slice(3);
+            } else {
+              slug = slug.replace(/^to-[a-z]+(?:-[a-z]+){0,3}(?:-|$)/i, '');
+            }
+          }
+
+          if (slug) {
+            const andParts = slug.split(/-and-/i);
+            const ports = [];
+            for (let i = 0; i < andParts.length - 1; i++) {
+              andParts[i].split('-').forEach(part => {
+                const port = titleCaseToken(part);
+                if (port) ports.push(port);
+              });
+            }
+            const lastPart = titleCaseToken(andParts[andParts.length - 1].replace(/-/g, ' '));
+            if (lastPart) ports.push(lastPart);
+
+            if (ports.length > 0) {
+              return Math.max(0, (nights + 1) - (ports.length + 2));
+            }
+          }
+        }
+      } catch {}
+    }
+
+    const routeText = itinerary.includes(':')
+      ? itinerary.slice(itinerary.indexOf(':') + 1).trim()
+      : itinerary;
+
+    if (routeText.includes('→')) {
+      const segments = routeText.split('→').map(part => part.trim()).filter(Boolean).length;
+      if (segments > 0) {
+        return Math.max(0, (nights + 1) - segments);
+      }
+    }
+
+    if (routeText.includes(',')) {
+      const tokens = routeText.split(',').map(part => part.trim()).filter(Boolean);
+      if (tokens.length > 1) {
+        const estimatedPortCalls = Math.max(1, Math.ceil(tokens.length / 2));
+        return Math.max(0, nights - estimatedPortCalls);
+      }
+    }
+
+    return Math.max(0, nights - 1);
+  }
+
+  function formatSeaDaysDisplay(c) {
+    const seaDays = inferSeaDays(c);
+    return Number.isFinite(seaDays) ? String(seaDays) : '—';
+  }
+
   function renderBody(list, colFilters = {}) {
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="15">No cruises match your filters.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="16">No cruises match your filters.</td></tr>';
       return;
     }
     tbody.innerHTML = list.map((c, i) => {
@@ -1240,6 +1364,7 @@
         ? `${escHtml(formatPriceDisplay(perNight, c.currency))}<span class="per-night-suffix">/night</span>`
         : '—';
       const firstSeen = formatFirstSeenDisplay(c);
+      const seaDays = formatSeaDaysDisplay(c);
 
       return `<tr data-provider="${escHtml(c.provider || '')}">
         <td class="col-num" data-label="#">${i + 1}</td>
@@ -1251,6 +1376,7 @@
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
         <td class="col-date" data-label="Departure">${escHtml(date)}</td>
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
+        <td class="col-sea-days duration" data-label="Sea days">${escHtml(seaDays)}</td>
         <td class="col-port" data-label="Departure port">${escHtml(c.departurePort || '—')}</td>
         <td class="col-region" data-label="Region">${regionBadge(c.departureRegion)}</td>
         <td class="col-first-seen" data-label="First seen"><span class="first-seen-val">${escHtml(firstSeen)}</span></td>
@@ -1791,6 +1917,7 @@
     if (key === 'departureEnd') return `Until ${dateInputToDisplay(v)}`;
     if (key === 'minLaunch') return `Ships ${v}+`;
     if (key === 'duration') return `${v}+ nights`;
+    if (key === 'seaDays') return `Max ${v} sea days`;
     if (key === 'maxPrice') return `Under GBP ${Number(v).toLocaleString('en-GB')}`;
     return v;
   }
@@ -1807,6 +1934,7 @@
       16: 'Price change',
       17: 'GBP/night',
       18: 'Recently found',
+      19: 'Sea days',
     };
     return names[col] || '';
   }
@@ -1829,6 +1957,7 @@
     add(savedViewFilterLabel('itinerary', source.itinerary));
     add(savedViewFilterLabel('minLaunch', source.minLaunch));
     add(savedViewFilterLabel('duration', source.duration));
+    add(savedViewFilterLabel('seaDays', source.seaDays));
     add(savedViewFilterLabel('maxPrice', source.maxPrice));
     return parts.slice(0, 3).join(' · ');
   }
@@ -1844,6 +1973,7 @@
       'departurePort',
       'itinerary',
       'duration',
+      'seaDays',
       'maxPrice',
       'minLaunch',
     ];
@@ -1968,7 +2098,7 @@
     const p = new URLSearchParams(hash);
     const FIELDS = ['shipName','provider','shipClass','itinerary','destination',
                     'departureDate','departureStart','departureEnd','duration','departurePort','departureRegion'];
-    const NUMERIC = ['minLaunch','duration','maxPrice'];
+    const NUMERIC = ['minLaunch','duration','seaDays','maxPrice'];
     for (const f of FIELDS) {
       const v = p.get(f);
       if (v) c[f] = v;
@@ -2218,6 +2348,7 @@
       case 16: return getPricePctChange(c);
       case 17: return getPricePerNight(c);
       case 18: return getFirstSeenTime(c);
+      case 19: return inferSeaDays(c);
       default: return '';
     }
   }
@@ -2309,6 +2440,11 @@
       if (colFilters.duration) {
         const min = parseFloat(colFilters.duration);
         if (!isNaN(min) && (parseFloat(c.duration) || 0) < min) return false;
+      }
+      if (colFilters.seaDays) {
+        const max = parseFloat(colFilters.seaDays);
+        const seaDays = inferSeaDays(c);
+        if (!isNaN(max) && (!Number.isFinite(seaDays) || seaDays > max)) return false;
       }
       if (colFilters.maxPrice) {
         const max = parseFloat(colFilters.maxPrice);

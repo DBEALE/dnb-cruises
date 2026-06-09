@@ -2,7 +2,7 @@
 
 const { chromium } = require('@playwright/test');
 
-const { getDepartureRegion } = require('./shared');
+const { getDepartureRegion, estimateSeaDays } = require('./shared');
 
 const PRINCESS_SEARCH_URL     = 'https://www.princess.com/cruise-search/results/?resType=C';
 const PRINCESS_BASE_URL       = 'https://www.princess.com';
@@ -358,6 +358,11 @@ function normalizeCruise(product, sailDate, shipId, shipName, portName, portName
     currency,
     bookingUrl:      buildBookingUrl(voyageId),
     prices,
+    seaDays:         estimateSeaDays({
+      labels: portNames,
+      duration: nights,
+      portsIncludeEndpoints: true,
+    }),
   };
 }
 
