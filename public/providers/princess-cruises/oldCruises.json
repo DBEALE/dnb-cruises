@@ -17407,82 +17407,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_CFR07Y_GP_20270327",
-      "shipName": "Regal Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2014,
-      "itinerary": "Ft. Lauderdale, Florida → Belize City, Belize → Roatan (Isla Tropicale), Honduras → Cozumel, Mexico → Celebration Key, Bahamas → Ft. Lauderdale, Florida",
-      "departureDate": "2027-03-27",
-      "duration": "7 Nights",
-      "departurePort": "Ft. Lauderdale, Florida",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "779",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=G712P",
-      "prices": {
-        "inside": "779",
-        "oceanView": "1070",
-        "balcony": "1374",
-        "suite": "1849"
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 754
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 754,
-            "oceanView": 1023,
-            "balcony": 1294,
-            "suite": 1779
-          }
-        },
-        {
-          "at": "2026-06-01T20:13:35.019Z",
-          "prices": {
-            "inside": 779,
-            "oceanView": 1048,
-            "balcony": 1344,
-            "suite": 1829
-          }
-        },
-        {
-          "at": "2026-06-02T18:05:24.346Z",
-          "prices": {
-            "inside": 779,
-            "oceanView": 1070,
-            "balcony": 1374,
-            "suite": 1849
-          }
-        },
-        {
-          "at": "2026-06-03T14:25:08.048Z",
-          "prices": {
-            "inside": 754,
-            "oceanView": 1045,
-            "balcony": 1324,
-            "suite": 1749
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 779,
-            "oceanView": 1070,
-            "balcony": 1374,
-            "suite": 1849
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-10T00:45:43.085Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_ESR07A_MJ_20270331",
       "shipName": "Majestic Princess",
       "shipClass": "Royal",
@@ -23905,6 +23829,69 @@
         }
       ],
       "lastSeenAt": "2026-06-10T05:32:54.965Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_CFR07Y_SU_20271204",
+      "shipName": "Sun Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2024,
+      "itinerary": "Ft. Lauderdale, Florida → Belize City, Belize → Roatan (Isla Tropicale), Honduras → Cozumel, Mexico → Celebration Key, Bahamas → Ft. Lauderdale, Florida",
+      "departureDate": "2027-12-04",
+      "duration": "7 Nights",
+      "departurePort": "Ft. Lauderdale, Florida",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "769",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=U745",
+      "prices": {
+        "inside": "769",
+        "oceanView": "949",
+        "balcony": null,
+        "suite": "1294"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 744
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 744,
+            "oceanView": 924,
+            "suite": 1244
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 769,
+            "oceanView": 949,
+            "suite": 1294
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 744,
+            "oceanView": 924,
+            "suite": 1244
+          }
+        },
+        {
+          "at": "2026-06-08T08:49:41.438Z",
+          "prices": {
+            "inside": 769,
+            "oceanView": 949,
+            "suite": 1294
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-10T07:29:51.506Z"
     }
   ]
 }
