@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 59,
+  "count": 60,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -1610,91 +1610,6 @@
     },
     {
       "provider": "Celebrity Cruises",
-      "id": "celebrity_BY07MIA-1942185519",
-      "shipName": "Celebrity Beyond",
-      "shipClass": "Edge",
-      "shipLaunchYear": 2022,
-      "itinerary": "Grand Cayman & Mexico: Cruising (Cruising), George Town, Grand Cayman, Cozumel, Mexico, Costa Maya, Mexico, Perfect Day CocoCay, Bahamas",
-      "departureDate": "2027-05-22",
-      "duration": "7 Nights",
-      "departurePort": "Miami",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "667",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=BY07MIA-1942185519&pID=BY07W891&sDT=2027-05-22&sCD=BY&sCT=CO&country=GBR",
-      "prices": {
-        "inside": "667",
-        "oceanView": "799",
-        "balcony": "803",
-        "suite": "2018"
-      },
-      "seaDays": 0,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 1770.36
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 1770.36,
-            "oceanView": 2135.36,
-            "balcony": 2325.36,
-            "suite": 5326.36
-          }
-        },
-        {
-          "at": "2026-06-03T03:37:29.400Z",
-          "prices": {
-            "inside": 1748.36,
-            "oceanView": 2091.36,
-            "balcony": 2231.36,
-            "suite": 5459.36
-          }
-        },
-        {
-          "at": "2026-06-03T19:45:18.339Z",
-          "prices": {
-            "inside": 1489.36,
-            "oceanView": 1809.36,
-            "balcony": 1969.36,
-            "suite": 4689.36
-          }
-        },
-        {
-          "at": "2026-06-09T02:41:07.579Z",
-          "prices": {
-            "inside": 675,
-            "oceanView": 822,
-            "balcony": 832,
-            "suite": 2204
-          }
-        },
-        {
-          "at": "2026-06-09T20:41:37.087Z",
-          "prices": {
-            "inside": 675,
-            "oceanView": 822,
-            "balcony": 832,
-            "suite": 1921
-          }
-        },
-        {
-          "at": "2026-06-10T00:45:43.085Z",
-          "prices": {
-            "inside": 667,
-            "oceanView": 799,
-            "balcony": 803,
-            "suite": 2018
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-10T00:45:43.085Z"
-    },
-    {
-      "provider": "Celebrity Cruises",
       "id": "celebrity_BY07MIA-1169643629",
       "shipName": "Celebrity Beyond",
       "shipClass": "Edge",
@@ -2362,7 +2277,65 @@
     },
     {
       "provider": "Celebrity Cruises",
-      "id": "celebrity_EG17HNL-754772983",
+      "id": "celebrity_EG11SYD-1934924659",
+      "shipName": "Celebrity Edge",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2018,
+      "itinerary": "Great Barrier Reef Cruise: Cruising (Cruising), Brisbane, Australia, Airlie Beach (Queensland), Australia, Cairns (Yorkey's Knob), Australia, Port Douglas, Australia, Willis Island (Cruising), Australia",
+      "departureDate": "2028-03-24",
+      "duration": "11 Nights",
+      "departurePort": "Sydney",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia and New Zealand",
+      "priceFrom": "1473",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EG11SYD-1934924659&pID=EG11K173&sDT=2028-03-24&sCD=EG&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1473",
+        "oceanView": "1709",
+        "balcony": "2032",
+        "suite": "4599"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3205.4
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3205.4,
+            "oceanView": 3499.4,
+            "balcony": 4575.4,
+            "suite": 10593.4
+          }
+        },
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 1473,
+            "oceanView": 1607,
+            "balcony": 2032,
+            "suite": 4599
+          }
+        },
+        {
+          "at": "2026-06-10T03:08:11.372Z",
+          "prices": {
+            "inside": 1473,
+            "oceanView": 1709,
+            "balcony": 2032,
+            "suite": 4599
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-10T03:08:11.372Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_EG18HNL-748993720",
       "shipName": "Celebrity Edge",
       "shipClass": "Edge",
       "shipLaunchYear": 2018,
@@ -2374,7 +2347,7 @@
       "destination": "Transpacific",
       "priceFrom": "9327.94",
       "currency": "USD",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EG17HNL-754772983&pID=EG17T054&sDT=2027-10-10&sCD=EG&sCT=CO&country=GBR",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EG18HNL-748993720&pID=EG17T054&sDT=2027-10-10&sCD=EG&sCT=CO&country=GBR",
       "prices": {
         "inside": null,
         "oceanView": "9327.94",
@@ -2382,17 +2355,122 @@
         "suite": null
       },
       "seaDays": 5,
-      "firstSeenAt": "2026-06-10T00:45:43.085Z",
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
-          "at": "2026-06-10T00:45:43.085Z",
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 9327.94
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "oceanView": 9327.94,
+            "balcony": 10928.94,
+            "suite": 55038.94
+          }
+        },
+        {
+          "at": "2026-06-01T03:33:08.553Z",
+          "prices": {
+            "oceanView": 9327.94,
+            "balcony": 10928.94,
+            "suite": 22286.94
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "oceanView": 9327.94,
+            "balcony": 10928.94,
+            "suite": 143981.94
+          }
+        },
+        {
+          "at": "2026-06-03T03:37:29.400Z",
+          "prices": {
+            "oceanView": 9327.94,
+            "balcony": 9323.94,
+            "suite": 143981.94
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "oceanView": 9327.94,
+            "balcony": 10928.94,
+            "suite": 22286.94
+          }
+        },
+        {
+          "at": "2026-06-04T08:16:06.414Z",
+          "prices": {
+            "oceanView": 9327.94,
+            "balcony": 10928.94,
+            "suite": 143981.94
+          }
+        },
+        {
+          "at": "2026-06-06T06:50:03.097Z",
+          "prices": {
+            "oceanView": 9327.94,
+            "balcony": 10928.94,
+            "suite": 55038.94
+          }
+        },
+        {
+          "at": "2026-06-07T03:24:12.607Z",
           "prices": {
             "oceanView": 9327.94,
             "balcony": 10928.94
           }
         }
       ],
-      "lastSeenAt": "2026-06-10T00:45:43.085Z"
+      "lastSeenAt": "2026-06-10T03:08:11.372Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_BY07MIA-3678481384",
+      "shipName": "Celebrity Beyond",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2022,
+      "itinerary": "Grand Cayman & Mexico: Cruising (Cruising), George Town, Grand Cayman, Cozumel, Mexico, Costa Maya, Mexico, Perfect Day CocoCay, Bahamas",
+      "departureDate": "2027-05-22",
+      "duration": "7 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "667",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=BY07MIA-3678481384&pID=BY07W891&sDT=2027-05-22&sCD=BY&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "667",
+        "oceanView": "799",
+        "balcony": "803",
+        "suite": "2018"
+      },
+      "seaDays": 0,
+      "firstSeenAt": "2026-06-08T21:48:00.276Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 675,
+            "oceanView": 822,
+            "balcony": 832,
+            "suite": 1921
+          }
+        },
+        {
+          "at": "2026-06-10T03:08:11.372Z",
+          "prices": {
+            "inside": 667,
+            "oceanView": 799,
+            "balcony": 803,
+            "suite": 2018
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-10T03:08:11.372Z"
     }
   ]
 }
