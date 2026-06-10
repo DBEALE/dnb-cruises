@@ -7,8 +7,17 @@ const corsHeaders = {
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL') ?? '';
 const SERVICE_KEY  = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 
+// Same idea as the shared `fetchWithTimeout` in providers/shared.js,
+// inlined because Edge Functions run on Deno and can't import the
+// CommonJS helper. 15s is enough to absorb one upstream blip without
+// holding the request open indefinitely.
+const FETCH_TIMEOUT_MS = 15_000;
+function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
+  return fetch(url, { ...options, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+}
+
 async function dbRpc(functionName: string, body: unknown) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${functionName}`, {
+  const res = await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/rpc/${functionName}`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${SERVICE_KEY}`,

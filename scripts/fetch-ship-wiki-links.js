@@ -12,6 +12,7 @@
 const fs      = require('node:fs');
 const path    = require('node:path');
 const cheerio = require('cheerio');
+const { fetchWithTimeout } = require('../providers/shared');
 
 const SOURCE_URL   = 'https://en.wikipedia.org/wiki/List_of_cruise_ships';
 const OUT_PATH     = path.join(__dirname, '..', 'public', 'ship-wiki-links.json');
@@ -40,7 +41,7 @@ function normalizeShipName(name) {
 }
 
 async function fetchHtml(url) {
-  const res = await fetch(url, {
+  const res = await fetchWithTimeout(url, {
     headers: { 'User-Agent': 'dnb-cruises/1.0 (build script)' },
   });
   if (!res.ok) throw new Error(`Wikipedia fetch failed: ${res.status} ${res.statusText}`);
@@ -119,7 +120,7 @@ async function queryExistingTitles(titles) {
       redirects: '1',
       prop:      'pageprops',
     });
-    const res = await fetch(url, { headers: { 'User-Agent': 'dnb-cruises/1.0 (build script)' } });
+    const res = await fetchWithTimeout(url, { headers: { 'User-Agent': 'dnb-cruises/1.0 (build script)' } });
     if (!res.ok) throw new Error(`Wikipedia API failed: ${res.status} ${res.statusText}`);
     const data = await res.json();
 

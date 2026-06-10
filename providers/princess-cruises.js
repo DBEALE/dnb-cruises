@@ -2,7 +2,7 @@
 
 const { chromium } = require('@playwright/test');
 
-const { getDepartureRegion, estimateSeaDays } = require('./shared');
+const { getDepartureRegion, estimateSeaDays, cleanText, DEFAULT_USER_AGENT, fetchWithTimeout } = require('./shared');
 
 const PRINCESS_SEARCH_URL     = 'https://www.princess.com/cruise-search/results/?resType=C';
 const PRINCESS_BASE_URL       = 'https://www.princess.com';
@@ -89,10 +89,6 @@ const SHIP_LAUNCH_YEAR = {
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function cleanText(value) {
-  return String(value || '').replace(/\s+/g, ' ').trim();
-}
 
 /**
  * Converts a Princess API date string (YYYYMMDD) to ISO-8601 (YYYY-MM-DD).
@@ -389,7 +385,7 @@ async function collectCruiseData() {
   });
   const page = await browser.newPage({
     viewport:  { width: 1440, height: 900 },
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    userAgent: DEFAULT_USER_AGENT,
   });
 
   const apiData  = {};
@@ -474,7 +470,7 @@ async function collectCruiseData() {
               ? `${base}/${endpoint}?agencyCountry=GB&cruiseType=C&voyageStatus=A&webDisplayOnly=true`
               : `${base}/${endpoint}`;
             try {
-              const res = await fetch(url, {
+              const res = await fetchWithTimeout(url, {
                 headers: {
                   appid: appId,
                   'pcl-client-id': clientId,
@@ -519,7 +515,7 @@ async function collectCruiseData() {
         const result = await page.evaluate(
           async ({ url, headers, body }) => {
             try {
-              const res = await fetch(url, {
+              const res = await fetchWithTimeout(url, {
                 method: 'POST',
                 headers: { ...headers, 'content-type': 'application/json', accept: 'application/json' },
                 body: JSON.stringify(body),

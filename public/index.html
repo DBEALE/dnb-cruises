@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cruise Explorer</title>
-  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -282,21 +282,21 @@
       <table id="cruiseTable">
         <thead>
           <tr class="sort-row">
-            <th class="col-num"         data-sort="0"  onclick="sortTable(0)">#</th>
-            <th class="col-ship"        data-sort="1"  onclick="sortTable(1)">Ship</th>
-            <th class="col-provider"    data-sort="2"  onclick="sortTable(2)">Cruise line</th>
-            <th class="col-class"       data-sort="3"  onclick="sortTable(3)">Class</th>
-            <th class="col-launch"      data-sort="4"  onclick="sortTable(4)">Launch</th>
-            <th class="col-itinerary"   data-sort="5"  onclick="sortTable(5)">Itinerary</th>
-            <th class="col-destination" data-sort="6"  onclick="sortTable(6)">Destination</th>
-            <th class="col-date"        data-sort="7"  onclick="sortTable(7)">Departure</th>
-            <th class="col-duration"    data-sort="8"  onclick="sortTable(8)">Nights</th>
-            <th class="col-sea-days"    data-sort="19" onclick="sortTable(19)">Sea days</th>
-            <th class="col-port"        data-sort="9"  onclick="sortTable(9)">Departure port</th>
-            <th class="col-region"      data-sort="10" onclick="sortTable(10)">Region</th>
-            <th class="col-price"       data-sort="11" onclick="sortTable(11)" data-col="11">Price</th>
-            <th class="col-per-night"   onclick="sortTable(17)">£/night</th>
-            <th class="col-first-seen"  data-sort="18" onclick="sortTable(18)">First seen</th>
+            <th class="col-num"         data-sort="0"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(0)">#</th>
+            <th class="col-ship"        data-sort="1"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(1)">Ship</th>
+            <th class="col-provider"    data-sort="2"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(2)">Cruise line</th>
+            <th class="col-class"       data-sort="3"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(3)">Class</th>
+            <th class="col-launch"      data-sort="4"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(4)">Launch</th>
+            <th class="col-itinerary"   data-sort="5"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(5)">Itinerary</th>
+            <th class="col-destination" data-sort="6"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(6)">Destination</th>
+            <th class="col-date"        data-sort="7"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(7)">Departure</th>
+            <th class="col-duration"    data-sort="8"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(8)">Nights</th>
+            <th class="col-sea-days"    data-sort="19" tabindex="0" role="button" aria-sort="none" onclick="sortTable(19)">Sea days</th>
+            <th class="col-port"        data-sort="9"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(9)">Departure port</th>
+            <th class="col-region"      data-sort="10" tabindex="0" role="button" aria-sort="none" onclick="sortTable(10)">Region</th>
+            <th class="col-price"       data-sort="11" tabindex="0" role="button" aria-sort="none" onclick="sortTable(11)" data-col="11">Price</th>
+            <th class="col-per-night"   data-sort="17" tabindex="0" role="button" aria-sort="none" onclick="sortTable(17)">£/night</th>
+            <th class="col-first-seen"  data-sort="18" tabindex="0" role="button" aria-sort="none" onclick="sortTable(18)">First seen</th>
             <th class="col-book">Book</th>
           </tr>
           <tr id="filterRow">

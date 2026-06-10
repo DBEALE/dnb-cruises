@@ -8,3 +8,10 @@ public/build-info.json
 public/providers/*/cruises.json
 public/providers/*/oldCruises.json
 test-results/
+
+# AI-agent config. The shared .claude/settings.json is committed and
+# contains a narrow allow list scoped to read-only shell commands. The
+# .claude/settings.local.json sibling is per-developer and MUST NOT be
+# committed — it can carry broad Bash(…) grants that would land in
+# every clone.
+.claude/settings.local.json

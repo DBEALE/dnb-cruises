@@ -2,7 +2,7 @@
 
 const { chromium } = require('@playwright/test');
 
-const { getDepartureRegion, estimateSeaDays } = require('./shared');
+const { getDepartureRegion, estimateSeaDays, cleanText } = require('./shared');
 
 const NCL_BASE_URL = 'https://www.ncl.com';
 const NCL_CRUISES_URL = 'https://www.ncl.com/uk/en/vacations';
@@ -56,10 +56,6 @@ const SHIP_LAUNCH_YEAR = {
   'Norwegian Luna': 2024,
   'Norwegian Aqua': 2025,
 };
-
-function cleanText(value) {
-  return String(value || '').replace(/\s+/g, ' ').trim();
-}
 
 function toNumber(value) {
   const parsed = Number.parseFloat(String(value || '').replace(/[^0-9.]/g, ''));
@@ -330,7 +326,8 @@ async function extractPriceFromBookingPage(browser, bookingUrl) {
     await page.waitForTimeout(NCL_PAGE_WAIT_MS);
     const text = await page.evaluate(() => document.body?.innerText || '');
     return extractPriceFromText(text);
-  } catch {
+  } catch (err) {
+    console.warn(`  [NCL] price extract failed for ${bookingUrl}: ${err.message}`);
     return '';
   } finally {
     await page.close();
@@ -347,7 +344,8 @@ async function extractDateFromBookingPage(browser, bookingUrl) {
     const text = await page.evaluate(() => document.body?.innerText || '');
     const dateText = extractDateFromText(text);
     return dateText || '';
-  } catch {
+  } catch (err) {
+    console.warn(`  [NCL] date extract failed for ${bookingUrl}: ${err.message}`);
     return '';
   } finally {
     await page.close();
@@ -417,8 +415,7 @@ async function collectCruiseCards() {
 
     for (let step = 0; step < NCL_MAX_PAGINATION_STEPS; step++) {
       const pageCards = await page.$$eval('article.c495', articles => articles.map(article => {
-        const clean = value => String(value || '').replace(/\s+/g, ' ').trim();
-        const getText = selector => clean(article.querySelector(selector)?.textContent);
+        const getText = selector => cleanText(article.querySelector(selector)?.textContent);
         const bookingUrl = article.querySelector('a.btn.btn-secondary[href*="itineraryCode="]')?.href || '';
         const code = (() => {
           try {
@@ -435,7 +432,7 @@ async function collectCruiseCards() {
         const departureDate = getText('.c160_date_item.-departure .c160_date_item_dateFull');
         const returnDate = getText('.c160_date_item.-return .c160_date_item_dateFull');
         const priceText = getText('.c495_aside .e55_price_value') || getText('.c495_aside .headline-1');
-        const currencyMatch = clean(getText('.c495_aside')).match(/PP\s*\/\s*([A-Z]{3})/i);
+        const currencyMatch = cleanText(getText('.c495_aside')).match(/PP\s*\/\s*([A-Z]{3})/i);
         const priceMatch = priceText.match(/([\d,]+(?:\.\d+)?)/);
 
         return {

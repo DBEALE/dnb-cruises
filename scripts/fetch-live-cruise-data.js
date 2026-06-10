@@ -26,14 +26,23 @@ const DEFAULT_BASE = 'https://dbeale.github.io/dnb-cruises/';
 const BASE_URL     = (process.env.LIVE_BASE_URL || DEFAULT_BASE).replace(/\/?$/, '/');
 const PUBLIC_DIR   = path.join(__dirname, '..', 'public');
 
+// Inline copy of the shared `fetchWithTimeout` helper from
+// providers/shared.js. We deliberately do not import it — this script
+// runs in workflows that skip `npm ci` (push-only deploy) and must
+// depend on Node built-ins only.
+const FETCH_TIMEOUT_MS = 15_000;
+function fetchWithTimeout(url, options = {}) {
+  return fetch(url, { ...options, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+}
+
 async function fetchJson(url) {
-  const res = await fetch(url, { cache: 'no-store' });
+  const res = await fetchWithTimeout(url, { cache: 'no-store' });
   if (!res.ok) throw new Error(`${url} → ${res.status}`);
   return res.json();
 }
 
 async function fetchToFile(url, outPath) {
-  const res = await fetch(url, { cache: 'no-store' });
+  const res = await fetchWithTimeout(url, { cache: 'no-store' });
   if (res.status === 404) {
     console.log(`  − ${url} (404 — first deploy?)`);
     return false;

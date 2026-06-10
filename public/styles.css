@@ -452,6 +452,7 @@
 
     .sort-row th:last-child { border-right: none; }
     .sort-row th:hover { background: #1e3d72; }
+    .sort-row th:focus-visible { outline: 2px solid var(--blue, #4a9eff); outline-offset: -2px; }
     .sort-row th.col-sea-days { cursor: pointer; }
     .sort-row th.sort-asc::after  { content: " ▲"; font-size: .65em; opacity: .7; }
     .sort-row th.sort-desc::after { content: " ▼"; font-size: .65em; opacity: .7; }

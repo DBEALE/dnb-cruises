@@ -1,9 +1,24 @@
 'use strict';
 
 const GraphQLCruiseProvider = require('./graphql-cruise-provider');
-const { getDepartureRegion, estimateSeaDays } = require('./shared');
+const { getDepartureRegion, estimateSeaDays, cleanText, DEFAULT_USER_AGENT,
+        formatChapterPort, extractPortSequenceFromChapters, buildDetailedItinerary } = require('./shared');
+const { createRciRoomSelection, mapWithConcurrency,
+        extractPricesFromClassPricing, extractRoomTypePricesFromPayload,
+        classifyRoomType } = require('./rci-room-selection');
 
 const ROOM_SELECTION_API_URL = 'https://www.royalcaribbean.com/room-selection/api/v1/rooms';
+
+const rci = createRciRoomSelection({
+  apiUrl: ROOM_SELECTION_API_URL,
+  brand:  'RCL',
+  or:     'https://www.royalcaribbean.com',
+  defaultCountry: 'USA',
+});
+
+const parseBookingContext        = rci.parseBookingContext;
+const fetchRoomSelectionData     = rci.fetchRoomSelectionData;
+const fetchRoomSelectionPorts    = rci.fetchRoomSelectionPorts;
 
 const CRUISE_GRAPH_URL        = 'https://www.royalcaribbean.com/cruises/graph';
 const CRUISE_SEARCH_FILTERS   = '';
@@ -115,10 +130,6 @@ const SHIP_CLASS = {
   'Vision of the Seas':       'Vision',
 };
 
-function cleanText(value) {
-  return String(value || '').replace(/\s+/g, ' ').trim();
-}
-
 // Resolves an RC booking/itinerary URL to an absolute UK URL.
 //   /booking/landing?...    → https://www.royalcaribbean.com/booking/landing?...
 //                             (booking handoff is global; carries country=GBR
@@ -134,178 +145,6 @@ function resolveBookingUrl(url) {
   const path = url.replace(/^\.\//, '');
   if (path.startsWith('/')) return `https://www.royalcaribbean.com${path}`;
   return `https://www.royalcaribbean.com/gbr/en/${path}`;
-}
-
-function buildDetailedItinerary(summaryName, ports) {
-  const normalizedPorts = Array.from(new Set((ports || []).map(cleanText).filter(Boolean)));
-  const nonCruisingPorts = normalizedPorts.filter(port => !/^cruising$/i.test(port));
-  if (nonCruisingPorts.length <= 1) return cleanText(summaryName);
-
-  const stops = nonCruisingPorts.slice(1);
-  if (stops.length === 0) return cleanText(summaryName);
-
-  return `${cleanText(summaryName)}: ${stops.join(', ')}`;
-}
-
-function parseBookingContext(bookingUrl) {
-  if (!bookingUrl) return null;
-
-  try {
-    const url = new URL(bookingUrl);
-    const packageCode = cleanText(url.searchParams.get('packageCode'));
-    const sailDate = cleanText(url.searchParams.get('sailDate'));
-    const selectedCurrencyCode = cleanText(url.searchParams.get('selectedCurrencyCode') || 'USD') || 'USD';
-    const country = cleanText(url.searchParams.get('country') || 'USA') || 'USA';
-
-    if (!packageCode || !sailDate) return null;
-
-    return {
-      packageCode,
-      sailDate,
-      selectedCurrencyCode,
-      country,
-    };
-  } catch {
-    return null;
-  }
-}
-
-function formatChapterPort(port) {
-  const name = cleanText(port?.name);
-  const region = cleanText(port?.region);
-  if (!name) return '';
-  if (!region || /^cruising$/i.test(name)) return name;
-  if (name.toLowerCase().includes(region.toLowerCase())) return name;
-  return `${name}, ${region}`;
-}
-
-function extractPortSequenceFromChapters(chapters) {
-  if (!Array.isArray(chapters)) return [];
-
-  return chapters
-    .map(chapter => formatChapterPort(chapter?.port))
-    .filter(Boolean);
-}
-
-function buildRoomSelectionFilter(context) {
-  return {
-    countryCode: context.country,
-    packageId: context.packageCode,
-    sailDate: context.sailDate,
-    currencyCode: context.selectedCurrencyCode,
-    language: 'en',
-    options: false,
-    roomNumbers: false,
-    rooms: [{ adultCount: 2, childCount: 0 }],
-  };
-}
-
-/**
- * Classifies a stateroom entry from the room-selection API into one of the
- * four standard room types: inside, oceanView, balcony, or suite.
- * Returns null when the entry cannot be mapped.
- *
- * @param {object} entry - A stateroom-class / category entry from the API payload.
- * @returns {'inside'|'oceanView'|'balcony'|'suite'|null}
- */
-function classifyRoomType(entry) {
-  const id   = String(entry?.id   || entry?.classId   || entry?.code  || entry?.type  || '').toUpperCase();
-  const name = String(entry?.name || entry?.className || entry?.label || '').toLowerCase();
-
-  if (/^(x|i|int|interior|inside)$/i.test(id) || /\b(interior|inside)\b/.test(name))         return 'inside';
-  if (/^(n|o|ov|ocean|oceanview|seaview)$/i.test(id) || /\b(ocean.?view|sea.?view|oceanfront|outside.?view)\b/.test(name)) return 'oceanView';
-  if (/^(b|bal|balcony)$/i.test(id) || /\b(balcony|veranda)\b/.test(name))                   return 'balcony';
-  if (/^(s|gs|js|suite|suites)$/i.test(id) || /\b(suite|retreat)\b/.test(name))              return 'suite';
-  return null;
-}
-
-/**
- * Extracts a per-person price amount from various possible price object shapes
- * returned by the Royal Caribbean room-selection API.
- *
- * @param {*} priceObj - Price field from an API stateroom entry.
- * @returns {number|null} Rounded price in the sailing currency, or null.
- */
-function extractPriceFromEntry(priceObj) {
-  if (!priceObj) return null;
-  // Scalar value
-  const scalar = parseFloat(priceObj?.amount ?? priceObj?.value ?? priceObj?.fare ?? (typeof priceObj === 'number' ? priceObj : null));
-  if (Number.isFinite(scalar) && scalar > 0) return Math.round(scalar * 100) / 100;
-  return null;
-}
-
-/**
- * Extracts per-room-type prices from a room-selection API payload.
- * Handles the various response shapes used by Royal Caribbean / Celebrity.
- *
- * @param {object} payload - Parsed JSON response from the room-selection API.
- * @returns {{ inside: string|null, oceanView: string|null, balcony: string|null, suite: string|null }}
- */
-function extractRoomTypePricesFromPayload(payload) {
-  const prices = { inside: null, oceanView: null, balcony: null, suite: null };
-
-  // Try multiple locations where stateroom-class pricing may appear
-  const candidates = [
-    ...(Array.isArray(payload?.sailing?.stateroomClasses) ? payload.sailing.stateroomClasses : []),
-    ...(Array.isArray(payload?.sailing?.categories)       ? payload.sailing.categories       : []),
-    ...(Array.isArray(payload?.stateroomClasses)          ? payload.stateroomClasses          : []),
-    ...(Array.isArray(payload?.categories)                ? payload.categories                : []),
-  ];
-
-  for (const entry of candidates) {
-    const type = classifyRoomType(entry);
-    if (!type || prices[type] !== null) continue;
-
-    const priceField = entry?.lowestPrice ?? entry?.price ?? entry?.perPersonPrice ?? entry?.startingFrom ?? entry?.fare;
-    const amount = extractPriceFromEntry(priceField);
-    if (amount !== null) prices[type] = String(amount);
-  }
-
-  return prices;
-}
-
-function extractPricesFromClassPricing(stateroomClassPricing) {
-  const prices = { inside: null, oceanView: null, balcony: null, suite: null };
-  if (!Array.isArray(stateroomClassPricing)) return prices;
-  for (const item of stateroomClassPricing) {
-    const type = classifyRoomType({ name: item?.stateroomClass?.name || '' });
-    if (!type || prices[type] !== null) continue;
-    const value = item?.price?.value;
-    if (value != null) prices[type] = String(value);
-  }
-  return prices;
-}
-
-async function fetchRoomSelectionData(context) {
-  const filter = buildRoomSelectionFilter(context);
-  const params = new URLSearchParams({
-    filter: JSON.stringify(filter),
-    or: 'https://www.royalcaribbean.com',
-  });
-
-  const response = await fetch(`${ROOM_SELECTION_API_URL}?${params}`, {
-    headers: {
-      brand: 'RCL',
-      country: context.country,
-      'content-type': 'application/json',
-      'accept-language': 'en-GB,en;q=0.9',
-      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    },
-  });
-
-  if (!response.ok) return { ports: [], prices: { inside: null, oceanView: null, balcony: null, suite: null } };
-
-  const payload = await response.json();
-  return {
-    ports:  extractPortSequenceFromChapters(payload?.sailing?.itinerary?.chapters),
-    prices: extractRoomTypePricesFromPayload(payload),
-  };
-}
-
-/** @deprecated Use fetchRoomSelectionData instead. */
-async function fetchRoomSelectionPorts(context) {
-  const { ports } = await fetchRoomSelectionData(context);
-  return ports;
 }
 
 function normalizeCruise(cruise) {
@@ -351,7 +190,8 @@ async function enrichCruiseItinerary(cruise) {
         portsIncludeEndpoints: true,
       }),
     };
-  } catch {
+  } catch (err) {
+    console.warn(`  [RC] enrich failed for ${cruise.id || cruise.bookingUrl}: ${err.message}`);
     return cruise;
   }
 }
@@ -399,34 +239,15 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
   async fetchCruises() {
     const cruises = await super.fetchCruises();
     const cache = new Map();
-    const enrichedCruises = new Array(cruises.length);
     const concurrency = 6;
-    let cursor = 0;
 
-    const worker = async () => {
-      while (cursor < cruises.length) {
-        const index = cursor;
-        cursor += 1;
-        const cruise = cruises[index];
-        const context = parseBookingContext(cruise.bookingUrl);
-        const cacheKey = context
-          ? `${context.packageCode}|${context.sailDate}|${context.selectedCurrencyCode}|${context.country}`
-          : null;
-
-        if (!cacheKey) {
-          enrichedCruises[index] = cruise;
-          continue;
-        }
-
-        if (!cache.has(cacheKey)) {
-          cache.set(cacheKey, enrichCruiseItinerary(cruise));
-        }
-
-        enrichedCruises[index] = await cache.get(cacheKey);
-      }
-    };
-
-    await Promise.all(Array.from({ length: concurrency }, () => worker()));
+    const enrichedCruises = await mapWithConcurrency(cruises, concurrency, async (cruise) => {
+      const context = parseBookingContext(cruise.bookingUrl);
+      const cacheKey = context ? rci.roomSelectionCacheKey(context) : null;
+      if (!cacheKey) return cruise;
+      if (!cache.has(cacheKey)) cache.set(cacheKey, enrichCruiseItinerary(cruise));
+      return cache.get(cacheKey);
+    });
 
     if (enrichedCruises.length > 0) {
       console.log(`  ${this.progressPrefix} itinerary enrichment complete (${enrichedCruises.length} sailings)`);

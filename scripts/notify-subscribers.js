@@ -2,6 +2,7 @@
 
 const fs   = require('fs');
 const path = require('path');
+const { fetchWithTimeout } = require('../providers/shared');
 
 const SUPABASE_URL         = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -12,7 +13,7 @@ const TWILIO_FROM          = process.env.TWILIO_WHATSAPP_FROM || '+14155238886';
 // ── Supabase REST helpers ─────────────────────────────────────────────────────
 
 async function sbFetch(method, resource, body) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${resource}`, {
+  const res = await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/${resource}`, {
     method,
     headers: {
       'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
@@ -31,7 +32,7 @@ async function sbFetch(method, resource, body) {
 
 async function sendWhatsApp(to, message) {
   const auth = Buffer.from(`${TWILIO_ACCOUNT_SID}:${TWILIO_AUTH_TOKEN}`).toString('base64');
-  const res = await fetch(
+  const res = await fetchWithTimeout(
     `https://api.twilio.com/2010-04-01/Accounts/${TWILIO_ACCOUNT_SID}/Messages.json`,
     {
       method: 'POST',
@@ -133,7 +134,7 @@ async function main() {
 
   const usdToGbp = await (async () => {
     try {
-      const r = await (await fetch('https://open.er-api.com/v6/latest/USD')).json();
+      const r = await (await fetchWithTimeout('https://open.er-api.com/v6/latest/USD')).json();
       return r?.rates?.GBP ?? 0.79;
     } catch { return 0.79; }
   })();

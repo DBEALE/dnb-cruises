@@ -7,8 +7,10 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "build": "node scripts/generate-build-info.js && node scripts/fetch-ship-wiki-links.js",
-    "cruises:pull": "node scripts/fetch-live-cruise-data.js",
-    "test": "node --test test/ui-provider-load.test.js test/princess-cruises-provider.test.js && playwright test",
+    "cruises:pull": "node scripts/fetch-cruises.js",
+    "cruises:hydrate": "node scripts/fetch-live-cruise-data.js",
+    "test": "node --test test/*.test.js && playwright test",
+    "test:unit": "node --test test/*.test.js",
     "test:e2e": "playwright test"
   },
   "dependencies": {

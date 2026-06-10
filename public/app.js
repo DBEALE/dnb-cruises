@@ -53,6 +53,20 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '10 Jun 2026',
+      title: 'Bigger transparent favicon',
+      items: [
+        'The browser tab icon now uses a larger ship mark with no background fill.',
+      ],
+    },
+    {
+      date: '10 Jun 2026',
+      title: 'Header ship favicon',
+      items: [
+        'The browser tab icon now uses the same ship mark as the Cruise Explorer header.',
+      ],
+    },
+    {
       date: '9 Jun 2026',
       title: 'NCL sea days',
       items: [
@@ -2212,16 +2226,48 @@
     const titleText = !enabled
       ? 'Pick a sort column first'
       : (sortAsc ? 'Ascending — click to reverse' : 'Descending — click to reverse');
+    // State-aware aria-label so screen readers announce the current
+    // direction and the action that will follow. aria-pressed is the
+    // standard toggle-button pattern; the button toggles ascending↔descending.
+    const dirAria = !enabled
+      ? 'Sort direction — pick a sort column first'
+      : (sortAsc
+          ? 'Sort ascending — activate to switch to descending'
+          : 'Sort descending — activate to switch to ascending');
     for (const id of ['sortDirBtn', 'mobileSortDirBtn', 'mobilePageSortDirBtn']) {
       const btn = document.getElementById(id);
       if (!btn) continue;
       btn.textContent = arrow;
       btn.disabled = !enabled;
       btn.title = titleText;
+      btn.setAttribute('aria-label', dirAria);
+      btn.setAttribute('aria-pressed', String(enabled && sortAsc));
     }
     document.querySelectorAll('.sort-row th').forEach((th, i) => {
       th.classList.remove('sort-asc', 'sort-desc');
-      if (i === sortColIndex) th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+      if (i === sortColIndex) {
+        th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+        th.setAttribute('aria-sort', sortAsc ? 'ascending' : 'descending');
+      } else {
+        th.setAttribute('aria-sort', 'none');
+      }
+    });
+  }
+
+  // Keyboard activation for sort headers. The <th> cells carry
+  // tabindex="0" + role="button" so they're in the tab order; this
+  // delegated listener turns Enter/Space into a sortTable() call so
+  // keyboard users can re-sort without a mouse.
+  const sortRow = document.querySelector('.sort-row');
+  if (sortRow && !sortRow.dataset.kbWired) {
+    sortRow.dataset.kbWired = '1';
+    sortRow.addEventListener('keydown', (ev) => {
+      if (ev.key !== 'Enter' && ev.key !== ' ' && ev.key !== 'Spacebar') return;
+      const th = ev.target.closest('th[data-sort]');
+      if (!th || !sortRow.contains(th)) return;
+      ev.preventDefault();
+      const col = parseInt(th.dataset.sort, 10);
+      if (Number.isFinite(col)) sortTable(col);
     });
   }
 

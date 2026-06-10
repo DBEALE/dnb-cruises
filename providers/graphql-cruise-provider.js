@@ -1,9 +1,18 @@
 'use strict';
 
 const { randomUUID } = require('node:crypto');
+const { DEFAULT_USER_AGENT } = require('./shared');
+const { timeoutSignal, DEFAULT_TIMEOUT_MS } = require('./rci-room-selection');
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+/**
+ * Base class for cruise providers that paginate the Royal Caribbean
+ * International (RCI) `cruiseSearch` GraphQL endpoint. Currently used
+ * by Royal Caribbean and Celebrity Cruises. Not a fit for providers
+ * that scrape rendered HTML (Princess) or Playwright-intercepted
+ * XHR/JSON (NCL) — those use direct browser automation instead.
+ */
 class GraphQLCruiseProvider {
   constructor({
     name,
@@ -50,22 +59,10 @@ class GraphQLCruiseProvider {
       'content-type': 'application/json',
       accept: 'application/json',
       'accept-language': 'en-GB,en;q=0.9',
-      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-      origin: this.origin,
-      referer: this.referer,
+      'user-agent': DEFAULT_USER_AGENT,
       'x-session-id': randomUUID(),
       ...this.requestHeaders,
     };
-  }
-
-  // Subclasses may override if their GraphQL shape differs from the default.
-  get origin() {
-    return '';
-  }
-
-  // Subclasses may override if their GraphQL shape differs from the default.
-  get referer() {
-    return '';
   }
 
   // Subclasses must override.
@@ -78,6 +75,7 @@ class GraphQLCruiseProvider {
       method: 'POST',
       headers: this.buildRequestHeaders(),
       body: JSON.stringify(this.buildRequestBody(pagination.skip)),
+      signal: timeoutSignal(DEFAULT_TIMEOUT_MS),
     });
 
     if (!response.ok) {

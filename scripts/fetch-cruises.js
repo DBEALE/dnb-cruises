@@ -3,6 +3,7 @@
 const fs        = require('fs');
 const path      = require('path');
 const providers = require('../providers');
+const { fetchWithTimeout } = require('../providers/shared');
 
 const PUBLIC_DIR          = path.join(__dirname, '..', 'public');
 const PROVIDERS_DIR       = path.join(PUBLIC_DIR, 'providers');
@@ -61,7 +62,10 @@ function readPreviousArchive(providerId) {
 
 // Archive pruning threshold: drop cruises whose departureDate is more than
 // 2 years in the past. Kept generous so retrospective analysis stays useful.
-const ARCHIVE_RETENTION_MS = 2 * 365.25 * 24 * 60 * 60 * 1000;
+const DAYS_PER_YEAR          = 365.25;
+const ARCHIVE_RETENTION_DAYS = 2 * DAYS_PER_YEAR;
+const MS_PER_DAY             = 24 * 60 * 60 * 1000;
+const ARCHIVE_RETENTION_MS   = ARCHIVE_RETENTION_DAYS * MS_PER_DAY;
 
 function shouldPruneFromArchive(cruise, nowMs) {
   const departed = Date.parse(cruise.departureDate);
@@ -253,7 +257,7 @@ async function sendAlertEmail(subject, html) {
     console.log('  (no RESEND_API_KEY or ALERT_EMAIL — skipping email)');
     return;
   }
-  const res = await fetch('https://api.resend.com/emails', {
+  const res = await fetchWithTimeout('https://api.resend.com/emails', {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ from: 'RC Cruises <onboarding@resend.dev>', to: [to], subject, html }),
@@ -310,7 +314,7 @@ async function main() {
   // Live exchange rate
   let usdToGbp = 0.79;
   try {
-    const r = await (await fetch('https://open.er-api.com/v6/latest/USD')).json();
+    const r = await (await fetchWithTimeout('https://open.er-api.com/v6/latest/USD')).json();
     if (r?.rates?.GBP) usdToGbp = r.rates.GBP;
   } catch {}
   console.log(`Exchange rate: 1 USD = £${usdToGbp.toFixed(4)}`);

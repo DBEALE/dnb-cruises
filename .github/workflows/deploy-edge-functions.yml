@@ -6,13 +6,18 @@ on:
       - 'supabase/functions/**'
   workflow_dispatch:
 
+# Least-privilege: this job does not push to any branch, only to
+# Supabase via a project-scoped access token.
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
-      - uses: supabase/setup-cli@v1
+      - uses: supabase/setup-cli@3c2f5e2ae34c34e428e8e206e2c4d21fa2d20fbf # v2.1.1
         with:
           version: latest
 
