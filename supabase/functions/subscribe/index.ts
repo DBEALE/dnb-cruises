@@ -1,7 +1,8 @@
 const corsHeaders = {
   'Access-Control-Allow-Origin':  '*',
-  'Access-Control-Allow-Headers': 'content-type',
+  'Access-Control-Allow-Headers': 'authorization, apikey, content-type, x-client-info, x-supabase-api-version',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Max-Age':       '86400',
 };
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL') ?? '';
@@ -34,7 +35,7 @@ async function dbFetch(method: string, path: string, body?: unknown) {
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+    return new Response(null, { status: 204, headers: corsHeaders });
   }
   if (req.method !== 'POST') {
     return new Response('Method Not Allowed', { status: 405, headers: corsHeaders });

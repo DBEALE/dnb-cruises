@@ -1,0 +1,587 @@
+version: 1
+plan:
+  name: 'P1 improvements — frontend, server, supabase, quick fixes'
+  max_concurrency: 4
+  max_consecutive_failures: 2
+  max_cycles: 8
+  auto_reject_retries: 1
+  verifier_config:
+    default_verifiers: [verifier]
+    audit_sample_rate: 0.0
+tasks:
+  - id: p1-frontend
+    title: 'P1 #6, #7, #9, #10 — frontend: cache headers, aria-live, retry button, CSP'
+    prompt: |-
+      You own the frontend P1 batch. Repo: C:\Users\Admin\Documents\vsCode\git\dnb-cruises.
+      The full plan is in docs/IMPROVEMENTS.md — read it for context, then implement these four items in a single coherent change set.
+
+      Source reviews: docs/reviews/03-frontend-ux.md (F4.1, F1.2, F1.3, F3.2, F8.1, F8.4).
+      Plan items: P1 #6, P1 #7, P1 #9, P1 #10.
+
+      Files you own (do not touch other files):
+        - public/index.html
+        - public/app.js
+        - public/styles.css
+
+      Items:
+
+      #6 — 6.75 MB cruise JSON fetched eagerly on every page load with cache: 'no-store'.
+        Goal: respect HTTP cache headers AND lazy-load. Implementation:
+          (a) In public/app.js, find the fetch call that pulls all provider JSON at init
+              (the one inside loadData / refresh / initial bootstrap). Drop the
+              `cache: 'no-store'` option so the browser cache works.
+          (b) Switch from fetching ALL providers in parallel to a lazy model:
+              - On initial load, fetch ONLY the cheapest/most-local provider first
+                (or just show the empty state with a "Load cruises" button).
+              - If keeping auto-load, add `Cache-Control: max-age=600` via a meta
+                tag or via the server (only if you also touch server.js — but
+                that's Track B's territory; do not touch server.js here).
+                Better: just drop no-store and add `import()`-style lazy
+                per-provider fetching when the user opens a filter for that
+                provider, OR lazy on first scroll into the table.
+          (c) Make sure the empty-state shows a clear "Loading…" message while
+              the first provider fetches.
+
+      #7 — Add aria-live regions to status/count/error.
+        Find `#summary` (count), `#statusText` (loading/error), and the empty
+        `<tr>` in public/index.html. Add:
+          - aria-live="polite" on #summary and #statusText
+          - role="alert" on the error-state status bar
+          - a visually-hidden <caption> on <table id="cruiseTable"> that
+            describes the empty state in screen-reader-friendly text
+        Make sure the new aria attributes are set on initial render AND
+        updated on each render (not just in the HTML).
+
+      #9 — Retry button + per-provider failure detail in error state.
+        Today loadData() does Promise.all across providers; first throw aborts
+        the whole call, so you never see WHICH provider failed. Fix:
+          (a) Switch to Promise.allSettled in app.js's data loader.
+          (b) Build a per-provider status list (success/fail with error message).
+          (c) In the error-state showStatus() path, render a Retry button
+              (type="button", on-click re-invokes loadData) AND a per-provider
+              failure summary (collapsible <details> is fine).
+          (d) Add role="alert" to the error wrapper.
+
+      #10 — Add CSP <meta> tag to <head>.
+        - Add <meta http-equiv="Content-Security-Policy" content="..."> in
+          public/index.html <head>.
+        - connect-src must allow: 'self', https://yttgqscwgmsnewdjqbcc.supabase.co,
+          https://open.er-api.com, https://en.wikipedia.org (and any other
+          origins app.js fetches from — search the file).
+        - script-src 'self' (NO 'unsafe-inline' — but verify: if app.js has
+          inline onclick/onerror handlers in the HTML, you'll need to either
+          move them to JS or add 'unsafe-inline' with a comment explaining why
+          and link to a follow-up issue. Look first; prefer 'self'.).
+        - style-src 'self' 'unsafe-inline' (the project likely needs it for
+          dynamically-injected styles).
+        - frame-ancestors 'none', base-uri 'self'.
+        - Add <link rel="preconnect" href="https://yttgqscwgmsnewdjqbcc.supabase.co">
+          and same for the FX API.
+        - After adding the meta tag, load the page in a fresh test and
+          confirm in the browser console that no CSP violations are logged
+          (you can use Playwright headed=false with a console listener, or
+          the test/ui-*.e2e.js files as a reference).
+
+      Tests:
+        - Update test/ui-features.e2e.js to assert:
+          - the #summary element has aria-live="polite"
+          - the status bar has role="alert" in error state
+          - the empty <tr> contains a <caption> reference
+          - clicking the Retry button re-invokes loadData (mock or stub)
+        - Add a unit test if you add a new pure helper (e.g. a
+          summarizeProviderFailures helper) — test/shared-region.test.js
+          style is fine; put it in test/frontend-aria.test.js.
+
+      Do NOT:
+        - Touch server.js, supabase/, providers/, package.json, scripts/.
+        - Introduce a build step.
+        - Add a new dependency. If you genuinely need one, document why in
+          the deliverable and stop — don't install.
+
+      Stop condition: all four items merged in app.js + index.html +
+      styles.css, tests pass, page loads in a fresh Playwright run with no
+      CSP violations in console. Report changed files with line counts and
+      the test commands you ran with their pass/fail.
+    assigned_to: coder
+    verified_by: verifier
+    verify_prompt: |-
+      You are verifying the P1 frontend batch in C:\Users\Admin\Documents\vsCode\git\dnb-cruises.
+      Source plan: docs/IMPROVEMENTS.md items P1 #6, #7, #9, #10. Source review: docs/reviews/03-frontend-ux.md.
+
+      Independent checks (run the code, do NOT just read the diff):
+
+      1. CSP validation:
+         - Open public/index.html, copy the CSP meta tag content into a
+           CSP evaluator (or just parse it mentally).
+         - Run the test suite (npm test) — it includes Playwright e2e
+           tests. Watch the console output for any CSP violation messages.
+         - Start the dev server (node server.js) in the background, hit
+           / with Playwright, attach a console listener, confirm no
+           `Refused to ... because it violates the following Content
+           Security Policy directive` errors. PASS only if clean.
+         - Verify connect-src includes the actual origins used in app.js
+           (search app.js for fetch('https://...')).
+
+      2. aria-live validation:
+         - Inspect the rendered DOM (use Playwright page.locator and
+           getAttribute) and confirm:
+             #summary[aria-live="polite"] (or aria-live on the actual
+               element — the impl may have used a different selector)
+             status bar has role="alert" in error state
+             <table id="cruiseTable"> has a <caption> (or visually-hidden
+               caption-equivalent)
+         - The producer's unit test for these assertions must exist and
+           pass.
+
+      3. Retry / per-provider error validation:
+         - Force a provider to fail (mock the fetch or pass a bad URL) and
+           load the page. The error state must show a Retry button AND
+           name which provider(s) failed.
+         - Click Retry — confirm the loader re-runs (spy on fetch / loadData).
+
+      4. Cache / lazy-load validation:
+         - Confirm `cache: 'no-store'` is GONE from the initial provider
+           fetch in app.js.
+         - Confirm providers are no longer all fetched in parallel on
+           init (look at the call shape; verify it's either a single
+           provider first OR a button-triggered load).
+
+      5. Run the full test suite: `npm test` from the repo root. All
+         existing tests must pass. Any new tests added by the producer
+         must pass.
+
+      Output: PASS / FAIL with the exact file/line and exact missing
+      behavior for any failure. Do NOT add your own tests to the repo —
+      flag missing coverage as a FAIL.
+    max_retries: 2
+
+  - id: p1-server
+    title: 'P1 #11 — server.js hardening: helmet, rate-limit, cache, error scrubbing'
+    prompt: |-
+      You own the server P1 item. Repo: C:\Users\Admin\Documents\vsCode\git\dnb-cruises.
+      The plan is in docs/IMPROVEMENTS.md. Source: docs/reviews/02-security.md M-1, M-2.
+
+      File you own: server.js ONLY. Do not touch other files.
+
+      Requirements for server.js (P1 #11):
+
+      1. Add helmet() — applies default security headers (X-Content-Type-Options,
+         X-Frame-Options, X-DNS-Prefetch-Control, etc.). Place BEFORE
+         express.static.
+
+      2. Add express-rate-limit on /api/cruises — 30 requests per minute
+         per IP. On exceed, return 429 with a JSON body
+         { success: false, error: "rate_limited" }.
+
+      3. Add a 5-minute disk cache for /api/cruises responses. Use a
+         simple file at .cache/cruises.json with mtime check. On cache
+         hit, return the cached JSON with header X-Cache: HIT. On
+         miss, fetch, write to cache, return with X-Cache: MISS.
+
+      4. Replace the 500 body that forwards err.message with
+         { success: false, error: "Internal error" }. Log the real
+         error to console.error (so the operator still sees it).
+
+      5. Do NOT introduce a build step. Add deps to package.json
+         dependencies: helmet, express-rate-limit. Run npm install.
+
+      6. After your changes, run `node -e "require('./server')"` to
+         confirm the module loads. Then start the server in the
+         background, hit /api/cruises three times — confirm the third
+         response is the same shape and not an error. Then hit it 35
+         times in a loop — confirm 429 kicks in around request 31.
+
+      Tests:
+        - Add test/server-hardening.test.js with these cases (use
+          supertest or a direct http listener, no live network):
+            - helmet sets X-Content-Type-Options: nosniff
+            - 30 reqs in 60s from one IP all return JSON; the 31st returns 429
+            - /api/cruises cache: first call writes, second call within 5
+              min returns the same body with X-Cache: HIT
+            - 500 path returns { success: false, error: "Internal error" }
+              (mock a provider to throw)
+        - Run npm test:unit (this should not require Playwright) — must
+          pass.
+
+      Do NOT:
+        - Touch public/, supabase/, providers/, scripts/, package-lock.json
+          beyond what `npm install` regenerates.
+        - Add a database dependency or a real Redis. Disk file is fine.
+        - Commit a .cache/ directory to git. Add .cache/ to .gitignore.
+
+      Stop condition: server.js hardened, deps installed, tests pass,
+      manual smoke confirms 429 + cache + scrubbed error. Report
+      changed files and the test commands you ran.
+    assigned_to: coder
+    verified_by: verifier
+    verify_prompt: |-
+      You are verifying P1 #11 server hardening in
+      C:\Users\Admin\Documents\vsCode\git\dnb-cruises.
+      Source: docs/IMPROVEMENTS.md P1 #11. Plan source: docs/reviews/02-security.md M-1, M-2.
+
+      Independent checks:
+
+      1. Dependencies actually installed: package.json lists helmet and
+         express-rate-limit in dependencies (not devDependencies). node_modules
+         contains them. `npm test:unit` passes (this excludes Playwright
+         so it's fast).
+
+      2. New test file test/server-hardening.test.js exists and covers:
+         - helmet header present (X-Content-Type-Options: nosniff at minimum)
+         - 31st request from one IP returns 429
+         - cache HIT on second call
+         - 500 body is scrubbed (no err.message leak)
+         Run the test, confirm all pass.
+
+      3. Manual smoke (background):
+         - Start `node server.js` in the background.
+         - Hit /api/cruises with curl. Confirm JSON 200.
+         - Hit it 35 times with a bash for-loop. Confirm ≥1 of the
+           later requests is 429 with body {"success":false,"error":"rate_limited"}.
+         - Confirm the .cache/cruises.json file exists (or some equivalent
+           cache file).
+         - Kill the background server.
+
+      4. Code review:
+         - helmet() is placed BEFORE app.use(express.static(...)) so
+           static assets also get the headers.
+         - The 500 body is the literal { success: false, error: "Internal error" }
+           and the real error.message only goes to console.error.
+         - .cache/ is in .gitignore.
+
+      Output: PASS / FAIL with the specific failure. Do NOT add your own
+      tests to the repo — flag missing coverage as a FAIL.
+    max_retries: 2
+
+  - id: p1-supabase
+    title: 'P1 #12, #15 — supabase: Twilio Verify, salted hash, 5xx on DB failure'
+    prompt: |-
+      You own the Supabase P1 batch. Repo: C:\Users\Admin\Documents\vsCode\git\dnb-cruises.
+      Plan: docs/IMPROVEMENTS.md. Source: docs/reviews/02-security.md H-1, M-3, M-4, M-7.
+
+      Files you own:
+        - supabase/functions/subscribe/index.ts
+        - supabase/functions/visitor-count/index.ts
+        - supabase/functions/twilio-webhook/index.ts
+        - supabase/functions/subscribe/config.toml (already exists, untracked)
+        - supabase/functions/visitor-count/config.toml (already exists, untracked)
+
+      Background: there's some uncommitted work in subscribe/visitor-count
+      index.ts (CORS header additions and 204 for OPTIONS) plus new
+      config.toml files with `verify_jwt = false`. Review what they did
+      and either keep, refine, or revert as part of your P1 #12 work.
+      Net effect: the plan recommends STRONGER auth (Turn on verify_jwt,
+      or use Twilio Verify, or add gateway rate limits). The uncommitted
+      `verify_jwt = false` work goes the OPPOSITE direction. Resolve this
+      tension explicitly in your deliverable: if you keep verify_jwt=false,
+      you MUST add equivalent protection (Twilio Verify, per-IP
+      gateway limits, etc.) AND document why in code comments + the
+      deliverable. If you turn verify_jwt on, document the migration.
+
+      Items:
+
+      #12 — Twilio Verify on subscribe + salted hash on visitor-count + per-IP limits.
+        (a) subscribe/index.ts:
+            - Add Twilio Verify flow: when a POST comes in, require a
+              `verificationCode` field. Call Twilio's Verify API
+              (https://verify.twilio.com/v2/Services/{SID}/VerificationCheck)
+              with the phone and code. Only persist the subscription if
+              Verify says the code is valid.
+            - Add a server-side per-IP rate limit (e.g. 5 POSTs per hour
+              per IP). Use a simple in-memory Map keyed by IP (good
+              enough for edge function warm-instance scope; document the
+              limitation).
+            - If the request fails any of these checks, return 4xx with
+              a JSON { success: false, error: "<reason>" } and DO NOT
+              touch the database.
+        (b) visitor-count/index.ts:
+            - Stop using a client-supplied visitor UUID as the rate-limit
+              key. Instead, hash (User-Agent + IP) with a server-side
+              salt from DENO_ENV ("VISITOR_SALT"). Use the hash as the
+              dedupe key.
+            - Add the same per-IP rate limit pattern as subscribe.
+        (c) Re-check the CORS / 204 work in both files. If it looks
+            correct, keep it. If it conflicts with your new code, fix
+            or revert.
+        (d) Re-check the config.toml `verify_jwt = false` files. If
+            your Twilio Verify + per-IP approach is solid, keep
+            verify_jwt=false and document why in the file as a comment.
+            If you'd rather enforce auth at the gateway, change it to
+            `verify_jwt = true` and update the function code to read
+            the Authorization header.
+
+      #15 — 5xx from twilio-webhook on DB failure.
+        Read supabase/functions/twilio-webhook/index.ts (P0 work is
+        already in). Find the path where dbFetch throws inside the
+        request handler. Confirm it returns a 5xx (not 200) on failure
+        — Twilio retries on 5xx but not on 200. The header comment
+        already claims this; verify the implementation actually does
+        it. If the function currently returns 200 on dbFetch error,
+        fix it. Add a console.warn with the error (without PII — see
+        P2 #20 for masking pattern, you can pre-empt it for the phone
+        number).
+
+      Tests:
+        - Add test/supabase-functions.test.js (or a colocated test
+          file) using a fake `fetch` (override globalThis.fetch) to
+          exercise:
+            - subscribe: missing verificationCode → 400, no DB write
+            - subscribe: bad verificationCode → 4xx, no DB write
+            - subscribe: per-IP 6th request within an hour → 429
+            - visitor-count: same IP+UA within window → 1 DB call; different UA → 2 calls
+            - twilio-webhook: dbFetch throws → returns 5xx (NOT 200)
+        - These tests can be plain .test.js (node --test) if you
+          compile/check the TS files with tsc first, OR .js that just
+          import the .ts via tsx. Use whatever the project already
+          does (look at test/*.test.js for the pattern).
+
+      Do NOT:
+        - Touch server.js, public/, providers/, scripts/.
+        - Add npm dependencies for testing these — use what's already
+          in devDependencies. If tsc is not installed and you need it,
+          document the gap and stop — don't install globally.
+
+      Stop condition: P1 #12 + #15 done, uncommitted CORS/config.toml
+      work resolved one way or the other with a comment, tests pass,
+      deliverable explains the verify_jwt decision. Report changed
+      files and the test commands you ran.
+    assigned_to: coder
+    verified_by: verifier
+    verify_prompt: |-
+      You are verifying P1 #12 + #15 in C:\Users\Admin\Documents\vsCode\git\dnb-cruises.
+      Source: docs/IMPROVEMENTS.md P1 #12 + #15. Plan source: docs/reviews/02-security.md H-1, M-3, M-4, M-7.
+
+      Independent checks:
+
+      1. Auth flow (subscribe):
+         - Read supabase/functions/subscribe/index.ts. Confirm the
+           Twilio Verify API is actually called (search for
+           "verify.twilio.com" or "VerificationCheck").
+         - Without a real Twilio account, mock globalThis.fetch in a
+           test: post to the function with no verificationCode → expect
+           4xx. Post with a code → expect the function to call fetch
+           with the Twilio Verify URL and only persist if Verify says
+           approved.
+         - The 6th request from the same IP within an hour must return
+           429. (Use the test or read the rate-limit code path.)
+
+      2. Visitor count:
+         - Same (UA, IP) twice → 1 DB call. Different UA, same IP → 2 DB
+           calls. (Mock globalThis.fetch + the DB call.)
+         - Confirm the salt is read from a DENO_ENV (e.g. VISITOR_SALT),
+           not hard-coded.
+
+      3. Twilio webhook 5xx on DB failure:
+         - Mock globalThis.fetch so the DB PATCH throws. Invoke the
+           handler. Assert response.status >= 500. (Not 200.)
+         - Confirm the response also masks any PII in console output
+           (no full phone number in the log line).
+
+      4. CORS / config.toml resolution:
+         - Read subscribe/index.ts and visitor-count/index.ts. The
+           OPTIONS preflight returns 204 (not 200) with the right CORS
+           headers. The Access-Control-Allow-Headers list includes
+           authorization, apikey, content-type, x-client-info,
+           x-supabase-api-version.
+         - The two config.toml files exist and the verify_jwt value is
+           consistent with the actual auth strategy in the code (if
+           verify_jwt=true, code reads Authorization header; if
+           verify_jwt=false, code uses Twilio Verify + per-IP limits).
+
+      5. Run the test suite. All tests pass. If you don't trust the
+         producer's tests, write your own at $TMPDIR/scratch-test.js
+         (do not commit) that re-derives the same checks.
+
+      Output: PASS / FAIL with specific file/line and the specific
+      missing behavior for any failure. Flag the verify_jwt decision
+      explicitly in your verdict — is the strategy coherent?
+    max_retries: 2
+
+  - id: p1-quick
+    title: 'P1 #13, #14, #16 — package.json rename, absoluteUrl guard, no silent catches'
+    prompt: |-
+      You own the small P1 items. Repo: C:\Users\Admin\Documents\vsCode\git\dnb-cruises.
+      Plan: docs/IMPROVEMENTS.md. Source: docs/reviews/01-code-architecture.md F-1, F-9, F-23, M-5.
+
+      Files you own (touch only these):
+        - package.json (for #13)
+        - providers/shared.js (for #14, #22 leftover, and #23 if simple)
+        - providers/*.js (for #14, #16 — only touch the lines that
+          have silent catches; do not refactor the whole file)
+        - scripts/*.js (for #16)
+        - supabase/functions/*/index.ts (for #16 only — silent catches)
+        - test/*.test.js (new tests for #14 and #16)
+
+      Items:
+
+      #13 — Fix `package.json:10` `cruises:pull` misnaming.
+        Today `npm run cruises:pull` runs `scripts/fetch-live-cruise-data.js`
+        (the GitHub Pages hydrator). It should run the real scraper.
+        Options:
+          (a) Point cruises:pull at scripts/fetch-cruises.js.
+          (b) Add a new script `scrape:local` = scripts/fetch-cruises.js
+              AND rename cruises:pull to `scrape:hydrate` = scripts/fetch-live-cruise-data.js.
+              Update any docs that reference the old name.
+        Pick (a) if it's clearly the right call (no docs depend on the
+        old name); pick (b) if there's risk of breaking callers. Update
+        README.md if it references the script by name. Search the repo
+        first for "cruises:pull" references.
+
+      #14 — Make absoluteUrl() reject non-http(s) schemes.
+        Read providers/shared.js. Find absoluteUrl. Tighten:
+          function absoluteUrl(href, base) {
+            try {
+              const u = new URL(href, base);
+              if (u.protocol !== 'http:' && u.protocol !== 'https:') return '#';
+              return u.toString();
+            } catch { return '#'; }
+          }
+        (Use the existing code style; this is the minimum change.)
+        Add a unit test in test/absolute-url.test.js:
+          - absoluteUrl('http://x.com') → 'http://x.com/'
+          - absoluteUrl('https://x.com/path') → 'https://x.com/path'
+          - absoluteUrl('javascript:alert(1)') → '#'
+          - absoluteUrl('data:text/html,...') → '#'
+          - absoluteUrl('//x.com/path', 'https://y.com') → 'https://x.com/path'
+          - absoluteUrl('not-a-url', 'https://y.com') → 'https://y.com/not-a-url' (relative resolution)
+
+      #16 — Stop silently swallowing errors.
+        Search the repo for `catch {`, `catch{}`, `catch (e) {}`, and
+        `catch (_) {}`. For EACH occurrence in production code paths
+        (NOT in tests):
+          (a) If it returns a default and there's no log line: add
+              `console.warn('<descriptive message>', err)` so the
+              operator knows the catch fired and why.
+          (b) If the catch is in a hot loop, use a one-liner; if it's
+              a one-off fetch, include the URL in the log.
+        Known sites (from the upstream review):
+          - providers/*/enrichCruiseItinerary worker pool
+          - providers/*/extractPriceFromBookingPage
+          - scripts/fetch-cruises.js FX rate fetch
+          - scripts/notify-subscribers.js matchers
+        Confirm you've caught them all by grepping before you finish.
+
+      Do NOT:
+        - Refactor providers/* beyond the silent-catch sites and the
+          absoluteUrl import (if it's in shared.js, just update
+          shared.js; providers will use the updated function).
+        - Touch public/, server.js, supabase/* beyond the silent-catch sites.
+        - Add new dependencies.
+
+      Stop condition: package.json script correct, absoluteUrl guards
+      non-http(s), all silent catches either log or are explicitly
+      documented as intentional with a comment explaining why. Tests
+      pass. Report changed files with line counts and the test
+      commands you ran.
+    assigned_to: coder
+    verified_by: verifier
+    verify_prompt: |-
+      You are verifying P1 #13, #14, #16 in C:\Users\Admin\Documents\vsCode\git\dnb-cruises.
+      Source: docs/IMPROVEMENTS.md. Plan source: docs/reviews/01-code-architecture.md F-1, F-9, M-5.
+
+      Independent checks:
+
+      1. #13 — package.json cruises:pull:
+         - Read package.json scripts. Confirm the script now points to
+           the correct file (scripts/fetch-cruises.js) OR a new
+           scrape:local / scrape:hydrate pair exists.
+         - Run `npm run cruises:pull --help 2>&1 | head -5` (or just
+           run the script with --help / no args and confirm it doesn't
+           throw on a missing file).
+         - Grep the repo for the OLD script name in case any docs or
+           CI references need updating.
+
+      2. #14 — absoluteUrl:
+         - Read providers/shared.js. Confirm the new implementation
+           uses URL parsing (new URL) and rejects non-http(s) by
+           returning '#'.
+         - Run test/absolute-url.test.js (or whatever the producer
+           named it). All 6 cases must pass. Run an extra ad-hoc
+           check: `node -e "console.log(require('./providers/shared').absoluteUrl('javascript:alert(1)'))"`
+           must print '#'.
+
+      3. #16 — no silent catches:
+         - Grep the entire repo for `catch {`, `catch{}`, `catch (_)`,
+           `catch(e) {}`, `catch (e) {}` (be flexible with whitespace).
+         - For each match in production code, confirm either:
+           (a) a console.warn / console.error follows that includes
+               the error, OR
+           (b) a comment explains WHY the silent catch is intentional
+               (e.g. "we genuinely don't care if the optional metadata
+               is missing").
+         - Flag any match that is silent AND undocumented as a FAIL.
+
+      4. Run npm test:unit. All tests pass. New tests (absoluteUrl
+         and any silent-catch coverage) must pass.
+
+      Output: PASS / FAIL with the exact file/line and specific
+      missing behavior. Do NOT add your own tests to the repo — flag
+      missing coverage as a FAIL.
+    max_retries: 2
+
+  - id: p1-integration
+    title: 'P1 final integration check — all 10 items audited, full test suite green'
+    role: verify-as-task
+    prompt: |-
+      Final integration check for the P1 batch in
+      C:\Users\Admin\Documents\vsCode\git\dnb-cruises.
+
+      You depend on: p1-frontend, p1-server, p1-supabase, p1-quick.
+
+      Your job is the end-to-end gate. Do NOT trust the upstream
+      per-track verifiers — re-derive.
+
+      Steps:
+
+      1. Pull the repo to a clean state (or use a worktree). Make
+         sure all four upstream tracks are merged/present.
+
+      2. Per-item audit. For each of these 10 P1 items, open the
+         actual code and confirm the fix is in place:
+
+         P1 #6  — public/app.js: no `cache: 'no-store'` on the
+                  initial provider fetch; providers are not all
+                  fetched eagerly in parallel on init.
+         P1 #7  — public/index.html: aria-live="polite" on #summary;
+                  role="alert" on error state; visually-hidden
+                  <caption> on <table id="cruiseTable">.
+         P1 #9  — public/app.js: Promise.allSettled (not Promise.all)
+                  in the loader; Retry button present; per-provider
+                  failure detail in error state.
+         P1 #10 — public/index.html: CSP meta tag present with
+                  connect-src allowing the actual origins used.
+         P1 #11 — server.js: helmet(); express-rate-limit; 5-min
+                  disk cache; scrubbed 500 body.
+         P1 #12 — supabase/functions/subscribe/index.ts: Twilio
+                  Verify call; per-IP rate limit. visitor-count:
+                  salted (UA, IP) hash. config.toml: coherent
+                  verify_jwt decision.
+         P1 #13 — package.json: cruises:pull (or new name) points to
+                  the real scraper, not the hydrator.
+         P1 #14 — providers/shared.js: absoluteUrl uses URL parsing
+                  and rejects javascript:/data: by returning '#'.
+         P1 #15 — supabase/functions/twilio-webhook/index.ts: returns
+                  5xx (NOT 200) on dbFetch failure.
+         P1 #16 — no silent `catch { }` in production code without
+                  a console.warn or a documented justification.
+
+      3. Run the full test suite: `npm test`. This runs
+         `node --test test/*.test.js && playwright test`. All must
+         pass. If Playwright is not installed in this environment,
+         run `npm run test:unit` instead and note Playwright as a
+         skipped check.
+
+      4. Smoke test: start the server (`node server.js`) in the
+         background, hit / and /api/cruises with curl. Confirm
+         200. Hit /api/cruises 35 times, confirm at least one 429.
+         Kill the server.
+
+      5. Report. For each of the 10 items above: PASS / FAIL with
+         the evidence. End with a single overall verdict:
+         "ALL P1 ITEMS PASS" or "P1 INCOMPLETE: <list of failing
+         items>". Do NOT make code edits. If something is broken,
+         FAIL it; the owner will route the fix back to the right
+         track.
+    assigned_to: verifier
+    depends_on: [p1-frontend, p1-server, p1-supabase, p1-quick]
+    max_retries: 1
