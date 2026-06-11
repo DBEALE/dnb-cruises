@@ -24440,59 +24440,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ASG070_RP_20270508",
-      "shipName": "Royal Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2013,
-      "itinerary": "Seattle, Washington → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Ketchikan, Alaska → Victoria, Canada → Seattle, Washington",
-      "departureDate": "2027-05-08",
-      "duration": "7 Nights",
-      "departurePort": "Seattle, Washington",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "1049",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1714",
-      "prices": {
-        "inside": "1049",
-        "oceanView": "1674",
-        "balcony": "1674",
-        "suite": "1899"
-      },
-      "seaDays": 1,
-      "firstSeenAt": "2026-05-30T02:39:17.160Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-30T02:39:17.160Z",
-          "prices": {
-            "inside": 1049,
-            "balcony": 1674,
-            "suite": 1899
-          }
-        },
-        {
-          "at": "2026-06-04T19:59:26.626Z",
-          "prices": {
-            "inside": 1024,
-            "oceanView": 1624,
-            "balcony": 1624,
-            "suite": 1799
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 1049,
-            "oceanView": 1674,
-            "balcony": 1674,
-            "suite": 1899
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-11T07:41:24.190Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_EHR17A_CB_20280630",
       "shipName": "Caribbean Princess",
       "shipClass": "Grand",
@@ -24535,6 +24482,54 @@
         }
       ],
       "lastSeenAt": "2026-06-11T07:41:24.190Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ASG070_RP_20260627",
+      "shipName": "Royal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2013,
+      "itinerary": "Seattle, Washington → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Ketchikan, Alaska → Victoria, Canada → Seattle, Washington",
+      "departureDate": "2026-06-27",
+      "duration": "7 Nights",
+      "departurePort": "Seattle, Washington",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "1049",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1628",
+      "prices": {
+        "inside": "1049",
+        "oceanView": null,
+        "balcony": "2492",
+        "suite": null
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-06-01T23:24:11.880Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-01T23:24:11.880Z",
+          "prices": {
+            "inside": 1049,
+            "balcony": 1749
+          }
+        },
+        {
+          "at": "2026-06-03T14:25:08.048Z",
+          "prices": {
+            "inside": 1049,
+            "balcony": 1699
+          }
+        },
+        {
+          "at": "2026-06-09T18:52:55.794Z",
+          "prices": {
+            "inside": 1049,
+            "balcony": 2492
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-11T09:30:19.822Z"
     }
   ]
 }
