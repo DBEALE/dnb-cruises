@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 520,
+  "count": 521,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -24494,6 +24494,39 @@
         }
       ],
       "lastSeenAt": "2026-06-11T11:32:15.429Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_EIN14D_MJ_20260615",
+      "shipName": "Majestic Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2017,
+      "itinerary": "Southampton (for London), England → Haugesund, Norway → Skjolden/Sognefjord, Norway → Olden, Norway → Alesund, Norway → Reykjavik, Iceland → Isafjordur, Iceland → Akureyri, Iceland → Southampton (for London), England",
+      "departureDate": "2026-06-15",
+      "duration": "14 Nights",
+      "departurePort": "Southampton (for London), England",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "priceFrom": "2877",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=8620",
+      "prices": {
+        "inside": "2877",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 6,
+      "firstSeenAt": "2026-06-10T15:06:28.363Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-10T15:06:28.363Z",
+          "prices": {
+            "inside": 2877
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-11T13:18:35.634Z"
     }
   ]
 }
