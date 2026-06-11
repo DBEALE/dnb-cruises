@@ -11579,89 +11579,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_CFR14R_SU_20261227",
-      "shipName": "Sun Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2024,
-      "itinerary": "Ft. Lauderdale, Florida → Cozumel, Mexico → Belize City, Belize → Roatan (Isla Tropicale), Honduras → Ft. Lauderdale, Florida → Grand Turk, Turks & Caicos → San Juan, Puerto Rico → Amber Cove, Dominican Republic → Ft. Lauderdale, Florida",
-      "departureDate": "2026-12-27",
-      "duration": "14 Nights",
-      "departurePort": "Ft. Lauderdale, Florida",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "1938",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=U701A",
-      "prices": {
-        "inside": "1938",
-        "oceanView": "2368",
-        "balcony": null,
-        "suite": "2868"
-      },
-      "seaDays": 6,
-      "firstSeenAt": "2026-05-29T18:29:37.417Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 1863,
-            "oceanView": 2343,
-            "suite": 2818
-          }
-        },
-        {
-          "at": "2026-06-01T15:52:12.787Z",
-          "prices": {
-            "inside": 1888,
-            "oceanView": 2368,
-            "suite": 2868
-          }
-        },
-        {
-          "at": "2026-06-02T13:57:43.544Z",
-          "prices": {
-            "inside": 1938,
-            "oceanView": 2368,
-            "suite": 2868
-          }
-        },
-        {
-          "at": "2026-06-04T16:51:20.118Z",
-          "prices": {
-            "inside": 1888,
-            "oceanView": 2368,
-            "suite": 2868
-          }
-        },
-        {
-          "at": "2026-06-05T16:28:16.747Z",
-          "prices": {
-            "inside": 1938,
-            "oceanView": 2368,
-            "suite": 2868
-          }
-        },
-        {
-          "at": "2026-06-07T13:42:03.490Z",
-          "prices": {
-            "inside": 1888,
-            "oceanView": 2368,
-            "suite": 2868
-          }
-        },
-        {
-          "at": "2026-06-10T13:10:03.669Z",
-          "prices": {
-            "inside": 1938,
-            "oceanView": 2368,
-            "suite": 2868
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-10T17:06:21.326Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_CFR07E_CO_20261219",
       "shipName": "Coral Princess",
       "shipClass": "Coral",
@@ -24530,6 +24447,53 @@
         }
       ],
       "lastSeenAt": "2026-06-11T09:30:19.822Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_CFR14R_GP_20260801",
+      "shipName": "Regal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2014,
+      "itinerary": "Ft. Lauderdale, Florida → Princess Cays, Bahamas → San Juan, Puerto Rico → St. Maarten → Ft. Lauderdale, Florida → Cozumel, Mexico → Belize City, Belize → Roatan (Isla Tropicale), Honduras → Ft. Lauderdale, Florida",
+      "departureDate": "2026-08-01",
+      "duration": "14 Nights",
+      "departurePort": "Ft. Lauderdale, Florida",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1402",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=G631A",
+      "prices": {
+        "inside": "1402",
+        "oceanView": null,
+        "balcony": "1604",
+        "suite": "2455"
+      },
+      "seaDays": 6,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 1428
+        },
+        {
+          "at": "2026-06-10T03:08:11.372Z",
+          "prices": {
+            "inside": 1408,
+            "balcony": 1604,
+            "suite": 2455
+          }
+        },
+        {
+          "at": "2026-06-11T05:56:28.754Z",
+          "prices": {
+            "inside": 1402,
+            "balcony": 1604,
+            "suite": 2455
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-11T11:32:15.429Z"
     }
   ]
 }
