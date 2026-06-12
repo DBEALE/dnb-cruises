@@ -9919,51 +9919,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ERR14G_EX_20270703",
-      "shipName": "Enchanted Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2020,
-      "itinerary": "Civitavecchia (for Rome), Italy → Corfu, Greece → Kotor, Montenegro → Dubrovnik, Croatia → Naples, Italy (for Capri & Pompeii) → Civitavecchia (for Rome), Italy → Amalfi Coast (Salerno) → Crete (Chania), Greece → Kusadasi, Turkey (for Ephesus) → Katakolon (for Olympia), Greece → Civitavecchia (for Rome), Italy",
-      "departureDate": "2027-07-03",
-      "duration": "14 Nights",
-      "departurePort": "Civitavecchia (for Rome), Italy",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "priceFrom": "2172",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N720A",
-      "prices": {
-        "inside": "2172",
-        "oceanView": "3426",
-        "balcony": "3489",
-        "suite": "3466"
-      },
-      "seaDays": 4,
-      "firstSeenAt": "2026-06-05T21:21:41.187Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-05T21:21:41.187Z",
-          "prices": {
-            "inside": 2097,
-            "oceanView": 3349,
-            "balcony": 3298,
-            "suite": 3291
-          }
-        },
-        {
-          "at": "2026-06-10T13:10:03.669Z",
-          "prices": {
-            "inside": 2172,
-            "oceanView": 3426,
-            "balcony": 3489,
-            "suite": 3466
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-10T17:06:21.326Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_EAB07A_SU_20271010",
       "shipName": "Sun Princess",
       "shipClass": "Royal",
@@ -24980,6 +24935,45 @@
         }
       ],
       "lastSeenAt": "2026-06-12T18:43:34.928Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_EIN14D_MJ_20260615",
+      "shipName": "Majestic Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2017,
+      "itinerary": "Southampton (for London), England → Haugesund, Norway → Skjolden/Sognefjord, Norway → Olden, Norway → Alesund, Norway → Reykjavik, Iceland → Isafjordur, Iceland → Akureyri, Iceland → Southampton (for London), England",
+      "departureDate": "2026-06-15",
+      "duration": "14 Nights",
+      "departurePort": "Southampton (for London), England",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "priceFrom": "4002",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=8620",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "4002"
+      },
+      "seaDays": 6,
+      "firstSeenAt": "2026-06-10T15:06:28.363Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-10T15:06:28.363Z",
+          "prices": {
+            "inside": 2877
+          }
+        },
+        {
+          "at": "2026-06-12T03:09:06.348Z",
+          "prices": {
+            "suite": 4002
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-12T20:45:39.768Z"
     }
   ]
 }
