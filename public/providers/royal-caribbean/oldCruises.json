@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 114,
+  "count": 111,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -8285,361 +8285,178 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_AN10YVR-2068713707",
-      "shipName": "Anthem of the Seas",
-      "shipClass": "Quantum",
-      "shipLaunchYear": 2015,
-      "itinerary": "Tundra Explorers Family Cruisetour: Ketchikan (Ward Cove), Alaska, Icy Strait Point, Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Talkeetna, Alaska, Denali, Alaska, Anchorage, Alaska",
-      "departureDate": "2027-08-20",
-      "duration": "10 Nights",
-      "departurePort": "Vancouver",
+      "id": "rc_AD08FLL-496126309",
+      "shipName": "Adventure of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2001,
+      "itinerary": "Southern Caribbean Cruise: Nassau, Bahamas, Oranjestad, Aruba, Willemstad, Curacao",
+      "departureDate": "2026-12-05",
+      "duration": "8 Nights",
+      "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "1764.5",
+      "destination": "Caribbean",
+      "priceFrom": "418",
       "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AN10YVR-2068713707&sailDate=2027-08-20&shipCode=AN&packageCode=AN10AH09&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AD08FLL-496126309&sailDate=2026-12-05&shipCode=AD&packageCode=AD08D135&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
       "prices": {
-        "inside": "1764.5",
-        "oceanView": "2179.5",
-        "balcony": "2253.5",
-        "suite": "3296.5"
+        "inside": "418",
+        "oceanView": "565",
+        "balcony": "808",
+        "suite": "1686"
       },
-      "seaDays": 0,
+      "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
           "at": "2026-05-29T09:33:04.484Z",
-          "price": 2348.32
+          "price": 689
         },
         {
           "at": "2026-05-29T18:29:37.417Z",
           "prices": {
-            "inside": 2348.32,
-            "oceanView": 2818.82,
-            "balcony": 3068.32,
-            "suite": 4046.82
+            "inside": 689,
+            "oceanView": 908.5,
+            "balcony": 1231,
+            "suite": 2551.5
+          }
+        },
+        {
+          "at": "2026-05-29T21:50:03.590Z",
+          "prices": {
+            "inside": 656,
+            "oceanView": 865,
+            "balcony": 1169,
+            "suite": 2611.55
+          }
+        },
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 644.5,
+            "oceanView": 849,
+            "balcony": 1145.5,
+            "suite": 2611.55
           }
         },
         {
           "at": "2026-05-31T12:12:25.302Z",
           "prices": {
-            "inside": 1764.5,
-            "oceanView": 2179.5,
-            "balcony": 2253.5,
-            "suite": 3296.5
-          }
-        },
-        {
-          "at": "2026-06-01T23:24:11.880Z",
-          "prices": {
-            "inside": 1764.5,
-            "oceanView": 2179.5,
-            "balcony": 2253.5,
-            "suite": 3316.5
-          }
-        },
-        {
-          "at": "2026-06-04T21:46:19.713Z",
-          "prices": {
-            "inside": 1764.5,
-            "oceanView": 2179.5,
-            "balcony": 2253.5,
-            "suite": 3334
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 1847,
-            "oceanView": 2262,
-            "balcony": 2366,
-            "suite": 3634
-          }
-        },
-        {
-          "at": "2026-06-11T22:36:23.717Z",
-          "prices": {
-            "inside": 1764.5,
-            "oceanView": 2179.5,
-            "balcony": 2253.5,
-            "suite": 3296.5
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-12T03:09:06.348Z"
-    },
-    {
-      "provider": "Royal Caribbean",
-      "id": "rc_AN13SWD-1698492912",
-      "shipName": "Anthem of the Seas",
-      "shipClass": "Quantum",
-      "shipLaunchYear": 2015,
-      "itinerary": "Alaska Wilderness & Chena River Ultimate Cruisetour: Denali, Alaska, Talkeetna, Alaska, Anchorage, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Vancouver, British Columbia",
-      "departureDate": "2027-09-10",
-      "duration": "13 Nights",
-      "departurePort": "Seward",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "2685.5",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AN13SWD-1698492912&sailDate=2027-09-10&shipCode=AN&packageCode=AN13BR08&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": "2685.5",
-        "oceanView": "3047.5",
-        "balcony": "3121.5",
-        "suite": "4009.5"
-      },
-      "seaDays": 3,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 3418.66
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 3418.66,
-            "oceanView": 3838.66,
-            "balcony": 3888.66,
-            "suite": 5336.16
-          }
-        },
-        {
-          "at": "2026-05-31T12:12:25.302Z",
-          "prices": {
-            "inside": 2685.5,
-            "oceanView": 3047.5,
-            "balcony": 3121.5,
-            "suite": 4009.5
-          }
-        },
-        {
-          "at": "2026-06-01T23:24:11.880Z",
-          "prices": {
-            "inside": 2685.5,
-            "oceanView": 3047.5,
-            "balcony": 3121.5,
-            "suite": 4029.5
-          }
-        },
-        {
-          "at": "2026-06-04T21:46:19.713Z",
-          "prices": {
-            "inside": 2685.5,
-            "oceanView": 3047.5,
-            "balcony": 3121.5,
-            "suite": 4047
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 2768,
-            "oceanView": 3130,
-            "balcony": 3234,
-            "suite": 4347
-          }
-        },
-        {
-          "at": "2026-06-11T22:36:23.717Z",
-          "prices": {
-            "inside": 2685.5,
-            "oceanView": 3047.5,
-            "balcony": 3121.5,
-            "suite": 4009.5
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-12T03:09:06.348Z"
-    },
-    {
-      "provider": "Royal Caribbean",
-      "id": "rc_BR07BLQ-375479573",
-      "shipName": "Brilliance of the Seas",
-      "shipClass": "Radiance",
-      "shipLaunchYear": 2002,
-      "itinerary": "Greece & Croatia Cruise: Zadar, Croatia, Athens (Piraeus), Greece, Santorini, Greece, Split, Croatia",
-      "departureDate": "2027-08-21",
-      "duration": "7 Nights",
-      "departurePort": "Ravenna (Venice)",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "priceFrom": "832.5",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=BR07BLQ-375479573&sailDate=2027-08-21&shipCode=BR&packageCode=BR07M889&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": "832.5",
-        "oceanView": "959.5",
-        "balcony": "1164.5",
-        "suite": "1476.5"
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 1113.41
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 1113.41,
-            "oceanView": 1283.41,
-            "balcony": 1563.41,
-            "suite": 1986.41
-          }
-        },
-        {
-          "at": "2026-05-31T12:12:25.302Z",
-          "prices": {
-            "inside": 839.5,
-            "oceanView": 967.5,
-            "balcony": 1174.5,
-            "suite": 1491.5
+            "inside": 443.5,
+            "oceanView": 579.5,
+            "balcony": 775.5,
+            "suite": 1741.5
           }
         },
         {
           "at": "2026-06-01T20:13:35.019Z",
           "prices": {
-            "inside": 835.5,
-            "oceanView": 962.5,
-            "balcony": 1168.5,
-            "suite": 1481.5
+            "inside": 440.5,
+            "oceanView": 576.5,
+            "balcony": 771.5,
+            "suite": 1729.5
           }
         },
         {
           "at": "2026-06-01T23:24:11.880Z",
           "prices": {
-            "inside": 835.5,
-            "oceanView": 962.5,
-            "balcony": 1168.5,
-            "suite": 1501.5
+            "inside": 440.5,
+            "oceanView": 576.5,
+            "balcony": 771.5,
+            "suite": 1749.5
           }
         },
         {
-          "at": "2026-06-04T23:05:48.621Z",
+          "at": "2026-06-03T03:37:29.400Z",
           "prices": {
-            "inside": 835.5,
-            "oceanView": 962.5,
-            "balcony": 1168.5,
-            "suite": 1519
+            "inside": 462.5,
+            "oceanView": 606.5,
+            "balcony": 812.5,
+            "suite": 1749.5
           }
         },
         {
-          "at": "2026-06-07T23:00:23.832Z",
+          "at": "2026-06-03T19:45:18.339Z",
           "prices": {
-            "inside": 832.5,
-            "oceanView": 959.5,
-            "balcony": 1164.5,
-            "suite": 1514
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 915,
-            "oceanView": 1042,
-            "balcony": 1277,
-            "suite": 1814
-          }
-        },
-        {
-          "at": "2026-06-11T22:36:23.717Z",
-          "prices": {
-            "inside": 832.5,
-            "oceanView": 959.5,
-            "balcony": 1164.5,
-            "suite": 1476.5
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-12T07:38:27.811Z"
-    },
-    {
-      "provider": "Royal Caribbean",
-      "id": "rc_AN10SWD-3685769625",
-      "shipName": "Anthem of the Seas",
-      "shipClass": "Quantum",
-      "shipLaunchYear": 2015,
-      "itinerary": "Heart of the Northern Frontier Cruisetour: Denali, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Vancouver, British Columbia",
-      "departureDate": "2027-09-10",
-      "duration": "10 Nights",
-      "departurePort": "Seward",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "1663.5",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AN10SWD-3685769625&sailDate=2027-09-10&shipCode=AN&packageCode=AN10BR02&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": "1663.5",
-        "oceanView": "2026.5",
-        "balcony": "2100.5",
-        "suite": "2987.5"
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 2261.16
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 2261.16,
-            "oceanView": 2681.16,
-            "balcony": 2731.16,
-            "suite": 4177.66
-          }
-        },
-        {
-          "at": "2026-05-31T12:12:25.302Z",
-          "prices": {
-            "inside": 1663.5,
-            "oceanView": 2026.5,
-            "balcony": 2100.5,
-            "suite": 2987.5
-          }
-        },
-        {
-          "at": "2026-06-01T23:24:11.880Z",
-          "prices": {
-            "inside": 1663.5,
-            "oceanView": 2026.5,
-            "balcony": 2100.5,
-            "suite": 3007.5
+            "inside": 437.5,
+            "oceanView": 606.5,
+            "balcony": 812.5,
+            "suite": 1749.5
           }
         },
         {
           "at": "2026-06-04T21:46:19.713Z",
           "prices": {
-            "inside": 1663.5,
-            "oceanView": 2026.5,
-            "balcony": 2100.5,
-            "suite": 3025
+            "inside": 437.5,
+            "oceanView": 606.5,
+            "balcony": 812.5,
+            "suite": 1767
           }
         },
         {
-          "at": "2026-06-08T23:09:59.467Z",
+          "at": "2026-06-05T02:54:54.938Z",
           "prices": {
-            "inside": 1746,
-            "oceanView": 2109,
-            "balcony": 2213,
-            "suite": 3325
+            "inside": 416.5,
+            "oceanView": 576.5,
+            "balcony": 771.5,
+            "suite": 1767
+          }
+        },
+        {
+          "at": "2026-06-06T19:14:21.054Z",
+          "prices": {
+            "inside": 416.5,
+            "oceanView": 556.5,
+            "balcony": 771.5,
+            "suite": 1767
+          }
+        },
+        {
+          "at": "2026-06-08T18:22:55.802Z",
+          "prices": {
+            "inside": 414.5,
+            "oceanView": 554.5,
+            "balcony": 768.5,
+            "suite": 1761
+          }
+        },
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 414.5,
+            "oceanView": 554.5,
+            "balcony": 768.5,
+            "suite": 1683.5
+          }
+        },
+        {
+          "at": "2026-06-10T00:45:43.085Z",
+          "prices": {
+            "inside": 435.5,
+            "oceanView": 582.5,
+            "balcony": 809.5,
+            "suite": 1683.5
+          }
+        },
+        {
+          "at": "2026-06-10T17:06:21.326Z",
+          "prices": {
+            "inside": 435.5,
+            "oceanView": 582.5,
+            "balcony": 825.5,
+            "suite": 1683.5
           }
         },
         {
           "at": "2026-06-11T22:36:23.717Z",
           "prices": {
-            "inside": 1663.5,
-            "oceanView": 2026.5,
-            "balcony": 2100.5,
-            "suite": 2987.5
+            "inside": 418,
+            "oceanView": 565,
+            "balcony": 808,
+            "suite": 1686
           }
         }
       ],
-      "lastSeenAt": "2026-06-12T07:38:27.811Z"
+      "lastSeenAt": "2026-06-12T09:25:16.375Z"
     }
   ]
 }
