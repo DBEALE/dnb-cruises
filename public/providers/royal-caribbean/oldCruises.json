@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 109,
+  "count": 112,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -8259,6 +8259,132 @@
         }
       ],
       "lastSeenAt": "2026-06-11T15:12:03.310Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV10YVR-810196795",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Alaska Wildlife Express CruiseTour (Post Tour): Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Talkeetna, Alaska, Denali, Alaska, Anchorage, Alaska",
+      "departureDate": "2026-07-24",
+      "duration": "10 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "1639.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV10YVR-810196795&sailDate=2026-07-24&shipCode=OV&packageCode=OV10AF01&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1639.5",
+        "oceanView": null,
+        "balcony": "2344.5",
+        "suite": null
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-06-12T17:00:36.048Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-12T17:00:36.048Z",
+          "prices": {
+            "inside": 1639.5,
+            "balcony": 2344.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-12T18:43:34.928Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_SR07YVR-1481343496",
+      "shipName": "Serenade of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2003,
+      "itinerary": "Alaska Inside Passage Cruise: Inside Passage (Cruising), Canada, Sitka, Alaska, Endicott Arm & Dawes Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Ketchikan, Alaska",
+      "departureDate": "2026-08-16",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "1852.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=SR07YVR-1481343496&sailDate=2026-08-16&shipCode=SR&packageCode=SR07A425&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "1852.5"
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-06-10T15:06:28.363Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-10T15:06:28.363Z",
+          "prices": {
+            "suite": 1845.5
+          }
+        },
+        {
+          "at": "2026-06-10T17:06:21.326Z",
+          "prices": {
+            "suite": 1812.5
+          }
+        },
+        {
+          "at": "2026-06-11T13:18:35.634Z",
+          "prices": {
+            "inside": 1506.5,
+            "suite": 1812.5
+          }
+        },
+        {
+          "at": "2026-06-11T20:49:57.143Z",
+          "prices": {
+            "suite": 1812.5
+          }
+        },
+        {
+          "at": "2026-06-11T22:36:23.717Z",
+          "prices": {
+            "suite": 1852.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-12T18:43:34.928Z"
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OV13YVR-920317425",
+      "shipName": "Ovation of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2016,
+      "itinerary": "Alaska Wilderness Spectacular CruiseTour (Post Tour): Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Skagway, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Anchorage, Alaska, Talkeetna, Alaska, Denali, Alaska, Fairbanks, Alaska",
+      "departureDate": "2026-07-24",
+      "duration": "13 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2524.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OV13YVR-920317425&sailDate=2026-07-24&shipCode=OV&packageCode=OV13AF08&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2524.5",
+        "oceanView": null,
+        "balcony": "3229.5",
+        "suite": null
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-06-12T17:00:36.048Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-12T17:00:36.048Z",
+          "prices": {
+            "inside": 2524.5,
+            "balcony": 3229.5
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-12T18:43:34.928Z"
     }
   ]
 }
