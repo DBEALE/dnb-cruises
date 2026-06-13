@@ -9,6 +9,11 @@
 
 const { test, expect } = require('@playwright/test');
 
+const TEST_NOW = Date.now();
+const isoAgo = milliseconds => new Date(TEST_NOW - milliseconds).toISOString();
+const HOUR = 60 * 60 * 1000;
+const DAY = 24 * HOUR;
+
 const PROVIDER_INDEX = {
   defaultProviderId: 'royal-caribbean',
   providers: [
@@ -44,25 +49,25 @@ const CRUISES_RC = {
   cruises: [
     cruise({
       id: 'rc_a', shipName: 'Anthem of the Seas', provider: 'Royal Caribbean',
-      priceFrom: 500, days: 7, departureDate: '2026-08-31', firstSeenAt: '2026-05-01T10:00:00Z',
+      priceFrom: 500, days: 7, departureDate: '2026-08-31', firstSeenAt: isoAgo(20 * DAY),
       shipLaunchYear: 2025,
       seaDays: 3,
       prices: { inside: '500', oceanView: '650', balcony: '800', suite: '1800' },
       history: [
-        { at: '2026-05-01T10:00:00Z', prices: { inside: 600, oceanView: 720, balcony: 900, suite: 2000 } },
-        { at: '2026-05-15T10:00:00Z', prices: { inside: 550, oceanView: 680, balcony: 850, suite: 1900 } },
-        { at: '2026-05-31T10:00:00Z', prices: { inside: 500, oceanView: 650, balcony: 800, suite: 1800 } },
+        { at: isoAgo(20 * DAY), prices: { inside: 600, oceanView: 720, balcony: 900, suite: 2000 } },
+        { at: isoAgo(30 * HOUR), prices: { inside: 550, oceanView: 680, balcony: 850, suite: 1900 } },
+        { at: isoAgo(2 * HOUR), prices: { inside: 500, oceanView: 650, balcony: 800, suite: 1800 } },
       ],
     }),
     cruise({
       id: 'rc_b', shipName: 'Harmony of the Seas', provider: 'Royal Caribbean',
-      priceFrom: 1200, days: 14, firstSeenAt: '2026-06-05T10:00:00Z',
+      priceFrom: 1200, days: 14, firstSeenAt: isoAgo(2 * HOUR),
       shipLaunchYear: 2000,
       seaDays: 9,
       prices: { inside: '1200', oceanView: '1500', balcony: '1800', suite: '3500' },
       history: [
-        { at: '2026-05-01T10:00:00Z', prices: { inside: 1100, oceanView: 1400, balcony: 1700, suite: 3400 } },
-        { at: '2026-05-31T10:00:00Z', prices: { inside: 1200, oceanView: 1500, balcony: 1800, suite: 3500 } },
+        { at: isoAgo(30 * HOUR), prices: { inside: 1100, oceanView: 1400, balcony: 1700, suite: 3400 } },
+        { at: isoAgo(HOUR), prices: { inside: 1200, oceanView: 1500, balcony: 1800, suite: 3500 } },
       ],
     }),
   ],
@@ -73,10 +78,14 @@ const CRUISES_CEL = {
   cruises: [
     cruise({
       id: 'cel_a', shipName: 'Celebrity Edge', provider: 'Celebrity Cruises',
-      priceFrom: 900, days: 10, port: 'Barcelona', departureDate: '2026-09-02', firstSeenAt: '2026-05-20T10:00:00Z',
+      priceFrom: 900, days: 10, port: 'Barcelona', departureDate: '2026-09-02', firstSeenAt: isoAgo(3 * DAY),
       itinerary: 'Barcelona, Spain Mediterranean Escape',
       seaDays: 2,
       prices: { inside: '900', oceanView: null, balcony: '1300', suite: '2500' },
+      history: [
+        { at: isoAgo(30 * HOUR), prices: { inside: 1000, oceanView: null, balcony: 1450, suite: 2750 } },
+        { at: isoAgo(HOUR), prices: { inside: 900, oceanView: null, balcony: 1300, suite: 2500 } },
+      ],
     }),
   ],
 };
@@ -137,7 +146,12 @@ test.describe('Sparklines', () => {
     expect(await page.locator('#phChart svg path').count()).toBe(4);
     // Latest at the top
     const firstRowDate = await page.locator('#phTableBody tr:first-child td:first-child').innerText();
-    expect(firstRowDate).toMatch(/31 May/);
+    const latestDay = new Date(TEST_NOW - 2 * HOUR).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      timeZone: 'UTC',
+    });
+    expect(firstRowDate).toContain(latestDay);
   });
 });
 
@@ -212,6 +226,13 @@ test.describe('Sort and filter', () => {
     await expect(page.locator('#sortDirBtn')).toHaveText('↓');
   });
 
+  test('24-hour price reduction sort puts the largest recent drop first', async ({ page }) => {
+    await gotoFresh(page);
+    await page.selectOption('#sortSelect', '20');
+    await expect(page.locator('tbody tr:first-child .col-ship')).toContainText('Celebrity Edge');
+    await expect(page.locator('#sortDirBtn')).toHaveText('↓');
+  });
+
   test('column filter narrows results and updates summary count', async ({ page }) => {
     await gotoFresh(page);
     await page.locator('.col-filter[data-field="provider"]').selectOption('Celebrity Cruises');
@@ -229,6 +250,36 @@ test.describe('Sort and filter', () => {
     expect(await page.locator('tbody tr').count()).toBe(2);
     await expect(page.locator('tbody tr:first-child .col-ship')).toContainText('Anthem of the Seas');
     await expect(page.locator('tbody tr:nth-child(2) .col-ship')).toContainText('Celebrity Edge');
+  });
+
+  test('recent price reduction filters support 24 hours and one week', async ({ page }) => {
+    await gotoFresh(page);
+    const filter = page.locator('.col-filter[data-field="priceDropWindow"]');
+    await filter.selectOption('24h');
+    await expect(page.locator('#summary')).toContainText('2 of 3');
+    await expect(page.locator('#summary')).toContainText('Price reduced in 24h');
+    await expect(page.locator('#cruiseBody')).toContainText('Anthem of the Seas');
+    await expect(page.locator('#cruiseBody')).toContainText('Celebrity Edge');
+    await expect(page.locator('#cruiseBody')).not.toContainText('Harmony of the Seas');
+
+    await filter.selectOption('7d');
+    await expect(page.locator('#summary')).toContainText('2 of 3');
+    await expect(page.locator('#summary')).toContainText('Price reduced in 1 week');
+  });
+
+  test('new cruise filters support 24 hours and one week', async ({ page }) => {
+    await gotoFresh(page);
+    const filter = page.locator('.col-filter[data-field="newWithin"]');
+    await filter.selectOption('24h');
+    await expect(page.locator('#summary')).toContainText('1 of 3');
+    await expect(page.locator('#summary')).toContainText('Added in 24h');
+    await expect(page.locator('#cruiseBody')).toContainText('Harmony of the Seas');
+
+    await filter.selectOption('7d');
+    await expect(page.locator('#summary')).toContainText('2 of 3');
+    await expect(page.locator('#summary')).toContainText('Added in 1 week');
+    await expect(page.locator('#cruiseBody')).toContainText('Harmony of the Seas');
+    await expect(page.locator('#cruiseBody')).toContainText('Celebrity Edge');
   });
 
   test('itinerary filter matches every word and highlights each one', async ({ page }) => {

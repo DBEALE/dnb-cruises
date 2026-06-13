@@ -307,6 +307,45 @@
       flex-wrap: wrap;
     }
 
+    .toolbar-filter-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toolbar-filter-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      white-space: nowrap;
+    }
+    .toolbar-filter-wrap .filter-entry {
+      min-width: 168px;
+    }
+    .toolbar-filter-wrap select {
+      font-size: 0.85rem;
+      padding: 6px 30px 6px 10px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      background: white;
+      color: var(--gray-800);
+      cursor: pointer;
+    }
+    .toolbar-filter-wrap select option {
+      background: white;
+      color: var(--gray-800);
+    }
+    .toolbar-filter-wrap .filter-clear-btn {
+      border-color: var(--gray-200);
+      background: white;
+      color: var(--gray-600);
+    }
+    .toolbar-filter-wrap .filter-clear-btn:hover,
+    .toolbar-filter-wrap .filter-clear-btn:focus-visible {
+      border-color: var(--blue);
+      background: var(--blue-pale);
+      color: var(--blue);
+    }
+
     /* Sort dropdown (desktop) */
     .sort-wrap { display: inline-flex; align-items: center; gap: 8px; }
     .sort-wrap .sort-label {
@@ -984,6 +1023,7 @@
       .col-class { display: none; }
       .sort-hint { display: none; }   /* card layout has no column headers */
       .sort-wrap { display: none; }   /* mobileControls has its own sort dropdown */
+      .toolbar-filter-wrap { display: none; }
       #savedViewsBtn { display: none; } /* mob-sort-row has its own ★ */
       td, .sort-row th { padding: 9px 8px; }
       td.book a { padding: 4px 10px; }

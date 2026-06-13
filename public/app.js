@@ -48,10 +48,23 @@
   let classWikiLinks    = {};
   const VISITOR_ID_KEY = 'cruise-explorer-visitor-id';
   const VISITOR_COUNT_URL = 'https://yttgqscwgmsnewdjqbcc.supabase.co/functions/v1/visitor-count';
+  const RECENT_WINDOW_MS = {
+    '24h': 24 * 60 * 60 * 1000,
+    '7d':  7 * 24 * 60 * 60 * 1000,
+  };
 
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '13 Jun 2026',
+      title: 'Recent price and cruise filters',
+      items: [
+        'Added filters for cruises reduced in price during the past 24 hours or week.',
+        'Added filters for cruises first found during the past 24 hours or week.',
+        'Added a sort for the largest price reduction during the past 24 hours.',
+      ],
+    },
     {
       date: '10 Jun 2026',
       title: 'Bigger transparent favicon',
@@ -1883,6 +1896,7 @@
     16: 'Price change',
     17: 'GBP/night',
     18: 'Recently found',
+    20: '24hr price reduction',
   };
 
   function humanSummariseHash(hash) {
@@ -1896,7 +1910,10 @@
     }
     for (const [k, v] of p) {
       if (k === 'sort' || k === 'all' || k === 'gbp' || k === 'departureStart' || k === 'departureEnd') continue;
-      parts.push(`${k}=${v}`);
+      const recentLabel = k === 'priceDropWindow' || k === 'newWithin'
+        ? savedViewFilterLabel(k, v)
+        : '';
+      parts.push(recentLabel || `${k}=${v}`);
     }
     const departure = savedViewDepartureRangeLabel(p);
     if (departure) parts.push(departure);
@@ -1933,6 +1950,8 @@
     if (key === 'duration') return `${v}+ nights`;
     if (key === 'seaDays') return `Max ${v} sea days`;
     if (key === 'maxPrice') return `Under GBP ${Number(v).toLocaleString('en-GB')}`;
+    if (key === 'priceDropWindow') return v === '24h' ? 'Price reduced in 24h' : v === '7d' ? 'Price reduced in 1 week' : '';
+    if (key === 'newWithin') return v === '24h' ? 'Added in 24h' : v === '7d' ? 'Added in 1 week' : '';
     return v;
   }
 
@@ -1949,6 +1968,7 @@
       17: 'GBP/night',
       18: 'Recently found',
       19: 'Sea days',
+      20: '24hr price reduction',
     };
     return names[col] || '';
   }
@@ -1973,6 +1993,8 @@
     add(savedViewFilterLabel('duration', source.duration));
     add(savedViewFilterLabel('seaDays', source.seaDays));
     add(savedViewFilterLabel('maxPrice', source.maxPrice));
+    add(savedViewFilterLabel('priceDropWindow', source.priceDropWindow));
+    add(savedViewFilterLabel('newWithin', source.newWithin));
     return parts.slice(0, 3).join(' · ');
   }
 
@@ -1990,6 +2012,8 @@
       'seaDays',
       'maxPrice',
       'minLaunch',
+      'priceDropWindow',
+      'newWithin',
     ];
     const parts = preferredFields
       .map(field => savedViewFilterLabel(field, p.get(field)))
@@ -2188,15 +2212,15 @@
     scheduleApplyFilters();
   }
 
-  // Dropdown change: switch to the chosen column. Most sorts start ascending;
-  // "Recently found" starts newest-first because that is the useful default.
+  // Dropdown change: switch to the chosen column. Time-recency and recent
+  // price-reduction sorts start descending because newest/largest is useful.
   function applySortColumn(val) {
     if (!val) {
       sortColIndex = -1;
       sortAsc = true;
     } else {
       sortColIndex = parseInt(val, 10);
-      sortAsc = sortColIndex === 18 ? false : true;
+      sortAsc = sortColIndex === 18 || sortColIndex === 20 ? false : true;
     }
     syncSortControls();
     scheduleApplyFilters();
@@ -2395,6 +2419,7 @@
       case 17: return getPricePerNight(c);
       case 18: return getFirstSeenTime(c);
       case 19: return inferSeaDays(c);
+      case 20: return getRecentPriceReductionPct(c, RECENT_WINDOW_MS['24h']);
       default: return '';
     }
   }
@@ -2496,6 +2521,15 @@
         const max = parseFloat(colFilters.maxPrice);
         const p   = getGBPPrice(c);
         if (!isNaN(max) && (isNaN(p) || p > max)) return false;
+      }
+      if (colFilters.priceDropWindow) {
+        const windowMs = RECENT_WINDOW_MS[colFilters.priceDropWindow];
+        const reduction = getRecentPriceReductionPct(c, windowMs);
+        if (!Number.isFinite(reduction) || reduction <= 0) return false;
+      }
+      if (colFilters.newWithin) {
+        const windowMs = RECENT_WINDOW_MS[colFilters.newWithin];
+        if (!isFirstSeenWithin(c, windowMs)) return false;
       }
       return true;
     });
@@ -2684,6 +2718,58 @@
       if (history.some(e => e?.prices && e.prices[b] != null)) buckets.push(b);
     }
     return buckets;
+  }
+
+  function historyEntryTime(entry) {
+    const time = new Date(entry?.at || '').getTime();
+    return Number.isFinite(time) ? time : NaN;
+  }
+
+  // Largest current cabin-price reduction within a recent time window.
+  // Returns a positive percentage, or NaN when there is no comparable drop.
+  function getRecentPriceReductionPct(c, windowMs, now = Date.now()) {
+    if (!Number.isFinite(windowMs) || windowMs <= 0) return NaN;
+    const history = Array.isArray(c?.priceHistory) ? c.priceHistory : [];
+    const timed = history
+      .map(entry => ({ entry, time: historyEntryTime(entry) }))
+      .filter(point => Number.isFinite(point.time) && point.time <= now)
+      .sort((a, b) => a.time - b.time);
+    if (timed.length < 2) return NaN;
+
+    const cutoff = now - windowMs;
+    const buckets = historyBuckets(history);
+    const getters = buckets.length
+      ? buckets.map(bucket => entry => entryPrice(entry, bucket))
+      : [entryMinPrice];
+    let largestReduction = NaN;
+
+    for (const getPrice of getters) {
+      const points = timed
+        .map(point => ({ ...point, price: getPrice(point.entry) }))
+        .filter(point => Number.isFinite(point.price));
+      if (points.length < 2) continue;
+
+      const latest = points[points.length - 1];
+      if (latest.time < cutoff) continue;
+
+      const beforeCutoff = points.filter(point => point.time <= cutoff && point.time < latest.time);
+      const insideWindow = points.filter(point => point.time >= cutoff && point.time < latest.time);
+      const baseline = beforeCutoff[beforeCutoff.length - 1] || insideWindow[0];
+      if (!baseline || baseline.price <= 0 || latest.price >= baseline.price) continue;
+
+      const reduction = ((baseline.price - latest.price) / baseline.price) * 100;
+      if (!Number.isFinite(largestReduction) || reduction > largestReduction) {
+        largestReduction = reduction;
+      }
+    }
+
+    return largestReduction;
+  }
+
+  function isFirstSeenWithin(c, windowMs, now = Date.now()) {
+    if (!Number.isFinite(windowMs) || windowMs <= 0) return false;
+    const firstSeen = getFirstSeenTime(c);
+    return Number.isFinite(firstSeen) && firstSeen <= now && firstSeen >= now - windowMs;
   }
 
   // Percentage change from the first to the latest "min cabin" price.
