@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 523,
+  "count": 524,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -25021,6 +25021,82 @@
         }
       ],
       "lastSeenAt": "2026-06-13T05:32:08.046Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OSR28A_SA_20270109",
+      "shipName": "Sapphire Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Singapore → Cam Ranh (Nha Trang), Vietnam → Halong Bay/Hanoi (Cai Lan), Vietnam → Halong Bay/Hanoi (Cai Lan), Vietnam → Scenic Cruising Halong Bay → Hong Kong → Taipei (Keelung) → Miyakojima, Japan → Nagasaki, Japan → Tokyo, Japan → Kagoshima, Japan → Okinawa, Japan → Kaohsiung, Taiwan → Hong Kong → Da Nang/Hue (Chan May),Vietnam → Ho Chi Minh City (Phu My), Vietnam → Singapore",
+      "departureDate": "2027-01-09",
+      "duration": "28 Nights",
+      "departurePort": "Singapore",
+      "departureRegion": "Asia & Far East",
+      "destination": "Other",
+      "priceFrom": "3628",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H702A",
+      "prices": {
+        "inside": "3628",
+        "oceanView": "5097",
+        "balcony": "5391",
+        "suite": "7519"
+      },
+      "seaDays": 12,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3628
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3628,
+            "oceanView": 4690,
+            "balcony": 5617,
+            "suite": 7154
+          }
+        },
+        {
+          "at": "2026-05-30T16:57:19.215Z",
+          "prices": {
+            "inside": 3628,
+            "oceanView": 4690,
+            "balcony": 5617,
+            "suite": 7519
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 3628,
+            "oceanView": 4690,
+            "balcony": 5487,
+            "suite": 7519
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 3528,
+            "oceanView": 4590,
+            "balcony": 5337,
+            "suite": 7319
+          }
+        },
+        {
+          "at": "2026-06-12T18:43:34.928Z",
+          "prices": {
+            "inside": 3628,
+            "oceanView": 5097,
+            "balcony": 5391,
+            "suite": 7519
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-13T10:48:50.430Z"
     }
   ]
 }
