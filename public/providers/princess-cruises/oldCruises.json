@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 524,
+  "count": 525,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -25170,6 +25170,77 @@
         }
       ],
       "lastSeenAt": "2026-06-13T22:24:19.204Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ESR25A_GP_20270625",
+      "shipName": "Regal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2014,
+      "itinerary": "Southampton (for London), England → Cornwall (Falmouth), England → Cork, Ireland (Cobh - For Blarney Castle) → Cork, Ireland (Cobh - For Blarney Castle) → Dublin (Dun Laoghaire), Ireland → Belfast, Northern Ireland → Glasgow (Greenock), Scotland → Southampton (for London), England → Zeebrugge (for Brussels/Bruges), Belgium → Amsterdam, Netherlands → Hamburg, Germany (for Berlin) → Skagen, Denmark → Copenhagen, Denmark → Kristiansand, Norway → Skagen, Denmark → Stavanger, Norway → Nordfjordeid, Norway → Molde, Norway → Akureyri, Iceland → Isafjordur, Iceland → Grundarfjordur, Iceland → Reykjavik, Iceland",
+      "departureDate": "2027-06-25",
+      "duration": "25 Nights",
+      "departurePort": "Southampton (for London), England",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "priceFrom": "3975",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=G722B",
+      "prices": {
+        "inside": "3975",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3975
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3975,
+            "balcony": 5418
+          }
+        },
+        {
+          "at": "2026-05-31T13:26:40.132Z",
+          "prices": {
+            "inside": 3975,
+            "balcony": 5281
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 3875,
+            "balcony": 5131
+          }
+        },
+        {
+          "at": "2026-06-07T13:42:03.490Z",
+          "prices": {
+            "inside": 3875
+          }
+        },
+        {
+          "at": "2026-06-08T08:49:41.438Z",
+          "prices": {
+            "inside": 3975,
+            "balcony": 5418
+          }
+        },
+        {
+          "at": "2026-06-08T14:03:15.130Z",
+          "prices": {
+            "inside": 3975
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-14T00:46:12.770Z"
     }
   ]
 }
