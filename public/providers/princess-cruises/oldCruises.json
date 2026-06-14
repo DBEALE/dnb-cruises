@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 523,
+  "count": 524,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -25058,6 +25058,118 @@
         }
       ],
       "lastSeenAt": "2026-06-13T18:30:15.210Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ERS17A_GP_20270720",
+      "shipName": "Regal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2014,
+      "itinerary": "Reykjavik, Iceland → Grundarfjordur, Iceland → Isafjordur, Iceland → Akureyri, Iceland → Seydisfjordur, Iceland → Stornoway, Scotland → Glasgow (Greenock), Scotland → Portland, England → Southampton (for London), England → Haugesund, Norway → Nordfjordeid, Norway → Skjolden/Sognefjord, Norway → Stavanger, Norway → Southampton (for London), England",
+      "departureDate": "2027-07-20",
+      "duration": "17 Nights",
+      "departurePort": "Reykjavik, Iceland",
+      "departureRegion": "Northern Europe",
+      "destination": "Europe",
+      "priceFrom": "2815",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=G725A",
+      "prices": {
+        "inside": "2815",
+        "oceanView": null,
+        "balcony": null,
+        "suite": "4399"
+      },
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 2690
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2690,
+            "balcony": 4054,
+            "suite": 4945
+          }
+        },
+        {
+          "at": "2026-06-01T15:52:12.787Z",
+          "prices": {
+            "inside": 2690,
+            "balcony": 4054
+          }
+        },
+        {
+          "at": "2026-06-02T22:20:25.582Z",
+          "prices": {
+            "inside": 2690,
+            "suite": 4228
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2615,
+            "suite": 4103
+          }
+        },
+        {
+          "at": "2026-06-03T22:26:29.557Z",
+          "prices": {
+            "inside": 2615,
+            "balcony": 3929
+          }
+        },
+        {
+          "at": "2026-06-04T16:51:20.118Z",
+          "prices": {
+            "inside": 2615,
+            "balcony": 3929,
+            "suite": 4855
+          }
+        },
+        {
+          "at": "2026-06-08T08:49:41.438Z",
+          "prices": {
+            "inside": 2690,
+            "balcony": 4054,
+            "suite": 5030
+          }
+        },
+        {
+          "at": "2026-06-09T22:32:32.371Z",
+          "prices": {
+            "inside": 2711,
+            "balcony": 4054,
+            "suite": 5030
+          }
+        },
+        {
+          "at": "2026-06-11T09:30:19.822Z",
+          "prices": {
+            "inside": 2711,
+            "suite": 4228
+          }
+        },
+        {
+          "at": "2026-06-12T13:09:18.929Z",
+          "prices": {
+            "inside": 2711,
+            "suite": 4297
+          }
+        },
+        {
+          "at": "2026-06-12T17:00:36.048Z",
+          "prices": {
+            "inside": 2815,
+            "suite": 4399
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-13T22:24:19.204Z"
     }
   ]
 }
