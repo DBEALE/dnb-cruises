@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 526,
+  "count": 528,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -25288,6 +25288,103 @@
         }
       ],
       "lastSeenAt": "2026-06-14T18:30:23.836Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ZSJ11C_AP_20270402",
+      "shipName": "Grand Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 1998,
+      "itinerary": "Sydney, Australia → Newcastle, Australia → Melbourne, Australia → Adelaide, Australia → Albany, Australia → Margaret River (Busselton), Australia → Perth (Fremantle), Australia",
+      "departureDate": "2027-04-02",
+      "duration": "11 Nights",
+      "departurePort": "Sydney, Australia",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand",
+      "priceFrom": "3004",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A710B",
+      "prices": {
+        "inside": "3004",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 5,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 3004
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3004
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2979
+          }
+        },
+        {
+          "at": "2026-06-08T08:49:41.438Z",
+          "prices": {
+            "inside": 3004
+          }
+        },
+        {
+          "at": "2026-06-12T09:25:16.375Z",
+          "prices": {
+            "inside": 3004,
+            "oceanView": 4232
+          }
+        },
+        {
+          "at": "2026-06-13T14:45:02.609Z",
+          "prices": {
+            "inside": 3004
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-14T22:26:30.557Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ZMS24A_AP_20270406",
+      "shipName": "Grand Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 1998,
+      "itinerary": "Melbourne, Australia → Adelaide, Australia → Albany, Australia → Margaret River (Busselton), Australia → Perth (Fremantle), Australia → Broome, Australia → Broome, Australia → Yampi Sound (Scenic Cruising) → Kimberley Coast (Scenic Cruising), Australia → Darwin, Australia → Cairns, Australia → Willis Island, Australia → Brisbane, Australia → Sydney, Australia",
+      "departureDate": "2027-04-06",
+      "duration": "24 Nights",
+      "departurePort": "Melbourne, Australia",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand",
+      "priceFrom": "5775",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A710E",
+      "prices": {
+        "inside": "6253",
+        "oceanView": "5775",
+        "balcony": "9199",
+        "suite": null
+      },
+      "seaDays": 11,
+      "firstSeenAt": "2026-06-12T07:38:27.811Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-12T07:38:27.811Z",
+          "prices": {
+            "inside": 6253,
+            "oceanView": 5775,
+            "balcony": 9199
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-14T22:26:30.557Z"
     }
   ]
 }
