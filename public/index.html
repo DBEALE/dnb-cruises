@@ -97,6 +97,7 @@
           <option value="19">Sea days</option>
           <option value="7">Departure date</option>
           <option value="8">Nights</option>
+          <option value="21">Destination port</option>
           <option value="1">Ship name</option>
         </select>
         <button id="sortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
@@ -132,6 +133,7 @@
           <option value="19">Sea days</option>
           <option value="7">Departure date</option>
           <option value="8">Nights</option>
+          <option value="21">Destination port</option>
           <option value="1">Ship name</option>
         </select>
         <button id="mobilePageSortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
@@ -161,6 +163,7 @@
           <option value="19">Sea days</option>
           <option value="7">Departure date</option>
           <option value="8">Nights</option>
+          <option value="21">Destination port</option>
           <option value="1">Ship name</option>
         </select>
           <button id="mobileSortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
@@ -234,6 +237,13 @@
         <div class="filter-entry">
           <input id="mobFilterDestination" class="mob-filter" data-field="destination" placeholder="Type…" oninput="mobileFilterSync(this)">
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('destination')" aria-label="Clear destination filter" title="Clear destination filter">&times;</button>
+        </div>
+      </div>
+      <div class="mob-filter-group">
+        <label for="mobFilterDestinationPort">Destination port</label>
+        <div class="filter-entry">
+          <input id="mobFilterDestinationPort" class="mob-filter" data-field="destinationPort" placeholder="e.g. Barcelona" oninput="mobileFilterSync(this)">
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('destinationPort')" aria-label="Clear destination port filter" title="Clear destination port filter">&times;</button>
         </div>
       </div>
       <div class="mob-filter-group">
@@ -336,6 +346,7 @@
             <th class="col-launch"      data-sort="4"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(4)">Launch</th>
             <th class="col-itinerary"   data-sort="5"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(5)">Itinerary</th>
             <th class="col-destination" data-sort="6"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(6)">Destination</th>
+            <th class="col-destination-port" data-sort="21" tabindex="0" role="button" aria-sort="none" onclick="sortTable(21)">Destination port</th>
             <th class="col-date"        data-sort="7"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(7)">Departure</th>
             <th class="col-duration"    data-sort="8"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(8)">Nights</th>
             <th class="col-sea-days"    data-sort="19" tabindex="0" role="button" aria-sort="none" onclick="sortTable(19)">Sea days</th>
@@ -388,6 +399,12 @@
               <div class="filter-entry">
                 <input class="col-filter" data-field="destination" placeholder="Filter…" oninput="debouncedApplyFilters()">
                 <button type="button" class="filter-clear-btn" onclick="clearFilterField('destination')" aria-label="Clear destination filter" title="Clear destination filter">&times;</button>
+              </div>
+            </td>
+            <td class="col-destination-port">
+              <div class="filter-entry">
+                <input class="col-filter" data-field="destinationPort" placeholder="Filter..." oninput="debouncedApplyFilters()">
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('destinationPort')" aria-label="Clear destination port filter" title="Clear destination port filter">&times;</button>
               </div>
             </td>
             <td class="col-date">
@@ -457,7 +474,7 @@
           <!-- Skeleton rows shown until applyCruiseResults() replaces them.
                Mimic the real card structure so the layout doesn't reflow. -->
           <tr class="skeleton-row">
-            <td colspan="16">
+            <td colspan="17">
               <div class="skeleton-card">
                 <div class="skeleton skeleton-line w70"></div>
                 <div class="skeleton skeleton-line w50"></div>
@@ -471,7 +488,7 @@
             </td>
           </tr>
           <tr class="skeleton-row">
-            <td colspan="16">
+            <td colspan="17">
               <div class="skeleton-card">
                 <div class="skeleton skeleton-line w60"></div>
                 <div class="skeleton skeleton-line w40"></div>
@@ -485,7 +502,7 @@
             </td>
           </tr>
           <tr class="skeleton-row">
-            <td colspan="16">
+            <td colspan="17">
               <div class="skeleton-card">
                 <div class="skeleton skeleton-line w80"></div>
                 <div class="skeleton skeleton-line w50"></div>

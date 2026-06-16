@@ -152,6 +152,12 @@ function buildDetailedItinerary(summaryName, ports) {
   return `${cleanText(summaryName)}: ${stops.join(', ')}`;
 }
 
+function getDestinationPort(ports) {
+  const normalizedPorts = Array.from(new Set((ports || []).map(cleanText).filter(Boolean)));
+  const nonCruisingPorts = normalizedPorts.filter(p => !isCruisingPortName(p));
+  return nonCruisingPorts.length > 1 ? nonCruisingPorts[nonCruisingPorts.length - 1] : '';
+}
+
 module.exports = {
   DEFAULT_USER_AGENT,
   DEFAULT_FETCH_TIMEOUT_MS,
@@ -165,4 +171,5 @@ module.exports = {
   formatChapterPort,
   extractPortSequenceFromChapters,
   buildDetailedItinerary,
+  getDestinationPort,
 };

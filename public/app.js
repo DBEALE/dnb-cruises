@@ -1372,10 +1372,22 @@
     return Number.isFinite(seaDays) ? String(seaDays) : '—';
   }
 
+  function inferDestinationPortFromItinerary(itinerary) {
+    const text = String(itinerary || '').trim();
+    if (!text) return '';
+    const arrowParts = text.split(/\s*→\s*/).map(part => part.trim()).filter(Boolean);
+    if (arrowParts.length > 1) return arrowParts[arrowParts.length - 1];
+    return '';
+  }
+
+  function getDestinationPortDisplay(c) {
+    return String(c?.destinationPort || inferDestinationPortFromItinerary(c?.itinerary) || '').trim();
+  }
+
   function renderBody(list, colFilters = {}) {
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="16">No cruises match your filters.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="17">No cruises match your filters.</td></tr>';
       return;
     }
     tbody.innerHTML = list.map((c, i) => {
@@ -1392,6 +1404,7 @@
         : '—';
       const firstSeen = formatFirstSeenDisplay(c);
       const seaDays = formatSeaDaysDisplay(c);
+      const destinationPort = getDestinationPortDisplay(c);
 
       return `<tr data-provider="${escHtml(c.provider || '')}">
         <td class="col-num" data-label="#">${i + 1}</td>
@@ -1401,6 +1414,7 @@
         <td class="col-launch" data-label="Launch">${launchYearBadge(c.shipLaunchYear)}</td>
         <td class="col-itinerary" data-label="Itinerary">${highlightItinerary(c.itinerary, colFilters.itinerary) || '—'}</td>
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
+        <td class="col-destination-port" data-label="Destination port">${escHtml(destinationPort || '—')}</td>
         <td class="col-date" data-label="Departure">${escHtml(date)}</td>
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
         <td class="col-sea-days duration" data-label="Sea days">${escHtml(seaDays)}</td>
@@ -1897,6 +1911,7 @@
     17: 'GBP/night',
     18: 'Recently found',
     20: '24hr price reduction',
+    21: 'Destination port',
   };
 
   function humanSummariseHash(hash) {
@@ -1941,6 +1956,7 @@
     }
     if (key === 'departureRegion') return v;
     if (key === 'departurePort') return `From ${v}`;
+    if (key === 'destinationPort') return `To ${v}`;
     if (key === 'destination') return v;
     if (key === 'itinerary') return v;
     if (key === 'departureDate') return v;
@@ -1973,6 +1989,41 @@
     return names[col] || '';
   }
 
+  function savedViewShortPortName(value) {
+    const v = String(value || '').trim();
+    if (!v) return '';
+    return v.split(',')[0].replace(/\s*\([^)]*\)\s*/g, ' ').trim();
+  }
+
+  function savedViewShortDuration(value) {
+    const n = parseInt(value, 10);
+    return Number.isFinite(n) && n > 0 ? `${n}N` : '';
+  }
+
+  function savedViewKeywordName(params) {
+    const fields = [
+      'destination',
+      'destinationPort',
+      'itinerary',
+      'shipName',
+      'shipClass',
+      'departureRegion',
+      'provider',
+      'priceDropWindow',
+      'newWithin',
+      'seaDays',
+      'maxPrice',
+      'minLaunch',
+    ];
+    for (const field of fields) {
+      const label = savedViewFilterLabel(field, params.get(field));
+      if (!label) continue;
+      if (field === 'shipClass') return label.replace(/\s+class$/i, '');
+      return label;
+    }
+    return savedViewSortName(params.get('sort'));
+  }
+
   function selectedFilterSummary(filters) {
     const parts = [];
     const add = (label) => { if (label) parts.push(label); };
@@ -1982,6 +2033,7 @@
     add(savedViewFilterLabel('shipClass', source.shipClass));
     add(savedViewFilterLabel('departureRegion', source.departureRegion));
     add(savedViewFilterLabel('departurePort', source.departurePort));
+    add(savedViewFilterLabel('destinationPort', source.destinationPort));
     const departureParams = new URLSearchParams();
     if (source.departureStart) departureParams.set('departureStart', source.departureStart);
     if (source.departureEnd) departureParams.set('departureEnd', source.departureEnd);
@@ -2000,33 +2052,12 @@
 
   function buildSuggestedSavedViewName(hash) {
     const p = new URLSearchParams(hash || '');
-    const preferredFields = [
-      'provider',
-      'shipName',
-      'shipClass',
-      'destination',
-      'departureRegion',
-      'departurePort',
-      'itinerary',
-      'duration',
-      'seaDays',
-      'maxPrice',
-      'minLaunch',
-      'priceDropWindow',
-      'newWithin',
-    ];
-    const parts = preferredFields
-      .map(field => savedViewFilterLabel(field, p.get(field)))
-      .filter(Boolean)
-      .slice(0, 2);
-
-    const departure = savedViewDepartureRangeLabel(p);
-    if (departure && !parts.some(part => part.toLowerCase().startsWith('departure '))) parts.push(departure);
-
-    const sortName = savedViewSortName(p.get('sort'));
-    if (sortName && !parts.some(part => part.toLowerCase().includes(sortName.toLowerCase()))) parts.push(sortName);
-
-    const name = parts.length ? parts.join(' · ') : 'All sailings';
+    const parts = [
+      savedViewShortPortName(p.get('departurePort')),
+      savedViewShortDuration(p.get('duration')),
+      savedViewKeywordName(p),
+    ].filter(Boolean);
+    const name = parts.length ? parts.join(' ') : 'All sailings';
     return name.length > 42 ? `${name.slice(0, 39).trim()}...` : name;
   }
 
@@ -2135,7 +2166,7 @@
     if (!hash) return c;
     const p = new URLSearchParams(hash);
     const FIELDS = ['shipName','provider','shipClass','itinerary','destination',
-                    'departureDate','departureStart','departureEnd','duration','departurePort','departureRegion'];
+                    'departureDate','departureStart','departureEnd','duration','departurePort','destinationPort','departureRegion'];
     const NUMERIC = ['minLaunch','duration','seaDays','maxPrice'];
     for (const f of FIELDS) {
       const v = p.get(f);
@@ -2267,9 +2298,10 @@
       btn.setAttribute('aria-label', dirAria);
       btn.setAttribute('aria-pressed', String(enabled && sortAsc));
     }
-    document.querySelectorAll('.sort-row th').forEach((th, i) => {
+    document.querySelectorAll('.sort-row th').forEach((th) => {
       th.classList.remove('sort-asc', 'sort-desc');
-      if (i === sortColIndex) {
+      const col = parseInt(th.dataset.sort, 10);
+      if (col === sortColIndex) {
         th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
         th.setAttribute('aria-sort', sortAsc ? 'ascending' : 'descending');
       } else {
@@ -2420,6 +2452,7 @@
       case 18: return getFirstSeenTime(c);
       case 19: return inferSeaDays(c);
       case 20: return getRecentPriceReductionPct(c, RECENT_WINDOW_MS['24h']);
+      case 21: return getDestinationPortDisplay(c);
       default: return '';
     }
   }
@@ -2480,6 +2513,7 @@
       for (const f of text) {
         if (colFilters[f] && !(c[f] || '').toLowerCase().includes(colFilters[f].toLowerCase())) return false;
       }
+      if (colFilters.destinationPort && !getDestinationPortDisplay(c).toLowerCase().includes(colFilters.destinationPort.toLowerCase())) return false;
       // shipClass filter is bi-modal: `tier:<size>` filters by computed
       // size tier from SHIP_TIER_BY_CLASS; anything else is a substring
       // match against the class name (unchanged behaviour).

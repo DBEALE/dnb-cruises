@@ -2,7 +2,7 @@
 
 const { chromium } = require('@playwright/test');
 
-const { getDepartureRegion, estimateSeaDays, cleanText, DEFAULT_USER_AGENT, fetchWithTimeout } = require('./shared');
+const { getDepartureRegion, estimateSeaDays, cleanText, DEFAULT_USER_AGENT, fetchWithTimeout, getDestinationPort } = require('./shared');
 
 const PRINCESS_SEARCH_URL     = 'https://www.princess.com/cruise-search/results/?resType=C';
 const PRINCESS_BASE_URL       = 'https://www.princess.com';
@@ -329,6 +329,7 @@ function normalizeCruise(product, sailDate, shipId, shipName, portName, portName
   const destination  = getDestination(product.trades);
   const nights       = product.cruiseDuration ? String(product.cruiseDuration) : '';
   const itinerary    = buildItinerary(portNames, nights, destination);
+  const destinationPort = getDestinationPort(portNames);
 
   const fare     = getLowestFare(ship);
   const priceFrom = fare ? fare.amount : '';
@@ -350,6 +351,7 @@ function normalizeCruise(product, sailDate, shipId, shipName, portName, portName
     departurePort:   cleanText(portName),
     departureRegion: getDepartureRegion(portName),
     destination,
+    ...(destinationPort ? { destinationPort } : {}),
     priceFrom,
     currency,
     bookingUrl:      buildBookingUrl(voyageId),

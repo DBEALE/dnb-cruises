@@ -4,7 +4,8 @@ const cheerio = require('cheerio');
 
 const GraphQLCruiseProvider = require('./graphql-cruise-provider');
 const { getDepartureRegion, estimateSeaDays, cleanText, DEFAULT_USER_AGENT,
-        formatChapterPort, extractPortSequenceFromChapters, buildDetailedItinerary } = require('./shared');
+        formatChapterPort, extractPortSequenceFromChapters, buildDetailedItinerary,
+        getDestinationPort } = require('./shared');
 const { createRciRoomSelection, mapWithConcurrency,
         classifyRoomType, extractRoomTypePricesFromPayload,
         extractPricesFromClassPricing, timeoutSignal } = require('./rci-room-selection');
@@ -456,6 +457,7 @@ async function enrichCruiseItinerary(cruise) {
     return {
       ...cruise,
       itinerary: detailedItinerary || cruise.itinerary,
+      destinationPort: getDestinationPort(ports),
       prices: mergedPrices,
       priceFrom: livePriceFrom || cruise.priceFrom,
       currency: (hasLivePagePrices || pagePrice.price)

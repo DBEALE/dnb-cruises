@@ -349,17 +349,19 @@ test.describe('Saved views', () => {
   test('suggests an editable name from current filters and sort', async ({ page }) => {
     await gotoFresh(page);
     await page.selectOption('#sortSelect', '14');
-    await page.locator('.col-filter[data-field="provider"]').selectOption('Royal Caribbean');
+    await page.locator('.col-filter[data-field="departurePort"]').fill('Southampton');
+    await page.locator('.col-filter[data-field="duration"]').fill('7');
+    await page.locator('.col-filter[data-field="destination"]').fill('Mediterranean');
 
     await page.click('#savedViewsBtn');
     await page.waitForSelector('dialog#savedViewsDialog[open]');
-    await expect(page.locator('#svNameInput')).toHaveValue('Royal Caribbean · Balcony');
+    await expect(page.locator('#svNameInput')).toHaveValue('Southampton 7N Mediterranean');
 
     await page.locator('#svNameInput').fill('My balcony shortlist');
     await page.locator('#svSaveForm button[type="submit"]').click();
     await expect(page.locator('.sv-name').first()).toHaveText('My balcony shortlist');
     await expect(page.locator('.sv-hash').first()).toContainText('Sort: Price (Balcony)');
-    await expect(page.locator('.sv-hash').first()).toContainText('provider=Royal Caribbean');
+    await expect(page.locator('.sv-hash').first()).toContainText('destination=Mediterranean');
   });
 });
 

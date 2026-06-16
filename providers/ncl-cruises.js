@@ -2,7 +2,7 @@
 
 const { chromium } = require('@playwright/test');
 
-const { getDepartureRegion, estimateSeaDays, cleanText } = require('./shared');
+const { getDepartureRegion, estimateSeaDays, cleanText, getDestinationPort } = require('./shared');
 
 const NCL_BASE_URL = 'https://www.ncl.com';
 const NCL_CRUISES_URL = 'https://www.ncl.com/uk/en/vacations';
@@ -359,6 +359,7 @@ function normalizeCruise(detail, bookingUrl) {
   const itineraryCode = cleanText(detail?.code || sailing?.itineraryCode);
   const baseItinerary = cleanText(detail?.shortTitle || detail?.title);
   const ports = extractPortsFromSlug(bookingUrl, departurePort);
+  const destinationPort = ports.length > 1 ? getDestinationPort([departurePort, ...ports]) : '';
   const roomPrices = extractRoomTypePrices(detail);
 
   return {
@@ -373,6 +374,7 @@ function normalizeCruise(detail, bookingUrl) {
     departurePort,
     departureRegion: getDepartureRegion(departurePort),
     destination: cleanText(detail?.destination?.title || detail?.shortTitle || detail?.title),
+    ...(destinationPort ? { destinationPort } : {}),
     priceFrom: getLowestPrice(detail)?.toString() || '',
     currency: cleanText(detail?.currency) || 'GBP',
     bookingUrl: resolveUrl(bookingUrl),

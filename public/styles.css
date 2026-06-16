@@ -1002,7 +1002,7 @@
 
     /* ── Responsive column hiding ────────────────────────────────────────────── */
     @media (max-width: 1100px) {
-      .col-launch, .col-destination, .col-per-night { display: none; }
+      .col-launch, .col-destination, .col-destination-port, .col-per-night { display: none; }
     }
 
     @media (max-width: 860px) {
@@ -1094,6 +1094,7 @@
       /* Re-show columns hidden by intermediate breakpoints */
       td.col-itinerary,
       td.col-port,
+      td.col-destination-port,
       td.col-region,
       td.col-launch,
       td.col-first-seen,
@@ -1104,6 +1105,18 @@
       td.col-destination {
         display: none;
       }
+
+      td.col-ship { order: 1; }
+      td.col-itinerary { order: 2; }
+      td.col-region { order: 3; }
+      td.col-date { order: 4; }
+      td.col-duration { order: 5; }
+      td.col-sea-days { order: 6; }
+      td.col-port { order: 7; }
+      td.col-destination-port { order: 8; }
+      td.col-first-seen { order: 9; }
+      td.col-price { order: 10; }
+      td.col-per-night { order: 11; }
 
       td.col-region .region-badge {
         padding: 1px 6px;

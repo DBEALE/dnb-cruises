@@ -2,7 +2,8 @@
 
 const GraphQLCruiseProvider = require('./graphql-cruise-provider');
 const { getDepartureRegion, estimateSeaDays, cleanText, DEFAULT_USER_AGENT,
-        formatChapterPort, extractPortSequenceFromChapters, buildDetailedItinerary } = require('./shared');
+        formatChapterPort, extractPortSequenceFromChapters, buildDetailedItinerary,
+        getDestinationPort } = require('./shared');
 const { createRciRoomSelection, mapWithConcurrency,
         extractPricesFromClassPricing, extractRoomTypePricesFromPayload,
         classifyRoomType } = require('./rci-room-selection');
@@ -184,6 +185,7 @@ async function enrichCruiseItinerary(cruise) {
     return {
       ...cruise,
       itinerary: detailedItinerary || cruise.itinerary,
+      destinationPort: getDestinationPort(ports),
       seaDays: estimateSeaDays({
         labels: ports,
         duration: cruise.duration,

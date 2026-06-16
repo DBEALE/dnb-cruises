@@ -138,7 +138,7 @@ function createElement(initial = {}) {
   };
 }
 
-function buildCruise({ shipName, itinerary, departurePort, destination, priceFrom, currency, scrapedAt, seaDays = null }) {
+function buildCruise({ shipName, itinerary, departurePort, destination, destinationPort = '', priceFrom, currency, scrapedAt, seaDays = null }) {
   return {
     provider: 'Royal Caribbean',
     shipName,
@@ -147,6 +147,7 @@ function buildCruise({ shipName, itinerary, departurePort, destination, priceFro
     duration: '7 Nights',
     departurePort,
     destination,
+    ...(destinationPort ? { destinationPort } : {}),
     priceFrom,
     currency,
     seaDays,
@@ -162,6 +163,7 @@ async function createSandbox({
     itinerary: 'Adriatic Escape',
     departurePort: 'Barcelona',
     destination: 'Mediterranean',
+    destinationPort: 'Venice',
     priceFrom: '899',
     currency: 'GBP',
     seaDays: 3,
@@ -332,8 +334,10 @@ test('loads the provider manifest and provider-specific cruise file on init', as
   assert.match(elements.cruiseBody.innerHTML, /Harmony of the Seas/);
   assert.match(elements.cruiseBody.innerHTML, /data-label="Cruise line"/);
   assert.match(elements.cruiseBody.innerHTML, /data-label="Sea days"/);
+  assert.match(elements.cruiseBody.innerHTML, /data-label="Destination port"/);
   assert.match(elements.cruiseBody.innerHTML, /data-label="Book"/);
   assert.match(elements.cruiseBody.innerHTML, /Royal Caribbean/);
+  assert.match(elements.cruiseBody.innerHTML, /<td class="col-destination-port" data-label="Destination port">Venice<\/td>/);
   assert.match(elements.cruiseBody.innerHTML, /<td class="col-sea-days duration" data-label="Sea days">3<\/td>/);
   assert.equal(elements.totalProviders.textContent, '1');
   assert.match(elements.updatedAt.textContent, /27 Apr 2026/);

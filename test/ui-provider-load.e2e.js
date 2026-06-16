@@ -7,12 +7,14 @@ test('provider-specific cruises load on page open and persist the scoped cache',
     localStorage.setItem('cached_cruises:royal-caribbean', JSON.stringify({
       cruises: [
         {
+          provider: 'Royal Caribbean',
           shipName: 'Harmony of the Seas',
           itinerary: 'Adriatic Escape',
           departureDate: '',
           duration: '7 Nights',
           departurePort: 'Barcelona',
           destination: 'Mediterranean',
+          destinationPort: 'Venice',
           priceFrom: '899',
           currency: 'GBP',
           bookingUrl: '/cruises/harmony',
@@ -48,12 +50,14 @@ test('provider-specific cruises load on page open and persist the scoped cache',
       body: JSON.stringify({
         cruises: [
           {
+            provider: 'Royal Caribbean',
             shipName: 'Harmony of the Seas',
             itinerary: 'Adriatic Escape',
             departureDate: '',
             duration: '7 Nights',
             departurePort: 'Barcelona',
             destination: 'Mediterranean',
+            destinationPort: 'Venice',
             priceFrom: '899',
             currency: 'GBP',
             bookingUrl: '/cruises/harmony',
@@ -91,8 +95,9 @@ test('provider-specific cruises load on page open and persist the scoped cache',
   await expect(page.locator('#statusBar')).not.toHaveClass(/visible/);
   await expect(page.locator('#summary')).toContainText('Showing all 1 sailings');
   await expect(page.locator('#cruiseBody')).toContainText('Harmony of the Seas');
-  await expect(page.locator('#providerStats')).toContainText('Royal Caribbean');
-  await expect(page.locator('#providerStats')).toContainText('Updated:');
+  await expect(page.locator('#cruiseBody .col-destination-port')).toContainText('Venice');
+  await expect(page.locator('#totalProviders')).toHaveText('1');
+  await expect(page.locator('#updatedAt')).not.toHaveText('—');
   await expect.poll(async () => page.evaluate(() => localStorage.getItem('cached_cruises:royal-caribbean'))).toBeTruthy();
   expect(apiRequestCount).toBe(0);
 });
@@ -200,9 +205,7 @@ test('all three providers load and display cruise data', async ({ page }) => {
   await expect(page.locator('#cruiseBody')).toContainText('Celebrity Apex');
   await expect(page.locator('#cruiseBody')).toContainText('Norwegian Bliss');
 
-  await expect(page.locator('#providerStats')).toContainText('Royal Caribbean');
-  await expect(page.locator('#providerStats')).toContainText('Celebrity Cruises');
-  await expect(page.locator('#providerStats')).toContainText('Norwegian Cruise Line');
+  await expect(page.locator('#totalProviders')).toHaveText('3');
 
   await expect.poll(async () => page.evaluate(() => localStorage.getItem('cached_cruises:royal-caribbean'))).toBeTruthy();
   await expect.poll(async () => page.evaluate(() => localStorage.getItem('cached_cruises:celebrity-cruises'))).toBeTruthy();
