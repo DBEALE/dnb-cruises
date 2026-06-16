@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 57,
+  "count": 58,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -3045,6 +3045,82 @@
         }
       ],
       "lastSeenAt": "2026-06-16T19:14:18.364Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_EC10BLQ-1386770340",
+      "shipName": "Celebrity Eclipse",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2010,
+      "itinerary": "Greek Isles & Croatia: Split, Croatia, Dubrovnik, Croatia, Kotor, Montenegro, Cruising (Cruising), Chania (Souda), Crete, Rhodes, Greece, Mykonos, Greece, Santorini, Greece, Athens (Piraeus), Greece",
+      "departureDate": "2027-10-22",
+      "duration": "10 Nights",
+      "departurePort": "Ravenna",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "1737",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC10BLQ-1386770340&pID=EC10U118&sDT=2027-10-22&sCD=EC&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1737",
+        "oceanView": "2157",
+        "balcony": "2324",
+        "suite": "3950"
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 2310.25
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2310.25,
+            "oceanView": 2885.85,
+            "balcony": 3125.85,
+            "suite": 9661.05
+          }
+        },
+        {
+          "at": "2026-06-03T03:37:29.400Z",
+          "prices": {
+            "inside": 2340.25,
+            "oceanView": 2861.85,
+            "balcony": 3001.85,
+            "suite": 9913.05
+          }
+        },
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 1731,
+            "oceanView": 2100,
+            "balcony": 2224,
+            "suite": 3449
+          }
+        },
+        {
+          "at": "2026-06-10T00:45:43.085Z",
+          "prices": {
+            "inside": 1688,
+            "oceanView": 2060,
+            "balcony": 2123,
+            "suite": 3449
+          }
+        },
+        {
+          "at": "2026-06-12T17:00:36.048Z",
+          "prices": {
+            "inside": 1737,
+            "oceanView": 2157,
+            "balcony": 2324,
+            "suite": 3950
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-16T21:04:10.162Z"
     }
   ]
 }
