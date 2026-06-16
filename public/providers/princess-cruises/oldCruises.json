@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 1263,
+  "count": 1264,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -86137,6 +86137,49 @@
         }
       ],
       "lastSeenAt": "2026-06-16T11:49:44.208Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OTR09A_DI_20260702",
+      "shipName": "Diamond Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Tokyo (Yokohama), Japan → Nagasaki, Japan → Busan, South Korea → Sakaiminato, Japan → Tsuruga, Japan → Toyama (Fushiki), Japan → Akita, Japan → Tokyo (Yokohama), Japan",
+      "departureDate": "2026-07-02",
+      "duration": "9 Nights",
+      "departurePort": "Tokyo (Yokohama), Japan",
+      "departureRegion": "Asia & Far East",
+      "destination": "Japan",
+      "priceFrom": "1149",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=M618",
+      "prices": {
+        "inside": "1149",
+        "oceanView": "1683",
+        "balcony": "1981",
+        "suite": "3049"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-06-06T11:39:02.880Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-06T11:39:02.880Z",
+          "prices": {
+            "inside": 1149,
+            "suite": 3049
+          }
+        },
+        {
+          "at": "2026-06-16T09:56:45.505Z",
+          "prices": {
+            "inside": 1149,
+            "oceanView": 1683,
+            "balcony": 1981,
+            "suite": 3049
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-16T13:46:18.881Z"
     }
   ]
 }
