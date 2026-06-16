@@ -66,6 +66,13 @@ const DAYS_PER_YEAR          = 365.25;
 const ARCHIVE_RETENTION_DAYS = 2 * DAYS_PER_YEAR;
 const MS_PER_DAY             = 24 * 60 * 60 * 1000;
 const ARCHIVE_RETENTION_MS   = ARCHIVE_RETENTION_DAYS * MS_PER_DAY;
+const ARCHIVE_AFTER_DEPARTURE_MS = MS_PER_DAY;
+
+function shouldArchiveAfterDeparture(cruise, nowMs) {
+  const departed = Date.parse(cruise.departureDate);
+  if (!Number.isFinite(departed)) return false; // keep active if unparseable
+  return (nowMs - departed) > ARCHIVE_AFTER_DEPARTURE_MS;
+}
 
 function shouldPruneFromArchive(cruise, nowMs) {
   const departed = Date.parse(cruise.departureDate);
@@ -338,20 +345,18 @@ async function main() {
   const providerSnapshots = settled
     .filter(r => r.status === 'fulfilled')
     .map(r => r.value);
-  const allCruises = providerSnapshots.flatMap(s => s.cruises);
 
   // Carry price history forward and partition into active / archive based on
-  // whether each known cruise still appears in the fresh scrape.
+  // whether each known cruise still appears in the fresh scrape and whether
+  // the departure date is more than 1 day in the past.
   const scrapedNowMs = Date.parse(scrapedAt);
   for (const snapshot of providerSnapshots) {
     const prevActive  = previousActiveByProvider.get(snapshot.provider.id)  || new Map();
     const prevArchive = previousArchiveByProvider.get(snapshot.provider.id) || new Map();
     // Union: active wins on duplicate ids so re-listed cruises pull the freshest record.
     const knownById = new Map([...prevArchive, ...prevActive]);
-    const freshIds  = new Set(snapshot.cruises.map(c => c.id).filter(Boolean));
 
-    // Active list: tag with lastSeenAt so the archive transition is bookkeeping-free.
-    snapshot.cruises = snapshot.cruises.map(cruise => {
+    const freshCruises = snapshot.cruises.map(cruise => {
       const prevCruise = knownById.get(cruise.id);
       const priceHistory = mergePriceHistory(prevCruise, cruise, scrapedAt);
       return {
@@ -362,20 +367,37 @@ async function main() {
       };
     });
 
-    // Archive list: everything we've known about that wasn't in the fresh scrape,
-    // minus entries whose departureDate is more than 2 years past.
+    // Active list: freshly scraped cruises that have not aged out after sailing.
+    const expiredFreshById = new Map();
+    snapshot.cruises = [];
+    for (const cruise of freshCruises) {
+      if (cruise.id && shouldArchiveAfterDeparture(cruise, scrapedNowMs)) {
+        expiredFreshById.set(cruise.id, cruise);
+      } else {
+        snapshot.cruises.push(cruise);
+      }
+    }
+    const activeFreshIds = new Set(snapshot.cruises.map(c => c.id).filter(Boolean));
+
+    // Archive list: everything we've known about that is no longer active,
+    // including freshly scraped cruises whose departureDate is more than
+    // 1 day past, minus entries whose departureDate is more than 2 years past.
+    const archiveCandidates = new Map([...knownById, ...expiredFreshById]);
     const archive = [];
     let pruned = 0;
-    for (const [id, prevCruise] of knownById) {
-      if (freshIds.has(id)) continue;
+    for (const [id, prevCruise] of archiveCandidates) {
+      if (activeFreshIds.has(id)) continue;
       if (shouldPruneFromArchive(prevCruise, scrapedNowMs)) { pruned++; continue; }
       // First-time transition from active → archive may lack lastSeenAt on
       // pre-existing data; fall back to the current scrapedAt in that case.
       archive.push({ ...prevCruise, lastSeenAt: prevCruise.lastSeenAt || scrapedAt });
     }
     snapshot.archive = archive;
+    if (expiredFreshById.size) console.log(`  ${snapshot.provider.name}: archived ${expiredFreshById.size} cruise(s) more than 1 day past departure.`);
     if (pruned) console.log(`  ${snapshot.provider.name}: pruned ${pruned} cruise(s) past the 2-year retention.`);
   }
+
+  const allCruises = providerSnapshots.flatMap(s => s.cruises);
 
   // Write provider-specific outputs plus a manifest for the frontend
   for (const { provider, cruises, archive } of providerSnapshots) {
