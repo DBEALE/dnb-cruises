@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 530,
+  "count": 531,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -25948,6 +25948,45 @@
         }
       ],
       "lastSeenAt": "2026-06-15T22:41:56.222Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OSS15A_RP_20261110",
+      "shipName": "Royal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2013,
+      "itinerary": "Singapore → Bali (Benoa), Indonesia → Darwin, Australia → Yorkeys Knob (Cairns), Australia → Brisbane, Australia → Sydney, Australia",
+      "departureDate": "2026-11-10",
+      "duration": "15 Nights",
+      "departurePort": "Singapore",
+      "departureRegion": "Asia & Far East",
+      "destination": "Other",
+      "priceFrom": "2569",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1643",
+      "prices": {
+        "inside": "2569",
+        "oceanView": null,
+        "balcony": "3129",
+        "suite": "3499"
+      },
+      "seaDays": 10,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 2569
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2569,
+            "balcony": 3129,
+            "suite": 3499
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-16T00:52:58.946Z"
     }
   ]
 }
