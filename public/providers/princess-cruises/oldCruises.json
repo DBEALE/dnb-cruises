@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 1262,
+  "count": 1261,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -6490,38 +6490,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_OTR09A_DI_20260702",
-      "shipName": "Diamond Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2004,
-      "itinerary": "Tokyo (Yokohama), Japan → Nagasaki, Japan → Busan, South Korea → Sakaiminato, Japan → Tsuruga, Japan → Toyama (Fushiki), Japan → Akita, Japan → Tokyo (Yokohama), Japan",
-      "departureDate": "2026-07-02",
-      "duration": "9 Nights",
-      "departurePort": "Tokyo (Yokohama), Japan",
-      "departureRegion": "Asia & Far East",
-      "destination": "Japan",
-      "priceFrom": "1149",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=M618",
-      "prices": {
-        "inside": "1149",
-        "oceanView": null,
-        "balcony": null,
-        "suite": "3049"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-06-06T11:39:02.880Z",
-          "prices": {
-            "inside": 1149,
-            "suite": 3049
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-06T15:10:22.563Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_HRL16A_KP_20271107",
       "shipName": "Crown Princess",
       "shipClass": "Grand",
@@ -6780,39 +6748,6 @@
             "oceanView": 1430,
             "balcony": 2489,
             "suite": 2729
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-08T03:30:14.873Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_AST070_ST_20260906",
-      "shipName": "Star Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2002,
-      "itinerary": "Seattle, Washington → Ketchikan, Alaska → Endicott Arm and Dawes Glacier (Scenic Cruising), Alaska → Juneau, Alaska → Skagway, Alaska → Victoria, Canada → Seattle, Washington",
-      "departureDate": "2026-09-06",
-      "duration": "7 Nights",
-      "departurePort": "Seattle, Washington",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "1019",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=4637",
-      "prices": {
-        "inside": "1019",
-        "oceanView": "1499",
-        "balcony": null,
-        "suite": "1774"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-06-01T20:13:35.019Z",
-          "prices": {
-            "inside": 1019,
-            "oceanView": 1499,
-            "suite": 1774
           }
         }
       ],
@@ -86033,6 +85968,61 @@
         }
       ],
       "lastSeenAt": "2026-06-16T05:50:57.402Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AST070_ST_20260830",
+      "shipName": "Star Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2002,
+      "itinerary": "Seattle, Washington → Ketchikan, Alaska → Endicott Arm and Dawes Glacier (Scenic Cruising), Alaska → Juneau, Alaska → Skagway, Alaska → Victoria, Canada → Seattle, Washington",
+      "departureDate": "2026-08-30",
+      "duration": "7 Nights",
+      "departurePort": "Seattle, Washington",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "1049",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=4636",
+      "prices": {
+        "inside": "1049",
+        "oceanView": "1449",
+        "balcony": null,
+        "suite": "1849"
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 999
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1399,
+            "suite": 1824
+          }
+        },
+        {
+          "at": "2026-06-08T23:09:59.467Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1449,
+            "suite": 1899
+          }
+        },
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1449,
+            "suite": 1849
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-16T07:57:55.777Z"
     }
   ]
 }
