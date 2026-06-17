@@ -57,6 +57,14 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '17 Jun 2026',
+      title: 'Home port highlighting',
+      items: [
+        'Settings now has a Home port field stored alongside your other browser-only details.',
+        'Matching home ports are highlighted in itineraries, departure ports, and destination ports.',
+      ],
+    },
+    {
       date: '13 Jun 2026',
       title: 'Recent price and cruise filters',
       items: [
