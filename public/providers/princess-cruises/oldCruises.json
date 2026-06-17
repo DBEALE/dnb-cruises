@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 562,
+  "count": 563,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -10827,84 +10827,6 @@
           "at": "2026-06-10T17:06:21.326Z",
           "prices": {
             "balcony": 2419
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-10T17:06:21.326Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_ZFS17B_AP_20270413",
-      "shipName": "Grand Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 1998,
-      "itinerary": "Perth (Fremantle), Australia → Broome, Australia → Broome, Australia → Yampi Sound (Scenic Cruising) → Kimberley Coast (Scenic Cruising), Australia → Darwin, Australia → Cairns, Australia → Willis Island, Australia → Brisbane, Australia → Sydney, Australia",
-      "departureDate": "2027-04-13",
-      "duration": "17 Nights",
-      "departurePort": "Perth (Fremantle), Australia",
-      "departureRegion": "Australia & Pacific",
-      "destination": "Australia & New Zealand",
-      "priceFrom": "4199",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A710G",
-      "prices": {
-        "inside": "4199",
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "seaDays": 8,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T09:33:04.484Z",
-          "price": 4199
-        },
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 4199
-          }
-        },
-        {
-          "at": "2026-06-01T20:13:35.019Z",
-          "prices": {
-            "inside": 4199,
-            "oceanView": 3943
-          }
-        },
-        {
-          "at": "2026-06-01T23:24:11.880Z",
-          "prices": {
-            "inside": 4199,
-            "oceanView": 3943,
-            "balcony": 7557
-          }
-        },
-        {
-          "at": "2026-06-02T18:05:24.346Z",
-          "prices": {
-            "inside": 4199,
-            "balcony": 7557
-          }
-        },
-        {
-          "at": "2026-06-03T14:25:08.048Z",
-          "prices": {
-            "inside": 4124,
-            "balcony": 7432
-          }
-        },
-        {
-          "at": "2026-06-05T21:21:41.187Z",
-          "prices": {
-            "inside": 4124
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 4199
           }
         }
       ],
@@ -25194,40 +25116,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_AYR14B_XP_20260829",
-      "shipName": "Discovery Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2022,
-      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Icy Strait Point, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
-      "departureDate": "2026-08-29",
-      "duration": "14 Nights",
-      "departurePort": "Vancouver, Canada",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "1758",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=X629A",
-      "prices": {
-        "inside": "1758",
-        "oceanView": null,
-        "balcony": null,
-        "suite": "3529"
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-06-16T07:57:55.777Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-16T07:57:55.777Z",
-          "prices": {
-            "inside": 1758,
-            "suite": 3529
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-16T21:04:10.162Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_AVE07A_EP_20270601",
       "shipName": "Emerald Princess",
       "shipClass": "Grand",
@@ -28105,6 +27993,213 @@
         }
       ],
       "lastSeenAt": "2026-06-17T18:50:06.049Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AYR14B_XP_20270821",
+      "shipName": "Discovery Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2022,
+      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Icy Strait Point, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
+      "departureDate": "2027-08-21",
+      "duration": "14 Nights",
+      "departurePort": "Vancouver, Canada",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "destinationPort": "Icy Strait Point, Alaska",
+      "priceFrom": "1618",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=X735A",
+      "prices": {
+        "inside": "1618",
+        "oceanView": null,
+        "balcony": "4097",
+        "suite": "4875"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-05-30T02:39:17.160Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 1518,
+            "balcony": 3864,
+            "suite": 4875
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "inside": 1618,
+            "balcony": 3938,
+            "suite": 4875
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 1543,
+            "balcony": 3813,
+            "suite": 4700
+          }
+        },
+        {
+          "at": "2026-06-08T08:49:41.438Z",
+          "prices": {
+            "inside": 1618,
+            "balcony": 3938,
+            "suite": 4875
+          }
+        },
+        {
+          "at": "2026-06-17T20:44:33.269Z",
+          "prices": {
+            "inside": 1618,
+            "balcony": 4097,
+            "suite": 4875
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-17T20:44:33.269Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AVE07A_XP_20260919",
+      "shipName": "Discovery Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2022,
+      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Endicott Arm and Dawes Glacier (Scenic Cruising), Alaska → Juneau, Alaska → Skagway, Alaska → Vancouver, Canada",
+      "departureDate": "2026-09-19",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver, Canada",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "destinationPort": "Skagway, Alaska",
+      "priceFrom": "899",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=X632",
+      "prices": {
+        "inside": "899",
+        "oceanView": "1499",
+        "balcony": "1474",
+        "suite": "1599"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-06-09T02:41:07.579Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T02:41:07.579Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 1449,
+            "balcony": 1424,
+            "suite": 1599
+          }
+        },
+        {
+          "at": "2026-06-12T20:45:39.768Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 1499,
+            "balcony": 1474,
+            "suite": 1599
+          }
+        },
+        {
+          "at": "2026-06-14T07:36:43.454Z",
+          "prices": {
+            "inside": 899,
+            "balcony": 1474,
+            "suite": 1599
+          }
+        },
+        {
+          "at": "2026-06-14T14:47:05.414Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 1499,
+            "balcony": 1474,
+            "suite": 1599
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-17T20:44:33.269Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ZFS17B_AP_20270517",
+      "shipName": "Grand Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 1998,
+      "itinerary": "Perth (Fremantle), Australia → Broome, Australia → Broome, Australia → Yampi Sound (Scenic Cruising) → Kimberley Coast (Scenic Cruising), Australia → Darwin, Australia → Cairns, Australia → Willis Island, Australia → Brisbane, Australia → Sydney, Australia",
+      "departureDate": "2027-05-17",
+      "duration": "17 Nights",
+      "departurePort": "Perth (Fremantle), Australia",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand",
+      "destinationPort": "Sydney, Australia",
+      "priceFrom": "2839",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A712",
+      "prices": {
+        "inside": "2839",
+        "oceanView": "6162",
+        "balcony": "7769",
+        "suite": null
+      },
+      "seaDays": 8,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T09:33:04.484Z",
+          "price": 2839
+        },
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2839,
+            "oceanView": 6162,
+            "balcony": 7769,
+            "suite": 8846
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2764,
+            "oceanView": 6087,
+            "balcony": 7644,
+            "suite": 8671
+          }
+        },
+        {
+          "at": "2026-06-04T08:16:06.414Z",
+          "prices": {
+            "inside": 2764,
+            "oceanView": 6087,
+            "balcony": 7644,
+            "suite": 9447
+          }
+        },
+        {
+          "at": "2026-06-08T08:49:41.438Z",
+          "prices": {
+            "inside": 2839,
+            "oceanView": 6162,
+            "balcony": 7769,
+            "suite": 9622
+          }
+        },
+        {
+          "at": "2026-06-14T22:26:30.557Z",
+          "prices": {
+            "inside": 2839,
+            "oceanView": 6162,
+            "balcony": 7769
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-17T20:44:33.269Z"
     }
   ]
 }
