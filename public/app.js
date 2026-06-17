@@ -1238,15 +1238,33 @@
     ));
   }
 
-  function highlightItinerary(text, query) {
-    const rawText = text ? String(text) : '';
-    const terms = itinerarySearchTerms(query);
-    const displayText = terms.length ? rawText : simplifyItinerary(rawText);
+  function escapeRegex(text) {
+    return String(text || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function homePortHighlightTerms() {
+    const raw = rememberedHomePort().trim();
+    if (!raw) return [];
+    const terms = [raw];
+    const shortName = raw.split(/[,(]/)[0].trim();
+    if (shortName && shortName.length >= 2) terms.push(shortName);
+    return Array.from(new Set(terms.map(term => term.toLowerCase()).filter(Boolean)));
+  }
+
+  function highlightTextTerms(text, entries) {
+    const displayText = text ? String(text) : '';
     if (!displayText) return '';
+    const terms = (entries || [])
+      .map(entry => ({
+        term: String(entry.term || '').trim().toLowerCase(),
+        className: String(entry.className || '').trim(),
+      }))
+      .filter(entry => entry.term && entry.className);
     if (!terms.length) return escHtml(displayText);
 
-    const matcher = new RegExp(terms
-      .map(term => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    const classByTerm = new Map(terms.map(entry => [entry.term, entry.className]));
+    const matcher = new RegExp(Array.from(classByTerm.keys())
+      .map(escapeRegex)
       .sort((a, b) => b.length - a.length)
       .join('|'), 'ig');
 
@@ -1254,14 +1272,33 @@
     let html = '';
     let matched = false;
     for (let match; (match = matcher.exec(displayText)); ) {
+      const matchedText = match[0];
+      const className = classByTerm.get(matchedText.toLowerCase()) || 'itinerary-highlight';
       matched = true;
       html += escHtml(displayText.slice(lastIndex, match.index));
-      html += `<span class="itinerary-highlight">${escHtml(match[0])}</span>`;
-      lastIndex = match.index + match[0].length;
+      html += `<span class="${className}">${escHtml(matchedText)}</span>`;
+      lastIndex = match.index + matchedText.length;
     }
     if (!matched) return escHtml(displayText);
     html += escHtml(displayText.slice(lastIndex));
     return html;
+  }
+
+  function highlightItinerary(text, query) {
+    const rawText = text ? String(text) : '';
+    const searchTerms = itinerarySearchTerms(query);
+    const homeTerms = homePortHighlightTerms();
+    const displayText = searchTerms.length ? rawText : simplifyItinerary(rawText);
+    if (!displayText) return '';
+    return highlightTextTerms(displayText, [
+      ...searchTerms.map(term => ({ term, className: 'itinerary-highlight' })),
+      ...homeTerms.map(term => ({ term, className: 'home-port-highlight' })),
+    ]);
+  }
+
+  function highlightHomePort(text) {
+    return highlightTextTerms(text, homePortHighlightTerms()
+      .map(term => ({ term, className: 'home-port-highlight' })));
   }
 
   function titleCaseToken(text) {
@@ -1405,6 +1442,8 @@
       const firstSeen = formatFirstSeenDisplay(c);
       const seaDays = formatSeaDaysDisplay(c);
       const destinationPort = getDestinationPortDisplay(c);
+      const destinationPortCell = highlightHomePort(destinationPort);
+      const departurePortCell = highlightHomePort(c.departurePort);
 
       return `<tr data-provider="${escHtml(c.provider || '')}">
         <td class="col-num" data-label="#">${i + 1}</td>
@@ -1414,11 +1453,11 @@
         <td class="col-launch" data-label="Launch">${launchYearBadge(c.shipLaunchYear)}</td>
         <td class="col-itinerary" data-label="Itinerary">${highlightItinerary(c.itinerary, colFilters.itinerary) || '—'}</td>
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
-        <td class="col-destination-port" data-label="Destination port">${escHtml(destinationPort || '—')}</td>
+        <td class="col-destination-port" data-label="Destination port">${destinationPortCell || '&mdash;'}</td>
         <td class="col-date" data-label="Departure">${escHtml(date)}</td>
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
         <td class="col-sea-days duration" data-label="Sea days">${escHtml(seaDays)}</td>
-        <td class="col-port" data-label="Departure port">${escHtml(c.departurePort || '—')}</td>
+        <td class="col-port" data-label="Departure port">${departurePortCell || '&mdash;'}</td>
         <td class="col-region" data-label="Region">${regionBadge(c.departureRegion)}</td>
         <td class="col-first-seen" data-label="First seen"><span class="first-seen-val">${escHtml(firstSeen)}</span></td>
         <td class="col-price price" data-label="Price">${priceCell}</td>
@@ -1616,7 +1655,12 @@
     });
     const phoneInput = document.getElementById('settingsPhone');
     if (phoneInput) phoneInput.value = rememberedPhone();
-    document.getElementById('settingsPhoneStatus').textContent = '';
+    const homePortInput = document.getElementById('settingsHomePort');
+    if (homePortInput) homePortInput.value = rememberedHomePort();
+    const phoneStatus = document.getElementById('settingsPhoneStatus');
+    if (phoneStatus) phoneStatus.textContent = '';
+    const homePortStatus = document.getElementById('settingsHomePortStatus');
+    if (homePortStatus) homePortStatus.textContent = '';
     if (typeof dlg.showModal === 'function') dlg.showModal();
     else dlg.setAttribute('open', '');
     if (focusPhone && phoneInput) {
@@ -1647,15 +1691,27 @@
         if (!v) {
           rememberPhone('');
           phoneStatus.textContent = 'Cleared';
-          phoneStatus.className = 'settings-phone-status muted';
+          phoneStatus.className = 'settings-field-status settings-phone-status muted';
         } else if (/^\+\d{7,15}$/.test(v)) {
           rememberPhone(v);
           phoneStatus.textContent = 'Saved';
-          phoneStatus.className = 'settings-phone-status ok';
+          phoneStatus.className = 'settings-field-status settings-phone-status ok';
         } else {
           phoneStatus.textContent = 'Use international format, e.g. +447700900123';
-          phoneStatus.className = 'settings-phone-status err';
+          phoneStatus.className = 'settings-field-status settings-phone-status err';
         }
+      });
+    }
+
+    const homePortInput = document.getElementById('settingsHomePort');
+    const homePortStatus = document.getElementById('settingsHomePortStatus');
+    if (homePortInput && homePortStatus) {
+      homePortInput.addEventListener('input', () => {
+        const v = homePortInput.value.trim();
+        rememberHomePort(v);
+        homePortStatus.textContent = v ? 'Saved' : 'Cleared';
+        homePortStatus.className = `settings-field-status settings-home-port-status ${v ? 'ok' : 'muted'}`;
+        if (allCruises.length) applyFilters();
       });
     }
 
@@ -1667,8 +1723,8 @@
       });
       applySettingsToDom();
       saveSettings();
-      // Reset does NOT clear the phone number — that's user data, not a
-      // display preference. They can clear it themselves by emptying the field.
+      // Reset does NOT clear personal details such as phone or home port.
+      // They can clear those themselves by emptying the fields.
     });
     dlg.addEventListener('click', ev => { if (ev.target === dlg) dlg.close(); });
   }
@@ -2198,13 +2254,20 @@
     return c;
   }
 
-  // Phone number remembered across saved-view subscribes.
+  // Personal details remembered across sessions.
   const PHONE_KEY = 'cruise-explorer-phone';
+  const HOME_PORT_KEY = 'cruise-explorer-home-port';
   function rememberedPhone() {
     try { return localStorage.getItem(PHONE_KEY) || ''; } catch { return ''; }
   }
   function rememberPhone(phone) {
     try { localStorage.setItem(PHONE_KEY, phone); } catch {}
+  }
+  function rememberedHomePort() {
+    try { return localStorage.getItem(HOME_PORT_KEY) || ''; } catch { return ''; }
+  }
+  function rememberHomePort(port) {
+    try { localStorage.setItem(HOME_PORT_KEY, port); } catch {}
   }
   function wireSavedViewsHandlers() {
     const dlg = document.getElementById('savedViewsDialog');

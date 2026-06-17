@@ -636,6 +636,18 @@
       -webkit-box-decoration-break: clone;
       box-decoration-break: clone;
     }
+    .home-port-highlight {
+      display: inline;
+      padding: 0 0.22em;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      color: #075985;
+      border: 1px solid rgba(14,116,144,.35);
+      box-shadow: 0 0 0 1px rgba(14,116,144,.05);
+      font-weight: 650;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
 
     /* ── Loading skeleton ───────────────────────────────────────────────────── */
     .skeleton-row td {
@@ -1731,22 +1743,22 @@
     .sv-status.err     { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
     .sv-status.pending { background: var(--gray-50); color: var(--gray-700); border: 1px solid var(--gray-200); }
 
-    /* WhatsApp number field inside the Settings dialog. */
-    .settings-phone {
+    /* User detail fields inside the Settings dialog. */
+    .settings-user-detail {
       padding: 12px;
       background: var(--blue-pale);
       border: 1px solid #cfdcfb;
       border-radius: 10px;
       margin-bottom: 14px;
     }
-    .settings-phone label {
+    .settings-user-detail label {
       display: block;
       font-weight: 600;
       font-size: 0.84rem;
       color: var(--navy);
       margin-bottom: 6px;
     }
-    .settings-phone input {
+    .settings-user-detail input {
       width: 100%;
       padding: 8px 10px;
       border: 1px solid var(--gray-200);
@@ -1754,34 +1766,34 @@
       font-size: 0.92rem;
       background: white;
     }
-    .settings-phone input:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
-    .settings-phone input.flash { animation: phone-flash .9s ease-out 1; }
+    .settings-user-detail input:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
+    .settings-user-detail input.flash { animation: phone-flash .9s ease-out 1; }
     @keyframes phone-flash {
       0%, 100% { box-shadow: 0 0 0 0 rgba(29,78,216,0); }
       35%      { box-shadow: 0 0 0 4px rgba(29,78,216,.25); }
     }
-    .settings-phone small {
+    .settings-user-detail small {
       display: block;
       font-size: 0.74rem;
       color: var(--gray-600);
       margin-top: 6px;
       line-height: 1.4;
     }
-    .settings-phone small code {
+    .settings-user-detail small code {
       background: rgba(0,0,0,.06);
       padding: 0 4px;
       border-radius: 4px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
-    .settings-phone-status {
+    .settings-field-status {
       display: block;
       font-size: 0.74rem;
       margin-top: 6px;
       min-height: 1em;
     }
-    .settings-phone-status.ok    { color: #065f46; }
-    .settings-phone-status.err   { color: #991b1b; }
-    .settings-phone-status.muted { color: var(--gray-500); }
+    .settings-field-status.ok    { color: #065f46; }
+    .settings-field-status.err   { color: #991b1b; }
+    .settings-field-status.muted { color: var(--gray-500); }
 
     /* ── Settings dialog ───────────────────────────────────────────────────── */
     dialog#settingsDialog {

@@ -23,7 +23,7 @@ const PROVIDER_INDEX = {
 };
 
 // Helper — build a cruise with the priceHistory shape the UI expects.
-function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton', itinerary = `${days}-Night ${port} Sample`, shipLaunchYear = 2020, seaDays = null }) {
+function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton', destinationPort = port, itinerary = `${days}-Night ${port} Sample`, shipLaunchYear = 2020, seaDays = null }) {
   return {
     id, shipName, provider,
     shipClass:       'Oasis',
@@ -35,6 +35,7 @@ function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenA
     departurePort:   port,
     departureRegion: 'UK & Ireland',
     destination:     'Northern Europe',
+    destinationPort,
     priceFrom:       String(priceFrom),
     currency:        'GBP',
     bookingUrl:      `/booking/${id}`,
@@ -419,6 +420,21 @@ test.describe('Settings dialog', () => {
     await page.waitForSelector('dialog#settingsDialog[open]');
     await page.locator('#settingsDialog input[data-setting="companyLinks"]').check();
     await expect(page.locator('#cruiseBody tr:first-child .col-ship a').first()).toHaveAttribute('href', 'https://www.royalcaribbean.com/gbr/en/cruise-ships/anthem-of-the-seas');
+  });
+
+  test('home port setting is saved and highlighted in cruise rows', async ({ page }) => {
+    await gotoFresh(page);
+    await page.click('#settingsBtn');
+    await page.waitForSelector('dialog#settingsDialog[open]');
+    await page.fill('#settingsHomePort', 'Southampton');
+    await expect(page.locator('#settingsHomePortStatus')).toHaveText('Saved');
+    expect(await page.evaluate(() => localStorage.getItem('cruise-explorer-home-port'))).toBe('Southampton');
+    await page.click('#settingsClose');
+
+    const firstRow = page.locator('tbody tr:first-child');
+    await expect(firstRow.locator('.col-itinerary .home-port-highlight')).toContainText('Southampton');
+    await expect(firstRow.locator('.col-port .home-port-highlight')).toContainText('Southampton');
+    await expect(firstRow.locator('.col-destination-port .home-port-highlight')).toContainText('Southampton');
   });
 
   test('Reset to defaults restores first-time-visitor state', async ({ page }) => {

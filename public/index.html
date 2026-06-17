@@ -556,11 +556,18 @@
         <span id="rateNote" class="rate-note" aria-live="polite">Loading...</span>
       </div>
 
-      <div class="settings-phone">
+      <div class="settings-user-detail settings-phone">
         <label for="settingsPhone">WhatsApp number for cruise alerts</label>
         <input id="settingsPhone" type="tel" placeholder="+447700900123" autocomplete="tel" maxlength="20">
         <small>Used when you tap 🔔 on a saved view. Stored only in this browser. International format including <code>+</code> and country code.</small>
-        <span id="settingsPhoneStatus" class="settings-phone-status" aria-live="polite"></span>
+        <span id="settingsPhoneStatus" class="settings-field-status settings-phone-status" aria-live="polite"></span>
+      </div>
+
+      <div class="settings-user-detail settings-home-port">
+        <label for="settingsHomePort">Home port</label>
+        <input id="settingsHomePort" type="text" placeholder="e.g. Southampton" autocomplete="address-level2" maxlength="80">
+        <small>Highlights matching itinerary, departure, and destination ports. Stored only in this browser.</small>
+        <span id="settingsHomePortStatus" class="settings-field-status settings-home-port-status" aria-live="polite"></span>
       </div>
 
       <ul class="settings-list">

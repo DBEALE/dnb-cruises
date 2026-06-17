@@ -52,6 +52,8 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   const clearButtonCount = (html.match(/class="filter-clear-btn"/g) || []).length;
   assert.ok(clearButtonCount >= 22, `expected at least 22 filter clear buttons, found ${clearButtonCount}`);
   assert.match(html, /class="settings-scroll"/);
+  assert.match(html, /id="settingsHomePort"/);
+  assert.match(html, /id="settingsHomePortStatus"/);
   assert.match(html, /class="changes-scroll"/);
   assert.match(html, /<h1 tabindex="0">/);
   assert.match(html, /class="wave wave-main"/);
@@ -61,6 +63,9 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /class="wave-surge-wave"/);
   assert.match(app, /function itinerarySearchTerms\(query\)/);
   assert.match(app, /function highlightItinerary\(text, query\)/);
+  assert.match(app, /const HOME_PORT_KEY = 'cruise-explorer-home-port'/);
+  assert.match(app, /function rememberedHomePort\(\)/);
+  assert.match(app, /className: 'home-port-highlight'/);
   assert.match(app, /function inferSeaDays\(c\)/);
   assert.match(app, /function getRecentPriceReductionPct\(c, windowMs, now = Date\.now\(\)\)/);
   assert.match(app, /function isFirstSeenWithin\(c, windowMs, now = Date\.now\(\)\)/);
@@ -93,6 +98,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.filter-entry \{/);
   assert.match(css, /\.filter-clear-btn \{/);
   assert.match(css, /\.first-seen-val \{[^}]*font-size: 0\.8rem/);
+  assert.match(css, /\.home-port-highlight \{/);
   assert.match(css, /\.itinerary-highlight \{/);
   assert.match(css, /\.launch-year-badge \{/);
   assert.match(css, /\.launch-year-badge\.newness-legacy/);
