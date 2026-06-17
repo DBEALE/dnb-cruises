@@ -830,16 +830,18 @@
       border: none;
       border-radius: 14px;
       padding: 0;
-      width: min(560px, calc(100vw - 32px));
+      width: min(560px, calc(100vw - 24px));
       height: calc(100vh - 32px);
+      height: calc(100dvh - 24px);
       max-height: calc(100vh - 32px);
+      max-height: calc(100dvh - 24px);
       box-shadow: 0 20px 60px rgba(0,0,0,.25);
     }
     dialog#priceHistoryDialog::backdrop {
       background: rgba(0,0,0,.45);
       backdrop-filter: blur(3px);
     }
-    .ph-box { display: flex; flex-direction: column; max-height: calc(100vh - 32px); height: 100%; padding: 20px 20px 18px; overflow: hidden; }
+    .ph-box { display: flex; flex-direction: column; max-height: inherit; height: 100%; padding: 20px 20px 18px; overflow: hidden; }
     .ph-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 12px; }
     .ph-head h2 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 0 0 4px; }
     .ph-head .ph-sub { font-size: 0.82rem; color: var(--gray-600); line-height: 1.35; }
@@ -1202,8 +1204,19 @@
       .ph-amount             { display: block; min-width: 0; text-align: right; font-variant-numeric: tabular-nums; }
 
       /* Tighten the dialog padding + chart on small screens */
-      .ph-box                { padding: 16px 14px; }
-      .ph-chart svg          { height: 110px; }
+      dialog#priceHistoryDialog {
+        width: calc(100vw - 16px);
+        height: calc(100vh - 16px);
+        height: calc(100dvh - 16px);
+        max-height: calc(100vh - 16px);
+        max-height: calc(100dvh - 16px);
+      }
+      .ph-box                { padding: 12px 12px 10px; }
+      .ph-head               { gap: 10px; margin-bottom: 8px; }
+      .ph-head h2            { font-size: 0.98rem; }
+      .ph-head .ph-sub       { font-size: 0.76rem; line-height: 1.25; }
+      .ph-chart              { padding: 8px 9px; margin-bottom: 8px; }
+      .ph-chart svg          { height: 92px; }
       .ph-table              { font-size: 0.78rem; }
       .ph-table th, .ph-table td { padding: 7px 3px; }
       .ph-table th:first-child,

@@ -90,6 +90,8 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /#mobClearFilters\.is-busy::before/);
   assert.match(css, /\.ph-table-wrap \{[^}]*overflow-y: auto/);
   assert.match(css, /\.ph-table-wrap \{[^}]*overflow-x: hidden/);
+  assert.match(css, /dialog#priceHistoryDialog \{[^}]*100dvh - 24px/s);
+  assert.match(css, /dialog#priceHistoryDialog \{[^}]*100dvh - 16px/s);
   assert.match(css, /\.ph-table th \{[^}]*position: sticky/);
   assert.match(css, /\.ph-price-line \{[^}]*grid-template-columns: minmax\(0, max-content\) 0\.65em/);
   assert.match(css, /\.settings-box\s+\{[^}]*overflow: hidden/);

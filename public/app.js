@@ -58,6 +58,13 @@
   const SITE_CHANGES = [
     {
       date: '17 Jun 2026',
+      title: 'Price history mobile fit',
+      items: [
+        'The price-history dialog now uses the visible mobile viewport so the close button stays reachable.',
+      ],
+    },
+    {
+      date: '17 Jun 2026',
       title: 'Best price marker',
       items: [
         'Cabin prices now highlight the price amount when it is the lowest seen and at least two previous prices were higher.',

@@ -159,6 +159,17 @@ test.describe('Sparklines', () => {
     });
     expect(firstRowDate).toContain(latestDay);
   });
+
+  test('price-history close button remains reachable on mobile', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 640 });
+    await gotoFresh(page, ALL_ON);
+    await page.locator('.cabin-spark').first().click();
+    await page.waitForSelector('dialog#priceHistoryDialog[open]');
+    await expect(page.locator('#phClose')).toBeInViewport();
+    const box = await page.locator('dialog#priceHistoryDialog').boundingBox();
+    expect(box.y).toBeGreaterThanOrEqual(0);
+    expect(box.y + box.height).toBeLessThanOrEqual(640);
+  });
 });
 
 test.describe('Header wave', () => {
