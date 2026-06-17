@@ -4,6 +4,11 @@ const fs        = require('fs');
 const path      = require('path');
 const providers = require('../providers');
 const { fetchWithTimeout } = require('../providers/shared');
+const {
+  hasUniformCabinPrices,
+  sanitizePriceHistoryForProvider,
+  withSanitizedPriceHistory,
+} = require('./price-history-cleanup');
 
 const PUBLIC_DIR          = path.join(__dirname, '..', 'public');
 const PROVIDERS_DIR       = path.join(PUBLIC_DIR, 'providers');
@@ -120,10 +125,13 @@ function entrySignature(entry) {
   return entry.price != null ? `~${entry.price}` : '';
 }
 
-function mergePriceHistory(prevCruise, newCruise, scrapedAt) {
-  const history = Array.isArray(prevCruise?.priceHistory) ? [...prevCruise.priceHistory] : [];
+function mergePriceHistory(providerId, prevCruise, newCruise, scrapedAt) {
+  const history = sanitizePriceHistoryForProvider(providerId, prevCruise?.priceHistory);
   const newEntry = buildHistoryEntry(newCruise, scrapedAt);
   if (!newEntry) return history.slice(-MAX_PRICE_HISTORY);
+  if (history.length === 0 && providerId === 'ncl-cruises' && hasUniformCabinPrices(newEntry)) {
+    return history;
+  }
 
   const last = history[history.length - 1];
   if (entrySignature(last) !== entrySignature(newEntry)) {
@@ -358,7 +366,7 @@ async function main() {
 
     const freshCruises = snapshot.cruises.map(cruise => {
       const prevCruise = knownById.get(cruise.id);
-      const priceHistory = mergePriceHistory(prevCruise, cruise, scrapedAt);
+      const priceHistory = mergePriceHistory(snapshot.provider.id, prevCruise, cruise, scrapedAt);
       return {
         ...cruise,
         firstSeenAt: firstSeenAt(prevCruise, priceHistory, scrapedAt),
@@ -390,7 +398,7 @@ async function main() {
       if (shouldPruneFromArchive(prevCruise, scrapedNowMs)) { pruned++; continue; }
       // First-time transition from active → archive may lack lastSeenAt on
       // pre-existing data; fall back to the current scrapedAt in that case.
-      archive.push({ ...prevCruise, lastSeenAt: prevCruise.lastSeenAt || scrapedAt });
+      archive.push({ ...withSanitizedPriceHistory(snapshot.provider.id, prevCruise), lastSeenAt: prevCruise.lastSeenAt || scrapedAt });
     }
     snapshot.archive = archive;
     if (expiredFreshById.size) console.log(`  ${snapshot.provider.name}: archived ${expiredFreshById.size} cruise(s) more than 1 day past departure.`);
@@ -416,4 +424,13 @@ async function main() {
   await checkAlerts(allCruises, previousIds, usdToGbp);
 }
 
-main().catch(err => { console.error(err.message); process.exit(1); });
+if (require.main === module) {
+  main().catch(err => { console.error(err.message); process.exit(1); });
+}
+
+module.exports = {
+  hasUniformCabinPrices,
+  mergePriceHistory,
+  sanitizePriceHistoryForProvider,
+  withSanitizedPriceHistory,
+};

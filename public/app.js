@@ -58,6 +58,13 @@
   const SITE_CHANGES = [
     {
       date: '17 Jun 2026',
+      title: 'NCL price-history cleanup',
+      items: [
+        'Norwegian Cruise Line histories now drop earliest seeded entries that made cabin prices appear identical.',
+      ],
+    },
+    {
+      date: '17 Jun 2026',
       title: 'Price history mobile fit',
       items: [
         'The price-history dialog now uses the visible mobile viewport so the close button stays reachable.',

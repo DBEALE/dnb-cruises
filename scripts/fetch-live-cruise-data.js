@@ -21,6 +21,7 @@
 
 const fs   = require('node:fs');
 const path = require('node:path');
+const { sanitizePriceHistoryForProvider } = require('./price-history-cleanup');
 
 const DEFAULT_BASE = 'https://dbeale.github.io/dnb-cruises/';
 const BASE_URL     = (process.env.LIVE_BASE_URL || DEFAULT_BASE).replace(/\/?$/, '/');
@@ -56,6 +57,26 @@ async function fetchToFile(url, outPath) {
   return true;
 }
 
+function sanitizeProviderFile(providerId, filePath) {
+  if (providerId !== 'ncl-cruises') return 0;
+  try {
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    let removed = 0;
+    data.cruises = (data.cruises || []).map(cruise => {
+      const before = Array.isArray(cruise.priceHistory) ? cruise.priceHistory.length : 0;
+      const priceHistory = sanitizePriceHistoryForProvider(providerId, cruise.priceHistory);
+      removed += before - priceHistory.length;
+      return { ...cruise, priceHistory };
+    });
+    if (removed > 0) {
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + '\n');
+    }
+    return removed;
+  } catch {
+    return 0;
+  }
+}
+
 // Provider IDs come from the live providers/index.json on Pages. Falls back
 // to the local tracked copy in this repo if Pages isn't reachable (first
 // deploy, network blip).
@@ -88,8 +109,13 @@ async function main() {
     const dir = path.join(PUBLIC_DIR, 'providers', id);
     for (const file of ['cruises.json', 'oldCruises.json']) {
       const url = `${BASE_URL}providers/${id}/${file}`;
+      const outPath = path.join(dir, file);
       try {
-        if (await fetchToFile(url, path.join(dir, file))) okCount++;
+        if (await fetchToFile(url, outPath)) {
+          const removed = sanitizeProviderFile(id, outPath);
+          if (removed) console.log(`    cleaned ${removed} NCL seeded history entr${removed === 1 ? 'y' : 'ies'}`);
+          okCount++;
+        }
       } catch (err) {
         console.warn(`  ! ${url} failed: ${err.message}`);
       }
