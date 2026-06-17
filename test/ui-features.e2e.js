@@ -140,10 +140,15 @@ test.describe('Sparklines', () => {
     await gotoFresh(page, ALL_ON);
     await page.locator('.cabin-spark').first().click();
     await page.waitForSelector('dialog#priceHistoryDialog[open]');
+    await expect(page.locator('#phSub')).not.toContainText('Sample');
+    await expect(page.locator('#phSub')).toContainText('7N');
+    await expect(page.locator('#phSub')).toContainText('Southampton');
     const legend = await page.locator('#phChart .ph-legend-item').allTextContents();
     expect(legend).toEqual(expect.arrayContaining(['Inside', 'Sea view', 'Balcony', 'Suite']));
     // Chart path per cabin
     expect(await page.locator('#phChart svg path').count()).toBe(4);
+    expect(await page.locator('.ph-table-wrap').evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+    expect(await page.locator('.ph-table-wrap').evaluate(el => el.clientHeight > 360)).toBe(true);
     // Latest at the top
     const firstRowDate = await page.locator('#phTableBody tr:first-child td:first-child').innerText();
     const latestDay = new Date(TEST_NOW - 2 * HOUR).toLocaleDateString('en-GB', {

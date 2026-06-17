@@ -1437,8 +1437,11 @@
     if (!cruise || history.length < 2) return;
 
     document.getElementById('phTitle').textContent = cruise.shipName || 'Price history';
-    const subParts = [cruise.itinerary, formatDateDisplay(cruise.departureDate)].filter(Boolean);
-    document.getElementById('phSub').textContent = subParts.join(' — ');
+    document.getElementById('phSub').textContent = [
+      formatDateDisplay(cruise.departureDate),
+      formatDurationDisplay(cruise.duration),
+      cruise.departurePort,
+    ].filter(part => part && part !== '—').join(' · ');
 
     const chronologicalHistory = [...history].sort((a, b) => {
       const aTime = new Date(a?.at || 0).getTime();
@@ -1519,14 +1522,26 @@
     return `<tr><th>When (UTC)</th>${cabinHeads}</tr>`;
   }
 
+  function formatHistoryWhen(value) {
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return { label: '—', date: '—', year: '', time: '' };
+    const date = d.toLocaleDateString('en-GB', { day:'numeric', month:'short', timeZone:'UTC' });
+    const year = d.toLocaleDateString('en-GB', { year:'numeric', timeZone:'UTC' });
+    const time = d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', timeZone:'UTC' });
+    return { label: `${date} ${year}, ${time}`, date, year, time };
+  }
+
+  function renderHistoryWhenCell(value) {
+    const when = formatHistoryWhen(value);
+    const meta = [when.year, when.time].filter(Boolean).map(escHtml).join(' · ');
+    return `<td class="ph-when" title="${escHtml(when.label)}"><span class="ph-when-date">${escHtml(when.date)}</span><span class="ph-when-meta">${meta}</span></td>`;
+  }
+
   function renderHistoryTableBody(history, currency, buckets) {
     // Display latest-first, while each delta still compares to the immediately
     // prior scrape in chronological order.
     return history.map((entry, i) => ({ entry, prev: i > 0 ? history[i - 1] : null })).reverse().map(({ entry, prev }) => {
-      const d = new Date(entry.at);
-      const when = Number.isNaN(d.getTime()) ? '—' : d.toLocaleString('en-GB', {
-        day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', timeZone:'UTC',
-      });
+      const whenCell = renderHistoryWhenCell(entry.at);
 
       if (!buckets.length) {
         // Legacy single-value rendering — keep the Change column.
@@ -1541,7 +1556,7 @@
           }
         }
         return `<tr>
-          <td>${escHtml(when)}</td>
+          ${whenCell}
           <td class="ph-price"><span class="ph-price-line"><span class="ph-amount">${escHtml(formatPriceDisplay(cur, currency))}</span></span></td>
           <td class="ph-delta ${deltaClass}">${delta}</td>
         </tr>`;
@@ -1551,17 +1566,18 @@
         const cur = entryPrice(entry, b);
         const prv = prev ? entryPrice(prev, b) : null;
         const emptyArrow = '<span class="ph-arrow ph-arrow-empty" aria-hidden="true"></span>';
-        if (cur == null) return `<td class="ph-price ph-missing"><span class="ph-price-line"><span class="ph-amount ph-missing">—</span>${emptyArrow}</span></td>`;
+        const label = BUCKET_LABEL[b];
+        if (cur == null) return `<td class="ph-price ph-missing" data-label="${escHtml(label)}"><span class="ph-price-line"><span class="ph-amount ph-missing">—</span>${emptyArrow}</span></td>`;
         let arrow = emptyArrow;
         if (prv != null && cur !== prv) {
           arrow = cur > prv
             ? '<span class="ph-arrow up" aria-hidden="true">▲</span>'
             : '<span class="ph-arrow down" aria-hidden="true">▼</span>';
         }
-        return `<td class="ph-price"><span class="ph-price-line"><span class="ph-amount">${escHtml(formatPriceDisplay(cur, currency))}</span>${arrow}</span></td>`;
+        return `<td class="ph-price" data-label="${escHtml(label)}"><span class="ph-price-line"><span class="ph-amount">${escHtml(formatPriceDisplay(cur, currency))}</span>${arrow}</span></td>`;
       }).join('');
 
-      return `<tr><td>${escHtml(when)}</td>${cells}</tr>`;
+      return `<tr>${whenCell}${cells}</tr>`;
     }).join('');
   }
 

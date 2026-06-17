@@ -810,7 +810,7 @@
       border-radius: 14px;
       padding: 0;
       width: min(560px, calc(100vw - 32px));
-      height: auto;
+      height: calc(100vh - 32px);
       max-height: calc(100vh - 32px);
       box-shadow: 0 20px 60px rgba(0,0,0,.25);
     }
@@ -818,10 +818,10 @@
       background: rgba(0,0,0,.45);
       backdrop-filter: blur(3px);
     }
-    .ph-box { display: flex; flex-direction: column; max-height: calc(100vh - 32px); height: 100%; padding: 22px 24px 20px; overflow: hidden; }
-    .ph-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
+    .ph-box { display: flex; flex-direction: column; max-height: calc(100vh - 32px); height: 100%; padding: 20px 20px 18px; overflow: hidden; }
+    .ph-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 12px; }
     .ph-head h2 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 0 0 4px; }
-    .ph-head .ph-sub { font-size: 0.82rem; color: var(--gray-600); line-height: 1.4; }
+    .ph-head .ph-sub { font-size: 0.82rem; color: var(--gray-600); line-height: 1.35; }
     .ph-close {
       appearance: none;
       background: var(--gray-100);
@@ -836,26 +836,31 @@
       flex-shrink: 0;
     }
     .ph-close:hover { background: var(--gray-200); color: var(--navy); }
-    .ph-chart { flex: 0 0 auto; background: var(--gray-50); border-radius: 8px; padding: 12px; margin-bottom: 16px; }
-    .ph-chart svg { width: 100%; height: 140px; display: block; }
+    .ph-chart { flex: 0 0 auto; background: var(--gray-50); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; }
+    .ph-chart svg { width: 100%; height: 128px; display: block; }
     .ph-chart .ph-axis-line { stroke: var(--gray-200); stroke-width: 1; }
     .ph-chart .ph-line      { fill: none; stroke: var(--blue); stroke-width: 1.8; stroke-linejoin: round; }
     .ph-chart .ph-dot       { fill: var(--blue); }
     .ph-chart .ph-axis-text { font-size: 10px; fill: var(--gray-400); font-family: inherit; }
-    .ph-table-wrap { min-height: 0; max-height: clamp(180px, 42vh, 360px); overflow: auto; overscroll-behavior: contain; }
-    .ph-table { width: 100%; min-width: 0; border-collapse: collapse; font-size: 0.85rem; }
-    .ph-table th, .ph-table td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--gray-100); }
-    .ph-table th { position: sticky; top: 0; z-index: 1; background: #fff; font-weight: 600; color: var(--gray-600); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .ph-table-wrap { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; border-top: 1px solid var(--gray-100); }
+    .ph-table { width: 100%; min-width: 0; table-layout: fixed; border-collapse: collapse; font-size: 0.84rem; }
+    .ph-table th, .ph-table td { text-align: left; padding: 8px 5px; border-bottom: 1px solid var(--gray-100); }
+    .ph-table th { position: sticky; top: 0; z-index: 1; background: #fff; font-weight: 700; color: var(--gray-600); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .ph-table th:first-child,
+    .ph-table .ph-when { width: 84px; }
+    .ph-when-date,
+    .ph-when-meta { display: block; }
+    .ph-when-date { color: var(--navy); font-weight: 650; }
+    .ph-when-meta { margin-top: 2px; color: var(--gray-500); font-size: 0.76rem; line-height: 1.2; }
     .ph-table td.ph-price { font-weight: 700; color: var(--navy); text-align: right; white-space: nowrap; }
     .ph-price-line {
-      display: grid;
-      grid-template-columns: minmax(7ch, 1fr) 0.75em;
-      width: 100%;
+      display: inline-grid;
+      grid-template-columns: minmax(0, max-content) 0.65em;
       align-items: baseline;
-      gap: 4px;
+      gap: 3px;
       font-variant-numeric: tabular-nums;
     }
-    .ph-amount { display: block; min-width: 7ch; text-align: right; font-variant-numeric: tabular-nums; }
+    .ph-amount { display: block; min-width: 0; text-align: right; font-variant-numeric: tabular-nums; }
     .ph-table td.ph-delta { text-align: right; font-size: 0.78rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
     .ph-delta.up   { color: #dc2626; }
     .ph-delta.down { color: #16a34a; }
@@ -864,7 +869,7 @@
     .ph-arrow.up   { color: #dc2626; }
     .ph-arrow.down { color: #16a34a; }
     .ph-missing    { color: var(--gray-400); font-weight: 500; }
-    .ph-legend     { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; font-size: 0.78rem; color: var(--gray-600); }
+    .ph-legend     { display: flex; flex-wrap: wrap; gap: 8px 12px; margin-bottom: 4px; font-size: 0.78rem; color: var(--gray-600); }
     .ph-legend-item   { display: inline-flex; align-items: center; gap: 5px; }
     .ph-legend-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 
@@ -1172,14 +1177,17 @@
       .ph-table td           { display: table-cell; padding: 8px 6px; border-bottom: 1px solid var(--gray-100); }
       .ph-table td::before   { content: none; }            /* no inline label prefix */
       .ph-table td.ph-price  { text-align: right; white-space: nowrap; }
-      .ph-price-line         { display: grid; grid-template-columns: minmax(7ch, 1fr) 0.75em; width: 100%; align-items: baseline; gap: 4px; font-variant-numeric: tabular-nums; }
-      .ph-amount             { display: block; min-width: 7ch; text-align: right; font-variant-numeric: tabular-nums; }
+      .ph-price-line         { display: inline-grid; grid-template-columns: minmax(0, max-content) 0.65em; align-items: baseline; gap: 3px; font-variant-numeric: tabular-nums; }
+      .ph-amount             { display: block; min-width: 0; text-align: right; font-variant-numeric: tabular-nums; }
 
       /* Tighten the dialog padding + chart on small screens */
       .ph-box                { padding: 16px 14px; }
       .ph-chart svg          { height: 110px; }
       .ph-table              { font-size: 0.78rem; }
-      .ph-table th, .ph-table td { padding: 6px 4px; }
+      .ph-table th, .ph-table td { padding: 7px 3px; }
+      .ph-table th:first-child,
+      .ph-table .ph-when     { width: 76px; }
+      .ph-when-meta          { font-size: 0.7rem; }
 
       /* Ship name row: name on left, launch year on right */
       .mobile-ship-header {
