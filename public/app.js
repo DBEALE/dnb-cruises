@@ -58,6 +58,13 @@
   const SITE_CHANGES = [
     {
       date: '17 Jun 2026',
+      title: 'Mobile filter close button',
+      items: [
+        'The mobile Sort & filter sheet now leaves top clearance so its close button stays reachable.',
+      ],
+    },
+    {
+      date: '17 Jun 2026',
       title: 'NCL price-history cleanup',
       items: [
         'Norwegian Cruise Line histories now drop earliest seeded entries that made cabin prices appear identical.',

@@ -374,6 +374,20 @@ test.describe('URL state', () => {
   });
 });
 
+test.describe('Mobile filters', () => {
+  test('close button remains reachable below browser chrome', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 640 });
+    await gotoFresh(page);
+    await page.click('#mobFilterToggle');
+    await page.waitForSelector('dialog#mobFilters[open]');
+    await page.waitForTimeout(300);
+    await expect(page.locator('#mobFiltersClose')).toBeInViewport();
+    const box = await page.locator('dialog#mobFilters').boundingBox();
+    expect(box.y).toBeGreaterThanOrEqual(60);
+    expect(box.y + box.height).toBeLessThanOrEqual(640);
+  });
+});
+
 test.describe('Saved views', () => {
   test('suggests an editable name from current filters and sort', async ({ page }) => {
     await gotoFresh(page);
