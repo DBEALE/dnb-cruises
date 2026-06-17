@@ -217,6 +217,17 @@ test.describe('Sort and filter', () => {
     expect(firstShip).toContain('Anthem');
   });
 
+  test('cabin prices show a Best badge only after multiple higher history prices', async ({ page }) => {
+    await gotoFresh(page);
+    const anthem = page.locator('tbody tr:has-text("Anthem of the Seas")');
+    await expect(anthem.locator('.best-price-badge')).toHaveCount(4);
+    await expect(anthem.locator('.best-price-badge').first()).toHaveAttribute('title', /2 previous prices were higher/);
+
+    await page.locator('.col-filter[data-field="provider"]').selectOption('Celebrity Cruises');
+    const edge = page.locator('tbody tr:has-text("Celebrity Edge")');
+    await expect(edge.locator('.best-price-badge')).toHaveCount(0);
+  });
+
   test('direction button is disabled until a sort column is picked', async ({ page }) => {
     await gotoFresh(page);
     await expect(page.locator('#sortDirBtn')).toBeDisabled();
