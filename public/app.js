@@ -60,7 +60,7 @@
       date: '17 Jun 2026',
       title: 'Best price marker',
       items: [
-        'Cabin prices now show a Best badge when the current price is the lowest seen and at least two previous prices were higher.',
+        'Cabin prices now highlight the price amount when it is the lowest seen and at least two previous prices were higher.',
       ],
     },
     {
@@ -1053,11 +1053,12 @@
         .map(rt => {
           const formatted = formatPriceDisplay(prices[rt.key], c.currency);
           const best = cabinBestPriceInfo(c, rt.key, prices[rt.key]);
-          const bestBadge = best.isBest
-            ? `<span class="best-price-badge" title="Lowest ${escHtml(rt.label)} price seen; ${best.higherCount} previous prices were higher">Best</span>`
-            : '';
           const rowClass = best.isBest ? 'price-row best-price-row' : 'price-row';
-          const row = `<div class="${rowClass}"><span class="price-lbl">${escHtml(rt.label)}</span><span class="price-val">${escHtml(formatted)}</span>${bestBadge}</div>`;
+          const priceClass = best.isBest ? 'price-val best-price-val' : 'price-val';
+          const bestTitle = best.isBest
+            ? ` title="Lowest ${escHtml(rt.label)} price seen; ${best.higherCount} previous prices were higher" aria-label="${escHtml(formatted)} - best price"`
+            : '';
+          const row = `<div class="${rowClass}"><span class="price-lbl">${escHtml(rt.label)}</span><span class="${priceClass}"${bestTitle}>${escHtml(formatted)}</span></div>`;
           const linkedRow = url
             ? `<a class="cabin-price-link" href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${row}</a>`
             : row;

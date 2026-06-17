@@ -64,7 +64,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(app, /function itinerarySearchTerms\(query\)/);
   assert.match(app, /function highlightItinerary\(text, query\)/);
   assert.match(app, /function cabinBestPriceInfo\(c, bucket, currentRaw = null\)/);
-  assert.match(app, /class="best-price-badge"/);
+  assert.match(app, /best-price-val/);
   assert.match(app, /const HOME_PORT_KEY = 'cruise-explorer-home-port'/);
   assert.match(app, /function rememberedHomePort\(\)/);
   assert.match(app, /className: 'home-port-highlight'/);
@@ -100,7 +100,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.filter-entry \{/);
   assert.match(css, /\.filter-clear-btn \{/);
   assert.match(css, /\.first-seen-val \{[^}]*font-size: 0\.8rem/);
-  assert.match(css, /\.best-price-badge \{/);
+  assert.match(css, /\.price-val\.best-price-val \{/);
   assert.match(css, /\.home-port-highlight \{/);
   assert.match(css, /\.itinerary-highlight \{/);
   assert.match(css, /\.launch-year-badge \{/);

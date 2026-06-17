@@ -757,10 +757,6 @@
       gap: 5px;
       line-height: 1.2;
     }
-    .price-row.best-price-row {
-      align-items: baseline;
-    }
-
     .price-lbl {
       font-size: 0.62rem;
       font-weight: 600;
@@ -780,21 +776,15 @@
     .price-val.price-from {
       font-size: 0.95rem;
     }
-    .best-price-badge {
-      display: inline-flex;
-      align-items: center;
-      min-height: 16px;
-      padding: 1px 5px;
+    .price-val.best-price-val {
+      display: inline-block;
+      padding: 1px 6px;
       border-radius: 999px;
       background: #dcfce7;
       color: #166534;
       border: 1px solid #86efac;
-      font-size: 0.62rem;
-      font-weight: 750;
-      line-height: 1;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      white-space: nowrap;
+      line-height: 1.12;
+      box-shadow: 0 0 0 1px rgba(22,101,52,.04);
     }
 
     /* ── Price-history sparkline ────────────────────────────────────────────── */
