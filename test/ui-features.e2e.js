@@ -496,6 +496,18 @@ test.describe('Saved views', () => {
 });
 
 test.describe('Settings dialog', () => {
+  test('price-star legend explains all tiers', async ({ page }) => {
+    await gotoFresh(page);
+    await page.click('#settingsBtn');
+    const legend = page.locator('.price-star-legend');
+    await legend.locator('summary').click();
+    await expect(legend).toContainText('50% or more below peak');
+    await expect(legend).toContainText('30–49% below peak');
+    await expect(legend).toContainText('15–29% below peak');
+    await expect(legend).toContainText('less than 15%');
+    await expect(legend.locator('.price-star-legend-icon')).toHaveCount(3);
+  });
+
   test('close button stays visible while display options content scrolls', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 560 });
     await gotoFresh(page);

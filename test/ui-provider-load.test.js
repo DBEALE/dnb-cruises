@@ -52,6 +52,10 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   const clearButtonCount = (html.match(/class="filter-clear-btn"/g) || []).length;
   assert.ok(clearButtonCount >= 22, `expected at least 22 filter clear buttons, found ${clearButtonCount}`);
   assert.match(html, /class="settings-scroll"/);
+  assert.match(html, /What do the price stars mean\?/);
+  assert.match(html, /50% or more below peak/);
+  assert.match(html, /30–49% below peak/);
+  assert.match(html, /15–29% below peak/);
   assert.match(html, /id="settingsHomePort"/);
   assert.match(html, /id="settingsHomePortStatus"/);
   assert.match(html, /class="changes-scroll"/);
@@ -115,6 +119,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.peak-drop-star-slot\.tier-gold/);
   assert.match(css, /\.peak-drop-star-slot\.tier-silver/);
   assert.match(css, /\.peak-drop-star-slot\.tier-outline/);
+  assert.match(css, /\.price-star-legend-icon/);
   assert.match(css, /\.home-port-highlight \{/);
   assert.match(css, /\.itinerary-highlight \{/);
   assert.match(css, /\.launch-year-badge \{/);

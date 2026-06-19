@@ -64,6 +64,7 @@
         'Each cruise now has a compact Share button beside its launch year that opens a link showing only that sailing.',
         'The current filters and sort order can now be shared from the search toolbar.',
         'Peak-price stars now use three tiers without shifting price alignment: gold at 50% below peak, silver at 30%, and outline-only at 15%.',
+        'Display options now includes a guide explaining the price-star colours and thresholds.',
       ],
     },
     {

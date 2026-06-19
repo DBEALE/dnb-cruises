@@ -852,15 +852,18 @@
       pointer-events: none;
     }
     .peak-drop-star-slot.is-visible { visibility: visible; }
-    .peak-drop-star-slot.tier-gold {
+    .peak-drop-star-slot.tier-gold,
+    .price-star-legend-icon.tier-gold {
       color: #d4a017;
       text-shadow: 0 1px 1px rgba(120, 83, 0, .22);
     }
-    .peak-drop-star-slot.tier-silver {
+    .peak-drop-star-slot.tier-silver,
+    .price-star-legend-icon.tier-silver {
       color: #9ca3af;
       text-shadow: 0 1px 1px rgba(51, 65, 85, .18);
     }
-    .peak-drop-star-slot.tier-outline {
+    .peak-drop-star-slot.tier-outline,
+    .price-star-legend-icon.tier-outline {
       color: transparent;
       -webkit-text-stroke: 1px #fff;
       filter: drop-shadow(0 0 1px #64748b);
@@ -1961,6 +1964,17 @@
     .legend-tiers { list-style: none; padding: 0; margin: 6px 0 0; display: flex; flex-direction: column; gap: 6px; }
     .legend-tiers li { display: flex; align-items: center; gap: 10px; line-height: 1.35; }
     .legend-tiers strong { color: var(--navy); }
+    .price-star-legend-icon {
+      display: inline-flex;
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .settings-legend-note { margin: 8px 0 0; color: var(--gray-600); line-height: 1.45; }
     /* Force the static dots in the legend to display even when the global
        "Class quality dots" setting is turned off (otherwise the legend
        references invisible dots, which is silly). */
