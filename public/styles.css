@@ -831,15 +831,16 @@
     }
 
     .price-amount {
-      display: inline-grid;
-      grid-template-columns: max-content 1em;
-      align-items: center;
-      gap: 3px;
+      position: relative;
+      display: inline-block;
       white-space: nowrap;
     }
 
     .peak-drop-star-slot {
-      display: inline-flex;
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
       width: 1em;
       height: 1em;
       align-items: center;
@@ -849,6 +850,8 @@
       line-height: 1;
       visibility: hidden;
       text-shadow: 0 1px 1px rgba(120, 83, 0, .18);
+      transform: translate(52%, -52%);
+      pointer-events: none;
     }
     .peak-drop-star-slot.is-visible { visibility: visible; }
 

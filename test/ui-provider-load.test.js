@@ -107,8 +107,9 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.filter-clear-btn \{/);
   assert.match(css, /\.first-seen-val \{[^}]*font-size: 0\.8rem/);
   assert.match(css, /\.price-val\.best-price-val \{/);
-  assert.match(css, /\.price-amount \{[^}]*grid-template-columns: max-content 1em/s);
-  assert.match(css, /\.peak-drop-star-slot \{[^}]*visibility: hidden/s);
+  assert.match(css, /\.price-amount \{[^}]*position: relative/s);
+  assert.match(css, /\.peak-drop-star-slot \{[^}]*position: absolute/s);
+  assert.match(css, /\.peak-drop-star-slot \{[^}]*transform: translate\(52%, -52%\)/s);
   assert.match(css, /\.home-port-highlight \{/);
   assert.match(css, /\.itinerary-highlight \{/);
   assert.match(css, /\.launch-year-badge \{/);

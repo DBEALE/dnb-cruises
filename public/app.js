@@ -63,7 +63,7 @@
       items: [
         'Each cruise now has a compact Share button beside its launch year that opens a link showing only that sailing.',
         'The current filters and sort order can now be shared from the search toolbar.',
-        'A gold star now marks cabin prices that are at least 30% below their recorded peak without shifting price alignment.',
+        'A gold star now overlaps the top-right corner of cabin prices that are at least 30% below their recorded peak without shifting price alignment.',
       ],
     },
     {

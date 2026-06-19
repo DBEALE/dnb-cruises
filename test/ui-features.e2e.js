@@ -242,6 +242,7 @@ test.describe('Sort and filter', () => {
 
   test('prices at least 30% below peak show a star without changing row geometry', async ({ page }) => {
     await gotoFresh(page);
+    await page.setViewportSize({ width: 1920, height: 900 });
     const anthem = page.locator('tbody tr:has-text("Anthem of the Seas")');
     const slots = anthem.locator('.peak-drop-star-slot');
     await expect(slots).toHaveCount(4);
@@ -250,8 +251,14 @@ test.describe('Sort and filter', () => {
     await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toHaveAttribute('title', /38% below recorded peak of £800/);
     await expect(anthem.locator('.price-val').first()).toHaveText('£500');
 
-    const slotWidths = await slots.evaluateAll(elements => elements.map(el => getComputedStyle(el).width));
-    expect(new Set(slotWidths).size).toBe(1);
+    const amountBoxes = await anthem.locator('.price-amount').evaluateAll(elements => elements.slice(0, 2).map(el => el.getBoundingClientRect().toJSON()));
+    expect(Math.abs(amountBoxes[0].width - amountBoxes[1].width)).toBeLessThanOrEqual(1);
+    const desktopAmount = await anthem.locator('.price-amount').first().boundingBox();
+    const desktopStar = await anthem.locator('.peak-drop-star-slot.is-visible').boundingBox();
+    expect(desktopStar.x).toBeLessThan(desktopAmount.x + desktopAmount.width);
+    expect(desktopStar.x + desktopStar.width).toBeGreaterThan(desktopAmount.x + desktopAmount.width);
+    expect(desktopStar.y).toBeLessThan(desktopAmount.y);
+    expect(desktopStar.y + desktopStar.height).toBeGreaterThan(desktopAmount.y);
 
     const harmony = page.locator('tbody tr:has-text("Harmony of the Seas")');
     await expect(harmony.locator('.peak-drop-star-slot')).toHaveCount(4);
@@ -259,8 +266,10 @@ test.describe('Sort and filter', () => {
 
     await page.setViewportSize({ width: 390, height: 844 });
     await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toBeVisible();
-    const mobileSlotWidths = await slots.evaluateAll(elements => elements.map(el => getComputedStyle(el).width));
-    expect(new Set(mobileSlotWidths).size).toBe(1);
+    const mobileAmount = await anthem.locator('.price-amount').first().boundingBox();
+    const mobileStar = await anthem.locator('.peak-drop-star-slot.is-visible').boundingBox();
+    expect(mobileStar.x).toBeLessThan(mobileAmount.x + mobileAmount.width);
+    expect(mobileStar.x + mobileStar.width).toBeGreaterThan(mobileAmount.x + mobileAmount.width);
   });
 
   test('direction button is disabled until a sort column is picked', async ({ page }) => {
