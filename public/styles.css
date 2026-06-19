@@ -1142,6 +1142,7 @@
       .sort-hint { display: none; }   /* card layout has no column headers */
       .sort-wrap { display: none; }   /* mobileControls has its own sort dropdown */
       .toolbar-filter-wrap { display: none; }
+      #shareSearchBtn { display: none; }
       #savedViewsBtn { display: none; } /* mob-sort-row has its own ★ */
       td, .sort-row th { padding: 9px 8px; }
       td.book a { padding: 4px 10px; }

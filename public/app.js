@@ -60,6 +60,13 @@
   const SITE_CHANGES = [
     {
       date: '19 Jun 2026',
+      title: 'Mobile share cleanup',
+      items: [
+        'Mobile now shows only the compact Share search button instead of displaying the same action twice.',
+      ],
+    },
+    {
+      date: '19 Jun 2026',
       title: 'More display options',
       items: [
         'Price stars and lowest-price highlighting can now be switched on or off independently.',

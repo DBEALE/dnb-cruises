@@ -478,9 +478,20 @@ test.describe('Mobile filters', () => {
   test('share actions remain visible in the mobile card layout', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await gotoFresh(page);
+    await expect(page.locator('#shareSearchBtn')).toBeHidden();
     await expect(page.locator('.share-view-mobile')).toBeVisible();
+    await expect(page.locator('.share-view-btn:visible')).toHaveCount(1);
     await expect(page.locator('.mobile-cruise-share[data-share-cruise="rc_a"]')).toBeVisible();
     await expect(page.locator('tbody tr:has-text("Anthem of the Seas") .col-book')).toHaveCount(0);
+  });
+
+  test('desktop keeps the labelled share-search action without the mobile duplicate', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await gotoFresh(page);
+    await expect(page.locator('#shareSearchBtn')).toBeVisible();
+    await expect(page.locator('#shareSearchBtn')).toContainText('Share search');
+    await expect(page.locator('.share-view-mobile')).toBeHidden();
+    await expect(page.locator('.share-view-btn:visible')).toHaveCount(1);
   });
 });
 
