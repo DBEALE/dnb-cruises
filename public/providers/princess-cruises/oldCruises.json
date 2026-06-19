@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 555,
+  "count": 557,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -5723,58 +5723,6 @@
             "oceanView": 1464,
             "balcony": 1444,
             "suite": 2219
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-03T22:26:29.557Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_CFF07A_YP_20280220",
-      "shipName": "Sky Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2019,
-      "itinerary": "Ft. Lauderdale, Florida → Princess Cays, Bahamas → Falmouth, Jamaica → Grand Cayman, Cayman Islands → Cozumel, Mexico → Ft. Lauderdale, Florida",
-      "departureDate": "2028-02-20",
-      "duration": "7 Nights",
-      "departurePort": "Ft. Lauderdale, Florida",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "704",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=Y809",
-      "prices": {
-        "inside": "704",
-        "oceanView": "1074",
-        "balcony": "1174",
-        "suite": "1569"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 704,
-            "oceanView": 1193,
-            "balcony": 1144,
-            "suite": 1619
-          }
-        },
-        {
-          "at": "2026-06-01T20:13:35.019Z",
-          "prices": {
-            "inside": 729,
-            "oceanView": 1099,
-            "balcony": 1224,
-            "suite": 1669
-          }
-        },
-        {
-          "at": "2026-06-03T14:25:08.048Z",
-          "prices": {
-            "inside": 704,
-            "oceanView": 1074,
-            "balcony": 1174,
-            "suite": 1569
           }
         }
       ],
@@ -25644,78 +25592,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ERR14G_EX_20260630",
-      "shipName": "Enchanted Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2020,
-      "itinerary": "Civitavecchia (for Rome), Italy → Corfu, Greece → Dubrovnik, Croatia → Kotor, Montenegro → Naples, Italy (for Capri & Pompeii) → Civitavecchia (for Rome), Italy → Amalfi Coast (Salerno) → Santorini, Greece → Kusadasi, Turkey (for Ephesus) → Katakolon (for Olympia), Greece → Civitavecchia (for Rome), Italy",
-      "departureDate": "2026-06-30",
-      "duration": "14 Nights",
-      "departurePort": "Civitavecchia (for Rome), Italy",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "destinationPort": "Katakolon (for Olympia), Greece",
-      "priceFrom": "1843",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N620A",
-      "prices": {
-        "inside": "1843",
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "seaDays": 4,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 2063,
-            "oceanView": 2594,
-            "balcony": 2594
-          }
-        },
-        {
-          "at": "2026-05-31T10:11:52.714Z",
-          "prices": {
-            "inside": 1955,
-            "oceanView": 2459,
-            "balcony": 2459
-          }
-        },
-        {
-          "at": "2026-05-31T22:56:38.105Z",
-          "prices": {
-            "inside": 1856,
-            "oceanView": 2342,
-            "balcony": 2342
-          }
-        },
-        {
-          "at": "2026-06-04T12:42:06.638Z",
-          "prices": {
-            "inside": 1856,
-            "balcony": 2342
-          }
-        },
-        {
-          "at": "2026-06-06T20:59:25.617Z",
-          "prices": {
-            "inside": 1766,
-            "balcony": 2234
-          }
-        },
-        {
-          "at": "2026-06-18T00:47:52.090Z",
-          "prices": {
-            "inside": 1843
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-18T15:05:08.173Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_CES14B_GP_20261108",
       "shipName": "Regal Princess",
       "shipClass": "Royal",
@@ -27103,6 +26979,236 @@
         }
       ],
       "lastSeenAt": "2026-06-19T18:37:32.301Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ERR14G_EX_20270703",
+      "shipName": "Enchanted Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2020,
+      "itinerary": "Civitavecchia (for Rome), Italy → Corfu, Greece → Kotor, Montenegro → Dubrovnik, Croatia → Naples, Italy (for Capri & Pompeii) → Civitavecchia (for Rome), Italy → Amalfi Coast (Salerno) → Crete (Chania), Greece → Kusadasi, Turkey (for Ephesus) → Katakolon (for Olympia), Greece → Civitavecchia (for Rome), Italy",
+      "departureDate": "2027-07-03",
+      "duration": "14 Nights",
+      "departurePort": "Civitavecchia (for Rome), Italy",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "destinationPort": "Katakolon (for Olympia), Greece",
+      "priceFrom": "2097",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N720A",
+      "prices": {
+        "inside": "2097",
+        "oceanView": "3351",
+        "balcony": "3364",
+        "suite": "3316"
+      },
+      "seaDays": 4,
+      "firstSeenAt": "2026-06-05T21:21:41.187Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-05T21:21:41.187Z",
+          "prices": {
+            "inside": 2097,
+            "oceanView": 3349,
+            "balcony": 3298,
+            "suite": 3291
+          }
+        },
+        {
+          "at": "2026-06-10T13:10:03.669Z",
+          "prices": {
+            "inside": 2172,
+            "oceanView": 3426,
+            "balcony": 3489,
+            "suite": 3466
+          }
+        },
+        {
+          "at": "2026-06-18T17:05:19.362Z",
+          "prices": {
+            "inside": 2097,
+            "oceanView": 3351,
+            "balcony": 3364,
+            "suite": 3316
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-19T20:32:10.235Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ESS37A_MJ_20271030",
+      "shipName": "Majestic Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2017,
+      "itinerary": "Southampton (for London), England → Vigo, Spain (for Santiago de Compostela) → Lisbon, Portugal → Madeira (Funchal), Portugal → Gran Canaria (Las Palmas), Canary Islands → Santa Cruz De Tenerife, Spain → Fortaleza, Brazil → Rio de Janeiro, Brazil → Montevideo, Uruguay → Buenos Aires, Argentina → Buenos Aires, Argentina → Buenos Aires, Argentina → Montevideo, Uruguay → Puerto Madryn, Argentina → Falkland Islands (Stanley) → Cape Horn (Scenic Cruising) → Ushuaia (Tierra del Fuego), Argentina → Beagle Channel Fjords & Glacier Alley, Chile → Punta Arenas, Chile → Puerto Montt, Chile → San Antonio (for Santiago), Chile",
+      "departureDate": "2027-10-30",
+      "duration": "37 Nights",
+      "departurePort": "Southampton (for London), England",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "destinationPort": "San Antonio (for Santiago), Chile",
+      "priceFrom": "6409",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=8735A",
+      "prices": {
+        "inside": "6409",
+        "oceanView": null,
+        "balcony": "7388",
+        "suite": "8348"
+      },
+      "seaDays": 17,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 6409,
+            "balcony": 7388,
+            "suite": 8780
+          }
+        },
+        {
+          "at": "2026-06-02T03:30:12.803Z",
+          "prices": {
+            "inside": 6509,
+            "balcony": 7538,
+            "suite": 9030
+          }
+        },
+        {
+          "at": "2026-06-09T14:39:05.953Z",
+          "prices": {
+            "inside": 6509,
+            "balcony": 7538,
+            "suite": 8548
+          }
+        },
+        {
+          "at": "2026-06-18T07:41:29.008Z",
+          "prices": {
+            "inside": 6409,
+            "balcony": 7388,
+            "suite": 8348
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-19T20:32:10.235Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_CFF07A_YP_20271128",
+      "shipName": "Sky Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2019,
+      "itinerary": "Ft. Lauderdale, Florida → Princess Cays, Bahamas → Falmouth, Jamaica → Grand Cayman, Cayman Islands → Cozumel, Mexico → Ft. Lauderdale, Florida",
+      "departureDate": "2027-11-28",
+      "duration": "7 Nights",
+      "departurePort": "Ft. Lauderdale, Florida",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "destinationPort": "Cozumel, Mexico",
+      "priceFrom": "704",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=Y734",
+      "prices": {
+        "inside": "704",
+        "oceanView": "904",
+        "balcony": "954",
+        "suite": "1229"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-06-05T16:28:16.747Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-05T16:28:16.747Z",
+          "prices": {
+            "inside": 704,
+            "oceanView": 904,
+            "balcony": 954,
+            "suite": 1229
+          }
+        },
+        {
+          "at": "2026-06-08T08:49:41.438Z",
+          "prices": {
+            "inside": 729,
+            "oceanView": 929,
+            "balcony": 1004,
+            "suite": 1329
+          }
+        },
+        {
+          "at": "2026-06-18T07:41:29.008Z",
+          "prices": {
+            "inside": 704,
+            "oceanView": 904,
+            "balcony": 954,
+            "suite": 1229
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-19T20:32:10.235Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ESB36A_MJ_20281016",
+      "shipName": "Majestic Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2017,
+      "itinerary": "Southampton (for London), England → Trondheim, Norway → Tromso, Norway → Tromso, Norway → Alta, Norway → Narvik, Norway → Molde, Norway → Southampton (for London), England → Vigo, Spain (for Santiago de Compostela) → Lisbon, Portugal → Madeira (Funchal), Portugal → Santa Cruz De Tenerife, Spain → Gran Canaria (Las Palmas), Canary Islands → Fortaleza, Brazil → Rio de Janeiro, Brazil → Montevideo, Uruguay → Buenos Aires, Argentina → Buenos Aires, Argentina",
+      "departureDate": "2028-10-16",
+      "duration": "36 Nights",
+      "departurePort": "Southampton (for London), England",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "destinationPort": "Buenos Aires, Argentina",
+      "priceFrom": "4052",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=8824A",
+      "prices": {
+        "inside": "4052",
+        "oceanView": null,
+        "balcony": "6873",
+        "suite": "8110"
+      },
+      "seaDays": 19,
+      "firstSeenAt": "2026-06-02T08:24:13.015Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-02T08:24:13.015Z",
+          "prices": {
+            "inside": 4048,
+            "balcony": 6698,
+            "suite": 7903
+          }
+        },
+        {
+          "at": "2026-06-13T20:29:37.518Z",
+          "prices": {
+            "inside": 4229,
+            "balcony": 6698,
+            "suite": 7903
+          }
+        },
+        {
+          "at": "2026-06-14T14:47:05.414Z",
+          "prices": {
+            "inside": 4048,
+            "balcony": 6698,
+            "suite": 7903
+          }
+        },
+        {
+          "at": "2026-06-16T03:10:18.936Z",
+          "prices": {
+            "inside": 4052,
+            "balcony": 6873,
+            "suite": 8110
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-19T20:32:10.235Z"
     }
   ]
 }
