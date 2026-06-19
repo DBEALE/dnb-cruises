@@ -24,8 +24,9 @@
   const SETTINGS_DEFAULTS = {
     sparklines: false,
     perNight:   false,
-    wikiLinks:  true,
-    companyLinks: false,
+    priceStars: true,
+    lowestPriceHighlight: true,
+    linkTarget: 'wikipedia',
     classDots:  true,
     launchYear: true,
     shipIcons:  true,
@@ -57,6 +58,14 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '19 Jun 2026',
+      title: 'More display options',
+      items: [
+        'Price stars and lowest-price highlighting can now be switched on or off independently.',
+        'Ship, cruise-line, and class links now use one destination menu: Wikipedia, Cruise Company, or None.',
+      ],
+    },
     {
       date: '19 Jun 2026',
       title: 'Mobile price layout',
@@ -931,21 +940,24 @@
   }
 
   function shipLinkUrl(c) {
-    return settings.companyLinks ? companyShipUrl(c) : shipWikiUrl(c?.shipName);
+    if (settings.linkTarget === 'none') return '';
+    return settings.linkTarget === 'company' ? companyShipUrl(c) : shipWikiUrl(c?.shipName);
   }
 
   function providerLinkUrl(c) {
-    return settings.companyLinks ? companyProviderUrl(c?.provider) : providerWikiUrl(c?.provider);
+    if (settings.linkTarget === 'none') return '';
+    return settings.linkTarget === 'company' ? companyProviderUrl(c?.provider) : providerWikiUrl(c?.provider);
   }
 
   function classLinkUrl(c) {
-    return settings.companyLinks ? companyClassUrl(c) : classWikiUrl(c?.shipClass);
+    if (settings.linkTarget === 'none') return '';
+    return settings.linkTarget === 'company' ? companyClassUrl(c) : classWikiUrl(c?.shipClass);
   }
 
   function wikiLink(value, url, fallback = '—') {
     const text = escHtml(value || fallback);
     if (!url) return text;
-    const title = settings.companyLinks ? 'View on cruise company website' : 'View on Wikipedia';
+    const title = settings.linkTarget === 'company' ? 'View on cruise company website' : 'View on Wikipedia';
     return `<a class="wiki-link" href="${escHtml(url)}" target="_blank" rel="noopener noreferrer" title="${escHtml(title)}">${text}</a>`;
   }
 
@@ -1756,10 +1768,23 @@
   // SETTINGS_KEY / SETTINGS_DEFAULTS / settings are declared up with the
   // other module-level state so init's loadSettings() doesn't hit the
   // temporal-dead-zone.
+  function migrateLinkTarget(saved) {
+    if (['wikipedia', 'company', 'none'].includes(saved?.linkTarget)) return saved.linkTarget;
+    if (saved?.companyLinks === true) return 'company';
+    if (saved?.wikiLinks === false) return 'none';
+    return 'wikipedia';
+  }
+
   function loadSettings() {
     try {
       const raw = localStorage.getItem(SETTINGS_KEY);
-      if (raw) settings = { ...SETTINGS_DEFAULTS, ...JSON.parse(raw) };
+      if (raw) {
+        const saved = JSON.parse(raw);
+        settings = { ...SETTINGS_DEFAULTS, ...saved, linkTarget: migrateLinkTarget(saved) };
+        delete settings.wikiLinks;
+        delete settings.companyLinks;
+        if (!saved.linkTarget) saveSettings();
+      }
     } catch {}
     applySettingsToDom();
   }
@@ -1772,7 +1797,8 @@
   function applySettingsToDom() {
     document.body.classList.toggle('hide-sparklines', !settings.sparklines);
     document.body.classList.toggle('hide-per-night',  !settings.perNight);
-    document.body.classList.toggle('hide-wiki-links', !settings.wikiLinks);
+    document.body.classList.toggle('hide-price-stars', !settings.priceStars);
+    document.body.classList.toggle('hide-lowest-price-highlight', !settings.lowestPriceHighlight);
     document.body.classList.toggle('hide-class-dots', !settings.classDots);
     document.body.classList.toggle('hide-launch-year',!settings.launchYear);
     document.body.classList.toggle('hide-ship-icons', !settings.shipIcons);
@@ -1785,6 +1811,8 @@
     dlg.querySelectorAll('input[data-setting]').forEach(cb => {
       cb.checked = !!settings[cb.dataset.setting];
     });
+    const linkTarget = document.getElementById('settingsLinkTarget');
+    if (linkTarget) linkTarget.value = settings.linkTarget;
     const phoneInput = document.getElementById('settingsPhone');
     if (phoneInput) phoneInput.value = rememberedPhone();
     const homePortInput = document.getElementById('settingsHomePort');
@@ -1810,9 +1838,17 @@
         settings[cb.dataset.setting] = cb.checked;
         applySettingsToDom();
         saveSettings();
-        if (cb.dataset.setting === 'companyLinks' && allCruises.length) applyFilters();
       });
     });
+
+    const linkTarget = document.getElementById('settingsLinkTarget');
+    if (linkTarget) {
+      linkTarget.addEventListener('change', () => {
+        settings.linkTarget = linkTarget.value;
+        saveSettings();
+        if (allCruises.length) applyFilters();
+      });
+    }
 
     // Phone number — save on every change, lightly validate, show inline status.
     const phoneInput  = document.getElementById('settingsPhone');
@@ -1853,8 +1889,10 @@
       dlg.querySelectorAll('input[data-setting]').forEach(cb => {
         cb.checked = !!settings[cb.dataset.setting];
       });
+      if (linkTarget) linkTarget.value = settings.linkTarget;
       applySettingsToDom();
       saveSettings();
+      if (allCruises.length) applyFilters();
       // Reset does NOT clear personal details such as phone or home port.
       // They can clear those themselves by emptying the fields.
     });

@@ -559,7 +559,7 @@
       <button type="button" class="ph-close" id="settingsClose" aria-label="Close">×</button>
     </div>
     <div class="settings-scroll">
-      <p class="settings-hint">Toggle features off to declutter the table. Choices save automatically to this browser.</p>
+      <p class="settings-hint">Choose which details to show. Choices save automatically to this browser.</p>
 
       <div class="settings-info">
         <span class="settings-info-label">USD exchange rate</span>
@@ -583,8 +583,16 @@
       <ul class="settings-list">
         <li><label><input type="checkbox" data-setting="sparklines">  <span>Price-history sparklines</span><small>The small trend line beneath each cabin price.</small></label></li>
         <li><label><input type="checkbox" data-setting="perNight">    <span>Price per night column</span><small>Adds a sortable £/night value to each cruise.</small></label></li>
-        <li><label><input type="checkbox" data-setting="wikiLinks">   <span>Wikipedia links</span><small>Underlined ship / cruise line / class names.</small></label></li>
-        <li><label><input type="checkbox" data-setting="companyLinks"> <span>Cruise-company link targets</span><small>Open ship, cruise line, and class links on the cruise company website instead of Wikipedia.</small></label></li>
+        <li><label><input type="checkbox" data-setting="priceStars"> <span>Price stars</span><small>Marks cabin prices that are at least 15% below their recorded peak.</small></label></li>
+        <li><label><input type="checkbox" data-setting="lowestPriceHighlight"> <span>Lowest price highlight</span><small>Highlights cabin prices when multiple previously recorded prices were higher.</small></label></li>
+        <li class="settings-select-item">
+          <label for="settingsLinkTarget"><span>Link targets</span><small>Choose where ship, cruise-line, and class names link.</small></label>
+          <select id="settingsLinkTarget" data-setting="linkTarget">
+            <option value="wikipedia">Wikipedia</option>
+            <option value="company">Cruise Company</option>
+            <option value="none">None</option>
+          </select>
+        </li>
         <li><label><input type="checkbox" data-setting="classDots">   <span>Class quality dots</span><small>The four green dots next to ship-class names.</small></label></li>
         <li><label><input type="checkbox" data-setting="launchYear">  <span>Ship launch year</span><small>The year column (desktop) and grey year next to ship name (mobile).</small></label></li>
         <li><label><input type="checkbox" data-setting="shipIcons">   <span>Ship icons</span><small>A small cruise-line-coloured ship icon next to each ship name.</small></label></li>

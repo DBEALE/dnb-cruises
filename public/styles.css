@@ -883,6 +883,13 @@
       line-height: 1.12;
       box-shadow: 0 0 0 1px rgba(22,101,52,.04);
     }
+    body.hide-price-stars .peak-drop-star-slot { display: none !important; }
+    body.hide-lowest-price-highlight .price-val.best-price-val {
+      background: transparent;
+      color: var(--blue);
+      border-color: transparent;
+      box-shadow: none;
+    }
 
     /* ── Price-history sparkline ────────────────────────────────────────────── */
     .price-cell-content {
@@ -1945,6 +1952,24 @@
     .settings-list input[type=checkbox] { width: 16px; height: 16px; margin-top: 3px; accent-color: var(--blue); cursor: pointer; }
     .settings-list label span  { grid-column: 2; font-weight: 600; display: block; }
     .settings-list label small { grid-column: 2; display: block; font-size: 0.76rem; font-weight: 400; color: var(--gray-600); margin-top: 2px; }
+    .settings-list .settings-select-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+    }
+    .settings-list .settings-select-item label { display: block; cursor: default; }
+    .settings-list .settings-select-item label span,
+    .settings-list .settings-select-item label small { display: block; }
+    .settings-list .settings-select-item select {
+      min-width: 142px;
+      padding: 7px 28px 7px 9px;
+      border: 1px solid var(--gray-200);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--gray-800);
+      font: inherit;
+    }
     /* Inline help section explaining what the class dots mean. */
     .settings-legend {
       margin: 0 0 14px;
@@ -2130,8 +2155,6 @@
     /* Toggle-driven visibility classes on <body> */
     body.hide-sparklines  .price-spark              { display: none !important; }
     body.hide-per-night   .col-per-night            { display: none !important; }
-    body.hide-wiki-links  a.wiki-link               { border-bottom: none; color: inherit; }
-    body.hide-wiki-links  a.wiki-link:hover         { color: inherit; }
     body.hide-class-dots  .class-dots               { display: none !important; }
     body.hide-launch-year .col-launch,
     body.hide-launch-year .mobile-launch-year       { display: none !important; }

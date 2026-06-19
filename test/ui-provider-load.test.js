@@ -53,6 +53,12 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   const clearButtonCount = (html.match(/class="filter-clear-btn"/g) || []).length;
   assert.ok(clearButtonCount >= 22, `expected at least 22 filter clear buttons, found ${clearButtonCount}`);
   assert.match(html, /class="settings-scroll"/);
+  assert.match(html, /data-setting="priceStars"/);
+  assert.match(html, /data-setting="lowestPriceHighlight"/);
+  assert.match(html, /id="settingsLinkTarget"/);
+  assert.match(html, /<option value="wikipedia">Wikipedia<\/option>/);
+  assert.match(html, /<option value="company">Cruise Company<\/option>/);
+  assert.match(html, /<option value="none">None<\/option>/);
   assert.match(html, /What do the price stars mean\?/);
   assert.match(html, /50% or more below peak/);
   assert.match(html, /30–49% below peak/);

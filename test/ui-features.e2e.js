@@ -124,7 +124,16 @@ async function gotoFresh(page, settings = null) {
 
 // Settings preset for tests that need sparklines + per-night visible
 // (they're off by default for first-time visitors).
-const ALL_ON = { sparklines: true, perNight: true, wikiLinks: true, classDots: true, launchYear: true };
+const ALL_ON = {
+  sparklines: true,
+  perNight: true,
+  priceStars: true,
+  lowestPriceHighlight: true,
+  linkTarget: 'wikipedia',
+  classDots: true,
+  launchYear: true,
+  shipIcons: true,
+};
 
 test.describe('Sparklines', () => {
   test('per-cabin sparklines render as lazy placeholders and fill on intersection', async ({ page }) => {
@@ -521,6 +530,8 @@ test.describe('Settings dialog', () => {
     await gotoFresh(page);
     await expect(page.locator('body')).toHaveClass(/hide-sparklines/);
     await expect(page.locator('body')).toHaveClass(/hide-per-night/);
+    await expect(page.locator('body')).not.toHaveClass(/hide-price-stars/);
+    await expect(page.locator('body')).not.toHaveClass(/hide-lowest-price-highlight/);
   });
 
   test('toggling sparklines on persists across reload', async ({ page }) => {
@@ -560,15 +571,48 @@ test.describe('Settings dialog', () => {
     expect(priceBox.y).toBeGreaterThanOrEqual(perNightBox.y + perNightBox.height - 1);
   });
 
-  test('link target toggle switches ship links from Wikipedia to cruise company pages', async ({ page }) => {
+  test('price stars and lowest-price highlighting can be toggled independently', async ({ page }) => {
+    await gotoFresh(page, ALL_ON);
+    const anthem = page.locator('#cruiseBody tr').filter({ hasText: 'Anthem of the Seas' });
+    const star = anthem.locator('.peak-drop-star-slot.is-visible').first();
+    const bestPrice = anthem.locator('.best-price-val').first();
+    await expect(star).toBeVisible();
+    await expect(bestPrice).toHaveCSS('background-color', 'rgb(220, 252, 231)');
+
+    await page.click('#settingsBtn');
+    await page.locator('#settingsDialog input[data-setting="priceStars"]').uncheck();
+    await expect(star).toBeHidden();
+    await expect(bestPrice).toHaveCSS('background-color', 'rgb(220, 252, 231)');
+
+    await page.locator('#settingsDialog input[data-setting="lowestPriceHighlight"]').uncheck();
+    await expect(bestPrice).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    await expect(page.locator('body')).toHaveClass(/hide-price-stars/);
+    await expect(page.locator('body')).toHaveClass(/hide-lowest-price-highlight/);
+  });
+
+  test('link target menu supports Wikipedia, Cruise Company, and None', async ({ page }) => {
     await gotoFresh(page);
     await page.waitForFunction(() => document.querySelector('tbody tr:first-child .col-ship a')?.href.includes('wikipedia.org'));
     await expect(page.locator('#cruiseBody tr:first-child .col-ship a').first()).toHaveAttribute('href', 'https://en.wikipedia.org/wiki/Anthem_of_the_Seas');
 
     await page.click('#settingsBtn');
     await page.waitForSelector('dialog#settingsDialog[open]');
-    await page.locator('#settingsDialog input[data-setting="companyLinks"]').check();
+    await page.selectOption('#settingsLinkTarget', 'company');
     await expect(page.locator('#cruiseBody tr:first-child .col-ship a').first()).toHaveAttribute('href', 'https://www.royalcaribbean.com/gbr/en/cruise-ships/anthem-of-the-seas');
+
+    await page.selectOption('#settingsLinkTarget', 'none');
+    await expect(page.locator('#cruiseBody tr:first-child a.wiki-link')).toHaveCount(0);
+    await expect(page.locator('#cruiseBody tr:first-child .col-ship')).toContainText('Anthem of the Seas');
+    expect((await page.evaluate(() => JSON.parse(localStorage.getItem('cruise-explorer-settings')))).linkTarget).toBe('none');
+  });
+
+  test('legacy link preferences migrate to the link target menu', async ({ page }) => {
+    await gotoFresh(page, { wikiLinks: false, companyLinks: false });
+    await expect(page.locator('#cruiseBody tr:first-child a.wiki-link')).toHaveCount(0);
+    const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('cruise-explorer-settings')));
+    expect(stored.linkTarget).toBe('none');
+    expect(stored.wikiLinks).toBeUndefined();
+    expect(stored.companyLinks).toBeUndefined();
   });
 
   test('home port setting is saved and highlighted in cruise rows', async ({ page }) => {
@@ -594,8 +638,9 @@ test.describe('Settings dialog', () => {
     await page.click('#settingsReset');
     expect(await page.locator('#settingsDialog input[data-setting="sparklines"]').isChecked()).toBe(false);
     expect(await page.locator('#settingsDialog input[data-setting="perNight"]').isChecked()).toBe(false);
-    expect(await page.locator('#settingsDialog input[data-setting="wikiLinks"]').isChecked()).toBe(true);
-    expect(await page.locator('#settingsDialog input[data-setting="companyLinks"]').isChecked()).toBe(false);
+    expect(await page.locator('#settingsDialog input[data-setting="priceStars"]').isChecked()).toBe(true);
+    expect(await page.locator('#settingsDialog input[data-setting="lowestPriceHighlight"]').isChecked()).toBe(true);
+    await expect(page.locator('#settingsLinkTarget')).toHaveValue('wikipedia');
     await expect(page.locator('body')).toHaveClass(/hide-sparklines/);
   });
 });
