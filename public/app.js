@@ -59,6 +59,13 @@
   const SITE_CHANGES = [
     {
       date: '19 Jun 2026',
+      title: 'Mobile price layout',
+      items: [
+        'When enabled, the price-per-night value now sits above the cabin prices beside First seen on mobile cards.',
+      ],
+    },
+    {
+      date: '19 Jun 2026',
       title: 'Price count',
       items: [
         'The page header now shows how many current cabin prices are available across all cruise lines.',

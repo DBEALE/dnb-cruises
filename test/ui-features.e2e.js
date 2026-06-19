@@ -547,6 +547,19 @@ test.describe('Settings dialog', () => {
     await expect(page.locator('.col-per-night').first()).toBeVisible();
   });
 
+  test('mobile per-night value sits beside first seen and above cabin prices', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoFresh(page, ALL_ON);
+
+    const row = page.locator('#cruiseBody tr').first();
+    const firstSeenBox = await row.locator('.col-first-seen').boundingBox();
+    const perNightBox = await row.locator('.col-per-night').boundingBox();
+    const priceBox = await row.locator('.col-price').boundingBox();
+
+    expect(Math.abs(firstSeenBox.y - perNightBox.y)).toBeLessThanOrEqual(1);
+    expect(priceBox.y).toBeGreaterThanOrEqual(perNightBox.y + perNightBox.height - 1);
+  });
+
   test('link target toggle switches ship links from Wikipedia to cruise company pages', async ({ page }) => {
     await gotoFresh(page);
     await page.waitForFunction(() => document.querySelector('tbody tr:first-child .col-ship a')?.href.includes('wikipedia.org'));

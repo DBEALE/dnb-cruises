@@ -1226,8 +1226,8 @@
       td.col-port { order: 7; }
       td.col-destination-port { order: 8; }
       td.col-first-seen { order: 9; }
+      td.col-per-night { order: 9; text-align: left; }
       td.col-price { order: 10; }
-      td.col-per-night { order: 11; }
 
       td.col-region .region-badge {
         padding: 1px 6px;
@@ -1236,7 +1236,8 @@
         line-height: 1.45;
       }
 
-      /* Ship, Itinerary, and Price span both columns */
+      /* Ship, Itinerary, and Price span both columns. Per-night sits beside
+         First seen in the row immediately above the cabin prices. */
       td.col-ship,
       td.col-itinerary,
       td.col-price {
