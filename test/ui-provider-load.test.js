@@ -70,6 +70,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(app, /function cabinBestPriceInfo\(c, bucket, currentRaw = null\)/);
   assert.match(app, /best-price-val/);
   assert.match(app, /function pricePeakDropInfo\(c, currentRaw, bucket = ''\)/);
+  assert.doesNotMatch(app, /entry\.price(?!s)/);
   assert.match(app, /dropPct >= 50 \? 'gold'/);
   assert.match(app, /dropPct >= 30 \? 'silver'/);
   assert.match(app, /dropPct >= 15 \? 'outline'/);

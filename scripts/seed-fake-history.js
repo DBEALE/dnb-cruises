@@ -37,7 +37,6 @@ function seedHistory(cruise, scrapedAt) {
     const v = parseFloat(cruise.prices?.[b]);
     return Number.isFinite(v) && v > 0;
   });
-  const hasMulti = true;
   if (!presentBuckets.length) {
     cruise = {
       ...cruise,
@@ -55,13 +54,10 @@ function seedHistory(cruise, scrapedAt) {
   // current; intermediate points interpolate with ±2% noise. The final
   // entry equals the current price so the table's price column matches.
   const cabinStart = {};
-  if (hasMulti) {
-    for (const b of presentBuckets) {
-      const cur = parseFloat(cruise.prices[b]);
-      cabinStart[b] = cur * (1 + (Math.random() - 0.5) * 0.3);
-    }
+  for (const b of presentBuckets) {
+    const cur = parseFloat(cruise.prices[b]);
+    cabinStart[b] = cur * (1 + (Math.random() - 0.5) * 0.3);
   }
-  const startFrom = currentFrom * (1 + (Math.random() - 0.5) * 0.3);
 
   const points = [];
   for (let i = 0; i < numPoints; i++) {
@@ -70,21 +66,14 @@ function seedHistory(cruise, scrapedAt) {
     const at       = new Date(endMs - daysBack * DAY_MS).toISOString();
     const noise    = 1 + (Math.random() - 0.5) * 0.04;
 
-    if (hasMulti) {
-      const prices = {};
-      for (const b of presentBuckets) {
-        const cur = parseFloat(cruise.prices[b]);
-        prices[b] = i === numPoints - 1
-          ? Math.round(cur)
-          : Math.round((cabinStart[b] + (cur - cabinStart[b]) * t) * noise);
-      }
-      points.push({ at, prices });
-    } else {
-      const price = i === numPoints - 1
-        ? Math.round(currentFrom)
-        : Math.round((startFrom + (currentFrom - startFrom) * t) * noise);
-      points.push({ at, price });
+    const prices = {};
+    for (const b of presentBuckets) {
+      const cur = parseFloat(cruise.prices[b]);
+      prices[b] = i === numPoints - 1
+        ? Math.round(cur)
+        : Math.round((cabinStart[b] + (cur - cabinStart[b]) * t) * noise);
     }
+    points.push({ at, prices });
   }
   return { ...cruise, priceHistory: points };
 }

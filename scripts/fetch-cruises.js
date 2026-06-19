@@ -6,6 +6,7 @@ const providers = require('../providers');
 const { fetchWithTimeout } = require('../providers/shared');
 const {
   hasUniformCabinPrices,
+  isInvalidLeadingHistoryEntry,
   sanitizePriceHistoryForProvider,
   withSanitizedPriceHistory,
 } = require('./price-history-cleanup');
@@ -86,10 +87,8 @@ function shouldPruneFromArchive(cruise, nowMs) {
 }
 
 // Each priceHistory entry is { at, prices: { inside, oceanView, balcony, suite } }
-// — one number per cabin bucket the provider published. When the provider
-// returns no per-cabin breakdown we fall back to a single-value entry
-// { at, price } that matches the pre-2026 format; readers (frontend) treat
-// the two shapes interchangeably for legacy data.
+// — one number per cabin bucket the provider published. Cruises without a
+// per-cabin breakdown do not produce price-history entries.
 //
 // A new entry is appended when *any* bucket's price differs from the last
 // recorded entry. Trimmed to MAX_PRICE_HISTORY so payload stays bounded.
@@ -108,28 +107,22 @@ function buildHistoryEntry(cruise, scrapedAt) {
   }
   if (hasAnyBucket) return { at: scrapedAt, prices: filteredPrices };
 
-  // No per-cabin breakdown — keep the legacy single-value shape so older
-  // providers without prices.* keep producing valid entries.
-  const fallback = parseFloat(cruise.priceFrom);
-  if (!Number.isFinite(fallback)) return null;
-  return { at: scrapedAt, price: fallback };
+  return null;
 }
 
 function entrySignature(entry) {
   if (!entry) return '';
-  if (entry.prices) {
-    return PRICE_BUCKETS
-      .map(b => entry.prices[b] != null ? String(entry.prices[b]) : '-')
-      .join('|');
-  }
-  return entry.price != null ? `~${entry.price}` : '';
+  if (!entry.prices) return '';
+  return PRICE_BUCKETS
+    .map(b => entry.prices[b] != null ? String(entry.prices[b]) : '-')
+    .join('|');
 }
 
 function mergePriceHistory(providerId, prevCruise, newCruise, scrapedAt) {
   const history = sanitizePriceHistoryForProvider(providerId, prevCruise?.priceHistory);
   const newEntry = buildHistoryEntry(newCruise, scrapedAt);
   if (!newEntry) return history.slice(-MAX_PRICE_HISTORY);
-  if (history.length === 0 && providerId === 'ncl-cruises' && hasUniformCabinPrices(newEntry)) {
+  if (history.length === 0 && isInvalidLeadingHistoryEntry(providerId, newEntry)) {
     return history;
   }
 

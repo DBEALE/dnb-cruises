@@ -28,12 +28,79 @@ test('NCL history keeps all-cabin-equal entries when they are not earliest', () 
   assert.equal(history.length, 2);
 });
 
-test('uniform first history cleanup is limited to NCL', () => {
+test('uniform first history cleanup does not affect unrelated providers', () => {
   const history = sanitizePriceHistoryForProvider('royal-caribbean', [
     { at: '2026-06-01T00:00:00Z', prices: { inside: 999, oceanView: 999, balcony: 999, suite: 999 } },
   ]);
 
   assert.equal(history.length, 1);
+});
+
+test('Princess history drops the oldest partial all-cabin-equal entry', () => {
+  const history = sanitizePriceHistoryForProvider('princess-cruises', [
+    { at: '2026-05-30T00:00:00Z', prices: { inside: 811, balcony: 1330, suite: 1692 } },
+    { at: '2026-05-29T09:33:00Z', prices: { inside: 811, balcony: 811, suite: 811 } },
+  ]);
+
+  assert.deepEqual(history, [
+    { at: '2026-05-30T00:00:00Z', prices: { inside: 811, balcony: 1330, suite: 1692 } },
+  ]);
+});
+
+test('Princess history drops repeated suspicious entries only while they are oldest', () => {
+  const laterUniform = { at: '2026-06-02T00:00:00Z', prices: { inside: 900, balcony: 900, suite: 900 } };
+  const history = sanitizePriceHistoryForProvider('princess-cruises', [
+    laterUniform,
+    { at: '2026-05-31T00:00:00Z', prices: { inside: 811, balcony: 1330, suite: 1692 } },
+    { at: '2026-05-29T09:33:00Z', prices: { inside: 811, balcony: 811, suite: 811 } },
+    { at: '2026-05-30T09:33:00Z', prices: { inside: 822, balcony: 822 } },
+  ]);
+
+  assert.deepEqual(history, [
+    laterUniform,
+    { at: '2026-05-31T00:00:00Z', prices: { inside: 811, balcony: 1330, suite: 1692 } },
+  ]);
+});
+
+test('Princess history keeps a single populated cabin entry', () => {
+  const entry = { at: '2026-05-29T09:33:00Z', prices: { inside: 811 } };
+  assert.deepEqual(sanitizePriceHistoryForProvider('princess-cruises', [entry]), [entry]);
+});
+
+test('all providers drop legacy single-value entries wherever they appear', () => {
+  const cabinEntry = { at: '2026-05-29T18:29:37.417Z', prices: { inside: 1072, balcony: 1800 } };
+  for (const providerId of ['princess-cruises', 'ncl-cruises', 'royal-caribbean', 'celebrity-cruises']) {
+    const history = sanitizePriceHistoryForProvider(providerId, [
+      { at: '2026-05-29T09:33:04.484Z', price: 1072 },
+      cabinEntry,
+      { at: '2026-05-30T09:33:04.484Z', price: 1100 },
+    ]);
+    assert.deepEqual(history, [cabinEntry], providerId);
+  }
+});
+
+test('merge does not create history from priceFrom without cabin prices', () => {
+  const history = mergePriceHistory(
+    'royal-caribbean',
+    null,
+    { prices: {}, priceFrom: '999' },
+    '2026-06-01T00:00:00Z'
+  );
+  assert.deepEqual(history, []);
+});
+
+test('Princess merge does not store a first partial all-cabin-equal scrape', () => {
+  const history = mergePriceHistory(
+    'princess-cruises',
+    null,
+    {
+      prices: { inside: '811', oceanView: null, balcony: '811', suite: '811' },
+      priceFrom: '811',
+    },
+    '2026-05-29T09:33:00Z'
+  );
+
+  assert.deepEqual(history, []);
 });
 
 test('NCL merge does not store a first all-cabin-equal scrape', () => {
@@ -50,7 +117,7 @@ test('NCL merge does not store a first all-cabin-equal scrape', () => {
   assert.deepEqual(history, []);
 });
 
-test('NCL history drops the earliest legacy single-price entry', () => {
+test('NCL history drops legacy entries before applying seeded-price cleanup', () => {
   const history = sanitizePriceHistoryForProvider('ncl-cruises', [
     { at: '2026-06-02T00:00:00Z', prices: { inside: 799, oceanView: 899, balcony: 1099, suite: 1599 } },
     { at: '2026-06-01T00:00:00Z', price: 999 },

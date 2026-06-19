@@ -59,6 +59,14 @@
   const SITE_CHANGES = [
     {
       date: '19 Jun 2026',
+      title: 'Price-history cleanup',
+      items: [
+        'Removed old single-value price-history entries now that every history observation uses cabin-specific prices.',
+        'Princess histories also remove only their oldest suspicious snapshots where every populated cabin type had the same price.',
+      ],
+    },
+    {
+      date: '19 Jun 2026',
       title: 'Share cruises and searches',
       items: [
         'Each cruise now has a compact Share button beside its launch year that opens a link showing only that sailing.',
@@ -1229,8 +1237,8 @@
   // user is explicitly sorted by "Biggest price rise" we flip and plot the
   // biggest-rise cabin instead. Falls back to cheapest-cabin trend when
   // nothing has moved in the relevant direction.
-  // SVG for the legacy fallback sparkline (single line, picks the biggest-fall
-  // cabin per current sort direction; falls back to lowest-cabin trend).
+  // Single-line sparkline picks the biggest-fall cabin per current sort
+  // direction, falling back to the lowest-cabin trend.
   function buildSingleSparkSvg(c) {
     const history = Array.isArray(c.priceHistory) ? c.priceHistory : [];
     if (history.length < 2) return null;
@@ -1598,7 +1606,7 @@
       return (Number.isNaN(aTime) ? 0 : aTime) - (Number.isNaN(bTime) ? 0 : bTime);
     });
 
-    const buckets = historyBuckets(chronologicalHistory); // empty → all legacy entries
+    const buckets = historyBuckets(chronologicalHistory);
     document.getElementById('phChart').innerHTML       = renderHistoryChart(chronologicalHistory, cruise.currency, buckets);
     document.getElementById('phTableHead').innerHTML   = renderHistoryTableHead(buckets);
     document.getElementById('phTableBody').innerHTML   = renderHistoryTableBody(chronologicalHistory, cruise.currency, buckets);
@@ -1612,10 +1620,7 @@
     const innerW = w - padL - padR;
     const innerH = h - padT - padB;
 
-    // For legacy-only histories, treat the single value as one virtual series.
-    const seriesSpec = buckets.length
-      ? buckets.map(b => ({ key: b, label: BUCKET_LABEL[b], color: BUCKET_COLOR[b], getValue: e => entryPrice(e, b) }))
-      : [{ key: 'legacy', label: 'Price', color: LEGACY_COLOR, getValue: e => entryPrice(e, null) }];
+    const seriesSpec = buckets.map(b => ({ key: b, label: BUCKET_LABEL[b], color: BUCKET_COLOR[b], getValue: e => entryPrice(e, b) }));
 
     // Global min/max across every series for a shared Y axis.
     let min = Infinity, max = -Infinity;
@@ -1664,9 +1669,6 @@
   }
 
   function renderHistoryTableHead(buckets) {
-    if (!buckets.length) {
-      return `<tr><th>When (UTC)</th><th style="text-align:right">Price</th><th style="text-align:right">Change</th></tr>`;
-    }
     const cabinHeads = buckets.map(b => `<th style="text-align:right">${escHtml(BUCKET_LABEL[b])}</th>`).join('');
     return `<tr><th>When (UTC)</th>${cabinHeads}</tr>`;
   }
@@ -1691,25 +1693,6 @@
     // prior scrape in chronological order.
     return history.map((entry, i) => ({ entry, prev: i > 0 ? history[i - 1] : null })).reverse().map(({ entry, prev }) => {
       const whenCell = renderHistoryWhenCell(entry.at);
-
-      if (!buckets.length) {
-        // Legacy single-value rendering — keep the Change column.
-        const cur = entryPrice(entry, null);
-        const prv = prev ? entryPrice(prev, null) : null;
-        let delta = '—', deltaClass = '';
-        if (cur != null && prv != null) {
-          const diff = cur - prv;
-          if (diff !== 0) {
-            delta = (diff > 0 ? '+' : '−') + escHtml(formatPriceDisplay(Math.abs(diff), currency));
-            deltaClass = diff > 0 ? 'up' : 'down';
-          }
-        }
-        return `<tr>
-          ${whenCell}
-          <td class="ph-price"><span class="ph-price-line"><span class="ph-amount">${escHtml(formatPriceDisplay(cur, currency))}</span></span></td>
-          <td class="ph-delta ${deltaClass}">${delta}</td>
-        </tr>`;
-      }
 
       const cells = buckets.map(b => {
         const cur = entryPrice(entry, b);
@@ -2974,44 +2957,24 @@
   const PRICE_BUCKETS  = ['inside', 'oceanView', 'balcony', 'suite'];
   const BUCKET_LABEL   = { inside: 'Inside', oceanView: 'Sea view', balcony: 'Balcony', suite: 'Suite' };
   const BUCKET_COLOR   = { inside: '#2563eb', oceanView: '#0891b2', balcony: '#16a34a', suite: '#9333ea' };
-  const LEGACY_COLOR   = '#2563eb';
-
-  // Reads a single bucket's price out of a priceHistory entry. Falls back
-  // to the legacy { at, price } shape (treats it as inside-equivalent for
-  // continuity with older snapshots) so all callers see one interface.
+  // Reads a single cabin bucket from a price-history entry.
   function entryPrice(entry, bucket) {
-    if (!entry) return null;
-    if (entry.prices) {
-      const v = parseFloat(entry.prices[bucket]);
-      return Number.isFinite(v) ? v : null;
-    }
-    if (entry.price != null) {
-      const v = parseFloat(entry.price);
-      return Number.isFinite(v) ? v : null;
-    }
-    return null;
+    const v = parseFloat(entry?.prices?.[bucket]);
+    return Number.isFinite(v) ? v : null;
   }
 
   // Min across populated cabins for one entry — the "from" trend point.
   function entryMinPrice(entry) {
     if (!entry) return null;
-    if (entry.prices) {
-      let min = Infinity;
-      for (const b of PRICE_BUCKETS) {
-        const v = parseFloat(entry.prices[b]);
-        if (Number.isFinite(v) && v < min) min = v;
-      }
-      return min === Infinity ? null : min;
+    let min = Infinity;
+    for (const b of PRICE_BUCKETS) {
+      const v = parseFloat(entry.prices?.[b]);
+      if (Number.isFinite(v) && v < min) min = v;
     }
-    if (entry.price != null) {
-      const v = parseFloat(entry.price);
-      return Number.isFinite(v) ? v : null;
-    }
-    return null;
+    return min === Infinity ? null : min;
   }
 
-  // Set of cabin buckets that appear in at least one entry; falls back to
-  // a synthetic 'price' bucket for histories made entirely of legacy entries.
+  // Set of cabin buckets that appear in at least one entry.
   function historyBuckets(history) {
     const buckets = [];
     for (const b of PRICE_BUCKETS) {
@@ -3038,9 +3001,7 @@
 
     const cutoff = now - windowMs;
     const buckets = historyBuckets(history);
-    const getters = buckets.length
-      ? buckets.map(bucket => entry => entryPrice(entry, bucket))
-      : [entryMinPrice];
+    const getters = buckets.map(bucket => entry => entryPrice(entry, bucket));
     let largestReduction = NaN;
 
     for (const getPrice of getters) {

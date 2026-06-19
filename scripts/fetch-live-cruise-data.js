@@ -58,7 +58,6 @@ async function fetchToFile(url, outPath) {
 }
 
 function sanitizeProviderFile(providerId, filePath) {
-  if (providerId !== 'ncl-cruises') return 0;
   try {
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     let removed = 0;
@@ -113,7 +112,7 @@ async function main() {
       try {
         if (await fetchToFile(url, outPath)) {
           const removed = sanitizeProviderFile(id, outPath);
-          if (removed) console.log(`    cleaned ${removed} NCL seeded history entr${removed === 1 ? 'y' : 'ies'}`);
+          if (removed) console.log(`    cleaned ${removed} ${id} legacy or invalid history entr${removed === 1 ? 'y' : 'ies'}`);
           okCount++;
         }
       } catch (err) {
