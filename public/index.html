@@ -102,6 +102,10 @@
         </select>
         <button id="sortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
       </label>
+      <button id="shareSearchBtn" class="share-view-btn" type="button" onclick="shareCurrentSearch()" title="Share current search" aria-label="Share current search">
+        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M14 6a3 3 0 1 0-2.83-4 3 3 0 0 0 .06 2.13L6.91 6.29a3 3 0 1 0 0 3.42l4.32 2.16A3 3 0 1 0 12.1 10l-4.32-2.16a3 3 0 0 0 0-.68l4.32-2.16A3 3 0 0 0 14 6Z"/></svg>
+        <span>Share search</span>
+      </button>
       <button id="savedViewsBtn" type="button" onclick="openSavedViews()" title="Saved views" aria-label="Saved views">★</button>
     </div>
   </div>
@@ -112,6 +116,9 @@
       <select id="mobileSavedSelect" onchange="mobileSavedSelectChange()">
         <option value="">Saved views…</option>
       </select>
+      <button class="share-view-btn share-view-mobile" type="button" onclick="shareCurrentSearch()" title="Share current search" aria-label="Share current search">
+        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M14 6a3 3 0 1 0-2.83-4 3 3 0 0 0 .06 2.13L6.91 6.29a3 3 0 1 0 0 3.42l4.32 2.16A3 3 0 1 0 12.1 10l-4.32-2.16a3 3 0 0 0 0-.68l4.32-2.16A3 3 0 0 0 14 6Z"/></svg>
+      </button>
       <button id="mobFilterToggle" onclick="toggleMobileFilters()" aria-expanded="false" aria-controls="mobFilters" aria-label="Sort & filter" title="Sort & filter">
         <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v1.6a1 1 0 01-.3.7l-4.7 4.7v6L8 18.4v-7.4L3.3 6.3a1 1 0 01-.3-.7V4z"/></svg>
       </button>
@@ -355,7 +362,7 @@
             <th class="col-price"       data-sort="11" tabindex="0" role="button" aria-sort="none" onclick="sortTable(11)" data-col="11">Price</th>
             <th class="col-per-night"   data-sort="17" tabindex="0" role="button" aria-sort="none" onclick="sortTable(17)">£/night</th>
             <th class="col-first-seen"  data-sort="18" tabindex="0" role="button" aria-sort="none" onclick="sortTable(18)">First seen</th>
-            <th class="col-book">Book</th>
+            <th class="col-book">Actions</th>
           </tr>
           <tr id="filterRow">
             <td class="col-num"></td>
@@ -520,6 +527,7 @@
     </div>
   </div>
 </main>
+<div id="shareNotice" class="share-notice" role="status" aria-live="polite"></div>
 
 <dialog id="savedViewsDialog" aria-labelledby="svTitle">
   <div class="sv-box">

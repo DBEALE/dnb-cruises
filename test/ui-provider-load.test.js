@@ -349,7 +349,8 @@ test('loads the provider manifest and provider-specific cruise file on init', as
   assert.match(elements.cruiseBody.innerHTML, /data-label="Cruise line"/);
   assert.match(elements.cruiseBody.innerHTML, /data-label="Sea days"/);
   assert.match(elements.cruiseBody.innerHTML, /data-label="Destination port"/);
-  assert.match(elements.cruiseBody.innerHTML, /data-label="Book"/);
+  assert.match(elements.cruiseBody.innerHTML, /data-label="Actions"/);
+  assert.match(elements.cruiseBody.innerHTML, /cruise-share-btn/);
   assert.match(elements.cruiseBody.innerHTML, /Royal Caribbean/);
   assert.match(elements.cruiseBody.innerHTML, /<td class="col-destination-port" data-label="Destination port">Venice<\/td>/);
   assert.match(elements.cruiseBody.innerHTML, /<td class="col-sea-days duration" data-label="Sea days">3<\/td>/);

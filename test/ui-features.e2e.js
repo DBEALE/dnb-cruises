@@ -372,6 +372,49 @@ test.describe('URL state', () => {
     await expect(page.locator('#sortDirBtn')).toHaveText('↑');
     expect(await page.locator('.col-filter[data-field="provider"]').inputValue()).toBe('Royal Caribbean');
   });
+
+  test('cruise share URL reloads to only that sailing', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'share', {
+        configurable: true,
+        value: async data => { window.__lastShare = data; },
+      });
+    });
+    await gotoFresh(page);
+
+    await page.locator('[data-share-cruise="rc_a"]').click();
+    const shared = await page.evaluate(() => window.__lastShare);
+    expect(shared.url).toContain('#cruise=rc_a');
+    expect(shared.url).not.toContain('provider=');
+
+    await setupRoutes(page);
+    await page.goto(shared.url);
+    await page.reload();
+    await page.waitForSelector('tbody tr:not(.empty-row)');
+    await expect(page.locator('#cruiseBody')).toContainText('Anthem of the Seas');
+    await expect(page.locator('#cruiseBody')).not.toContainText('Harmony of the Seas');
+    await expect(page.locator('#cruiseBody')).not.toContainText('Celebrity Edge');
+    await expect(page.locator('#summary')).toContainText('Showing Anthem of the Seas only');
+  });
+
+  test('search share URL preserves the current filters and sort', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'share', {
+        configurable: true,
+        value: async data => { window.__lastShare = data; },
+      });
+    });
+    await gotoFresh(page);
+    await page.selectOption('#sortSelect', '14');
+    await page.locator('.col-filter[data-field="provider"]').selectOption('Royal Caribbean');
+    await page.waitForFunction(() => location.hash.includes('provider=Royal'));
+
+    await page.click('#shareSearchBtn');
+    const shared = await page.evaluate(() => window.__lastShare);
+    expect(shared.url).toContain('sort=14-asc');
+    expect(shared.url).toContain('provider=Royal+Caribbean');
+    expect(shared.url).not.toContain('cruise=');
+  });
 });
 
 test.describe('Mobile filters', () => {
@@ -385,6 +428,13 @@ test.describe('Mobile filters', () => {
     const box = await page.locator('dialog#mobFilters').boundingBox();
     expect(box.y).toBeGreaterThanOrEqual(60);
     expect(box.y + box.height).toBeLessThanOrEqual(640);
+  });
+
+  test('share actions remain visible in the mobile card layout', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoFresh(page);
+    await expect(page.locator('.share-view-mobile')).toBeVisible();
+    await expect(page.locator('[data-share-cruise="rc_a"]')).toBeVisible();
   });
 });
 

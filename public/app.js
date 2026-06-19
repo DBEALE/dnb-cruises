@@ -43,6 +43,7 @@
   // hundred keeps the page interactive. Opt out with "Show all".
   const ROW_CAP    = 300;
   let showAll      = false;
+  let selectedCruiseId = '';
   let shipWikiLinks     = {};
   let providerWikiLinks = {};
   let classWikiLinks    = {};
@@ -56,6 +57,14 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '19 Jun 2026',
+      title: 'Share cruises and searches',
+      items: [
+        'Each cruise now has a Share button that opens a link showing only that sailing.',
+        'The current filters and sort order can now be shared from the search toolbar.',
+      ],
+    },
     {
       date: '17 Jun 2026',
       title: 'Mobile filter close button',
@@ -1491,9 +1500,12 @@
       const date     = formatDateDisplay(c.departureDate);
       const duration = formatDurationDisplay(c.duration);
       const url      = c.bookingUrl ? escHtml(absoluteUrl(c.bookingUrl)) : '';
-      const bookCell = url
+      const bookLink = url
         ? `<a href="${url}" target="_blank" rel="noopener noreferrer">Book<svg class="book-ext" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M8 1h5v5h-2V4.4L5.7 9.7 4.3 8.3 9.6 3H8V1zM2 3h4v2H4v6h6V9h2v4H2V3z"/></svg></a>`
-        : '—';
+        : '';
+      const shareLabel = `Share ${c.shipName || 'cruise'} departing ${date}`;
+      const shareButton = `<button type="button" class="cruise-share-btn" data-share-cruise="${escHtml(c.id || '')}" aria-label="${escHtml(shareLabel)}" title="${escHtml(shareLabel)}">${shareIcon()}<span>Share</span></button>`;
+      const actionCell = `<span class="cruise-actions">${bookLink}${shareButton}</span>`;
       const priceCell = buildPriceCell(c, url);
       const perNight  = getPricePerNight(c);
       const perNightCell = Number.isFinite(perNight)
@@ -1522,7 +1534,7 @@
         <td class="col-first-seen" data-label="First seen"><span class="first-seen-val">${escHtml(firstSeen)}</span></td>
         <td class="col-price price" data-label="Price">${priceCell}</td>
         <td class="col-per-night per-night" data-label="£/night">${perNightCell}</td>
-        <td class="col-book book" data-label="Book">${bookCell}</td>
+        <td class="col-book book" data-label="Actions">${actionCell}</td>
       </tr>`;
     }).join('');
     observeNewSparks();
@@ -2355,6 +2367,12 @@
     if (tbody && !tbody.dataset.phWired) {
       tbody.dataset.phWired = '1';
       tbody.addEventListener('click', (ev) => {
+        const shareBtn = ev.target.closest('[data-share-cruise]');
+        if (shareBtn) {
+          ev.preventDefault();
+          shareCruise(shareBtn.dataset.shareCruise);
+          return;
+        }
         const btn = ev.target.closest('.price-spark');
         if (!btn) return;
         ev.preventDefault();
@@ -2642,6 +2660,7 @@
     });
 
     const filtered = allCruises.filter(c => {
+      if (selectedCruiseId && c.id !== selectedCruiseId) return false;
       const itineraryTerms = itinerarySearchTerms(colFilters.itinerary);
       if (itineraryTerms.length) {
         const haystack = (c.itinerary || '').toLowerCase();
@@ -2726,6 +2745,10 @@
     let summary;
     if (capped.length < sorted.length) {
       summary = `Showing first ${capped.length.toLocaleString()} of ${sorted.length.toLocaleString()} sailings${filterSuffix} · ${showAllLink}${sortHint}`;
+    } else if (selectedCruiseId) {
+      const cruise = cruiseById.get(selectedCruiseId);
+      const label = cruise?.shipName ? escHtml(cruise.shipName) : 'shared cruise';
+      summary = `Showing ${label} only · <button type="button" class="show-all-btn" onclick="clearSharedCruise()">View all cruises</button>`;
     } else if (filtered.length === allCruises.length) {
       summary = `Showing all ${allLabel} sailings${filterSuffix}${sortHint}`;
     } else {
@@ -2781,6 +2804,12 @@
   // and the back button preserve them, and the view is shareable. Only
   // non-default values are written — a clean URL = default state.
   function serializeUrlState() {
+    const p = new URLSearchParams(serializeSearchState());
+    if (selectedCruiseId) p.set('cruise', selectedCruiseId);
+    return p.toString();
+  }
+
+  function serializeSearchState() {
     const p = new URLSearchParams();
     if (sortColIndex >= 0) p.set('sort', `${sortColIndex}-${sortAsc ? 'asc' : 'desc'}`);
     if (showAll)           p.set('all', '1');
@@ -2789,6 +2818,64 @@
       if (el.value) p.set(el.dataset.field, el.value);
     });
     return p.toString();
+  }
+
+  function shareIcon() {
+    return '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M14 6a3 3 0 1 0-2.83-4 3 3 0 0 0 .06 2.13L6.91 6.29a3 3 0 1 0 0 3.42l4.32 2.16A3 3 0 1 0 12.1 10l-4.32-2.16a3 3 0 0 0 0-.68l4.32-2.16A3 3 0 0 0 14 6Z"/></svg>';
+  }
+
+  function appUrlForHash(hash) {
+    const url = new URL(window.location.pathname + window.location.search, window.location.href);
+    url.hash = hash ? `#${hash}` : '';
+    return url.href;
+  }
+
+  async function shareAppUrl({ title, text, url }) {
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, text, url });
+        return;
+      } catch (err) {
+        if (err?.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      showShareNotice('Link copied');
+    } catch {
+      window.prompt('Copy this link', url);
+    }
+  }
+
+  function showShareNotice(message) {
+    const notice = document.getElementById('shareNotice');
+    if (!notice) return;
+    notice.textContent = message;
+    notice.classList.add('visible');
+    clearTimeout(showShareNotice.timer);
+    showShareNotice.timer = setTimeout(() => notice.classList.remove('visible'), 2200);
+  }
+
+  function shareCruise(cruiseId) {
+    const cruise = cruiseById.get(cruiseId);
+    if (!cruise) return;
+    const hash = new URLSearchParams({ cruise: cruiseId }).toString();
+    const details = [cruise.shipName, formatDateDisplay(cruise.departureDate), cruise.departurePort].filter(Boolean).join(' · ');
+    shareAppUrl({ title: cruise.shipName || 'Cruise', text: details, url: appUrlForHash(hash) });
+  }
+
+  function shareCurrentSearch() {
+    shareAppUrl({
+      title: 'Cruise search',
+      text: 'Cruise search results',
+      url: appUrlForHash(serializeSearchState()),
+    });
+  }
+
+  function clearSharedCruise() {
+    selectedCruiseId = '';
+    try { history.replaceState(null, '', appUrlForHash(serializeSearchState())); } catch {}
+    applyFilters();
   }
 
   function writeUrlState() {
@@ -2805,6 +2892,8 @@
     const hash = window.location.hash.replace(/^#/, '');
     if (!hash) return;
     const p = new URLSearchParams(hash);
+
+    selectedCruiseId = p.get('cruise') || '';
 
     const sortVal = p.get('sort');
     if (sortVal && /^\d+-(asc|desc)$/.test(sortVal)) {
