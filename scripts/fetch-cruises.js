@@ -141,12 +141,22 @@ function firstSeenAt(prevCruise, priceHistory, scrapedAt) {
   return firstHistoryAt || scrapedAt;
 }
 
+function countCurrentPrices(cruises) {
+  return (Array.isArray(cruises) ? cruises : []).reduce((total, cruise) => {
+    return total + PRICE_BUCKETS.filter(bucket => {
+      const value = parseFloat(cruise?.prices?.[bucket]);
+      return Number.isFinite(value) && value > 0;
+    }).length;
+  }, 0);
+}
+
 function writeProviderSnapshot(provider, cruises, scrapedAt) {
   const outPath = getProviderOutputPath(provider.id);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, JSON.stringify({
     success:   true,
     count:     cruises.length,
+    priceCount: countCurrentPrices(cruises),
     provider:  { id: provider.id, name: provider.name },
     cruises,
     scrapedAt,
@@ -422,6 +432,7 @@ if (require.main === module) {
 }
 
 module.exports = {
+  countCurrentPrices,
   hasUniformCabinPrices,
   mergePriceHistory,
   sanitizePriceHistoryForProvider,

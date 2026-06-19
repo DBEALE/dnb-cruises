@@ -4,9 +4,18 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 
 const {
+  countCurrentPrices,
   mergePriceHistory,
   sanitizePriceHistoryForProvider,
 } = require('../scripts/fetch-cruises');
+
+test('counts current cabin prices for scrape metadata', () => {
+  assert.equal(countCurrentPrices([
+    { prices: { inside: 799, oceanView: null, balcony: '1099', suite: 0 } },
+    { prices: { inside: 899, oceanView: 999, balcony: 1199, suite: 1599 } },
+    { priceFrom: 500 },
+  ]), 6);
+});
 
 test('NCL history drops the earliest all-cabin-equal price entry', () => {
   const history = sanitizePriceHistoryForProvider('ncl-cruises', [

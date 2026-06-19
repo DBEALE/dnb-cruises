@@ -59,6 +59,14 @@
   const SITE_CHANGES = [
     {
       date: '19 Jun 2026',
+      title: 'Price count',
+      items: [
+        'The page header now shows how many current cabin prices are available across all cruise lines.',
+        'The total is calculated during each scrape and cached with the provider data for fast display.',
+      ],
+    },
+    {
+      date: '19 Jun 2026',
       title: 'Price-history cleanup',
       items: [
         'Removed old single-value price-history entries now that every history observation uses cabin-specific prices.',
@@ -613,11 +621,28 @@
     }
   }
 
+  function countCurrentPrices(cruises) {
+    return (Array.isArray(cruises) ? cruises : []).reduce((total, cruise) => {
+      return total + PRICE_BUCKETS.filter(bucket => {
+        const value = parseFloat(cruise?.prices?.[bucket]);
+        return Number.isFinite(value) && value > 0;
+      }).length;
+    }, 0);
+  }
+
+  function snapshotPriceCount(payload) {
+    const cachedCount = Number(payload?.priceCount);
+    return Number.isFinite(cachedCount) && cachedCount >= 0
+      ? cachedCount
+      : countCurrentPrices(payload?.cruises);
+  }
+
   function loadCachedCruises(providerIds) {
     const ids = Array.isArray(providerIds) ? providerIds : [providerIds].filter(Boolean);
     const combined = [];
     const counts = new Map();
     const scrapedAts = new Map();
+    let priceCount = 0;
     let latestScrapedAt = null;
     let found = false;
 
@@ -627,24 +652,25 @@
       found = true;
       combined.push(...cached.cruises);
       counts.set(providerId, (counts.get(providerId) || 0) + cached.cruises.length);
+      priceCount += snapshotPriceCount(cached);
       if (cached.scrapedAt) scrapedAts.set(providerId, cached.scrapedAt);
       if (cached.scrapedAt && (!latestScrapedAt || cached.scrapedAt > latestScrapedAt)) latestScrapedAt = cached.scrapedAt;
     }
 
-    if (found) return { cruises: combined, scrapedAt: latestScrapedAt, counts, scrapedAts };
+    if (found) return { cruises: combined, scrapedAt: latestScrapedAt, counts, scrapedAts, priceCount };
     const legacy = readCachedPayload(LEGACY_CACHE_KEY);
-    return legacy ? { cruises: legacy.cruises, scrapedAt: legacy.scrapedAt, counts: new Map(), scrapedAts: new Map() } : null;
+    return legacy ? { cruises: legacy.cruises, scrapedAt: legacy.scrapedAt, counts: new Map(), scrapedAts: new Map(), priceCount: snapshotPriceCount(legacy) } : null;
   }
 
-  function saveCachedCruises(providerId, cruises, scrapedAt) {
+  function saveCachedCruises(providerId, cruises, scrapedAt, priceCount) {
     try {
-      localStorage.setItem(getProviderCacheKey(providerId), JSON.stringify({ cruises, scrapedAt }));
+      localStorage.setItem(getProviderCacheKey(providerId), JSON.stringify({ cruises, scrapedAt, priceCount }));
     } catch {}
   }
 
-  function saveLegacyCachedCruises(cruises, scrapedAt) {
+  function saveLegacyCachedCruises(cruises, scrapedAt, priceCount) {
     try {
-      localStorage.setItem(LEGACY_CACHE_KEY, JSON.stringify({ cruises, scrapedAt }));
+      localStorage.setItem(LEGACY_CACHE_KEY, JSON.stringify({ cruises, scrapedAt, priceCount }));
     } catch {}
   }
 
@@ -689,7 +715,7 @@
     if (cached) {
       loadedProviderCounts = cached.counts || new Map();
       loadedProviderScrapedAts = cached.scrapedAts || new Map();
-      applyCruiseResults(cached.cruises, cached.scrapedAt);
+      applyCruiseResults(cached.cruises, cached.scrapedAt, cached.priceCount);
     }
 
     try {
@@ -706,17 +732,20 @@
       let latestScrapedAt = null;
       const providerCounts = new Map();
       const providerScrapedAts = new Map();
+      let priceCount = 0;
       for (const { provider, json } of providerResults) {
-        saveCachedCruises(provider.id, json.cruises, json.scrapedAt);
+        const providerPriceCount = snapshotPriceCount(json);
+        saveCachedCruises(provider.id, json.cruises, json.scrapedAt, providerPriceCount);
         allCruises.push(...json.cruises);
+        priceCount += providerPriceCount;
         providerCounts.set(provider.id, json.cruises.length);
         if (json.scrapedAt) providerScrapedAts.set(provider.id, json.scrapedAt);
         if (json.scrapedAt && (!latestScrapedAt || json.scrapedAt > latestScrapedAt)) latestScrapedAt = json.scrapedAt;
       }
       loadedProviderCounts = providerCounts;
       loadedProviderScrapedAts = providerScrapedAts;
-      saveLegacyCachedCruises(allCruises, latestScrapedAt);
-      applyCruiseResults(allCruises, latestScrapedAt);
+      saveLegacyCachedCruises(allCruises, latestScrapedAt, priceCount);
+      applyCruiseResults(allCruises, latestScrapedAt, priceCount);
       hideStatus();
     } catch {
       if (!cached) showStatus('Could not load cruise data: unable to load the static cruise files.', true);
@@ -940,7 +969,7 @@
   }
 
   // ── Apply results ──────────────────────────────────────────────────────────
-  function applyCruiseResults(cruises, scrapedAt) {
+  function applyCruiseResults(cruises, scrapedAt, priceCount = null) {
     allCruises = cruises || [];
     cruiseById = new Map(allCruises.map(c => [c.id, c]));
 
@@ -948,6 +977,9 @@
 
     // Header stats
     document.getElementById('totalCount').textContent = allCruises.length.toLocaleString();
+    document.getElementById('totalPrices').textContent = Number.isFinite(priceCount)
+      ? priceCount.toLocaleString()
+      : '—';
     const ships = new Set(allCruises.map(c => c.shipName).filter(Boolean));
     document.getElementById('totalShips').textContent = ships.size;
     const providers = new Set(allCruises.map(c => c.provider).filter(Boolean));

@@ -48,6 +48,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /Sea days/);
   assert.match(html, /id="mobClearFilters" onclick="clearMobileFilters\(\)"/);
   assert.match(html, /id="visitorStats"/);
+  assert.match(html, /id="totalPrices"/);
   assert.match(html, /class="ph-table-wrap"/);
   const clearButtonCount = (html.match(/class="filter-clear-btn"/g) || []).length;
   assert.ok(clearButtonCount >= 22, `expected at least 22 filter clear buttons, found ${clearButtonCount}`);
@@ -206,6 +207,7 @@ async function createSandbox({
     summary: createElement(),
     rateNote: createElement(),
     totalCount: createElement(),
+    totalPrices: createElement(),
     totalShips: createElement(),
     totalProviders: createElement(),
     updatedAt: createElement(),
@@ -287,6 +289,7 @@ async function createSandbox({
           status: 200,
           json: async () => ({
             cruises: providerCruises,
+            priceCount: 3,
             scrapedAt: providerCruises[0]?.scrapedAt || '2026-04-27T20:00:00.000Z',
           }),
         };
@@ -372,8 +375,9 @@ test('loads the provider manifest and provider-specific cruise file on init', as
   assert.match(elements.cruiseBody.innerHTML, /<td class="col-destination-port" data-label="Destination port">Venice<\/td>/);
   assert.match(elements.cruiseBody.innerHTML, /<td class="col-sea-days duration" data-label="Sea days">3<\/td>/);
   assert.equal(elements.totalProviders.textContent, '1');
+  assert.equal(elements.totalPrices.textContent, '3');
   assert.match(elements.updatedAt.textContent, /27 Apr 2026/);
-  assert.ok(sandbox.localStorage.getItem('cached_cruises:royal-caribbean'));
+  assert.equal(JSON.parse(sandbox.localStorage.getItem('cached_cruises:royal-caribbean')).priceCount, 3);
   assert.ok(sandbox.localStorage.getItem('cached_cruises'));
 });
 
