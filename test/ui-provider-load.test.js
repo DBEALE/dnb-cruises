@@ -66,7 +66,9 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(app, /function cabinBestPriceInfo\(c, bucket, currentRaw = null\)/);
   assert.match(app, /best-price-val/);
   assert.match(app, /function pricePeakDropInfo\(c, currentRaw, bucket = ''\)/);
-  assert.match(app, /dropPct >= 30/);
+  assert.match(app, /dropPct >= 50 \? 'gold'/);
+  assert.match(app, /dropPct >= 30 \? 'silver'/);
+  assert.match(app, /dropPct >= 15 \? 'outline'/);
   assert.match(app, /const HOME_PORT_KEY = 'cruise-explorer-home-port'/);
   assert.match(app, /function rememberedHomePort\(\)/);
   assert.match(app, /className: 'home-port-highlight'/);
@@ -110,6 +112,9 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.price-amount \{[^}]*position: relative/s);
   assert.match(css, /\.peak-drop-star-slot \{[^}]*position: absolute/s);
   assert.match(css, /\.peak-drop-star-slot \{[^}]*transform: translate\(52%, -52%\)/s);
+  assert.match(css, /\.peak-drop-star-slot\.tier-gold/);
+  assert.match(css, /\.peak-drop-star-slot\.tier-silver/);
+  assert.match(css, /\.peak-drop-star-slot\.tier-outline/);
   assert.match(css, /\.home-port-highlight \{/);
   assert.match(css, /\.itinerary-highlight \{/);
   assert.match(css, /\.launch-year-badge \{/);

@@ -845,15 +845,27 @@
       height: 1em;
       align-items: center;
       justify-content: center;
-      color: #d4a017;
       font-size: .78rem;
       line-height: 1;
       visibility: hidden;
-      text-shadow: 0 1px 1px rgba(120, 83, 0, .18);
       transform: translate(52%, -52%);
       pointer-events: none;
     }
     .peak-drop-star-slot.is-visible { visibility: visible; }
+    .peak-drop-star-slot.tier-gold {
+      color: #d4a017;
+      text-shadow: 0 1px 1px rgba(120, 83, 0, .22);
+    }
+    .peak-drop-star-slot.tier-silver {
+      color: #9ca3af;
+      text-shadow: 0 1px 1px rgba(51, 65, 85, .18);
+    }
+    .peak-drop-star-slot.tier-outline {
+      color: transparent;
+      -webkit-text-stroke: 1px #fff;
+      filter: drop-shadow(0 0 1px #64748b);
+      text-shadow: none;
+    }
 
     .price-val.price-from {
       font-size: 0.95rem;

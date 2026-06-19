@@ -55,7 +55,7 @@ const CRUISES_RC = {
       seaDays: 3,
       prices: { inside: '500', oceanView: '650', balcony: '800', suite: '1800' },
       history: [
-        { at: isoAgo(20 * DAY), prices: { inside: 800, oceanView: 720, balcony: 900, suite: 2000 } },
+        { at: isoAgo(20 * DAY), prices: { inside: 1000, oceanView: 900, balcony: 1200, suite: 2000 } },
         { at: isoAgo(30 * HOUR), prices: { inside: 550, oceanView: 680, balcony: 850, suite: 1900 } },
         { at: isoAgo(2 * HOUR), prices: { inside: 500, oceanView: 650, balcony: 800, suite: 1800 } },
       ],
@@ -240,21 +240,25 @@ test.describe('Sort and filter', () => {
     await expect(edge.locator('.best-price-val')).toHaveCount(0);
   });
 
-  test('prices at least 30% below peak show a star without changing row geometry', async ({ page }) => {
+  test('peak discount star tiers do not change price row geometry', async ({ page }) => {
     await gotoFresh(page);
     await page.setViewportSize({ width: 1920, height: 900 });
     const anthem = page.locator('tbody tr:has-text("Anthem of the Seas")');
     const slots = anthem.locator('.peak-drop-star-slot');
     await expect(slots).toHaveCount(4);
-    await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toHaveCount(1);
-    await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toHaveText('★');
-    await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toHaveAttribute('title', /38% below recorded peak of £800/);
+    await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toHaveCount(3);
+    await expect(anthem.locator('.peak-drop-star-slot.tier-gold')).toHaveCount(1);
+    await expect(anthem.locator('.peak-drop-star-slot.tier-silver')).toHaveCount(1);
+    await expect(anthem.locator('.peak-drop-star-slot.tier-outline')).toHaveCount(1);
+    await expect(anthem.locator('.peak-drop-star-slot.tier-gold')).toHaveAttribute('title', /50% below recorded peak of £1,000/);
+    await expect(anthem.locator('.peak-drop-star-slot.tier-silver')).toHaveAttribute('title', /33% below recorded peak of £1,200/);
+    await expect(anthem.locator('.peak-drop-star-slot.tier-outline')).toHaveAttribute('title', /28% below recorded peak of £900/);
     await expect(anthem.locator('.price-val').first()).toHaveText('£500');
 
     const amountBoxes = await anthem.locator('.price-amount').evaluateAll(elements => elements.slice(0, 2).map(el => el.getBoundingClientRect().toJSON()));
     expect(Math.abs(amountBoxes[0].width - amountBoxes[1].width)).toBeLessThanOrEqual(1);
     const desktopAmount = await anthem.locator('.price-amount').first().boundingBox();
-    const desktopStar = await anthem.locator('.peak-drop-star-slot.is-visible').boundingBox();
+    const desktopStar = await anthem.locator('.peak-drop-star-slot.tier-gold').boundingBox();
     expect(desktopStar.x).toBeLessThan(desktopAmount.x + desktopAmount.width);
     expect(desktopStar.x + desktopStar.width).toBeGreaterThan(desktopAmount.x + desktopAmount.width);
     expect(desktopStar.y).toBeLessThan(desktopAmount.y);
@@ -265,9 +269,9 @@ test.describe('Sort and filter', () => {
     await expect(harmony.locator('.peak-drop-star-slot.is-visible')).toHaveCount(0);
 
     await page.setViewportSize({ width: 390, height: 844 });
-    await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toBeVisible();
+    await expect(anthem.locator('.peak-drop-star-slot.tier-gold')).toBeVisible();
     const mobileAmount = await anthem.locator('.price-amount').first().boundingBox();
-    const mobileStar = await anthem.locator('.peak-drop-star-slot.is-visible').boundingBox();
+    const mobileStar = await anthem.locator('.peak-drop-star-slot.tier-gold').boundingBox();
     expect(mobileStar.x).toBeLessThan(mobileAmount.x + mobileAmount.width);
     expect(mobileStar.x + mobileStar.width).toBeGreaterThan(mobileAmount.x + mobileAmount.width);
   });

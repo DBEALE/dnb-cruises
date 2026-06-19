@@ -63,7 +63,7 @@
       items: [
         'Each cruise now has a compact Share button beside its launch year that opens a link showing only that sailing.',
         'The current filters and sort order can now be shared from the search toolbar.',
-        'A gold star now overlaps the top-right corner of cabin prices that are at least 30% below their recorded peak without shifting price alignment.',
+        'Peak-price stars now use three tiers without shifting price alignment: gold at 50% below peak, silver at 30%, and outline-only at 15%.',
       ],
     },
     {
@@ -1076,7 +1076,7 @@
 
   function pricePeakDropInfo(c, currentRaw, bucket = '') {
     const current = parseFloat(currentRaw);
-    if (!Number.isFinite(current) || current <= 0) return { hasStar: false, dropPct: 0, peak: null };
+    if (!Number.isFinite(current) || current <= 0) return { hasStar: false, starTier: '', dropPct: 0, peak: null };
 
     const history = Array.isArray(c?.priceHistory) ? c.priceHistory : [];
     const values = history
@@ -1084,8 +1084,13 @@
       .filter(value => Number.isFinite(value) && value > 0);
     const peak = Math.max(current, ...values);
     const dropPct = peak > 0 ? ((peak - current) / peak) * 100 : 0;
+    const starTier = dropPct >= 50 ? 'gold'
+      : dropPct >= 30 ? 'silver'
+        : dropPct >= 15 ? 'outline'
+          : '';
     return {
-      hasStar: dropPct >= 30,
+      hasStar: Boolean(starTier),
+      starTier,
       dropPct,
       peak,
     };
@@ -1098,7 +1103,7 @@
     const drop = Math.round(info.dropPct);
     const peak = formatPriceDisplay(info.peak, currency);
     const label = `${drop}% below recorded peak of ${peak}`;
-    return `<span class="peak-drop-star-slot is-visible" title="${escHtml(label)}" aria-label="${escHtml(label)}">★</span>`;
+    return `<span class="peak-drop-star-slot is-visible tier-${escHtml(info.starTier)}" title="${escHtml(label)}" aria-label="${escHtml(label)}">★</span>`;
   }
 
   function buildPriceCell(c, url) {
