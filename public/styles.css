@@ -830,6 +830,28 @@
       color: var(--blue);
     }
 
+    .price-amount {
+      display: inline-grid;
+      grid-template-columns: max-content 1em;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+    }
+
+    .peak-drop-star-slot {
+      display: inline-flex;
+      width: 1em;
+      height: 1em;
+      align-items: center;
+      justify-content: center;
+      color: #d4a017;
+      font-size: .78rem;
+      line-height: 1;
+      visibility: hidden;
+      text-shadow: 0 1px 1px rgba(120, 83, 0, .18);
+    }
+    .peak-drop-star-slot.is-visible { visibility: visible; }
+
     .price-val.price-from {
       font-size: 0.95rem;
     }

@@ -63,6 +63,7 @@
       items: [
         'Each cruise now has a compact Share button beside its launch year that opens a link showing only that sailing.',
         'The current filters and sort order can now be shared from the search toolbar.',
+        'A gold star now marks cabin prices that are at least 30% below their recorded peak without shifting price alignment.',
       ],
     },
     {
@@ -1073,6 +1074,33 @@
     };
   }
 
+  function pricePeakDropInfo(c, currentRaw, bucket = '') {
+    const current = parseFloat(currentRaw);
+    if (!Number.isFinite(current) || current <= 0) return { hasStar: false, dropPct: 0, peak: null };
+
+    const history = Array.isArray(c?.priceHistory) ? c.priceHistory : [];
+    const values = history
+      .map(entry => bucket ? entryPrice(entry, bucket) : entryMinPrice(entry))
+      .filter(value => Number.isFinite(value) && value > 0);
+    const peak = Math.max(current, ...values);
+    const dropPct = peak > 0 ? ((peak - current) / peak) * 100 : 0;
+    return {
+      hasStar: dropPct >= 30,
+      dropPct,
+      peak,
+    };
+  }
+
+  function peakDropStar(info, currency) {
+    if (!info?.hasStar) {
+      return '<span class="peak-drop-star-slot" aria-hidden="true"></span>';
+    }
+    const drop = Math.round(info.dropPct);
+    const peak = formatPriceDisplay(info.peak, currency);
+    const label = `${drop}% below recorded peak of ${peak}`;
+    return `<span class="peak-drop-star-slot is-visible" title="${escHtml(label)}" aria-label="${escHtml(label)}">★</span>`;
+  }
+
   function buildPriceCell(c, url) {
     const roomTypes = [
       { key: 'inside',   label: 'Inside'  },
@@ -1093,10 +1121,12 @@
           const best = cabinBestPriceInfo(c, rt.key, prices[rt.key]);
           const rowClass = best.isBest ? 'price-row best-price-row' : 'price-row';
           const priceClass = best.isBest ? 'price-val best-price-val' : 'price-val';
+          const peakDrop = pricePeakDropInfo(c, prices[rt.key], rt.key);
           const bestTitle = best.isBest
             ? ` title="Lowest ${escHtml(rt.label)} price seen; ${best.higherCount} previous prices were higher" aria-label="${escHtml(formatted)} - best price"`
             : '';
-          const row = `<div class="${rowClass}"><span class="price-lbl">${escHtml(rt.label)}</span><span class="${priceClass}"${bestTitle}>${escHtml(formatted)}</span></div>`;
+          const amount = `<span class="price-amount"><span class="${priceClass}"${bestTitle}>${escHtml(formatted)}</span>${peakDropStar(peakDrop, c.currency)}</span>`;
+          const row = `<div class="${rowClass}"><span class="price-lbl">${escHtml(rt.label)}</span>${amount}</div>`;
           const linkedRow = url
             ? `<a class="cabin-price-link" href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${row}</a>`
             : row;
@@ -1114,7 +1144,8 @@
     if (price === '—') {
       priceHtml = '—';
     } else {
-      const inner = `<span class="price-val price-from">${escHtml(price)}</span>`;
+      const peakDrop = pricePeakDropInfo(c, c.priceFrom);
+      const inner = `<span class="price-amount single-price-amount"><span class="price-val price-from">${escHtml(price)}</span>${peakDropStar(peakDrop, c.currency)}</span>`;
       priceHtml = url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${inner}</a>` : inner;
     }
     const sparkHtml = sparklineButton(c);

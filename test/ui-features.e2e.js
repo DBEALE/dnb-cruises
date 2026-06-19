@@ -55,7 +55,7 @@ const CRUISES_RC = {
       seaDays: 3,
       prices: { inside: '500', oceanView: '650', balcony: '800', suite: '1800' },
       history: [
-        { at: isoAgo(20 * DAY), prices: { inside: 600, oceanView: 720, balcony: 900, suite: 2000 } },
+        { at: isoAgo(20 * DAY), prices: { inside: 800, oceanView: 720, balcony: 900, suite: 2000 } },
         { at: isoAgo(30 * HOUR), prices: { inside: 550, oceanView: 680, balcony: 850, suite: 1900 } },
         { at: isoAgo(2 * HOUR), prices: { inside: 500, oceanView: 650, balcony: 800, suite: 1800 } },
       ],
@@ -238,6 +238,29 @@ test.describe('Sort and filter', () => {
     await page.locator('.col-filter[data-field="provider"]').selectOption('Celebrity Cruises');
     const edge = page.locator('tbody tr:has-text("Celebrity Edge")');
     await expect(edge.locator('.best-price-val')).toHaveCount(0);
+  });
+
+  test('prices at least 30% below peak show a star without changing row geometry', async ({ page }) => {
+    await gotoFresh(page);
+    const anthem = page.locator('tbody tr:has-text("Anthem of the Seas")');
+    const slots = anthem.locator('.peak-drop-star-slot');
+    await expect(slots).toHaveCount(4);
+    await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toHaveCount(1);
+    await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toHaveText('★');
+    await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toHaveAttribute('title', /38% below recorded peak of £800/);
+    await expect(anthem.locator('.price-val').first()).toHaveText('£500');
+
+    const slotWidths = await slots.evaluateAll(elements => elements.map(el => getComputedStyle(el).width));
+    expect(new Set(slotWidths).size).toBe(1);
+
+    const harmony = page.locator('tbody tr:has-text("Harmony of the Seas")');
+    await expect(harmony.locator('.peak-drop-star-slot')).toHaveCount(4);
+    await expect(harmony.locator('.peak-drop-star-slot.is-visible')).toHaveCount(0);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(anthem.locator('.peak-drop-star-slot.is-visible')).toBeVisible();
+    const mobileSlotWidths = await slots.evaluateAll(elements => elements.map(el => getComputedStyle(el).width));
+    expect(new Set(mobileSlotWidths).size).toBe(1);
   });
 
   test('direction button is disabled until a sort column is picked', async ({ page }) => {
