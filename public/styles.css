@@ -373,8 +373,7 @@
     .sort-dir-btn:active:not(:disabled) { transform: scale(.94); }
     .sort-dir-btn:disabled { color: var(--gray-400); cursor: default; background: var(--gray-50); }
 
-    .share-view-btn,
-    .cruise-share-btn {
+    .share-view-btn {
       appearance: none;
       display: inline-flex;
       align-items: center;
@@ -391,12 +390,27 @@
       font-weight: 650;
       cursor: pointer;
     }
-    .share-view-btn:hover,
-    .cruise-share-btn:hover { background: var(--blue-pale); border-color: var(--blue); }
-    .share-view-btn svg,
-    .cruise-share-btn svg { width: 15px; height: 15px; flex: 0 0 auto; }
+    .share-view-btn:hover { background: var(--blue-pale); border-color: var(--blue); }
+    .share-view-btn svg { width: 15px; height: 15px; flex: 0 0 auto; }
     .share-view-mobile { display: none; width: 40px; padding: 6px; }
-    .cruise-actions { display: inline-flex; align-items: center; gap: 9px; white-space: nowrap; }
+    .cruise-share-btn {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border: 1px solid var(--gray-200);
+      border-radius: 7px;
+      background: white;
+      color: var(--blue);
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+    .cruise-share-btn:hover { background: var(--blue-pale); border-color: var(--blue); }
+    .cruise-share-btn svg { width: 14px; height: 14px; }
+    .launch-share-wrap { display: inline-flex; align-items: center; gap: 5px; }
     .share-notice {
       position: fixed;
       left: 50%;
@@ -953,27 +967,10 @@
       font-size: 0.65rem; font-weight: 500; color: var(--gray-400); margin-left: 2px;
     }
 
-    td.book { white-space: nowrap; }
-
-    td.book a {
-      display: inline-block;
-      padding: 5px 13px;
-      background: linear-gradient(135deg, #1d4ed8, #2563eb);
-      color: #fff;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 600;
-      transition: opacity .15s, transform .1s;
-      box-shadow: 0 2px 6px rgba(29,78,216,.3);
-    }
-
-    td.book a:hover { opacity: .9; transform: translateY(-1px); }
-    td.book a:active { transform: translateY(0); }
-
     /* Hidden on desktop; shown only inside the mobile card layout */
     .mobile-ship-details { display: none; }
     .mobile-ship-header { display: contents; }
+    .mobile-ship-actions { display: none; }
     .mobile-launch-year { display: none; }
     .col-first-seen { display: none; }
 
@@ -1074,6 +1071,9 @@
     /* ── Responsive column hiding ────────────────────────────────────────────── */
     @media (max-width: 1100px) {
       .col-launch, .col-destination, .col-destination-port, .col-per-night { display: none; }
+      .mobile-ship-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+      .mobile-ship-actions { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; }
+      .mobile-launch-year { display: inline-flex; }
     }
 
     @media (max-width: 860px) {
@@ -1232,18 +1232,6 @@
         display: none;
       }
 
-      td.col-book {
-        display: flex;
-        order: 12;
-        grid-column: 1 / -1;
-        align-items: center;
-        justify-content: space-between;
-        border-top: 1px solid #edf1f7;
-        border-bottom: 0;
-      }
-      td.col-book::before { margin: 0; }
-      td.col-book .cruise-actions { margin-left: auto; }
-
       /* The price-history dialog's table is its own thing — undo the
          card-layout transformation so headers + cells stay aligned. */
       .ph-table              { display: table; min-width: 0; }
@@ -1288,8 +1276,9 @@
       .mobile-launch-year {
         display: inline-flex;
         white-space: nowrap;
-        margin-left: 8px;
       }
+
+      .mobile-ship-actions { display: inline-flex; align-items: center; gap: 5px; margin-left: 8px; }
 
       /* Combined ship info: cruise line and class shown below ship name */
       .mobile-ship-details {

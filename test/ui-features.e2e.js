@@ -382,7 +382,7 @@ test.describe('URL state', () => {
     });
     await gotoFresh(page);
 
-    await page.locator('[data-share-cruise="rc_a"]').click();
+    await page.locator('.desktop-cruise-share[data-share-cruise="rc_a"]').click();
     const shared = await page.evaluate(() => window.__lastShare);
     expect(shared.url).toContain('#cruise=rc_a');
     expect(shared.url).not.toContain('provider=');
@@ -434,7 +434,8 @@ test.describe('Mobile filters', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await gotoFresh(page);
     await expect(page.locator('.share-view-mobile')).toBeVisible();
-    await expect(page.locator('[data-share-cruise="rc_a"]')).toBeVisible();
+    await expect(page.locator('.mobile-cruise-share[data-share-cruise="rc_a"]')).toBeVisible();
+    await expect(page.locator('tbody tr:has-text("Anthem of the Seas") .col-book')).toHaveCount(0);
   });
 });
 

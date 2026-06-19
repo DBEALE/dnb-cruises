@@ -61,7 +61,7 @@
       date: '19 Jun 2026',
       title: 'Share cruises and searches',
       items: [
-        'Each cruise now has a Share button that opens a link showing only that sailing.',
+        'Each cruise now has a compact Share button beside its launch year that opens a link showing only that sailing.',
         'The current filters and sort order can now be shared from the search toolbar.',
       ],
     },
@@ -1026,16 +1026,24 @@
     return `<span class="${classes}" title="${escHtml(label)}">${escHtml(year)}${star}</span>`;
   }
 
+  function cruiseShareButton(c, extraClass = '') {
+    const date = formatDateDisplay(c.departureDate);
+    const label = `Share ${c.shipName || 'cruise'} departing ${date}`;
+    const classes = ['cruise-share-btn', extraClass].filter(Boolean).join(' ');
+    return `<button type="button" class="${classes}" data-share-cruise="${escHtml(c.id || '')}" aria-label="${escHtml(label)}" title="${escHtml(label)}">${shareIcon()}</button>`;
+  }
+
   function mobileShipHeader(c) {
     const yearHtml = c.shipLaunchYear
       ? launchYearBadge(c.shipLaunchYear, 'mobile-launch-year')
       : '';
+    const actionsHtml = `<span class="mobile-ship-actions">${yearHtml}${cruiseShareButton(c, 'mobile-cruise-share')}</span>`;
     const tier = shipIconTier(c);
     // Empty span — CSS mask-image + background-color paints the silhouette
     // in the row's --brand colour (red / teal / blue / navy).
     const iconHtml = `<span class="ship-icon-wrap tier-${tier}" aria-hidden="true"></span>`;
     const nameHtml = wikiLink(c.shipName, shipLinkUrl(c));
-    return `<span class="mobile-ship-header"><span>${iconHtml}${nameHtml}</span>${yearHtml}</span>`;
+    return `<span class="mobile-ship-header"><span>${iconHtml}${nameHtml}</span>${actionsHtml}</span>`;
   }
 
   function mobileShipDetails(c) {
@@ -1493,19 +1501,13 @@
   function renderBody(list, colFilters = {}) {
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="17">No cruises match your filters.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="16">No cruises match your filters.</td></tr>';
       return;
     }
     tbody.innerHTML = list.map((c, i) => {
       const date     = formatDateDisplay(c.departureDate);
       const duration = formatDurationDisplay(c.duration);
       const url      = c.bookingUrl ? escHtml(absoluteUrl(c.bookingUrl)) : '';
-      const bookLink = url
-        ? `<a href="${url}" target="_blank" rel="noopener noreferrer">Book<svg class="book-ext" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M8 1h5v5h-2V4.4L5.7 9.7 4.3 8.3 9.6 3H8V1zM2 3h4v2H4v6h6V9h2v4H2V3z"/></svg></a>`
-        : '';
-      const shareLabel = `Share ${c.shipName || 'cruise'} departing ${date}`;
-      const shareButton = `<button type="button" class="cruise-share-btn" data-share-cruise="${escHtml(c.id || '')}" aria-label="${escHtml(shareLabel)}" title="${escHtml(shareLabel)}">${shareIcon()}<span>Share</span></button>`;
-      const actionCell = `<span class="cruise-actions">${bookLink}${shareButton}</span>`;
       const priceCell = buildPriceCell(c, url);
       const perNight  = getPricePerNight(c);
       const perNightCell = Number.isFinite(perNight)
@@ -1522,7 +1524,7 @@
         <td class="col-ship ship-name" data-label="Ship">${mobileShipHeader(c)}${mobileShipDetails(c)}</td>
         <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerLinkUrl(c))}</td>
         <td class="col-class" data-label="Class"><span class="class-cell">${wikiLink(c.shipClass, classLinkUrl(c))}${classDots(c.shipClass)}</span></td>
-        <td class="col-launch" data-label="Launch">${launchYearBadge(c.shipLaunchYear)}</td>
+        <td class="col-launch" data-label="Launch"><span class="launch-share-wrap">${launchYearBadge(c.shipLaunchYear)}${cruiseShareButton(c, 'desktop-cruise-share')}</span></td>
         <td class="col-itinerary" data-label="Itinerary">${highlightItinerary(c.itinerary, colFilters.itinerary) || '—'}</td>
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
         <td class="col-destination-port" data-label="Destination port">${destinationPortCell || '&mdash;'}</td>
@@ -1534,7 +1536,6 @@
         <td class="col-first-seen" data-label="First seen"><span class="first-seen-val">${escHtml(firstSeen)}</span></td>
         <td class="col-price price" data-label="Price">${priceCell}</td>
         <td class="col-per-night per-night" data-label="£/night">${perNightCell}</td>
-        <td class="col-book book" data-label="Actions">${actionCell}</td>
       </tr>`;
     }).join('');
     observeNewSparks();

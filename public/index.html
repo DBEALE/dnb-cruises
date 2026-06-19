@@ -362,7 +362,6 @@
             <th class="col-price"       data-sort="11" tabindex="0" role="button" aria-sort="none" onclick="sortTable(11)" data-col="11">Price</th>
             <th class="col-per-night"   data-sort="17" tabindex="0" role="button" aria-sort="none" onclick="sortTable(17)">£/night</th>
             <th class="col-first-seen"  data-sort="18" tabindex="0" role="button" aria-sort="none" onclick="sortTable(18)">First seen</th>
-            <th class="col-book">Actions</th>
           </tr>
           <tr id="filterRow">
             <td class="col-num"></td>
@@ -474,14 +473,13 @@
             </td>
             <td class="col-per-night"></td>
             <td class="col-first-seen"></td>
-            <td class="col-book"></td>
           </tr>
         </thead>
         <tbody id="cruiseBody">
           <!-- Skeleton rows shown until applyCruiseResults() replaces them.
                Mimic the real card structure so the layout doesn't reflow. -->
           <tr class="skeleton-row">
-            <td colspan="17">
+            <td colspan="16">
               <div class="skeleton-card">
                 <div class="skeleton skeleton-line w70"></div>
                 <div class="skeleton skeleton-line w50"></div>
@@ -495,7 +493,7 @@
             </td>
           </tr>
           <tr class="skeleton-row">
-            <td colspan="17">
+            <td colspan="16">
               <div class="skeleton-card">
                 <div class="skeleton skeleton-line w60"></div>
                 <div class="skeleton skeleton-line w40"></div>
@@ -509,7 +507,7 @@
             </td>
           </tr>
           <tr class="skeleton-row">
-            <td colspan="17">
+            <td colspan="16">
               <div class="skeleton-card">
                 <div class="skeleton skeleton-line w80"></div>
                 <div class="skeleton skeleton-line w50"></div>
