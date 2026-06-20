@@ -59,6 +59,13 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '20 Jun 2026',
+      title: 'NCL data refresh restored',
+      items: [
+        'Fixed the Norwegian Cruise Line card extractor so scheduled NCL data updates can run again.',
+      ],
+    },
+    {
       date: '19 Jun 2026',
       title: 'Mobile share cleanup',
       items: [

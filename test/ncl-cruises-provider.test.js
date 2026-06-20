@@ -5,6 +5,35 @@ const assert = require('node:assert/strict');
 
 const provider = require('../providers/ncl-cruises');
 
+test('extracts NCL cards without relying on Node-scope helpers', () => {
+  const bookingUrl = 'https://www.ncl.com/uk/en/cruises/test?itineraryCode=EPIC7BCNTEST';
+  const values = new Map([
+    ['.c66_label', { textContent: ' 7-day Cruise  on  Norwegian Epic ' }],
+    ['.c66_title', { textContent: ' Mediterranean: Nice & Florence ' }],
+    ['.c66_subtitle', { textContent: ' from Barcelona, Spain ' }],
+    ['.c160_date_item.-departure .c160_date_item_dateFull', { textContent: ' Sun 21 Jun 2026 ' }],
+    ['.c160_date_item.-return .c160_date_item_dateFull', { textContent: ' Sun 28 Jun 2026 ' }],
+    ['.c495_aside .e55_price_value', { textContent: ' £1,234 ' }],
+    ['.c495_aside', { textContent: 'Cruise fare PP / GBP' }],
+    ['a.btn.btn-secondary[href*="itineraryCode="]', { href: bookingUrl }],
+  ]);
+  const article = { querySelector: selector => values.get(selector) || null };
+
+  assert.deepEqual(provider.extractCruiseCardsFromArticles([article]), [{
+    code: 'EPIC7BCNTEST',
+    bookingUrl,
+    shipName: 'Norwegian Epic',
+    itinerary: 'Mediterranean: Nice & Florence',
+    departurePort: 'Barcelona, Spain',
+    departureDate: 'Sun 21 Jun 2026',
+    returnDate: 'Sun 28 Jun 2026',
+    duration: '7-day Cruise',
+    destination: 'Mediterranean: Nice & Florence',
+    priceFrom: '1234',
+    currency: 'GBP',
+  }]);
+});
+
 test('normalizes Norwegian Cruise Line itinerary details', () => {
   const cruise = provider.normalizeCruise({
     code: 'SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU',

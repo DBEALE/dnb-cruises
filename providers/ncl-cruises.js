@@ -387,6 +387,45 @@ function normalizeCruise(detail, bookingUrl) {
   };
 }
 
+function extractCruiseCardsFromArticles(articles) {
+  return articles.map(article => {
+    const clean = value => String(value || '').replace(/\s+/g, ' ').trim();
+    const getText = selector => clean(article.querySelector(selector)?.textContent);
+    const bookingUrl = article.querySelector('a.btn.btn-secondary[href*="itineraryCode="]')?.href || '';
+    const code = (() => {
+      try {
+        return new URL(bookingUrl).searchParams.get('itineraryCode') || '';
+      } catch {
+        return '';
+      }
+    })();
+    const shipLabel = getText('.c66_label');
+    const duration = shipLabel.replace(/\s+on\s+.+$/i, '');
+    const shipName = shipLabel.replace(/^\d+-day Cruise\s+on\s+/i, '');
+    const itinerary = getText('.c66_title');
+    const departurePort = getText('.c66_subtitle').replace(/^from\s+/i, '');
+    const departureDate = getText('.c160_date_item.-departure .c160_date_item_dateFull');
+    const returnDate = getText('.c160_date_item.-return .c160_date_item_dateFull');
+    const priceText = getText('.c495_aside .e55_price_value') || getText('.c495_aside .headline-1');
+    const currencyMatch = getText('.c495_aside').match(/PP\s*\/\s*([A-Z]{3})/i);
+    const priceMatch = priceText.match(/([\d,]+(?:\.\d+)?)/);
+
+    return {
+      code,
+      bookingUrl,
+      shipName,
+      itinerary,
+      departurePort,
+      departureDate,
+      returnDate,
+      duration,
+      destination: itinerary,
+      priceFrom: priceMatch ? priceMatch[1].replace(/,/g, '') : '',
+      currency: currencyMatch ? currencyMatch[1].toUpperCase() : 'GBP',
+    };
+  });
+}
+
 async function collectCruiseCards() {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 1800 } });
@@ -413,44 +452,9 @@ async function collectCruiseCards() {
     await page.waitForTimeout(NCL_PAGE_WAIT_MS);
 
     const cards = new Map();
-    let lastVisible = 0;
 
     for (let step = 0; step < NCL_MAX_PAGINATION_STEPS; step++) {
-      const pageCards = await page.$$eval('article.c495', articles => articles.map(article => {
-        const getText = selector => cleanText(article.querySelector(selector)?.textContent);
-        const bookingUrl = article.querySelector('a.btn.btn-secondary[href*="itineraryCode="]')?.href || '';
-        const code = (() => {
-          try {
-            return new URL(bookingUrl).searchParams.get('itineraryCode') || '';
-          } catch {
-            return '';
-          }
-        })();
-        const shipLabel = getText('.c66_label');
-        const duration = shipLabel.replace(/\s+on\s+.+$/i, '');
-        const shipName = shipLabel.replace(/^\d+-day Cruise\s+on\s+/i, '');
-        const itinerary = getText('.c66_title');
-        const departurePort = getText('.c66_subtitle').replace(/^from\s+/i, '');
-        const departureDate = getText('.c160_date_item.-departure .c160_date_item_dateFull');
-        const returnDate = getText('.c160_date_item.-return .c160_date_item_dateFull');
-        const priceText = getText('.c495_aside .e55_price_value') || getText('.c495_aside .headline-1');
-        const currencyMatch = cleanText(getText('.c495_aside')).match(/PP\s*\/\s*([A-Z]{3})/i);
-        const priceMatch = priceText.match(/([\d,]+(?:\.\d+)?)/);
-
-        return {
-          code,
-          bookingUrl,
-          shipName,
-          itinerary,
-          departurePort,
-          departureDate,
-          returnDate,
-          duration,
-          destination: itinerary,
-          priceFrom: priceMatch ? priceMatch[1].replace(/,/g, '') : '',
-          currency: currencyMatch ? currencyMatch[1].toUpperCase() : 'GBP',
-        };
-      }));
+      const pageCards = await page.$$eval('article.c495', extractCruiseCardsFromArticles);
 
       pageCards.forEach(card => {
         if (card.code && !cards.has(card.code)) {
@@ -458,21 +462,23 @@ async function collectCruiseCards() {
         }
       });
 
-      const visibleCount = await page.locator('li.listing_item article.c495').count();
-      const hasMore = await page.evaluate(() => Array.from(document.querySelectorAll('button, a, [role="button"]')).some(el => /view more results/i.test((el.textContent || '').trim())));
+      const visibleCount = await page.locator('article.c495').count();
+      const moreButton = page.getByRole('button', { name: /view more results/i }).last();
+      const hasMore = await moreButton.isVisible().catch(() => false);
 
       if (!hasMore) break;
 
-      await page.evaluate(() => {
-        const button = Array.from(document.querySelectorAll('button, a, [role="button"]')).find(el => /view more results/i.test((el.textContent || '').trim()));
-        if (button) button.click();
-      });
-
-      await page.waitForTimeout(NCL_PAGE_WAIT_MS);
-      if (visibleCount === lastVisible) {
-        await page.waitForTimeout(NCL_PAGE_WAIT_MS);
+      await moreButton.evaluate(button => button.click());
+      try {
+        await page.waitForFunction(
+          previousCount => document.querySelectorAll('article.c495').length > previousCount,
+          visibleCount,
+          { timeout: 15000 }
+        );
+      } catch {
+        console.warn(`  [NCL] pagination stopped after ${cards.size} cards because the result count did not increase.`);
+        break;
       }
-      lastVisible = visibleCount;
     }
 
     await Promise.allSettled(itineraryPromises);
@@ -567,3 +573,4 @@ module.exports.extractPortsFromSlug = extractPortsFromSlug;
 module.exports.buildDetailedNclItinerary = buildDetailedNclItinerary;
 module.exports.classifyRoomType = classifyRoomType;
 module.exports.extractRoomTypePrices = extractRoomTypePrices;
+module.exports.extractCruiseCardsFromArticles = extractCruiseCardsFromArticles;
