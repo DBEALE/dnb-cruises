@@ -516,6 +516,20 @@ test.describe('Saved views', () => {
 });
 
 test.describe('Settings dialog', () => {
+  test('shows the last successful scrape time for each provider', async ({ page }) => {
+    await gotoFresh(page);
+    await page.click('#settingsBtn');
+    await page.waitForSelector('dialog#settingsDialog[open]');
+
+    const rows = page.locator('#settingsProviderScrapes li');
+    await expect(rows).toHaveCount(2);
+    await expect(rows.nth(0)).toContainText('Royal Caribbean');
+    await expect(rows.nth(0)).toContainText('31 May 2026');
+    await expect(rows.nth(0)).toContainText('10:00 UTC');
+    await expect(rows.nth(1)).toContainText('Celebrity Cruises');
+    await expect(rows.nth(1).locator('time')).toHaveAttribute('datetime', '2026-05-31T10:00:00.000Z');
+  });
+
   test('price-star legend explains all tiers', async ({ page }) => {
     await gotoFresh(page);
     await page.click('#settingsBtn');

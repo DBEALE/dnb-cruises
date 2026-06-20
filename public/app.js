@@ -60,6 +60,14 @@
   const SITE_CHANGES = [
     {
       date: '20 Jun 2026',
+      title: 'Provider scrape status',
+      items: [
+        'Display options now shows the last successful scrape date and time for each cruise provider.',
+        'Added one cross-provider smoke test covering a representative sailing from every registered provider.',
+      ],
+    },
+    {
+      date: '20 Jun 2026',
       title: 'NCL data refresh restored',
       items: [
         'Fixed the Norwegian Cruise Line card extractor so scheduled NCL data updates can run again.',
@@ -1020,6 +1028,7 @@
     if (scrapedAt) {
       document.getElementById('updatedAt').textContent = formatProviderUpdatedAt(scrapedAt).replace(/^Updated:\s*/, '');
     }
+    renderProviderScrapeTimes();
 
     // Apply any sort / filter state from the URL hash before the first render
     // so refreshes and shared links land on the same view.
@@ -1039,6 +1048,26 @@
       timeZone: 'UTC',
       timeZoneName: 'short',
     });
+  }
+
+  function renderProviderScrapeTimes() {
+    const list = document.getElementById('settingsProviderScrapes');
+    if (!list) return;
+    if (!loadedProviders.length) {
+      list.innerHTML = '<li><span>Providers</span><time>Loading...</time></li>';
+      return;
+    }
+
+    list.innerHTML = loadedProviders.map(provider => {
+      const raw = loadedProviderScrapedAts.get(provider.id) || '';
+      const formatted = raw
+        ? formatProviderUpdatedAt(raw).replace(/^Updated:\s*/, '')
+        : 'Not available';
+      const dateTime = raw && Number.isFinite(new Date(raw).getTime())
+        ? ` datetime="${escHtml(new Date(raw).toISOString())}"`
+        : '';
+      return `<li><span>${escHtml(provider.name)}</span><time${dateTime}>${escHtml(formatted)}</time></li>`;
+    }).join('');
   }
 
   // Ship-class → silhouette tier (drives CSS .tier-mega/large/medium/small).
@@ -1835,6 +1864,7 @@
     if (phoneStatus) phoneStatus.textContent = '';
     const homePortStatus = document.getElementById('settingsHomePortStatus');
     if (homePortStatus) homePortStatus.textContent = '';
+    renderProviderScrapeTimes();
     if (typeof dlg.showModal === 'function') dlg.showModal();
     else dlg.setAttribute('open', '');
     if (focusPhone && phoneInput) {

@@ -53,6 +53,8 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   const clearButtonCount = (html.match(/class="filter-clear-btn"/g) || []).length;
   assert.ok(clearButtonCount >= 22, `expected at least 22 filter clear buttons, found ${clearButtonCount}`);
   assert.match(html, /class="settings-scroll"/);
+  assert.match(html, /id="settingsProviderScrapes"/);
+  assert.match(html, /Last successful scrape/);
   assert.match(html, /data-setting="priceStars"/);
   assert.match(html, /data-setting="lowestPriceHighlight"/);
   assert.match(html, /id="settingsLinkTarget"/);
@@ -73,6 +75,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /class="wave wave-surge"/);
   assert.match(html, /class="wave-surge-wave"/);
   assert.match(app, /function itinerarySearchTerms\(query\)/);
+  assert.match(app, /function renderProviderScrapeTimes\(\)/);
   assert.match(app, /function highlightItinerary\(text, query\)/);
   assert.match(app, /function cabinBestPriceInfo\(c, bucket, currentRaw = null\)/);
   assert.match(app, /best-price-val/);
@@ -120,6 +123,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.filter-entry \{/);
   assert.match(css, /\.filter-clear-btn \{/);
   assert.match(css, /\.first-seen-val \{[^}]*font-size: 0\.8rem/);
+  assert.match(css, /\.settings-provider-scrapes \{/);
   assert.match(css, /\.price-val\.best-price-val \{/);
   assert.match(css, /\.price-amount \{[^}]*position: relative/s);
   assert.match(css, /\.peak-drop-star-slot \{[^}]*position: absolute/s);
