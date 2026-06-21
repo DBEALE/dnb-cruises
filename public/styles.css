@@ -26,6 +26,24 @@
       min-height: 100vh;
     }
 
+    body.dark-mode {
+      color-scheme: dark;
+      --blue:       #60a5fa;
+      --blue-light: #93c5fd;
+      --blue-pale:  #172554;
+      --white:      #111827;
+      --gray-50:    #0b1120;
+      --gray-100:   #172033;
+      --gray-200:   #334155;
+      --gray-400:   #94a3b8;
+      --gray-600:   #cbd5e1;
+      --gray-800:   #f1f5f9;
+      --green:      #4ade80;
+      --shadow:     0 4px 32px rgba(0,0,0,.38);
+      --shadow-sm:  0 1px 5px rgba(0,0,0,.28);
+      background: var(--gray-50);
+    }
+
     /* ── Header ─────────────────────────────────────────────────────────────── */
     header {
       background: linear-gradient(135deg, #060f1e 0%, #0d2045 40%, #1a3a6b 100%);
@@ -2195,6 +2213,91 @@
     body.hide-launch-year .col-launch,
     body.hide-launch-year .mobile-launch-year       { display: none !important; }
     body.hide-ship-icons  .ship-icon-wrap           { display: none !important; }
+
+    /* Dark display mode. Kept at the end so it also covers mobile-only rules. */
+    body.dark-mode .sticky-summary,
+    body.dark-mode .toolbar-filter-wrap select,
+    body.dark-mode .toolbar-filter-wrap select option,
+    body.dark-mode .toolbar-filter-wrap .filter-clear-btn,
+    body.dark-mode .sort-wrap select,
+    body.dark-mode .sort-dir-btn,
+    body.dark-mode .currency-toggle,
+    body.dark-mode .table-card,
+    body.dark-mode tbody tr,
+    body.dark-mode tbody tr:nth-child(even),
+    body.dark-mode .skeleton-row td,
+    body.dark-mode #mobileControls,
+    body.dark-mode #savedViewsBtn,
+    body.dark-mode #mobSavedViewsBtn,
+    body.dark-mode dialog#mobFilters,
+    body.dark-mode .mob-filters-head,
+    body.dark-mode .mob-sort-inline select,
+    body.dark-mode .mob-filter,
+    body.dark-mode .mob-filter-group .filter-clear-btn:hover,
+    body.dark-mode .mob-filter-group .filter-clear-btn:focus-visible,
+    body.dark-mode .date-range-mobile:hover,
+    body.dark-mode .date-range-mobile:focus-visible,
+    body.dark-mode dialog#priceHistoryDialog,
+    body.dark-mode .ph-table th,
+    body.dark-mode dialog#savedViewsDialog,
+    body.dark-mode dialog#settingsDialog,
+    body.dark-mode dialog#siteChangesDialog,
+    body.dark-mode dialog#departureRangeDialog,
+    body.dark-mode .settings-user-detail input,
+    body.dark-mode .settings-list .settings-select-item select,
+    body.dark-mode .sv-save-form input,
+    body.dark-mode .date-range-fields input,
+    body.dark-mode .date-range-fields input:focus,
+    body.dark-mode .date-range-cancel {
+      background: var(--white);
+      color: var(--gray-800);
+      border-color: var(--gray-200);
+    }
+
+    body.dark-mode tbody tr:hover,
+    body.dark-mode .sv-apply:hover,
+    body.dark-mode .settings-reset:hover,
+    body.dark-mode .date-range-cancel:hover {
+      background: var(--blue-pale);
+    }
+
+    body.dark-mode .sv-head h2,
+    body.dark-mode .sv-apply .sv-name,
+    body.dark-mode td.ship-name,
+    body.dark-mode .ph-head h2,
+    body.dark-mode .ph-when-date,
+    body.dark-mode .ph-table td.ph-price,
+    body.dark-mode .mob-filters-head h2,
+    body.dark-mode .settings-head h2,
+    body.dark-mode .settings-info-label,
+    body.dark-mode .settings-provider-status h3,
+    body.dark-mode .settings-user-detail label,
+    body.dark-mode .settings-legend summary,
+    body.dark-mode .legend-tiers strong,
+    body.dark-mode .changes-head h2,
+    body.dark-mode .changes-item h3,
+    body.dark-mode .date-range-head h2,
+    body.dark-mode .date-range-fields input {
+      color: var(--gray-800);
+    }
+
+    body.dark-mode #statusBar.error {
+      background: #3f171d;
+      border-color: #7f1d1d;
+      color: #fca5a5;
+    }
+
+    body.dark-mode .sv-status.ok {
+      background: #10352b;
+      border-color: #166534;
+      color: #86efac;
+    }
+
+    body.dark-mode .sv-status.err {
+      background: #3f171d;
+      border-color: #7f1d1d;
+      color: #fca5a5;
+    }
 
     /* ── Ship icons ─────────────────────────────────────────────────────────── */
     /* Empty span; CSS mask-image takes the silhouette PNG's alpha channel

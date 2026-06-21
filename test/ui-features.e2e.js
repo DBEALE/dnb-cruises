@@ -125,6 +125,7 @@ async function gotoFresh(page, settings = null) {
 // Settings preset for tests that need sparklines + per-night visible
 // (they're off by default for first-time visitors).
 const ALL_ON = {
+  darkMode: false,
   sparklines: true,
   perNight: true,
   priceStars: true,
@@ -516,6 +517,25 @@ test.describe('Saved views', () => {
 });
 
 test.describe('Settings dialog', () => {
+  test('dark mode toggles and persists across reload', async ({ page }) => {
+    await gotoFresh(page);
+    await page.click('#settingsBtn');
+    const toggle = page.locator('#settingsDialog input[data-setting="darkMode"]');
+    await toggle.check();
+
+    await expect(page.locator('body')).toHaveClass(/dark-mode/);
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(11, 17, 32)');
+    await expect(page.locator('#cruiseBody td.ship-name').first()).toHaveCSS('color', 'rgb(241, 245, 249)');
+    expect((await page.evaluate(() => JSON.parse(localStorage.getItem('cruise-explorer-settings')))).darkMode).toBe(true);
+
+    await setupRoutes(page);
+    await page.reload();
+    await page.waitForSelector('#cruiseBody tr');
+    await expect(page.locator('body')).toHaveClass(/dark-mode/);
+    await page.click('#settingsBtn');
+    await expect(toggle).toBeChecked();
+  });
+
   test('shows the last successful scrape time for each provider', async ({ page }) => {
     await gotoFresh(page);
     await page.click('#settingsBtn');

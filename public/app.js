@@ -22,6 +22,7 @@
   // someone who explicitly turned a setting on (and saved) won't get it
   // flipped back by this change.
   const SETTINGS_DEFAULTS = {
+    darkMode:   false,
     sparklines: false,
     perNight:   false,
     priceStars: true,
@@ -58,6 +59,13 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '21 Jun 2026',
+      title: 'Dark mode',
+      items: [
+        'Added a saved dark mode option to Display options.',
+      ],
+    },
     {
       date: '20 Jun 2026',
       title: 'Provider scrape status',
@@ -1838,6 +1846,7 @@
   // re-render needed. Sparklines are lazy anyway; placeholder buttons just
   // get display:none when off.
   function applySettingsToDom() {
+    document.body.classList.toggle('dark-mode', !!settings.darkMode);
     document.body.classList.toggle('hide-sparklines', !settings.sparklines);
     document.body.classList.toggle('hide-per-night',  !settings.perNight);
     document.body.classList.toggle('hide-price-stars', !settings.priceStars);

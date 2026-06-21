@@ -56,6 +56,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /id="settingsProviderScrapes"/);
   assert.match(html, /Last successful scrape/);
   assert.match(html, /data-setting="priceStars"/);
+  assert.match(html, /data-setting="darkMode"/);
   assert.match(html, /data-setting="lowestPriceHighlight"/);
   assert.match(html, /id="settingsLinkTarget"/);
   assert.match(html, /<option value="wikipedia">Wikipedia<\/option>/);
