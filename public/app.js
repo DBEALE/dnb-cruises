@@ -61,6 +61,13 @@
   const SITE_CHANGES = [
     {
       date: '21 Jun 2026',
+      title: 'Clearer active filters',
+      items: [
+        'Active filters in the mobile Sort & filter screen are now highlighted and counted in the header.',
+      ],
+    },
+    {
+      date: '21 Jun 2026',
       title: 'More room for saved view names',
       items: [
         'Reduced spacing around the mobile share and filter buttons so saved view names have more room.',
@@ -2019,6 +2026,7 @@
       return;
     }
     setFilterFieldValue(field, '');
+    updateMobileFilterActiveStates();
     scheduleApplyFilters();
   }
 
@@ -2045,6 +2053,7 @@
       btn.title = label === 'Any date' ? 'Choose departure date range' : `Departure: ${label}`;
       btn.classList.toggle('has-value', label !== 'Any date');
     }
+    updateMobileFilterActiveStates();
   }
 
   function updateDepartureRangePreview() {
@@ -2676,9 +2685,28 @@
     // stay in step while typing, but defer the actual filter pass.
     const target = document.querySelector(`.col-filter[data-field="${el.dataset.field}"]`);
     if (target) target.value = el.value;
+    updateMobileFilterActiveStates();
     const isSelect = String(el?.tagName || '').toUpperCase() === 'SELECT';
     const delay = isSelect ? 0 : (el?.dataset?.field === 'minLaunch' ? LAUNCH_YEAR_DEBOUNCE_MS : FILTER_DEBOUNCE_MS);
     scheduleApplyFilters({ delay });
+  }
+
+  function updateMobileFilterActiveStates() {
+    const groups = document.querySelectorAll('#mobFilters .mob-filter-group:not(.mob-sort-inline):not(.mob-filter-actions)');
+    let activeCount = 0;
+
+    groups.forEach(group => {
+      const isActive = Array.from(group.querySelectorAll('.mob-filter'))
+        .some(filter => String(filter.value || '').trim() !== '');
+      group.classList.toggle('has-active-filter', isActive);
+      if (isActive) activeCount += 1;
+    });
+
+    const count = document.getElementById('mobActiveFilterCount');
+    if (count) {
+      count.textContent = `${activeCount} active`;
+      count.hidden = activeCount === 0;
+    }
   }
 
   function toggleMobileFilters() {
@@ -2689,6 +2717,7 @@
       dlg.close();
       btn?.setAttribute('aria-expanded', 'false');
     } else {
+      updateMobileFilterActiveStates();
       if (typeof dlg.showModal === 'function') dlg.showModal();
       else dlg.setAttribute('open', '');
       btn?.setAttribute('aria-expanded', 'true');
@@ -2735,6 +2764,7 @@
       document.querySelectorAll('.mob-filter').forEach(el => { el.value = ''; });
       document.querySelectorAll('.col-filter').forEach(el => { el.value = ''; });
       updateDepartureRangeControls();
+      updateMobileFilterActiveStates();
       applyFilters();
     } finally {
       if (btn) {

@@ -464,6 +464,26 @@ test.describe('URL state', () => {
 });
 
 test.describe('Mobile filters', () => {
+  test('highlights and counts filters that are not at their defaults', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoFresh(page, { ...ALL_ON, darkMode: true });
+    await page.click('#mobFilterToggle');
+
+    const itinerary = page.locator('#mobFilterItinerary');
+    await itinerary.fill('Norway');
+    await expect(itinerary.locator('xpath=ancestor::div[contains(@class, "mob-filter-group")]')).toHaveClass(/has-active-filter/);
+    await expect(page.locator('#mobActiveFilterCount')).toHaveText('1 active');
+
+    await page.selectOption('#mobFilterPriceDrop', '7d');
+    await expect(page.locator('#mobActiveFilterCount')).toHaveText('2 active');
+    await expect(page.locator('#mobFilterPriceDrop')).toHaveCSS('border-top-color', 'rgb(96, 165, 250)');
+    await expect(itinerary).toHaveCSS('color', 'rgb(241, 245, 249)');
+
+    await page.click('#mobFilterItinerary + .filter-clear-btn');
+    await expect(page.locator('#mobActiveFilterCount')).toHaveText('1 active');
+    await expect(itinerary.locator('xpath=ancestor::div[contains(@class, "mob-filter-group")]')).not.toHaveClass(/has-active-filter/);
+  });
+
   test('close button remains reachable below browser chrome', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 640 });
     await gotoFresh(page);
