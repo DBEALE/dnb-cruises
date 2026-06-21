@@ -192,6 +192,27 @@ test.describe('Header wave', () => {
     await expect(wave).toHaveClass(/is-sweeping/);
     await expect(wave).not.toHaveClass(/is-sweeping/, { timeout: 3500 });
   });
+
+  test('mobile header overlays utility buttons without detaching the waves', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoFresh(page);
+
+    const headerBox = await page.locator('header').boundingBox();
+    const titleBox = await page.locator('header h1').boundingBox();
+    const waveBox = await page.locator('.header-wave').boundingBox();
+    const settingsBox = await page.locator('#settingsBtn').boundingBox();
+    const changesBox = await page.locator('#siteChangesBtn').boundingBox();
+
+    expect(headerBox.height).toBeLessThanOrEqual(165);
+    expect(titleBox.y - headerBox.y).toBeLessThanOrEqual(18);
+    expect(waveBox.y).toBeGreaterThanOrEqual(titleBox.y);
+    expect(waveBox.y + waveBox.height).toBeLessThanOrEqual(titleBox.y + titleBox.height + 4);
+    for (const buttonBox of [settingsBox, changesBox]) {
+      expect(buttonBox.y).toBeLessThan(titleBox.y + titleBox.height);
+      expect(buttonBox.y + buttonBox.height).toBeGreaterThan(titleBox.y);
+    }
+  });
+
 });
 
 test.describe('Sort and filter', () => {

@@ -61,6 +61,13 @@
   const SITE_CHANGES = [
     {
       date: '21 Jun 2026',
+      title: 'More compact mobile header',
+      items: [
+        'Moved the Cruise Explorer title and its waves up, with the info and display buttons overlaid to leave more room for results.',
+      ],
+    },
+    {
+      date: '21 Jun 2026',
       title: 'Clearer active filters',
       items: [
         'Active filters in the mobile Sort & filter screen are now highlighted and counted in the header.',

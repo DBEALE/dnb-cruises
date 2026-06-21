@@ -1147,7 +1147,11 @@
     }
 
     @media (max-width: 640px) {
-      header { padding: 36px 16px 0; }
+      /* Overlay the utility buttons on the title row. The waves stay nested
+         in the title, so the icon, caption, and wave alignment moves as one. */
+      header { padding: 16px 16px 0; }
+      #settingsBtn,
+      #siteChangesBtn { top: 14px; }
       .header-wave {
         left: 0;
         right: 0;
