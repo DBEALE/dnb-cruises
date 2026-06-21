@@ -68,6 +68,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /15–29% below peak/);
   assert.match(html, /id="settingsHomePort"/);
   assert.match(html, /id="settingsHomePortStatus"/);
+  assert.match(html, /id="mobFilterToggle"[\s\S]*class="share-view-btn share-view-mobile"/);
   assert.match(html, /class="changes-scroll"/);
   assert.match(html, /<h1 tabindex="0">/);
   assert.match(html, /class="wave wave-main"/);

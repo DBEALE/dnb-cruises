@@ -61,6 +61,13 @@
   const SITE_CHANGES = [
     {
       date: '21 Jun 2026',
+      title: 'Mobile action order',
+      items: [
+        'Swapped the mobile Sort & filter and Share buttons so filtering appears first.',
+      ],
+    },
+    {
+      date: '21 Jun 2026',
       title: 'More compact mobile header',
       items: [
         'Moved the Cruise Explorer title and its waves up, with the info and display buttons overlaid to leave more room for results.',

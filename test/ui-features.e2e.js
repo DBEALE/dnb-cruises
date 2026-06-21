@@ -525,6 +525,9 @@ test.describe('Mobile filters', () => {
     await expect(page.locator('.share-view-btn:visible')).toHaveCount(1);
     await expect(page.locator('.mobile-cruise-share[data-share-cruise="rc_a"]')).toBeVisible();
     await expect(page.locator('tbody tr:has-text("Anthem of the Seas") .col-book')).toHaveCount(0);
+    await expect(page.locator('.mob-sort-row').first().locator('button')).toHaveCount(2);
+    await expect(page.locator('.mob-sort-row').first().locator('button').nth(0)).toHaveAttribute('id', 'mobFilterToggle');
+    await expect(page.locator('.mob-sort-row').first().locator('button').nth(1)).toHaveClass(/share-view-mobile/);
 
     const savedSelectBox = await page.locator('#mobileSavedSelect').boundingBox();
     expect(savedSelectBox.width).toBeGreaterThanOrEqual(210);
