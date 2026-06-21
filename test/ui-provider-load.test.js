@@ -228,7 +228,6 @@ async function createSandbox({
     totalPrices: createElement(),
     totalShips: createElement(),
     totalProviders: createElement(),
-    updatedAt: createElement(),
     cruiseBody: createElement(),
     buildInfo: createElement(),
     gbpToggle: createElement({ checked: true }),
@@ -394,7 +393,6 @@ test('loads the provider manifest and provider-specific cruise file on init', as
   assert.match(elements.cruiseBody.innerHTML, /<td class="col-sea-days duration" data-label="Sea days">3<\/td>/);
   assert.equal(elements.totalProviders.textContent, '1');
   assert.equal(elements.totalPrices.textContent, '3');
-  assert.match(elements.updatedAt.textContent, /27 Apr 2026/);
   assert.equal(JSON.parse(sandbox.localStorage.getItem('cached_cruises:royal-caribbean')).priceCount, 3);
   assert.ok(sandbox.localStorage.getItem('cached_cruises'));
 });

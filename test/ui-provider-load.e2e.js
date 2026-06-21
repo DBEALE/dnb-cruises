@@ -97,7 +97,8 @@ test('provider-specific cruises load on page open and persist the scoped cache',
   await expect(page.locator('#cruiseBody')).toContainText('Harmony of the Seas');
   await expect(page.locator('#cruiseBody .col-destination-port')).toContainText('Venice');
   await expect(page.locator('#totalProviders')).toHaveText('1');
-  await expect(page.locator('#updatedAt')).not.toHaveText('—');
+  await expect(page.locator('#updatedAt')).toHaveCount(0);
+  await expect(page.locator('.header-stats')).not.toContainText('Latest sync');
   await expect.poll(async () => page.evaluate(() => localStorage.getItem('cached_cruises:royal-caribbean'))).toBeTruthy();
   expect(apiRequestCount).toBe(0);
 });

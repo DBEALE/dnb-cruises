@@ -65,6 +65,13 @@
   const SITE_CHANGES = [
     {
       date: '21 Jun 2026',
+      title: 'Cleaner main header',
+      items: [
+        'The latest sync date and time has been removed from the main header; provider update times remain available in Display options.',
+      ],
+    },
+    {
+      date: '21 Jun 2026',
       title: 'Favorite cruises',
       items: [
         'Tap any ship icon to favorite or unfavorite that sailing; favorites show a red heart over the ship.',
@@ -1075,9 +1082,6 @@
     document.getElementById('totalShips').textContent = ships.size;
     const providers = new Set(allCruises.map(c => c.provider).filter(Boolean));
     document.getElementById('totalProviders').textContent = providers.size.toLocaleString();
-    if (scrapedAt) {
-      document.getElementById('updatedAt').textContent = formatProviderUpdatedAt(scrapedAt).replace(/^Updated:\s*/, '');
-    }
     renderProviderScrapeTimes();
 
     // Apply any sort / filter state from the URL hash before the first render
