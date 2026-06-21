@@ -61,6 +61,13 @@
   const SITE_CHANGES = [
     {
       date: '21 Jun 2026',
+      title: 'More room for saved view names',
+      items: [
+        'Reduced spacing around the mobile share and filter buttons so saved view names have more room.',
+      ],
+    },
+    {
+      date: '21 Jun 2026',
       title: 'Dark mode',
       items: [
         'Added a saved dark mode option to Display options.',
