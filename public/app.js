@@ -3,6 +3,8 @@
   let cruiseById   = new Map();   // id → cruise, for O(1) lookups from the sparkline observer
   let stickySummaryObserver = null;
   const SAVED_VIEWS_KEY = 'cruise-explorer-saved-views';
+  const FAVORITES_KEY = 'cruise-explorer-favorite-cruises';
+  const FAVORITES_VIEW_ID = '__favorites__';
 
   // Region groupings used by the departureRegion filter. Picking
   // `group:europe` matches cruises departing from any of these atomic
@@ -46,6 +48,8 @@
   const ROW_CAP    = 300;
   let showAll      = false;
   let selectedCruiseId = '';
+  let favoriteCruiseIds = new Set();
+  let favoritesOnly = false;
   let shipWikiLinks     = {};
   let providerWikiLinks = {};
   let classWikiLinks    = {};
@@ -59,6 +63,14 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '21 Jun 2026',
+      title: 'Favorite cruises',
+      items: [
+        'Tap any ship icon to favorite or unfavorite that sailing; favorites show a red heart over the ship.',
+        'A permanent Favorites view now appears first in the saved-views lists.',
+      ],
+    },
     {
       date: '21 Jun 2026',
       title: 'Mobile action order',
@@ -751,6 +763,7 @@
 
   // ── Init ───────────────────────────────────────────────────────────────────
   (function init() {
+    favoriteCruiseIds = loadFavoriteCruiseIds();
     showStatus('Loading cruise data…');
     loadData();
     fetchGBPRate();
@@ -1174,15 +1187,44 @@
     return `<button type="button" class="${classes}" data-share-cruise="${escHtml(c.id || '')}" aria-label="${escHtml(label)}" title="${escHtml(label)}">${shareIcon()}</button>`;
   }
 
+  function loadFavoriteCruiseIds() {
+    try {
+      const raw = localStorage.getItem(FAVORITES_KEY);
+      const ids = raw ? JSON.parse(raw) : [];
+      return new Set(Array.isArray(ids) ? ids.map(String).filter(Boolean) : []);
+    } catch { return new Set(); }
+  }
+
+  function persistFavoriteCruiseIds() {
+    try { localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favoriteCruiseIds])); } catch {}
+  }
+
+  function favoriteCruiseButton(c) {
+    const id = String(c?.id || '');
+    const isFavorite = favoriteCruiseIds.has(id);
+    const action = isFavorite ? 'Remove from favorites' : 'Add to favorites';
+    const label = `${action}: ${c?.shipName || 'cruise'}`;
+    const tier = shipIconTier(c);
+    return `<button type="button" class="ship-favorite-btn tier-${tier}" data-favorite-cruise="${escHtml(id)}" aria-pressed="${isFavorite}" aria-label="${escHtml(label)}" title="${escHtml(label)}"><span class="ship-icon-wrap tier-${tier}" aria-hidden="true"></span><span class="favorite-heart" aria-hidden="true">❤️</span></button>`;
+  }
+
+  function toggleFavoriteCruise(cruiseId) {
+    const id = String(cruiseId || '');
+    if (!id) return;
+    if (favoriteCruiseIds.has(id)) favoriteCruiseIds.delete(id);
+    else favoriteCruiseIds.add(id);
+    persistFavoriteCruiseIds();
+    applyFilters();
+  }
+
   function mobileShipHeader(c) {
     const yearHtml = c.shipLaunchYear
       ? launchYearBadge(c.shipLaunchYear, 'mobile-launch-year')
       : '';
     const actionsHtml = `<span class="mobile-ship-actions">${yearHtml}${cruiseShareButton(c, 'mobile-cruise-share')}</span>`;
-    const tier = shipIconTier(c);
-    // Empty span — CSS mask-image + background-color paints the silhouette
-    // in the row's --brand colour (red / teal / blue / navy).
-    const iconHtml = `<span class="ship-icon-wrap tier-${tier}" aria-hidden="true"></span>`;
+    // The button keeps the existing masked ship silhouette and adds the
+    // favorite heart as a separate overlay.
+    const iconHtml = favoriteCruiseButton(c);
     const nameHtml = wikiLink(c.shipName, shipLinkUrl(c));
     return `<span class="mobile-ship-header"><span>${iconHtml}${nameHtml}</span>${actionsHtml}</span>`;
   }
@@ -2159,13 +2201,14 @@
       .slice()
       .sort((a, b) => (b.savedAt || '').localeCompare(a.savedAt || ''));
     const opts = ['<option value="">Saved views…</option>'];
+    opts.push(`<option value="${FAVORITES_VIEW_ID}">❤️ Favorites</option>`);
     opts.push('<option value="__save__">＋ Save current view…</option>');
     if (views.length) {
       opts.push('<optgroup label="Your views">');
       for (const v of views) opts.push(`<option value="${escHtml(v.id)}">${escHtml(compactSavedViewMenuName(v.name))}</option>`);
       opts.push('</optgroup>');
-      opts.push('<option value="__manage__">Manage saved views…</option>');
     }
+    opts.push('<option value="__manage__">Manage saved views…</option>');
     sel.innerHTML = opts.join('');
     sel.value = '';
   }
@@ -2182,6 +2225,10 @@
     const v = sel.value;
     sel.value = '';   // act like a menu — reset to placeholder
     if (!v) return;
+    if (v === FAVORITES_VIEW_ID) {
+      applyFavoritesView();
+      return;
+    }
     if (v === '__manage__' || v === '__save__') {
       openSavedViews();
       // For "Save current view", focus the name input so the user can type
@@ -2197,13 +2244,14 @@
     const list  = document.getElementById('svList');
     const empty = document.getElementById('svEmpty');
     const views = loadSavedViews();
-    if (!views.length) {
-      list.innerHTML = '';
-      empty.hidden = false;
-      return;
-    }
     empty.hidden = true;
-    list.innerHTML = views
+    const favoritesItem = `<li class="sv-item sv-built-in">
+      <button type="button" class="sv-apply" data-id="${FAVORITES_VIEW_ID}">
+        <span class="sv-name">❤️ Favorites</span>
+        <span class="sv-hash">Cruises you marked as favorites</span>
+      </button>
+    </li>`;
+    list.innerHTML = favoritesItem + views
       .slice() // don't mutate
       .sort((a, b) => (b.savedAt || '').localeCompare(a.savedAt || ''))
       .map(v => {
@@ -2409,6 +2457,26 @@
     refreshMobileSavedSelect();
     setSuggestedSavedViewName();
   }
+
+  function applyFavoritesView() {
+    document.querySelectorAll('.col-filter, .mob-filter').forEach(el => { el.value = ''; });
+    updateDepartureRangeControls();
+    updateMobileFilterActiveStates();
+    sortColIndex = -1;
+    sortAsc = true;
+    showAll = false;
+    selectedCruiseId = '';
+    favoritesOnly = true;
+    syncSortControls();
+    applyFilters();
+    document.getElementById('savedViewsDialog')?.close();
+  }
+
+  function clearFavoritesView() {
+    favoritesOnly = false;
+    applyFilters();
+  }
+
   function applySavedView(id) {
     const view = loadSavedViews().find(v => v.id === id);
     if (!view) return;
@@ -2537,7 +2605,8 @@
       const apply  = ev.target.closest('.sv-apply');
       const del    = ev.target.closest('.sv-delete');
       const notify = ev.target.closest('.sv-notify');
-      if (apply) applySavedView(apply.dataset.id);
+      if (apply?.dataset.id === FAVORITES_VIEW_ID) applyFavoritesView();
+      else if (apply) applySavedView(apply.dataset.id);
       else if (del) deleteSavedView(del.dataset.id);
       else if (notify && !notify.disabled) openNotifyForView(notify.dataset.id);
     });
@@ -2549,6 +2618,12 @@
     if (tbody && !tbody.dataset.phWired) {
       tbody.dataset.phWired = '1';
       tbody.addEventListener('click', (ev) => {
+        const favoriteBtn = ev.target.closest('[data-favorite-cruise]');
+        if (favoriteBtn) {
+          ev.preventDefault();
+          toggleFavoriteCruise(favoriteBtn.dataset.favoriteCruise);
+          return;
+        }
         const shareBtn = ev.target.closest('[data-share-cruise]');
         if (shareBtn) {
           ev.preventDefault();
@@ -2864,6 +2939,7 @@
 
     const filtered = allCruises.filter(c => {
       if (selectedCruiseId && c.id !== selectedCruiseId) return false;
+      if (favoritesOnly && !favoriteCruiseIds.has(String(c.id || ''))) return false;
       const itineraryTerms = itinerarySearchTerms(colFilters.itinerary);
       if (itineraryTerms.length) {
         const haystack = (c.itinerary || '').toLowerCase();
@@ -2946,7 +3022,12 @@
     const filterSummary = selectedFilterSummary(colFilters);
     const filterSuffix = filterSummary ? ` · ${filterSummary}` : '';
     let summary;
-    if (capped.length < sorted.length) {
+    if (favoritesOnly) {
+      const shown = capped.length < sorted.length
+        ? `Showing first ${capped.length.toLocaleString()} of ${sorted.length.toLocaleString()} favorites`
+        : `Showing ${sorted.length.toLocaleString()} ${sorted.length === 1 ? 'favorite' : 'favorites'}`;
+      summary = `${shown}${filterSuffix} · <button type="button" class="show-all-btn" onclick="clearFavoritesView()">View all cruises</button>`;
+    } else if (capped.length < sorted.length) {
       summary = `Showing first ${capped.length.toLocaleString()} of ${sorted.length.toLocaleString()} sailings${filterSuffix} · ${showAllLink}${sortHint}`;
     } else if (selectedCruiseId) {
       const cruise = cruiseById.get(selectedCruiseId);
@@ -2958,7 +3039,7 @@
       summary = `Showing ${filtered.length.toLocaleString()} of ${allLabel} sailings${filterSuffix}.`;
     }
     document.getElementById('summary').innerHTML = summary;
-    syncStickySummary(capped.length, sorted.length, filtered.length === allCruises.length);
+    syncStickySummary(capped.length, sorted.length, !favoritesOnly && filtered.length === allCruises.length);
 
     renderBody(capped, colFilters);
     writeUrlState();
@@ -3008,6 +3089,7 @@
   // non-default values are written — a clean URL = default state.
   function serializeUrlState() {
     const p = new URLSearchParams(serializeSearchState());
+    if (favoritesOnly) p.set('favorites', '1');
     if (selectedCruiseId) p.set('cruise', selectedCruiseId);
     return p.toString();
   }
@@ -3093,10 +3175,13 @@
 
   function applyUrlState() {
     const hash = window.location.hash.replace(/^#/, '');
+    selectedCruiseId = '';
+    favoritesOnly = false;
     if (!hash) return;
     const p = new URLSearchParams(hash);
 
     selectedCruiseId = p.get('cruise') || '';
+    favoritesOnly = p.get('favorites') === '1';
 
     const sortVal = p.get('sort');
     if (sortVal && /^\d+-(asc|desc)$/.test(sortVal)) {

@@ -97,6 +97,9 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(app, /triggerHeaderWavePress\(\)/);
   assert.match(app, /class="first-seen-val"/);
   assert.match(app, /function launchYearBadge\(year, extraClass = ''\)/);
+  assert.match(app, /const FAVORITES_KEY = 'cruise-explorer-favorite-cruises'/);
+  assert.match(app, /function toggleFavoriteCruise\(cruiseId\)/);
+  assert.match(app, /function applyFavoritesView\(\)/);
   assert.match(app, /return 'newest'/);
   assert.match(app, /if \(age < 5\) return 'newest'/);
   assert.match(app, /function scheduleApplyFilters\(\{ delay = 0 \} = \{\}\)/);
@@ -141,6 +144,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.launch-year-badge\.newness-legacy/);
   assert.match(css, /\.launch-year-badge\.newness-newest/);
   assert.match(css, /\.launch-year-badge\.newness-newest \.launch-year-star/);
+  assert.match(css, /\.ship-favorite-btn\[aria-pressed="true"\] \.favorite-heart/);
   assert.match(css, /\.class-dots\.unknown span/);
   assert.match(css, /\.header-wave \.wave-main/);
   assert.match(css, /\.header-wave \.wave-front/);

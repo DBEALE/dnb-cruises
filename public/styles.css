@@ -1912,6 +1912,10 @@
       border-radius: 10px;
       overflow: hidden;
     }
+    .sv-built-in {
+      border-color: #fecaca;
+      background: #fff7f7;
+    }
     .sv-apply {
       appearance: none;
       flex: 1; min-width: 0;
@@ -2243,7 +2247,7 @@
     body.hide-class-dots  .class-dots               { display: none !important; }
     body.hide-launch-year .col-launch,
     body.hide-launch-year .mobile-launch-year       { display: none !important; }
-    body.hide-ship-icons  .ship-icon-wrap           { display: none !important; }
+    body.hide-ship-icons  .ship-favorite-btn        { display: none !important; }
 
     /* Dark display mode. Kept at the end so it also covers mobile-only rules. */
     body.dark-mode .sticky-summary,
@@ -2335,6 +2339,11 @@
       color: var(--gray-800);
     }
 
+    body.dark-mode .sv-built-in {
+      border-color: #7f1d1d;
+      background: rgba(127,29,29,.18);
+    }
+
     @media (max-width: 480px) {
       body.dark-mode #cruiseBody td {
         border-bottom-color: transparent;
@@ -2346,6 +2355,25 @@
        and uses it as a stencil over the brand colour, so the ship is
        painted in the row's --brand (red / teal / blue / navy).
        Sizes per tier convey size hierarchy at a glance. */
+    .ship-favorite-btn {
+      appearance: none;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      margin-right: 8px;
+      padding: 7px 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+    }
+    .ship-favorite-btn:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
     .ship-icon-wrap {
       display: inline-block;
       vertical-align: middle;
@@ -2359,6 +2387,19 @@
               mask-size: contain;
       flex-shrink: 0;
     }
+    .ship-favorite-btn .ship-icon-wrap { margin-right: 0; }
+    .favorite-heart {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: -7px;
+      z-index: 1;
+      font-size: 0.72rem;
+      line-height: 1;
+      filter: drop-shadow(0 1px 1px rgba(255,255,255,.9));
+      pointer-events: none;
+    }
+    .ship-favorite-btn[aria-pressed="true"] .favorite-heart { display: block; }
     .ship-icon-wrap.tier-mega   { width: 44px; height: 18px;
       -webkit-mask-image: url(./img/ship-mega.png);   mask-image: url(./img/ship-mega.png);   }
     .ship-icon-wrap.tier-large  { width: 38px; height: 14px;

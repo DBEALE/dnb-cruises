@@ -544,6 +544,43 @@ test.describe('Mobile filters', () => {
 });
 
 test.describe('Saved views', () => {
+  test('favorites persist and the built-in view filters favorite cruises', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoFresh(page);
+
+    const favoritesOption = page.locator('#mobileSavedSelect option').nth(1);
+    await expect(favoritesOption).toHaveAttribute('value', '__favorites__');
+    await expect(favoritesOption).toHaveText('❤️ Favorites');
+
+    const anthemFavorite = page.locator('tbody tr:has-text("Anthem of the Seas") .ship-favorite-btn');
+    await expect(anthemFavorite).toHaveAttribute('aria-pressed', 'false');
+    await anthemFavorite.click();
+    await expect(page.locator('tbody tr:has-text("Anthem of the Seas") .ship-favorite-btn')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('tbody tr:has-text("Anthem of the Seas") .favorite-heart')).toBeVisible();
+    expect(await page.evaluate(() => JSON.parse(localStorage.getItem('cruise-explorer-favorite-cruises')))).toEqual(['rc_a']);
+
+    await page.reload();
+    await page.waitForSelector('tbody tr:not(.empty-row)');
+    await expect(page.locator('tbody tr:has-text("Anthem of the Seas") .ship-favorite-btn')).toHaveAttribute('aria-pressed', 'true');
+
+    await page.selectOption('#mobileSavedSelect', '__manage__');
+    await page.waitForSelector('dialog#savedViewsDialog[open]');
+    await expect(page.locator('#svList .sv-item').first()).toHaveClass(/sv-built-in/);
+    await expect(page.locator('#svList .sv-item').first().locator('.sv-name')).toHaveText('❤️ Favorites');
+    await page.click('#svClose');
+
+    await page.selectOption('#mobileSavedSelect', '__favorites__');
+    await expect(page.locator('#summary')).toContainText('Showing 1 favorite');
+    await expect(page.locator('#cruiseBody')).toContainText('Anthem of the Seas');
+    await expect(page.locator('#cruiseBody')).not.toContainText('Harmony of the Seas');
+    await expect(page.locator('#cruiseBody')).not.toContainText('Celebrity Edge');
+
+    await page.locator('.ship-favorite-btn').click();
+    await expect(page.locator('#summary')).toContainText('Showing 0 favorites');
+    await expect(page.locator('#cruiseBody tr.empty-row')).toBeVisible();
+    expect(await page.evaluate(() => JSON.parse(localStorage.getItem('cruise-explorer-favorite-cruises')))).toEqual([]);
+  });
+
   test('suggests an editable name from current filters and sort', async ({ page }) => {
     await gotoFresh(page);
     await page.selectOption('#sortSelect', '14');
@@ -557,9 +594,10 @@ test.describe('Saved views', () => {
 
     await page.locator('#svNameInput').fill('My balcony shortlist');
     await page.locator('#svSaveForm button[type="submit"]').click();
-    await expect(page.locator('.sv-name').first()).toHaveText('My balcony shortlist');
-    await expect(page.locator('.sv-hash').first()).toContainText('Sort: Price (Balcony)');
-    await expect(page.locator('.sv-hash').first()).toContainText('destination=Mediterranean');
+    const customView = page.locator('.sv-item:not(.sv-built-in)').first();
+    await expect(customView.locator('.sv-name')).toHaveText('My balcony shortlist');
+    await expect(customView.locator('.sv-hash')).toContainText('Sort: Price (Balcony)');
+    await expect(customView.locator('.sv-hash')).toContainText('destination=Mediterranean');
   });
 });
 
