@@ -2299,6 +2299,12 @@
       color: #fca5a5;
     }
 
+    @media (max-width: 480px) {
+      body.dark-mode #cruiseBody td {
+        border-bottom-color: transparent;
+      }
+    }
+
     /* ── Ship icons ─────────────────────────────────────────────────────────── */
     /* Empty span; CSS mask-image takes the silhouette PNG's alpha channel
        and uses it as a stencil over the brand colour, so the ship is

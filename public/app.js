@@ -71,6 +71,7 @@
       title: 'Dark mode',
       items: [
         'Added a saved dark mode option to Display options.',
+        'Removed the prominent internal gridlines from dark-mode mobile cruise cards.',
       ],
     },
     {
