@@ -59,6 +59,14 @@ const smokeCases = {
     'Sky Princess',
     'Southampton (for London), England',
   ),
+  'p-and-o': provider => provider.normalizeCruise({
+    id: 'SMOKE-PANDO',
+    shipName: 'Iona',
+    departureDate: '2026-09-01',
+    duration: '7 Nights',
+    departurePort: 'Southampton, UK',
+    prices: { I: '799', O: '899', B: '999', S: '1299' },
+  }),
 };
 
 test('every registered provider normalizes a representative sailing', () => {

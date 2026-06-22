@@ -11,8 +11,8 @@ const providers = [
   require('./celebrity-cruises'),
   require('./ncl-cruises'),
   require('./princess-cruises'),
+  require('./p-and-o'),
   // require('./msc-cruises'),
-  // require('./p-and-o'),
 ];
 
 module.exports = providers;

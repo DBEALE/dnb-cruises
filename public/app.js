@@ -64,6 +64,20 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '22 Jun 2026',
+      title: 'P&O Cruises added',
+      items: [
+        'Added P&O Cruises sailings with Inside, Sea view, Balcony and Suite prices.',
+      ],
+    },
+    {
+      date: '21 Jun 2026',
+      title: 'Correct price per night',
+      items: [
+        'Fixed £/night values for cruises supplied in USD so their prices are converted to GBP only once.',
+      ],
+    },
+    {
       date: '21 Jun 2026',
       title: 'Cleaner main header',
       items: [
@@ -959,6 +973,7 @@
       case 'celebrity cruises': return 'https://www.celebritycruises.com/gb';
       case 'norwegian cruise line': return 'https://www.ncl.com/uk/en';
       case 'princess cruises': return 'https://www.princess.com/en-uk';
+      case 'p&o cruises': return 'https://www.pocruises.com';
       default: return '';
     }
   }
@@ -969,6 +984,7 @@
       case 'celebrity cruises': return 'https://www.celebritycruises.com/gb/cruises';
       case 'norwegian cruise line': return 'https://www.ncl.com/uk/en/vacations';
       case 'princess cruises': return 'https://www.princess.com/en-uk/cruise-search/results/?resType=C';
+      case 'p&o cruises': return 'https://www.pocruises.com/find-a-cruise';
       default: return '';
     }
   }
@@ -980,6 +996,7 @@
     if (provider === 'royal caribbean') return `https://www.royalcaribbean.com/gbr/en/cruise-ships/${slug}`;
     if (provider === 'celebrity cruises') return `https://www.celebritycruises.com/gb/cruise-ships/${slug}`;
     if (provider === 'norwegian cruise line') return `https://www.ncl.com/uk/en/cruise-ship/${slug}`;
+    if (provider === 'p&o cruises') return `https://www.pocruises.com/cruise-ships/${slug}/overview`;
     if (provider === 'princess cruises') {
       const princessShipSlugs = {
         'caribbean-princess': 'cb-caribbean-princess',
@@ -1733,7 +1750,7 @@
       const priceCell = buildPriceCell(c, url);
       const perNight  = getPricePerNight(c);
       const perNightCell = Number.isFinite(perNight)
-        ? `${escHtml(formatPriceDisplay(perNight, c.currency))}<span class="per-night-suffix">/night</span>`
+        ? `${escHtml(formatPriceDisplay(perNight, 'GBP'))}<span class="per-night-suffix">/night</span>`
         : '—';
       const firstSeen = formatFirstSeenDisplay(c);
       const seaDays = formatSeaDaysDisplay(c);

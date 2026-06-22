@@ -23,7 +23,7 @@ const PROVIDER_INDEX = {
 };
 
 // Helper — build a cruise with the priceHistory shape the UI expects.
-function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton', destinationPort = port, itinerary = `${days}-Night ${port} Sample`, shipLaunchYear = 2020, seaDays = null }) {
+function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton', destinationPort = port, itinerary = `${days}-Night ${port} Sample`, shipLaunchYear = 2020, seaDays = null, currency = 'GBP' }) {
   return {
     id, shipName, provider,
     shipClass:       'Oasis',
@@ -37,7 +37,7 @@ function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenA
     destination:     'Northern Europe',
     destinationPort,
     priceFrom:       String(priceFrom),
-    currency:        'GBP',
+    currency,
     bookingUrl:      `/booking/${id}`,
     prices:          prices || { inside: null, oceanView: null, balcony: null, suite: null },
     priceHistory:    history || [],
@@ -92,10 +92,10 @@ const CRUISES_CEL = {
 };
 
 // Stub every network call so the test exercises the UI in isolation.
-async function setupRoutes(page) {
+async function setupRoutes(page, fixtures = {}) {
   await page.route('**/providers/index.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(PROVIDER_INDEX) }));
-  await page.route('**/providers/royal-caribbean/cruises.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CRUISES_RC) }));
-  await page.route('**/providers/celebrity-cruises/cruises.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CRUISES_CEL) }));
+  await page.route('**/providers/royal-caribbean/cruises.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(fixtures.royalCaribbean || CRUISES_RC) }));
+  await page.route('**/providers/celebrity-cruises/cruises.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(fixtures.celebrity || CRUISES_CEL) }));
   await page.route('**/ship-wiki-links.json', r => r.fulfill({
     status: 200,
     contentType: 'application/json',
@@ -106,18 +106,18 @@ async function setupRoutes(page) {
     }),
   }));
   await page.route('**/build-info.json', r => r.fulfill({ status: 404, body: '' }));
-  await page.route('**/open.er-api.com/**', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ rates: { GBP: 1 } }) }));
+  await page.route('**/open.er-api.com/**', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ rates: { GBP: fixtures.gbpRate || 1 } }) }));
 }
 
 // Pre-seed display settings before the page boots. Pass `null` to leave
 // localStorage untouched so first-time-visitor defaults apply.
-async function gotoFresh(page, settings = null) {
+async function gotoFresh(page, settings = null, fixtures = {}) {
   if (settings) {
     await page.addInitScript((s) => {
       localStorage.setItem('cruise-explorer-settings', JSON.stringify(s));
     }, settings);
   }
-  await setupRoutes(page);
+  await setupRoutes(page, fixtures);
   await page.goto('/');
   await page.waitForSelector('tbody tr:not(.empty-row)');
 }
@@ -701,6 +701,22 @@ test.describe('Settings dialog', () => {
 
     expect(Math.abs(firstSeenBox.y - perNightBox.y)).toBeLessThanOrEqual(1);
     expect(priceBox.y).toBeGreaterThanOrEqual(perNightBox.y + perNightBox.height - 1);
+  });
+
+  test('USD cruises are converted once when calculating price per night', async ({ page }) => {
+    const usdCruise = cruise({
+      id: 'usd_7n', shipName: 'Enchanted Princess', provider: 'Royal Caribbean',
+      priceFrom: 872, prices: { inside: '872', oceanView: null, balcony: null, suite: null },
+      days: 7, currency: 'USD',
+    });
+    await gotoFresh(page, ALL_ON, {
+      gbpRate: 0.756,
+      royalCaribbean: { scrapedAt: '2026-06-21T10:00:00Z', cruises: [usdCruise] },
+    });
+
+    const row = page.locator('#cruiseBody tr').filter({ hasText: 'Enchanted Princess' });
+    await expect(row.locator('.col-price .price-val')).toHaveText('£659');
+    await expect(row.locator('.col-per-night')).toHaveText('£94/night');
   });
 
   test('price stars and lowest-price highlighting can be toggled independently', async ({ page }) => {
