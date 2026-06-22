@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 562,
+  "count": 563,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -25367,73 +25367,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ZSJ11C_AP_20270402",
-      "shipName": "Grand Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 1998,
-      "itinerary": "Sydney, Australia → Newcastle, Australia → Melbourne, Australia → Adelaide, Australia → Albany, Australia → Margaret River (Busselton), Australia → Perth (Fremantle), Australia",
-      "departureDate": "2027-04-02",
-      "duration": "11 Nights",
-      "departurePort": "Sydney, Australia",
-      "departureRegion": "Australia & Pacific",
-      "destination": "Australia & New Zealand",
-      "destinationPort": "Perth (Fremantle), Australia",
-      "priceFrom": "2916",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A710B",
-      "prices": {
-        "inside": "2979",
-        "oceanView": "2916",
-        "balcony": null,
-        "suite": "5139"
-      },
-      "seaDays": 5,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 3004
-          }
-        },
-        {
-          "at": "2026-06-03T08:51:23.558Z",
-          "prices": {
-            "inside": 2979
-          }
-        },
-        {
-          "at": "2026-06-08T08:49:41.438Z",
-          "prices": {
-            "inside": 3004
-          }
-        },
-        {
-          "at": "2026-06-12T09:25:16.375Z",
-          "prices": {
-            "inside": 3004,
-            "oceanView": 4232
-          }
-        },
-        {
-          "at": "2026-06-13T14:45:02.609Z",
-          "prices": {
-            "inside": 3004
-          }
-        },
-        {
-          "at": "2026-06-18T15:05:08.173Z",
-          "prices": {
-            "inside": 2979,
-            "oceanView": 2916,
-            "suite": 5139
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-19T13:12:02.416Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_CFR14F_ST_20261031",
       "shipName": "Star Princess",
       "shipClass": "Grand",
@@ -25666,61 +25599,6 @@
         }
       ],
       "lastSeenAt": "2026-06-19T18:37:32.301Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_ERR14G_EX_20270703",
-      "shipName": "Enchanted Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2020,
-      "itinerary": "Civitavecchia (for Rome), Italy → Corfu, Greece → Kotor, Montenegro → Dubrovnik, Croatia → Naples, Italy (for Capri & Pompeii) → Civitavecchia (for Rome), Italy → Amalfi Coast (Salerno) → Crete (Chania), Greece → Kusadasi, Turkey (for Ephesus) → Katakolon (for Olympia), Greece → Civitavecchia (for Rome), Italy",
-      "departureDate": "2027-07-03",
-      "duration": "14 Nights",
-      "departurePort": "Civitavecchia (for Rome), Italy",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "destinationPort": "Katakolon (for Olympia), Greece",
-      "priceFrom": "2097",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N720A",
-      "prices": {
-        "inside": "2097",
-        "oceanView": "3351",
-        "balcony": "3364",
-        "suite": "3316"
-      },
-      "seaDays": 4,
-      "firstSeenAt": "2026-06-05T21:21:41.187Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-05T21:21:41.187Z",
-          "prices": {
-            "inside": 2097,
-            "oceanView": 3349,
-            "balcony": 3298,
-            "suite": 3291
-          }
-        },
-        {
-          "at": "2026-06-10T13:10:03.669Z",
-          "prices": {
-            "inside": 2172,
-            "oceanView": 3426,
-            "balcony": 3489,
-            "suite": 3466
-          }
-        },
-        {
-          "at": "2026-06-18T17:05:19.362Z",
-          "prices": {
-            "inside": 2097,
-            "oceanView": 3351,
-            "balcony": 3364,
-            "suite": 3316
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-19T20:32:10.235Z"
     },
     {
       "provider": "Princess Cruises",
@@ -28134,6 +28012,284 @@
         }
       ],
       "lastSeenAt": "2026-06-21T12:40:18.787Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ERR14G_EX_20260630",
+      "shipName": "Enchanted Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2020,
+      "itinerary": "Civitavecchia (for Rome), Italy → Corfu, Greece → Dubrovnik, Croatia → Kotor, Montenegro → Naples, Italy (for Capri & Pompeii) → Civitavecchia (for Rome), Italy → Amalfi Coast (Salerno) → Santorini, Greece → Kusadasi, Turkey (for Ephesus) → Katakolon (for Olympia), Greece → Civitavecchia (for Rome), Italy",
+      "departureDate": "2026-06-30",
+      "duration": "14 Nights",
+      "departurePort": "Civitavecchia (for Rome), Italy",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "destinationPort": "Katakolon (for Olympia), Greece",
+      "priceFrom": "1685",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N620A",
+      "prices": {
+        "inside": "1685",
+        "oceanView": null,
+        "balcony": "2079",
+        "suite": null
+      },
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2063,
+            "oceanView": 2594,
+            "balcony": 2594
+          }
+        },
+        {
+          "at": "2026-05-31T10:11:52.714Z",
+          "prices": {
+            "inside": 1955,
+            "oceanView": 2459,
+            "balcony": 2459
+          }
+        },
+        {
+          "at": "2026-05-31T22:56:38.105Z",
+          "prices": {
+            "inside": 1856,
+            "oceanView": 2342,
+            "balcony": 2342
+          }
+        },
+        {
+          "at": "2026-06-04T12:42:06.638Z",
+          "prices": {
+            "inside": 1856,
+            "balcony": 2342
+          }
+        },
+        {
+          "at": "2026-06-06T20:59:25.617Z",
+          "prices": {
+            "inside": 1766,
+            "balcony": 2234
+          }
+        },
+        {
+          "at": "2026-06-18T00:47:52.090Z",
+          "prices": {
+            "inside": 1843
+          }
+        },
+        {
+          "at": "2026-06-19T22:21:09.701Z",
+          "prices": {
+            "inside": 1685,
+            "balcony": 2079
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-21T22:27:14.479Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ZSJ11C_KP_20261007",
+      "shipName": "Crown Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2006,
+      "itinerary": "Sydney, Australia → Newcastle, Australia → Melbourne, Australia → Adelaide, Australia → Albany, Australia → Margaret River (Busselton), Australia → Perth (Fremantle), Australia",
+      "departureDate": "2026-10-07",
+      "duration": "11 Nights",
+      "departurePort": "Sydney, Australia",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand",
+      "destinationPort": "Perth (Fremantle), Australia",
+      "priceFrom": "2511",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3618B",
+      "prices": {
+        "inside": "2511",
+        "oceanView": "3074",
+        "balcony": "4230",
+        "suite": "5299"
+      },
+      "seaDays": 5,
+      "firstSeenAt": "2026-06-15T00:47:54.065Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-15T00:47:54.065Z",
+          "prices": {
+            "inside": 2511,
+            "oceanView": 3074,
+            "balcony": 4230,
+            "suite": 5299
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-21T22:27:14.479Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ECS20A_GP_20270710",
+      "shipName": "Regal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2014,
+      "itinerary": "Copenhagen, Denmark → Kristiansand, Norway → Skagen, Denmark → Stavanger, Norway → Nordfjordeid, Norway → Molde, Norway → Akureyri, Iceland → Isafjordur, Iceland → Grundarfjordur, Iceland → Reykjavik, Iceland → Grundarfjordur, Iceland → Isafjordur, Iceland → Akureyri, Iceland → Seydisfjordur, Iceland → Stornoway, Scotland → Glasgow (Greenock), Scotland → Portland, England → Southampton (for London), England",
+      "departureDate": "2027-07-10",
+      "duration": "20 Nights",
+      "departurePort": "Copenhagen, Denmark",
+      "departureRegion": "Northern Europe",
+      "destination": "Europe",
+      "destinationPort": "Southampton (for London), England",
+      "priceFrom": "3209",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=G724A",
+      "prices": {
+        "inside": "3209",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3255,
+            "balcony": 4387
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 3155,
+            "balcony": 4237
+          }
+        },
+        {
+          "at": "2026-06-04T23:05:48.621Z",
+          "prices": {
+            "inside": 3155,
+            "balcony": 4274
+          }
+        },
+        {
+          "at": "2026-06-06T15:10:22.563Z",
+          "prices": {
+            "inside": 3155,
+            "balcony": 4274,
+            "suite": 5067
+          }
+        },
+        {
+          "at": "2026-06-08T08:49:41.438Z",
+          "prices": {
+            "inside": 3255,
+            "balcony": 4424,
+            "suite": 5267
+          }
+        },
+        {
+          "at": "2026-06-10T05:32:54.965Z",
+          "prices": {
+            "inside": 3255,
+            "suite": 5267
+          }
+        },
+        {
+          "at": "2026-06-10T15:06:28.363Z",
+          "prices": {
+            "inside": 3255,
+            "balcony": 4424,
+            "suite": 5267
+          }
+        },
+        {
+          "at": "2026-06-12T07:38:27.811Z",
+          "prices": {
+            "inside": 3255,
+            "suite": 5267
+          }
+        },
+        {
+          "at": "2026-06-12T13:09:18.929Z",
+          "prices": {
+            "inside": 3255,
+            "balcony": 4387,
+            "suite": 5267
+          }
+        },
+        {
+          "at": "2026-06-12T17:00:36.048Z",
+          "prices": {
+            "inside": 3255,
+            "balcony": 4472,
+            "suite": 5466
+          }
+        },
+        {
+          "at": "2026-06-12T18:43:34.928Z",
+          "prices": {
+            "inside": 3255,
+            "suite": 5466
+          }
+        },
+        {
+          "at": "2026-06-13T05:32:08.046Z",
+          "prices": {
+            "inside": 3255,
+            "balcony": 4511,
+            "suite": 5466
+          }
+        },
+        {
+          "at": "2026-06-16T03:10:18.936Z",
+          "prices": {
+            "inside": 3290,
+            "suite": 5455
+          }
+        },
+        {
+          "at": "2026-06-16T21:04:10.162Z",
+          "prices": {
+            "inside": 4590
+          }
+        },
+        {
+          "at": "2026-06-16T22:38:43.162Z",
+          "prices": {
+            "inside": 3290
+          }
+        },
+        {
+          "at": "2026-06-17T13:15:42.363Z",
+          "prices": {
+            "inside": 3309
+          }
+        },
+        {
+          "at": "2026-06-18T07:41:29.008Z",
+          "prices": {
+            "inside": 3209
+          }
+        },
+        {
+          "at": "2026-06-18T15:05:08.173Z",
+          "prices": {
+            "inside": 3209,
+            "balcony": 4224
+          }
+        },
+        {
+          "at": "2026-06-20T05:30:51.333Z",
+          "prices": {
+            "inside": 3209
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-21T22:27:14.479Z"
     }
   ]
 }
