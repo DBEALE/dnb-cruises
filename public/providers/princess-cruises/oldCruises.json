@@ -25000,70 +25000,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_AYR14B_KP_20270731",
-      "shipName": "Crown Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2006,
-      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Skagway, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
-      "departureDate": "2027-07-31",
-      "duration": "14 Nights",
-      "departurePort": "Vancouver, Canada",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "destinationPort": "Hubbard Glacier (Scenic Cruising), Alaska",
-      "priceFrom": "1573",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3731A",
-      "prices": {
-        "inside": "1573",
-        "oceanView": "2773",
-        "balcony": "4283",
-        "suite": "6029"
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-06-02T18:05:24.346Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-02T18:05:24.346Z",
-          "prices": {
-            "inside": 1648,
-            "oceanView": 2848,
-            "balcony": 4890,
-            "suite": 6179
-          }
-        },
-        {
-          "at": "2026-06-07T13:42:03.490Z",
-          "prices": {
-            "inside": 1573,
-            "oceanView": 2773,
-            "balcony": 4283,
-            "suite": 6004
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 1648,
-            "oceanView": 2848,
-            "balcony": 4408,
-            "suite": 6179
-          }
-        },
-        {
-          "at": "2026-06-18T22:45:19.994Z",
-          "prices": {
-            "inside": 1573,
-            "oceanView": 2773,
-            "balcony": 4283,
-            "suite": 6029
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-19T13:12:02.416Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_CFR14F_ST_20261031",
       "shipName": "Star Princess",
       "shipClass": "Grand",
@@ -28816,6 +28752,106 @@
         }
       ],
       "lastSeenAt": "2026-06-22T22:34:33.495Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AYR14B_XP_20270821",
+      "shipName": "Discovery Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2022,
+      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Icy Strait Point, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
+      "departureDate": "2027-08-21",
+      "duration": "14 Nights",
+      "departurePort": "Vancouver, Canada",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "destinationPort": "Icy Strait Point, Alaska",
+      "priceFrom": "1493",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=X735A",
+      "prices": {
+        "inside": "1493",
+        "oceanView": null,
+        "balcony": "3651",
+        "suite": "4333"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-05-30T02:39:17.160Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-30T02:39:17.160Z",
+          "prices": {
+            "inside": 1518,
+            "balcony": 3864,
+            "suite": 4875
+          }
+        },
+        {
+          "at": "2026-05-30T06:42:50.024Z",
+          "prices": {
+            "inside": 1618,
+            "balcony": 3938,
+            "suite": 4875
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 1543,
+            "balcony": 3813,
+            "suite": 4700
+          }
+        },
+        {
+          "at": "2026-06-08T08:49:41.438Z",
+          "prices": {
+            "inside": 1618,
+            "balcony": 3938,
+            "suite": 4875
+          }
+        },
+        {
+          "at": "2026-06-17T20:44:33.269Z",
+          "prices": {
+            "inside": 1618,
+            "balcony": 4097,
+            "suite": 4875
+          }
+        },
+        {
+          "at": "2026-06-18T07:41:29.008Z",
+          "prices": {
+            "inside": 1543,
+            "balcony": 3972,
+            "suite": 4725
+          }
+        },
+        {
+          "at": "2026-06-19T18:37:32.301Z",
+          "prices": {
+            "inside": 1543,
+            "balcony": 3983,
+            "suite": 4731
+          }
+        },
+        {
+          "at": "2026-06-22T21:02:24.075Z",
+          "prices": {
+            "inside": 1493,
+            "balcony": 3817,
+            "suite": 4529
+          }
+        },
+        {
+          "at": "2026-06-23T00:42:31.197Z",
+          "prices": {
+            "inside": 1493,
+            "balcony": 3651,
+            "suite": 4333
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-23T00:42:31.197Z"
     }
   ]
 }
