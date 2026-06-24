@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 567,
+  "count": 568,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -29154,6 +29154,58 @@
         }
       ],
       "lastSeenAt": "2026-06-24T14:57:32.770Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_EAB14A_SU_20260801",
+      "shipName": "Sun Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2024,
+      "itinerary": "Athens (Piraeus), Greece → Santorini, Greece → Bar, Montenegro → Corfu, Greece → Sicily (Messina), Italy → Barcelona, Spain → Gibraltar → Cartagena, Spain → Total Solar Eclipse 2026 → La Spezia (for Florence/Pisa),Italy → Civitavecchia (for Rome), Italy",
+      "departureDate": "2026-08-01",
+      "duration": "14 Nights",
+      "departurePort": "Athens (Piraeus), Greece",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "destinationPort": "Civitavecchia (for Rome), Italy",
+      "priceFrom": "2986",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=U630A",
+      "prices": {
+        "inside": "2986",
+        "oceanView": "3490",
+        "balcony": null,
+        "suite": "4352"
+      },
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2960,
+            "oceanView": 3708,
+            "suite": 4613
+          }
+        },
+        {
+          "at": "2026-06-05T19:48:07.083Z",
+          "prices": {
+            "inside": 2986,
+            "oceanView": 3708,
+            "suite": 4613
+          }
+        },
+        {
+          "at": "2026-06-11T05:56:28.754Z",
+          "prices": {
+            "inside": 2986,
+            "oceanView": 3490,
+            "suite": 4352
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-24T16:44:42.772Z"
     }
   ]
 }
