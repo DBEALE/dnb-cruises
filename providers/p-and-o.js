@@ -14,6 +14,9 @@ const {
   DEFAULT_USER_AGENT,
 } = require('./shared');
 
+// Sentinel used to detect rendered cruise tiles in raw HTML.
+const CRUISE_TILE_SENTINEL = 'po-cuk-cruise-tile-wrapper';
+
 const PANDO_SEARCH_URL = 'https://www.pocruises.com/find-a-cruise';
 const PANDO_READER_PREFIX = 'https://r.jina.ai/';
 const CABIN_FILTERS = ['I', 'O', 'B', 'S'];
@@ -152,13 +155,40 @@ async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout) {
   const headers = { 'user-agent': DEFAULT_USER_AGENT, accept: 'text/html,application/xhtml+xml' };
   const readerUrl = `${PANDO_READER_PREFIX}${target}`;
   if (process.platform === 'win32') return requestTextViaPowerShell(readerUrl, 60_000);
-  let response;
+
+  // Try a direct HTTP fetch first.  The P&O website is a JavaScript SPA so a
+  // plain request returns only the app shell – no rendered cruise tiles.  Only
+  // use the response if the rendered tile sentinel is present; otherwise fall
+  // through to the Jina reader which executes JavaScript before returning HTML.
   try {
-    response = await fetchImpl(target, { headers });
-    if (response.ok) return response.text();
+    const response = await fetchImpl(target, { headers });
+    if (response.ok) {
+      const text = await response.text();
+      if (text.includes(CRUISE_TILE_SENTINEL)) return text;
+    }
   } catch {}
 
-  return requestText(readerUrl, { ...headers, 'x-return-format': 'html' }, 60_000);
+  // Jina AI reader renders the page with JavaScript before returning HTML.
+  try {
+    return await requestText(readerUrl, { ...headers, 'x-return-format': 'html' }, 60_000);
+  } catch {}
+
+  // Last resort: use a real Playwright browser to render the page.
+  return fetchSearchPageWithPlaywright(cabinCode);
+}
+
+async function fetchSearchPageWithPlaywright(cabinCode) {
+  const { chromium } = require('@playwright/test');
+  const target = `${PANDO_SEARCH_URL}?roomTypes=${encodeURIComponent(cabinCode)}&web2=true`;
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await page.goto(target, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+    await page.waitForSelector(`[data-testid="${CRUISE_TILE_SENTINEL}"]`, { timeout: 30_000 });
+    return page.content();
+  } finally {
+    await browser.close();
+  }
 }
 
 async function requestTextViaPowerShell(url, timeoutMs) {
@@ -249,3 +279,4 @@ module.exports.parseSearchHtml = parseSearchHtml;
 module.exports.mergeCruises = mergeCruises;
 module.exports.toIsoDate = toIsoDate;
 module.exports.emptyPrices = emptyPrices;
+module.exports.fetchSearchPage = fetchSearchPage;
