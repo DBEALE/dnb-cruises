@@ -64,6 +64,14 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '24 Jun 2026',
+      title: 'P&O Cruises scraper fixed',
+      items: [
+        'Fixed the P&O Cruises scraper: the direct HTTP fetch now falls through to the Jina AI reader when the website returns a JavaScript app shell without rendered cruise tiles.',
+        'Added a Playwright last-resort fallback for P&O so future website changes are handled gracefully.',
+      ],
+    },
+    {
       date: '22 Jun 2026',
       title: 'P&O Cruises added',
       items: [
