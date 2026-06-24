@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 574,
+  "count": 575,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -29595,6 +29595,43 @@
         }
       ],
       "lastSeenAt": "2026-06-23T22:31:08.470Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AWG070_CO_20260902",
+      "shipName": "Coral Princess",
+      "shipClass": "Coral",
+      "shipLaunchYear": 2002,
+      "itinerary": "Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Skagway, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
+      "departureDate": "2026-09-02",
+      "duration": "7 Nights",
+      "departurePort": "Anchorage (Whittier), Alaska",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "destinationPort": "Vancouver, Canada",
+      "priceFrom": "599",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=6624",
+      "prices": {
+        "inside": "599",
+        "oceanView": "1099",
+        "balcony": "2099",
+        "suite": "2529"
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-06-19T00:51:52.933Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-19T00:51:52.933Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 1099,
+            "balcony": 2099,
+            "suite": 2529
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-24T00:37:21.097Z"
     }
   ]
 }
