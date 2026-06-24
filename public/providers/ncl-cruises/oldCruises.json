@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 52,
+  "count": 53,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -1482,6 +1482,54 @@
         }
       ],
       "lastSeenAt": "2026-06-23T18:42:24.153Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SPIRIT12LTKDRASUVAPWAITRARBRBRAIMOZPPT",
+      "shipName": "Norwegian Spirit",
+      "shipClass": "Spirit",
+      "shipLaunchYear": 1998,
+      "itinerary": "South Pacific: Fiji, Moorea & Bora Bora",
+      "departureDate": "Tue 4 May 2027",
+      "duration": "12-day Cruise",
+      "departurePort": "Lautoka, Fiji",
+      "departureRegion": "Australia & Pacific",
+      "destination": "South Pacific: Fiji, Moorea & Bora Bora",
+      "destinationPort": "Bora Bora",
+      "priceFrom": "2295",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-fiji-to-papeete-fiji-moorea-and-bora-bora-SPIRIT12LTKDRASUVAPWAITRARBRBRAIMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12LTKDRASUVAPWAITRARBRBRAIMOZPPT",
+      "prices": {
+        "inside": "2295",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 5,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 2295,
+            "oceanView": 3095
+          }
+        },
+        {
+          "at": "2026-06-20T18:30:41.320Z",
+          "prices": {
+            "inside": 2295,
+            "oceanView": 3390
+          }
+        },
+        {
+          "at": "2026-06-21T05:37:33.329Z",
+          "prices": {
+            "inside": 2295
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-24T12:45:02.320Z"
     }
   ]
 }
