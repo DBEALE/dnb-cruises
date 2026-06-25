@@ -466,3 +466,95 @@ test('class dot lookup covers all mapped ship classes', async () => {
   assert.match(sandbox.classDots('Grand'), /title="Grand class — Recent generation \(3\/5\)"/);
   assert.match(sandbox.classDots('Coral'), /title="Coral class — Older generation \(2\/5\)"/);
 });
+
+test('a single failing provider (404) does not prevent other providers from loading fresh data', async () => {
+  // Verify that the app uses Promise.allSettled internally: when one provider
+  // returns 404 the remaining providers still load, cache, and render.
+  const workingCruise = buildCruise({
+    shipName: 'Harmony of the Seas',
+    itinerary: 'Mediterranean',
+    departurePort: 'Barcelona',
+    destination: 'Mediterranean',
+    destinationPort: 'Rome',
+    priceFrom: '899',
+    currency: 'GBP',
+    scrapedAt: '2026-06-25T10:00:00.000Z',
+  });
+
+  const sandboxObj = {
+    console,
+    localStorage: {
+      data: new Map(),
+      getItem(key) { return this.data.has(key) ? this.data.get(key) : null; },
+      setItem(key, value) { this.data.set(key, String(value)); },
+    },
+    window: {
+      location: { protocol: 'http:', origin: 'http://127.0.0.1:3000', pathname: '/', search: '', hash: '' },
+    },
+    history: { replaceState() {}, pushState() {} },
+    IntersectionObserver: class { observe() {} unobserve() {} disconnect() {} },
+    document: {
+      body: {
+        className: '',
+        classList: { add() {}, remove() {}, toggle() {}, contains: () => false },
+      },
+      addEventListener() {},
+      removeEventListener() {},
+      getElementById(id) {
+        const el = createElement();
+        return el;
+      },
+      querySelectorAll() { return []; },
+      querySelector(selector) {
+        if (selector === '[data-field="maxPrice"]') return createElement({ placeholder: 'Max £…' });
+        return null;
+      },
+    },
+    fetch: async (url) => {
+      if (String(url).includes('/build-info.json')) {
+        return { ok: false, status: 404, json: async () => ({}) };
+      }
+      if (String(url).includes('/providers/index.json')) {
+        return {
+          ok: true, status: 200,
+          json: async () => ({
+            defaultProviderId: 'royal-caribbean',
+            providers: [
+              { id: 'royal-caribbean', name: 'Royal Caribbean', cruisesUrl: './providers/royal-caribbean/cruises.json' },
+              { id: 'p-and-o',         name: 'P&O Cruises',     cruisesUrl: './providers/p-and-o/cruises.json' },
+            ],
+          }),
+        };
+      }
+      if (String(url).includes('/providers/royal-caribbean/cruises.json')) {
+        return {
+          ok: true, status: 200,
+          json: async () => ({ cruises: [workingCruise], priceCount: 1, scrapedAt: workingCruise.scrapedAt }),
+        };
+      }
+      if (String(url).includes('/providers/p-and-o/cruises.json')) {
+        // P&O has never successfully deployed — simulate a 404.
+        return { ok: false, status: 404 };
+      }
+      throw new Error(`Unexpected fetch URL: ${url}`);
+    },
+    setTimeout, clearTimeout, Date, Math, Promise, Array, String, Number, Boolean, JSON, RegExp, Map, Error, URL, URLSearchParams,
+    performance: { now: () => Date.now() },
+  };
+  sandboxObj.globalThis = sandboxObj;
+  sandboxObj.self      = sandboxObj;
+
+  vm.createContext(sandboxObj);
+  vm.runInContext(readFrontendScript(), sandboxObj, { filename: 'public/app.js' });
+  await new Promise((resolve) => setImmediate(resolve));
+
+  // The working provider's data should have been cached under its own key.
+  const cachedRc = JSON.parse(sandboxObj.localStorage.getItem('cached_cruises:royal-caribbean') || 'null');
+  assert.ok(cachedRc, 'Royal Caribbean data should be cached despite P&O returning 404');
+  assert.equal(cachedRc.scrapedAt, '2026-06-25T10:00:00.000Z',
+    'Cached scrapedAt for Royal Caribbean should reflect the fresh scrape date, not stale data');
+
+  // P&O should have no cache entry since it returned 404.
+  const cachedPando = sandboxObj.localStorage.getItem('cached_cruises:p-and-o');
+  assert.equal(cachedPando, null, 'P&O should not have been cached when it returned 404');
+});

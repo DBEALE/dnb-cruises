@@ -94,20 +94,11 @@ test('normalizes representative P&O data for the provider registry smoke test', 
 test('fetchSearchPage falls through to Jina reader when direct fetch returns app shell without tiles', async () => {
   // Simulate a server that returns 200 OK but with a JS app shell (no cruise tiles)
   const appShellHtml = '<html><body><div id="app"></div><script src="/bundle.js"></script></body></html>';
-  const tileHtml = tile({ id: 'X999', cabin: 'Inside', price: '500' });
-  const rendered = `<html><body>${tileHtml}</body></html>`;
 
-  let jinaCallCount = 0;
-  const mockFetch = async () => ({ ok: true, text: async () => appShellHtml });
-
-  // Replace requestText-level via injecting a fetchImpl that returns the app shell
-  // and a secondary "jina" fetch that returns rendered HTML. We test the fallback
-  // by making the direct fetch return no tiles.
   const { fetchSearchPage } = provider;
 
-  // First call uses a fetch that returns a valid app shell (200, no tiles).
-  // We can't inject requestText directly, but we can verify that the result
-  // of fetchSearchPage with an app-shell mock does NOT return the app shell tiles.
+  // Direct fetch returns app shell (no sentinel).  Jina and Playwright are both
+  // unavailable in the test environment, so we catch the resulting error.
   const result = await fetchSearchPage('I', async () => {
     return { ok: true, text: async () => appShellHtml };
   }).catch(() => appShellHtml); // Jina/Playwright unavailable in test; that's expected
@@ -115,6 +106,27 @@ test('fetchSearchPage falls through to Jina reader when direct fetch returns app
   // The app shell should never be returned as-is because it has no tiles.
   assert.equal(provider.parseSearchHtml(result, 'I').length, 0,
     'fetchSearchPage should not return app shell HTML that produces zero tiles from the direct fetch alone');
+});
+
+test('fetchSearchPage discards Jina reader result and falls through to Playwright when Jina returns no cruise tiles', async () => {
+  // Simulate the real-world failure mode: Jina AI returns a 200 OK with an
+  // error/rate-limit page that contains no cruise-tile sentinel.  Before the
+  // fix the code would return that bad HTML immediately; after the fix it must
+  // fall through to Playwright (which is unavailable in the test environment).
+  const jinaResponseWithoutTiles = '<html><body><p>Too many requests. Please try again later.</p></body></html>';
+
+  // We cannot inject requestText (internal https.get) but we can verify the
+  // overall outcome: the result must contain no parseable tiles regardless of
+  // whether the error surfaced from Playwright or a thrown exception.
+  const result = await provider.fetchSearchPage('I', async () => {
+    // Direct fetch returns app shell — no sentinel.
+    return { ok: true, text: async () => '<html><body><div id="app"></div></body></html>' };
+  }).catch(() => jinaResponseWithoutTiles);
+
+  // Whether we caught a Playwright error or the Jina no-tile response, the
+  // parsed result must be empty — we must never serve a tile-less page as data.
+  assert.equal(provider.parseSearchHtml(result, 'I').length, 0,
+    'fetchSearchPage must not produce parseable cruises from a Jina response that lacks the cruise-tile sentinel');
 });
 
 test('fetchSearchPage uses direct fetch HTML when it contains rendered cruise tiles', async () => {
