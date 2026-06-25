@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 570,
+  "count": 571,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -29701,6 +29701,53 @@
         }
       ],
       "lastSeenAt": "2026-06-25T00:42:46.409Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OYR16I_DI_20260915",
+      "shipName": "Diamond Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Tokyo (Yokohama), Japan → Nagasaki, Japan → Busan, South Korea → Kochi, Japan → Shimizu (for Mt. Fuji), Japan → Tokyo (Yokohama), Japan → Taipei (Keelung) → Taipei (Keelung) → Ishigaki, Japan → Okinawa, Japan → Tokyo (Yokohama), Japan",
+      "departureDate": "2026-09-15",
+      "duration": "16 Nights",
+      "departurePort": "Tokyo (Yokohama), Japan",
+      "departureRegion": "Asia & Far East",
+      "destination": "Japan",
+      "destinationPort": "Okinawa, Japan",
+      "priceFrom": "3399",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=M626A",
+      "prices": {
+        "inside": null,
+        "oceanView": "3399",
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 6,
+      "firstSeenAt": "2026-06-16T22:38:43.162Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-16T22:38:43.162Z",
+          "prices": {
+            "balcony": 5184,
+            "suite": 7918
+          }
+        },
+        {
+          "at": "2026-06-19T07:52:54.863Z",
+          "prices": {
+            "suite": 6788
+          }
+        },
+        {
+          "at": "2026-06-24T09:07:15.180Z",
+          "prices": {
+            "oceanView": 3399
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-25T03:07:42.505Z"
     }
   ]
 }
