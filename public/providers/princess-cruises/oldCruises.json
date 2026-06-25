@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 566,
+  "count": 567,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -29093,6 +29093,61 @@
         }
       ],
       "lastSeenAt": "2026-06-25T18:45:22.523Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OYR07E_DI_20260721",
+      "shipName": "Diamond Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Tokyo (Yokohama), Japan → Toba, Japan → Kochi, Japan → Jeju (Seogwipo), South Korea → Kagoshima, Japan → Tokyo (Yokohama), Japan",
+      "departureDate": "2026-07-21",
+      "duration": "7 Nights",
+      "departurePort": "Tokyo (Yokohama), Japan",
+      "departureRegion": "Asia & Far East",
+      "destination": "Japan",
+      "destinationPort": "Kagoshima, Japan",
+      "priceFrom": "1659",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=M620",
+      "prices": {
+        "inside": "1659",
+        "oceanView": "1899",
+        "balcony": "2099",
+        "suite": "2979"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-05-29T18:29:37.417Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1779,
+            "oceanView": 1899,
+            "balcony": 2172,
+            "suite": 2979
+          }
+        },
+        {
+          "at": "2026-06-02T08:24:13.015Z",
+          "prices": {
+            "inside": 1779,
+            "oceanView": 1899,
+            "balcony": 2099,
+            "suite": 2979
+          }
+        },
+        {
+          "at": "2026-06-25T18:45:22.523Z",
+          "prices": {
+            "inside": 1659,
+            "oceanView": 1899,
+            "balcony": 2099,
+            "suite": 2979
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-25T20:41:10.282Z"
     }
   ]
 }
