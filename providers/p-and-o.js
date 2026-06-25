@@ -169,8 +169,12 @@ async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout) {
   } catch {}
 
   // Jina AI reader renders the page with JavaScript before returning HTML.
+  // Only use the response if the rendered tile sentinel is present — Jina may
+  // return a rate-limited or error page as HTTP 200, which would contain no
+  // cruise tiles.  Fall through to Playwright when that happens.
   try {
-    return await requestText(readerUrl, { ...headers, 'x-return-format': 'html' }, 60_000);
+    const html = await requestText(readerUrl, { ...headers, 'x-return-format': 'html' }, 60_000);
+    if (html.includes(CRUISE_TILE_SENTINEL)) return html;
   } catch {}
 
   // Last resort: use a real Playwright browser to render the page.

@@ -64,6 +64,14 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '25 Jun 2026',
+      title: 'Provider scrape dates now always up to date',
+      items: [
+        'Fixed a bug where a single failing provider (e.g. P&O returning no data) caused all other providers to fall back to stale cached data in the browser.',
+        'Fixed the P&O Cruises scraper: when the Jina AI reader returns a rate-limited or error page (no cruise tiles), the code now correctly falls through to the Playwright browser fallback instead of returning the bad response.',
+      ],
+    },
+    {
       date: '24 Jun 2026',
       title: 'P&O Cruises scraper fixed',
       items: [
@@ -836,14 +844,23 @@
     }
 
     try {
-      // Try pre-built provider JSON files (GitHub Pages / static hosting)
-      const providerResults = await Promise.all(providers.map(async (provider) => {
+      // Try pre-built provider JSON files (GitHub Pages / static hosting).
+      // Use allSettled so a single provider failure (e.g. a 404 for a provider
+      // that has never scraped successfully) does not prevent the rest from
+      // loading and updating the cache with fresh data.
+      const settled = await Promise.allSettled(providers.map(async (provider) => {
         const res = await fetchStaticJson(provider.cruisesUrl);
         if (!res.ok) throw new Error(`not-found:${provider.id}`);
         const json = await res.json();
         if (!Array.isArray(json.cruises) || !json.cruises.length) throw new Error(`empty:${provider.id}`);
         return { provider, json };
       }));
+
+      const providerResults = settled
+        .filter(r => r.status === 'fulfilled')
+        .map(r => r.value);
+
+      if (!providerResults.length) throw new Error('all-providers-failed');
 
       const allCruises = [];
       let latestScrapedAt = null;
