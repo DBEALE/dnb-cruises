@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 61,
+  "count": 63,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -1919,6 +1919,87 @@
         }
       ],
       "lastSeenAt": "2026-06-25T18:45:22.523Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SPIRIT11SYDQDNBWTMELORRLYTBYOAKL",
+      "shipName": "Norwegian Spirit",
+      "shipClass": "Spirit",
+      "shipLaunchYear": 1998,
+      "itinerary": "Australia & New Zealand: Melbourne, Milford Sound & Eden",
+      "departureDate": "Tue 16 Feb 2027",
+      "duration": "11-day Cruise",
+      "departurePort": "Sydney, Australia",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand: Melbourne, Milford Sound & Eden",
+      "priceFrom": "1430",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-australia-and-new-zealand-from-sydney-to-auckland-SPIRIT11SYDQDNBWTMELORRLYTBYOAKL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT11SYDQDNBWTMELORRLYTBYOAKL",
+      "prices": {
+        "inside": "1430",
+        "oceanView": "2155",
+        "balcony": "3690",
+        "suite": "8250"
+      },
+      "seaDays": null,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1370,
+            "oceanView": 2155,
+            "balcony": 3690,
+            "suite": 8155
+          }
+        },
+        {
+          "at": "2026-06-20T18:30:41.320Z",
+          "prices": {
+            "inside": 1430,
+            "oceanView": 2155,
+            "balcony": 3690,
+            "suite": 8250
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-25T20:41:10.282Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SPIRIT11AKLTAULYTORRMELBWTQDNSYD",
+      "shipName": "Norwegian Spirit",
+      "shipClass": "Spirit",
+      "shipLaunchYear": 1998,
+      "itinerary": "Australia & New Zealand: Dusky Sound & Melbourne",
+      "departureDate": "Fri 5 Feb 2027",
+      "duration": "11-day Cruise",
+      "departurePort": "Auckland, New Zealand",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand: Dusky Sound & Melbourne",
+      "priceFrom": "1500",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-australia-and-new-zealand-from-auckland-to-sydney-SPIRIT11AKLTAULYTORRMELBWTQDNSYD?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT11AKLTAULYTORRMELBWTQDNSYD",
+      "prices": {
+        "inside": "1500",
+        "oceanView": "2025",
+        "balcony": "3715",
+        "suite": "7815"
+      },
+      "seaDays": null,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1500,
+            "oceanView": 2025,
+            "balcony": 3715,
+            "suite": 7815
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-25T20:41:10.282Z"
     }
   ]
 }
