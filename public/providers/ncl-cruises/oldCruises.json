@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 53,
+  "count": 56,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -1485,63 +1485,203 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_AQUA8NYCWRFNYC",
-      "shipName": "Norwegian Aqua",
-      "shipClass": "Prima",
-      "shipLaunchYear": 2025,
-      "itinerary": "Bermuda: Royal Naval Dockyard",
-      "departureDate": "Fri 3 Jul 2026",
-      "duration": "8-day Cruise",
-      "departurePort": "New York, New York",
+      "id": "ncl_JOY9SEAKTNSITICYSGYVICSEA",
+      "shipName": "Norwegian Joy",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2017,
+      "itinerary": "Alaska: Ketchikan, Skagway & Juneau",
+      "departureDate": "Mon 29 Jun 2026",
+      "duration": "9-day Cruise",
+      "departurePort": "Seattle, Washington",
       "departureRegion": "Americas",
-      "destination": "Bermuda: Royal Naval Dockyard",
-      "priceFrom": "1185",
+      "destination": "Alaska: Ketchikan, Skagway & Juneau",
+      "destinationPort": "Juneau",
+      "priceFrom": "773",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/8-day-bermuda-round-trip-from-new-york-AQUA8NYCWRFNYC?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=AQUA8NYCWRFNYC",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/9-day-alaska-round-trip-seattle-ketchinkan-skagway-and-juneau-JOY9SEAKTNSITICYSGYVICSEA?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JOY9SEAKTNSITICYSGYVICSEA",
       "prices": {
-        "inside": "1185",
-        "oceanView": "1425",
-        "balcony": "1640",
-        "suite": "1835"
+        "inside": "773",
+        "oceanView": null,
+        "balcony": "1318",
+        "suite": null
       },
-      "seaDays": 6,
+      "seaDays": 5,
+      "firstSeenAt": "2026-06-01T15:52:12.787Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T18:52:55.794Z",
+          "prices": {
+            "balcony": 1278,
+            "suite": 1488
+          }
+        },
+        {
+          "at": "2026-06-10T05:32:54.965Z",
+          "prices": {
+            "suite": 2308
+          }
+        },
+        {
+          "at": "2026-06-23T20:44:09.441Z",
+          "prices": {
+            "inside": 773
+          }
+        },
+        {
+          "at": "2026-06-25T18:45:22.523Z",
+          "prices": {
+            "inside": 773,
+            "balcony": 1318
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-26T03:08:08.396Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_EPIC7PCVCMABZECZMNPIPCV",
+      "shipName": "Norwegian Epic",
+      "shipClass": "Epic",
+      "shipLaunchYear": 2010,
+      "itinerary": "Caribbean: Great Stirrup Cay & Cozumel",
+      "departureDate": "Sun 3 Jan 2027",
+      "duration": "7-day Cruise",
+      "departurePort": "Orlando (Port Canaveral), Florida",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Cozumel",
+      "destinationPort": "Cozumel",
+      "priceFrom": "614",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-caribbean-round-trip-orlando-great-stirrup-cay-and-cozumel-EPIC7PCVCMABZECZMNPIPCV?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=EPIC7PCVCMABZECZMNPIPCV",
+      "prices": {
+        "inside": "614",
+        "oceanView": "784",
+        "balcony": "859",
+        "suite": "919"
+      },
+      "seaDays": 2,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
           "at": "2026-06-09T10:57:00.972Z",
           "prices": {
-            "oceanView": 1440,
-            "balcony": 1640,
-            "suite": 1755
+            "inside": 614,
+            "oceanView": 764,
+            "balcony": 899,
+            "suite": 934
           }
         },
         {
           "at": "2026-06-20T18:30:41.320Z",
           "prices": {
-            "oceanView": 1420,
-            "balcony": 1600,
-            "suite": 1755
-          }
-        },
-        {
-          "at": "2026-06-21T07:38:44.706Z",
-          "prices": {
-            "oceanView": 1420,
-            "balcony": 1600,
-            "suite": 5185
-          }
-        },
-        {
-          "at": "2026-06-23T22:31:08.470Z",
-          "prices": {
-            "inside": 1185,
-            "oceanView": 1425,
-            "balcony": 1640,
-            "suite": 1835
+            "inside": 614,
+            "oceanView": 784,
+            "balcony": 859,
+            "suite": 919
           }
         }
       ],
-      "lastSeenAt": "2026-06-24T14:57:32.770Z"
+      "lastSeenAt": "2026-06-26T03:08:08.396Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_AQUA6NYCWRFNYC",
+      "shipName": "Norwegian Aqua",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2025,
+      "itinerary": "Bermuda: Royal Naval Dockyard",
+      "departureDate": "Sat 27 Jun 2026",
+      "duration": "6-day Cruise",
+      "departurePort": "New York, New York",
+      "departureRegion": "Americas",
+      "destination": "Bermuda: Royal Naval Dockyard",
+      "priceFrom": "1310",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/6-day-bermuda-round-trip-from-new-york-AQUA6NYCWRFNYC?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=AQUA6NYCWRFNYC",
+      "prices": {
+        "inside": "1310",
+        "oceanView": null,
+        "balcony": "1710",
+        "suite": null
+      },
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1330,
+            "oceanView": 1370,
+            "balcony": 1825,
+            "suite": 2180
+          }
+        },
+        {
+          "at": "2026-06-23T20:44:09.441Z",
+          "prices": {
+            "suite": 2475
+          }
+        },
+        {
+          "at": "2026-06-24T22:29:15.883Z",
+          "prices": {
+            "balcony": 1750,
+            "suite": 2515
+          }
+        },
+        {
+          "at": "2026-06-25T18:45:22.523Z",
+          "prices": {
+            "inside": 1310,
+            "balcony": 1710
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-26T03:08:08.396Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_EPIC7CIVSALCTALIVCEQMRSBCN",
+      "shipName": "Norwegian Epic",
+      "shipClass": "Epic",
+      "shipLaunchYear": 2010,
+      "itinerary": "Mediterranean: Florence & Marseille",
+      "departureDate": "Sun 9 May 2027",
+      "duration": "7-day Cruise",
+      "departurePort": "Rome (Civitavecchia), Italy",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean: Florence & Marseille",
+      "destinationPort": "Marseille",
+      "priceFrom": "870",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-mediterranean-from-rome-to-barcelona-florence-and-marseille-EPIC7CIVSALCTALIVCEQMRSBCN?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=EPIC7CIVSALCTALIVCEQMRSBCN",
+      "prices": {
+        "inside": "870",
+        "oceanView": null,
+        "balcony": "1290",
+        "suite": "1415"
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 880,
+            "balcony": 1330,
+            "suite": 1445
+          }
+        },
+        {
+          "at": "2026-06-24T22:29:15.883Z",
+          "prices": {
+            "inside": 870,
+            "balcony": 1290,
+            "suite": 1415
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-26T03:08:08.396Z"
     }
   ]
 }
