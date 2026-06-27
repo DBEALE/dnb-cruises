@@ -71,6 +71,7 @@
         'Capped slow Norwegian Cruise Line booking-page fallback checks, retried empty scrape responses, and made persistent empty results fail closed instead of overwriting good data.',
         'Scrapes now run providers one at a time to avoid browser-provider contention during scheduled refreshes.',
         'Added longer Royal Caribbean backoff, slower enrichment, NCL empty-page reloads, and sequential P&O cabin fetches to reduce provider-side blocking.',
+        'The site now uses fresh provider files even when another provider is missing, so one failed scrape no longer leaves every provider showing stale dates from browser cache.',
       ],
     },
     {
@@ -845,36 +846,52 @@
       applyCruiseResults(cached.cruises, cached.scrapedAt, cached.priceCount);
     }
 
-    try {
-      // Try pre-built provider JSON files (GitHub Pages / static hosting)
-      const providerResults = await Promise.all(providers.map(async (provider) => {
+    // Try pre-built provider JSON files (GitHub Pages / static hosting).
+    // Treat providers independently: one missing/failed JSON file should not
+    // keep every other provider stuck on stale localStorage data.
+    const settledProviderResults = await Promise.allSettled(providers.map(async (provider) => {
         const res = await fetchStaticJson(provider.cruisesUrl);
         if (!res.ok) throw new Error(`not-found:${provider.id}`);
         const json = await res.json();
         if (!Array.isArray(json.cruises) || !json.cruises.length) throw new Error(`empty:${provider.id}`);
         return { provider, json };
-      }));
+    }));
 
-      const allCruises = [];
-      let latestScrapedAt = null;
-      const providerCounts = new Map();
-      const providerScrapedAts = new Map();
-      let priceCount = 0;
-      for (const { provider, json } of providerResults) {
+    const allCruises = [];
+    let latestScrapedAt = null;
+    const providerCounts = new Map();
+    const providerScrapedAts = new Map();
+    let priceCount = 0;
+
+    for (let i = 0; i < settledProviderResults.length; i++) {
+      const settled = settledProviderResults[i];
+      const provider = providers[i];
+      const json = settled.status === 'fulfilled'
+        ? settled.value.json
+        : readCachedPayload(getProviderCacheKey(provider.id));
+
+      if (!json || !Array.isArray(json.cruises) || !json.cruises.length) continue;
+
+      if (settled.status === 'fulfilled') {
         const providerPriceCount = snapshotPriceCount(json);
         saveCachedCruises(provider.id, json.cruises, json.scrapedAt, providerPriceCount);
-        allCruises.push(...json.cruises);
-        priceCount += providerPriceCount;
-        providerCounts.set(provider.id, json.cruises.length);
-        if (json.scrapedAt) providerScrapedAts.set(provider.id, json.scrapedAt);
-        if (json.scrapedAt && (!latestScrapedAt || json.scrapedAt > latestScrapedAt)) latestScrapedAt = json.scrapedAt;
       }
+
+      const providerPriceCount = snapshotPriceCount(json);
+      allCruises.push(...json.cruises);
+      priceCount += providerPriceCount;
+      providerCounts.set(provider.id, json.cruises.length);
+      if (json.scrapedAt) providerScrapedAts.set(provider.id, json.scrapedAt);
+      if (json.scrapedAt && (!latestScrapedAt || json.scrapedAt > latestScrapedAt)) latestScrapedAt = json.scrapedAt;
+    }
+
+    if (allCruises.length) {
       loadedProviderCounts = providerCounts;
       loadedProviderScrapedAts = providerScrapedAts;
       saveLegacyCachedCruises(allCruises, latestScrapedAt, priceCount);
       applyCruiseResults(allCruises, latestScrapedAt, priceCount);
       hideStatus();
-    } catch {
+    } else {
       if (!cached) showStatus('Could not load cruise data: unable to load the static cruise files.', true);
       else hideStatus();
     }

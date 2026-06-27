@@ -187,9 +187,9 @@ function createElement(initial = {}) {
   };
 }
 
-function buildCruise({ shipName, itinerary, departurePort, destination, destinationPort = '', priceFrom, currency, scrapedAt, seaDays = null }) {
+function buildCruise({ provider = 'Royal Caribbean', shipName, itinerary, departurePort, destination, destinationPort = '', priceFrom, currency, scrapedAt, seaDays = null }) {
   return {
-    provider: 'Royal Caribbean',
+    provider,
     shipName,
     itinerary,
     departureDate: '',
@@ -207,6 +207,12 @@ function buildCruise({ shipName, itinerary, departurePort, destination, destinat
 
 async function createSandbox({
   cachedCruises = null,
+  cachedProviderPayloads = {},
+  providerManifest = [{
+    id: 'royal-caribbean',
+    name: 'Royal Caribbean',
+    cruisesUrl: './providers/royal-caribbean/cruises.json',
+  }],
   providerCruises = [buildCruise({
     shipName: 'Harmony of the Seas',
     itinerary: 'Adriatic Escape',
@@ -218,7 +224,15 @@ async function createSandbox({
     seaDays: 3,
     scrapedAt: '2026-04-27T20:00:00.000Z',
   })],
+  providerPayloads = null,
 } = {}) {
+  const resolvedProviderPayloads = providerPayloads || {
+    'royal-caribbean': {
+      cruises: providerCruises,
+      priceCount: 3,
+      scrapedAt: providerCruises[0]?.scrapedAt || '2026-04-27T20:00:00.000Z',
+    },
+  };
   const elements = {
     statusBar: createElement({ className: 'visible' }),
     statusText: createElement({ textContent: 'Loading cruise data…' }),
@@ -289,27 +303,22 @@ async function createSandbox({
           status: 200,
           json: async () => ({
             defaultProviderId: 'royal-caribbean',
-            providers: [
-              {
-                id: 'royal-caribbean',
-                name: 'Royal Caribbean',
-                cruisesUrl: './providers/royal-caribbean/cruises.json',
-              },
-            ],
+            providers: providerManifest,
           }),
         };
       }
 
-      if (String(url).includes('/providers/royal-caribbean/cruises.json')) {
-        return {
-          ok: true,
-          status: 200,
-          json: async () => ({
-            cruises: providerCruises,
-            priceCount: 3,
-            scrapedAt: providerCruises[0]?.scrapedAt || '2026-04-27T20:00:00.000Z',
-          }),
-        };
+      const providerMatch = String(url).match(/\/providers\/([^/]+)\/cruises\.json/);
+      if (providerMatch) {
+        const payload = resolvedProviderPayloads[providerMatch[1]];
+        if (!payload) {
+          return {
+            ok: false,
+            status: 404,
+            json: async () => ({}),
+          };
+        }
+        return { ok: true, status: 200, json: async () => payload };
       }
 
       if (String(url).includes('/api/cruises')) {
@@ -360,6 +369,9 @@ async function createSandbox({
   if (cachedCruises) {
     sandbox.localStorage.setItem('cached_cruises', JSON.stringify(cachedCruises));
   }
+  for (const [providerId, payload] of Object.entries(cachedProviderPayloads)) {
+    sandbox.localStorage.setItem(`cached_cruises:${providerId}`, JSON.stringify(payload));
+  }
 
   vm.createContext(sandbox);
   vm.runInContext(readFrontendScript(), sandbox, { filename: 'public/index.html' });
@@ -395,6 +407,88 @@ test('loads the provider manifest and provider-specific cruise file on init', as
   assert.equal(elements.totalPrices.textContent, '3');
   assert.equal(JSON.parse(sandbox.localStorage.getItem('cached_cruises:royal-caribbean')).priceCount, 3);
   assert.ok(sandbox.localStorage.getItem('cached_cruises'));
+});
+
+test('uses fresh provider files even when one manifest provider is missing', async () => {
+  const providerManifest = [
+    { id: 'royal-caribbean', name: 'Royal Caribbean', cruisesUrl: './providers/royal-caribbean/cruises.json' },
+    { id: 'celebrity-cruises', name: 'Celebrity Cruises', cruisesUrl: './providers/celebrity-cruises/cruises.json' },
+    { id: 'p-and-o', name: 'P&O Cruises', cruisesUrl: './providers/p-and-o/cruises.json' },
+  ];
+  const stalePando = {
+    cruises: [buildCruise({
+      provider: 'P&O Cruises',
+      shipName: 'Iona',
+      itinerary: 'Norwegian Fjords',
+      departurePort: 'Southampton',
+      destination: 'Norway',
+      priceFrom: '799',
+      currency: 'GBP',
+      scrapedAt: '2026-06-22T13:16:20.823Z',
+    })],
+    priceCount: 1,
+    scrapedAt: '2026-06-22T13:16:20.823Z',
+  };
+
+  const { sandbox, elements } = await createSandbox({
+    providerManifest,
+    cachedProviderPayloads: {
+      'royal-caribbean': {
+        cruises: [buildCruise({
+          shipName: 'Old Harmony',
+          itinerary: 'Old itinerary',
+          departurePort: 'Barcelona',
+          destination: 'Mediterranean',
+          priceFrom: '899',
+          currency: 'GBP',
+          scrapedAt: '2026-06-03T08:51:00.000Z',
+        })],
+        priceCount: 1,
+        scrapedAt: '2026-06-03T08:51:00.000Z',
+      },
+      'p-and-o': stalePando,
+    },
+    providerPayloads: {
+      'royal-caribbean': {
+        cruises: [buildCruise({
+          shipName: 'Fresh Harmony',
+          itinerary: 'Fresh itinerary',
+          departurePort: 'Barcelona',
+          destination: 'Mediterranean',
+          priceFrom: '999',
+          currency: 'GBP',
+          scrapedAt: '2026-06-27T10:10:52.000Z',
+        })],
+        priceCount: 1,
+        scrapedAt: '2026-06-27T10:10:52.000Z',
+      },
+      'celebrity-cruises': {
+        cruises: [buildCruise({
+          provider: 'Celebrity Cruises',
+          shipName: 'Celebrity Apex',
+          itinerary: 'Greek Isles',
+          departurePort: 'Athens',
+          destination: 'Mediterranean',
+          priceFrom: '1299',
+          currency: 'GBP',
+          scrapedAt: '2026-06-27T10:10:52.000Z',
+        })],
+        priceCount: 1,
+        scrapedAt: '2026-06-27T10:10:52.000Z',
+      },
+    },
+  });
+
+  assert.equal(elements.statusBar.className, '');
+  assert.match(elements.summary.innerHTML, /Showing all 3 sailings/);
+  assert.match(elements.cruiseBody.innerHTML, /Fresh Harmony/);
+  assert.match(elements.cruiseBody.innerHTML, /Celebrity Apex/);
+  assert.match(elements.cruiseBody.innerHTML, /Iona/);
+  assert.doesNotMatch(elements.cruiseBody.innerHTML, /Old Harmony/);
+
+  const storedRoyal = JSON.parse(sandbox.localStorage.getItem('cached_cruises:royal-caribbean'));
+  assert.equal(storedRoyal.scrapedAt, '2026-06-27T10:10:52.000Z');
+  assert.equal(JSON.parse(sandbox.localStorage.getItem('cached_cruises:p-and-o')).scrapedAt, stalePando.scrapedAt);
 });
 
 test('cached cruises are rendered immediately on init', async () => {
