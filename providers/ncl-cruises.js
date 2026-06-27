@@ -9,6 +9,7 @@ const NCL_CRUISES_URL = 'https://www.ncl.com/uk/en/vacations';
 const NCL_PAGE_WAIT_MS = 800;
 const NCL_MAX_PAGINATION_STEPS = 60;
 const NCL_MAX_BOOKING_FALLBACKS = 40;
+const NCL_EMPTY_LOAD_RETRIES = 2;
 
 const SHIP_CLASS = {
   'Norwegian Aqua': 'Prima',
@@ -427,9 +428,26 @@ function extractCruiseCardsFromArticles(articles) {
   });
 }
 
+async function waitForAnyCruiseCard(page, attempt) {
+  try {
+    await page.waitForSelector('article.c495', { timeout: 15_000 });
+  } catch {
+    if (attempt >= NCL_EMPTY_LOAD_RETRIES) return;
+    console.warn(`  [NCL] no cruise cards after load attempt ${attempt + 1}; reloading.`);
+    await page.reload({ waitUntil: 'domcontentloaded', timeout: 60_000 });
+    await page.waitForTimeout(NCL_PAGE_WAIT_MS * 2);
+    await waitForAnyCruiseCard(page, attempt + 1);
+  }
+}
+
 async function collectCruiseCards() {
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1800 } });
+  const browser = await chromium.launch({ headless: true, args: ['--disable-http2'] });
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 1800 },
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    locale: 'en-GB',
+    timezoneId: 'Europe/London',
+  });
   const itineraryDetails = new Map();
   const itineraryPromises = [];
 
@@ -451,6 +469,7 @@ async function collectCruiseCards() {
   try {
     await page.goto(NCL_CRUISES_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.waitForTimeout(NCL_PAGE_WAIT_MS);
+    await waitForAnyCruiseCard(page, 0);
 
     const cards = new Map();
 

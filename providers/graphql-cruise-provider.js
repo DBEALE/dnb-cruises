@@ -5,6 +5,13 @@ const { DEFAULT_USER_AGENT } = require('./shared');
 const { timeoutSignal, DEFAULT_TIMEOUT_MS } = require('./rci-room-selection');
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const RETRY_DELAYS_MS = [5_000, 15_000, 30_000, 60_000, 90_000];
+
+function retryDelayFor(response, attempt) {
+  const retryAfter = Number.parseInt(response.headers.get('retry-after') || '', 10);
+  if (Number.isFinite(retryAfter) && retryAfter > 0) return retryAfter * 1000;
+  return RETRY_DELAYS_MS[Math.min(attempt - 1, RETRY_DELAYS_MS.length - 1)];
+}
 
 /**
  * Base class for cruise providers that paginate the Royal Caribbean
@@ -71,21 +78,32 @@ class GraphQLCruiseProvider {
   }
 
   async fetchPage({ pagination }, attempt = 1) {
-    const response = await fetch(this.graphUrl, {
-      method: 'POST',
-      headers: this.buildRequestHeaders(),
-      body: JSON.stringify(this.buildRequestBody(pagination.skip)),
-      signal: timeoutSignal(DEFAULT_TIMEOUT_MS),
-    });
+    let response;
+    try {
+      response = await fetch(this.graphUrl, {
+        method: 'POST',
+        headers: this.buildRequestHeaders(),
+        body: JSON.stringify(this.buildRequestBody(pagination.skip)),
+        signal: timeoutSignal(DEFAULT_TIMEOUT_MS),
+      });
+    } catch (err) {
+      if (attempt <= RETRY_DELAYS_MS.length) {
+        const delay = RETRY_DELAYS_MS[Math.min(attempt - 1, RETRY_DELAYS_MS.length - 1)];
+        console.log(`  ${this.progressPrefix} request failed (${err.message}) - retrying in ${delay / 1000}s (attempt ${attempt}/${RETRY_DELAYS_MS.length})...`);
+        await sleep(delay);
+        return this.fetchPage({ pagination }, attempt + 1);
+      }
+      throw err;
+    }
 
     if (!response.ok) {
-      if (attempt < 4) {
-        const delay = attempt * 3000;
+      if (attempt <= RETRY_DELAYS_MS.length && (response.status === 403 || response.status === 429 || response.status >= 500)) {
+        const delay = retryDelayFor(response, attempt);
         console.log(`  ${this.progressPrefix} HTTP ${response.status} — retrying in ${delay / 1000}s (attempt ${attempt}/3)…`);
         await sleep(delay);
         return this.fetchPage({ pagination }, attempt + 1);
       }
-      throw new Error(`${this.requestTimeoutLabel} API returned HTTP ${response.status} after 3 retries`);
+      throw new Error(`${this.requestTimeoutLabel} API returned HTTP ${response.status} after ${attempt - 1} retries`);
     }
 
     const payload = await response.json();

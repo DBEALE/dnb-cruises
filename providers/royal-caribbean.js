@@ -220,7 +220,7 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
       requestTimeoutLabel: 'RC',
       progressPrefix: '[RC]',
       dedupeById: true,
-      requestDelayMs: 500,
+      requestDelayMs: 2000,
     });
   }
 
@@ -241,7 +241,7 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
   async fetchCruises() {
     const cruises = await super.fetchCruises();
     const cache = new Map();
-    const concurrency = 6;
+    const concurrency = 2;
 
     const enrichedCruises = await mapWithConcurrency(cruises, concurrency, async (cruise) => {
       const context = parseBookingContext(cruise.bookingUrl);

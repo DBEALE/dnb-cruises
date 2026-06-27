@@ -188,7 +188,12 @@ async function fetchSearchPageWithPlaywright(cabinCode) {
   const target = `${PANDO_SEARCH_URL}?roomTypes=${encodeURIComponent(cabinCode)}&web2=true`;
   const browser = await chromium.launch({ headless: true, args: ['--disable-http2'] });
   try {
-    const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    const page = await browser.newPage({
+      viewport: { width: 1440, height: 900 },
+      userAgent: DEFAULT_USER_AGENT,
+      locale: 'en-GB',
+      timezoneId: 'Europe/London',
+    });
     let lastError = null;
     for (let attempt = 1; attempt <= 2; attempt++) {
       try {
@@ -251,10 +256,11 @@ function requestText(url, headers, timeoutMs) {
 }
 
 async function fetchCruises() {
-  const pages = await Promise.all(CABIN_FILTERS.map(async cabinCode => {
+  const pages = [];
+  for (const cabinCode of CABIN_FILTERS) {
     const html = await fetchSearchPage(cabinCode);
-    return parseSearchHtml(html, cabinCode);
-  }));
+    pages.push(parseSearchHtml(html, cabinCode));
+  }
   const cruises = mergeCruises(pages);
   if (!cruises.length) throw new Error('P&O returned no parseable cruise results');
   return cruises;
