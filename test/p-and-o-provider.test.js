@@ -98,23 +98,54 @@ test('fetchSearchPage falls through to Jina reader when direct fetch returns app
   const rendered = `<html><body>${tileHtml}</body></html>`;
 
   let jinaCallCount = 0;
-  const mockFetch = async () => ({ ok: true, text: async () => appShellHtml });
+  const result = await provider.fetchSearchPage(
+    'I',
+    async () => ({ ok: true, text: async () => appShellHtml }),
+    {
+      platform: 'linux',
+      requestText: async () => {
+        jinaCallCount++;
+        return rendered;
+      },
+      fetchWithPlaywright: async () => {
+        throw new Error('Playwright fallback should not be needed');
+      },
+    },
+  );
 
-  // Replace requestText-level via injecting a fetchImpl that returns the app shell
-  // and a secondary "jina" fetch that returns rendered HTML. We test the fallback
-  // by making the direct fetch return no tiles.
-  const { fetchSearchPage } = provider;
+  assert.equal(jinaCallCount, 1);
+  const [cruise] = provider.parseSearchHtml(result, 'I');
+  assert.equal(cruise.id, 'pando-X999');
+  assert.equal(cruise.prices.inside, '500');
+});
 
-  // First call uses a fetch that returns a valid app shell (200, no tiles).
-  // We can't inject requestText directly, but we can verify that the result
-  // of fetchSearchPage with an app-shell mock does NOT return the app shell tiles.
-  const result = await fetchSearchPage('I', async () => {
-    return { ok: true, text: async () => appShellHtml };
-  }).catch(() => appShellHtml); // Jina/Playwright unavailable in test; that's expected
+test('fetchSearchPage on Windows validates Jina output before falling back to Playwright', async () => {
+  const appShellHtml = '<html><body><div id="app"></div><script src="/bundle.js"></script></body></html>';
+  const rendered = `<html><body>${tile({ id: 'PLAY1', cabin: 'Inside', price: '600' })}</body></html>`;
 
-  // The app shell should never be returned as-is because it has no tiles.
-  assert.equal(provider.parseSearchHtml(result, 'I').length, 0,
-    'fetchSearchPage should not return app shell HTML that produces zero tiles from the direct fetch alone');
+  let powershellReaderCalls = 0;
+  let playwrightCalls = 0;
+  const result = await provider.fetchSearchPage(
+    'I',
+    async () => ({ ok: true, text: async () => appShellHtml }),
+    {
+      platform: 'win32',
+      requestTextViaPowerShell: async () => {
+        powershellReaderCalls++;
+        return appShellHtml;
+      },
+      fetchWithPlaywright: async () => {
+        playwrightCalls++;
+        return rendered;
+      },
+    },
+  );
+
+  assert.equal(powershellReaderCalls, 1);
+  assert.equal(playwrightCalls, 1);
+  const [cruise] = provider.parseSearchHtml(result, 'I');
+  assert.equal(cruise.id, 'pando-PLAY1');
+  assert.equal(cruise.prices.inside, '600');
 });
 
 test('fetchSearchPage uses direct fetch HTML when it contains rendered cruise tiles', async () => {

@@ -64,6 +64,15 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '27 Jun 2026',
+      title: 'Provider scrape reliability',
+      items: [
+        'Fixed the P&O Cruises fetch path so app-shell responses are rejected before the scraper falls back to a rendered browser page.',
+        'Capped slow Norwegian Cruise Line booking-page fallback checks, retried empty scrape responses, and made persistent empty results fail closed instead of overwriting good data.',
+        'Scrapes now run providers one at a time to avoid browser-provider contention during scheduled refreshes.',
+      ],
+    },
+    {
       date: '24 Jun 2026',
       title: 'P&O Cruises scraper fixed',
       items: [

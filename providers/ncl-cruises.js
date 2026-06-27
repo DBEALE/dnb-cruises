@@ -8,6 +8,7 @@ const NCL_BASE_URL = 'https://www.ncl.com';
 const NCL_CRUISES_URL = 'https://www.ncl.com/uk/en/vacations';
 const NCL_PAGE_WAIT_MS = 800;
 const NCL_MAX_PAGINATION_STEPS = 60;
+const NCL_MAX_BOOKING_FALLBACKS = 40;
 
 const SHIP_CLASS = {
   'Norwegian Aqua': 'Prima',
@@ -510,10 +511,20 @@ async function collectCruiseCards() {
       },
     }));
 
+    let bookingFallbacks = 0;
+    let skippedBookingFallbacks = 0;
     for (const cruise of cruises) {
       const sailing = Array.isArray(cruise.detail?.sailings) ? cruise.detail.sailings[0] : null;
       const hasPrice = Boolean(sailing?.staterooms?.some(room => cleanText(room?.combinedPrice)));
       const hasDepartureDate = Boolean(cleanText(sailing?.departureDate));
+      const needsBookingFallback = !hasDepartureDate || !hasPrice;
+
+      if (needsBookingFallback && bookingFallbacks >= NCL_MAX_BOOKING_FALLBACKS) {
+        skippedBookingFallbacks++;
+        continue;
+      }
+
+      if (needsBookingFallback) bookingFallbacks++;
 
       if (!hasDepartureDate) {
         const bookingDate = await extractDateFromBookingPage(browser, cruise.bookingUrl);
@@ -529,6 +540,10 @@ async function collectCruiseCards() {
           sailing.staterooms = [{ combinedPrice: bookingPrice }];
         }
       }
+    }
+
+    if (skippedBookingFallbacks) {
+      console.warn(`  [NCL] skipped ${skippedBookingFallbacks} booking-page fallback(s) after ${NCL_MAX_BOOKING_FALLBACKS} attempts.`);
     }
 
     return cruises;

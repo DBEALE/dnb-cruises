@@ -150,11 +150,14 @@ function mergeCruises(groups) {
   return [...byId.values()].sort((a, b) => a.departureDate.localeCompare(b.departureDate) || a.id.localeCompare(b.id));
 }
 
-async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout) {
+async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout, options = {}) {
   const target = `${PANDO_SEARCH_URL}?roomTypes=${encodeURIComponent(cabinCode)}&web2=true`;
   const headers = { 'user-agent': DEFAULT_USER_AGENT, accept: 'text/html,application/xhtml+xml' };
   const readerUrl = `${PANDO_READER_PREFIX}${target}`;
-  if (process.platform === 'win32') return requestTextViaPowerShell(readerUrl, 60_000);
+  const platform = options.platform || process.platform;
+  const requestTextImpl = options.requestText || requestText;
+  const requestTextViaPowerShellImpl = options.requestTextViaPowerShell || requestTextViaPowerShell;
+  const fetchWithPlaywrightImpl = options.fetchWithPlaywright || fetchSearchPageWithPlaywright;
 
   // Try a direct HTTP fetch first.  The P&O website is a JavaScript SPA so a
   // plain request returns only the app shell – no rendered cruise tiles.  Only
@@ -170,20 +173,34 @@ async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout) {
 
   // Jina AI reader renders the page with JavaScript before returning HTML.
   try {
-    return await requestText(readerUrl, { ...headers, 'x-return-format': 'html' }, 60_000);
+    const text = platform === 'win32'
+      ? await requestTextViaPowerShellImpl(readerUrl, 60_000)
+      : await requestTextImpl(readerUrl, { ...headers, 'x-return-format': 'html' }, 60_000);
+    if (text.includes(CRUISE_TILE_SENTINEL)) return text;
   } catch {}
 
   // Last resort: use a real Playwright browser to render the page.
-  return fetchSearchPageWithPlaywright(cabinCode);
+  return fetchWithPlaywrightImpl(cabinCode);
 }
 
 async function fetchSearchPageWithPlaywright(cabinCode) {
   const { chromium } = require('@playwright/test');
   const target = `${PANDO_SEARCH_URL}?roomTypes=${encodeURIComponent(cabinCode)}&web2=true`;
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ headless: true, args: ['--disable-http2'] });
   try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-    await page.goto(target, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+    let lastError = null;
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        await page.goto(target, { waitUntil: 'commit', timeout: 60_000 });
+        lastError = null;
+        break;
+      } catch (err) {
+        lastError = err;
+        if (attempt < 2) await page.waitForTimeout(1_000);
+      }
+    }
+    if (lastError) throw lastError;
     await page.waitForSelector(`[data-testid="${CRUISE_TILE_SENTINEL}"]`, { timeout: 30_000 });
     return page.content();
   } finally {

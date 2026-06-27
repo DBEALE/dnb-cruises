@@ -5,6 +5,7 @@ const assert = require('node:assert/strict');
 
 const {
   countCurrentPrices,
+  fetchProviderSnapshot,
   mergePriceHistory,
   sanitizePriceHistoryForProvider,
 } = require('../scripts/fetch-cruises');
@@ -15,6 +16,30 @@ test('counts current cabin prices for scrape metadata', () => {
     { prices: { inside: 899, oceanView: 999, balcony: 1199, suite: 1599 } },
     { priceFrom: 500 },
   ]), 6);
+});
+
+test('provider snapshots reject empty scrape results', async () => {
+  await assert.rejects(
+    fetchProviderSnapshot({
+      name: 'Empty Provider',
+      fetchCruises: async () => [],
+    }, { emptyResultRetries: 0 }),
+    /Empty Provider returned no cruise results/,
+  );
+});
+
+test('provider snapshots retry an empty scrape result once', async () => {
+  let attempts = 0;
+  const snapshot = await fetchProviderSnapshot({
+    name: 'Flaky Provider',
+    fetchCruises: async () => {
+      attempts++;
+      return attempts === 1 ? [] : [{ id: 'ok' }];
+    },
+  }, { emptyResultRetries: 1, emptyResultRetryDelayMs: 0 });
+
+  assert.equal(attempts, 2);
+  assert.deepEqual(snapshot.cruises, [{ id: 'ok' }]);
 });
 
 test('NCL history drops the earliest all-cabin-equal price entry', () => {

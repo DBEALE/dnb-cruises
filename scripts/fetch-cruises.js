@@ -94,6 +94,8 @@ function shouldPruneFromArchive(cruise, nowMs) {
 // recorded entry. Trimmed to MAX_PRICE_HISTORY so payload stays bounded.
 const MAX_PRICE_HISTORY = 60;
 const PRICE_BUCKETS     = ['inside', 'oceanView', 'balcony', 'suite'];
+const EMPTY_RESULT_RETRIES = 1;
+const EMPTY_RESULT_RETRY_DELAY_MS = 5_000;
 
 function buildHistoryEntry(cruise, scrapedAt) {
   const filteredPrices = {};
@@ -187,6 +189,24 @@ function writeProviderIndex(scrapedAt) {
     scrapedAt,
   }, null, 2) + '\n');
   console.log(`  ✓ Wrote provider index to ${PROVIDER_INDEX_PATH}`);
+}
+
+async function fetchProviderSnapshot(provider, options = {}) {
+  const retries = options.emptyResultRetries ?? EMPTY_RESULT_RETRIES;
+  const retryDelayMs = options.emptyResultRetryDelayMs ?? EMPTY_RESULT_RETRY_DELAY_MS;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    console.log(`Fetching from ${provider.name}${attempt ? ` (retry ${attempt})` : ''}…`);
+    const cruises = await provider.fetchCruises();
+    if (Array.isArray(cruises) && cruises.length > 0) {
+      console.log(`  ✓ ${cruises.length} cruises from ${provider.name}`);
+      return { provider, cruises };
+    }
+    if (attempt < retries) {
+      console.warn(`  ${provider.name} returned no cruise results; retrying in ${retryDelayMs / 1000}s.`);
+      await new Promise(resolve => setTimeout(resolve, retryDelayMs));
+    }
+  }
+  throw new Error(`${provider.name} returned no cruise results`);
 }
 
 // ── Alert matching ─────────────────────────────────────────────────────────────
@@ -337,21 +357,19 @@ async function main() {
   } catch {}
   console.log(`Exchange rate: 1 USD = £${usdToGbp.toFixed(4)}`);
 
-  // Fetch from all active providers in parallel
+  // Fetch providers one at a time. Several providers use Playwright or heavy
+  // upstream APIs; running them in parallel can make a healthy provider return
+  // an empty result set and overwrite good data.
   const scrapedAt = new Date().toISOString();
-  const settled = await Promise.allSettled(
-    activeProviders.map(async provider => {
-      console.log(`Fetching from ${provider.name}…`);
-      try {
-        const cruises = await provider.fetchCruises();
-        console.log(`  ✓ ${cruises.length} cruises from ${provider.name}`);
-        return { provider, cruises };
-      } catch (err) {
-        console.error(`  ✗ ${provider.name} failed: ${err.message}`);
-        throw err;
-      }
-    })
-  );
+  const settled = [];
+  for (const provider of activeProviders) {
+    try {
+      settled.push({ status: 'fulfilled', value: await fetchProviderSnapshot(provider) });
+    } catch (err) {
+      console.error(`  ✗ ${provider.name} failed: ${err.message}`);
+      settled.push({ status: 'rejected', reason: err });
+    }
+  }
 
   const providerSnapshots = settled
     .filter(r => r.status === 'fulfilled')
@@ -433,6 +451,7 @@ if (require.main === module) {
 
 module.exports = {
   countCurrentPrices,
+  fetchProviderSnapshot,
   hasUniformCabinPrices,
   mergePriceHistory,
   sanitizePriceHistoryForProvider,
