@@ -27960,89 +27960,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ZSJ11C_AP_20270402",
-      "shipName": "Grand Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 1998,
-      "itinerary": "Sydney, Australia → Newcastle, Australia → Melbourne, Australia → Adelaide, Australia → Albany, Australia → Margaret River (Busselton), Australia → Perth (Fremantle), Australia",
-      "departureDate": "2027-04-02",
-      "duration": "11 Nights",
-      "departurePort": "Sydney, Australia",
-      "departureRegion": "Australia & Pacific",
-      "destination": "Australia & New Zealand",
-      "destinationPort": "Perth (Fremantle), Australia",
-      "priceFrom": "3004",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A710B",
-      "prices": {
-        "inside": "3004",
-        "oceanView": "3015",
-        "balcony": null,
-        "suite": "5289"
-      },
-      "seaDays": 5,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 3004
-          }
-        },
-        {
-          "at": "2026-06-03T08:51:23.558Z",
-          "prices": {
-            "inside": 2979
-          }
-        },
-        {
-          "at": "2026-06-08T08:49:41.438Z",
-          "prices": {
-            "inside": 3004
-          }
-        },
-        {
-          "at": "2026-06-12T09:25:16.375Z",
-          "prices": {
-            "inside": 3004,
-            "oceanView": 4232
-          }
-        },
-        {
-          "at": "2026-06-13T14:45:02.609Z",
-          "prices": {
-            "inside": 3004
-          }
-        },
-        {
-          "at": "2026-06-18T15:05:08.173Z",
-          "prices": {
-            "inside": 2979,
-            "oceanView": 2916,
-            "suite": 5139
-          }
-        },
-        {
-          "at": "2026-06-22T12:02:25.458Z",
-          "prices": {
-            "inside": 2979,
-            "oceanView": 2990,
-            "suite": 5139
-          }
-        },
-        {
-          "at": "2026-06-23T07:15:08.150Z",
-          "prices": {
-            "inside": 3004,
-            "oceanView": 3015,
-            "suite": 5289
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-25T22:31:29.453Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_TFL16E_IP_20280215",
       "shipName": "Island Princess",
       "shipClass": "Coral",
@@ -29740,6 +29657,70 @@
         }
       ],
       "lastSeenAt": "2026-06-28T20:27:26.326Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ZSJ11C_KP_20261007",
+      "shipName": "Crown Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2006,
+      "itinerary": "Sydney, Australia → Newcastle, Australia → Melbourne, Australia → Adelaide, Australia → Albany, Australia → Margaret River (Busselton), Australia → Perth (Fremantle), Australia",
+      "departureDate": "2026-10-07",
+      "duration": "11 Nights",
+      "departurePort": "Sydney, Australia",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand",
+      "destinationPort": "Perth (Fremantle), Australia",
+      "priceFrom": "2248",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3618B",
+      "prices": {
+        "inside": "2248",
+        "oceanView": "3074",
+        "balcony": "4230",
+        "suite": "5143"
+      },
+      "seaDays": 5,
+      "firstSeenAt": "2026-06-15T00:47:54.065Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-15T00:47:54.065Z",
+          "prices": {
+            "inside": 2511,
+            "oceanView": 3074,
+            "balcony": 4230,
+            "suite": 5299
+          }
+        },
+        {
+          "at": "2026-06-23T09:08:27.997Z",
+          "prices": {
+            "inside": 2511,
+            "oceanView": 3074,
+            "balcony": 4230,
+            "suite": 5143
+          }
+        },
+        {
+          "at": "2026-06-24T09:07:15.180Z",
+          "prices": {
+            "inside": 2439,
+            "oceanView": 3074,
+            "balcony": 4230,
+            "suite": 5143
+          }
+        },
+        {
+          "at": "2026-06-26T00:43:45.323Z",
+          "prices": {
+            "inside": 2248,
+            "oceanView": 3074,
+            "balcony": 4230,
+            "suite": 5143
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-28T22:22:53.037Z"
     }
   ]
 }
