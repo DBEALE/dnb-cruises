@@ -1,7 +1,7 @@
 {
   "success": true,
   "count": 477,
-  "priceCount": 1668,
+  "priceCount": 1663,
   "provider": {
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
@@ -141,7 +141,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -696,7 +696,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -1156,7 +1156,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -1291,7 +1291,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -1796,7 +1796,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -1860,7 +1860,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -1960,7 +1960,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -2463,7 +2463,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -2942,7 +2942,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -3477,7 +3477,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -4024,7 +4024,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -4403,7 +4403,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -4521,7 +4521,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -4594,7 +4594,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -4614,7 +4614,7 @@
       "prices": {
         "inside": "907",
         "oceanView": "1046",
-        "balcony": "1504",
+        "balcony": "1371",
         "suite": "5743"
       },
       "destinationPort": "Gibraltar, United Kingdom",
@@ -4809,9 +4809,18 @@
             "balcony": 1504,
             "suite": 5743
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 907,
+            "oceanView": 1046,
+            "balcony": 1371,
+            "suite": 5743
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -5001,7 +5010,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -5020,7 +5029,7 @@
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC12AMS-2845332027&pID=EC12U432&sDT=2027-08-20&sCD=EC&sCT=CO&country=GBR",
       "prices": {
         "inside": "2151",
-        "oceanView": "2351",
+        "oceanView": null,
         "balcony": null,
         "suite": "10159"
       },
@@ -5285,9 +5294,16 @@
             "oceanView": 2351,
             "suite": 10159
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 2151,
+            "suite": 10159
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -5744,7 +5760,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -5853,7 +5869,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -5944,7 +5960,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -5953,33 +5969,24 @@
       "shipClass": "Millennium",
       "shipLaunchYear": 2000,
       "itinerary": "Best of Japan - Gion Festival: Cruising (Cruising), Kyoto (Osaka), Japan, Kochi, Japan, Busan, South Korea, Nagasaki, Japan, Kagoshima, Japan, Mt Fuji (Shimizu), Japan",
-      "departureDate": "2027-06-08",
+      "departureDate": "2026-08-06",
       "duration": "12 Nights",
       "departurePort": "Tokyo",
       "departureRegion": "Asia & Far East",
       "destination": "Asia",
-      "priceFrom": "1607",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=ML12NRT-1398359276&pID=ML12I213&sDT=2027-06-08&sCD=ML&sCT=CO&country=GBR",
+      "priceFrom": "3013.7",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=ML12NRT-1398359276&pID=ML12I180&sDT=2026-08-06&sCD=ML&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1607",
-        "oceanView": "1903",
-        "balcony": "3738",
-        "suite": "6175"
+        "inside": "3013.7",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
       },
       "destinationPort": "Mt Fuji (Shimizu), Japan",
       "seaDays": 5,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-06T09:59:50.771Z",
-          "prices": {
-            "inside": 2724.86,
-            "oceanView": 3302.86,
-            "balcony": 4666.86,
-            "suite": 8469.86
-          }
-        },
         {
           "at": "2026-06-07T03:24:12.607Z",
           "prices": {
@@ -6445,9 +6452,15 @@
             "balcony": 3738,
             "suite": 6175
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 3013.7
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -6624,7 +6637,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -6895,7 +6908,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -6995,7 +7008,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7086,7 +7099,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7107,7 +7120,7 @@
         "inside": "269",
         "oceanView": "338",
         "balcony": "331",
-        "suite": "716"
+        "suite": "909"
       },
       "destinationPort": "Bimini, Bahamas",
       "seaDays": 1,
@@ -7283,9 +7296,18 @@
             "balcony": 331,
             "suite": 716
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 269,
+            "oceanView": 338,
+            "balcony": 331,
+            "suite": 909
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7439,7 +7461,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7512,7 +7534,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7917,7 +7939,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7938,7 +7960,7 @@
         "inside": "419",
         "oceanView": "470",
         "balcony": "674",
-        "suite": "2543"
+        "suite": "6283.44"
       },
       "destinationPort": "Cruising (Cruising)",
       "seaDays": 1,
@@ -8119,9 +8141,18 @@
             "balcony": 674,
             "suite": 2543
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 419,
+            "oceanView": 470,
+            "balcony": 674,
+            "suite": 6283.44
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -8364,7 +8395,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -8536,7 +8567,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -8735,7 +8766,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -8755,7 +8786,7 @@
       "prices": {
         "inside": "588",
         "oceanView": "756",
-        "balcony": "867",
+        "balcony": "745",
         "suite": "7508"
       },
       "destinationPort": "Kralendijk, Bonaire",
@@ -8943,9 +8974,18 @@
             "balcony": 867,
             "suite": 7508
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 588,
+            "oceanView": 756,
+            "balcony": 745,
+            "suite": 7508
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -9168,7 +9208,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -9259,7 +9299,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -9653,7 +9693,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -9949,7 +9989,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -10505,7 +10545,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -10749,7 +10789,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -11110,7 +11150,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -11625,7 +11665,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -11977,7 +12017,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12050,7 +12090,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12096,7 +12136,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12420,7 +12460,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12493,7 +12533,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12783,7 +12823,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12973,7 +13013,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -13405,7 +13445,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -13514,7 +13554,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -13837,7 +13877,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -14375,7 +14415,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -14457,7 +14497,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -14471,11 +14511,11 @@
       "departurePort": "Barcelona",
       "departureRegion": "Mediterranean",
       "destination": "Europe",
-      "priceFrom": "1038",
+      "priceFrom": "859",
       "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC11BCN-4035630532&pID=EC11U148&sDT=2026-09-07&sCD=EC&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1038",
+        "inside": "859",
         "oceanView": "1160",
         "balcony": "1612",
         "suite": "3979"
@@ -14484,15 +14524,6 @@
       "seaDays": 2,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-12T13:09:18.929Z",
-          "prices": {
-            "inside": 1006,
-            "oceanView": 1200,
-            "balcony": 1612,
-            "suite": 4488
-          }
-        },
         {
           "at": "2026-06-12T17:00:36.048Z",
           "prices": {
@@ -15023,9 +15054,18 @@
             "balcony": 1612,
             "suite": 3979
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 859,
+            "oceanView": 1160,
+            "balcony": 1612,
+            "suite": 3979
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -15518,7 +15558,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -15816,7 +15856,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -15898,7 +15938,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -16061,7 +16101,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -16619,7 +16659,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -16791,7 +16831,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -16875,7 +16915,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -17339,7 +17379,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -17628,7 +17668,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -17710,7 +17750,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -18106,7 +18146,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -18233,7 +18273,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -18791,7 +18831,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -18936,7 +18976,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -19189,7 +19229,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -19298,7 +19338,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -19542,7 +19582,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -19550,23 +19590,23 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "The Great Frontier Expedition Cruisetour (Post Tour): Inside Passage (Cruising), Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
-      "departureDate": "2027-05-21",
+      "itinerary": "The Great Frontier Expedition Cruisetour (Post Tour): Inside Passage (Cruising), Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Anchorage, Alaska, Talkeetna, Alaska, Denali, Alaska, Fairbanks, Alaska",
+      "departureDate": "2027-05-07",
       "duration": "13 Nights",
       "departurePort": "Vancouver",
       "departureRegion": "Americas",
       "destination": "Alaska",
-      "priceFrom": "2754",
+      "priceFrom": "2689",
       "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL13YVR-2044203942&pID=SL13A708&sDT=2027-05-21&sCD=SL&sCT=CT&country=GBR",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL13YVR-2044203942&pID=SL13A708&sDT=2027-05-07&sCD=SL&sCT=CT&country=GBR",
       "prices": {
-        "inside": "2754",
-        "oceanView": "2954",
-        "balcony": "3106",
-        "suite": "5518"
+        "inside": "2689",
+        "oceanView": "2859",
+        "balcony": "2977",
+        "suite": "4771"
       },
-      "destinationPort": "Seward, Alaska",
-      "seaDays": 6,
+      "destinationPort": "Fairbanks, Alaska",
+      "seaDays": 2,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -19712,9 +19752,18 @@
             "balcony": 3106,
             "suite": 5518
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 2689,
+            "oceanView": 2859,
+            "balcony": 2977,
+            "suite": 4771
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -19796,7 +19845,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -20134,7 +20183,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -20681,7 +20730,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -21190,7 +21239,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -21290,7 +21339,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -21858,7 +21907,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -22346,7 +22395,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -22852,7 +22901,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -22916,7 +22965,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -23140,7 +23189,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -23359,7 +23408,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -23614,7 +23663,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -23633,7 +23682,7 @@
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EG12SYD-3474786043&pID=EG12K182&sDT=2026-10-28&sCD=EG&sCT=CO&country=GBR",
       "prices": {
         "inside": "1489",
-        "oceanView": "1617",
+        "oceanView": "1532",
         "balcony": null,
         "suite": "3115"
       },
@@ -24107,9 +24156,17 @@
             "oceanView": 1617,
             "suite": 3115
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1489,
+            "oceanView": 1532,
+            "suite": 3115
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24335,7 +24392,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24417,7 +24474,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24553,7 +24610,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24842,7 +24899,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24987,7 +25044,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -25123,7 +25180,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -25691,7 +25748,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -26149,7 +26206,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -26403,7 +26460,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -26485,7 +26542,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -26702,7 +26759,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -26829,7 +26886,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -27064,7 +27121,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -27227,7 +27284,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -27318,7 +27375,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -27326,7 +27383,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "The Great National Parks Expedition Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Anchorage, Alaska, Denali, Alaska, Fairbanks, Alaska",
+      "itinerary": "The Great National Parks Expedition Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
       "departureDate": "2027-06-04",
       "duration": "12 Nights",
       "departurePort": "Vancouver",
@@ -27341,8 +27398,8 @@
         "balcony": "2872",
         "suite": "5175"
       },
-      "destinationPort": "Fairbanks, Alaska",
-      "seaDays": 2,
+      "destinationPort": "Seward, Alaska",
+      "seaDays": 5,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -27490,7 +27547,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -27510,7 +27567,7 @@
       "prices": {
         "inside": "820",
         "oceanView": "1248",
-        "balcony": null,
+        "balcony": "1318",
         "suite": "3915"
       },
       "destinationPort": "St. Johns, Antigua",
@@ -27673,9 +27730,18 @@
             "oceanView": 1248,
             "suite": 3915
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 820,
+            "oceanView": 1248,
+            "balcony": 1318,
+            "suite": 3915
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -27892,7 +27958,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -27947,7 +28013,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28038,7 +28104,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28165,7 +28231,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28391,7 +28457,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28482,7 +28548,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28496,14 +28562,14 @@
       "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
       "destination": "Caribbean",
-      "priceFrom": "1113",
+      "priceFrom": "1105",
       "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT11FLL-2373662241&pID=AT11D091&sDT=2027-03-29&sCD=AT&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1113",
-        "oceanView": "1452",
-        "balcony": "1783",
-        "suite": "5276"
+        "inside": "1105",
+        "oceanView": "1441",
+        "balcony": "1767",
+        "suite": "4750"
       },
       "destinationPort": "Basseterre, St Kitts & Nevis",
       "seaDays": 4,
@@ -28571,9 +28637,18 @@
             "balcony": 1783,
             "suite": 5276
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1105,
+            "oceanView": 1441,
+            "balcony": 1767,
+            "suite": 4750
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28748,7 +28823,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28884,7 +28959,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28957,7 +29032,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -29084,7 +29159,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -29092,7 +29167,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Alaska Wildlife Encounter Cruisetour (Post Tour): Inside Passage (Cruising), Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
+      "itinerary": "Alaska Wildlife Encounter Cruisetour (Post Tour): Inside Passage (Cruising), Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Alyeska (Girdwood), Alaska, Talkeetna, Alaska, Denali, Alaska, Anchorage, Alaska",
       "departureDate": "2027-05-07",
       "duration": "11 Nights",
       "departurePort": "Vancouver",
@@ -29107,8 +29182,8 @@
         "balcony": "2526",
         "suite": "4321"
       },
-      "destinationPort": "Seward, Alaska",
-      "seaDays": 4,
+      "destinationPort": "Anchorage, Alaska",
+      "seaDays": 0,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -29175,7 +29250,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -29597,7 +29672,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -29611,12 +29686,12 @@
       "departurePort": "Barcelona",
       "departureRegion": "Mediterranean",
       "destination": "Europe",
-      "priceFrom": "1000",
+      "priceFrom": "829",
       "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=XC07BCN-3121477051&pID=XC07M834&sDT=2026-08-29&sCD=XC&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1000",
-        "oceanView": "1178",
+        "inside": "829",
+        "oceanView": "1035",
         "balcony": null,
         "suite": null
       },
@@ -29624,15 +29699,6 @@
       "seaDays": 1,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-17T03:09:17.604Z",
-          "prices": {
-            "inside": 829,
-            "oceanView": 1089,
-            "balcony": 1049,
-            "suite": 2854
-          }
-        },
         {
           "at": "2026-06-17T07:51:12.303Z",
           "prices": {
@@ -30136,9 +30202,16 @@
             "inside": 1000,
             "oceanView": 1178
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 829,
+            "oceanView": 1035
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30146,7 +30219,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "The Great National Parks Expedition Cruisetour (Pre Tour): Denali, Alaska, Anchorage, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
+      "itinerary": "The Great National Parks Expedition Cruisetour (Pre Tour): Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
       "departureDate": "2027-05-28",
       "duration": "12 Nights",
       "departurePort": "Seward",
@@ -30162,7 +30235,7 @@
         "suite": "5109"
       },
       "destinationPort": "Vancouver, British Columbia",
-      "seaDays": 2,
+      "seaDays": 5,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -30283,7 +30356,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30303,22 +30376,13 @@
       "prices": {
         "inside": "1054",
         "oceanView": null,
-        "balcony": "6767.88",
+        "balcony": "1565",
         "suite": "4731"
       },
       "destinationPort": "Palma De Mallorca, Spain",
       "seaDays": 5,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-15T03:10:33.672Z",
-          "prices": {
-            "inside": 1430,
-            "oceanView": 1718,
-            "balcony": 1792,
-            "suite": 5979
-          }
-        },
         {
           "at": "2026-06-15T19:21:04.436Z",
           "prices": {
@@ -30826,9 +30890,17 @@
             "balcony": 6767.88,
             "suite": 4731
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1054,
+            "balcony": 1565,
+            "suite": 4731
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30901,7 +30973,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30965,7 +31037,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31533,7 +31605,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31633,7 +31705,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31641,7 +31713,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Tastes of Alaska Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
+      "itinerary": "Tastes of Alaska Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Talkeetna, Alaska, Denali, Alaska, Anchorage, Alaska",
       "departureDate": "2027-06-04",
       "duration": "10 Nights",
       "departurePort": "Vancouver",
@@ -31656,8 +31728,8 @@
         "balcony": "2338",
         "suite": "4641"
       },
-      "destinationPort": "Seward, Alaska",
-      "seaDays": 3,
+      "destinationPort": "Anchorage, Alaska",
+      "seaDays": 0,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -31769,7 +31841,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31887,7 +31959,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31978,7 +32050,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31986,7 +32058,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Alaska Gold Rush Adventure Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Denali, Alaska, Fairbanks, Alaska",
+      "itinerary": "Alaska Gold Rush Adventure Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
       "departureDate": "2027-06-04",
       "duration": "10 Nights",
       "departurePort": "Vancouver",
@@ -32001,8 +32073,8 @@
         "balcony": "2211",
         "suite": "4514"
       },
-      "destinationPort": "Fairbanks, Alaska",
-      "seaDays": 1,
+      "destinationPort": "Seward, Alaska",
+      "seaDays": 3,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -32105,7 +32177,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -32359,7 +32431,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -32490,7 +32562,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -32983,7 +33055,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -33038,7 +33110,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -33192,7 +33264,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -33756,7 +33828,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -33901,7 +33973,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -33920,7 +33992,7 @@
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AX13STH-3985437835&pID=AX13U156&sDT=2027-05-15&sCD=AX&sCT=CO&country=GBR",
       "prices": {
         "inside": "2370",
-        "oceanView": "2911",
+        "oceanView": null,
         "balcony": null,
         "suite": null
       },
@@ -34223,9 +34295,15 @@
             "inside": 2370,
             "oceanView": 2911
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 2370
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -34496,7 +34574,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -34983,7 +35061,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -35110,7 +35188,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -35246,7 +35324,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -35699,7 +35777,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -35808,7 +35886,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -35935,7 +36013,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -36206,7 +36284,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -36227,7 +36305,7 @@
         "inside": "703",
         "oceanView": "778",
         "balcony": "973",
-        "suite": "4165"
+        "suite": "2776"
       },
       "destinationPort": "George Town, Grand Cayman",
       "seaDays": 4,
@@ -36277,9 +36355,18 @@
             "balcony": 973,
             "suite": 4165
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 703,
+            "oceanView": 778,
+            "balcony": 973,
+            "suite": 2776
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -36505,7 +36592,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -36632,7 +36719,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -36992,7 +37079,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -37101,7 +37188,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -37590,7 +37677,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -37852,7 +37939,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -37979,7 +38066,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -38232,7 +38319,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -38314,7 +38401,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -38630,7 +38717,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -38703,7 +38790,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -39138,7 +39225,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -39685,7 +39772,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -39812,7 +39899,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -39929,7 +40016,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -40110,7 +40197,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -40219,7 +40306,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -40391,7 +40478,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -40500,7 +40587,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -40508,7 +40595,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Majestic Tundra Explorer Cruisetour (Pre Tour): Denali, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
+      "itinerary": "Majestic Tundra Explorer Cruisetour (Pre Tour): Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
       "departureDate": "2027-05-28",
       "duration": "11 Nights",
       "departurePort": "Seward",
@@ -40524,7 +40611,7 @@
         "suite": "4662"
       },
       "destinationPort": "Vancouver, British Columbia",
-      "seaDays": 2,
+      "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -40627,7 +40714,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -40808,7 +40895,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -41106,7 +41193,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -41269,7 +41356,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -41288,7 +41375,7 @@
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=IN09ATH-3302366437&pID=IN09M319&sDT=2026-09-26&sCD=IN&sCT=CO&country=GBR",
       "prices": {
         "inside": "745",
-        "oceanView": null,
+        "oceanView": "1044",
         "balcony": "1740",
         "suite": "3437"
       },
@@ -41296,15 +41383,6 @@
       "seaDays": 2,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-10T03:08:11.372Z",
-          "prices": {
-            "inside": 935,
-            "oceanView": 1080,
-            "balcony": 1786,
-            "suite": 3442
-          }
-        },
         {
           "at": "2026-06-11T15:12:03.310Z",
           "prices": {
@@ -41819,9 +41897,18 @@
             "balcony": 1740,
             "suite": 3437
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 745,
+            "oceanView": 1044,
+            "balcony": 1740,
+            "suite": 3437
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42384,7 +42471,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42538,7 +42625,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42647,7 +42734,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42684,7 +42771,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42811,7 +42898,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43075,7 +43162,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43083,7 +43170,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Tastes of Alaska Cruisetour (Pre Tour): Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
+      "itinerary": "Tastes of Alaska Cruisetour (Pre Tour): Denali, Alaska, Talkeetna, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
       "departureDate": "2027-05-28",
       "duration": "10 Nights",
       "departurePort": "Seward",
@@ -43099,7 +43186,7 @@
         "suite": "4476"
       },
       "destinationPort": "Vancouver, British Columbia",
-      "seaDays": 3,
+      "seaDays": 0,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -43247,7 +43334,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43401,7 +43488,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43573,7 +43660,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43718,7 +43805,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43854,7 +43941,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43911,7 +43998,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -44162,7 +44249,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -44713,7 +44800,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -44721,7 +44808,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Alaska Wildlife Encounter Cruisetour (Pre Tour): Denali, Alaska, Talkeetna, Alaska, Alyeska (Girdwood), Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
+      "itinerary": "Alaska Wildlife Encounter Cruisetour (Pre Tour): Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
       "departureDate": "2027-05-28",
       "duration": "11 Nights",
       "departurePort": "Seward",
@@ -44737,7 +44824,7 @@
         "suite": "4907"
       },
       "destinationPort": "Vancouver, British Columbia",
-      "seaDays": 0,
+      "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -44840,7 +44927,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -45245,7 +45332,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -45417,7 +45504,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -45589,7 +45676,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -45770,7 +45857,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -46216,7 +46303,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -46224,7 +46311,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Premium Heritage and WIlderness Expedition Cruisetour (Pre Tour): Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
+      "itinerary": "Premium Heritage and WIlderness Expedition Cruisetour (Pre Tour): Denali, Alaska, Talkeetna, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
       "departureDate": "2027-05-28",
       "duration": "13 Nights",
       "departurePort": "Seward",
@@ -46240,7 +46327,7 @@
         "suite": "6797"
       },
       "destinationPort": "Vancouver, British Columbia",
-      "seaDays": 6,
+      "seaDays": 3,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -46343,7 +46430,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -46425,7 +46512,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -46976,7 +47063,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -47058,7 +47145,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -47597,7 +47684,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -47611,14 +47698,14 @@
       "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
       "destination": "Caribbean",
-      "priceFrom": "998",
+      "priceFrom": "923",
       "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT10FLL-705923908&pID=AT10D091&sDT=2027-02-05&sCD=AT&sCT=CO&country=GBR",
       "prices": {
-        "inside": "998",
-        "oceanView": "1383",
+        "inside": "923",
+        "oceanView": "1269",
         "balcony": null,
-        "suite": "5750"
+        "suite": "5173"
       },
       "destinationPort": "St. Johns, Antigua",
       "seaDays": 4,
@@ -47811,9 +47898,17 @@
             "oceanView": 1383,
             "suite": 5750
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 923,
+            "oceanView": 1269,
+            "suite": 5173
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -47895,7 +47990,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48013,7 +48108,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48034,7 +48129,7 @@
         "inside": "1198",
         "oceanView": null,
         "balcony": "1539",
-        "suite": "4678"
+        "suite": "5528"
       },
       "destinationPort": "Eden, Australia",
       "seaDays": 4,
@@ -48246,9 +48341,17 @@
             "balcony": 1539,
             "suite": 4678
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1198,
+            "balcony": 1539,
+            "suite": 5528
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48324,7 +48427,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48451,7 +48554,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48578,7 +48681,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48586,33 +48689,25 @@
       "shipName": "Celebrity Silhouette",
       "shipClass": "Solstice",
       "shipLaunchYear": 2011,
-      "itinerary": "Boston, Maine & Canada: Rockland, Maine, Halifax, Nova Scotia, Sydney, Nova Scotia, Charlottetown, PEI, Cruising (Cruising), Quebec City, Portland, Maine",
-      "departureDate": "2027-09-13",
+      "itinerary": "Boston, Maine & Canada: Rockland, Maine, Halifax, Nova Scotia, Sydney, Nova Scotia, Cruising (Cruising), Quebec City, Charlottetown, PEI, Portland, Maine",
+      "departureDate": "2026-09-28",
       "duration": "11 Nights",
       "departurePort": "Boston",
       "departureRegion": "Americas",
       "destination": "Canada",
-      "priceFrom": "1782",
+      "priceFrom": "1573",
       "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SI11BOS-1796327261&pID=SI11N034&sDT=2027-09-13&sCD=SI&sCT=CO&country=GBR",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SI11BOS-1796327261&pID=SI11N031&sDT=2026-09-28&sCD=SI&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1782",
-        "oceanView": "1925",
-        "balcony": "2722",
-        "suite": "12926"
+        "inside": "1573",
+        "oceanView": null,
+        "balcony": "2628",
+        "suite": "6308"
       },
       "destinationPort": "Portland, Maine",
       "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-17T03:09:17.604Z",
-          "prices": {
-            "inside": 1224,
-            "balcony": 1610,
-            "suite": 11409
-          }
-        },
         {
           "at": "2026-06-17T15:06:08.731Z",
           "prices": {
@@ -49056,9 +49151,17 @@
             "balcony": 2722,
             "suite": 12926
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1573,
+            "balcony": 2628,
+            "suite": 6308
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -49230,7 +49333,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -49402,7 +49505,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -49693,7 +49796,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -49793,7 +49896,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -49954,7 +50057,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -49968,11 +50071,11 @@
       "departurePort": "Ravenna",
       "departureRegion": "Mediterranean",
       "destination": "Europe",
-      "priceFrom": "1230",
+      "priceFrom": "1260",
       "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC11BLQ-3109432631&pID=EC11U149&sDT=2026-09-28&sCD=EC&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1230",
+        "inside": "1260",
         "oceanView": "1628",
         "balcony": null,
         "suite": "3607"
@@ -50444,9 +50547,17 @@
             "oceanView": 1628,
             "suite": 3607
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1260,
+            "oceanView": 1628,
+            "suite": 3607
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -50663,7 +50774,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -50709,7 +50820,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -51136,7 +51247,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -51443,7 +51554,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -51573,7 +51684,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -51871,7 +51982,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -52223,7 +52334,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -52678,7 +52789,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -52832,7 +52943,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -53212,7 +53323,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -53415,7 +53526,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -53882,7 +53993,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -54134,7 +54245,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -54251,7 +54362,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -54465,7 +54576,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -54817,7 +54928,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -55380,7 +55491,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -55851,7 +55962,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -56310,7 +56421,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -56429,7 +56540,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -56997,7 +57108,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -57043,7 +57154,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -57585,7 +57696,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -57901,7 +58012,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -57915,11 +58026,11 @@
       "departurePort": "Southampton",
       "departureRegion": "UK & Ireland",
       "destination": "Europe",
-      "priceFrom": "1808",
+      "priceFrom": "1699",
       "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AX14STH-4207177096&pID=AX14M117&sDT=2026-08-01&sCD=AX&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1808",
+        "inside": "1699",
         "oceanView": null,
         "balcony": null,
         "suite": null
@@ -57928,15 +58039,6 @@
       "seaDays": 5,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-16T13:46:18.881Z",
-          "prices": {
-            "inside": 1699,
-            "oceanView": 1799,
-            "balcony": 2000,
-            "suite": 12434
-          }
-        },
         {
           "at": "2026-06-16T15:41:10.964Z",
           "prices": {
@@ -58391,9 +58493,15 @@
           "prices": {
             "inside": 1808
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1699
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -58484,7 +58592,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -58750,7 +58858,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -59057,7 +59165,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -59345,7 +59453,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -59634,7 +59742,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -59734,7 +59842,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -59830,7 +59938,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -59935,7 +60043,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -60394,7 +60502,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -60901,7 +61009,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -61385,7 +61493,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -61849,7 +61957,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -61870,19 +61978,12 @@
         "inside": "1519",
         "oceanView": null,
         "balcony": null,
-        "suite": "5082"
+        "suite": null
       },
       "destinationPort": "Barcelona, Spain",
       "seaDays": 7,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-14T07:36:43.454Z",
-          "prices": {
-            "inside": 1317,
-            "balcony": 2052
-          }
-        },
         {
           "at": "2026-06-14T12:39:51.230Z",
           "prices": {
@@ -62274,9 +62375,15 @@
             "inside": 1519,
             "suite": 5082
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1519
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -62394,7 +62501,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -62926,7 +63033,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63233,7 +63340,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63447,7 +63554,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63579,7 +63686,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63670,7 +63777,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63746,7 +63853,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63961,7 +64068,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -64278,7 +64385,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -64378,7 +64485,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -64487,7 +64594,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -65014,7 +65121,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -65159,7 +65266,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -65430,7 +65537,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -65548,7 +65655,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -65702,7 +65809,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -65874,7 +65981,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -66047,7 +66154,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -66367,7 +66474,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -66449,7 +66556,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -66684,7 +66791,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -66870,7 +66977,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -67305,7 +67412,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -67369,7 +67476,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -67501,7 +67608,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -67948,7 +68055,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -68075,7 +68182,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -68598,7 +68705,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -68716,7 +68823,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -68808,7 +68915,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -68908,7 +69015,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -69404,7 +69511,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -69552,7 +69659,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -69697,7 +69804,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -69890,7 +69997,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -70423,7 +70530,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -70573,7 +70680,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -70664,7 +70771,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -70710,7 +70817,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -70983,7 +71090,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -71311,7 +71418,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -71429,7 +71536,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -71833,7 +71940,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -71841,7 +71948,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Quito & Galapagos Outer Loop: Gardner Bay (Espanola), Punta Suarez, Cormorant Point, Floreana Island, Post Office Bay, Floreana Island, Moreno Point, Isabela Island, Urvina Bay, Isabela Island, Espinoza Point, Fernandina Island, Vicente Roca Point, Isabela Island, South Plaza (Santa Cruz Island), Daphne Island (Cruising), Dragon Hill (Santa Cruz Island), Puerto Ayora, Santa Cruz Island",
+      "itinerary": "Quito & Galapagos Outer Loop: Baltra Island, Galapagos, Gardner Bay (Espanola), Punta Suarez, Cormorant Point, Floreana Island, Post Office Bay, Floreana Island, Moreno Point, Isabela Island, Urvina Bay, Isabela Island, Espinoza Point, Fernandina Island, Vicente Roca Point, Isabela Island, South Plaza (Santa Cruz Island), Daphne Island (Cruising), Dragon Hill (Santa Cruz Island), Puerto Ayora, Santa Cruz Island",
       "departureDate": "2026-10-04",
       "duration": "10 Nights",
       "departurePort": "Baltra Island",
@@ -71951,7 +72058,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -71959,7 +72066,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Quito & Galapagos Outer Loop: Baltra Island, Galapagos, Gardner Bay (Espanola), Punta Suarez, Cormorant Point, Floreana Island, Post Office Bay, Floreana Island, Moreno Point, Isabela Island, Urvina Bay, Isabela Island, Espinoza Point, Fernandina Island, Vicente Roca Point, Isabela Island, South Plaza (Santa Cruz Island), Daphne Island (Cruising), Dragon Hill (Santa Cruz Island), Puerto Ayora, Santa Cruz Island",
+      "itinerary": "Quito & Galapagos Outer Loop: Gardner Bay (Espanola), Punta Suarez, Cormorant Point, Floreana Island, Post Office Bay, Floreana Island, Moreno Point, Isabela Island, Urvina Bay, Isabela Island, Espinoza Point, Fernandina Island, Vicente Roca Point, Isabela Island, South Plaza (Santa Cruz Island), Daphne Island (Cruising), Dragon Hill (Santa Cruz Island), Puerto Ayora, Santa Cruz Island",
       "departureDate": "2026-10-04",
       "duration": "11 Nights",
       "departurePort": "Baltra Island",
@@ -72069,7 +72176,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -72169,7 +72276,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -72177,7 +72284,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Galapagos Outer Loop & Machu Picchu: Baltra Island, Galapagos, Gardner Bay (Espanola), Punta Suarez, Cormorant Point, Floreana Island, Post Office Bay, Floreana Island, Moreno Point, Isabela Island, Urvina Bay, Isabela Island, Espinoza Point, Fernandina Island, Vicente Roca Point, Isabela Island, South Plaza (Santa Cruz Island), Daphne Island (Cruising), Dragon Hill (Santa Cruz Island), Puerto Ayora, Santa Cruz Island, Lima, Peru, The Sacred Valley, Peru, Machu Picchu, Peru, Cuzco, Peru",
+      "itinerary": "Galapagos Outer Loop & Machu Picchu: Gardner Bay (Espanola), Punta Suarez, Cormorant Point, Floreana Island, Post Office Bay, Floreana Island, Moreno Point, Isabela Island, Urvina Bay, Isabela Island, Espinoza Point, Fernandina Island, Vicente Roca Point, Isabela Island, South Plaza (Santa Cruz Island), Daphne Island (Cruising), Dragon Hill (Santa Cruz Island), Puerto Ayora, Santa Cruz Island",
       "departureDate": "2026-10-04",
       "duration": "16 Nights",
       "departurePort": "Baltra Island",
@@ -72192,8 +72299,8 @@
         "balcony": null,
         "suite": "18298.5"
       },
-      "destinationPort": "Cuzco, Peru",
-      "seaDays": 0,
+      "destinationPort": "Puerto Ayora, Santa Cruz Island",
+      "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -72287,7 +72394,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -72295,7 +72402,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Quito & Galapagos Inner Loop: Baltra Island, Galapagos, Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island",
+      "itinerary": "Quito & Galapagos Inner Loop: Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island",
       "departureDate": "2026-12-06",
       "duration": "10 Nights",
       "departurePort": "Baltra Island",
@@ -72507,7 +72614,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -72515,7 +72622,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Quito & Galapagos Inner Loop: Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island",
+      "itinerary": "Quito & Galapagos Inner Loop: Baltra Island, Galapagos, Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island",
       "departureDate": "2026-12-06",
       "duration": "11 Nights",
       "departurePort": "Baltra Island",
@@ -72739,7 +72846,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -72840,7 +72947,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -72904,7 +73011,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -72912,7 +73019,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Galapagos Inner Loop & Machu Picchu: Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island",
+      "itinerary": "Galapagos Inner Loop & Machu Picchu: Baltra Island, Galapagos, Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island, Lima, Peru, The Sacred Valley, Peru, Machu Picchu, Peru, Cuzco, Peru",
       "departureDate": "2026-12-06",
       "duration": "16 Nights",
       "departurePort": "Baltra Island",
@@ -72927,8 +73034,8 @@
         "balcony": null,
         "suite": "20553.5"
       },
-      "destinationPort": "Puerto Ayora, Santa Cruz Island",
-      "seaDays": 4,
+      "destinationPort": "Cuzco, Peru",
+      "seaDays": 0,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -73082,7 +73189,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -73580,7 +73687,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -73588,7 +73695,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Quito & Galapagos Outer Loop: Gardner Bay (Espanola), Punta Suarez, Cormorant Point, Floreana Island, Post Office Bay, Floreana Island, Moreno Point, Isabela Island, Urvina Bay, Isabela Island, Espinoza Point, Fernandina Island, Vicente Roca Point, Isabela Island, South Plaza (Santa Cruz Island), Daphne Island (Cruising), Dragon Hill (Santa Cruz Island), Puerto Ayora, Santa Cruz Island",
+      "itinerary": "Quito & Galapagos Outer Loop: Baltra Island, Galapagos, Gardner Bay (Espanola), Punta Suarez, Cormorant Point, Floreana Island, Post Office Bay, Floreana Island, Moreno Point, Isabela Island, Urvina Bay, Isabela Island, Espinoza Point, Fernandina Island, Vicente Roca Point, Isabela Island, South Plaza (Santa Cruz Island), Daphne Island (Cruising), Dragon Hill (Santa Cruz Island), Puerto Ayora, Santa Cruz Island",
       "departureDate": "2027-08-22",
       "duration": "10 Nights",
       "departurePort": "Baltra Island",
@@ -73692,7 +73799,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -73804,7 +73911,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -73931,7 +74038,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -74043,7 +74150,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -74581,7 +74688,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -74654,7 +74761,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -74850,7 +74957,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -74986,7 +75093,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -75389,7 +75496,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -75453,7 +75560,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -75589,7 +75696,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -76044,7 +76151,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -76064,20 +76171,13 @@
       "prices": {
         "inside": null,
         "oceanView": "2639",
-        "balcony": "3815",
+        "balcony": "3650",
         "suite": "31929"
       },
       "destinationPort": "Orlando (Port Canaveral), Florida",
       "seaDays": 7,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-17T15:06:08.731Z",
-          "prices": {
-            "inside": 1124,
-            "suite": 10510
-          }
-        },
         {
           "at": "2026-06-17T17:03:27.299Z",
           "prices": {
@@ -76483,9 +76583,17 @@
             "balcony": 3815,
             "suite": 31929
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "oceanView": 2639,
+            "balcony": 3650,
+            "suite": 31929
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -76621,7 +76729,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -76667,7 +76775,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -76675,7 +76783,7 @@
       "shipName": "Celebrity Summit",
       "shipClass": "Millennium",
       "shipLaunchYear": 2001,
-      "itinerary": "Homer Discovery And Heartland Wildlife Cruisetour (Pre Tour): Denali, Alaska, Homer, Alaska, Alyeska (Girdwood), Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
+      "itinerary": "Homer Discovery And Heartland Wildlife Cruisetour (Pre Tour): Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
       "departureDate": "2026-09-04",
       "duration": "13 Nights",
       "departurePort": "Seward",
@@ -76691,7 +76799,7 @@
         "suite": null
       },
       "destinationPort": "Vancouver, British Columbia",
-      "seaDays": 2,
+      "seaDays": 6,
       "firstSeenAt": "2026-06-23T18:42:24.153Z",
       "priceHistory": [
         {
@@ -76885,7 +76993,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77444,7 +77552,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77490,7 +77598,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77617,7 +77725,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77734,7 +77842,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77825,7 +77933,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77871,7 +77979,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -78350,7 +78458,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -78396,7 +78504,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -78891,7 +78999,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -78973,7 +79081,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -79268,7 +79376,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -79332,7 +79440,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -79387,7 +79495,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -79881,7 +79989,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -79999,7 +80107,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80090,7 +80198,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80190,7 +80298,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80263,7 +80371,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80336,7 +80444,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80418,7 +80526,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80509,7 +80617,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80591,7 +80699,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80655,7 +80763,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80764,7 +80872,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80810,7 +80918,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80892,7 +81000,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80947,7 +81055,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81002,7 +81110,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81084,7 +81192,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81148,7 +81256,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81194,7 +81302,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81276,7 +81384,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81340,7 +81448,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81413,7 +81521,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81504,7 +81612,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81568,7 +81676,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81668,7 +81776,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81714,7 +81822,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81796,7 +81904,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81851,7 +81959,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81897,7 +82005,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81979,7 +82087,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82079,7 +82187,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82125,7 +82233,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82207,7 +82315,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82253,7 +82361,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82344,7 +82452,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82390,7 +82498,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82436,7 +82544,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82527,7 +82635,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82573,7 +82681,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82619,7 +82727,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82628,19 +82736,19 @@
       "shipClass": "Solstice",
       "shipLaunchYear": 2010,
       "itinerary": "Best of Southern Caribbean: Cruising (Cruising), Philipsburg, St. Maarten, St. Johns, Antigua, Castries, St. Lucia, Basseterre, St Kitts & Nevis",
-      "departureDate": "2028-03-11",
+      "departureDate": "2027-12-14",
       "duration": "9 Nights",
       "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
       "destination": "Caribbean",
-      "priceFrom": "824",
+      "priceFrom": "715",
       "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC09FLL-1048041849&pID=EC09D139&sDT=2028-03-11&sCD=EC&sCT=CO&country=GBR",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC09FLL-1048041849&pID=EC09D137&sDT=2027-12-14&sCD=EC&sCT=CO&country=GBR",
       "prices": {
-        "inside": "824",
-        "oceanView": "898",
-        "balcony": "1035",
-        "suite": "3408"
+        "inside": "715",
+        "oceanView": "766",
+        "balcony": "777",
+        "suite": "3212"
       },
       "destinationPort": "Basseterre, St Kitts & Nevis",
       "seaDays": 4,
@@ -82771,9 +82879,18 @@
             "balcony": 1035,
             "suite": 3408
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 715,
+            "oceanView": 766,
+            "balcony": 777,
+            "suite": 3212
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82828,7 +82945,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82883,7 +83000,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82972,7 +83089,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83144,7 +83261,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83199,7 +83316,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83245,7 +83362,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83291,7 +83408,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83382,7 +83499,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83428,7 +83545,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83528,7 +83645,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83574,7 +83691,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83647,7 +83764,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83720,7 +83837,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83766,7 +83883,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83875,7 +83992,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83889,13 +84006,13 @@
       "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
       "destination": "Caribbean",
-      "priceFrom": "806",
+      "priceFrom": "866",
       "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC09FLL-3054365264&pID=EC09D138&sDT=2028-01-29&sCD=EC&sCT=CO&country=GBR",
       "prices": {
-        "inside": "806",
-        "oceanView": "879",
-        "balcony": "1016",
+        "inside": "866",
+        "oceanView": "947",
+        "balcony": "1104",
         "suite": "3389"
       },
       "destinationPort": "Philipsburg, St. Maarten",
@@ -83919,9 +84036,18 @@
             "balcony": 1016,
             "suite": 3389
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 866,
+            "oceanView": 947,
+            "balcony": 1104,
+            "suite": 3389
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83967,7 +84093,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84049,7 +84175,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84194,7 +84320,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84276,7 +84402,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84493,7 +84619,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84539,7 +84665,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84630,7 +84756,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84748,7 +84874,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84821,7 +84947,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84835,13 +84961,13 @@
       "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
       "destination": "Caribbean",
-      "priceFrom": "951",
+      "priceFrom": "1021",
       "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC12FLL-2827040659&pID=EC12D059&sDT=2028-01-17&sCD=EC&sCT=CO&country=GBR",
       "prices": {
-        "inside": "951",
-        "oceanView": "1098",
-        "balcony": "1308",
+        "inside": "1021",
+        "oceanView": "1182",
+        "balcony": "1420",
         "suite": "4607"
       },
       "destinationPort": "St. Johns, Antigua",
@@ -84865,9 +84991,18 @@
             "balcony": 1308,
             "suite": 4607
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1021,
+            "oceanView": 1182,
+            "balcony": 1420,
+            "suite": 4607
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84949,7 +85084,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85094,7 +85229,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85176,7 +85311,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85249,7 +85384,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85295,7 +85430,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85309,13 +85444,13 @@
       "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
       "destination": "Caribbean",
-      "priceFrom": "972",
+      "priceFrom": "1042",
       "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC12FLL-2413840107&pID=EC12D058&sDT=2028-01-05&sCD=EC&sCT=CO&country=GBR",
       "prices": {
-        "inside": "972",
-        "oceanView": "1119",
-        "balcony": "1329",
+        "inside": "1042",
+        "oceanView": "1203",
+        "balcony": "1441",
         "suite": "4260"
       },
       "destinationPort": "Puerto Plata, Dominican Republic",
@@ -85339,9 +85474,18 @@
             "balcony": 1329,
             "suite": 4260
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1042,
+            "oceanView": 1203,
+            "balcony": 1441,
+            "suite": 4260
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85355,13 +85499,13 @@
       "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
       "destination": "Caribbean",
-      "priceFrom": "1003",
+      "priceFrom": "1076",
       "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC12FLL-625437074&pID=EC12D061&sDT=2028-04-10&sCD=EC&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1003",
-        "oceanView": "1149",
-        "balcony": "1360",
+        "inside": "1076",
+        "oceanView": "1238",
+        "balcony": "1476",
         "suite": "4658"
       },
       "destinationPort": "Charlotte Amalie, St. Thomas",
@@ -85403,9 +85547,18 @@
             "balcony": 1360,
             "suite": 4658
           }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1076,
+            "oceanView": 1238,
+            "balcony": 1476,
+            "suite": 4658
+          }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85487,7 +85640,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85587,7 +85740,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85669,7 +85822,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85787,7 +85940,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85824,7 +85977,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85996,7 +86149,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86105,7 +86258,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86187,7 +86340,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86323,117 +86476,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
-    },
-    {
-      "provider": "Celebrity Cruises",
-      "id": "celebrity_EC12FLL-638270561",
-      "shipName": "Celebrity Eclipse",
-      "shipClass": "Solstice",
-      "shipLaunchYear": 2010,
-      "itinerary": "Ultimate Southern Caribbean: Cruising (Cruising), Kralendijk, Bonaire, Oranjestad, Aruba, Willemstad, Curacao, Castries, St. Lucia, Basseterre, St Kitts & Nevis, San Juan, Puerto Rico, Puerto Plata, Dominican Republic",
-      "departureDate": "2028-02-07",
-      "duration": "12 Nights",
-      "departurePort": "Fort Lauderdale",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "999",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC12FLL-638270561&pID=EC12D060&sDT=2028-02-07&sCD=EC&sCT=CO&country=GBR",
-      "prices": {
-        "inside": "999",
-        "oceanView": "1145",
-        "balcony": "1356",
-        "suite": "4287"
-      },
-      "destinationPort": "Puerto Plata, Dominican Republic",
-      "seaDays": 4,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 2212.08,
-            "oceanView": 2532.08,
-            "balcony": 3132.08,
-            "suite": 9904.08
-          }
-        },
-        {
-          "at": "2026-06-08T21:48:00.276Z",
-          "prices": {
-            "inside": 999,
-            "oceanView": 1145,
-            "balcony": 1356,
-            "suite": 4287
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
-    },
-    {
-      "provider": "Celebrity Cruises",
-      "id": "celebrity_EC12FLL-2428535978",
-      "shipName": "Celebrity Eclipse",
-      "shipClass": "Solstice",
-      "shipLaunchYear": 2010,
-      "itinerary": "Ultimate Southern Caribbean: Cruising (Cruising), Puerto Plata, Dominican Republic, Oranjestad, Aruba, Willemstad, Curacao, Castries, St. Lucia, Basseterre, St Kitts & Nevis, Charlotte Amalie, St. Thomas",
-      "departureDate": "2028-02-28",
-      "duration": "12 Nights",
-      "departurePort": "Fort Lauderdale",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "1003",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC12FLL-2428535978&pID=EC12D061&sDT=2028-02-28&sCD=EC&sCT=CO&country=GBR",
-      "prices": {
-        "inside": "1003",
-        "oceanView": "1149",
-        "balcony": "1360",
-        "suite": "4658"
-      },
-      "destinationPort": "Charlotte Amalie, St. Thomas",
-      "seaDays": 5,
-      "firstSeenAt": "2026-06-03T14:25:08.048Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-03T14:25:08.048Z",
-          "prices": {
-            "inside": 2218.12,
-            "oceanView": 2538.12,
-            "balcony": 3138.12,
-            "suite": 10710.12
-          }
-        },
-        {
-          "at": "2026-06-08T21:48:00.276Z",
-          "prices": {
-            "inside": 1003,
-            "oceanView": 1149,
-            "balcony": 1360,
-            "suite": 4658
-          }
-        },
-        {
-          "at": "2026-06-29T13:29:10.732Z",
-          "prices": {
-            "inside": 2218.12,
-            "oceanView": 2538.12,
-            "balcony": 3138.12,
-            "suite": 10710.12
-          }
-        },
-        {
-          "at": "2026-06-29T15:10:39.772Z",
-          "prices": {
-            "inside": 1003,
-            "oceanView": 1149,
-            "balcony": 1360,
-            "suite": 4658
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86524,53 +86567,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
-    },
-    {
-      "provider": "Celebrity Cruises",
-      "id": "celebrity_AT10FLL-4252799384",
-      "shipName": "Celebrity Ascent",
-      "shipClass": "Edge",
-      "shipLaunchYear": 2023,
-      "itinerary": "Ultimate Southern Caribbean: Cruising (Cruising), Philipsburg, St. Maarten, Castries, St. Lucia, Bridgetown, Barbados, St. Johns, Antigua, Charlotte Amalie, St. Thomas",
-      "departureDate": "2028-02-04",
-      "duration": "10 Nights",
-      "departurePort": "Fort Lauderdale",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "1062",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT10FLL-4252799384&pID=AT10D100&sDT=2028-02-04&sCD=AT&sCT=CO&country=GBR",
-      "prices": {
-        "inside": "1062",
-        "oceanView": "1135",
-        "balcony": "1272",
-        "suite": "3896"
-      },
-      "destinationPort": "Charlotte Amalie, St. Thomas",
-      "seaDays": 4,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 2355.65,
-            "oceanView": 2515.65,
-            "balcony": 2955.65,
-            "suite": 9055.65
-          }
-        },
-        {
-          "at": "2026-06-08T21:48:00.276Z",
-          "prices": {
-            "inside": 1062,
-            "oceanView": 1135,
-            "balcony": 1272,
-            "suite": 3896
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86643,53 +86640,190 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
-      "id": "celebrity_AT10FLL-1497947737",
-      "shipName": "Celebrity Ascent",
-      "shipClass": "Edge",
-      "shipLaunchYear": 2023,
-      "itinerary": "Ultimate Southern Caribbean: Cruising (Cruising), Philipsburg, St. Maarten, Fort De France, Martinique, Castries, St. Lucia, St. Johns, Antigua, Basseterre, St Kitts & Nevis",
-      "departureDate": "2028-01-14",
-      "duration": "10 Nights",
+      "id": "celebrity_EC12FLL-638270561",
+      "shipName": "Celebrity Eclipse",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2010,
+      "itinerary": "Ultimate Southern Caribbean: Cruising (Cruising), Kralendijk, Bonaire, Oranjestad, Aruba, Willemstad, Curacao, Castries, St. Lucia, Basseterre, St Kitts & Nevis, San Juan, Puerto Rico, Puerto Plata, Dominican Republic",
+      "departureDate": "2028-02-07",
+      "duration": "12 Nights",
       "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
       "destination": "Caribbean",
-      "priceFrom": "1150",
+      "priceFrom": "1072",
       "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT10FLL-1497947737&pID=AT10D099&sDT=2028-01-14&sCD=AT&sCT=CO&country=GBR",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC12FLL-638270561&pID=EC12D060&sDT=2028-02-07&sCD=EC&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1150",
-        "oceanView": "1223",
-        "balcony": "1433",
-        "suite": "3839"
+        "inside": "1072",
+        "oceanView": "1234",
+        "balcony": "1472",
+        "suite": "4287"
       },
-      "destinationPort": "Basseterre, St Kitts & Nevis",
+      "destinationPort": "Puerto Plata, Dominican Republic",
       "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
           "at": "2026-05-29T18:29:37.417Z",
           "prices": {
-            "inside": 2569.16,
-            "oceanView": 2729.16,
-            "balcony": 3329.16,
-            "suite": 8949.16
+            "inside": 2212.08,
+            "oceanView": 2532.08,
+            "balcony": 3132.08,
+            "suite": 9904.08
           }
         },
         {
           "at": "2026-06-08T21:48:00.276Z",
           "prices": {
-            "inside": 1150,
-            "oceanView": 1223,
-            "balcony": 1433,
-            "suite": 3839
+            "inside": 999,
+            "oceanView": 1145,
+            "balcony": 1356,
+            "suite": 4287
+          }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1072,
+            "oceanView": 1234,
+            "balcony": 1472,
+            "suite": 4287
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_EC12FLL-2428535978",
+      "shipName": "Celebrity Eclipse",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2010,
+      "itinerary": "Ultimate Southern Caribbean: Cruising (Cruising), Puerto Plata, Dominican Republic, Oranjestad, Aruba, Willemstad, Curacao, Castries, St. Lucia, Basseterre, St Kitts & Nevis, Charlotte Amalie, St. Thomas",
+      "departureDate": "2028-02-28",
+      "duration": "12 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1076",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC12FLL-2428535978&pID=EC12D061&sDT=2028-02-28&sCD=EC&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1076",
+        "oceanView": "1238",
+        "balcony": "1476",
+        "suite": "4658"
+      },
+      "destinationPort": "Charlotte Amalie, St. Thomas",
+      "seaDays": 5,
+      "firstSeenAt": "2026-06-03T14:25:08.048Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-03T14:25:08.048Z",
+          "prices": {
+            "inside": 2218.12,
+            "oceanView": 2538.12,
+            "balcony": 3138.12,
+            "suite": 10710.12
+          }
+        },
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 1003,
+            "oceanView": 1149,
+            "balcony": 1360,
+            "suite": 4658
+          }
+        },
+        {
+          "at": "2026-06-29T13:29:10.732Z",
+          "prices": {
+            "inside": 2218.12,
+            "oceanView": 2538.12,
+            "balcony": 3138.12,
+            "suite": 10710.12
+          }
+        },
+        {
+          "at": "2026-06-29T15:10:39.772Z",
+          "prices": {
+            "inside": 1003,
+            "oceanView": 1149,
+            "balcony": 1360,
+            "suite": 4658
+          }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1076,
+            "oceanView": 1238,
+            "balcony": 1476,
+            "suite": 4658
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_AT10FLL-4252799384",
+      "shipName": "Celebrity Ascent",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2023,
+      "itinerary": "Ultimate Southern Caribbean: Cruising (Cruising), Philipsburg, St. Maarten, Castries, St. Lucia, Bridgetown, Barbados, St. Johns, Antigua, Charlotte Amalie, St. Thomas",
+      "departureDate": "2028-02-04",
+      "duration": "10 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1144",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT10FLL-4252799384&pID=AT10D100&sDT=2028-02-04&sCD=AT&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1144",
+        "oceanView": "1224",
+        "balcony": "1382",
+        "suite": "3896"
+      },
+      "destinationPort": "Charlotte Amalie, St. Thomas",
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2355.65,
+            "oceanView": 2515.65,
+            "balcony": 2955.65,
+            "suite": 9055.65
+          }
+        },
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 1062,
+            "oceanView": 1135,
+            "balcony": 1272,
+            "suite": 3896
+          }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1144,
+            "oceanView": 1224,
+            "balcony": 1382,
+            "suite": 3896
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86789,7 +86923,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86871,53 +87005,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
-    },
-    {
-      "provider": "Celebrity Cruises",
-      "id": "celebrity_AT11FLL-1099072116",
-      "shipName": "Celebrity Ascent",
-      "shipClass": "Edge",
-      "shipLaunchYear": 2023,
-      "itinerary": "Best of Southern Caribbean: Cruising (Cruising), Charlotte Amalie, St. Thomas, St. Johns, Antigua, Bridgetown, Barbados, Castries, St. Lucia, Roseau, Dominica, Basseterre, St Kitts & Nevis",
-      "departureDate": "2028-01-24",
-      "duration": "11 Nights",
-      "departurePort": "Fort Lauderdale",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "1209",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT11FLL-1099072116&pID=AT11D098&sDT=2028-01-24&sCD=AT&sCT=CO&country=GBR",
-      "prices": {
-        "inside": "1209",
-        "oceanView": "1282",
-        "balcony": "1419",
-        "suite": "4241"
-      },
-      "destinationPort": "Basseterre, St Kitts & Nevis",
-      "seaDays": 4,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 2675.46,
-            "oceanView": 2835.46,
-            "balcony": 3275.46,
-            "suite": 9807.46
-          }
-        },
-        {
-          "at": "2026-06-08T21:48:00.276Z",
-          "prices": {
-            "inside": 1209,
-            "oceanView": 1282,
-            "balcony": 1419,
-            "suite": 4241
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87026,7 +87114,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87099,7 +87187,117 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_AT10FLL-1497947737",
+      "shipName": "Celebrity Ascent",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2023,
+      "itinerary": "Ultimate Southern Caribbean: Cruising (Cruising), Philipsburg, St. Maarten, Fort De France, Martinique, Castries, St. Lucia, St. Johns, Antigua, Basseterre, St Kitts & Nevis",
+      "departureDate": "2028-01-14",
+      "duration": "10 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1243",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT10FLL-1497947737&pID=AT10D099&sDT=2028-01-14&sCD=AT&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1243",
+        "oceanView": "1323",
+        "balcony": "1561",
+        "suite": "3839"
+      },
+      "destinationPort": "Basseterre, St Kitts & Nevis",
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2569.16,
+            "oceanView": 2729.16,
+            "balcony": 3329.16,
+            "suite": 8949.16
+          }
+        },
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 1150,
+            "oceanView": 1223,
+            "balcony": 1433,
+            "suite": 3839
+          }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1243,
+            "oceanView": 1323,
+            "balcony": 1561,
+            "suite": 3839
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_AT11FLL-1099072116",
+      "shipName": "Celebrity Ascent",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2023,
+      "itinerary": "Best of Southern Caribbean: Cruising (Cruising), Charlotte Amalie, St. Thomas, St. Johns, Antigua, Bridgetown, Barbados, Castries, St. Lucia, Roseau, Dominica, Basseterre, St Kitts & Nevis",
+      "departureDate": "2028-01-24",
+      "duration": "11 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1304",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT11FLL-1099072116&pID=AT11D098&sDT=2028-01-24&sCD=AT&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1304",
+        "oceanView": "1384",
+        "balcony": "1542",
+        "suite": "4241"
+      },
+      "destinationPort": "Basseterre, St Kitts & Nevis",
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2675.46,
+            "oceanView": 2835.46,
+            "balcony": 3275.46,
+            "suite": 9807.46
+          }
+        },
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 1209,
+            "oceanView": 1282,
+            "balcony": 1419,
+            "suite": 4241
+          }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1304,
+            "oceanView": 1384,
+            "balcony": 1542,
+            "suite": 4241
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87486,7 +87684,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87586,7 +87784,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87677,7 +87875,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87750,7 +87948,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87832,7 +88030,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87869,7 +88067,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87933,80 +88131,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
-    },
-    {
-      "provider": "Celebrity Cruises",
-      "id": "celebrity_AT11FLL-4221472093",
-      "shipName": "Celebrity Ascent",
-      "shipClass": "Edge",
-      "shipLaunchYear": 2023,
-      "itinerary": "Panama Canal & Southern Caribbean: Cruising (Cruising), Oranjestad, Aruba, Willemstad, Curacao, Panama Canal (Cruising), Colon, Panama, George Town, Grand Cayman, Bimini, Bahamas",
-      "departureDate": "2028-01-03",
-      "duration": "11 Nights",
-      "departurePort": "Fort Lauderdale",
-      "departureRegion": "Americas",
-      "destination": "Panama Canal",
-      "priceFrom": "1450",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT11FLL-4221472093&pID=AT11C026&sDT=2028-01-03&sCD=AT&sCT=CO&country=GBR",
-      "prices": {
-        "inside": "1450",
-        "oceanView": "1597",
-        "balcony": "1843",
-        "suite": "5436"
-      },
-      "destinationPort": "Bimini, Bahamas",
-      "seaDays": 4,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 2962.08,
-            "oceanView": 3282.08,
-            "balcony": 3962.08,
-            "suite": 11662.08
-          }
-        },
-        {
-          "at": "2026-06-08T21:48:00.276Z",
-          "prices": {
-            "inside": 1450,
-            "oceanView": 1597,
-            "balcony": 1843,
-            "suite": 5201
-          }
-        },
-        {
-          "at": "2026-06-12T03:09:06.348Z",
-          "prices": {
-            "inside": 1450,
-            "oceanView": 1597,
-            "balcony": 1843,
-            "suite": 5436
-          }
-        },
-        {
-          "at": "2026-06-12T05:36:00.081Z",
-          "prices": {
-            "inside": 1450,
-            "oceanView": 1597,
-            "balcony": 1843,
-            "suite": 5201
-          }
-        },
-        {
-          "at": "2026-06-18T21:00:17.426Z",
-          "prices": {
-            "inside": 1450,
-            "oceanView": 1597,
-            "balcony": 1843,
-            "suite": 5436
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88178,7 +88303,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88260,7 +88385,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88315,7 +88440,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88442,7 +88567,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88494,7 +88619,89 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_AT11FLL-4221472093",
+      "shipName": "Celebrity Ascent",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2023,
+      "itinerary": "Panama Canal & Southern Caribbean: Cruising (Cruising), Oranjestad, Aruba, Willemstad, Curacao, Panama Canal (Cruising), Colon, Panama, George Town, Grand Cayman, Bimini, Bahamas",
+      "departureDate": "2027-11-22",
+      "duration": "11 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Panama Canal",
+      "priceFrom": "1514",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT11FLL-4221472093&pID=AT11C026&sDT=2027-11-22&sCD=AT&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1514",
+        "oceanView": "1901",
+        "balcony": "2353",
+        "suite": "5491"
+      },
+      "destinationPort": "Bimini, Bahamas",
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 2962.08,
+            "oceanView": 3282.08,
+            "balcony": 3962.08,
+            "suite": 11662.08
+          }
+        },
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 1450,
+            "oceanView": 1597,
+            "balcony": 1843,
+            "suite": 5201
+          }
+        },
+        {
+          "at": "2026-06-12T03:09:06.348Z",
+          "prices": {
+            "inside": 1450,
+            "oceanView": 1597,
+            "balcony": 1843,
+            "suite": 5436
+          }
+        },
+        {
+          "at": "2026-06-12T05:36:00.081Z",
+          "prices": {
+            "inside": 1450,
+            "oceanView": 1597,
+            "balcony": 1843,
+            "suite": 5201
+          }
+        },
+        {
+          "at": "2026-06-18T21:00:17.426Z",
+          "prices": {
+            "inside": 1450,
+            "oceanView": 1597,
+            "balcony": 1843,
+            "suite": 5436
+          }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1514,
+            "oceanView": 1901,
+            "balcony": 2353,
+            "suite": 5491
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88558,53 +88765,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
-    },
-    {
-      "provider": "Celebrity Cruises",
-      "id": "celebrity_AT11FLL-2562931534",
-      "shipName": "Celebrity Ascent",
-      "shipClass": "Edge",
-      "shipLaunchYear": 2023,
-      "itinerary": "Panama Canal & Southern Caribbean: Cruising (Cruising), Oranjestad, Aruba, Willemstad, Curacao, Panama Canal (Cruising), Colon, Panama, George Town, Grand Cayman",
-      "departureDate": "2028-02-14",
-      "duration": "11 Nights",
-      "departurePort": "Fort Lauderdale",
-      "departureRegion": "Americas",
-      "destination": "Panama Canal",
-      "priceFrom": "1558",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT11FLL-2562931534&pID=AT11C027&sDT=2028-02-14&sCD=AT&sCT=CO&country=GBR",
-      "prices": {
-        "inside": "1558",
-        "oceanView": "1704",
-        "balcony": "1952",
-        "suite": "5551"
-      },
-      "destinationPort": "George Town, Grand Cayman",
-      "seaDays": 5,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 3231.7,
-            "oceanView": 3551.7,
-            "balcony": 4231.7,
-            "suite": 12459.7
-          }
-        },
-        {
-          "at": "2026-06-08T21:48:00.276Z",
-          "prices": {
-            "inside": 1558,
-            "oceanView": 1704,
-            "balcony": 1952,
-            "suite": 5551
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88713,53 +88874,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
-    },
-    {
-      "provider": "Celebrity Cruises",
-      "id": "celebrity_AT11FLL-2970283796",
-      "shipName": "Celebrity Ascent",
-      "shipClass": "Edge",
-      "shipLaunchYear": 2023,
-      "itinerary": "Panama Canal & Southern Caribbean: Cruising (Cruising), Puerto Plata, Dominican Republic, Oranjestad, Aruba, Willemstad, Curacao, Panama Canal (Cruising), Colon, Panama, George Town, Grand Cayman",
-      "departureDate": "2028-03-27",
-      "duration": "11 Nights",
-      "departurePort": "Fort Lauderdale",
-      "departureRegion": "Americas",
-      "destination": "Panama Canal",
-      "priceFrom": "1571",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT11FLL-2970283796&pID=AT11C028&sDT=2028-03-27&sCD=AT&sCT=CO&country=GBR",
-      "prices": {
-        "inside": "1571",
-        "oceanView": "1717",
-        "balcony": "1965",
-        "suite": "5321"
-      },
-      "destinationPort": "George Town, Grand Cayman",
-      "seaDays": 4,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 3248.2,
-            "oceanView": 3568.2,
-            "balcony": 4248.2,
-            "suite": 11948.2
-          }
-        },
-        {
-          "at": "2026-06-08T21:48:00.276Z",
-          "prices": {
-            "inside": 1571,
-            "oceanView": 1717,
-            "balcony": 1965,
-            "suite": 5321
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88767,7 +88882,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Denali Express Cruisetour (Pre Tour): Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
+      "itinerary": "Denali Express Cruisetour (Pre Tour): Denali, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
       "departureDate": "2027-05-28",
       "duration": "9 Nights",
       "departurePort": "Seward",
@@ -88783,7 +88898,7 @@
         "suite": "4134"
       },
       "destinationPort": "Vancouver, British Columbia",
-      "seaDays": 2,
+      "seaDays": 0,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -88886,7 +89001,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88950,7 +89065,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89106,7 +89221,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89152,7 +89267,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89198,7 +89313,62 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_AT11FLL-2562931534",
+      "shipName": "Celebrity Ascent",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2023,
+      "itinerary": "Panama Canal & Southern Caribbean: Cruising (Cruising), Oranjestad, Aruba, Willemstad, Curacao, Panama Canal (Cruising), Colon, Panama, George Town, Grand Cayman",
+      "departureDate": "2028-02-14",
+      "duration": "11 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Panama Canal",
+      "priceFrom": "1652",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT11FLL-2562931534&pID=AT11C027&sDT=2028-02-14&sCD=AT&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1652",
+        "oceanView": "1814",
+        "balcony": "2092",
+        "suite": "5551"
+      },
+      "destinationPort": "George Town, Grand Cayman",
+      "seaDays": 5,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3231.7,
+            "oceanView": 3551.7,
+            "balcony": 4231.7,
+            "suite": 12459.7
+          }
+        },
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 1558,
+            "oceanView": 1704,
+            "balcony": 1952,
+            "suite": 5551
+          }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1652,
+            "oceanView": 1814,
+            "balcony": 2092,
+            "suite": 5551
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89206,7 +89376,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Denali Express Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Denali, Alaska, Anchorage, Alaska",
+      "itinerary": "Denali Express Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
       "departureDate": "2027-06-04",
       "duration": "9 Nights",
       "departurePort": "Vancouver",
@@ -89221,8 +89391,8 @@
         "balcony": "1967",
         "suite": "4270"
       },
-      "destinationPort": "Anchorage, Alaska",
-      "seaDays": 0,
+      "destinationPort": "Seward, Alaska",
+      "seaDays": 2,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -89325,7 +89495,62 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_AT11FLL-2970283796",
+      "shipName": "Celebrity Ascent",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2023,
+      "itinerary": "Panama Canal & Southern Caribbean: Cruising (Cruising), Puerto Plata, Dominican Republic, Oranjestad, Aruba, Willemstad, Curacao, Panama Canal (Cruising), Colon, Panama, George Town, Grand Cayman",
+      "departureDate": "2028-03-27",
+      "duration": "11 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Panama Canal",
+      "priceFrom": "1665",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT11FLL-2970283796&pID=AT11C028&sDT=2028-03-27&sCD=AT&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1665",
+        "oceanView": "1827",
+        "balcony": "2105",
+        "suite": "5321"
+      },
+      "destinationPort": "George Town, Grand Cayman",
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 3248.2,
+            "oceanView": 3568.2,
+            "balcony": 4248.2,
+            "suite": 11948.2
+          }
+        },
+        {
+          "at": "2026-06-08T21:48:00.276Z",
+          "prices": {
+            "inside": 1571,
+            "oceanView": 1717,
+            "balcony": 1965,
+            "suite": 5321
+          }
+        },
+        {
+          "at": "2026-06-30T22:27:46.173Z",
+          "prices": {
+            "inside": 1665,
+            "oceanView": 1827,
+            "balcony": 2105,
+            "suite": 5321
+          }
+        }
+      ],
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89443,7 +89668,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89552,7 +89777,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89742,7 +89967,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89788,7 +90013,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89861,7 +90086,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90027,7 +90252,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90064,7 +90289,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90173,7 +90398,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90310,7 +90535,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90402,7 +90627,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90484,7 +90709,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90566,7 +90791,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90720,7 +90945,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90865,7 +91090,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90947,7 +91172,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91038,7 +91263,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91129,7 +91354,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91137,7 +91362,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Alaska Wildlife Encounter Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Alyeska (Girdwood), Alaska, Talkeetna, Alaska, Denali, Alaska, Anchorage, Alaska",
+      "itinerary": "Alaska Wildlife Encounter Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
       "departureDate": "2027-06-04",
       "duration": "11 Nights",
       "departurePort": "Vancouver",
@@ -91152,8 +91377,8 @@
         "balcony": "2813",
         "suite": "5116"
       },
-      "destinationPort": "Anchorage, Alaska",
-      "seaDays": 0,
+      "destinationPort": "Seward, Alaska",
+      "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -91274,7 +91499,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91410,7 +91635,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91418,7 +91643,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Premium Wildlife and Wilderness Discovery Cruisetour (Post Tour): Inside Passage (Cruising), Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
+      "itinerary": "Premium Wildlife and Wilderness Discovery Cruisetour (Post Tour): Inside Passage (Cruising), Ketchikan (Ward Cove), Alaska, Sitka, Alaska, Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Alyeska (Girdwood), Alaska, Denali, Alaska, Anchorage, Alaska",
       "departureDate": "2027-05-21",
       "duration": "11 Nights",
       "departurePort": "Vancouver",
@@ -91433,8 +91658,8 @@
         "balcony": "3201",
         "suite": "5613"
       },
-      "destinationPort": "Seward, Alaska",
-      "seaDays": 4,
+      "destinationPort": "Anchorage, Alaska",
+      "seaDays": 1,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -91510,7 +91735,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91619,7 +91844,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91728,7 +91953,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91837,7 +92062,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91845,7 +92070,7 @@
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Homer Discovery And Heartland Wildlife Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska, Homer, Alaska, Alyeska (Girdwood), Alaska, Denali, Alaska, Anchorage, Alaska",
+      "itinerary": "Homer Discovery And Heartland Wildlife Cruisetour (Post Tour): Inside Passage (Cruising), Sitka, Alaska, Endicott Arm (Cruising), Icy Strait Point, Alaska, Juneau, Alaska, Hubbard Glacier (Cruising), Alaska, Seward, Alaska",
       "departureDate": "2027-06-04",
       "duration": "13 Nights",
       "departurePort": "Vancouver",
@@ -91860,8 +92085,8 @@
         "balcony": "3239",
         "suite": "5544"
       },
-      "destinationPort": "Anchorage, Alaska",
-      "seaDays": 2,
+      "destinationPort": "Seward, Alaska",
+      "seaDays": 6,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -91964,7 +92189,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92091,7 +92316,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92236,7 +92461,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92381,7 +92606,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92489,7 +92714,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92497,7 +92722,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Quito & Galapagos Inner Loop: Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island",
+      "itinerary": "Quito & Galapagos Inner Loop: Baltra Island, Galapagos, Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island",
       "departureDate": "2028-10-22",
       "duration": "10 Nights",
       "departurePort": "Baltra Island",
@@ -92535,7 +92760,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92543,7 +92768,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Quito & Galapagos Outer Loop: Baltra Island, Galapagos, Gardner Bay (Espanola), Punta Suarez, Cormorant Point, Floreana Island, Post Office Bay, Floreana Island, Moreno Point, Isabela Island, Urvina Bay, Isabela Island, Espinoza Point, Fernandina Island, Vicente Roca Point, Isabela Island, South Plaza (Santa Cruz Island), Daphne Island (Cruising), Dragon Hill (Santa Cruz Island), Puerto Ayora, Santa Cruz Island",
+      "itinerary": "Quito & Galapagos Outer Loop: Gardner Bay (Espanola), Punta Suarez, Cormorant Point, Floreana Island, Post Office Bay, Floreana Island, Moreno Point, Isabela Island, Urvina Bay, Isabela Island, Espinoza Point, Fernandina Island, Vicente Roca Point, Isabela Island, South Plaza (Santa Cruz Island), Daphne Island (Cruising), Dragon Hill (Santa Cruz Island), Puerto Ayora, Santa Cruz Island",
       "departureDate": "2028-09-17",
       "duration": "10 Nights",
       "departurePort": "Baltra Island",
@@ -92569,7 +92794,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92577,7 +92802,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Quito & Galapagos Inner Loop: Baltra Island, Galapagos, Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island",
+      "itinerary": "Quito & Galapagos Inner Loop: Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island",
       "departureDate": "2028-10-22",
       "duration": "11 Nights",
       "departurePort": "Baltra Island",
@@ -92615,7 +92840,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92649,7 +92874,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92657,7 +92882,7 @@
       "shipName": "Celebrity Flora",
       "shipClass": "Galapagos",
       "shipLaunchYear": 2019,
-      "itinerary": "Galapagos Inner Loop and Machu Picchu: Baltra Island, Galapagos, Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island, Lima, Peru, The Sacred Valley, Peru, Machu Picchu, Peru, Cuzco, Peru",
+      "itinerary": "Galapagos Inner Loop and Machu Picchu: Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island",
       "departureDate": "2028-10-22",
       "duration": "16 Nights",
       "departurePort": "Baltra Island",
@@ -92672,8 +92897,8 @@
         "balcony": null,
         "suite": "21311.5"
       },
-      "destinationPort": "Cuzco, Peru",
-      "seaDays": 0,
+      "destinationPort": "Puerto Ayora, Santa Cruz Island",
+      "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -92695,7 +92920,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92729,8 +92954,8 @@
           }
         }
       ],
-      "lastSeenAt": "2026-06-30T20:39:09.106Z"
+      "lastSeenAt": "2026-06-30T22:27:46.173Z"
     }
   ],
-  "scrapedAt": "2026-06-30T20:39:09.106Z"
+  "scrapedAt": "2026-06-30T22:27:46.173Z"
 }
