@@ -64,6 +64,13 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '30 Jun 2026',
+      title: 'Shorter WhatsApp alerts',
+      items: [
+        'WhatsApp cruise alerts now split into compact message parts and omit long booking links so Twilio accepts large match batches.',
+      ],
+    },
+    {
       date: '27 Jun 2026',
       title: 'Provider scrape reliability',
       items: [

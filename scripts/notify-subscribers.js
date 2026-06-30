@@ -9,8 +9,11 @@ const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const TWILIO_ACCOUNT_SID   = process.env.TWILIO_ACCOUNT_SID;
 const TWILIO_AUTH_TOKEN    = process.env.TWILIO_AUTH_TOKEN;
 const TWILIO_FROM          = process.env.TWILIO_WHATSAPP_FROM || '+14155238886';
+const TWILIO_BODY_LIMIT    = 1600;
+const WHATSAPP_SAFE_LIMIT  = 1400;
+const MAX_LISTED_MATCHES   = 20;
 
-// ── Supabase REST helpers ─────────────────────────────────────────────────────
+// Supabase REST helpers
 
 async function sbFetch(method, resource, body) {
   const res = await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/${resource}`, {
@@ -28,7 +31,7 @@ async function sbFetch(method, resource, body) {
   return text ? JSON.parse(text) : null;
 }
 
-// ── Twilio WhatsApp send ──────────────────────────────────────────────────────
+// Twilio WhatsApp send
 
 async function sendWhatsApp(to, message) {
   const auth = Buffer.from(`${TWILIO_ACCOUNT_SID}:${TWILIO_AUTH_TOKEN}`).toString('base64');
@@ -50,7 +53,7 @@ async function sendWhatsApp(to, message) {
   if (!res.ok) throw new Error(`Twilio error: ${await res.text()}`);
 }
 
-// ── Load cruises from static JSON files ──────────────────────────────────────
+// Load cruises from static JSON files
 
 function loadAllCruises() {
   const indexPath = path.join(__dirname, '../public/providers/index.json');
@@ -68,7 +71,7 @@ function loadAllCruises() {
   return cruises;
 }
 
-// ── Criteria matching (mirrors frontend filter logic) ────────────────────────
+// Criteria matching (mirrors frontend filter logic)
 
 function matchesCriteria(cruise, criteria, usdToGbp) {
   const c = criteria;
@@ -94,41 +97,95 @@ function matchesCriteria(cruise, criteria, usdToGbp) {
   return true;
 }
 
-// ── WhatsApp message formatter ────────────────────────────────────────────────
+// WhatsApp message formatter
 
-function buildMessage(cruises, usdToGbp) {
-  const lines = cruises.slice(0, 10).map((c, i) => {
-    const rawPrice = parseFloat(c.priceFrom);
-    const price = isNaN(rawPrice)
-      ? 'N/A'
-      : (c.currency === 'USD' && usdToGbp)
-        ? `£${Math.round(rawPrice * usdToGbp).toLocaleString('en-GB')}`
-        : `£${Math.round(rawPrice).toLocaleString('en-GB')}`;
-    const nights = (c.duration ?? '').toString().replace(/\D/g, '') || '?';
-    const date = c.departureDate
-      ? new Date(c.departureDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-      : '?';
-    const book = c.bookingUrl
-      ? (c.bookingUrl.startsWith('http') ? c.bookingUrl : `https://www.royalcaribbean.com${c.bookingUrl}`)
-      : 'https://www.royalcaribbean.com/gbr/en/cruises';
-    return `${i + 1}. *${c.shipName}* (${c.provider})\n   ${nights}N · ${date} · ${c.departurePort || '?'}\n   From ${price} pp\n   ${book}`;
-  });
-
-  const overflow = cruises.length > 10 ? `\n\n_...and ${cruises.length - 10} more sailings._` : '';
-  return (
-    `🚢 *New Cruise Alert!*\n\n` +
-    `${cruises.length} new sailing${cruises.length !== 1 ? 's' : ''} match your saved search:\n\n` +
-    lines.join('\n\n') +
-    overflow +
-    `\n\n_Reply *CONTINUE* to keep receiving alerts — otherwise this is your final notification._`
-  );
+function clip(value, max) {
+  const text = String(value || '?').replace(/\s+/g, ' ').trim() || '?';
+  return text.length > max ? `${text.slice(0, max - 3)}...` : text;
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────────
+function formatShortDate(value) {
+  const date = new Date(value);
+  return value && !Number.isNaN(date.getTime())
+    ? date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+    : '?';
+}
+
+function formatPrice(c, usdToGbp) {
+  const rawPrice = parseFloat(c.priceFrom);
+  if (Number.isNaN(rawPrice)) return 'N/A';
+  const price = c.currency === 'USD' && usdToGbp ? rawPrice * usdToGbp : rawPrice;
+  return `GBP ${Math.round(price).toLocaleString('en-GB')}`;
+}
+
+function compactCruiseLine(c, index, usdToGbp) {
+  const nights = (c.duration ?? '').toString().replace(/\D/g, '') || '?';
+  return [
+    `${index + 1}. ${clip(c.shipName, 42)} (${clip(c.provider, 24)})`,
+    `${nights}N | ${formatShortDate(c.departureDate)} | ${clip(c.departurePort, 28)} | ${formatPrice(c, usdToGbp)} pp`,
+  ].join('\n');
+}
+
+function pushChunk(chunks, lines) {
+  if (lines.length) chunks.push(lines.join('\n\n'));
+}
+
+function buildMessages(cruises, usdToGbp, options = {}) {
+  const safeLimit = options.safeLimit || WHATSAPP_SAFE_LIMIT;
+  const maxListed = options.maxListed || MAX_LISTED_MATCHES;
+  const listed = cruises.slice(0, maxListed);
+  const chunks = [];
+  let current = [
+    `Cruise alert: ${cruises.length} new match${cruises.length === 1 ? '' : 'es'}.`,
+  ];
+
+  for (let i = 0; i < listed.length; i++) {
+    const line = compactCruiseLine(listed[i], i, usdToGbp);
+    const next = [...current, line].join('\n\n');
+    if (next.length > safeLimit && current.length > 1) {
+      pushChunk(chunks, current);
+      current = [line];
+    } else {
+      current.push(line);
+    }
+  }
+
+  const footerLines = [];
+  if (cruises.length > listed.length) {
+    footerLines.push(`+${cruises.length - listed.length} more matches in the site.`);
+  }
+  footerLines.push('Open your saved view for booking links.');
+  footerLines.push('Reply CONTINUE to keep alerts.');
+
+  for (const footerLine of footerLines) {
+    const next = [...current, footerLine].join('\n\n');
+    if (next.length > safeLimit && current.length) {
+      pushChunk(chunks, current);
+      current = [footerLine];
+    } else {
+      current.push(footerLine);
+    }
+  }
+  pushChunk(chunks, current);
+
+  const labelled = chunks.length > 1
+    ? chunks.map((chunk, index) => `Part ${index + 1}/${chunks.length}\n\n${chunk}`)
+    : chunks;
+
+  for (const message of labelled) {
+    if (message.length > TWILIO_BODY_LIMIT) {
+      throw new Error(`WhatsApp message body is ${message.length} characters; Twilio limit is ${TWILIO_BODY_LIMIT}.`);
+    }
+  }
+
+  return labelled;
+}
+
+// Main
 
 async function main() {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY || !TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN) {
-    console.log('  Skipping subscriber notifications — required env vars not set.');
+    console.log('  Skipping subscriber notifications - required env vars not set.');
     return;
   }
 
@@ -162,24 +219,35 @@ async function main() {
       continue;
     }
 
-    console.log(`  Sub ${sub.id}: ${newMatches.length} new match(es) — sending WhatsApp to ${sub.whatsapp_number}…`);
+    console.log(`  Sub ${sub.id}: ${newMatches.length} new match(es) - sending WhatsApp to ${sub.whatsapp_number}...`);
 
     try {
-      await sendWhatsApp(sub.whatsapp_number, buildMessage(newMatches, usdToGbp));
-      console.log(`  ✓ Sent to ${sub.whatsapp_number}`);
+      const messages = buildMessages(newMatches, usdToGbp);
+      for (let i = 0; i < messages.length; i++) {
+        await sendWhatsApp(sub.whatsapp_number, messages[i]);
+        console.log(`  Sent WhatsApp part ${i + 1}/${messages.length} to ${sub.whatsapp_number}`);
+      }
 
-      // Record these cruises as seen
+      // Record these cruises as seen only after every message part succeeds.
       await sbFetch('POST', 'seen_cruises', newMatches.map(c => ({ subscription_id: sub.id, cruise_id: c.id })));
 
-      // Deactivate until user replies CONTINUE
+      // Deactivate until user replies CONTINUE.
       await sbFetch('PATCH', `subscriptions?id=eq.${sub.id}`, {
         active: false,
         last_notified_at: new Date().toISOString(),
       });
     } catch (err) {
-      console.error(`  ✗ Failed for ${sub.whatsapp_number}: ${err.message}`);
+      console.error(`  Failed for ${sub.whatsapp_number}: ${err.message}`);
     }
   }
 }
 
-main().catch(err => { console.error(err.message); process.exit(1); });
+if (require.main === module) {
+  main().catch(err => { console.error(err.message); process.exit(1); });
+}
+
+module.exports = {
+  buildMessages,
+  compactCruiseLine,
+  matchesCriteria,
+};
