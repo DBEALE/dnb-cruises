@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 575,
+  "count": 576,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -31405,6 +31405,49 @@
         }
       ],
       "lastSeenAt": "2026-06-30T22:27:46.173Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OYR230_CO_20270331",
+      "shipName": "Coral Princess",
+      "shipClass": "Coral",
+      "shipLaunchYear": 2002,
+      "itinerary": "Singapore → Phuket, Thailand → Langkawi, Malaysia → Penang, Malaysia → Kuala Lumpur (Port Kelang), Malaysia → Ho Chi Minh City (Phu My), Vietnam → Cam Ranh (Nha Trang), Vietnam → Halong Bay/Hanoi (Cai Lan), Vietnam → Hong Kong → Hong Kong → Taipei (Keelung) → Miyakojima, Japan → Kagoshima, Japan → Kochi, Japan → Osaka (for Kyoto), Japan → Tokyo, Japan",
+      "departureDate": "2027-03-31",
+      "duration": "23 Nights",
+      "departurePort": "Singapore",
+      "departureRegion": "Asia & Far East",
+      "destination": "Other",
+      "destinationPort": "Tokyo, Japan",
+      "priceFrom": "17089",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=6705",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "17089"
+      },
+      "seaDays": 8,
+      "firstSeenAt": "2026-05-29T18:29:37.417Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 5906,
+            "oceanView": 6149,
+            "balcony": 7781,
+            "suite": 9699
+          }
+        },
+        {
+          "at": "2026-06-29T22:24:35.755Z",
+          "prices": {
+            "suite": 17089
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-01T07:30:54.134Z"
     }
   ]
 }
