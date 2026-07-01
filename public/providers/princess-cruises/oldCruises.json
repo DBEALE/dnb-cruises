@@ -15122,78 +15122,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_OSR14E_DI_20280106",
-      "shipName": "Diamond Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2004,
-      "itinerary": "Singapore → Kuala Lumpur (Port Kelang), Malaysia → Phuket, Thailand → Langkawi, Malaysia → Penang, Malaysia → Cam Ranh (Nha Trang), Vietnam → Ho Chi Minh City (Phu My), Vietnam → Laem Chabang (for Bangkok),Thailand → Singapore",
-      "departureDate": "2028-01-06",
-      "duration": "14 Nights",
-      "departurePort": "Singapore",
-      "departureRegion": "Asia & Far East",
-      "destination": "Other",
-      "priceFrom": "1589",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=M802",
-      "prices": {
-        "inside": "1589",
-        "oceanView": "1969",
-        "balcony": "2729",
-        "suite": "2849"
-      },
-      "seaDays": 6,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 1614,
-            "oceanView": 1994,
-            "balcony": 2779,
-            "suite": 2899
-          }
-        },
-        {
-          "at": "2026-06-01T15:52:12.787Z",
-          "prices": {
-            "inside": 2499,
-            "oceanView": 2879,
-            "balcony": 3639,
-            "suite": 3759
-          }
-        },
-        {
-          "at": "2026-06-03T14:25:08.048Z",
-          "prices": {
-            "inside": 2424,
-            "oceanView": 2804,
-            "balcony": 3514,
-            "suite": 3584
-          }
-        },
-        {
-          "at": "2026-06-05T21:21:41.187Z",
-          "prices": {
-            "inside": 1514,
-            "oceanView": 1894,
-            "balcony": 2604,
-            "suite": 2674
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 1589,
-            "oceanView": 1969,
-            "balcony": 2729,
-            "suite": 2849
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-10T17:06:21.326Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_CMR14F_GP_20280123",
       "shipName": "Regal Princess",
       "shipClass": "Royal",
@@ -31448,6 +31376,97 @@
         }
       ],
       "lastSeenAt": "2026-07-01T07:30:54.134Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OSR14E_DI_20280120",
+      "shipName": "Diamond Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Singapore → Phuket, Thailand → Penang, Malaysia → Langkawi, Malaysia → Kuala Lumpur (Port Kelang), Malaysia → Cam Ranh (Nha Trang), Vietnam → Ho Chi Minh City (Phu My), Vietnam → Laem Chabang (for Bangkok),Thailand → Singapore",
+      "departureDate": "2028-01-20",
+      "duration": "14 Nights",
+      "departurePort": "Singapore",
+      "departureRegion": "Asia & Far East",
+      "destination": "Other",
+      "destinationPort": "Laem Chabang (for Bangkok),Thailand",
+      "priceFrom": "1494",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=M803",
+      "prices": {
+        "inside": "1494",
+        "oceanView": "1835",
+        "balcony": "2769",
+        "suite": "3249"
+      },
+      "seaDays": 6,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1624,
+            "oceanView": 1984,
+            "balcony": 2719,
+            "suite": 3199
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 2509,
+            "oceanView": 2869,
+            "balcony": 3579,
+            "suite": 4059
+          }
+        },
+        {
+          "at": "2026-06-03T08:51:23.558Z",
+          "prices": {
+            "inside": 2304,
+            "oceanView": 2754,
+            "balcony": 3454,
+            "suite": 3884
+          }
+        },
+        {
+          "at": "2026-06-04T23:05:48.621Z",
+          "prices": {
+            "inside": 1394,
+            "oceanView": 1844,
+            "balcony": 2544,
+            "suite": 2974
+          }
+        },
+        {
+          "at": "2026-06-08T08:49:41.438Z",
+          "prices": {
+            "inside": 1469,
+            "oceanView": 1919,
+            "balcony": 2669,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-06-23T09:08:27.997Z",
+          "prices": {
+            "inside": 1469,
+            "oceanView": 1835,
+            "balcony": 2669,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-06-23T18:42:24.153Z",
+          "prices": {
+            "inside": 1494,
+            "oceanView": 1835,
+            "balcony": 2769,
+            "suite": 3249
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-01T09:08:49.430Z"
     }
   ]
 }
