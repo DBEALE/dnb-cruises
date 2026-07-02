@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 354,
+  "count": 373,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -19388,381 +19388,327 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_JADE7WQFHGCICYJNUSGYKTNVAN",
-      "shipName": "Norwegian Jade",
-      "shipClass": "Jewel",
-      "shipLaunchYear": 2006,
-      "itinerary": "Alaska: Glaciers, Skagway, Juneau & Ketchikan",
+      "id": "ncl_JOY15MIACTGCLNPCLPRQPVRCSLLAX",
+      "shipName": "Norwegian Joy",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2017,
+      "itinerary": "Panama Canal: Mexico & Costa Rica",
       "departureDate": "",
-      "duration": "7-day Cruise",
-      "departurePort": "Whittier, Alaska",
+      "duration": "15-day Cruise",
+      "departurePort": "Miami, Florida",
       "departureRegion": "Americas",
-      "destination": "Alaska: Glaciers, Skagway, Juneau & Ketchikan",
-      "destinationPort": "Ketchikan",
-      "priceFrom": "583",
+      "destination": "Panama Canal: Mexico & Costa Rica",
+      "destinationPort": "Costa Rica",
+      "priceFrom": "1775",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-alaska-from-whittier-to-vancouver-glaciers-skagway-juneau-and-ketchikan-JADE7WQFHGCICYJNUSGYKTNVAN?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JADE7WQFHGCICYJNUSGYKTNVAN",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/15-day-panama-canal-from-miami-to-los-angeles-mexico-and-costa-rica-JOY15MIACTGCLNPCLPRQPVRCSLLAX?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JOY15MIACTGCLNPCLPRQPVRCSLLAX",
       "prices": {
-        "inside": "583",
-        "oceanView": "703",
-        "balcony": null,
-        "suite": null
+        "inside": "1775",
+        "oceanView": "1830",
+        "balcony": "3145",
+        "suite": "3300"
       },
-      "seaDays": 1,
+      "seaDays": 10,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
           "at": "2026-06-09T10:57:00.972Z",
           "prices": {
-            "inside": 568,
-            "oceanView": 608,
-            "balcony": 1973,
-            "suite": 2093
-          }
-        },
-        {
-          "at": "2026-06-09T20:41:37.087Z",
-          "prices": {
-            "inside": 568,
-            "oceanView": 608,
-            "balcony": 1898,
-            "suite": 1973
+            "inside": 1785,
+            "oceanView": 1845,
+            "balcony": 3120,
+            "suite": 3065
           }
         },
         {
           "at": "2026-06-20T18:30:41.320Z",
           "prices": {
-            "inside": 568,
-            "oceanView": 603
+            "inside": 1790,
+            "oceanView": 1845,
+            "balcony": 3145,
+            "suite": 3220
           }
         },
         {
-          "at": "2026-06-22T05:50:17.746Z",
+          "at": "2026-06-23T22:31:08.470Z",
           "prices": {
-            "inside": 568,
-            "oceanView": 618,
-            "balcony": 1803,
-            "suite": 1958
+            "inside": 1775,
+            "oceanView": 1830,
+            "balcony": 3145,
+            "suite": 3300
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_VIVA13MIAPDLMOTVLCCIV",
+      "shipName": "Norwegian Viva",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2023,
+      "itinerary": "Transatlantic: Portugal & Spain",
+      "departureDate": "",
+      "duration": "13-day Cruise",
+      "departurePort": "Miami, Florida",
+      "departureRegion": "Americas",
+      "destination": "Transatlantic: Portugal & Spain",
+      "destinationPort": "Spain",
+      "priceFrom": "1195",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/13-day-transatlantic-from-miami-to-rome-portugal-and-spain-VIVA13MIAPDLMOTVLCCIV?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=VIVA13MIAPDLMOTVLCCIV",
+      "prices": {
+        "inside": "1195",
+        "oceanView": "1505",
+        "balcony": "1730",
+        "suite": "2315"
+      },
+      "seaDays": 9,
+      "firstSeenAt": "2026-06-20T18:30:41.320Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-20T18:30:41.320Z",
+          "prices": {
+            "inside": 1195,
+            "oceanView": 1505,
+            "balcony": 1730,
+            "suite": 2315
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_LUNA2MIANPIMIA",
+      "shipName": "Norwegian Luna",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2024,
+      "itinerary": "Bahamas: Great Stirrup Cay",
+      "departureDate": "",
+      "duration": "2-day Cruise",
+      "departurePort": "Miami, Florida",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay",
+      "priceFrom": "314",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/2-day-bahamas-round-trip-miami-great-stirrup-cay-LUNA2MIANPIMIA?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=LUNA2MIANPIMIA",
+      "prices": {
+        "inside": "314",
+        "oceanView": "344",
+        "balcony": "389",
+        "suite": "479"
+      },
+      "seaDays": 0,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 314,
+            "oceanView": 344,
+            "balcony": 389,
+            "suite": 479
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JEWEL12MIAPDLMOTBCN",
+      "shipName": "Norwegian Jewel",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2005,
+      "itinerary": "Transatlantic: Portugal & Spain",
+      "departureDate": "",
+      "duration": "12-day Cruise",
+      "departurePort": "Miami, Florida",
+      "departureRegion": "Americas",
+      "destination": "Transatlantic: Portugal & Spain",
+      "destinationPort": "Spain",
+      "priceFrom": "1080",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-transatlantic-from-miami-to-barcelona-portugal-and-spain-JEWEL12MIAPDLMOTBCN?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JEWEL12MIAPDLMOTBCN",
+      "prices": {
+        "inside": "1080",
+        "oceanView": "1195",
+        "balcony": "1840",
+        "suite": "2310"
+      },
+      "seaDays": 8,
+      "firstSeenAt": "2026-06-03T19:45:18.339Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 979,
+            "oceanView": 1094,
+            "balcony": 1739,
+            "suite": 2209
           }
         },
         {
-          "at": "2026-06-24T20:35:18.829Z",
+          "at": "2026-06-20T18:30:41.320Z",
           "prices": {
-            "oceanView": 618,
-            "balcony": 1698,
-            "suite": 1858
+            "inside": 1080,
+            "oceanView": 1195,
+            "balcony": 1840,
+            "suite": 2310
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL10PHLTOVSTTSJUPOPPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Caribbean: Dominican Republic & St. Thomas",
+      "departureDate": "",
+      "duration": "10-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Dominican Republic & St. Thomas",
+      "destinationPort": "St Thomas",
+      "priceFrom": "725",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/10-day-caribbean-round-trip-philadelphia-dominican-republic-and-st-thomas-PEARL10PHLTOVSTTSJUPOPPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL10PHLTOVSTTSJUPOPPHL",
+      "prices": {
+        "inside": "725",
+        "oceanView": "785",
+        "balcony": "1550",
+        "suite": "1610"
+      },
+      "seaDays": 6,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 770,
+            "oceanView": 840,
+            "balcony": 1525,
+            "suite": 1610
+          }
+        },
+        {
+          "at": "2026-06-20T18:30:41.320Z",
+          "prices": {
+            "inside": 725,
+            "oceanView": 785,
+            "balcony": 1550,
+            "suite": 1610
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL7PHLWRFORFPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Bermuda: Royal Naval Dockyard",
+      "departureDate": "",
+      "duration": "7-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Bermuda: Royal Naval Dockyard",
+      "priceFrom": "730",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-bermuda-and-atlantic-coast-round-trip-philadelphia-PEARL7PHLWRFORFPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL7PHLWRFORFPHL",
+      "prices": {
+        "inside": "730",
+        "oceanView": "820",
+        "balcony": "1205",
+        "suite": "1375"
+      },
+      "seaDays": null,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 730,
+            "oceanView": 835,
+            "balcony": 1235,
+            "suite": 1400
           }
         },
         {
           "at": "2026-06-25T18:45:22.523Z",
           "prices": {
-            "oceanView": 703,
-            "balcony": 1698,
-            "suite": 1858
-          }
-        },
-        {
-          "at": "2026-06-27T05:18:54.471Z",
-          "prices": {
-            "inside": 623,
-            "oceanView": 703,
-            "balcony": 1698
-          }
-        },
-        {
-          "at": "2026-07-01T05:33:39.367Z",
-          "prices": {
-            "oceanView": 703,
-            "balcony": 1698
-          }
-        },
-        {
-          "at": "2026-07-01T16:47:59.856Z",
-          "prices": {
-            "inside": 623,
-            "oceanView": 703,
-            "balcony": 1698
-          }
-        },
-        {
-          "at": "2026-07-02T09:04:58.131Z",
-          "prices": {
-            "inside": 583,
-            "oceanView": 703
+            "inside": 730,
+            "oceanView": 820,
+            "balcony": 1205,
+            "suite": 1375
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_PRIDE_AMER7HNLOGGITOKOANWKHNL-108958",
-      "shipName": "Pride of America",
-      "shipClass": "America",
-      "shipLaunchYear": 2005,
-      "itinerary": "Hawaii: Inter-island",
-      "departureDate": "",
-      "duration": "7-day Cruise",
-      "departurePort": "Honolulu, Oahu",
-      "departureRegion": "Americas",
-      "destination": "Hawaii: Inter-island",
-      "priceFrom": "1820",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-hawaii-inter-island-from-honolulu-PRIDE_AMER7HNLOGGITOKOANWKHNL-108958?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PRIDE_AMER7HNLOGGITOKOANWKHNL-108958",
-      "prices": {
-        "inside": "1820",
-        "oceanView": "1927",
-        "balcony": "2769",
-        "suite": "4125"
-      },
-      "seaDays": null,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-09T10:57:00.972Z",
-          "prices": {
-            "inside": 1804,
-            "oceanView": 1927,
-            "balcony": 2828,
-            "suite": 4157
-          }
-        },
-        {
-          "at": "2026-06-20T18:30:41.320Z",
-          "prices": {
-            "inside": 1820,
-            "oceanView": 1927,
-            "balcony": 2769,
-            "suite": 4152
-          }
-        },
-        {
-          "at": "2026-06-23T20:44:09.441Z",
-          "prices": {
-            "inside": 1817,
-            "oceanView": 1930,
-            "balcony": 2771,
-            "suite": 4122
-          }
-        },
-        {
-          "at": "2026-06-24T18:36:45.279Z",
-          "prices": {
-            "inside": 1820,
-            "oceanView": 1927,
-            "balcony": 2769,
-            "suite": 4125
-          }
-        }
-      ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_JADE7WQFICYJNUSGYKTNVAN",
-      "shipName": "Norwegian Jade",
+      "id": "ncl_PEARL8PHLJAXPCVNPIFPOPHL",
+      "shipName": "Norwegian Pearl",
       "shipClass": "Jewel",
       "shipLaunchYear": 2006,
-      "itinerary": "Alaska: Skagway, Juneau & Ketchikan",
+      "itinerary": "Caribbean: Great Stirrup Cay & Jacksonville",
       "departureDate": "",
-      "duration": "7-day Cruise",
-      "departurePort": "Whittier, Alaska",
+      "duration": "8-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
       "departureRegion": "Americas",
-      "destination": "Alaska: Skagway, Juneau & Ketchikan",
-      "destinationPort": "Ketchikan",
-      "priceFrom": "663",
+      "destination": "Caribbean: Great Stirrup Cay & Jacksonville",
+      "destinationPort": "Jacksonville",
+      "priceFrom": "775",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-alaska-from-whittier-to-vancouver-skagway-juneau-and-ketchikan-JADE7WQFICYJNUSGYKTNVAN?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JADE7WQFICYJNUSGYKTNVAN",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/8-day-caribbean-round-trip-philadelphia-great-stirrup-cay-and-jacksonville-PEARL8PHLJAXPCVNPIFPOPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL8PHLJAXPCVNPIFPOPHL",
       "prices": {
-        "inside": "663",
-        "oceanView": "883",
-        "balcony": "1583",
-        "suite": "1698"
+        "inside": "775",
+        "oceanView": "920",
+        "balcony": "1275",
+        "suite": "1455"
       },
-      "seaDays": 2,
+      "seaDays": 3,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
           "at": "2026-06-09T10:57:00.972Z",
           "prices": {
-            "inside": 658,
-            "oceanView": 898,
-            "balcony": 1663,
-            "suite": 1733
-          }
-        },
-        {
-          "at": "2026-06-20T18:30:41.320Z",
-          "prices": {
-            "inside": 663,
-            "oceanView": 883,
-            "balcony": 1583,
-            "suite": 1698
+            "inside": 775,
+            "oceanView": 920,
+            "balcony": 1275,
+            "suite": 1455
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_PRIDE_AMER7HNLOGGITOKOANWKHNL",
-      "shipName": "Pride of America",
-      "shipClass": "America",
-      "shipLaunchYear": 2005,
-      "itinerary": "Hawaii: Inter-island",
+      "id": "ncl_PEARL11PHLBASSLUANUSJUPOPPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Caribbean: Puerto Rico & Dominican Republic",
       "departureDate": "",
-      "duration": "7-day Cruise",
-      "departurePort": "Honolulu, Oahu",
+      "duration": "11-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
       "departureRegion": "Americas",
-      "destination": "Hawaii: Inter-island",
-      "priceFrom": "1143",
+      "destination": "Caribbean: Puerto Rico & Dominican Republic",
+      "destinationPort": "Dominican Republic",
+      "priceFrom": "1505",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-hawaii-inter-island-from-honolulu-PRIDE_AMER7HNLOGGITOKOANWKHNL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PRIDE_AMER7HNLOGGITOKOANWKHNL",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-caribbean-round-trip-philadelphia-puerto-rico-and-dominican-republic-PEARL11PHLBASSLUANUSJUPOPPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL11PHLBASSLUANUSJUPOPPHL",
       "prices": {
-        "inside": "1143",
-        "oceanView": "1352",
-        "balcony": "1915",
-        "suite": "3260"
-      },
-      "seaDays": null,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-09T10:57:00.972Z",
-          "prices": {
-            "inside": 1226,
-            "oceanView": 1520,
-            "balcony": 2078,
-            "suite": 4120
-          }
-        },
-        {
-          "at": "2026-06-10T05:32:54.965Z",
-          "prices": {
-            "inside": 1226,
-            "oceanView": 1435,
-            "balcony": 1997
-          }
-        },
-        {
-          "at": "2026-06-20T18:30:41.320Z",
-          "prices": {
-            "inside": 1183,
-            "oceanView": 1354,
-            "balcony": 1917,
-            "suite": 4077
-          }
-        },
-        {
-          "at": "2026-06-21T05:37:33.329Z",
-          "prices": {
-            "oceanView": 1354,
-            "balcony": 1917,
-            "suite": 3997
-          }
-        },
-        {
-          "at": "2026-06-23T20:44:09.441Z",
-          "prices": {
-            "inside": 1183,
-            "oceanView": 1354,
-            "balcony": 1917
-          }
-        },
-        {
-          "at": "2026-06-24T18:36:45.279Z",
-          "prices": {
-            "inside": 1183,
-            "oceanView": 1354,
-            "balcony": 1917,
-            "suite": 3997
-          }
-        },
-        {
-          "at": "2026-06-25T07:12:20.743Z",
-          "prices": {
-            "inside": 1183,
-            "oceanView": 1354,
-            "balcony": 1831
-          }
-        },
-        {
-          "at": "2026-06-26T07:19:02.674Z",
-          "prices": {
-            "inside": 1097,
-            "oceanView": 1354,
-            "balcony": 1831
-          }
-        },
-        {
-          "at": "2026-06-28T03:08:26.594Z",
-          "prices": {
-            "inside": 1268,
-            "oceanView": 1392,
-            "balcony": 1960,
-            "suite": 3868
-          }
-        },
-        {
-          "at": "2026-06-29T07:42:45.310Z",
-          "prices": {
-            "inside": 1268,
-            "oceanView": 1392,
-            "balcony": 1960,
-            "suite": 3895
-          }
-        },
-        {
-          "at": "2026-06-30T09:07:39.021Z",
-          "prices": {
-            "inside": 1268,
-            "oceanView": 1392,
-            "balcony": 1960,
-            "suite": 3868
-          }
-        },
-        {
-          "at": "2026-06-30T18:37:19.728Z",
-          "prices": {
-            "inside": 1268,
-            "oceanView": 1354,
-            "balcony": 1917,
-            "suite": 3262
-          }
-        },
-        {
-          "at": "2026-07-02T09:04:58.131Z",
-          "prices": {
-            "inside": 1143,
-            "oceanView": 1352,
-            "balcony": 1915,
-            "suite": 3260
-          }
-        }
-      ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12HNLNWKKOABRBRAIMOZPPT",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Kauai, Kona & Moorea",
-      "departureDate": "",
-      "duration": "12-day Cruise",
-      "departurePort": "Honolulu, Oahu",
-      "departureRegion": "Americas",
-      "destination": "South Pacific: Kauai, Kona & Moorea",
-      "destinationPort": "Moorea",
-      "priceFrom": "1301",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-honolulu-to-papeete-kauai-kona-and-moorea-SPIRIT12HNLNWKKOABRBRAIMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12HNLNWKKOABRBRAIMOZPPT",
-      "prices": {
-        "inside": "1301",
-        "oceanView": "1502",
-        "balcony": "2654",
-        "suite": "7964"
+        "inside": "1505",
+        "oceanView": "1795",
+        "balcony": "2365",
+        "suite": "2805"
       },
       "seaDays": 7,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
@@ -19770,81 +19716,644 @@
         {
           "at": "2026-06-09T10:57:00.972Z",
           "prices": {
-            "inside": 1301,
-            "oceanView": 1559,
-            "balcony": 2654,
-            "suite": 7964
+            "inside": 1505,
+            "oceanView": 1795,
+            "balcony": 2365,
+            "suite": 2805
           }
-        },
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL7PHLWRFBOSPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Bermuda: Royal Naval Dockyard",
+      "departureDate": "",
+      "duration": "7-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Bermuda: Royal Naval Dockyard",
+      "priceFrom": "840",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-bermuda-and-atlantic-coast-round-trip-philadelphia-PEARL7PHLWRFBOSPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL7PHLWRFBOSPHL",
+      "prices": {
+        "inside": "840",
+        "oceanView": "975",
+        "balcony": "1400",
+        "suite": "1550"
+      },
+      "seaDays": null,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
         {
-          "at": "2026-06-10T05:32:54.965Z",
+          "at": "2026-06-09T10:57:00.972Z",
           "prices": {
-            "inside": 1301,
-            "oceanView": 1574,
-            "balcony": 2654,
-            "suite": 7964
+            "inside": 840,
+            "oceanView": 975,
+            "balcony": 1400,
+            "suite": 1535
           }
         },
         {
           "at": "2026-06-20T18:30:41.320Z",
           "prices": {
-            "inside": 1301,
-            "oceanView": 1585,
-            "balcony": 2654,
-            "suite": 7964
+            "inside": 840,
+            "oceanView": 975,
+            "balcony": 1400,
+            "suite": 1550
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL11PHLPOPSJUANUSLUPHIPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Antigua & Dominican Republic: Antigua, Dominican Republic",
+      "departureDate": "",
+      "duration": "11-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Antigua & Dominican Republic",
+      "destinationPort": "Dominican Republic",
+      "priceFrom": "880",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-caribbean-round-trip-philadelphia-antigua-and-dominican-republic-PEARL11PHLPOPSJUANUSLUPHIPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL11PHLPOPSJUANUSLUPHIPHL",
+      "prices": {
+        "inside": "880",
+        "oceanView": "1080",
+        "balcony": "1440",
+        "suite": "1810"
+      },
+      "seaDays": 8,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 880,
+            "oceanView": 1080,
+            "balcony": 1440,
+            "suite": 1810
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL11PHLBOSEPMSJBHALSYNCHALBIQUE",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Canada & New England: Quebec City & Boston",
+      "departureDate": "",
+      "duration": "11-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Canada & New England: Quebec City & Boston",
+      "destinationPort": "Boston",
+      "priceFrom": "1145",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-canada-and-new-england-from-philadelphia-to-quebec-city-quebec-city-and-boston-PEARL11PHLBOSEPMSJBHALSYNCHALBIQUE?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL11PHLBOSEPMSJBHALSYNCHALBIQUE",
+      "prices": {
+        "inside": "1145",
+        "oceanView": "1475",
+        "balcony": "2860",
+        "suite": "3220"
+      },
+      "seaDays": 5,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1145,
+            "oceanView": 1475,
+            "balcony": 2860,
+            "suite": 3220
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL10PHLPOPSJUANUPHIPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Caribbean: Dominican Republic & Antigua",
+      "departureDate": "",
+      "duration": "10-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Dominican Republic & Antigua",
+      "destinationPort": "Antigua",
+      "priceFrom": "815",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/10-day-caribbean-round-trip-philadelphia-dominican-republic-and-antigua-PEARL10PHLPOPSJUANUPHIPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL10PHLPOPSJUANUPHIPHL",
+      "prices": {
+        "inside": "815",
+        "oceanView": "985",
+        "balcony": "1300",
+        "suite": "1635"
+      },
+      "seaDays": 6,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 815,
+            "oceanView": 985,
+            "balcony": 1300,
+            "suite": 1635
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL8PHLNASNPIPCVJAXPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Bahamas: Great Stirrup Cay & Jacksonville",
+      "departureDate": "",
+      "duration": "8-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay & Jacksonville",
+      "destinationPort": "Jacksonville",
+      "priceFrom": "760",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/8-day-bahamas-round-trip-philadelphia-great-stirrup-cay-and-jacksonville-PEARL8PHLNASNPIPCVJAXPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL8PHLNASNPIPCVJAXPHL",
+      "prices": {
+        "inside": "760",
+        "oceanView": "880",
+        "balcony": "1215",
+        "suite": "1415"
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 785,
+            "oceanView": 895,
+            "balcony": 1265,
+            "suite": 1460
           }
         },
         {
-          "at": "2026-06-21T05:37:33.329Z",
+          "at": "2026-06-10T17:06:21.326Z",
           "prices": {
-            "inside": 1301,
-            "oceanView": 1786,
-            "balcony": 2654,
-            "suite": 7964
+            "inside": 760,
+            "oceanView": 880,
+            "balcony": 1215,
+            "suite": 1415
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL5PHLWRFPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Bermuda: Royal Naval Dockyard",
+      "departureDate": "",
+      "duration": "5-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Bermuda: Royal Naval Dockyard",
+      "priceFrom": "755",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/5-day-bermuda-round-trip-philadelphia-royal-naval-dockyard-PEARL5PHLWRFPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL5PHLWRFPHL",
+      "prices": {
+        "inside": "755",
+        "oceanView": "860",
+        "balcony": "1260",
+        "suite": "1375"
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 755,
+            "oceanView": 860,
+            "balcony": 1260,
+            "suite": 1375
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JEWEL7PHLWRFHALPHL",
+      "shipName": "Norwegian Jewel",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2005,
+      "itinerary": "Bermuda: Royal Naval Dockyard",
+      "departureDate": "",
+      "duration": "7-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Bermuda: Royal Naval Dockyard",
+      "priceFrom": "650",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-bermuda-round-trip-philadelphia-royal-naval-dockyard-JEWEL7PHLWRFHALPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JEWEL7PHLWRFHALPHL",
+      "prices": {
+        "inside": null,
+        "oceanView": "650",
+        "balcony": null,
+        "suite": "2075"
+      },
+      "seaDays": 5,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 635,
+            "oceanView": 670,
+            "balcony": 980,
+            "suite": 1115
+          }
+        },
+        {
+          "at": "2026-06-20T18:30:41.320Z",
+          "prices": {
+            "inside": 615,
+            "oceanView": 675,
+            "balcony": 920,
+            "suite": 1075
+          }
+        },
+        {
+          "at": "2026-06-21T07:38:44.706Z",
+          "prices": {
+            "suite": 1075
+          }
+        },
+        {
+          "at": "2026-06-22T08:01:21.868Z",
+          "prices": {
+            "suite": 2135
           }
         },
         {
           "at": "2026-06-23T22:31:08.470Z",
           "prices": {
-            "inside": 1301,
-            "oceanView": 1559,
-            "balcony": 2654,
-            "suite": 7964
+            "inside": 630,
+            "oceanView": 650,
+            "balcony": 920,
+            "suite": 2155
+          }
+        },
+        {
+          "at": "2026-06-24T18:36:45.279Z",
+          "prices": {
+            "inside": 615,
+            "suite": 2060
+          }
+        },
+        {
+          "at": "2026-06-25T07:12:20.743Z",
+          "prices": {
+            "oceanView": 650,
+            "suite": 2060
+          }
+        },
+        {
+          "at": "2026-06-25T18:45:22.523Z",
+          "prices": {
+            "inside": 615,
+            "oceanView": 650,
+            "balcony": 920,
+            "suite": 1085
           }
         },
         {
           "at": "2026-06-26T05:27:02.119Z",
           "prices": {
-            "inside": 1301,
-            "oceanView": 1502,
-            "balcony": 2654,
-            "suite": 7964
+            "oceanView": 650,
+            "suite": 2465
+          }
+        },
+        {
+          "at": "2026-06-26T20:35:06.117Z",
+          "prices": {
+            "inside": 615,
+            "oceanView": 650,
+            "balcony": 920,
+            "suite": 1085
+          }
+        },
+        {
+          "at": "2026-06-27T07:05:21.360Z",
+          "prices": {
+            "inside": 630,
+            "oceanView": 650,
+            "balcony": 920
+          }
+        },
+        {
+          "at": "2026-06-27T20:24:43.303Z",
+          "prices": {
+            "inside": 630,
+            "oceanView": 650,
+            "balcony": 920,
+            "suite": 2155
+          }
+        },
+        {
+          "at": "2026-06-28T07:22:17.071Z",
+          "prices": {
+            "oceanView": 650,
+            "suite": 2155
+          }
+        },
+        {
+          "at": "2026-06-28T22:22:53.037Z",
+          "prices": {
+            "inside": 630,
+            "oceanView": 650,
+            "balcony": 920,
+            "suite": 2155
+          }
+        },
+        {
+          "at": "2026-06-29T07:42:45.310Z",
+          "prices": {
+            "oceanView": 650,
+            "suite": 2155
+          }
+        },
+        {
+          "at": "2026-06-29T22:24:35.755Z",
+          "prices": {
+            "oceanView": 650,
+            "suite": 2465
+          }
+        },
+        {
+          "at": "2026-06-30T05:23:53.282Z",
+          "prices": {
+            "oceanView": 650,
+            "suite": 2155
+          }
+        },
+        {
+          "at": "2026-06-30T20:39:09.106Z",
+          "prices": {
+            "suite": 3250
+          }
+        },
+        {
+          "at": "2026-07-01T11:06:34.064Z",
+          "prices": {
+            "oceanView": 650,
+            "balcony": 960,
+            "suite": 1125
+          }
+        },
+        {
+          "at": "2026-07-01T16:47:59.856Z",
+          "prices": {
+            "oceanView": 650,
+            "suite": 2075
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT16HNLKOANWKOGGICYSGYSITKTNVAN",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "Alaska & Hawaii: Ketchikan, Kauai & Sitka",
+      "id": "ncl_PEARL12PHLPHIBGISLUANUSJUPOPPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Caribbean: Barbados & Dominican Republic",
       "departureDate": "",
-      "duration": "16-day Cruise",
-      "departurePort": "Honolulu, Oahu",
+      "duration": "12-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
       "departureRegion": "Americas",
-      "destination": "Alaska & Hawaii: Ketchikan, Kauai & Sitka",
-      "destinationPort": "Sitka",
-      "priceFrom": "1206",
+      "destination": "Caribbean: Barbados & Dominican Republic",
+      "destinationPort": "Dominican Republic",
+      "priceFrom": "835",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/16-day-hawaii-from-honolulu-to-vancouver-to-ketchikan-kauai-and-sitka-SPIRIT16HNLKOANWKOGGICYSGYSITKTNVAN?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT16HNLKOANWKOGGICYSGYSITKTNVAN",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-caribbean-round-trip-philadelphia-barbados-and-dominican-republic-PEARL12PHLPHIBGISLUANUSJUPOPPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL12PHLPHIBGISLUANUSJUPOPPHL",
       "prices": {
-        "inside": "1206",
-        "oceanView": "1467",
-        "balcony": "2948",
-        "suite": "6328"
+        "inside": "835",
+        "oceanView": "925",
+        "balcony": "1360",
+        "suite": "1650"
+      },
+      "seaDays": 9,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 835,
+            "oceanView": 925,
+            "balcony": 1360,
+            "suite": 1650
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JEWEL11PHLBOSBHBSJBHALSYNCHALBIQUE",
+      "shipName": "Norwegian Jewel",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2005,
+      "itinerary": "Canada & New England: Boston, Bar Harbor & Halifax",
+      "departureDate": "",
+      "duration": "11-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Canada & New England: Boston, Bar Harbor & Halifax",
+      "priceFrom": "870",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-canada-and-new-england-from-philadelphia-to-quebec-city-JEWEL11PHLBOSBHBSJBHALSYNCHALBIQUE?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JEWEL11PHLBOSBHBSJBHALSYNCHALBIQUE",
+      "prices": {
+        "inside": "870",
+        "oceanView": "1265",
+        "balcony": "2490",
+        "suite": "2675"
+      },
+      "seaDays": null,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 910,
+            "oceanView": 1145,
+            "balcony": 2420,
+            "suite": 2860
+          }
+        },
+        {
+          "at": "2026-06-09T18:52:55.794Z",
+          "prices": {
+            "inside": 910,
+            "oceanView": 1160,
+            "balcony": 2420,
+            "suite": 2740
+          }
+        },
+        {
+          "at": "2026-06-20T18:30:41.320Z",
+          "prices": {
+            "inside": 910,
+            "oceanView": 1225,
+            "balcony": 2465,
+            "suite": 2675
+          }
+        },
+        {
+          "at": "2026-06-23T22:31:08.470Z",
+          "prices": {
+            "inside": 885,
+            "oceanView": 1225,
+            "balcony": 2465,
+            "suite": 2675
+          }
+        },
+        {
+          "at": "2026-06-26T05:27:02.119Z",
+          "prices": {
+            "inside": 885,
+            "oceanView": 1380,
+            "balcony": 2465,
+            "suite": 2675
+          }
+        },
+        {
+          "at": "2026-06-26T20:35:06.117Z",
+          "prices": {
+            "inside": 885,
+            "oceanView": 1225,
+            "balcony": 2465,
+            "suite": 2675
+          }
+        },
+        {
+          "at": "2026-07-01T07:30:54.134Z",
+          "prices": {
+            "inside": 885,
+            "oceanView": 1380,
+            "balcony": 2465,
+            "suite": 2675
+          }
+        },
+        {
+          "at": "2026-07-01T18:40:09.630Z",
+          "prices": {
+            "inside": 870,
+            "oceanView": 1395,
+            "balcony": 2490,
+            "suite": 2675
+          }
+        },
+        {
+          "at": "2026-07-02T05:19:45.155Z",
+          "prices": {
+            "inside": 870,
+            "oceanView": 1265,
+            "balcony": 2490,
+            "suite": 2675
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL7PHLWRFPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Bermuda: Royal Naval Dockyard",
+      "departureDate": "",
+      "duration": "7-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Bermuda: Royal Naval Dockyard",
+      "priceFrom": "730",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-bermuda-round-trip-philadelphia-PEARL7PHLWRFPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL7PHLWRFPHL",
+      "prices": {
+        "inside": "730",
+        "oceanView": "795",
+        "balcony": "1420",
+        "suite": "1460"
+      },
+      "seaDays": null,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 730,
+            "oceanView": 780,
+            "balcony": 1375,
+            "suite": 1435
+          }
+        },
+        {
+          "at": "2026-06-25T18:45:22.523Z",
+          "prices": {
+            "inside": 730,
+            "oceanView": 795,
+            "balcony": 1420,
+            "suite": 1460
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL14PHLPDLLISCADMOTIBZPMIMRSBCN",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Transatlantic: France & Spain",
+      "departureDate": "",
+      "duration": "14-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Transatlantic: France & Spain",
+      "destinationPort": "Spain",
+      "priceFrom": "1170",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/14-day-transatlantic-from-philadelphia-to-barcelona-france-and-spain-PEARL14PHLPDLLISCADMOTIBZPMIMRSBCN?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL14PHLPDLLISCADMOTIBZPMIMRSBCN",
+      "prices": {
+        "inside": "1170",
+        "oceanView": "1290",
+        "balcony": "2065",
+        "suite": "2340"
       },
       "seaDays": 10,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
@@ -19852,425 +20361,155 @@
         {
           "at": "2026-06-09T10:57:00.972Z",
           "prices": {
-            "inside": 1206,
-            "oceanView": 1385,
-            "balcony": 2948,
-            "suite": 6328
-          }
-        },
-        {
-          "at": "2026-06-24T18:36:45.279Z",
-          "prices": {
-            "inside": 1206,
-            "oceanView": 1467,
-            "balcony": 2948,
-            "suite": 6328
-          }
-        },
-        {
-          "at": "2026-06-25T18:45:22.523Z",
-          "prices": {
-            "inside": 1206,
-            "oceanView": 1385,
-            "balcony": 2948,
-            "suite": 6328
-          }
-        },
-        {
-          "at": "2026-06-26T18:37:21.199Z",
-          "prices": {
-            "inside": 1206,
-            "oceanView": 1467,
-            "balcony": 2948,
-            "suite": 6328
-          }
-        },
-        {
-          "at": "2026-06-30T20:39:09.106Z",
-          "prices": {
-            "inside": 1206,
-            "oceanView": 1385,
-            "balcony": 2948,
-            "suite": 6328
-          }
-        },
-        {
-          "at": "2026-07-02T09:04:58.131Z",
-          "prices": {
-            "inside": 1206,
-            "oceanView": 1467,
-            "balcony": 2948,
-            "suite": 6328
+            "inside": 1170,
+            "oceanView": 1290,
+            "balcony": 2065,
+            "suite": 2340
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12HNLOGGITOKOABRBRAIMOZPPT",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Hilo, Maui & Moorea",
+      "id": "ncl_JEWEL9PHLWRFSJBHALPHL",
+      "shipName": "Norwegian Jewel",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2005,
+      "itinerary": "Bermuda: Royal Naval Dockyard",
       "departureDate": "",
-      "duration": "12-day Cruise",
-      "departurePort": "Honolulu, Oahu",
+      "duration": "9-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
       "departureRegion": "Americas",
-      "destination": "South Pacific: Hilo, Maui & Moorea",
-      "destinationPort": "Moorea",
-      "priceFrom": "1185",
+      "destination": "Bermuda: Royal Naval Dockyard",
+      "destinationPort": "Canada",
+      "priceFrom": "650",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-papeete-to-honolulu-hilo-maui-and-moorea-SPIRIT12HNLOGGITOKOABRBRAIMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12HNLOGGITOKOABRBRAIMOZPPT",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/9-day-bermuda-round-trip-philadelphia-bermuda-and-canada-JEWEL9PHLWRFSJBHALPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JEWEL9PHLWRFSJBHALPHL",
       "prices": {
-        "inside": "1185",
-        "oceanView": "1562",
-        "balcony": "2643",
-        "suite": "6682"
+        "inside": "650",
+        "oceanView": "690",
+        "balcony": "1195",
+        "suite": "1470"
       },
-      "seaDays": 5,
+      "seaDays": 6,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
           "at": "2026-06-09T10:57:00.972Z",
           "prices": {
-            "inside": 1246,
-            "oceanView": 1710,
-            "balcony": 2664,
-            "suite": 6596
+            "inside": 690,
+            "oceanView": 790,
+            "balcony": 1390,
+            "suite": 1705
+          }
+        },
+        {
+          "at": "2026-06-09T18:52:55.794Z",
+          "prices": {
+            "inside": 665,
+            "oceanView": 770,
+            "balcony": 1325,
+            "suite": 1655
           }
         },
         {
           "at": "2026-06-20T18:30:41.320Z",
           "prices": {
-            "inside": 1216,
-            "oceanView": 1613,
-            "balcony": 2643,
-            "suite": 6682
-          }
-        },
-        {
-          "at": "2026-06-30T20:39:09.106Z",
-          "prices": {
-            "inside": 1185,
-            "oceanView": 1557,
-            "balcony": 2643,
-            "suite": 6682
-          }
-        },
-        {
-          "at": "2026-07-01T16:47:59.856Z",
-          "prices": {
-            "inside": 1185,
-            "oceanView": 1562,
-            "balcony": 2643,
-            "suite": 6682
-          }
-        },
-        {
-          "at": "2026-07-01T18:40:09.630Z",
-          "prices": {
-            "inside": 1185,
-            "oceanView": 1557,
-            "balcony": 2643,
-            "suite": 6682
-          }
-        },
-        {
-          "at": "2026-07-02T09:04:58.131Z",
-          "prices": {
-            "inside": 1185,
-            "oceanView": 1562,
-            "balcony": 2643,
-            "suite": 6682
-          }
-        }
-      ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12HNLOGGKOANWKBRBRAIMOZPPT",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Kona & Maui",
-      "departureDate": "",
-      "duration": "12-day Cruise",
-      "departurePort": "Honolulu, Oahu",
-      "departureRegion": "Americas",
-      "destination": "South Pacific: Kona & Maui",
-      "destinationPort": "Maui",
-      "priceFrom": "1343",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-honolulu-to-papeete-kona-and-maui-SPIRIT12HNLOGGKOANWKBRBRAIMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12HNLOGGKOANWKBRBRAIMOZPPT",
-      "prices": {
-        "inside": "1343",
-        "oceanView": "2162",
-        "balcony": "3930",
-        "suite": "14378"
-      },
-      "seaDays": 8,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-09T10:57:00.972Z",
-          "prices": {
-            "inside": 1343,
-            "oceanView": 2162,
-            "balcony": 4058,
-            "suite": 9715
-          }
-        },
-        {
-          "at": "2026-06-21T05:37:33.329Z",
-          "prices": {
-            "inside": 1343,
-            "oceanView": 2162,
-            "balcony": 4058,
-            "suite": 14378
-          }
-        },
-        {
-          "at": "2026-06-22T12:02:25.458Z",
-          "prices": {
-            "inside": 1343,
-            "oceanView": 2162,
-            "balcony": 4058
+            "inside": 650,
+            "oceanView": 730,
+            "balcony": 1255,
+            "suite": 1610
           }
         },
         {
           "at": "2026-06-23T22:31:08.470Z",
           "prices": {
-            "inside": 1343,
-            "oceanView": 2162,
-            "balcony": 4058,
-            "suite": 14378
-          }
-        },
-        {
-          "at": "2026-06-25T18:45:22.523Z",
-          "prices": {
-            "inside": 1343,
-            "oceanView": 2162,
-            "balcony": 4058
-          }
-        },
-        {
-          "at": "2026-06-26T18:37:21.199Z",
-          "prices": {
-            "inside": 1343,
-            "oceanView": 2162,
-            "balcony": 4058,
-            "suite": 14378
-          }
-        },
-        {
-          "at": "2026-06-28T18:25:39.403Z",
-          "prices": {
-            "inside": 1343,
-            "oceanView": 2162,
-            "balcony": 4058
-          }
-        },
-        {
-          "at": "2026-06-30T18:37:19.728Z",
-          "prices": {
-            "inside": 1343,
-            "oceanView": 2162,
-            "balcony": 4058,
-            "suite": 14378
+            "inside": 650,
+            "oceanView": 690,
+            "balcony": 1195,
+            "suite": 1505
           }
         },
         {
           "at": "2026-07-01T18:40:09.630Z",
           "prices": {
-            "inside": 1343,
-            "oceanView": 2162,
-            "balcony": 3930,
-            "suite": 14378
+            "inside": 650,
+            "oceanView": 690,
+            "balcony": 1195,
+            "suite": 1470
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12HNLKOAOGGITORAIBRBMOZPPT",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Kona & Maui",
-      "departureDate": "",
-      "duration": "12-day Cruise",
-      "departurePort": "Honolulu, Oahu",
-      "departureRegion": "Americas",
-      "destination": "South Pacific: Kona & Maui",
-      "destinationPort": "Maui",
-      "priceFrom": "1899",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-honolulu-to-papeete-kona-and-maui-SPIRIT12HNLKOAOGGITORAIBRBMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12HNLKOAOGGITORAIBRBMOZPPT",
-      "prices": {
-        "inside": "1899",
-        "oceanView": "2382",
-        "balcony": "3752",
-        "suite": "11397"
-      },
-      "seaDays": 8,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-09T10:57:00.972Z",
-          "prices": {
-            "inside": 1853,
-            "oceanView": 2320,
-            "balcony": 3752,
-            "suite": 10776
-          }
-        },
-        {
-          "at": "2026-06-20T18:30:41.320Z",
-          "prices": {
-            "inside": 1899,
-            "oceanView": 2382,
-            "balcony": 3752,
-            "suite": 11397
-          }
-        },
-        {
-          "at": "2026-06-26T05:27:02.119Z",
-          "prices": {
-            "inside": 1899,
-            "oceanView": 2382,
-            "balcony": 3752,
-            "suite": 14851
-          }
-        },
-        {
-          "at": "2026-06-26T18:37:21.199Z",
-          "prices": {
-            "inside": 1899,
-            "oceanView": 2382,
-            "balcony": 3752,
-            "suite": 11397
-          }
-        },
-        {
-          "at": "2026-06-30T09:07:39.021Z",
-          "prices": {
-            "inside": 1899,
-            "oceanView": 2382,
-            "balcony": 3752,
-            "suite": 14851
-          }
-        },
-        {
-          "at": "2026-06-30T18:37:19.728Z",
-          "prices": {
-            "inside": 1899,
-            "oceanView": 2382,
-            "balcony": 3752,
-            "suite": 11397
-          }
-        }
-      ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12HNLOGGNWKITOBRBRAIMOZPPT",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Hilo, Maui & Moorea",
-      "departureDate": "",
-      "duration": "12-day Cruise",
-      "departurePort": "Honolulu, Oahu",
-      "departureRegion": "Americas",
-      "destination": "South Pacific: Hilo, Maui & Moorea",
-      "destinationPort": "Moorea",
-      "priceFrom": "1708",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-papeete-to-honolulu-hilo-maui-and-moorea-SPIRIT12HNLOGGNWKITOBRBRAIMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12HNLOGGNWKITOBRBRAIMOZPPT",
-      "prices": {
-        "inside": "1708",
-        "oceanView": "2270",
-        "balcony": "3686",
-        "suite": "8706"
-      },
-      "seaDays": 5,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-09T10:57:00.972Z",
-          "prices": {
-            "inside": 1708,
-            "oceanView": 2270,
-            "balcony": 3686,
-            "suite": 8706
-          }
-        }
-      ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12HNLITOOGGRAIBRBMOZPPT",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Hilo, Maui & Moorea",
-      "departureDate": "",
-      "duration": "12-day Cruise",
-      "departurePort": "Honolulu, Oahu",
-      "departureRegion": "Americas",
-      "destination": "South Pacific: Hilo, Maui & Moorea",
-      "destinationPort": "Moorea",
-      "priceFrom": "1187",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-papeete-to-honolulu-hilo-maui-and-moorea-SPIRIT12HNLITOOGGRAIBRBMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12HNLITOOGGRAIBRBMOZPPT",
-      "prices": {
-        "inside": "1187",
-        "oceanView": "1566",
-        "balcony": "2613",
-        "suite": "7770"
-      },
-      "seaDays": 5,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-09T10:57:00.972Z",
-          "prices": {
-            "inside": 1187,
-            "oceanView": 1566,
-            "balcony": 2613,
-            "suite": 7770
-          }
-        }
-      ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT11HNLOGGITOBRBRAIMOZPPT",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Kauai, Bora Bora & Moorea",
+      "id": "ncl_PEARL11PHLPHISTTTOVSJUPOPPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Caribbean: Dominican Republic & St. Thomas",
       "departureDate": "",
       "duration": "11-day Cruise",
-      "departurePort": "Honolulu, Oahu",
+      "departurePort": "Philadelphia, Pennsylvania",
       "departureRegion": "Americas",
-      "destination": "South Pacific: Kauai, Bora Bora & Moorea",
-      "destinationPort": "Moorea",
-      "priceFrom": "1521",
+      "destination": "Caribbean: Dominican Republic & St. Thomas",
+      "destinationPort": "St Thomas",
+      "priceFrom": "1160",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-south-pacific-from-papeete-to-honolulu-kauai-maui-and-moorea-SPIRIT11HNLOGGITOBRBRAIMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT11HNLOGGITOBRBRAIMOZPPT",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-caribbean-round-trip-philadelphia-dominican-republic-and-st-thomas-PEARL11PHLPHISTTTOVSJUPOPPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL11PHLPHISTTTOVSJUPOPPHL",
       "prices": {
-        "inside": "1521",
-        "oceanView": "1747",
-        "balcony": "3417",
-        "suite": "8103"
+        "inside": "1160",
+        "oceanView": "1280",
+        "balcony": "1995",
+        "suite": "2150"
+      },
+      "seaDays": 7,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1200,
+            "oceanView": 1355,
+            "balcony": 1995,
+            "suite": 2230
+          }
+        },
+        {
+          "at": "2026-06-26T20:35:06.117Z",
+          "prices": {
+            "inside": 1160,
+            "oceanView": 1280,
+            "balcony": 1995,
+            "suite": 2150
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL8PHLNASFPOPCVJAXPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Bahamas: Jacksonville, Orlando & Nassau",
+      "departureDate": "",
+      "duration": "8-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Jacksonville, Orlando & Nassau",
+      "destinationPort": "Nassau",
+      "priceFrom": "755",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/8-day-bahamas-round-trip-philadelphia-jacksonville-orlando-and-nassau-PEARL8PHLNASFPOPCVJAXPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL8PHLNASFPOPCVJAXPHL",
+      "prices": {
+        "inside": "755",
+        "oceanView": "845",
+        "balcony": "1070",
+        "suite": "1295"
       },
       "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
@@ -20278,82 +20517,454 @@
         {
           "at": "2026-06-09T10:57:00.972Z",
           "prices": {
-            "inside": 1521,
-            "oceanView": 1747,
-            "balcony": 3417,
-            "suite": 8103
+            "inside": 755,
+            "oceanView": 845,
+            "balcony": 1070,
+            "suite": 1295
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT16HNLITOOGGNWKICYHNSSITKTNVAN",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "Alaska & Hawaii: Ketchikan, Kauai & Sitka",
+      "id": "ncl_JEWEL11PHLPWMBHBSJBHALSYNCHALBIQUE",
+      "shipName": "Norwegian Jewel",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2005,
+      "itinerary": "Canada & New England: Portland, Bar Harbor & Halifax",
       "departureDate": "",
-      "duration": "16-day Cruise",
-      "departurePort": "Honolulu, Oahu",
+      "duration": "11-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
       "departureRegion": "Americas",
-      "destination": "Alaska & Hawaii: Ketchikan, Kauai & Sitka",
-      "destinationPort": "Sitka",
-      "priceFrom": "1188",
+      "destination": "Canada & New England: Portland, Bar Harbor & Halifax",
+      "priceFrom": "935",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/16-day-hawaii-from-honolulu-to-vancouver-to-ketchikan-kauai-and-sitka-SPIRIT16HNLITOOGGNWKICYHNSSITKTNVAN?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT16HNLITOOGGNWKICYHNSSITKTNVAN",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-canada-and-new-england-from-philadelphia-to-quebec-city-JEWEL11PHLPWMBHBSJBHALSYNCHALBIQUE?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JEWEL11PHLPWMBHBSJBHALSYNCHALBIQUE",
       "prices": {
-        "inside": "1188",
-        "oceanView": "1342",
-        "balcony": "2287",
-        "suite": null
+        "inside": "935",
+        "oceanView": "1625",
+        "balcony": "3050",
+        "suite": "3440"
       },
-      "seaDays": 10,
+      "seaDays": null,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
           "at": "2026-06-09T10:57:00.972Z",
           "prices": {
-            "inside": 1188,
-            "oceanView": 1342,
-            "balcony": 2349
+            "inside": 975,
+            "oceanView": 1565,
+            "balcony": 3095,
+            "suite": 3470
           }
         },
         {
-          "at": "2026-06-27T05:18:54.471Z",
+          "at": "2026-06-20T18:30:41.320Z",
           "prices": {
-            "inside": 1188,
-            "oceanView": 1585,
-            "balcony": 2349
-          }
-        },
-        {
-          "at": "2026-06-28T03:08:26.594Z",
-          "prices": {
-            "inside": 1188,
-            "oceanView": 1342,
-            "balcony": 2349
-          }
-        },
-        {
-          "at": "2026-07-01T05:33:39.367Z",
-          "prices": {
-            "inside": 1188,
-            "oceanView": 1343,
-            "balcony": 2282
-          }
-        },
-        {
-          "at": "2026-07-01T18:40:09.630Z",
-          "prices": {
-            "inside": 1188,
-            "oceanView": 1342,
-            "balcony": 2287
+            "inside": 935,
+            "oceanView": 1625,
+            "balcony": 3050,
+            "suite": 3440
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T09:04:58.131Z"
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL11PHLWRFTOVSTTSJUPOPPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Caribbean: Bermuda & Dominican Republic",
+      "departureDate": "",
+      "duration": "11-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Bermuda & Dominican Republic",
+      "destinationPort": "Dominican Republic",
+      "priceFrom": "1033",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-caribbean-round-trip-philadelphia-bermuda-and-dominican-republic-PEARL11PHLWRFTOVSTTSJUPOPPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL11PHLWRFTOVSTTSJUPOPPHL",
+      "prices": {
+        "inside": "1033",
+        "oceanView": "1173",
+        "balcony": "1968",
+        "suite": "2128"
+      },
+      "seaDays": 8,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1033,
+            "oceanView": 1173,
+            "balcony": 1968,
+            "suite": 2128
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL8PHLORFPCVFPONPIPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Bahamas: Great Stirrup Cay & Norfolk",
+      "departureDate": "",
+      "duration": "8-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay & Norfolk",
+      "destinationPort": "Norfolk",
+      "priceFrom": "795",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/8-day-bahamas-round-trip-philadelphia-great-stirrup-cay-and-norfolk-PEARL8PHLORFPCVFPONPIPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL8PHLORFPCVFPONPIPHL",
+      "prices": {
+        "inside": "795",
+        "oceanView": "905",
+        "balcony": "1345",
+        "suite": "1460"
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 795,
+            "oceanView": 910,
+            "balcony": 1390,
+            "suite": 1500
+          }
+        },
+        {
+          "at": "2026-06-09T18:52:55.794Z",
+          "prices": {
+            "inside": 795,
+            "oceanView": 905,
+            "balcony": 1345,
+            "suite": 1460
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL11PHLBOSEPMSJBHALSYNCHAPWMPHL",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Canada & New England: Boston & Halifax",
+      "departureDate": "",
+      "duration": "11-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Canada & New England: Boston & Halifax",
+      "destinationPort": "Halifax",
+      "priceFrom": "1145",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-canada-and-new-england-round-trip-philadelphia-boston-and-halifax-PEARL11PHLBOSEPMSJBHALSYNCHAPWMPHL?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PEARL11PHLBOSEPMSJBHALSYNCHAPWMPHL",
+      "prices": {
+        "inside": "1145",
+        "oceanView": "1435",
+        "balcony": "2780",
+        "suite": "3265"
+      },
+      "seaDays": 8,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1145,
+            "oceanView": 1435,
+            "balcony": 2780,
+            "suite": 3200
+          }
+        },
+        {
+          "at": "2026-06-27T20:24:43.303Z",
+          "prices": {
+            "inside": 1145,
+            "oceanView": 1435,
+            "balcony": 2780,
+            "suite": 3265
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_LUNA5NYCWRFNYC",
+      "shipName": "Norwegian Luna",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2024,
+      "itinerary": "Bermuda",
+      "departureDate": "",
+      "duration": "5-day Cruise",
+      "departurePort": "New York, New York",
+      "departureRegion": "Americas",
+      "destination": "Bermuda",
+      "priceFrom": "910",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/5-day-bermuda-round-trip-new-york-LUNA5NYCWRFNYC?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=LUNA5NYCWRFNYC",
+      "prices": {
+        "inside": "910",
+        "oceanView": "1065",
+        "balcony": "1205",
+        "suite": "1515"
+      },
+      "seaDays": null,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 910,
+            "oceanView": 1065,
+            "balcony": 1205,
+            "suite": 1515
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PRIMA15NYCHALREYKLLBFSCOBLEHSOU",
+      "shipName": "Norwegian Prima",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2022,
+      "itinerary": "Transatlantic: France & United Kingdom",
+      "departureDate": "",
+      "duration": "15-day Cruise",
+      "departurePort": "New York, New York",
+      "departureRegion": "Americas",
+      "destination": "Transatlantic: France & United Kingdom",
+      "destinationPort": "United Kingdom",
+      "priceFrom": "1650",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/15-day-transatlantic-from-new-york-to-london-france-and-united-kingdom-PRIMA15NYCHALREYKLLBFSCOBLEHSOU?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PRIMA15NYCHALREYKLLBFSCOBLEHSOU",
+      "prices": {
+        "inside": "1650",
+        "oceanView": "2070",
+        "balcony": "2670",
+        "suite": "3635"
+      },
+      "seaDays": 11,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1560,
+            "oceanView": 2070,
+            "balcony": 2475,
+            "suite": 3635
+          }
+        },
+        {
+          "at": "2026-06-09T18:52:55.794Z",
+          "prices": {
+            "inside": 1580,
+            "oceanView": 2070,
+            "balcony": 2475,
+            "suite": 3635
+          }
+        },
+        {
+          "at": "2026-06-20T18:30:41.320Z",
+          "prices": {
+            "inside": 1580,
+            "oceanView": 2070,
+            "balcony": 2635,
+            "suite": 3635
+          }
+        },
+        {
+          "at": "2026-06-25T18:45:22.523Z",
+          "prices": {
+            "inside": 1650,
+            "oceanView": 2070,
+            "balcony": 2670,
+            "suite": 3635
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_GEM19NYCFNCCADGIBMOTBCNVLFLIVCIVSPURAV",
+      "shipName": "Norwegian Gem",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2007,
+      "itinerary": "Transatlantic: Italy, France & Spain",
+      "departureDate": "",
+      "duration": "19-day Cruise",
+      "departurePort": "New York, New York",
+      "departureRegion": "Americas",
+      "destination": "Transatlantic: Italy, France & Spain",
+      "destinationPort": "Spain",
+      "priceFrom": "1465",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/19-day-transatlantic-from-new-york-to-venice-ravanna-italy-france-and-spain-GEM19NYCFNCCADGIBMOTBCNVLFLIVCIVSPURAV?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=GEM19NYCFNCCADGIBMOTBCNVLFLIVCIVSPURAV",
+      "prices": {
+        "inside": "1465",
+        "oceanView": "1655",
+        "balcony": "2910",
+        "suite": "3325"
+      },
+      "seaDays": 13,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1480,
+            "oceanView": 1655,
+            "balcony": 2865,
+            "suite": 3305
+          }
+        },
+        {
+          "at": "2026-06-20T18:30:41.320Z",
+          "prices": {
+            "inside": 1465,
+            "oceanView": 1655,
+            "balcony": 2910,
+            "suite": 3325
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_BLISS12NYCPOPSJUBASTOVPHISTTNYC",
+      "shipName": "Norwegian Bliss",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2018,
+      "itinerary": "Caribbean: Dominican Republic & St. Thomas",
+      "departureDate": "",
+      "duration": "12-day Cruise",
+      "departurePort": "New York, New York",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Dominican Republic & St. Thomas",
+      "destinationPort": "St Thomas",
+      "priceFrom": "1030",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-caribbean-round-trip-new-york-dominican-republic-and-st-thomas-BLISS12NYCPOPSJUBASTOVPHISTTNYC?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=BLISS12NYCPOPSJUBASTOVPHISTTNYC",
+      "prices": {
+        "inside": "1030",
+        "oceanView": "1150",
+        "balcony": "1280",
+        "suite": "1455"
+      },
+      "seaDays": 8,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1030,
+            "oceanView": 1150,
+            "balcony": 1280,
+            "suite": 1455
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_BLISS8NYCPCVNPINASNYC",
+      "shipName": "Norwegian Bliss",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2018,
+      "itinerary": "Bahamas: Great Stirrup Cay, Orlando & Nassau",
+      "departureDate": "",
+      "duration": "8-day Cruise",
+      "departurePort": "New York, New York",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay, Orlando & Nassau",
+      "destinationPort": "Nassau",
+      "priceFrom": "835",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/8-day-bahamas-round-trip-new-york-great-stirrup-cay-orlando-and-nassau-BLISS8NYCPCVNPINASNYC?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=BLISS8NYCPCVNPINASNYC",
+      "prices": {
+        "inside": "835",
+        "oceanView": "1045",
+        "balcony": "1205",
+        "suite": "1275"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 835,
+            "oceanView": 1005,
+            "balcony": 1185,
+            "suite": 1265
+          }
+        },
+        {
+          "at": "2026-06-20T18:30:41.320Z",
+          "prices": {
+            "inside": 835,
+            "oceanView": 1045,
+            "balcony": 1205,
+            "suite": 1275
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_BLISS22NYCPOPCTGCLNPCLPRQACACSLSFOVICSEA",
+      "shipName": "Norwegian Bliss",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2018,
+      "itinerary": "Panama Canal: Mexico & Costa Rica",
+      "departureDate": "",
+      "duration": "22-day Cruise",
+      "departurePort": "New York, New York",
+      "departureRegion": "Americas",
+      "destination": "Panama Canal: Mexico & Costa Rica",
+      "destinationPort": "Costa Rica",
+      "priceFrom": "1880",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/22-day-panama-canal-from-new-york-to-seattle-mexico-and-costa-rica-BLISS22NYCPOPCTGCLNPCLPRQACACSLSFOVICSEA?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=BLISS22NYCPOPCTGCLNPCLPRQACACSLSFOVICSEA",
+      "prices": {
+        "inside": "1880",
+        "oceanView": "2510",
+        "balcony": "3390",
+        "suite": "3860"
+      },
+      "seaDays": 18,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-09T10:57:00.972Z",
+          "prices": {
+            "inside": 1880,
+            "oceanView": 2510,
+            "balcony": 3390,
+            "suite": 3860
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T10:55:05.657Z"
     }
   ]
 }
