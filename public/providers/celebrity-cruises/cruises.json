@@ -1,7 +1,7 @@
 {
   "success": true,
   "count": 481,
-  "priceCount": 1680,
+  "priceCount": 1675,
   "provider": {
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
@@ -141,7 +141,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -161,22 +161,13 @@
       "prices": {
         "inside": "1099",
         "oceanView": "1276",
-        "balcony": "1699",
+        "balcony": null,
         "suite": "6453"
       },
       "destinationPort": "Naples, Italy",
       "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-21T16:33:49.039Z",
-          "prices": {
-            "inside": 1129,
-            "oceanView": 1393,
-            "balcony": 1779,
-            "suite": 4650
-          }
-        },
         {
           "at": "2026-06-21T18:32:31.678Z",
           "prices": {
@@ -694,9 +685,17 @@
             "balcony": 1699,
             "suite": 6453
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 1099,
+            "oceanView": 1276,
+            "suite": 6453
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -705,32 +704,24 @@
       "shipClass": "Millennium",
       "shipLaunchYear": 2001,
       "itinerary": "Best of Greece: Santorini, Greece, Rhodes, Greece, Ephesus (Kusadasi), Turkey, Mykonos, Greece, Thessaloniki, Greece, Cruising (Cruising)",
-      "departureDate": "2026-07-11",
+      "departureDate": "2026-07-25",
       "duration": "7 Nights",
       "departurePort": "Athens (Piraeus)",
       "departureRegion": "Mediterranean",
       "destination": "Europe",
-      "priceFrom": "798",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=IN07ATH-3859393728&pID=IN07M824&sDT=2026-07-11&sCD=IN&sCT=CO&country=GBR",
+      "priceFrom": "2222.41",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=IN07ATH-3859393728&pID=IN07M824&sDT=2026-07-25&sCD=IN&sCT=CO&country=GBR",
       "prices": {
-        "inside": "798",
-        "oceanView": null,
+        "inside": null,
+        "oceanView": "2222.41",
         "balcony": null,
-        "suite": "8935"
+        "suite": null
       },
       "destinationPort": "Cruising (Cruising)",
       "seaDays": 1,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-13T05:32:08.046Z",
-          "prices": {
-            "oceanView": 1321.69,
-            "balcony": 1914.69,
-            "suite": 4953.69
-          }
-        },
         {
           "at": "2026-06-13T09:05:00.860Z",
           "prices": {
@@ -1151,9 +1142,15 @@
             "inside": 798,
             "suite": 8935
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "oceanView": 2222.41
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -1315,7 +1312,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -1329,14 +1326,14 @@
       "departurePort": "Miami",
       "departureRegion": "Americas",
       "destination": "Caribbean",
-      "priceFrom": "542",
-      "currency": "GBP",
+      "priceFrom": "1318.6",
+      "currency": "USD",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=BY07MIA-2177944375&pID=BY07W680&sDT=2026-09-20&sCD=BY&sCT=CO&country=GBR",
       "prices": {
-        "inside": "579",
-        "oceanView": "542",
-        "balcony": "659",
-        "suite": "1896"
+        "inside": "1381.6",
+        "oceanView": "1318.6",
+        "balcony": "1877.6",
+        "suite": "4897.6"
       },
       "destinationPort": "Nassau, Bahamas",
       "seaDays": 2,
@@ -1863,9 +1860,18 @@
             "balcony": 659,
             "suite": 1896
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 1381.6,
+            "oceanView": 1318.6,
+            "balcony": 1877.6,
+            "suite": 4897.6
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -1929,7 +1935,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -1943,14 +1949,14 @@
       "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
       "destination": "Bahamas",
-      "priceFrom": "270",
-      "currency": "GBP",
+      "priceFrom": "492.22",
+      "currency": "USD",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=RF03FLL-247688799&pID=RF3BH289&sDT=2027-03-26&sCD=RF&sCT=CO&country=GBR",
       "prices": {
-        "inside": "270",
-        "oceanView": "359",
-        "balcony": "407",
-        "suite": "905"
+        "inside": "492.22",
+        "oceanView": "688.22",
+        "balcony": "794.22",
+        "suite": "1893.22"
       },
       "destinationPort": "Grand Bahama Island, Bahamas",
       "seaDays": 1,
@@ -2036,9 +2042,18 @@
             "balcony": 407,
             "suite": 905
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 492.22,
+            "oceanView": 688.22,
+            "balcony": 794.22,
+            "suite": 1893.22
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -2593,7 +2608,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -3072,7 +3087,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -3619,7 +3634,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -4172,7 +4187,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -4560,7 +4575,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -4687,7 +4702,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -4760,7 +4775,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -5031,7 +5046,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -5230,7 +5245,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -5530,7 +5545,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -5986,7 +6001,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -6104,7 +6119,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -6195,7 +6210,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -6694,7 +6709,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -6871,7 +6886,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7142,7 +7157,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7251,7 +7266,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7351,7 +7366,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7586,7 +7601,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7740,7 +7755,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -7822,7 +7837,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -8235,7 +8250,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -8456,7 +8471,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -8708,7 +8723,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -8880,7 +8895,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -9079,7 +9094,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -9334,7 +9349,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -9566,7 +9581,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -9587,7 +9602,7 @@
         "inside": "521",
         "oceanView": "547",
         "balcony": "987",
-        "suite": "1654"
+        "suite": "1746"
       },
       "destinationPort": "Perfect Day CocoCay, Bahamas",
       "seaDays": 2,
@@ -9664,9 +9679,18 @@
             "balcony": 987,
             "suite": 1654
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 521,
+            "oceanView": 547,
+            "balcony": 987,
+            "suite": 1746
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -10094,7 +10118,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -10399,7 +10423,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -10951,7 +10975,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -11231,7 +11255,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -11592,7 +11616,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12105,7 +12129,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12484,7 +12508,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12566,7 +12590,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12612,7 +12636,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -12959,7 +12983,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -13041,7 +13065,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -13340,7 +13364,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -13530,7 +13554,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -13958,7 +13982,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -14076,7 +14100,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -14434,7 +14458,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -14960,7 +14984,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -15042,7 +15066,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -15610,7 +15634,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -16098,7 +16122,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -16405,7 +16429,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -16487,7 +16511,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -16659,7 +16683,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -17215,7 +17239,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -17414,7 +17438,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -17506,7 +17530,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -17969,7 +17993,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -18303,7 +18327,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -18385,7 +18409,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -18807,7 +18831,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -18943,7 +18967,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -19506,7 +19530,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -19669,7 +19693,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -19949,7 +19973,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -20058,7 +20082,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -20302,7 +20326,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -20483,7 +20507,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -20565,7 +20589,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -20921,7 +20945,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -21370,7 +21394,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -21916,7 +21940,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -22420,7 +22444,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -22529,7 +22553,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -23097,7 +23121,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -23588,7 +23612,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24094,7 +24118,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24158,7 +24182,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24391,7 +24415,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24610,7 +24634,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24874,7 +24898,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -24894,22 +24918,13 @@
       "prices": {
         "inside": "1329",
         "oceanView": null,
-        "balcony": "1392",
+        "balcony": "1425",
         "suite": "3115"
       },
       "destinationPort": "Bay Of Islands, New Zealand",
       "seaDays": 3,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-01T20:13:35.019Z",
-          "prices": {
-            "inside": 3415.16,
-            "oceanView": 3754.16,
-            "balcony": 4041.16,
-            "suite": 7893.16
-          }
-        },
         {
           "at": "2026-06-02T03:30:12.803Z",
           "prices": {
@@ -25435,9 +25450,17 @@
             "balcony": 1392,
             "suite": 3115
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 1329,
+            "balcony": 1425,
+            "suite": 3115
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -25717,7 +25740,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -25799,7 +25822,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -25935,7 +25958,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -26260,7 +26283,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -26405,7 +26428,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -26541,7 +26564,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -26955,7 +26978,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -27523,7 +27546,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -27989,7 +28012,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28243,7 +28266,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28325,7 +28348,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28542,7 +28565,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28714,7 +28737,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -28949,7 +28972,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -29121,7 +29144,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -29212,7 +29235,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -29384,7 +29407,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -29622,7 +29645,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -29866,7 +29889,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -29921,7 +29944,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30021,7 +30044,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30148,7 +30171,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30392,7 +30415,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30483,7 +30506,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30592,7 +30615,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30791,7 +30814,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -30927,7 +30950,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31009,7 +31032,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31163,7 +31186,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31254,7 +31277,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31719,7 +31742,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -31739,22 +31762,13 @@
       "prices": {
         "inside": "829",
         "oceanView": "1178",
-        "balcony": "1362",
+        "balcony": null,
         "suite": "4787"
       },
       "destinationPort": "Cruising (Cruising)",
       "seaDays": 1,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-20T03:07:41.994Z",
-          "prices": {
-            "inside": 1004,
-            "oceanView": 1089,
-            "balcony": 1327,
-            "suite": 4737
-          }
-        },
         {
           "at": "2026-06-20T05:30:51.333Z",
           "prices": {
@@ -32249,9 +32263,17 @@
             "balcony": 1362,
             "suite": 4787
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 829,
+            "oceanView": 1178,
+            "suite": 4787
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -32396,7 +32418,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -32933,7 +32955,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -33015,7 +33037,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -33079,7 +33101,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -33647,7 +33669,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -33765,7 +33787,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -33901,7 +33923,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -34028,7 +34050,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -34119,7 +34141,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -34246,7 +34268,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -34508,7 +34530,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -34653,7 +34675,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -35153,7 +35175,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -35208,7 +35230,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -35371,7 +35393,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -35938,7 +35960,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -36083,7 +36105,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -36419,7 +36441,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -36699,7 +36721,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -37186,7 +37208,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -37322,7 +37344,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -37493,7 +37515,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -37964,7 +37986,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -38082,7 +38104,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -38209,7 +38231,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -38489,7 +38511,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -38580,7 +38602,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -38806,7 +38828,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -38942,7 +38964,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -39311,7 +39333,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -39420,7 +39442,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -39910,7 +39932,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -40181,7 +40203,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -40308,7 +40330,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -40570,7 +40592,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -40652,7 +40674,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -41004,7 +41026,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -41077,7 +41099,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -41511,7 +41533,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42056,7 +42078,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42183,7 +42205,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42316,7 +42338,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42497,7 +42519,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42606,7 +42628,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42787,7 +42809,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -42896,7 +42918,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43023,7 +43045,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43204,7 +43226,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43511,7 +43533,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -43683,7 +43705,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -44234,7 +44256,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -44797,7 +44819,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -44951,7 +44973,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -45069,7 +45091,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -45106,7 +45128,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -45242,7 +45264,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -45514,7 +45536,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -45686,7 +45708,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -45840,7 +45862,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -46021,7 +46043,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -46175,7 +46197,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -46311,7 +46333,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -46368,7 +46390,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -46627,7 +46649,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -47175,7 +47197,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -47302,7 +47324,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -47772,7 +47794,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -47953,7 +47975,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48134,7 +48156,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48315,7 +48337,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48334,7 +48356,7 @@
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=XC07BCN-3422137803&pID=XC07M838&sDT=2026-07-25&sCD=XC&sCT=CO&country=GBR",
       "prices": {
         "inside": "849",
-        "oceanView": "1135",
+        "oceanView": null,
         "balcony": null,
         "suite": null
       },
@@ -48342,13 +48364,6 @@
       "seaDays": 1,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-18T13:09:42.132Z",
-          "prices": {
-            "inside": 849,
-            "oceanView": 879
-          }
-        },
         {
           "at": "2026-06-18T21:00:17.426Z",
           "prices": {
@@ -48754,9 +48769,15 @@
             "inside": 849,
             "oceanView": 1135
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 849
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48883,7 +48904,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -48965,7 +48986,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -49511,7 +49532,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -49620,7 +49641,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -50159,7 +50180,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -50399,7 +50420,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -50889,7 +50910,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -50980,7 +51001,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -51098,7 +51119,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -51357,7 +51378,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -51433,7 +51454,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -51868,7 +51889,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -51995,7 +52016,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -52131,7 +52152,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -52610,7 +52631,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -52791,7 +52812,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -52972,7 +52993,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -52986,14 +53007,14 @@
       "departurePort": "Honolulu (Oahu)",
       "departureRegion": "Americas",
       "destination": "Hawaii",
-      "priceFrom": "1457.22",
-      "currency": "USD",
+      "priceFrom": "626",
+      "currency": "GBP",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EG08HNL-3443690744&pID=EG08H010&sDT=2028-05-04&sCD=EG&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1457.22",
-        "oceanView": "1619.22",
-        "balcony": "2231.22",
-        "suite": "7878.22"
+        "inside": "626",
+        "oceanView": "701",
+        "balcony": "914",
+        "suite": "3302"
       },
       "destinationPort": "Vancouver, British Columbia",
       "seaDays": 4,
@@ -53288,9 +53309,18 @@
             "balcony": 2231.22,
             "suite": 7878.22
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 626,
+            "oceanView": 701,
+            "balcony": 914,
+            "suite": 3302
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -53390,7 +53420,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -53551,7 +53581,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -54093,7 +54123,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -54310,7 +54340,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -54356,7 +54386,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -54805,7 +54835,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -55121,7 +55151,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -55428,7 +55458,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -55788,7 +55818,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -56302,7 +56332,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -56465,7 +56495,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -56863,7 +56893,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -57133,7 +57163,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -57345,7 +57375,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -57821,7 +57851,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -57840,9 +57870,9 @@
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL12SYD-367598127&pID=SL12K190&sDT=2026-11-10&sCD=SL&sCT=CO&country=GBR",
       "prices": {
         "inside": "1446",
-        "oceanView": "3576.11",
+        "oceanView": "1637",
         "balcony": "1840",
-        "suite": "4091"
+        "suite": "5986"
       },
       "destinationPort": "Noumea, New Caledonia",
       "seaDays": 6,
@@ -58116,9 +58146,18 @@
             "balcony": 1840,
             "suite": 4091
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 1446,
+            "oceanView": 1637,
+            "balcony": 1840,
+            "suite": 5986
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -58235,7 +58274,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -58488,7 +58527,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -58867,7 +58906,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -59428,7 +59467,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -59897,7 +59936,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -60356,7 +60395,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -60499,7 +60538,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -61067,7 +61106,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -61113,7 +61152,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -61650,7 +61689,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -61974,7 +62013,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -62451,7 +62490,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -62542,7 +62581,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -62816,7 +62855,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63123,7 +63162,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63411,7 +63450,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63709,7 +63748,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63818,7 +63857,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -63914,7 +63953,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -64019,7 +64058,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -64476,7 +64515,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -64979,7 +65018,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -65487,7 +65526,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -65507,21 +65546,13 @@
       "prices": {
         "inside": "1746",
         "oceanView": null,
-        "balcony": "2592",
+        "balcony": "2703",
         "suite": null
       },
       "destinationPort": "Portland, Maine",
       "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-04T21:46:19.713Z",
-          "prices": {
-            "inside": 3603.3,
-            "balcony": 5479.3,
-            "suite": 16728.3
-          }
-        },
         {
           "at": "2026-06-05T02:54:54.938Z",
           "prices": {
@@ -65947,9 +65978,16 @@
             "inside": 1746,
             "balcony": 2592
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 1746,
+            "balcony": 2703
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -66375,7 +66413,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -66502,7 +66540,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -67035,7 +67073,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -67387,7 +67425,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -67601,7 +67639,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -67739,7 +67777,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -67830,7 +67868,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -67912,7 +67950,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -68151,7 +68189,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -68468,7 +68506,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -68568,7 +68606,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -68686,7 +68724,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -68706,22 +68744,13 @@
       "prices": {
         "inside": "2211",
         "oceanView": "2508",
-        "balcony": "2340",
+        "balcony": "2588",
         "suite": "6762"
       },
       "destinationPort": "Sydney, Australia",
       "seaDays": 10,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-10T07:29:51.506Z",
-          "prices": {
-            "inside": 2332,
-            "oceanView": 2670,
-            "balcony": 2432,
-            "suite": 6816
-          }
-        },
         {
           "at": "2026-06-11T05:56:28.754Z",
           "prices": {
@@ -69211,9 +69240,18 @@
             "balcony": 2340,
             "suite": 6762
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 2211,
+            "oceanView": 2508,
+            "balcony": 2588,
+            "suite": 6762
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -69379,7 +69417,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -69650,7 +69688,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -69777,7 +69815,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -69940,7 +69978,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -70121,7 +70159,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -70303,7 +70341,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -70658,7 +70696,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -70740,7 +70778,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -70975,7 +71013,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -71188,7 +71226,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -71629,7 +71667,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -71693,7 +71731,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -71831,7 +71869,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -72277,7 +72315,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -72422,7 +72460,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -72442,22 +72480,13 @@
       "prices": {
         "inside": "642",
         "oceanView": "765",
-        "balcony": "896",
+        "balcony": "912",
         "suite": null
       },
       "destinationPort": "Los Angeles, California",
       "seaDays": 2,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-19T16:49:56.394Z",
-          "prices": {
-            "inside": 456,
-            "oceanView": 482,
-            "balcony": 532,
-            "suite": 1856
-          }
-        },
         {
           "at": "2026-06-19T20:32:10.235Z",
           "prices": {
@@ -72937,9 +72966,17 @@
             "oceanView": 765,
             "balcony": 896
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 642,
+            "oceanView": 765,
+            "balcony": 912
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -73066,7 +73103,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -73166,7 +73203,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -73275,7 +73312,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -73780,7 +73817,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -73928,7 +73965,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -74073,7 +74110,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -74273,7 +74310,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -74808,7 +74845,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -74958,7 +74995,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -75049,7 +75086,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -75095,7 +75132,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -75383,7 +75420,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -75720,7 +75757,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -75850,7 +75887,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -76291,7 +76328,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -76421,7 +76458,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -76551,7 +76588,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -76660,7 +76697,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -76790,7 +76827,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77028,7 +77065,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77278,7 +77315,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77424,7 +77461,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77488,7 +77525,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -77684,7 +77721,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -78179,7 +78216,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -78291,7 +78328,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -78403,7 +78440,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -78530,7 +78567,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -78642,7 +78679,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -79180,7 +79217,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -79271,7 +79308,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -79473,7 +79510,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -79609,7 +79646,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80057,7 +80094,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80121,7 +80158,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80257,7 +80294,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -80734,7 +80771,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81179,7 +81216,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81315,7 +81352,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81361,7 +81398,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81579,7 +81616,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -81599,21 +81636,13 @@
       "prices": {
         "inside": "816",
         "oceanView": "1019",
-        "balcony": "1249",
+        "balcony": "1332",
         "suite": "3239"
       },
       "destinationPort": "Honolulu (Oahu), Hawaii",
       "seaDays": 6,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-16T17:43:18.101Z",
-          "prices": {
-            "inside": 977,
-            "oceanView": 1080,
-            "suite": 3239
-          }
-        },
         {
           "at": "2026-06-16T19:14:18.364Z",
           "prices": {
@@ -82139,9 +82168,18 @@
             "balcony": 1249,
             "suite": 3239
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 816,
+            "oceanView": 1019,
+            "balcony": 1332,
+            "suite": 3239
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82187,7 +82225,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82323,7 +82361,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82448,7 +82486,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82539,7 +82577,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -82585,7 +82623,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83066,7 +83104,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83112,7 +83150,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83126,12 +83164,12 @@
       "departurePort": "Barcelona",
       "departureRegion": "Mediterranean",
       "destination": "Europe",
-      "priceFrom": "2917.28",
+      "priceFrom": "9188.28",
       "currency": "USD",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=XC08BCN-1757101174&pID=XC08M167&sDT=2026-09-05&sCD=XC&sCT=CO&country=GBR",
       "prices": {
         "inside": null,
-        "oceanView": "2917.28",
+        "oceanView": null,
         "balcony": null,
         "suite": "9188.28"
       },
@@ -83139,14 +83177,6 @@
       "seaDays": 1,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
-        {
-          "at": "2026-06-16T09:56:45.505Z",
-          "prices": {
-            "inside": 1320,
-            "balcony": 1632,
-            "suite": 4014
-          }
-        },
         {
           "at": "2026-06-16T11:49:44.208Z",
           "prices": {
@@ -83590,9 +83620,15 @@
             "oceanView": 2917.28,
             "suite": 9188.28
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "suite": 9188.28
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -83701,7 +83737,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84094,7 +84130,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84158,7 +84194,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84213,7 +84249,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84706,7 +84742,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84851,7 +84887,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -84951,7 +84987,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85051,7 +85087,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85133,7 +85169,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85215,7 +85251,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85297,7 +85333,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85388,7 +85424,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85479,7 +85515,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85543,7 +85579,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85652,7 +85688,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85698,7 +85734,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85789,7 +85825,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85844,7 +85880,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85899,7 +85935,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -85990,7 +86026,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86063,7 +86099,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86109,7 +86145,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86200,7 +86236,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86264,7 +86300,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86346,7 +86382,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86437,7 +86473,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86510,7 +86546,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86619,7 +86655,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86665,7 +86701,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86756,7 +86792,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86820,7 +86856,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86875,7 +86911,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -86957,7 +86993,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87064,7 +87100,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87110,7 +87146,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87192,7 +87228,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87238,7 +87274,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87329,7 +87365,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87375,7 +87411,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87421,7 +87457,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87512,7 +87548,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87558,7 +87594,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87604,7 +87640,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87767,7 +87803,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87831,7 +87867,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87895,7 +87931,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -87984,7 +88020,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88165,7 +88201,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88229,7 +88265,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88275,7 +88311,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88321,7 +88357,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88412,7 +88448,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88467,7 +88503,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88567,7 +88603,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88613,7 +88649,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88686,7 +88722,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88759,7 +88795,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88805,7 +88841,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88914,7 +88950,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -88969,7 +89005,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89015,7 +89051,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89097,7 +89133,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89242,7 +89278,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89342,7 +89378,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89613,7 +89649,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89659,7 +89695,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89759,7 +89795,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89877,7 +89913,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -89950,7 +89986,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90005,7 +90041,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90087,7 +90123,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90241,7 +90277,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90332,7 +90368,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90405,7 +90441,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90460,7 +90496,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90515,7 +90551,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90588,7 +90624,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90688,7 +90724,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90797,7 +90833,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -90888,7 +90924,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91015,7 +91051,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91052,7 +91088,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91233,7 +91269,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91351,7 +91387,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91442,7 +91478,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91587,7 +91623,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91687,7 +91723,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91760,7 +91796,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91815,7 +91851,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91888,7 +91924,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -91943,7 +91979,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92052,7 +92088,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92143,7 +92179,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92157,14 +92193,14 @@
       "departurePort": "Fort Lauderdale",
       "departureRegion": "Americas",
       "destination": "Caribbean",
-      "priceFrom": "1274",
-      "currency": "GBP",
+      "priceFrom": "2733.63",
+      "currency": "USD",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=XC07FLL-1124902164&pID=XC07E581&sDT=2027-12-26&sCD=XC&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1274",
-        "oceanView": "1383",
-        "balcony": "1655",
-        "suite": "3881"
+        "inside": "2733.63",
+        "oceanView": "2973.63",
+        "balcony": "3572.63",
+        "suite": "8478.63"
       },
       "destinationPort": "Puerto Plata, Dominican Republic",
       "seaDays": 3,
@@ -92214,9 +92250,18 @@
             "balcony": 1655,
             "suite": 3881
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 2733.63,
+            "oceanView": 2973.63,
+            "balcony": 3572.63,
+            "suite": 8478.63
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92271,7 +92316,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92389,7 +92434,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92397,7 +92442,7 @@
       "shipName": "Celebrity Ascent",
       "shipClass": "Edge",
       "shipLaunchYear": 2023,
-      "itinerary": "Best of Southern Caribbean: Cruising (Cruising), Charlotte Amalie, St. Thomas, St. Johns, Antigua, Bridgetown, Barbados, Castries, St. Lucia, Roseau, Dominica, Basseterre, St Kitts & Nevis",
+      "itinerary": "Best of Southern Caribbean",
       "departureDate": "2028-01-24",
       "duration": "11 Nights",
       "departurePort": "Fort Lauderdale",
@@ -92412,8 +92457,8 @@
         "balcony": "1542",
         "suite": "4241"
       },
-      "destinationPort": "Basseterre, St Kitts & Nevis",
-      "seaDays": 4,
+      "destinationPort": "",
+      "seaDays": null,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -92444,7 +92489,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92458,14 +92503,14 @@
       "departurePort": "Singapore",
       "departureRegion": "Asia & Far East",
       "destination": "Asia",
-      "priceFrom": "1358",
-      "currency": "GBP",
+      "priceFrom": "2941.79",
+      "currency": "USD",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=ML14SIN-1035509803&pID=ML14I166&sDT=2028-01-27&sCD=ML&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1358",
-        "oceanView": "1534",
-        "balcony": "1898",
-        "suite": "4530"
+        "inside": "2941.79",
+        "oceanView": "3326.79",
+        "balcony": "4253.79",
+        "suite": "10278.79"
       },
       "destinationPort": "Benoa (Bali), Indonesia",
       "seaDays": 6,
@@ -92569,9 +92614,18 @@
             "balcony": 1898,
             "suite": 4530
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 2941.79,
+            "oceanView": 3326.79,
+            "balcony": 4253.79,
+            "suite": 10278.79
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -92579,7 +92633,7 @@
       "shipName": "Celebrity Xcel",
       "shipClass": "Edge",
       "shipLaunchYear": 2025,
-      "itinerary": "Spain & Bermuda Transatlantic: Provence (Marseille), France, Palma De Mallorca, Spain, Alicante, Spain, Malaga, Spain, Tangier, Morocco, Cruising (Cruising), Royal Naval Dockyard, Bermuda, Fort Lauderdale, Florida",
+      "itinerary": "Spain & Bermuda Transatlantic",
       "departureDate": "2027-10-29",
       "duration": "16 Nights",
       "departurePort": "Barcelona",
@@ -92594,8 +92648,8 @@
         "balcony": "2076",
         "suite": "12372"
       },
-      "destinationPort": "Fort Lauderdale, Florida",
-      "seaDays": 8,
+      "destinationPort": "",
+      "seaDays": null,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
@@ -92985,7 +93039,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93085,7 +93139,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93167,7 +93221,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93181,14 +93235,14 @@
       "departurePort": "Vancouver",
       "departureRegion": "Americas",
       "destination": "Alaska",
-      "priceFrom": "1467",
-      "currency": "GBP",
+      "priceFrom": "3045.13",
+      "currency": "USD",
       "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL09YVR-1435425925&pID=SL09A711&sDT=2027-05-07&sCD=SL&sCT=CT&country=GBR",
       "prices": {
-        "inside": "1467",
-        "oceanView": "1638",
-        "balcony": "1755",
-        "suite": "3549"
+        "inside": "3045.13",
+        "oceanView": "3425.13",
+        "balcony": "3681.13",
+        "suite": "7657.13"
       },
       "destinationPort": "Seward, Alaska",
       "seaDays": 2,
@@ -93247,9 +93301,18 @@
             "balcony": 1755,
             "suite": 3549
           }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 3045.13,
+            "oceanView": 3425.13,
+            "balcony": 3681.13,
+            "suite": 7657.13
+          }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93286,7 +93349,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93350,7 +93413,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93549,7 +93612,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93631,7 +93694,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93695,7 +93758,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93849,7 +93912,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93940,7 +94003,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -93992,7 +94055,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94056,7 +94119,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94165,7 +94228,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94292,7 +94355,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94356,7 +94419,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94512,7 +94575,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94558,7 +94621,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94604,7 +94667,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94659,7 +94722,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94786,7 +94849,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94841,7 +94904,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -94977,7 +95040,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -95086,7 +95149,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -95132,7 +95195,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -95331,7 +95394,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -95404,7 +95467,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -95570,7 +95633,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -95607,7 +95670,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -95716,7 +95779,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -95869,7 +95932,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -95961,7 +96024,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -96043,7 +96106,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -96125,7 +96188,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -96297,7 +96360,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -96442,7 +96505,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -96533,7 +96596,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -96624,7 +96687,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -96715,7 +96778,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -96860,7 +96923,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -96996,7 +97059,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -97096,7 +97159,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -97205,7 +97268,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -97314,7 +97377,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -97423,7 +97486,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -97550,7 +97613,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -97677,7 +97740,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -97822,7 +97885,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -97967,7 +98030,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -98083,7 +98146,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -98129,7 +98192,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -98163,7 +98226,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -98209,7 +98272,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -98243,7 +98306,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -98289,7 +98352,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     },
     {
       "provider": "Celebrity Cruises",
@@ -98323,8 +98386,8 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T07:08:25.848Z"
+      "lastSeenAt": "2026-07-02T09:04:58.131Z"
     }
   ],
-  "scrapedAt": "2026-07-02T07:08:25.848Z"
+  "scrapedAt": "2026-07-02T09:04:58.131Z"
 }
