@@ -66,6 +66,13 @@
   const SITE_CHANGES = [
     {
       date: '3 Jul 2026',
+      title: 'Instant repeat visits',
+      items: [
+        'Cruise data is now cached in your browser, so returning to the site shows the last-loaded sailings instantly — even briefly offline — while fresh prices load in the background.',
+      ],
+    },
+    {
+      date: '3 Jul 2026',
       title: 'Faster first load',
       items: [
         'The cruise table now loads about 70% less data up front — price history is fetched separately and fills in the sparklines and price stars a moment after the table appears.',
@@ -787,19 +794,94 @@
     }
   }
 
+  // ── Cache storage (IndexedDB, with a localStorage fallback) ──────────────────
+  // The cruise + price-history payloads run to several MB — past localStorage's
+  // ~5 MB per-origin quota, and stringifying/writing them is synchronous and
+  // blocks the main thread. Persist them in IndexedDB instead: async,
+  // non-blocking, and a far larger quota. When IndexedDB is unavailable
+  // (private-mode quirks, the test sandbox) every op transparently falls back
+  // to localStorage so behaviour is unchanged, just quota-limited.
+  const CACHE_DB_NAME = 'cruise-explorer-cache';
+  const CACHE_STORE   = 'kv';
+  let _cacheDbPromise = null;
+
+  function openCacheDb() {
+    if (_cacheDbPromise) return _cacheDbPromise;
+    _cacheDbPromise = new Promise((resolve) => {
+      try {
+        const idb = globalThis.indexedDB;
+        if (!idb) { resolve(null); return; }
+        const request = idb.open(CACHE_DB_NAME, 1);
+        request.onupgradeneeded = () => {
+          const db = request.result;
+          if (!db.objectStoreNames.contains(CACHE_STORE)) db.createObjectStore(CACHE_STORE);
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror   = () => resolve(null);
+      } catch {
+        resolve(null);
+      }
+    });
+    return _cacheDbPromise;
+  }
+
+  async function cacheGet(key) {
+    const db = await openCacheDb();
+    if (!db) {
+      try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; }
+      catch { return null; }
+    }
+    return new Promise((resolve) => {
+      try {
+        const request = db.transaction(CACHE_STORE, 'readonly').objectStore(CACHE_STORE).get(key);
+        request.onsuccess = () => resolve(request.result ?? null);
+        request.onerror   = () => resolve(null);
+      } catch { resolve(null); }
+    });
+  }
+
+  async function cacheSet(key, value) {
+    const db = await openCacheDb();
+    if (!db) {
+      // QuotaExceededError is swallowed here just as before — but now only the
+      // fallback path, holding the far smaller slim payloads, can hit it.
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+      return;
+    }
+    await new Promise((resolve) => {
+      try {
+        const tx = db.transaction(CACHE_STORE, 'readwrite');
+        tx.objectStore(CACHE_STORE).put(value, key);
+        tx.oncomplete = () => resolve();
+        tx.onerror    = () => resolve();
+        tx.onabort    = () => resolve();
+      } catch { resolve(); }
+    });
+  }
+
+  // Older builds cached the multi-MB payloads in localStorage. Once IndexedDB
+  // is in use, reclaim that quota by dropping the stale keys. No-op (keeps the
+  // keys) when we're still falling back to localStorage as the cache.
+  async function pruneLegacyLocalStorageCache() {
+    const db = await openCacheDb();
+    if (!db) return;
+    try {
+      const doomed = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && (key === LEGACY_CACHE_KEY || key.startsWith(`${LEGACY_CACHE_KEY}:`))) doomed.push(key);
+      }
+      for (const key of doomed) localStorage.removeItem(key);
+    } catch {}
+  }
+
   function getProviderCacheKey(providerId) {
     return `${LEGACY_CACHE_KEY}:${providerId}`;
   }
 
-  function readCachedPayload(key) {
-    try {
-      const raw = localStorage.getItem(key);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      return parsed && Array.isArray(parsed.cruises) ? parsed : null;
-    } catch {
-      return null;
-    }
+  async function readCachedPayload(key) {
+    const parsed = await cacheGet(key);
+    return parsed && Array.isArray(parsed.cruises) ? parsed : null;
   }
 
   function countCurrentPrices(cruises) {
@@ -818,7 +900,7 @@
       : countCurrentPrices(payload?.cruises);
   }
 
-  function loadCachedCruises(providerIds) {
+  async function loadCachedCruises(providerIds) {
     const ids = Array.isArray(providerIds) ? providerIds : [providerIds].filter(Boolean);
     const combined = [];
     const counts = new Map();
@@ -828,7 +910,7 @@
     let found = false;
 
     for (const providerId of ids) {
-      const cached = readCachedPayload(getProviderCacheKey(providerId));
+      const cached = await readCachedPayload(getProviderCacheKey(providerId));
       if (!cached) continue;
       found = true;
       combined.push(...cached.cruises);
@@ -839,20 +921,18 @@
     }
 
     if (found) return { cruises: combined, scrapedAt: latestScrapedAt, counts, scrapedAts, priceCount };
-    const legacy = readCachedPayload(LEGACY_CACHE_KEY);
+    const legacy = await readCachedPayload(LEGACY_CACHE_KEY);
     return legacy ? { cruises: legacy.cruises, scrapedAt: legacy.scrapedAt, counts: new Map(), scrapedAts: new Map(), priceCount: snapshotPriceCount(legacy) } : null;
   }
 
+  // Writes are best-effort and fire-and-forget: the returned promise resolves
+  // once the (non-blocking) IndexedDB write lands, but callers need not await.
   function saveCachedCruises(providerId, cruises, scrapedAt, priceCount) {
-    try {
-      localStorage.setItem(getProviderCacheKey(providerId), JSON.stringify({ cruises, scrapedAt, priceCount }));
-    } catch {}
+    return cacheSet(getProviderCacheKey(providerId), { cruises, scrapedAt, priceCount });
   }
 
   function saveLegacyCachedCruises(cruises, scrapedAt, priceCount) {
-    try {
-      localStorage.setItem(LEGACY_CACHE_KEY, JSON.stringify({ cruises, scrapedAt, priceCount }));
-    } catch {}
+    return cacheSet(LEGACY_CACHE_KEY, { cruises, scrapedAt, priceCount });
   }
 
   // ── Price-history hydration ─────────────────────────────────────────────────
@@ -866,21 +946,13 @@
     return `${LEGACY_CACHE_KEY}:history:${providerId}`;
   }
 
-  function readCachedHistory(providerId) {
-    try {
-      const raw = localStorage.getItem(getProviderHistoryCacheKey(providerId));
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      return parsed && parsed.history && typeof parsed.history === 'object' ? parsed.history : null;
-    } catch {
-      return null;
-    }
+  async function readCachedHistory(providerId) {
+    const parsed = await cacheGet(getProviderHistoryCacheKey(providerId));
+    return parsed && parsed.history && typeof parsed.history === 'object' ? parsed.history : null;
   }
 
   function saveCachedHistory(providerId, history) {
-    try {
-      localStorage.setItem(getProviderHistoryCacheKey(providerId), JSON.stringify({ history }));
-    } catch {}
+    return cacheSet(getProviderHistoryCacheKey(providerId), { history });
   }
 
   // Fills history onto loaded cruises from an { [id]: entries[] } map, without
@@ -901,11 +973,11 @@
     return added;
   }
 
-  // Instant hydration from the previous session's cached history (synchronous).
-  function hydrateHistoryFromCache(providers) {
+  // Near-instant hydration from the previous session's cached history.
+  async function hydrateHistoryFromCache(providers) {
     let added = 0;
     for (const provider of providers) {
-      added += attachHistoryMap(readCachedHistory(provider.id));
+      added += attachHistoryMap(await readCachedHistory(provider.id));
     }
     if (added && allCruises.length) applyFilters();
   }
@@ -934,6 +1006,7 @@
     favoriteCruiseIds = loadFavoriteCruiseIds();
     showStatus('Loading cruise data…');
     loadData();
+    pruneLegacyLocalStorageCache();
     fetchGBPRate();
     fetchShipWikiLinks();
     loadSettings();
@@ -967,7 +1040,7 @@
     loadedProviders = providers;
 
     // Show cached data immediately while fetching fresh
-    const cached = loadCachedCruises(providers.map(provider => provider.id));
+    const cached = await loadCachedCruises(providers.map(provider => provider.id));
     if (cached) {
       loadedProviderCounts = cached.counts || new Map();
       loadedProviderScrapedAts = cached.scrapedAts || new Map();
@@ -997,7 +1070,7 @@
       const provider = providers[i];
       const json = settled.status === 'fulfilled'
         ? settled.value.json
-        : readCachedPayload(getProviderCacheKey(provider.id));
+        : await readCachedPayload(getProviderCacheKey(provider.id));
 
       if (!json || !Array.isArray(json.cruises) || !json.cruises.length) continue;
 

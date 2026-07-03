@@ -2,28 +2,29 @@
 
 const { test, expect } = require('@playwright/test');
 
-test('provider-specific cruises load on page open and persist the scoped cache', async ({ page }) => {
-  await page.addInitScript(() => {
-    localStorage.setItem('cached_cruises:royal-caribbean', JSON.stringify({
-      cruises: [
-        {
-          provider: 'Royal Caribbean',
-          shipName: 'Harmony of the Seas',
-          itinerary: 'Adriatic Escape',
-          departureDate: '',
-          duration: '7 Nights',
-          departurePort: 'Barcelona',
-          destination: 'Mediterranean',
-          destinationPort: 'Venice',
-          priceFrom: '899',
-          currency: 'GBP',
-          bookingUrl: '/cruises/harmony',
-        },
-      ],
-      scrapedAt: '2026-04-27T20:00:00.000Z',
-    }));
-  });
+// The cruise/history cache lives in IndexedDB (localStorage's ~5 MB quota
+// couldn't hold the multi-MB payloads). Read a scoped-cache entry back the
+// same way the app stores it: DB 'cruise-explorer-cache', store 'kv'.
+function readIdbCache(page, key) {
+  return page.evaluate((k) => new Promise((resolve) => {
+    let request;
+    try { request = indexedDB.open('cruise-explorer-cache', 1); }
+    catch { resolve(null); return; }
+    request.onupgradeneeded = () => { try { request.result.createObjectStore('kv'); } catch {} };
+    request.onerror = () => resolve(null);
+    request.onsuccess = () => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains('kv')) { resolve(null); return; }
+      try {
+        const get = db.transaction('kv', 'readonly').objectStore('kv').get(k);
+        get.onsuccess = () => resolve(get.result ?? null);
+        get.onerror = () => resolve(null);
+      } catch { resolve(null); }
+    };
+  }), key);
+}
 
+test('provider-specific cruises load on page open and persist the scoped cache', async ({ page }) => {
   let apiRequestCount = 0;
 
   await page.route('**/providers/index.json', async (route) => {
@@ -99,7 +100,7 @@ test('provider-specific cruises load on page open and persist the scoped cache',
   await expect(page.locator('#totalProviders')).toHaveText('1');
   await expect(page.locator('#updatedAt')).toHaveCount(0);
   await expect(page.locator('.header-stats')).not.toContainText('Latest sync');
-  await expect.poll(async () => page.evaluate(() => localStorage.getItem('cached_cruises:royal-caribbean'))).toBeTruthy();
+  await expect.poll(async () => readIdbCache(page, 'cached_cruises:royal-caribbean')).toBeTruthy();
   expect(apiRequestCount).toBe(0);
 });
 
@@ -208,7 +209,7 @@ test('all three providers load and display cruise data', async ({ page }) => {
 
   await expect(page.locator('#totalProviders')).toHaveText('3');
 
-  await expect.poll(async () => page.evaluate(() => localStorage.getItem('cached_cruises:royal-caribbean'))).toBeTruthy();
-  await expect.poll(async () => page.evaluate(() => localStorage.getItem('cached_cruises:celebrity-cruises'))).toBeTruthy();
-  await expect.poll(async () => page.evaluate(() => localStorage.getItem('cached_cruises:ncl-cruises'))).toBeTruthy();
+  await expect.poll(async () => readIdbCache(page, 'cached_cruises:royal-caribbean')).toBeTruthy();
+  await expect.poll(async () => readIdbCache(page, 'cached_cruises:celebrity-cruises')).toBeTruthy();
+  await expect.poll(async () => readIdbCache(page, 'cached_cruises:ncl-cruises')).toBeTruthy();
 });
