@@ -375,10 +375,12 @@ function normalizeCruise(detail, bookingUrl) {
   const baseItinerary = cleanText(detail?.shortTitle || detail?.title);
   const ports = extractPortsFromSlug(bookingUrl, departurePort);
   const isRoundTrip = isRoundTripBookingUrl(bookingUrl);
-  const itineraryPorts = isRoundTrip && departurePort && ports.length > 0 ? [...ports, departurePort] : ports;
+  const itineraryPorts = ports.length > 0
+    ? [departurePort, ...ports, ...(isRoundTrip && departurePort ? [departurePort] : [])].filter(Boolean)
+    : ports;
   const destinationPort = isRoundTrip && departurePort
     ? departurePort
-    : ports.length > 0 ? getDestinationPort([departurePort, ...ports], { preserveReturnEndpoint: true }) : '';
+    : ports.length > 0 ? getDestinationPort([departurePort, ...ports]) : '';
   const roomPrices = extractRoomTypePrices(detail);
 
   return {

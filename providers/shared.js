@@ -113,8 +113,7 @@ function formatChapterPort(port) {
   return `${name}, ${region}`;
 }
 
-function compactPortSequence(ports, options = {}) {
-  const preserveReturnEndpoint = Boolean(options.preserveReturnEndpoint);
+function compactPortSequence(ports) {
   const labels = Array.isArray(ports)
     ? ports.map(cleanText).filter(Boolean)
     : [];
@@ -132,7 +131,6 @@ function compactPortSequence(ports, options = {}) {
   for (let i = 0; i < labels.length; i++) {
     const label = labels[i];
     const isReturnEndpoint = (
-      preserveReturnEndpoint &&
       i === lastRealIndex &&
       lastRealIndex > firstRealIndex &&
       label === firstRealPort &&
@@ -153,34 +151,31 @@ function compactPortSequence(ports, options = {}) {
  * Celebrity chapter shape. Round trips preserve the final return port even
  * when it matches the departure port.
  */
-function extractPortSequenceFromChapters(chapters, options = {}) {
+function extractPortSequenceFromChapters(chapters) {
   if (!Array.isArray(chapters)) return [];
-  return compactPortSequence(chapters.map(chapter => formatChapterPort(chapter?.port)), options);
+  return compactPortSequence(chapters.map(chapter => formatChapterPort(chapter?.port)));
 }
 
 /**
  * Builds a detailed itinerary string by appending extracted port names
- * to a base summary. Strips "Cruising" pseudo-ports and drops the
- * departure port (first non-cruising entry). Returns the summary name
- * unchanged when no real stops remain.
+ * to a base summary. Strips "Cruising" pseudo-ports and keeps the
+ * departure and final endpoint so route displays are complete.
+ * Returns the summary name unchanged when no real ports remain.
  *
  * Royal Caribbean / Celebrity shape: ports come from the room-selection
  * chapters array, which starts with the departure port and may include
  * "Cruising" placeholders.
  */
-function buildDetailedItinerary(summaryName, ports, options = {}) {
-  const normalizedPorts  = compactPortSequence(ports || [], options);
+function buildDetailedItinerary(summaryName, ports) {
+  const normalizedPorts  = compactPortSequence(ports || []);
   const nonCruisingPorts = normalizedPorts.filter(p => !isCruisingPortName(p));
-  if (nonCruisingPorts.length <= 1) return cleanText(summaryName);
+  if (nonCruisingPorts.length === 0) return cleanText(summaryName);
 
-  const stops = nonCruisingPorts.slice(1);
-  if (stops.length === 0) return cleanText(summaryName);
-
-  return `${cleanText(summaryName)}: ${stops.join(', ')}`;
+  return `${cleanText(summaryName)}: ${nonCruisingPorts.join(', ')}`;
 }
 
-function getDestinationPort(ports, options = {}) {
-  const normalizedPorts = compactPortSequence(ports || [], options);
+function getDestinationPort(ports) {
+  const normalizedPorts = compactPortSequence(ports || []);
   const nonCruisingPorts = normalizedPorts.filter(p => !isCruisingPortName(p));
   return nonCruisingPorts.length > 1 ? nonCruisingPorts[nonCruisingPorts.length - 1] : '';
 }

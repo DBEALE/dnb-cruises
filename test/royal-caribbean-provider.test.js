@@ -11,7 +11,7 @@ const SAMPLE_CHAPTERS = [
   { days: [2], port: { name: 'Cruising', region: '' } },
   { days: [3], port: { name: 'George Town', region: 'Grand Cayman' } },
   { days: [4], port: { name: 'Oranjestad', region: 'Aruba' } },
-  { days: [5], port: { name: 'Colón', region: 'Panama' } },
+  { days: [5], port: { name: 'Colon', region: 'Panama' } },
 ];
 
 test('extractPortSequenceFromChapters reads ports from chapter objects', () => {
@@ -20,11 +20,11 @@ test('extractPortSequenceFromChapters reads ports from chapter objects', () => {
     'Cruising',
     'George Town, Grand Cayman',
     'Oranjestad, Aruba',
-    'Colón, Panama',
+    'Colon, Panama',
   ]);
 });
 
-test('buildDetailedItinerary appends non-cruising stops after the summary name', () => {
+test('buildDetailedItinerary appends the full non-cruising route after the summary name', () => {
   assert.equal(
     provider.buildDetailedItinerary('7 Night Southern Caribbean Cruise', [
       'Tampa, Florida',
@@ -32,13 +32,13 @@ test('buildDetailedItinerary appends non-cruising stops after the summary name',
       'George Town, Grand Cayman',
       'Oranjestad, Aruba',
       'Willemstad, Curacao',
-      'Colón, Panama',
+      'Colon, Panama',
     ]),
-    '7 Night Southern Caribbean Cruise: George Town, Grand Cayman, Oranjestad, Aruba, Willemstad, Curacao, Colón, Panama',
+    '7 Night Southern Caribbean Cruise: Tampa, Florida, George Town, Grand Cayman, Oranjestad, Aruba, Willemstad, Curacao, Colon, Panama',
   );
 });
 
-test('round-trip room-selection ports keep the return port as the destination', () => {
+test('round-trip room-selection ports keep departure and return endpoints', () => {
   const ports = provider.extractPortSequenceFromChapters([
     { days: [1], port: { name: 'Southampton', region: 'England' } },
     { days: [2], port: { name: 'Cruising', region: '' } },
@@ -55,10 +55,10 @@ test('round-trip room-selection ports keep the return port as the destination', 
     'Bruges/Zeebrugge (Brussels), Belgium',
     'Southampton, England',
   ]);
-  assert.equal(getDestinationPort(ports, { preserveReturnEndpoint: true }), 'Southampton, England');
+  assert.equal(getDestinationPort(ports), 'Southampton, England');
   assert.equal(
-    provider.buildDetailedItinerary('Hamburg & Bruges Cruise', ports, { preserveReturnEndpoint: true }),
-    'Hamburg & Bruges Cruise: Hamburg, Germany, Bruges/Zeebrugge (Brussels), Belgium, Southampton, England',
+    provider.buildDetailedItinerary('Hamburg & Bruges Cruise', ports),
+    'Hamburg & Bruges Cruise: Southampton, England, Hamburg, Germany, Bruges/Zeebrugge (Brussels), Belgium, Southampton, England',
   );
 });
 
@@ -73,7 +73,6 @@ test('parseBookingContext extracts room-selection filter fields from booking URL
     },
   );
 });
-// ─── Room-type price extraction ────────────────────────────────────────────────
 
 test('classifyRoomType identifies inside / ocean view / balcony / suite entries', () => {
   assert.equal(provider.classifyRoomType({ id: 'X', name: 'Interior' }), 'inside');
@@ -125,8 +124,6 @@ test('extractRoomTypePricesFromPayload reads prices from top-level categories fa
   assert.equal(result.inside,  null);
 });
 
-// ─── resolveBookingUrl (UK localisation) ───────────────────────────────────────
-
 test('resolveBookingUrl passes absolute URLs through unchanged', () => {
   assert.equal(
     provider.resolveBookingUrl('https://www.royalcaribbean.com/booking/landing?x=1'),
@@ -153,4 +150,3 @@ test('resolveBookingUrl returns "" for empty/falsy input', () => {
   assert.equal(provider.resolveBookingUrl(undefined), '');
   assert.equal(provider.resolveBookingUrl(null), '');
 });
-

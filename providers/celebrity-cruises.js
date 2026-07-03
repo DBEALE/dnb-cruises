@@ -22,7 +22,6 @@ const rci = createRciRoomSelection({
   brand:  'C',
   or:     'https://www.celebritycruises.com',
   defaultCountry: 'GBR',
-  preserveReturnEndpoint: true,
 });
 
 /**
@@ -445,7 +444,7 @@ async function enrichCruiseItinerary(cruise) {
       fetchRoomSelectionData(context),
       fetchRoomSelectionPagePrice(context),
     ]);
-    const detailedItinerary = buildDetailedItinerary(cruise.itinerary, ports, { preserveReturnEndpoint: true });
+    const detailedItinerary = buildDetailedItinerary(cruise.itinerary, ports);
     const mergedPrices = mergeRoomTypePrices(
       mergeRoomTypePrices(cruise.prices, prices),
       pagePrice.prices,
@@ -458,7 +457,7 @@ async function enrichCruiseItinerary(cruise) {
     return {
       ...cruise,
       itinerary: detailedItinerary || cruise.itinerary,
-      destinationPort: getDestinationPort(ports, { preserveReturnEndpoint: true }),
+      destinationPort: getDestinationPort(ports),
       prices: mergedPrices,
       priceFrom: livePriceFrom || cruise.priceFrom,
       currency: (hasLivePagePrices || pagePrice.price)
@@ -553,7 +552,7 @@ class CelebrityCruisesProvider extends GraphQLCruiseProvider {
 
 const provider = new CelebrityCruisesProvider();
 
-provider.extractPortSequenceFromChapters  = (chapters) => extractPortSequenceFromChapters(chapters, { preserveReturnEndpoint: true });
+provider.extractPortSequenceFromChapters  = extractPortSequenceFromChapters;
 provider.extractRoomTypePricesFromPayload = extractRoomTypePricesFromPayload;
 provider.classifyRoomType                 = classifyRoomType;
 provider.buildDetailedItinerary          = buildDetailedItinerary;

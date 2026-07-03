@@ -254,8 +254,8 @@ test('buildDetailedItinerary appends non-cruising stops after the summary name',
       'Philipsburg, St. Maarten',
       'Puerto Plata, Dominican Republic',
       'Miami, Florida',
-    ], { preserveReturnEndpoint: true }),
-    'Tortola, St. Maarten & Puerto Plata: Tortola, BVI, Philipsburg, St. Maarten, Puerto Plata, Dominican Republic, Miami, Florida',
+    ]),
+    'Tortola, St. Maarten & Puerto Plata: Miami, Florida, Tortola, BVI, Philipsburg, St. Maarten, Puerto Plata, Dominican Republic, Miami, Florida',
   );
 });
 
@@ -422,7 +422,7 @@ test('fetchCruises enriches itinerary with port sequence and room-tab prices fro
     assert.equal(cruises.length, 1);
     assert.equal(
       cruises[0].itinerary,
-      'Tortola, St. Maarten & Puerto Plata: Tortola, BVI, Philipsburg, St. Maarten, Puerto Plata, Dominican Republic',
+      'Tortola, St. Maarten & Puerto Plata: Miami, Florida, Tortola, BVI, Philipsburg, St. Maarten, Puerto Plata, Dominican Republic',
     );
     assert.equal(cruises[0].priceFrom, '903');
     assert.equal(cruises[0].currency, 'GBP');

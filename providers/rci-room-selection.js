@@ -167,7 +167,7 @@ function roomSelectionCacheKey(context) {
  *   await rc.fetchRoomSelectionData(context);
  */
 function createRciRoomSelection(hostConfig) {
-  const { apiUrl, brand, or, defaultCountry = 'USA', preserveReturnEndpoint = false } = hostConfig;
+  const { apiUrl, brand, or, defaultCountry = 'USA' } = hostConfig;
 
   /**
    * Parse a booking URL into the filter context required by the
@@ -258,7 +258,7 @@ function createRciRoomSelection(hostConfig) {
 
     const payload = await response.json();
     return {
-      ports:  extractPortSequenceFromChapters(payload?.sailing?.itinerary?.chapters, { preserveReturnEndpoint }),
+      ports:  extractPortSequenceFromChapters(payload?.sailing?.itinerary?.chapters),
       prices: extractRoomTypePricesFromPayload(payload),
     };
   }

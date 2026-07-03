@@ -65,9 +65,9 @@
   const SITE_CHANGES = [
     {
       date: '3 Jul 2026',
-      title: 'Correct return ports',
+      title: 'Complete itinerary endpoints',
       items: [
-        'Round-trip sailings now keep the final return port in the itinerary and use it as the destination port across supported providers.',
+        'Itineraries now keep their departure and final return ports while destination ports use the actual final endpoint across supported providers.',
       ],
     },
     {

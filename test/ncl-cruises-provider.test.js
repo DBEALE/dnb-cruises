@@ -208,7 +208,7 @@ test('normalizeCruise enriches itinerary with port names from URL slug', () => {
     sailings: [{ departureDate: '2026-01-07', staterooms: [{ combinedPrice: '599.00' }] }],
   }, 'https://www.ncl.com/uk/en/cruises/7-day-caribbean-round-trip-new-orleans-cozumel-and-costa-maya-BREAKAWAY7MSYCZMRTBBZECMAMSY?itineraryCode=BREAKAWAY7MSYCZMRTBBZECMAMSY');
 
-  assert.equal(cruise.itinerary, 'Western Caribbean: Cozumel, Costa Maya, New Orleans, Louisiana');
+  assert.equal(cruise.itinerary, 'Western Caribbean: New Orleans, Louisiana, Cozumel, Costa Maya, New Orleans, Louisiana');
   assert.equal(cruise.destinationPort, 'New Orleans, Louisiana');
 });
 
