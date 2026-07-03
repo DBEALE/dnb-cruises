@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 584,
+  "count": 585,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -15754,42 +15754,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ESR12G_GP_20280606",
-      "shipName": "Regal Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2014,
-      "itinerary": "Copenhagen, Denmark → Visby, Sweden → Stockholm, Sweden → Stockholm, Sweden → Helsinki, Finland → Tallinn, Estonia → Klaipeda, Lithuania → Gdansk (Gdynia), Poland → Oslo, Norway → Skagen, Denmark → Copenhagen, Denmark",
-      "departureDate": "2028-06-06",
-      "duration": "12 Nights",
-      "departurePort": "Copenhagen, Denmark",
-      "departureRegion": "Northern Europe",
-      "destination": "Europe",
-      "priceFrom": "1836",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=G821",
-      "prices": {
-        "inside": "1836",
-        "oceanView": "2661",
-        "balcony": "2636",
-        "suite": "3086"
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-06-02T18:05:24.346Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-02T18:05:24.346Z",
-          "prices": {
-            "inside": 1836,
-            "oceanView": 2661,
-            "balcony": 2636,
-            "suite": 3086
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-10T17:06:21.326Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_EIR11B_EX_20281017",
       "shipName": "Enchanted Princess",
       "shipClass": "Royal",
@@ -18452,48 +18416,6 @@
           "at": "2026-06-13T07:19:13.956Z",
           "prices": {
             "inside": 1887
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-16T05:50:57.402Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_AYR14A_AP_20260822",
-      "shipName": "Grand Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 1998,
-      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Skagway, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
-      "departureDate": "2026-08-22",
-      "duration": "14 Nights",
-      "departurePort": "Vancouver, Canada",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "1378",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A633A",
-      "prices": {
-        "inside": "1378",
-        "oceanView": "1789",
-        "balcony": null,
-        "suite": null
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-06-08T18:22:55.802Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-08T18:22:55.802Z",
-          "prices": {
-            "inside": 1378,
-            "oceanView": 1789,
-            "balcony": 4798
-          }
-        },
-        {
-          "at": "2026-06-15T19:21:04.436Z",
-          "prices": {
-            "inside": 1378,
-            "oceanView": 1789
           }
         }
       ],
@@ -32421,12 +32343,114 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_NQB11B_CB_20271008",
+      "id": "princess_AYR14A_IP_20260902",
+      "shipName": "Island Princess",
+      "shipClass": "Coral",
+      "shipLaunchYear": 2003,
+      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Skagway, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
+      "departureDate": "2026-09-02",
+      "duration": "14 Nights",
+      "departurePort": "Vancouver, Canada",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "destinationPort": "Hubbard Glacier (Scenic Cruising), Alaska",
+      "priceFrom": "1176",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=2624A",
+      "prices": {
+        "inside": "1176",
+        "oceanView": null,
+        "balcony": "4026",
+        "suite": "4766"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-06-16T07:57:55.777Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-16T07:57:55.777Z",
+          "prices": {
+            "inside": 1276,
+            "oceanView": 1469,
+            "balcony": 4126,
+            "suite": 4766
+          }
+        },
+        {
+          "at": "2026-06-17T22:35:03.019Z",
+          "prices": {
+            "inside": 1176,
+            "oceanView": 1469,
+            "balcony": 4026,
+            "suite": 4766
+          }
+        },
+        {
+          "at": "2026-07-02T09:04:58.131Z",
+          "prices": {
+            "inside": 1176,
+            "balcony": 4026,
+            "suite": 4766
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T22:23:33.129Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_FCB27A_SA_20260807",
+      "shipName": "Sapphire Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Copenhagen, Denmark → Gdansk (Gdynia), Poland → Klaipeda, Lithuania → Riga, Latvia → Tallinn, Estonia → Helsinki, Finland → Nynashamn (for Stockholm),Sweden → Visby, Sweden → Oslo, Norway → Skagen, Denmark → Copenhagen, Denmark → Shetland Islands (Lerwick), Scotland → Stornoway, Scotland → Belfast, Northern Ireland → Liverpool, England → Cork, Ireland (Cobh - For Blarney Castle) → Sydney, Canada → Halifax, Canada → Boston, Massachusetts",
+      "departureDate": "2026-08-07",
+      "duration": "27 Nights",
+      "departurePort": "Copenhagen, Denmark",
+      "departureRegion": "Northern Europe",
+      "destination": "Transatlantic",
+      "destinationPort": "Boston, Massachusetts",
+      "priceFrom": "9320",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H621A",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "9320",
+        "suite": null
+      },
+      "seaDays": 9,
+      "firstSeenAt": "2026-06-30T07:18:29.094Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-30T07:18:29.094Z",
+          "prices": {
+            "inside": 4607,
+            "balcony": 9320
+          }
+        },
+        {
+          "at": "2026-07-01T11:06:34.064Z",
+          "prices": {
+            "inside": 4458,
+            "balcony": 9320
+          }
+        },
+        {
+          "at": "2026-07-01T16:47:59.856Z",
+          "prices": {
+            "balcony": 9320
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T22:23:33.129Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_NQB11B_CB_20270917",
       "shipName": "Caribbean Princess",
       "shipClass": "Grand",
       "shipLaunchYear": 2004,
       "itinerary": "Quebec City, Canada → Quebec City, Canada → Saguenay, Canada → Sept Iles, Canada → Corner Brook, Canada → Charlottetown, Canada → Sydney, Canada → Halifax, Canada → Boston, Massachusetts",
-      "departureDate": "2027-10-08",
+      "departureDate": "2027-09-17",
       "duration": "11 Nights",
       "departurePort": "Quebec City, Canada",
       "departureRegion": "Americas",
@@ -32434,12 +32458,12 @@
       "destinationPort": "Boston, Massachusetts",
       "priceFrom": "1349",
       "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=B725",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=B723",
       "prices": {
         "inside": "1349",
-        "oceanView": "1799",
-        "balcony": "2749",
-        "suite": "3474"
+        "oceanView": "2319",
+        "balcony": "2649",
+        "suite": "3974"
       },
       "seaDays": 3,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
@@ -32448,85 +32472,59 @@
           "at": "2026-05-29T18:29:37.417Z",
           "prices": {
             "inside": 1424,
-            "oceanView": 2074,
-            "balcony": 2649,
-            "suite": 3299
-          }
-        },
-        {
-          "at": "2026-06-11T19:00:23.409Z",
-          "prices": {
-            "inside": 1374,
-            "oceanView": 2024,
-            "balcony": 2679,
-            "suite": 3329
-          }
-        },
-        {
-          "at": "2026-06-15T22:41:56.222Z",
-          "prices": {
-            "inside": 1374,
-            "oceanView": 2024,
-            "balcony": 2819,
-            "suite": 3329
-          }
-        },
-        {
-          "at": "2026-06-18T07:41:29.008Z",
-          "prices": {
-            "inside": 1349,
-            "oceanView": 1999,
-            "balcony": 2719,
-            "suite": 3179
-          }
-        },
-        {
-          "at": "2026-06-23T07:15:08.150Z",
-          "prices": {
-            "inside": 1374,
-            "oceanView": 2024,
-            "balcony": 2819,
-            "suite": 3329
-          }
-        },
-        {
-          "at": "2026-06-26T07:19:02.674Z",
-          "prices": {
-            "inside": 1349,
-            "oceanView": 1999,
-            "balcony": 2769,
-            "suite": 3279
-          }
-        },
-        {
-          "at": "2026-06-29T07:42:45.310Z",
-          "prices": {
-            "inside": 1374,
-            "oceanView": 2024,
-            "balcony": 2819,
-            "suite": 3329
-          }
-        },
-        {
-          "at": "2026-07-02T05:19:45.155Z",
-          "prices": {
-            "inside": 1374,
-            "oceanView": 1824,
+            "oceanView": 2224,
             "balcony": 2849,
             "suite": 3599
           }
         },
         {
-          "at": "2026-07-02T07:08:25.848Z",
+          "at": "2026-07-02T22:23:33.129Z",
           "prices": {
             "inside": 1349,
-            "oceanView": 1799,
-            "balcony": 2749,
-            "suite": 3474
+            "oceanView": 2319,
+            "balcony": 2649,
+            "suite": 3974
           }
         }
       ],
-      "lastSeenAt": "2026-07-02T16:35:52.426Z"
+      "lastSeenAt": "2026-07-02T22:23:33.129Z"
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ESR12G_GP_20280630",
+      "shipName": "Regal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2014,
+      "itinerary": "Copenhagen, Denmark → Visby, Sweden → Stockholm, Sweden → Stockholm, Sweden → Helsinki, Finland → Tallinn, Estonia → Klaipeda, Lithuania → Gdansk (Gdynia), Poland → Oslo, Norway → Skagen, Denmark → Copenhagen, Denmark",
+      "departureDate": "2028-06-30",
+      "duration": "12 Nights",
+      "departurePort": "Copenhagen, Denmark",
+      "departureRegion": "Northern Europe",
+      "destination": "Europe",
+      "destinationPort": "Skagen, Denmark",
+      "priceFrom": "1826",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=G823",
+      "prices": {
+        "inside": "1826",
+        "oceanView": "2701",
+        "balcony": "2676",
+        "suite": "3076"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-06-02T13:57:43.544Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-02T13:57:43.544Z",
+          "prices": {
+            "inside": 1826,
+            "oceanView": 2701,
+            "balcony": 2676,
+            "suite": 3076
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-02T22:23:33.129Z"
     }
   ]
 }
