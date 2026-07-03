@@ -81,7 +81,7 @@ jobs:
           for provider_dir in public/providers/*/; do
             provider=$(basename "$provider_dir")
             mkdir -p "$DATA_DIR/public/providers/$provider"
-            for f in cruises.json oldCruises.json; do
+            for f in cruises.json oldCruises.json price-history.json; do
               src="$provider_dir$f"
               [ -f "$src" ] && cp "$src" "$DATA_DIR/public/providers/$provider/$f"
             done

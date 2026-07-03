@@ -308,6 +308,12 @@ async function createSandbox({
         };
       }
 
+      // Price history is hydrated from a sibling file after the table renders.
+      // These fixtures inline history (or omit it), so a 404 here is expected.
+      if (String(url).includes('/price-history.json')) {
+        return { ok: false, status: 404, json: async () => ({}) };
+      }
+
       const providerMatch = String(url).match(/\/providers\/([^/]+)\/cruises\.json/);
       if (providerMatch) {
         const payload = resolvedProviderPayloads[providerMatch[1]];

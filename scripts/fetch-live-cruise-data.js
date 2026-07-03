@@ -76,6 +76,32 @@ function sanitizeProviderFile(providerId, filePath) {
   }
 }
 
+// Same legacy-entry cleanup as sanitizeProviderFile, but for the split
+// price-history.json ({ history: { [id]: entries[] } }) rather than the
+// inline-history cruises.json shape.
+function sanitizeHistoryFile(providerId, filePath) {
+  try {
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const history = data && data.history && typeof data.history === 'object' ? data.history : null;
+    if (!history) return 0;
+    let removed = 0;
+    for (const id of Object.keys(history)) {
+      const before = Array.isArray(history[id]) ? history[id].length : 0;
+      const cleaned = sanitizePriceHistoryForProvider(providerId, history[id]);
+      removed += before - cleaned.length;
+      if (cleaned.length) history[id] = cleaned;
+      else delete history[id];
+    }
+    if (removed > 0) {
+      data.count = Object.keys(history).length;
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + '\n');
+    }
+    return removed;
+  } catch {
+    return 0;
+  }
+}
+
 // Provider IDs come from the live providers/index.json on Pages. Falls back
 // to the local tracked copy in this repo if Pages isn't reachable (first
 // deploy, network blip).
@@ -106,12 +132,14 @@ async function main() {
   let okCount = 0;
   for (const id of providerIds) {
     const dir = path.join(PUBLIC_DIR, 'providers', id);
-    for (const file of ['cruises.json', 'oldCruises.json']) {
+    for (const file of ['cruises.json', 'oldCruises.json', 'price-history.json']) {
       const url = `${BASE_URL}providers/${id}/${file}`;
       const outPath = path.join(dir, file);
       try {
         if (await fetchToFile(url, outPath)) {
-          const removed = sanitizeProviderFile(id, outPath);
+          const removed = file === 'price-history.json'
+            ? sanitizeHistoryFile(id, outPath)
+            : sanitizeProviderFile(id, outPath);
           if (removed) console.log(`    cleaned ${removed} ${id} legacy or invalid history entr${removed === 1 ? 'y' : 'ies'}`);
           okCount++;
         }

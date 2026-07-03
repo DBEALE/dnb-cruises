@@ -45,6 +45,24 @@ function getProviderArchivePath(providerId) {
   return path.join(PROVIDERS_DIR, providerId, 'oldCruises.json');
 }
 
+// Price history is split out of cruises.json into this sibling file so the
+// frontend's initial load only downloads table-visible fields (~⅓ smaller)
+// and hydrates history lazily. See docs/IMPROVEMENTS.md.
+function getProviderHistoryPath(providerId) {
+  return path.join(PROVIDERS_DIR, providerId, 'price-history.json');
+}
+
+// Reads price-history.json into a plain { [cruiseId]: entries[] } map.
+// Missing/legacy files (history still inline in cruises.json) yield {}.
+function readProviderHistoryMap(providerId) {
+  try {
+    const data = JSON.parse(fs.readFileSync(getProviderHistoryPath(providerId), 'utf8'));
+    return data && data.history && typeof data.history === 'object' ? data.history : {};
+  } catch {
+    return {};
+  }
+}
+
 function readCruiseMap(filePath) {
   try {
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -59,7 +77,15 @@ function readCruiseMap(filePath) {
 }
 
 function readPreviousProviderSnapshot(providerId) {
-  return readCruiseMap(getProviderOutputPath(providerId));
+  const byId = readCruiseMap(getProviderOutputPath(providerId));
+  // Reattach history from the sidecar so mergePriceHistory keeps accumulating.
+  // Legacy files that still inline priceHistory keep theirs where the sidecar
+  // has no entry, so this stays backward-compatible with un-split data.
+  const history = readProviderHistoryMap(providerId);
+  for (const [id, cruise] of byId) {
+    if (Array.isArray(history[id])) cruise.priceHistory = history[id];
+  }
+  return byId;
 }
 
 function readPreviousArchive(providerId) {
@@ -155,15 +181,43 @@ function countCurrentPrices(cruises) {
 function writeProviderSnapshot(provider, cruises, scrapedAt) {
   const outPath = getProviderOutputPath(provider.id);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
+
+  // Split the heavy priceHistory arrays into a sibling price-history.json so
+  // cruises.json carries only the fields the table renders from. The frontend
+  // fetches the history file separately and hydrates on top.
+  const history = {};
+  const slimCruises = cruises.map(cruise => {
+    const { priceHistory, ...rest } = cruise;
+    if (cruise.id && Array.isArray(priceHistory) && priceHistory.length) {
+      history[cruise.id] = priceHistory;
+    }
+    return rest;
+  });
+
   fs.writeFileSync(outPath, JSON.stringify({
     success:   true,
-    count:     cruises.length,
+    count:     slimCruises.length,
     priceCount: countCurrentPrices(cruises),
     provider:  { id: provider.id, name: provider.name },
-    cruises,
+    cruises:   slimCruises,
     scrapedAt,
   }, null, 2) + '\n');
-  console.log(`  ✓ Wrote ${cruises.length} cruises to ${outPath}`);
+  console.log(`  ✓ Wrote ${slimCruises.length} cruises to ${outPath}`);
+
+  writeProviderHistory(provider, history, scrapedAt);
+}
+
+function writeProviderHistory(provider, history, scrapedAt) {
+  const outPath = getProviderHistoryPath(provider.id);
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  const count = Object.keys(history).length;
+  fs.writeFileSync(outPath, JSON.stringify({
+    provider: { id: provider.id, name: provider.name },
+    count,
+    history,
+    scrapedAt,
+  }, null, 2) + '\n');
+  console.log(`  ✓ Wrote price history for ${count} cruises to ${outPath}`);
 }
 
 function writeProviderArchive(provider, archived) {
@@ -456,4 +510,8 @@ module.exports = {
   mergePriceHistory,
   sanitizePriceHistoryForProvider,
   withSanitizedPriceHistory,
+  getProviderOutputPath,
+  getProviderHistoryPath,
+  writeProviderSnapshot,
+  readPreviousProviderSnapshot,
 };

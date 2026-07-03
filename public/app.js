@@ -66,6 +66,13 @@
   const SITE_CHANGES = [
     {
       date: '3 Jul 2026',
+      title: 'Faster first load',
+      items: [
+        'The cruise table now loads about 70% less data up front — price history is fetched separately and fills in the sparklines and price stars a moment after the table appears.',
+      ],
+    },
+    {
+      date: '3 Jul 2026',
       title: 'Faster filter editing',
       items: [
         'Filter typing now reuses precomputed search keys so large cruise lists stay responsive while you edit filters.',
@@ -674,10 +681,14 @@
 
   function normalizeProvider(provider) {
     const id = provider?.id || DEFAULT_PROVIDER.id;
+    const cruisesUrl = provider?.cruisesUrl || provider?.cruisesPath || `./providers/${id}/cruises.json`;
     return {
       id,
       name: provider?.name || id,
-      cruisesUrl: provider?.cruisesUrl || provider?.cruisesPath || `./providers/${id}/cruises.json`,
+      cruisesUrl,
+      // Price history is served from a sibling file so the initial cruises.json
+      // stays small. Derived by convention when the manifest omits it.
+      historyUrl: provider?.historyUrl || cruisesUrl.replace(/cruises\.json$/, 'price-history.json'),
     };
   }
 
@@ -844,6 +855,80 @@
     } catch {}
   }
 
+  // ── Price-history hydration ─────────────────────────────────────────────────
+  // Price history is served from a per-provider price-history.json sibling to
+  // keep cruises.json small. The table renders first from the slim file, then
+  // history is hydrated onto the in-memory cruise objects and the table is
+  // re-rendered so sparklines / price stars / drop filters light up. Cruises
+  // that arrive with history already inline (legacy files, tests) keep it —
+  // hydration only fills gaps.
+  function getProviderHistoryCacheKey(providerId) {
+    return `${LEGACY_CACHE_KEY}:history:${providerId}`;
+  }
+
+  function readCachedHistory(providerId) {
+    try {
+      const raw = localStorage.getItem(getProviderHistoryCacheKey(providerId));
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return parsed && parsed.history && typeof parsed.history === 'object' ? parsed.history : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveCachedHistory(providerId, history) {
+    try {
+      localStorage.setItem(getProviderHistoryCacheKey(providerId), JSON.stringify({ history }));
+    } catch {}
+  }
+
+  // Fills history onto loaded cruises from an { [id]: entries[] } map, without
+  // clobbering any history a cruise already carries. Returns how many cruises
+  // gained history so callers can skip a needless re-render.
+  function attachHistoryMap(history) {
+    if (!history || typeof history !== 'object') return 0;
+    let added = 0;
+    for (const id in history) {
+      const entries = history[id];
+      if (!Array.isArray(entries) || !entries.length) continue;
+      const cruise = cruiseById.get(id);
+      if (cruise && (!Array.isArray(cruise.priceHistory) || cruise.priceHistory.length === 0)) {
+        cruise.priceHistory = entries;
+        added++;
+      }
+    }
+    return added;
+  }
+
+  // Instant hydration from the previous session's cached history (synchronous).
+  function hydrateHistoryFromCache(providers) {
+    let added = 0;
+    for (const provider of providers) {
+      added += attachHistoryMap(readCachedHistory(provider.id));
+    }
+    if (added && allCruises.length) applyFilters();
+  }
+
+  // Fresh hydration from the network, one file per provider in parallel. A
+  // missing/404 history file (e.g. inline-history fixtures) is simply skipped.
+  async function hydrateHistoryFromNetwork(providers) {
+    const results = await Promise.allSettled(providers.map(async (provider) => {
+      const res = await fetchStaticJson(provider.historyUrl);
+      if (!res.ok) throw new Error(`no-history:${provider.id}`);
+      const json = await res.json();
+      return { provider, history: json && json.history };
+    }));
+
+    let added = 0;
+    for (const result of results) {
+      if (result.status !== 'fulfilled' || !result.value.history) continue;
+      saveCachedHistory(result.value.provider.id, result.value.history);
+      added += attachHistoryMap(result.value.history);
+    }
+    if (added && allCruises.length) applyFilters();
+  }
+
   // ── Init ───────────────────────────────────────────────────────────────────
   (function init() {
     favoriteCruiseIds = loadFavoriteCruiseIds();
@@ -887,6 +972,7 @@
       loadedProviderCounts = cached.counts || new Map();
       loadedProviderScrapedAts = cached.scrapedAts || new Map();
       applyCruiseResults(cached.cruises, cached.scrapedAt, cached.priceCount);
+      hydrateHistoryFromCache(providers);
     }
 
     // Try pre-built provider JSON files (GitHub Pages / static hosting).
@@ -934,6 +1020,10 @@
       saveLegacyCachedCruises(allCruises, latestScrapedAt, priceCount);
       applyCruiseResults(allCruises, latestScrapedAt, priceCount);
       hideStatus();
+      // Table is up; fill sparklines/stars from last session's cache instantly,
+      // then refresh from the network. Both no-op when history is already inline.
+      hydrateHistoryFromCache(providers);
+      hydrateHistoryFromNetwork(providers);
     } else {
       if (!cached) showStatus('Could not load cruise data: unable to load the static cruise files.', true);
       else hideStatus();

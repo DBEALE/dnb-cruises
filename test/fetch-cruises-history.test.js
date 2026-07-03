@@ -3,12 +3,60 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 
+const fs = require('node:fs');
+const path = require('node:path');
+
 const {
   countCurrentPrices,
   fetchProviderSnapshot,
   mergePriceHistory,
   sanitizePriceHistoryForProvider,
+  getProviderOutputPath,
+  getProviderHistoryPath,
+  writeProviderSnapshot,
+  readPreviousProviderSnapshot,
 } = require('../scripts/fetch-cruises');
+
+test('snapshot write splits price history into a sibling file and read reattaches it', () => {
+  const providerId = `__test-split-${process.pid}`;
+  const provider = { id: providerId, name: 'Test Split Provider' };
+  const cruisesPath = getProviderOutputPath(providerId);
+  const historyPath = getProviderHistoryPath(providerId);
+
+  try {
+    const priceHistory = [
+      { at: '2026-06-01T00:00:00Z', prices: { inside: 799, balcony: 1099 } },
+      { at: '2026-06-02T00:00:00Z', prices: { inside: 750, balcony: 1050 } },
+    ];
+    writeProviderSnapshot(provider, [
+      { id: 'x1', shipName: 'Test Ship', prices: { inside: '750' }, priceHistory },
+      { id: 'x2', shipName: 'No History', prices: { inside: '500' }, priceHistory: [] },
+    ], '2026-06-02T00:00:00Z');
+
+    // cruises.json is slim — no priceHistory field on any cruise.
+    const written = JSON.parse(fs.readFileSync(cruisesPath, 'utf8'));
+    assert.equal(written.count, 2);
+    assert.ok(written.cruises.every(c => !('priceHistory' in c)), 'cruises.json must not inline priceHistory');
+
+    // price-history.json holds history only for cruises that have entries.
+    const historyFile = JSON.parse(fs.readFileSync(historyPath, 'utf8'));
+    assert.deepEqual(historyFile.history.x1, priceHistory);
+    assert.ok(!('x2' in historyFile.history), 'empty history is omitted from the sidecar');
+
+    // Reading the previous snapshot reattaches history from the sidecar.
+    const prev = readPreviousProviderSnapshot(providerId);
+    assert.deepEqual(prev.get('x1').priceHistory, priceHistory);
+
+    // …so history keeps accumulating across runs via mergePriceHistory.
+    const merged = mergePriceHistory(providerId, prev.get('x1'), {
+      prices: { inside: '700', balcony: '1000' },
+    }, '2026-06-03T00:00:00Z');
+    assert.equal(merged.length, 3);
+    assert.equal(merged[2].prices.inside, 700);
+  } finally {
+    fs.rmSync(path.dirname(cruisesPath), { recursive: true, force: true });
+  }
+});
 
 test('counts current cabin prices for scrape metadata', () => {
   assert.equal(countCurrentPrices([
