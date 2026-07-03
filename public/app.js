@@ -65,6 +65,13 @@
   const SITE_CHANGES = [
     {
       date: '3 Jul 2026',
+      title: 'P&O scrape resilience',
+      items: [
+        'P&O Cruises scraping now sends fuller browser-style request headers and keeps successful cabin pages when another cabin page times out.',
+      ],
+    },
+    {
+      date: '3 Jul 2026',
       title: 'Complete itinerary endpoints',
       items: [
         'Itineraries now keep their departure and final return ports while destination ports use the actual final endpoint across supported providers.',

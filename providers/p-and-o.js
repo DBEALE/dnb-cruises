@@ -20,6 +20,25 @@ const CRUISE_TILE_SENTINEL = 'po-cuk-cruise-tile-wrapper';
 const PANDO_SEARCH_URL = 'https://www.pocruises.com/find-a-cruise';
 const PANDO_READER_PREFIX = 'https://r.jina.ai/';
 const CABIN_FILTERS = ['I', 'O', 'B', 'S'];
+const PANDO_BROWSER_HEADERS = Object.freeze({
+  'user-agent': DEFAULT_USER_AGENT,
+  accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+  'accept-language': 'en-GB,en;q=0.9',
+  'cache-control': 'no-cache',
+  pragma: 'no-cache',
+  'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua-platform': '"Windows"',
+  'sec-fetch-dest': 'document',
+  'sec-fetch-mode': 'navigate',
+  'sec-fetch-site': 'none',
+  'sec-fetch-user': '?1',
+  'upgrade-insecure-requests': '1',
+});
+const PANDO_READER_HEADERS = Object.freeze({
+  ...PANDO_BROWSER_HEADERS,
+  'x-return-format': 'html',
+});
 const CABIN_BUCKETS = {
   I: 'inside',
   O: 'oceanView',
@@ -152,7 +171,6 @@ function mergeCruises(groups) {
 
 async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout, options = {}) {
   const target = `${PANDO_SEARCH_URL}?roomTypes=${encodeURIComponent(cabinCode)}&web2=true`;
-  const headers = { 'user-agent': DEFAULT_USER_AGENT, accept: 'text/html,application/xhtml+xml' };
   const readerUrl = `${PANDO_READER_PREFIX}${target}`;
   const platform = options.platform || process.platform;
   const requestTextImpl = options.requestText || requestText;
@@ -164,7 +182,7 @@ async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout, options 
   // use the response if the rendered tile sentinel is present; otherwise fall
   // through to the Jina reader which executes JavaScript before returning HTML.
   try {
-    const response = await fetchImpl(target, { headers });
+    const response = await fetchImpl(target, { headers: PANDO_BROWSER_HEADERS });
     if (response.ok) {
       const text = await response.text();
       if (text.includes(CRUISE_TILE_SENTINEL)) return text;
@@ -174,8 +192,8 @@ async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout, options 
   // Jina AI reader renders the page with JavaScript before returning HTML.
   try {
     const text = platform === 'win32'
-      ? await requestTextViaPowerShellImpl(readerUrl, 60_000)
-      : await requestTextImpl(readerUrl, { ...headers, 'x-return-format': 'html' }, 60_000);
+      ? await requestTextViaPowerShellImpl(readerUrl, 60_000, PANDO_READER_HEADERS)
+      : await requestTextImpl(readerUrl, PANDO_READER_HEADERS, 60_000);
     if (text.includes(CRUISE_TILE_SENTINEL)) return text;
   } catch {}
 
@@ -193,11 +211,18 @@ async function fetchSearchPageWithPlaywright(cabinCode) {
       userAgent: DEFAULT_USER_AGENT,
       locale: 'en-GB',
       timezoneId: 'Europe/London',
+      extraHTTPHeaders: {
+        accept: PANDO_BROWSER_HEADERS.accept,
+        'accept-language': PANDO_BROWSER_HEADERS['accept-language'],
+        'cache-control': PANDO_BROWSER_HEADERS['cache-control'],
+        pragma: PANDO_BROWSER_HEADERS.pragma,
+        'upgrade-insecure-requests': PANDO_BROWSER_HEADERS['upgrade-insecure-requests'],
+      },
     });
     let lastError = null;
     for (let attempt = 1; attempt <= 2; attempt++) {
       try {
-        await page.goto(target, { waitUntil: 'commit', timeout: 60_000 });
+        await page.goto(target, { waitUntil: 'commit', timeout: 60_000, referer: 'https://www.pocruises.com/' });
         lastError = null;
         break;
       } catch (err) {
@@ -213,10 +238,14 @@ async function fetchSearchPageWithPlaywright(cabinCode) {
   }
 }
 
-async function requestTextViaPowerShell(url, timeoutMs) {
+async function requestTextViaPowerShell(url, timeoutMs, headers = PANDO_READER_HEADERS) {
   const escapedUrl = url.replace(/'/g, "''");
+  const headerLines = Object.entries(headers)
+    .map(([key, value]) => `  '${key.replace(/'/g, "''")}'='${String(value).replace(/'/g, "''")}'`)
+    .join('; ');
   const command = [
-    `$response = Invoke-WebRequest -Uri '${escapedUrl}' -UseBasicParsing -Headers @{'X-Return-Format'='html'} -TimeoutSec 60`,
+    `$headers = @{${headerLines}}`,
+    `$response = Invoke-WebRequest -Uri '${escapedUrl}' -UseBasicParsing -Headers $headers -TimeoutSec 60`,
     '[Console]::Out.Write($response.Content)',
   ].join('; ');
   const { stdout } = await execFileAsync(
@@ -255,14 +284,35 @@ function requestText(url, headers, timeoutMs) {
   });
 }
 
-async function fetchCruises() {
+function warn(logger, message) {
+  if (logger && typeof logger.warn === 'function') logger.warn(message);
+}
+
+async function fetchCruises(options = {}) {
   const pages = [];
+  const failures = [];
+  const fetchPage = options.fetchSearchPage || fetchSearchPage;
+  const logger = options.logger || console;
   for (const cabinCode of CABIN_FILTERS) {
-    const html = await fetchSearchPage(cabinCode);
-    pages.push(parseSearchHtml(html, cabinCode));
+    try {
+      const html = await fetchPage(cabinCode);
+      const cruises = parseSearchHtml(html, cabinCode);
+      if (cruises.length) {
+        pages.push(cruises);
+        continue;
+      }
+      failures.push(`${cabinCode}: no parseable cruise tiles`);
+    } catch (err) {
+      failures.push(`${cabinCode}: ${err?.message || err}`);
+    }
+  }
+  if (failures.length) warn(logger, `  [P&O] ${failures.length} cabin page(s) failed: ${failures.join('; ')}`);
+  if (!pages.length) {
+    const detail = failures.length ? ` (${failures.join('; ')})` : '';
+    throw new Error(`P&O returned no parseable cruise results${detail}`);
   }
   const cruises = mergeCruises(pages);
-  if (!cruises.length) throw new Error('P&O returned no parseable cruise results');
+  if (!cruises.length) throw new Error('P&O returned no parseable cruise results after merging cabin pages');
   return cruises;
 }
 
@@ -303,3 +353,4 @@ module.exports.mergeCruises = mergeCruises;
 module.exports.toIsoDate = toIsoDate;
 module.exports.emptyPrices = emptyPrices;
 module.exports.fetchSearchPage = fetchSearchPage;
+module.exports.PANDO_BROWSER_HEADERS = PANDO_BROWSER_HEADERS;

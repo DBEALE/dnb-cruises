@@ -161,3 +161,61 @@ test('fetchSearchPage uses direct fetch HTML when it contains rendered cruise ti
   assert.equal(cruise.id, 'pando-DIRECT1');
   assert.equal(cruise.prices.balcony, '800');
 });
+
+test('fetchSearchPage sends browser-compatible headers to P&O', async () => {
+  const tileHtml = `<html><body>${tile({ id: 'HEADER1', cabin: 'Inside', price: '700' })}</body></html>`;
+  let requestOptions = null;
+
+  await provider.fetchSearchPage('I', async (_url, options) => {
+    requestOptions = options;
+    return {
+      ok: true,
+      text: async () => tileHtml,
+    };
+  });
+
+  assert.equal(requestOptions.headers['user-agent'], provider.PANDO_BROWSER_HEADERS['user-agent']);
+  assert.equal(requestOptions.headers['accept-language'], 'en-GB,en;q=0.9');
+  assert.equal(requestOptions.headers['sec-fetch-mode'], 'navigate');
+  assert.equal(requestOptions.headers['upgrade-insecure-requests'], '1');
+});
+
+test('fetchCruises keeps successful P&O cabin pages when another cabin page fails', async () => {
+  const warnings = [];
+  const cruises = await provider.fetchCruises({
+    logger: { warn: message => warnings.push(message) },
+    fetchSearchPage: async cabinCode => {
+      if (cabinCode === 'I') return `<html><body>${tile({ id: 'PARTIAL1', cabin: 'Inside', price: '700' })}</body></html>`;
+      if (cabinCode === 'B') return `<html><body>${tile({ id: 'PARTIAL1', cabin: 'Balcony', price: '1200' })}</body></html>`;
+      throw new Error(`blocked ${cabinCode}`);
+    },
+  });
+
+  assert.equal(cruises.length, 1);
+  assert.equal(cruises[0].id, 'pando-PARTIAL1');
+  assert.equal(cruises[0].priceFrom, '700');
+  assert.deepEqual(cruises[0].prices, {
+    inside: '700',
+    oceanView: null,
+    balcony: '1200',
+    suite: null,
+  });
+  assert.equal(warnings.length, 1);
+  assert.match(warnings[0], /2 cabin page\(s\) failed/);
+});
+
+test('fetchCruises reports all P&O cabin failures before failing closed', async () => {
+  const warnings = [];
+
+  await assert.rejects(
+    () => provider.fetchCruises({
+      logger: { warn: message => warnings.push(message) },
+      fetchSearchPage: async cabinCode => {
+        throw new Error(`blocked ${cabinCode}`);
+      },
+    }),
+    /P&O returned no parseable cruise results.*I: blocked I.*O: blocked O.*B: blocked B.*S: blocked S/,
+  );
+  assert.equal(warnings.length, 1);
+  assert.match(warnings[0], /4 cabin page\(s\) failed/);
+});
