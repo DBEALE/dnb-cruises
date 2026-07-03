@@ -5,6 +5,7 @@
   const SAVED_VIEWS_KEY = 'cruise-explorer-saved-views';
   const FAVORITES_KEY = 'cruise-explorer-favorite-cruises';
   const FAVORITES_VIEW_ID = '__favorites__';
+  const CRUISE_SEARCH_META = Symbol('cruiseSearchMeta');
 
   // Region groupings used by the departureRegion filter. Picking
   // `group:europe` matches cruises departing from any of these atomic
@@ -63,6 +64,13 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '3 Jul 2026',
+      title: 'Faster filter editing',
+      items: [
+        'Filter typing now reuses precomputed search keys so large cruise lists stay responsive while you edit filters.',
+      ],
+    },
     {
       date: '3 Jul 2026',
       title: 'Simpler port matching',
@@ -1156,6 +1164,7 @@
   // ── Apply results ──────────────────────────────────────────────────────────
   function applyCruiseResults(cruises, scrapedAt, priceCount = null) {
     allCruises = cruises || [];
+    allCruises.forEach(searchMeta);
     cruiseById = new Map(allCruises.map(c => [c.id, c]));
 
     populateDropdownFilters(allCruises);
@@ -1660,12 +1669,41 @@
     return text;
   }
 
-  function portMatchesFilter(portValue, filterValue) {
-    const query = String(filterValue || '').trim().toLowerCase();
+  function lowerText(value) {
+    return String(value || '').trim().toLowerCase();
+  }
+
+  function buildCruiseSearchMeta(c) {
+    const destinationPort = getDestinationPortDisplay(c);
+    return {
+      shipName: lowerText(c?.shipName),
+      provider: lowerText(c?.provider),
+      destination: lowerText(c?.destination),
+      itinerary: lowerText(c?.itinerary),
+      departurePort: lowerText(c?.departurePort),
+      departurePortSimple: lowerText(simplifyPortName(c?.departurePort)),
+      destinationPort: lowerText(destinationPort),
+      destinationPortSimple: lowerText(simplifyPortName(destinationPort)),
+      departureDateKey: cruiseDepartureDateKey(c?.departureDate),
+    };
+  }
+
+  function searchMeta(c) {
+    if (!c) return buildCruiseSearchMeta(null);
+    if (!c[CRUISE_SEARCH_META]) {
+      Object.defineProperty(c, CRUISE_SEARCH_META, {
+        value: buildCruiseSearchMeta(c),
+        enumerable: false,
+        configurable: true,
+      });
+    }
+    return c[CRUISE_SEARCH_META];
+  }
+
+  function portMetaMatchesFilter(port, simplePort, filterValue) {
+    const query = lowerText(filterValue);
     if (!query) return true;
-    const port = String(portValue || '').trim().toLowerCase();
-    const simpleQuery = simplifyPortName(query).toLowerCase();
-    const simplePort = simplifyPortName(port).toLowerCase();
+    const simpleQuery = lowerText(simplifyPortName(query));
     return Boolean(
       (port && port.includes(query)) ||
       (simplePort && simpleQuery && simplePort.includes(simpleQuery)) ||
@@ -3066,7 +3104,7 @@
 
   function cruiseMatchesDepartureRange(cruise, start, end) {
     if (!start && !end) return true;
-    const key = cruiseDepartureDateKey(cruise?.departureDate);
+    const key = searchMeta(cruise).departureDateKey;
     if (!key) return false;
     if (start && key < start) return false;
     if (end && key > end) return false;
@@ -3080,25 +3118,32 @@
       const v = el.value.trim();
       if (v) colFilters[el.dataset.field] = v;
     });
+    const normalizedFilters = {
+      shipName: lowerText(colFilters.shipName),
+      provider: lowerText(colFilters.provider),
+      destination: lowerText(colFilters.destination),
+      departurePort: lowerText(colFilters.departurePort),
+      destinationPort: lowerText(colFilters.destinationPort),
+    };
+    const itineraryTerms = itinerarySearchTerms(colFilters.itinerary);
 
     const filtered = allCruises.filter(c => {
       if (selectedCruiseId && c.id !== selectedCruiseId) return false;
       if (favoritesOnly && !favoriteCruiseIds.has(String(c.id || ''))) return false;
-      const itineraryTerms = itinerarySearchTerms(colFilters.itinerary);
+      const meta = searchMeta(c);
       if (itineraryTerms.length) {
-        const haystack = (c.itinerary || '').toLowerCase();
-        if (!itineraryTerms.every(term => haystack.includes(term))) return false;
+        if (!itineraryTerms.every(term => meta.itinerary.includes(term))) return false;
       }
 
       const text = ['shipName', 'provider', 'destination', 'departurePort'];
       for (const f of text) {
         if (f === 'departurePort') {
-          if (!portMatchesFilter(c[f], colFilters[f])) return false;
-        } else if (colFilters[f] && !(c[f] || '').toLowerCase().includes(colFilters[f].toLowerCase())) {
+          if (!portMetaMatchesFilter(meta.departurePort, meta.departurePortSimple, normalizedFilters[f])) return false;
+        } else if (normalizedFilters[f] && !meta[f].includes(normalizedFilters[f])) {
           return false;
         }
       }
-      if (colFilters.destinationPort && !portMatchesFilter(getDestinationPortDisplay(c), colFilters.destinationPort)) return false;
+      if (normalizedFilters.destinationPort && !portMetaMatchesFilter(meta.destinationPort, meta.destinationPortSimple, normalizedFilters.destinationPort)) return false;
       // shipClass filter is bi-modal: `tier:<size>` filters by computed
       // size tier from SHIP_TIER_BY_CLASS; anything else is a substring
       // match against the class name (unchanged behaviour).

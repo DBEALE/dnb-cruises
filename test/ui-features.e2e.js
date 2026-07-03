@@ -339,6 +339,29 @@ test.describe('Sort and filter', () => {
     expect(await page.locator('tbody tr').count()).toBe(1);
   });
 
+  test('port filters use simplified precomputed names', async ({ page }) => {
+    await gotoFresh(page, null, {
+      royalCaribbean: {
+        scrapedAt: CRUISES_RC.scrapedAt,
+        cruises: [
+          cruise({
+            id: 'rc_variant', shipName: 'Port Variant of the Seas', provider: 'Royal Caribbean',
+            priceFrom: 700, departureDate: '2026-09-08', firstSeenAt: isoAgo(DAY),
+            port: 'Southampton (for London), England',
+            destinationPort: 'Barcelona, Spain',
+          }),
+        ],
+      },
+      celebrity: { scrapedAt: CRUISES_CEL.scrapedAt, cruises: [] },
+    });
+
+    await page.locator('.col-filter[data-field="departurePort"]').fill('Southampton');
+    await page.locator('.col-filter[data-field="departurePort"]').dispatchEvent('input');
+    await expect(page.locator('#cruiseBody')).toContainText('Port Variant of the Seas');
+    await expect(page.locator('#summary')).toContainText('Showing all 1 sailings');
+    await expect(page.locator('#summary')).toContainText('From Southampton');
+  });
+
   test('sea days filter narrows results and updates summary count', async ({ page }) => {
     await gotoFresh(page);
     await page.locator('.col-filter[data-field="seaDays"]').fill('4');
