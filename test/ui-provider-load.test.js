@@ -401,7 +401,7 @@ test('loads the provider manifest and provider-specific cruise file on init', as
   assert.match(elements.cruiseBody.innerHTML, /cruise-share-btn/);
   assert.doesNotMatch(elements.cruiseBody.innerHTML, /class="col-book"|>Book</);
   assert.match(elements.cruiseBody.innerHTML, /Royal Caribbean/);
-  assert.match(elements.cruiseBody.innerHTML, /<td class="col-destination-port" data-label="Destination port">Venice<\/td>/);
+  assert.match(elements.cruiseBody.innerHTML, /<td class="col-destination-port" data-label="Destination port"><span class="destination-port-wrap"><span class="destination-port-text">Venice<\/span><\/span><\/td>/);
   assert.match(elements.cruiseBody.innerHTML, /<td class="col-sea-days duration" data-label="Sea days">3<\/td>/);
   assert.equal(elements.totalProviders.textContent, '1');
   assert.equal(elements.totalPrices.textContent, '3');

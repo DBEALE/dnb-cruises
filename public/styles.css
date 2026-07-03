@@ -411,7 +411,8 @@
     .share-view-btn:hover { background: var(--blue-pale); border-color: var(--blue); }
     .share-view-btn svg { width: 15px; height: 15px; flex: 0 0 auto; }
     .share-view-mobile { display: none; width: 40px; padding: 6px; }
-    .cruise-share-btn {
+    .cruise-share-btn,
+    .cruise-follow-on-btn {
       appearance: none;
       display: inline-flex;
       align-items: center;
@@ -426,9 +427,22 @@
       cursor: pointer;
       flex: 0 0 auto;
     }
-    .cruise-share-btn:hover { background: var(--blue-pale); border-color: var(--blue); }
-    .cruise-share-btn svg { width: 14px; height: 14px; }
+    .cruise-share-btn:hover,
+    .cruise-follow-on-btn:hover { background: var(--blue-pale); border-color: var(--blue); }
+    .cruise-share-btn svg,
+    .cruise-follow-on-btn svg { width: 14px; height: 14px; }
     .launch-share-wrap { display: inline-flex; align-items: center; gap: 5px; }
+    .destination-port-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      max-width: 100%;
+      vertical-align: middle;
+    }
+    .destination-port-text {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
     .share-notice {
       position: fixed;
       left: 50%;

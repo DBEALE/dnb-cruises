@@ -65,6 +65,20 @@
   const SITE_CHANGES = [
     {
       date: '3 Jul 2026',
+      title: 'Simpler port matching',
+      items: [
+        'Port filters and follow-on cruise searches now compare simplified port names, so variants like Southampton (for London), England match Southampton.',
+      ],
+    },
+    {
+      date: '3 Jul 2026',
+      title: 'Follow-on cruise search',
+      items: [
+        'Cruise rows now include a destination-port action that opens a new search for sailings departing that port within three days of arrival.',
+      ],
+    },
+    {
+      date: '3 Jul 2026',
       title: 'P&O scrape resilience',
       items: [
         'P&O Cruises scraping now sends fuller browser-style request headers and keeps successful cabin pages when another cabin page times out.',
@@ -1264,6 +1278,16 @@
     return `<button type="button" class="${classes}" data-share-cruise="${escHtml(c.id || '')}" aria-label="${escHtml(label)}" title="${escHtml(label)}">${shareIcon()}</button>`;
   }
 
+  function followOnIcon() {
+    return '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M13.5 3.5a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1 0 1.06l-3 3a.75.75 0 1 1-1.06-1.06l1.72-1.72H8.5a3.75 3.75 0 0 0 0 7.5h1a.75.75 0 0 1 0 1.5h-1a5.25 5.25 0 0 1 0-10.5h6.72L13.5 4.56a.75.75 0 0 1 0-1.06Z"/></svg>';
+  }
+
+  function followOnButton(c, destinationPort = '') {
+    if (!c?.id || !destinationPort || !followOnArrivalDateKey(c)) return '';
+    const label = `Find follow-on cruises from ${destinationPort}`;
+    return `<button type="button" class="cruise-follow-on-btn" data-follow-on-cruise="${escHtml(c.id)}" aria-label="${escHtml(label)}" title="${escHtml(label)}">${followOnIcon()}</button>`;
+  }
+
   function loadFavoriteCruiseIds() {
     try {
       const raw = localStorage.getItem(FAVORITES_KEY);
@@ -1614,11 +1638,47 @@
     return String(text || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
+  function simplifyPortName(value) {
+    let text = String(value || '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (!text) return '';
+
+    const londonPort = text.match(/^London\s*\((Southampton|Dover|Tilbury|Greenwich)\)/i);
+    if (londonPort) text = londonPort[1];
+
+    text = text
+      .replace(/\s*\((?:for|near)\s+[^)]*\)/gi, '')
+      .replace(/\s*\([^)]*\)/g, '')
+      .split(',')[0]
+      .replace(/^port\s+(?:of\s+)?/i, '')
+      .replace(/\bFt\.\s+/i, 'Fort ')
+      .replace(/\bSt\.\s+/i, 'Saint ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    return text;
+  }
+
+  function portMatchesFilter(portValue, filterValue) {
+    const query = String(filterValue || '').trim().toLowerCase();
+    if (!query) return true;
+    const port = String(portValue || '').trim().toLowerCase();
+    const simpleQuery = simplifyPortName(query).toLowerCase();
+    const simplePort = simplifyPortName(port).toLowerCase();
+    return Boolean(
+      (port && port.includes(query)) ||
+      (simplePort && simpleQuery && simplePort.includes(simpleQuery)) ||
+      (simplePort && query && simplePort.includes(query)) ||
+      (port && simpleQuery && port.includes(simpleQuery))
+    );
+  }
+
   function homePortHighlightTerms() {
     const raw = rememberedHomePort().trim();
     if (!raw) return [];
     const terms = [raw];
-    const shortName = raw.split(/[,(]/)[0].trim();
+    const shortName = simplifyPortName(raw);
     if (shortName && shortName.length >= 2) terms.push(shortName);
     return Array.from(new Set(terms.map(term => term.toLowerCase()).filter(Boolean)));
   }
@@ -1812,6 +1872,7 @@
       const seaDays = formatSeaDaysDisplay(c);
       const destinationPort = getDestinationPortDisplay(c);
       const destinationPortCell = highlightHomePort(destinationPort);
+      const destinationPortAction = `<span class="destination-port-wrap"><span class="destination-port-text">${destinationPortCell || '&mdash;'}</span>${followOnButton(c, destinationPort)}</span>`;
       const departurePortCell = highlightHomePort(c.departurePort);
 
       return `<tr data-provider="${escHtml(c.provider || '')}">
@@ -1822,7 +1883,7 @@
         <td class="col-launch" data-label="Launch"><span class="launch-share-wrap">${launchYearBadge(c.shipLaunchYear)}${cruiseShareButton(c, 'desktop-cruise-share')}</span></td>
         <td class="col-itinerary" data-label="Itinerary">${highlightItinerary(c.itinerary, colFilters.itinerary) || '—'}</td>
         <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
-        <td class="col-destination-port" data-label="Destination port">${destinationPortCell || '&mdash;'}</td>
+        <td class="col-destination-port" data-label="Destination port">${destinationPortAction}</td>
         <td class="col-date" data-label="Departure">${escHtml(date)}</td>
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
         <td class="col-sea-days duration" data-label="Sea days">${escHtml(seaDays)}</td>
@@ -2707,6 +2768,12 @@
           shareCruise(shareBtn.dataset.shareCruise);
           return;
         }
+        const followOnBtn = ev.target.closest('[data-follow-on-cruise]');
+        if (followOnBtn) {
+          ev.preventDefault();
+          openFollowOnSearch(followOnBtn.dataset.followOnCruise);
+          return;
+        }
         const btn = ev.target.closest('.price-spark');
         if (!btn) return;
         ev.preventDefault();
@@ -3025,9 +3092,13 @@
 
       const text = ['shipName', 'provider', 'destination', 'departurePort'];
       for (const f of text) {
-        if (colFilters[f] && !(c[f] || '').toLowerCase().includes(colFilters[f].toLowerCase())) return false;
+        if (f === 'departurePort') {
+          if (!portMatchesFilter(c[f], colFilters[f])) return false;
+        } else if (colFilters[f] && !(c[f] || '').toLowerCase().includes(colFilters[f].toLowerCase())) {
+          return false;
+        }
       }
-      if (colFilters.destinationPort && !getDestinationPortDisplay(c).toLowerCase().includes(colFilters.destinationPort.toLowerCase())) return false;
+      if (colFilters.destinationPort && !portMatchesFilter(getDestinationPortDisplay(c), colFilters.destinationPort)) return false;
       // shipClass filter is bi-modal: `tier:<size>` filters by computed
       // size tier from SHIP_TIER_BY_CLASS; anything else is a substring
       // match against the class name (unchanged behaviour).
@@ -3224,6 +3295,46 @@
     const hash = new URLSearchParams({ cruise: cruiseId }).toString();
     const details = [cruise.shipName, formatDateDisplay(cruise.departureDate), cruise.departurePort].filter(Boolean).join(' · ');
     shareAppUrl({ title: cruise.shipName || 'Cruise', text: details, url: appUrlForHash(hash) });
+  }
+
+  function addDaysIso(dateKey, days) {
+    const d = new Date(`${dateKey}T00:00:00Z`);
+    if (Number.isNaN(d.getTime())) return '';
+    d.setUTCDate(d.getUTCDate() + days);
+    return d.toISOString().slice(0, 10);
+  }
+
+  function durationNights(c) {
+    const n = Number.parseInt(String(c?.duration || '').replace(/,/g, ''), 10);
+    return Number.isFinite(n) && n > 0 ? n : null;
+  }
+
+  function followOnArrivalDateKey(c) {
+    const explicit = cruiseDepartureDateKey(c?.arrivalDate);
+    if (explicit) return explicit;
+    const departure = cruiseDepartureDateKey(c?.departureDate);
+    const nights = durationNights(c);
+    return departure && nights ? addDaysIso(departure, nights) : '';
+  }
+
+  function followOnSearchHash(cruise) {
+    const destinationPort = getDestinationPortDisplay(cruise);
+    const arrival = followOnArrivalDateKey(cruise);
+    if (!destinationPort || !arrival) return '';
+    const departurePort = simplifyPortName(destinationPort) || destinationPort;
+    return new URLSearchParams({
+      departurePort,
+      departureStart: arrival,
+      departureEnd: addDaysIso(arrival, 3),
+    }).toString();
+  }
+
+  function openFollowOnSearch(cruiseId) {
+    const cruise = cruiseById.get(cruiseId);
+    const hash = cruise ? followOnSearchHash(cruise) : '';
+    if (!hash) return;
+    const opened = window.open(appUrlForHash(hash), '_blank', 'noopener');
+    if (!opened) showShareNotice('Follow-on search opened');
   }
 
   function shareCurrentSearch() {

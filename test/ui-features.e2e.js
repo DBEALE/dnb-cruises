@@ -23,13 +23,14 @@ const PROVIDER_INDEX = {
 };
 
 // Helper — build a cruise with the priceHistory shape the UI expects.
-function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', days = 7, port = 'Southampton', destinationPort = port, itinerary = `${days}-Night ${port} Sample`, shipLaunchYear = 2020, seaDays = null, currency = 'GBP' }) {
+function cruise({ id, shipName, provider, priceFrom, prices, history, firstSeenAt, departureDate = '2026-09-01', arrivalDate = '', days = 7, port = 'Southampton', destinationPort = port, itinerary = `${days}-Night ${port} Sample`, shipLaunchYear = 2020, seaDays = null, currency = 'GBP' }) {
   return {
     id, shipName, provider,
     shipClass:       'Oasis',
     shipLaunchYear,
     itinerary,
     departureDate,
+    arrivalDate,
     duration:        `${days} Nights`,
     seaDays,
     departurePort:   port,
@@ -50,9 +51,10 @@ const CRUISES_RC = {
   cruises: [
     cruise({
       id: 'rc_a', shipName: 'Anthem of the Seas', provider: 'Royal Caribbean',
-      priceFrom: 500, days: 7, departureDate: '2026-08-31', firstSeenAt: isoAgo(20 * DAY),
+      priceFrom: 500, days: 7, departureDate: '2026-08-31', arrivalDate: '2026-09-07', firstSeenAt: isoAgo(20 * DAY),
       shipLaunchYear: 2025,
       seaDays: 3,
+      destinationPort: 'Southampton (for London), England',
       prices: { inside: '500', oceanView: '650', balcony: '800', suite: '1800' },
       history: [
         { at: isoAgo(20 * DAY), prices: { inside: 1000, oceanView: 900, balcony: 1200, suite: 2000 } },
@@ -481,6 +483,49 @@ test.describe('URL state', () => {
     expect(shared.url).toContain('sort=14-asc');
     expect(shared.url).toContain('provider=Royal+Caribbean');
     expect(shared.url).not.toContain('cruise=');
+  });
+
+  test('follow-on button opens a search from destination port after arrival', async ({ page }) => {
+    const followOnFixtures = {
+      royalCaribbean: {
+        scrapedAt: CRUISES_RC.scrapedAt,
+        cruises: [
+          ...CRUISES_RC.cruises,
+          cruise({
+            id: 'rc_follow', shipName: 'Follow On of the Seas', provider: 'Royal Caribbean',
+            priceFrom: 700, days: 7, departureDate: '2026-09-08', firstSeenAt: isoAgo(DAY),
+            port: 'Southampton (for London), England',
+            destinationPort: 'Barcelona, Spain',
+            prices: { inside: '700', oceanView: null, balcony: null, suite: null },
+          }),
+        ],
+      },
+    };
+    await page.addInitScript(() => {
+      window.open = (url, target, features) => {
+        window.__openedFollowOn = { url, target, features };
+        return {};
+      };
+    });
+    await gotoFresh(page, null, followOnFixtures);
+
+    await page.locator('.cruise-follow-on-btn[data-follow-on-cruise="rc_a"]').click();
+    const opened = await page.evaluate(() => window.__openedFollowOn);
+    expect(opened.target).toBe('_blank');
+    expect(opened.features).toContain('noopener');
+    expect(opened.url).toContain('#');
+    expect(opened.url).toContain('departurePort=Southampton');
+    expect(opened.url).toContain('departureStart=2026-09-07');
+    expect(opened.url).toContain('departureEnd=2026-09-10');
+
+    const followOnPage = await page.context().newPage();
+    await setupRoutes(followOnPage, followOnFixtures);
+    await followOnPage.goto(opened.url);
+    await expect(followOnPage.locator('.col-filter[data-field="departurePort"]')).toHaveValue('Southampton');
+    await expect(followOnPage.locator('.col-filter[data-field="departureStart"]')).toHaveValue('2026-09-07');
+    await expect(followOnPage.locator('.col-filter[data-field="departureEnd"]')).toHaveValue('2026-09-10');
+    await expect(followOnPage.locator('#cruiseBody')).toContainText('Follow On of the Seas');
+    await followOnPage.close();
   });
 });
 
