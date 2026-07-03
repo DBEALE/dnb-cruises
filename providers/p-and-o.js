@@ -115,7 +115,7 @@ function parseSearchHtml(html, forcedCabinCode = '') {
       departurePort: departs[0] || '',
       departureRegion: getDepartureRegion(departs[0] || ''),
       destination,
-      destinationPort: getDestinationPort(itineraryPorts),
+      destinationPort: getDestinationPort(itineraryPorts, { preserveReturnEndpoint: true }),
       seaDays: estimateSeaDays({ labels: itineraryPorts, duration: durationText }),
       priceFrom: price || '',
       currency: 'GBP',

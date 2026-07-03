@@ -75,7 +75,7 @@ test('normalizes Norwegian Cruise Line itinerary details', () => {
     currency: 'GBP',
     bookingUrl: 'https://www.ncl.com/uk/en/cruises/british-isles-test-SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU?itineraryCode=SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU',
     prices: { inside: '999', oceanView: '1099', balcony: '1299', suite: '1799' },
-    seaDays: 8,
+    seaDays: null,
   });
 });
 
@@ -120,6 +120,17 @@ test('extracts port names from NCL booking URL slug', () => {
       'New Orleans, Louisiana'
     ),
     ['Cozumel', 'Costa Maya']
+  );
+});
+
+test('detects round-trip NCL booking URLs', () => {
+  assert.equal(
+    provider.isRoundTripBookingUrl('https://www.ncl.com/uk/en/cruises/7-day-caribbean-round-trip-new-orleans-cozumel-and-costa-maya-BREAKAWAY7MSYCZMRTBBZECMAMSY'),
+    true,
+  );
+  assert.equal(
+    provider.isRoundTripBookingUrl('https://www.ncl.com/uk/en/cruises/7-day-northern-europe-from-london-to-reykjavik-akureyri-and-stavanger-STAR7SOUKWLBGOAKUISAREY'),
+    false,
   );
 });
 
@@ -197,7 +208,8 @@ test('normalizeCruise enriches itinerary with port names from URL slug', () => {
     sailings: [{ departureDate: '2026-01-07', staterooms: [{ combinedPrice: '599.00' }] }],
   }, 'https://www.ncl.com/uk/en/cruises/7-day-caribbean-round-trip-new-orleans-cozumel-and-costa-maya-BREAKAWAY7MSYCZMRTBBZECMAMSY?itineraryCode=BREAKAWAY7MSYCZMRTBBZECMAMSY');
 
-  assert.equal(cruise.itinerary, 'Western Caribbean: Cozumel, Costa Maya');
+  assert.equal(cruise.itinerary, 'Western Caribbean: Cozumel, Costa Maya, New Orleans, Louisiana');
+  assert.equal(cruise.destinationPort, 'New Orleans, Louisiana');
 });
 
 test('normalizeCruise estimates sea days from the NCL slug when ports are present', () => {

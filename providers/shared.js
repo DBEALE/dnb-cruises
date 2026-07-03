@@ -113,22 +113,49 @@ function formatChapterPort(port) {
   return `${name}, ${region}`;
 }
 
-/**
- * Maps a room-selection API chapters array to an ordered list of port
- * labels (deduplicated, "Cruising" entries preserved). Royal Caribbean /
- * Celebrity chapter shape.
- */
-function extractPortSequenceFromChapters(chapters) {
-  if (!Array.isArray(chapters)) return [];
+function compactPortSequence(ports, options = {}) {
+  const preserveReturnEndpoint = Boolean(options.preserveReturnEndpoint);
+  const labels = Array.isArray(ports)
+    ? ports.map(cleanText).filter(Boolean)
+    : [];
+  const firstRealIndex = labels.findIndex(label => !isCruisingPortName(label));
+  const lastRealIndex = (() => {
+    for (let i = labels.length - 1; i >= 0; i--) {
+      if (!isCruisingPortName(labels[i])) return i;
+    }
+    return -1;
+  })();
+  const firstRealPort = firstRealIndex >= 0 ? labels[firstRealIndex] : '';
   const seen = new Set();
-  const out  = [];
-  for (const chapter of chapters) {
-    const label = formatChapterPort(chapter?.port);
-    if (!label || seen.has(label)) continue;
+  const out = [];
+
+  for (let i = 0; i < labels.length; i++) {
+    const label = labels[i];
+    const isReturnEndpoint = (
+      preserveReturnEndpoint &&
+      i === lastRealIndex &&
+      lastRealIndex > firstRealIndex &&
+      label === firstRealPort &&
+      !isCruisingPortName(label)
+    );
+
+    if (seen.has(label) && !isReturnEndpoint) continue;
     seen.add(label);
     out.push(label);
   }
+
   return out;
+}
+
+/**
+ * Maps a room-selection API chapters array to an ordered list of port
+ * labels (deduplicated, "Cruising" entries preserved). Royal Caribbean /
+ * Celebrity chapter shape. Round trips preserve the final return port even
+ * when it matches the departure port.
+ */
+function extractPortSequenceFromChapters(chapters, options = {}) {
+  if (!Array.isArray(chapters)) return [];
+  return compactPortSequence(chapters.map(chapter => formatChapterPort(chapter?.port)), options);
 }
 
 /**
@@ -141,8 +168,8 @@ function extractPortSequenceFromChapters(chapters) {
  * chapters array, which starts with the departure port and may include
  * "Cruising" placeholders.
  */
-function buildDetailedItinerary(summaryName, ports) {
-  const normalizedPorts  = Array.from(new Set((ports || []).map(cleanText).filter(Boolean)));
+function buildDetailedItinerary(summaryName, ports, options = {}) {
+  const normalizedPorts  = compactPortSequence(ports || [], options);
   const nonCruisingPorts = normalizedPorts.filter(p => !isCruisingPortName(p));
   if (nonCruisingPorts.length <= 1) return cleanText(summaryName);
 
@@ -152,8 +179,8 @@ function buildDetailedItinerary(summaryName, ports) {
   return `${cleanText(summaryName)}: ${stops.join(', ')}`;
 }
 
-function getDestinationPort(ports) {
-  const normalizedPorts = Array.from(new Set((ports || []).map(cleanText).filter(Boolean)));
+function getDestinationPort(ports, options = {}) {
+  const normalizedPorts = compactPortSequence(ports || [], options);
   const nonCruisingPorts = normalizedPorts.filter(p => !isCruisingPortName(p));
   return nonCruisingPorts.length > 1 ? nonCruisingPorts[nonCruisingPorts.length - 1] : '';
 }
@@ -169,6 +196,7 @@ module.exports = {
   cleanText,
   isCruisingPortName,
   formatChapterPort,
+  compactPortSequence,
   extractPortSequenceFromChapters,
   buildDetailedItinerary,
   getDestinationPort,

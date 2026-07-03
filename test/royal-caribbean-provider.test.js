@@ -4,6 +4,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 
 const provider = require('../providers/royal-caribbean');
+const { getDestinationPort } = require('../providers/shared');
 
 const SAMPLE_CHAPTERS = [
   { days: [1], port: { name: 'Tampa', region: 'Florida' } },
@@ -34,6 +35,30 @@ test('buildDetailedItinerary appends non-cruising stops after the summary name',
       'Colón, Panama',
     ]),
     '7 Night Southern Caribbean Cruise: George Town, Grand Cayman, Oranjestad, Aruba, Willemstad, Curacao, Colón, Panama',
+  );
+});
+
+test('round-trip room-selection ports keep the return port as the destination', () => {
+  const ports = provider.extractPortSequenceFromChapters([
+    { days: [1], port: { name: 'Southampton', region: 'England' } },
+    { days: [2], port: { name: 'Cruising', region: '' } },
+    { days: [3], port: { name: 'Hamburg', region: 'Germany' } },
+    { days: [4], port: { name: 'Bruges/Zeebrugge (Brussels)', region: 'Belgium' } },
+    { days: [5], port: { name: 'Cruising', region: '' } },
+    { days: [6], port: { name: 'Southampton', region: 'England' } },
+  ]);
+
+  assert.deepEqual(ports, [
+    'Southampton, England',
+    'Cruising',
+    'Hamburg, Germany',
+    'Bruges/Zeebrugge (Brussels), Belgium',
+    'Southampton, England',
+  ]);
+  assert.equal(getDestinationPort(ports, { preserveReturnEndpoint: true }), 'Southampton, England');
+  assert.equal(
+    provider.buildDetailedItinerary('Hamburg & Bruges Cruise', ports, { preserveReturnEndpoint: true }),
+    'Hamburg & Bruges Cruise: Hamburg, Germany, Bruges/Zeebrugge (Brussels), Belgium, Southampton, England',
   );
 });
 

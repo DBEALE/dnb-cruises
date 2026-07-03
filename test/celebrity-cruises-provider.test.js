@@ -254,8 +254,8 @@ test('buildDetailedItinerary appends non-cruising stops after the summary name',
       'Philipsburg, St. Maarten',
       'Puerto Plata, Dominican Republic',
       'Miami, Florida',
-    ]),
-    'Tortola, St. Maarten & Puerto Plata: Tortola, BVI, Philipsburg, St. Maarten, Puerto Plata, Dominican Republic',
+    ], { preserveReturnEndpoint: true }),
+    'Tortola, St. Maarten & Puerto Plata: Tortola, BVI, Philipsburg, St. Maarten, Puerto Plata, Dominican Republic, Miami, Florida',
   );
 });
 

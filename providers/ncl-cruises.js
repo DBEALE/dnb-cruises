@@ -100,6 +100,15 @@ function extractItineraryCode(href) {
   }
 }
 
+function isRoundTripBookingUrl(bookingUrl) {
+  try {
+    const fullUrl = bookingUrl.startsWith('/') ? `${NCL_BASE_URL}${bookingUrl}` : bookingUrl;
+    return /(?:^|-)round-?trip(?:-|$)/i.test(new URL(fullUrl).pathname);
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Extracts itinerary stop names from an NCL booking URL slug.
  * NCL booking URLs encode the itinerary ports in their path, e.g.:
@@ -127,6 +136,10 @@ function extractPortsFromSlug(bookingUrl, departurePort) {
 
     // Remove duration prefix (e.g. "7-day-", "14-night-")
     slug = slug.replace(/^\d+(?:-day|-night|-nite)-/i, '');
+
+    if (!/(?:^|[-])(?:round-trip|roundtrip|one-way|oneway|from)-/i.test(slug)) {
+      return [];
+    }
 
     // Remove region/destination + trip-type/direction prefix.
     // Handles: "caribbean-round-trip-", "europe-from-", "western-caribbean-from-",
@@ -361,7 +374,11 @@ function normalizeCruise(detail, bookingUrl) {
   const itineraryCode = cleanText(detail?.code || sailing?.itineraryCode);
   const baseItinerary = cleanText(detail?.shortTitle || detail?.title);
   const ports = extractPortsFromSlug(bookingUrl, departurePort);
-  const destinationPort = ports.length > 1 ? getDestinationPort([departurePort, ...ports]) : '';
+  const isRoundTrip = isRoundTripBookingUrl(bookingUrl);
+  const itineraryPorts = isRoundTrip && departurePort && ports.length > 0 ? [...ports, departurePort] : ports;
+  const destinationPort = isRoundTrip && departurePort
+    ? departurePort
+    : ports.length > 0 ? getDestinationPort([departurePort, ...ports], { preserveReturnEndpoint: true }) : '';
   const roomPrices = extractRoomTypePrices(detail);
 
   return {
@@ -370,7 +387,7 @@ function normalizeCruise(detail, bookingUrl) {
     shipName,
     shipClass: SHIP_CLASS[shipName] || '',
     shipLaunchYear: SHIP_LAUNCH_YEAR[shipName] || null,
-    itinerary: buildDetailedNclItinerary(baseItinerary, ports),
+    itinerary: buildDetailedNclItinerary(baseItinerary, itineraryPorts),
     departureDate: buildDepartureDate(sailing?.departureDate || sailing?.sailStartDate, sailing?.returnDate || detail?.returnDate),
     duration: cleanText(detail?.duration?.text || ''),
     departurePort,
@@ -604,6 +621,7 @@ module.exports.extractFirstDateText = extractFirstDateText;
 module.exports.extractPriceFromText = extractPriceFromText;
 module.exports.extractDateFromText = extractDateFromText;
 module.exports.extractPortsFromSlug = extractPortsFromSlug;
+module.exports.isRoundTripBookingUrl = isRoundTripBookingUrl;
 module.exports.buildDetailedNclItinerary = buildDetailedNclItinerary;
 module.exports.classifyRoomType = classifyRoomType;
 module.exports.extractRoomTypePrices = extractRoomTypePrices;

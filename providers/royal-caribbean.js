@@ -15,6 +15,7 @@ const rci = createRciRoomSelection({
   brand:  'RCL',
   or:     'https://www.royalcaribbean.com',
   defaultCountry: 'USA',
+  preserveReturnEndpoint: true,
 });
 
 const parseBookingContext        = rci.parseBookingContext;
@@ -181,11 +182,11 @@ async function enrichCruiseItinerary(cruise) {
 
   try {
     const { ports } = await fetchRoomSelectionData(context);
-    const detailedItinerary = buildDetailedItinerary(cruise.itinerary, ports);
+    const detailedItinerary = buildDetailedItinerary(cruise.itinerary, ports, { preserveReturnEndpoint: true });
     return {
       ...cruise,
       itinerary: detailedItinerary || cruise.itinerary,
-      destinationPort: getDestinationPort(ports),
+      destinationPort: getDestinationPort(ports, { preserveReturnEndpoint: true }),
       seaDays: estimateSeaDays({
         labels: ports,
         duration: cruise.duration,
@@ -261,7 +262,7 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
 
 const provider = new RoyalCaribbeanProvider();
 
-provider.extractPortSequenceFromChapters  = extractPortSequenceFromChapters;
+provider.extractPortSequenceFromChapters  = (chapters) => extractPortSequenceFromChapters(chapters, { preserveReturnEndpoint: true });
 provider.extractRoomTypePricesFromPayload = extractRoomTypePricesFromPayload;
 provider.classifyRoomType                 = classifyRoomType;
 provider.buildDetailedItinerary           = buildDetailedItinerary;

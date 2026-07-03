@@ -59,6 +59,7 @@ test('uses port names as itinerary when portNames are provided', () => {
   );
 
   assert.equal(cruise.itinerary, 'Southampton → Lisbon → Gibraltar → Barcelona → Rome (Civitavecchia) → Southampton');
+  assert.equal(cruise.destinationPort, 'Southampton');
   assert.equal(cruise.destination, 'Europe');
   assert.equal(cruise.duration, '12 Nights');
 });

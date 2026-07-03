@@ -64,6 +64,13 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '3 Jul 2026',
+      title: 'Correct return ports',
+      items: [
+        'Round-trip sailings now keep the final return port in the itinerary and use it as the destination port across supported providers.',
+      ],
+    },
+    {
       date: '30 Jun 2026',
       title: 'Shorter WhatsApp alerts',
       items: [

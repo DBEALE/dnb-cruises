@@ -329,7 +329,7 @@ function normalizeCruise(product, sailDate, shipId, shipName, portName, portName
   const destination  = getDestination(product.trades);
   const nights       = product.cruiseDuration ? String(product.cruiseDuration) : '';
   const itinerary    = buildItinerary(portNames, nights, destination);
-  const destinationPort = getDestinationPort(portNames);
+  const destinationPort = getDestinationPort(portNames, { preserveReturnEndpoint: true });
 
   const fare     = getLowestFare(ship);
   const priceFrom = fare ? fare.amount : '';

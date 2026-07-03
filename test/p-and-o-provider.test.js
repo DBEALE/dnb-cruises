@@ -42,7 +42,7 @@ test('parses a P&O result card into the shared cruise contract', () => {
   assert.equal(cruise.duration, '7 Nights');
   assert.equal(cruise.departurePort, 'Southampton, UK');
   assert.equal(cruise.departureRegion, 'UK & Ireland');
-  assert.equal(cruise.destinationPort, 'Olden');
+  assert.equal(cruise.destinationPort, 'Southampton');
   assert.equal(cruise.priceFrom, '909');
   assert.deepEqual(cruise.prices, { inside: '909', oceanView: null, balcony: null, suite: null });
   assert.equal(cruise.bookingUrl, 'https://www.pocruises.com/find-a-cruise/G621/G621');
