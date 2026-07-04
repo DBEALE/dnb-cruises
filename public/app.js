@@ -78,7 +78,7 @@
       title: 'Full P&O Cruises catalogue',
       items: [
         'P&O Cruises now lists its whole programme (900+ sailings) instead of a small sample, pulled directly from P&O\'s cruise-search data for faster, more reliable updates.',
-        'P&O rows now show per-cabin prices (inside, sea view, balcony and suite) rather than just the lead-in fare.',
+        'P&O rows now show per-cabin prices (inside, sea view, balcony and suite) rather than just the lead-in fare, and a full port-by-port itinerary.',
       ],
     },
     {

@@ -128,20 +128,68 @@ function countSeaDays(portOfCallIds) {
   return seaDays > 0 ? seaDays : null;
 }
 
+// Resolve a port code to a display name: the fetched port map first (full,
+// ~1455 ports), then the small hardcoded fallback, then the raw code.
+function resolvePort(code, portMap) {
+  const c = cleanText(code).toUpperCase();
+  if (!c) return '';
+  return (portMap && portMap[c]) || PORT_NAMES[c] || c;
+}
+
+// Build the itinerary as an arrow-joined port sequence (sea days dropped,
+// consecutive duplicates collapsed). Falls back to the cruise name when no
+// ports resolve (e.g. the port map couldn't be fetched).
+function buildItinerary(name, portOfCallIds, portMap) {
+  const ports = (Array.isArray(portOfCallIds) ? portOfCallIds : [])
+    .map((code) => {
+      const c = cleanText(code).toUpperCase();
+      if (!c || /ATSEADAY/i.test(c)) return '';
+      return (portMap && portMap[c]) || PORT_NAMES[c] || '';
+    })
+    .filter(Boolean);
+  const sequence = ports.filter((port, i) => i === 0 || port !== ports[i - 1]);
+  return sequence.length ? sequence.join(' → ') : cleanText(name);
+}
+
+// The port code → name map lives in the find-a-cruise page's __NEXT_DATA__
+// (search results only carry codes). Fetched once per scrape; an empty map on
+// failure just degrades the itinerary to the cruise name.
+async function fetchPortMap(fetchImpl = fetchWithTimeout) {
+  try {
+    const res = await fetchImpl(`${BOOKING_BASE_URL}?web2=true`, {
+      headers: { 'user-agent': DEFAULT_USER_AGENT, 'accept-language': 'en-GB,en;q=0.9' },
+    });
+    if (!res.ok) return {};
+    const html = await res.text();
+    const match = html.match(/"portOfCalls":\{"items":(\[[^\]]*\])/);
+    if (!match) return {};
+    const map = {};
+    for (const item of JSON.parse(match[1])) {
+      const code = cleanText(item?.id).toUpperCase();
+      // Some source names have a stray space before the comma ("Chania) , Crete").
+      const name = cleanText(item?.txName).replace(/\s+,/g, ',');
+      if (code && name) map[code] = name;
+    }
+    return map;
+  } catch {
+    return {};
+  }
+}
+
 /**
  * Maps one `searchResults` entry from the cruise-query-processor API to the
  * shared cruise contract. `cabins[0]` is the cheapest available cabin (the
  * lead-in fare); we populate that bucket and use it as `priceFrom`.
  */
-function normalizeApiCruise(raw) {
+function normalizeApiCruise(raw, portMap = {}) {
   const cruiseId = cleanText(raw?.cruiseId || raw?.itineraryId);
   if (!cruiseId) return null;
 
   const shipName = resolveShipName(raw);
   const meta     = SHIPS[shipName] || {};
   const nights   = Number.parseInt(raw?.duration, 10);
-  const departurePort   = portName(raw?.embarkPortCode);
-  const destinationPort = portName(raw?.disembarkPortCode);
+  const departurePort   = resolvePort(raw?.embarkPortCode, portMap);
+  const destinationPort = resolvePort(raw?.disembarkPortCode, portMap);
 
   const prices   = emptyPrices();
   const cheapest = Array.isArray(raw?.cabins) ? raw.cabins[0] : null;
@@ -159,7 +207,7 @@ function normalizeApiCruise(raw) {
     shipName,
     shipClass: meta.shipClass || '',
     shipLaunchYear: meta.shipLaunchYear || null,
-    itinerary: name || destination,
+    itinerary: buildItinerary(name || destination, raw?.portOfCallIds, portMap),
     departureDate: toIsoDate(raw?.departDate),
     duration: Number.isFinite(nights) ? `${nights} Nights` : '',
     departurePort,
@@ -222,12 +270,16 @@ async function fetchCruises(options = {}) {
   const fetchImpl = options.fetchImpl || fetchWithTimeout;
   const logger    = options.logger || console;
 
+  // Port code → name map (for itineraries), fetched once. options.portMap lets
+  // tests inject one.
+  const portMap = options.portMap || await fetchPortMap(fetchImpl);
+
   // One pass per cabin type, merging each sailing's per-cabin fares by id.
   const byId = new Map();
   for (const roomType of ROOM_TYPES) {
     const rows = await fetchRoomTypePages(roomType, fetchImpl, logger);
     for (const raw of rows) {
-      const cruise = normalizeApiCruise(raw);
+      const cruise = normalizeApiCruise(raw, portMap);
       if (!cruise) continue;
       const existing = byId.get(cruise.id);
       if (!existing) {
@@ -270,6 +322,8 @@ module.exports.normalizeApiCruise = normalizeApiCruise;
 module.exports.fetchSearchPage = fetchSearchPage;
 module.exports.classifyCabinType = classifyCabinType;
 module.exports.resolveShipName = resolveShipName;
+module.exports.buildItinerary = buildItinerary;
+module.exports.fetchPortMap = fetchPortMap;
 module.exports.portName = portName;
 module.exports.countSeaDays = countSeaDays;
 module.exports.emptyPrices = emptyPrices;

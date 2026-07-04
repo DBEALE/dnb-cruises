@@ -43,20 +43,49 @@ test('maps known embark/disembark port codes to display names', () => {
   assert.equal(provider.portName(''), '');
 });
 
+test('buildItinerary resolves port codes, drops sea days, and keeps the return endpoint', () => {
+  const map = { SOU: 'Southampton, UK', LIS: 'Lisbon, Portugal', VGO: 'Vigo, Spain' };
+  assert.equal(
+    provider.buildItinerary('Iberia, 7 Nights', ['SOU', 'ATSEADAY', 'LIS', 'VGO', 'ATSEADAY', 'SOU'], map),
+    'Southampton, UK → Lisbon, Portugal → Vigo, Spain → Southampton, UK',
+  );
+  // No resolvable ports → fall back to the cruise name.
+  assert.equal(provider.buildItinerary('Transatlantic Crossing', ['ATSEADAY', 'ZZZ'], {}), 'Transatlantic Crossing');
+});
+
+test('fetchPortMap parses the port code→name map from the find-a-cruise page', async () => {
+  const html = `<html><script id="__NEXT_DATA__" type="application/json">${JSON.stringify({
+    x: { portOfCalls: { items: [{ id: 'MLA', txName: 'Valletta, Malta' }, { id: 'CFU', txName: 'Corfu, Greece' }] } },
+  })}</script></html>`;
+  const fetchImpl = async () => ({ ok: true, text: async () => html });
+  const map = await provider.fetchPortMap(fetchImpl);
+  assert.equal(map.MLA, 'Valletta, Malta');
+  assert.equal(map.CFU, 'Corfu, Greece');
+});
+
+test('fetchPortMap returns an empty map (not an error) when the page fails', async () => {
+  assert.deepEqual(await provider.fetchPortMap(async () => ({ ok: false, status: 500 })), {});
+  assert.deepEqual(await provider.fetchPortMap(async () => { throw new Error('offline'); }), {});
+});
+
 test('counts sea days from the ATSEADAY itinerary markers', () => {
   assert.equal(provider.countSeaDays(['MLA', 'ATSEADAY', 'ARM', 'ATSEADAY', 'MLA']), 2);
   assert.equal(provider.countSeaDays(['MLA', 'ARM']), null);
   assert.equal(provider.countSeaDays(undefined), null);
 });
 
+const PORT_MAP = { MLA: 'Valletta, Malta', ARM: 'Cephalonia, Argostoli', CFU: 'Corfu, Greece' };
+
 test('normalizes an API search result into the shared cruise contract', () => {
-  const cruise = provider.normalizeApiCruise(apiResult());
+  const cruise = provider.normalizeApiCruise(apiResult(), PORT_MAP);
   assert.equal(cruise.id, 'pando-A627A');
   assert.equal(cruise.provider, 'P&O Cruises');
   assert.equal(cruise.shipName, 'Azura');
   assert.equal(cruise.shipClass, 'Grand');
   assert.equal(cruise.shipLaunchYear, 2010);
-  assert.equal(cruise.itinerary, 'Mediterranean Fly-Cruise, 14 Nights');
+  // Itinerary is the arrow-joined port sequence (sea days dropped) resolved
+  // from the port map; the return endpoint is kept.
+  assert.equal(cruise.itinerary, 'Valletta, Malta → Cephalonia, Argostoli → Corfu, Greece → Valletta, Malta');
   assert.equal(cruise.departureDate, '2026-07-09');
   assert.equal(cruise.arrivalDate, '2026-07-23');
   assert.equal(cruise.duration, '14 Nights');
@@ -115,7 +144,7 @@ test('fetchCruises runs one pass per cabin type and merges per-cabin fares', asy
     return { ok: true, json: async () => ({ results: rows.length, searchResults: rows }) };
   };
 
-  const cruises = await provider.fetchCruises({ fetchImpl, logger: { warn() {} } });
+  const cruises = await provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn() {} } });
 
   assert.deepEqual([...seen].sort(), ['B', 'I', 'O', 'S'], 'one pass per cabin type');
   assert.equal(cruises.length, 1);
@@ -134,7 +163,7 @@ test('fetchCruises paginates each pass by start offset and dedupes across passes
     return { ok: true, json: async () => ({ results: all.length, searchResults: all.slice(start, start + 10) }) };
   };
 
-  const cruises = await provider.fetchCruises({ fetchImpl, logger: { warn() {} } });
+  const cruises = await provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn() {} } });
 
   assert.equal(cruises.length, 25, 'deduped across the four passes');
   assert.deepEqual([...new Set(starts)].sort((a, b) => a - b), [0, 10, 20], 'paginated by start offset');
@@ -144,7 +173,7 @@ test('fetchCruises paginates each pass by start offset and dedupes across passes
 test('fetchCruises throws when the API returns nothing (never overwrites good data)', async () => {
   const fetchImpl = async () => ({ ok: true, json: async () => ({ results: 0, searchResults: [] }) });
   await assert.rejects(
-    () => provider.fetchCruises({ fetchImpl, logger: { warn() {} } }),
+    () => provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn() {} } }),
     /P&O returned no cruise results/,
   );
 });
@@ -157,7 +186,7 @@ test('fetchCruises keeps successful pages when one page request fails', async ()
     return { ok: true, json: async () => ({ results: 20, searchResults: rows.slice(start, start + 10) }) };
   };
   const warnings = [];
-  const cruises = await provider.fetchCruises({ fetchImpl, logger: { warn: m => warnings.push(m) } });
+  const cruises = await provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn: m => warnings.push(m) } });
   assert.equal(cruises.length, 10, 'first page kept despite the second failing');
   assert.match(warnings.join(' '), /page start=10 failed/);
 });
