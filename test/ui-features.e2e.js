@@ -550,6 +550,23 @@ test.describe('URL state', () => {
     await expect(followOnPage.locator('#cruiseBody')).toContainText('Follow On of the Seas');
     await followOnPage.close();
   });
+
+  test('follow-on search window setting widens the departure range', async ({ page }) => {
+    await page.addInitScript(() => {
+      window.open = (url) => { window.__openedFollowOn = { url }; return {}; };
+    });
+    // rc_a arrives 2026-09-07; a 7-day window should search through 2026-09-14.
+    await gotoFresh(page, { ...ALL_ON, followOnDays: 7 });
+
+    await page.locator('.cruise-follow-on-btn[data-follow-on-cruise="rc_a"]').click();
+    const opened = await page.evaluate(() => window.__openedFollowOn);
+    expect(opened.url).toContain('departureStart=2026-09-07');
+    expect(opened.url).toContain('departureEnd=2026-09-14');
+
+    // The row tooltip reflects the configured window too.
+    await expect(page.locator('.cruise-follow-on-btn[data-follow-on-cruise="rc_a"]'))
+      .toHaveAttribute('title', /within 7 days of arrival/);
+  });
 });
 
 test.describe('Mobile filters', () => {

@@ -34,6 +34,10 @@
     classDots:  true,
     launchYear: true,
     shipIcons:  true,
+    // Days after a cruise's arrival to include when opening a follow-on search
+    // from its destination port. Raise it to allow a stayover before the next
+    // sailing. See followOnSearchHash().
+    followOnDays: 3,
   };
   let settings = { ...SETTINGS_DEFAULTS };
   let loadedProviders = [];
@@ -64,6 +68,13 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '4 Jul 2026',
+      title: 'Adjustable follow-on search window',
+      items: [
+        'Display options now include a "Follow-on search window" (default 3 days). Raise it — up to 14 — to look further ahead for an onward cruise from the destination port, handy if you want a stayover before the next sailing.',
+      ],
+    },
     {
       date: '3 Jul 2026',
       title: 'Instant repeat visits',
@@ -1456,7 +1467,8 @@
 
   function followOnButton(c, destinationPort = '') {
     if (!c?.id || !destinationPort || !followOnArrivalDateKey(c)) return '';
-    const label = `Find follow-on cruises from ${destinationPort}`;
+    const days = normalizeFollowOnDays(settings.followOnDays);
+    const label = `Find cruises from ${destinationPort} departing within ${days} day${days === 1 ? '' : 's'} of arrival`;
     return `<button type="button" class="cruise-follow-on-btn" data-follow-on-cruise="${escHtml(c.id)}" aria-label="${escHtml(label)}" title="${escHtml(label)}">${followOnIcon()}</button>`;
   }
 
@@ -2236,6 +2248,14 @@
     return 'wikipedia';
   }
 
+  // Clamp the follow-on search window to a sane whole number of days so a
+  // hand-edited or legacy setting can't produce a nonsensical date range.
+  function normalizeFollowOnDays(value) {
+    const n = Math.round(Number(value));
+    if (!Number.isFinite(n)) return SETTINGS_DEFAULTS.followOnDays;
+    return Math.min(60, Math.max(1, n));
+  }
+
   function loadSettings() {
     try {
       const raw = localStorage.getItem(SETTINGS_KEY);
@@ -2247,6 +2267,7 @@
         if (!saved.linkTarget) saveSettings();
       }
     } catch {}
+    settings.followOnDays = normalizeFollowOnDays(settings.followOnDays);
     applySettingsToDom();
   }
   function saveSettings() {
@@ -2275,6 +2296,8 @@
     });
     const linkTarget = document.getElementById('settingsLinkTarget');
     if (linkTarget) linkTarget.value = settings.linkTarget;
+    const followOnDays = document.getElementById('settingsFollowOnDays');
+    if (followOnDays) followOnDays.value = String(settings.followOnDays);
     const phoneInput = document.getElementById('settingsPhone');
     if (phoneInput) phoneInput.value = rememberedPhone();
     const homePortInput = document.getElementById('settingsHomePort');
@@ -2309,6 +2332,16 @@
       linkTarget.addEventListener('change', () => {
         settings.linkTarget = linkTarget.value;
         saveSettings();
+        if (allCruises.length) applyFilters();
+      });
+    }
+
+    const followOnDays = document.getElementById('settingsFollowOnDays');
+    if (followOnDays) {
+      followOnDays.addEventListener('change', () => {
+        settings.followOnDays = normalizeFollowOnDays(followOnDays.value);
+        saveSettings();
+        // Re-render so each row's follow-on tooltip reflects the new window.
         if (allCruises.length) applyFilters();
       });
     }
@@ -2353,6 +2386,7 @@
         cb.checked = !!settings[cb.dataset.setting];
       });
       if (linkTarget) linkTarget.value = settings.linkTarget;
+      if (followOnDays) followOnDays.value = String(settings.followOnDays);
       applySettingsToDom();
       saveSettings();
       if (allCruises.length) applyFilters();
@@ -3533,7 +3567,7 @@
     return new URLSearchParams({
       departurePort,
       departureStart: arrival,
-      departureEnd: addDaysIso(arrival, 3),
+      departureEnd: addDaysIso(arrival, normalizeFollowOnDays(settings.followOnDays)),
     }).toString();
   }
 
