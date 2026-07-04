@@ -69,6 +69,22 @@ const smokeCases = {
   }),
 };
 
+// Which real providers launch a headless Chromium. The scrape scheduler
+// serialises exactly these so two never contend and starve into empty results;
+// keep this in lockstep with the `usesBrowser` flags on the provider modules.
+const BROWSER_PROVIDER_IDS = new Set(['ncl-cruises', 'p-and-o', 'princess-cruises']);
+
+test('browser providers are flagged usesBrowser so the scheduler serialises them', () => {
+  for (const provider of providers) {
+    const expected = BROWSER_PROVIDER_IDS.has(provider.id);
+    assert.equal(
+      Boolean(provider.usesBrowser),
+      expected,
+      `${provider.id} usesBrowser should be ${expected} (it ${expected ? 'launches' : 'does not launch'} Chromium)`,
+    );
+  }
+});
+
 test('every registered provider normalizes a representative sailing', () => {
   assert.deepEqual(providers.map(provider => provider.id), Object.keys(smokeCases));
 

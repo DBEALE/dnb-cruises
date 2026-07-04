@@ -617,6 +617,9 @@ class NclCruisesProvider {
 }
 
 module.exports = new NclCruisesProvider();
+// Launches a headless Chromium; the scrape scheduler serialises browser
+// providers so no two Chromium instances contend for a small CI runner.
+module.exports.usesBrowser = true;
 module.exports.normalizeCruise = normalizeCruise;
 module.exports.collectCruiseCards = collectCruiseCards;
 module.exports.extractFirstDateText = extractFirstDateText;

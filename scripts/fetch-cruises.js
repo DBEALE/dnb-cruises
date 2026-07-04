@@ -179,6 +179,15 @@ function countCurrentPrices(cruises) {
 }
 
 function writeProviderSnapshot(provider, cruises, scrapedAt) {
+  // Safety net: never overwrite a good snapshot with an empty one. The fetch
+  // path already excludes empty/failed providers, but this guarantees it
+  // structurally — a zero-cruise write is always a scrape failure, never a
+  // real state, so we keep the last-known-good file untouched.
+  if (!Array.isArray(cruises) || cruises.length === 0) {
+    console.warn(`  ⚠ ${provider.name}: refusing to write an empty snapshot; keeping previous ${getProviderOutputPath(provider.id)}`);
+    return false;
+  }
+
   const outPath = getProviderOutputPath(provider.id);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
 
@@ -205,6 +214,7 @@ function writeProviderSnapshot(provider, cruises, scrapedAt) {
   console.log(`  ✓ Wrote ${slimCruises.length} cruises to ${outPath}`);
 
   writeProviderHistory(provider, history, scrapedAt);
+  return true;
 }
 
 function writeProviderHistory(provider, history, scrapedAt) {
@@ -261,6 +271,50 @@ async function fetchProviderSnapshot(provider, options = {}) {
     }
   }
   throw new Error(`${provider.name} returned no cruise results`);
+}
+
+// Runs every provider, returning a settled[] of { status, value|reason } in the
+// same shape the sequential loop produced. A provider that throws or returns an
+// empty result becomes a `rejected` entry and is therefore filtered out before
+// the write step — so an empty scrape can never overwrite good data.
+//
+// Concurrency is deliberately shaped to avoid the one failure mode that used to
+// force this fully sequential: two headless Chromium instances contending on a
+// small CI runner and starving each other into timeouts / empty results.
+//   • Network-only providers (pure HTTP/GraphQL, e.g. Royal Caribbean,
+//     Celebrity) run all at once — cheap and independent.
+//   • Browser providers (`usesBrowser`, each launches Chromium) run in a single
+//     serialised lane, so at most one Chromium is ever live. That lane overlaps
+//     the network lane freely (one browser + some HTTP is fine).
+// Set SCRAPE_SEQUENTIAL=1 (or pass { sequential: true }) to force the original
+// one-at-a-time behaviour as an escape hatch.
+async function fetchAllSnapshots(activeProviders, options = {}) {
+  const settled = [];
+  const runOne = async (provider) => {
+    try {
+      settled.push({ status: 'fulfilled', value: await fetchProviderSnapshot(provider, options) });
+    } catch (err) {
+      console.error(`  ✗ ${provider.name} failed: ${err.message}`);
+      settled.push({ status: 'rejected', reason: err });
+    }
+  };
+  const runSerial = async (list) => { for (const provider of list) await runOne(provider); };
+
+  const sequential = options.sequential || process.env.SCRAPE_SEQUENTIAL === '1';
+  if (sequential) {
+    await runSerial(activeProviders);
+    return settled;
+  }
+
+  const networkProviders = activeProviders.filter(provider => !provider.usesBrowser);
+  const browserProviders = activeProviders.filter(provider => provider.usesBrowser);
+  console.log(`Fetching ${networkProviders.length} network provider(s) in parallel; ${browserProviders.length} browser provider(s) one at a time.`);
+
+  await Promise.all([
+    ...networkProviders.map(runOne),
+    runSerial(browserProviders),
+  ]);
+  return settled;
 }
 
 // ── Alert matching ─────────────────────────────────────────────────────────────
@@ -411,19 +465,8 @@ async function main() {
   } catch {}
   console.log(`Exchange rate: 1 USD = £${usdToGbp.toFixed(4)}`);
 
-  // Fetch providers one at a time. Several providers use Playwright or heavy
-  // upstream APIs; running them in parallel can make a healthy provider return
-  // an empty result set and overwrite good data.
   const scrapedAt = new Date().toISOString();
-  const settled = [];
-  for (const provider of activeProviders) {
-    try {
-      settled.push({ status: 'fulfilled', value: await fetchProviderSnapshot(provider) });
-    } catch (err) {
-      console.error(`  ✗ ${provider.name} failed: ${err.message}`);
-      settled.push({ status: 'rejected', reason: err });
-    }
-  }
+  const settled = await fetchAllSnapshots(activeProviders);
 
   const providerSnapshots = settled
     .filter(r => r.status === 'fulfilled')
@@ -506,6 +549,7 @@ if (require.main === module) {
 module.exports = {
   countCurrentPrices,
   fetchProviderSnapshot,
+  fetchAllSnapshots,
   hasUniformCabinPrices,
   mergePriceHistory,
   sanitizePriceHistoryForProvider,

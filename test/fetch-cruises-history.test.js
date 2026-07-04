@@ -9,6 +9,7 @@ const path = require('node:path');
 const {
   countCurrentPrices,
   fetchProviderSnapshot,
+  fetchAllSnapshots,
   mergePriceHistory,
   sanitizePriceHistoryForProvider,
   getProviderOutputPath,
@@ -16,6 +17,95 @@ const {
   writeProviderSnapshot,
   readPreviousProviderSnapshot,
 } = require('../scripts/fetch-cruises');
+
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+// ── Concurrent scrape scheduling (must never introduce empty results) ─────────
+
+// Builds a fake provider that records how many of its "kind" (browser vs
+// network) are executing at once, so a test can assert the concurrency shape.
+function makeInstrumentedProvider(id, usesBrowser, counters, { result } = {}) {
+  return {
+    id, name: id, usesBrowser,
+    async fetchCruises() {
+      const key = usesBrowser ? 'browser' : 'network';
+      counters[key].active++;
+      counters[key].max = Math.max(counters[key].max, counters[key].active);
+      await delay(15);
+      counters[key].active--;
+      return result !== undefined ? result : [{ id: `${id}_1`, shipName: 'Ship' }];
+    },
+  };
+}
+
+test('fetchAllSnapshots never runs two browser (Chromium) providers at once', async () => {
+  const counters = { browser: { active: 0, max: 0 }, network: { active: 0, max: 0 } };
+  const providers = [
+    makeInstrumentedProvider('rc', false, counters),
+    makeInstrumentedProvider('celebrity', false, counters),
+    makeInstrumentedProvider('ncl', true, counters),
+    makeInstrumentedProvider('p-and-o', true, counters),
+    makeInstrumentedProvider('princess', true, counters),
+  ];
+
+  const settled = await fetchAllSnapshots(providers, { emptyResultRetries: 0 });
+
+  // The failure mode that used to force sequential scraping — two headless
+  // Chromium instances contending — is structurally impossible now.
+  assert.equal(counters.browser.max, 1, 'at most one browser provider runs at a time');
+  assert.ok(counters.network.max >= 2, 'network providers still run concurrently');
+  assert.equal(settled.filter(s => s.status === 'fulfilled').length, 5);
+});
+
+test('fetchAllSnapshots excludes empty/throwing providers so they cannot overwrite good data', async () => {
+  const counters = { browser: { active: 0, max: 0 }, network: { active: 0, max: 0 } };
+  const providers = [
+    makeInstrumentedProvider('good', false, counters),
+    makeInstrumentedProvider('empty-browser', true, counters, { result: [] }),
+    { id: 'boom', name: 'boom', fetchCruises: async () => { throw new Error('network down'); } },
+  ];
+
+  const settled = await fetchAllSnapshots(providers, { emptyResultRetries: 0 });
+
+  const fulfilled = settled.filter(s => s.status === 'fulfilled').map(s => s.value.provider.id);
+  assert.deepEqual(fulfilled, ['good'], 'only the non-empty provider is a snapshot');
+  assert.equal(settled.filter(s => s.status === 'rejected').length, 2, 'empty + throwing both rejected');
+});
+
+test('fetchAllSnapshots sequential mode runs providers strictly one at a time', async () => {
+  const counters = { browser: { active: 0, max: 0 }, network: { active: 0, max: 0 } };
+  const providers = [
+    makeInstrumentedProvider('a', false, counters),
+    makeInstrumentedProvider('b', false, counters),
+    makeInstrumentedProvider('c', false, counters),
+  ];
+
+  const settled = await fetchAllSnapshots(providers, { sequential: true, emptyResultRetries: 0 });
+
+  assert.equal(counters.network.max, 1, 'sequential mode never overlaps providers');
+  assert.equal(settled.filter(s => s.status === 'fulfilled').length, 3);
+});
+
+test('writeProviderSnapshot refuses to overwrite an existing file with an empty snapshot', () => {
+  const providerId = `__test-empty-guard-${process.pid}`;
+  const provider = { id: providerId, name: 'Empty Guard' };
+  const cruisesPath = getProviderOutputPath(providerId);
+
+  try {
+    // A good snapshot writes and returns true.
+    assert.equal(
+      writeProviderSnapshot(provider, [{ id: 'a', shipName: 'Ship', prices: { inside: '500' } }], '2026-06-01T00:00:00Z'),
+      true,
+    );
+    const goodContents = fs.readFileSync(cruisesPath, 'utf8');
+
+    // An empty snapshot is refused (returns false) and leaves the file intact.
+    assert.equal(writeProviderSnapshot(provider, [], '2026-06-02T00:00:00Z'), false);
+    assert.equal(fs.readFileSync(cruisesPath, 'utf8'), goodContents, 'existing good data is untouched');
+  } finally {
+    fs.rmSync(path.dirname(cruisesPath), { recursive: true, force: true });
+  }
+});
 
 test('snapshot write splits price history into a sibling file and read reattaches it', () => {
   const providerId = `__test-split-${process.pid}`;

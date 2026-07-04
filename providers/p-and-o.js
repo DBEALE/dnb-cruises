@@ -319,6 +319,9 @@ async function fetchCruises(options = {}) {
 const provider = {
   id: 'p-and-o',
   name: 'P&O Cruises',
+  // Launches a headless Chromium; the scrape scheduler serialises browser
+  // providers so no two Chromium instances contend for a small CI runner.
+  usesBrowser: true,
   fetchCruises,
   normalizeCruise(cruise) {
     if (cruise?.id && cruise?.provider === provider.name) return cruise;

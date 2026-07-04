@@ -651,6 +651,9 @@ class PrincessCruisesProvider {
 // ─── Exports ──────────────────────────────────────────────────────────────────
 
 const provider = new PrincessCruisesProvider();
+// Launches a headless Chromium; the scrape scheduler serialises browser
+// providers so no two Chromium instances contend for a small CI runner.
+provider.usesBrowser = true;
 
 module.exports               = provider;
 module.exports.normalizeCruise = normalizeCruise;
