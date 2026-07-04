@@ -54,6 +54,25 @@ const SHIPS = {
   Ventura:   { shipClass: 'Grand',      shipLaunchYear: 2008 },
 };
 
+// The API omits `shipName` on ~half the records but always sends `shipId`, so
+// resolve the name from the id (with shipName as a fallback for any new ship).
+const SHIP_IDS = {
+  AC: 'Arcadia',
+  AR: 'Arvia',
+  AU: 'Aurora',
+  AZ: 'Azura',
+  BR: 'Britannia',
+  IA: 'Iona',
+  VE: 'Ventura',
+};
+
+function resolveShipName(raw) {
+  const byId = SHIP_IDS[cleanText(raw?.shipId).toUpperCase()];
+  if (byId) return byId;
+  const explicit = cleanText(raw?.shipName);
+  return explicit && explicit.toLowerCase() !== 'undefined' ? explicit : '';
+}
+
 // Embark/disembark port codes P&O actually uses (from aggregating the whole
 // catalogue), mapped to display names. Unknown codes fall back to the raw code.
 const PORT_NAMES = {
@@ -118,7 +137,7 @@ function normalizeApiCruise(raw) {
   const cruiseId = cleanText(raw?.cruiseId || raw?.itineraryId);
   if (!cruiseId) return null;
 
-  const shipName = cleanText(raw?.shipName);
+  const shipName = resolveShipName(raw);
   const meta     = SHIPS[shipName] || {};
   const nights   = Number.parseInt(raw?.duration, 10);
   const departurePort   = portName(raw?.embarkPortCode);
@@ -250,6 +269,7 @@ module.exports = provider;
 module.exports.normalizeApiCruise = normalizeApiCruise;
 module.exports.fetchSearchPage = fetchSearchPage;
 module.exports.classifyCabinType = classifyCabinType;
+module.exports.resolveShipName = resolveShipName;
 module.exports.portName = portName;
 module.exports.countSeaDays = countSeaDays;
 module.exports.emptyPrices = emptyPrices;

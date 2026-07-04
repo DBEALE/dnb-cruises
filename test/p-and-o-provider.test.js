@@ -72,6 +72,19 @@ test('normalizes an API search result into the shared cruise contract', () => {
   assert.equal(cruise.bookingUrl, 'https://www.pocruises.com/find-a-cruise/A627A/A627A');
 });
 
+test('resolves the ship name from shipId when the API omits shipName', () => {
+  // The API sends `shipName: undefined` on ~half the records but always a shipId.
+  const cruise = provider.normalizeApiCruise(apiResult({ shipName: undefined, shipId: 'AC' }));
+  assert.equal(cruise.shipName, 'Arcadia');
+  assert.equal(cruise.shipClass, 'Vista');
+  assert.equal(cruise.shipLaunchYear, 2005);
+
+  // shipId is authoritative even when a stale name is present.
+  assert.equal(provider.resolveShipName({ shipId: 'IA', shipName: 'undefined' }), 'Iona');
+  // Falls back to an explicit name for an unmapped id.
+  assert.equal(provider.resolveShipName({ shipId: 'ZZ', shipName: 'Future Ship' }), 'Future Ship');
+});
+
 test('normalizeApiCruise falls back to avgPerPersonPrice when no cabin fare is present', () => {
   const cruise = provider.normalizeApiCruise(apiResult({ cabins: [] }));
   assert.equal(cruise.priceFrom, '2532');
