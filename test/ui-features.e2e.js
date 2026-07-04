@@ -567,6 +567,43 @@ test.describe('URL state', () => {
     await expect(page.locator('.cruise-follow-on-btn[data-follow-on-cruise="rc_a"]'))
       .toHaveAttribute('title', /within 7 days of arrival/);
   });
+
+  test('cruise-before button opens a search for a cruise arriving before departure', async ({ page }) => {
+    const beforeFixtures = {
+      royalCaribbean: {
+        scrapedAt: CRUISES_RC.scrapedAt,
+        cruises: [
+          ...CRUISES_RC.cruises,
+          cruise({
+            // Arrives at Southampton 2026-08-30, the day before rc_a sails from there.
+            id: 'rc_pre', shipName: 'Pre Cruise of the Seas', provider: 'Royal Caribbean',
+            priceFrom: 600, days: 7, departureDate: '2026-08-23', arrivalDate: '2026-08-30',
+            firstSeenAt: isoAgo(DAY), port: 'Barcelona', destinationPort: 'Southampton',
+            prices: { inside: '600', oceanView: null, balcony: null, suite: null },
+          }),
+        ],
+      },
+    };
+    await page.addInitScript(() => {
+      window.open = (url) => { window.__openedBefore = { url }; return {}; };
+    });
+    await gotoFresh(page, null, beforeFixtures);
+
+    // rc_a departs Southampton 2026-08-31; default 3-day window → arrivals 08-28…08-31.
+    await page.locator('.cruise-before-btn[data-before-cruise="rc_a"]').click();
+    const opened = await page.evaluate(() => window.__openedBefore);
+    expect(opened.url).toContain('destinationPort=Southampton');
+    expect(opened.url).toContain('arrivalStart=2026-08-28');
+    expect(opened.url).toContain('arrivalEnd=2026-08-31');
+
+    const beforePage = await page.context().newPage();
+    await setupRoutes(beforePage, beforeFixtures);
+    await beforePage.goto(opened.url);
+    await expect(beforePage.locator('#cruiseBody')).toContainText('Pre Cruise of the Seas');
+    // rc_a arrives 09-07 and rc_b 09-15 — both outside the window, so filtered out.
+    await expect(beforePage.locator('#cruiseBody')).not.toContainText('Anthem of the Seas');
+    await beforePage.close();
+  });
 });
 
 test.describe('Mobile filters', () => {

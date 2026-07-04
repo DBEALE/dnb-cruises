@@ -55,6 +55,11 @@
   let selectedCruiseId = '';
   let favoriteCruiseIds = new Set();
   let favoritesOnly = false;
+  // Arrival-date window for the "cruise before" search. Held as module state
+  // (like selectedCruiseId) rather than a visible filter — it's set from the
+  // URL by the pre-cruise button and round-trips through serialize/applyUrlState.
+  let arrivalRangeStart = '';
+  let arrivalRangeEnd = '';
   let shipWikiLinks     = {};
   let providerWikiLinks = {};
   let classWikiLinks    = {};
@@ -68,6 +73,13 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '4 Jul 2026',
+      title: 'Find a connecting cruise before, too',
+      items: [
+        'The departure-port column now has a button that searches for a cruise arriving at that port shortly before this one sails — the mirror of the existing "cruise after" button. Both use the connecting-cruise window in display options.',
+      ],
+    },
     {
       date: '4 Jul 2026',
       title: 'Adjustable follow-on search window',
@@ -1466,10 +1478,24 @@
   }
 
   function followOnButton(c, destinationPort = '') {
-    if (!c?.id || !destinationPort || !followOnArrivalDateKey(c)) return '';
+    if (!c?.id || !destinationPort || !cruiseArrivalDateKey(c)) return '';
     const days = normalizeFollowOnDays(settings.followOnDays);
     const label = `Find cruises from ${destinationPort} departing within ${days} day${days === 1 ? '' : 's'} of arrival`;
     return `<button type="button" class="cruise-follow-on-btn" data-follow-on-cruise="${escHtml(c.id)}" aria-label="${escHtml(label)}" title="${escHtml(label)}">${followOnIcon()}</button>`;
+  }
+
+  // Left-pointing mirror of followOnIcon: a cruise arriving *into* this port.
+  function beforeCruiseIcon() {
+    return '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6.5 3.5a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 1 0 1.06-1.06L4.78 7.78h6.72a3.75 3.75 0 0 1 0 7.5h-1a.75.75 0 0 0 0 1.5h1a5.25 5.25 0 0 0 0-10.5H4.78L6.5 4.56a.75.75 0 0 0 0-1.06Z"/></svg>';
+  }
+
+  // Mirror of followOnButton in the departure-port cell: find a cruise that
+  // arrives at this cruise's departure port within the window before it sails.
+  function beforeCruiseButton(c, departurePort = '') {
+    if (!c?.id || !departurePort || !cruiseDepartureDateKey(c?.departureDate)) return '';
+    const days = normalizeFollowOnDays(settings.followOnDays);
+    const label = `Find cruises arriving at ${departurePort} within ${days} day${days === 1 ? '' : 's'} before departure`;
+    return `<button type="button" class="cruise-before-btn" data-before-cruise="${escHtml(c.id)}" aria-label="${escHtml(label)}" title="${escHtml(label)}">${beforeCruiseIcon()}</button>`;
   }
 
   function loadFavoriteCruiseIds() {
@@ -1860,6 +1886,7 @@
       destinationPort: lowerText(destinationPort),
       destinationPortSimple: lowerText(simplifyPortName(destinationPort)),
       departureDateKey: cruiseDepartureDateKey(c?.departureDate),
+      arrivalDateKey: cruiseArrivalDateKey(c),
     };
   }
 
@@ -2087,6 +2114,7 @@
       const destinationPortCell = highlightHomePort(destinationPort);
       const destinationPortAction = `<span class="destination-port-wrap"><span class="destination-port-text">${destinationPortCell || '&mdash;'}</span>${followOnButton(c, destinationPort)}</span>`;
       const departurePortCell = highlightHomePort(c.departurePort);
+      const departurePortAction = `<span class="departure-port-wrap"><span class="departure-port-text">${departurePortCell || '&mdash;'}</span>${beforeCruiseButton(c, c.departurePort)}</span>`;
 
       return `<tr data-provider="${escHtml(c.provider || '')}">
         <td class="col-num" data-label="#">${i + 1}</td>
@@ -2100,7 +2128,7 @@
         <td class="col-date" data-label="Departure">${escHtml(date)}</td>
         <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
         <td class="col-sea-days duration" data-label="Sea days">${escHtml(seaDays)}</td>
-        <td class="col-port" data-label="Departure port">${departurePortCell || '&mdash;'}</td>
+        <td class="col-port" data-label="Departure port">${departurePortAction}</td>
         <td class="col-region" data-label="Region">${regionBadge(c.departureRegion)}</td>
         <td class="col-first-seen" data-label="First seen"><span class="first-seen-val">${escHtml(firstSeen)}</span></td>
         <td class="col-price price" data-label="Price">${priceCell}</td>
@@ -3009,6 +3037,12 @@
           openFollowOnSearch(followOnBtn.dataset.followOnCruise);
           return;
         }
+        const beforeBtn = ev.target.closest('[data-before-cruise]');
+        if (beforeBtn) {
+          ev.preventDefault();
+          openBeforeCruiseSearch(beforeBtn.dataset.beforeCruise);
+          return;
+        }
         const btn = ev.target.closest('.price-spark');
         if (!btn) return;
         ev.preventDefault();
@@ -3231,6 +3265,8 @@
       await waitForNextPaint();
       document.querySelectorAll('.mob-filter').forEach(el => { el.value = ''; });
       document.querySelectorAll('.col-filter').forEach(el => { el.value = ''; });
+      arrivalRangeStart = '';
+      arrivalRangeEnd = '';
       updateDepartureRangeControls();
       updateMobileFilterActiveStates();
       applyFilters();
@@ -3308,6 +3344,18 @@
     return true;
   }
 
+  // Arrival-date equivalent of cruiseMatchesDepartureRange, powering the
+  // "cruise before" search (a candidate that arrives at this cruise's departure
+  // port within the configured window before it sails).
+  function cruiseMatchesArrivalRange(cruise, start, end) {
+    if (!start && !end) return true;
+    const key = searchMeta(cruise).arrivalDateKey;
+    if (!key) return false;
+    if (start && key < start) return false;
+    if (end && key > end) return false;
+    return true;
+  }
+
   // ── Filter ─────────────────────────────────────────────────────────────────
   function applyFilters() {
     const colFilters = {};
@@ -3365,6 +3413,7 @@
         }
       }
       if (!cruiseMatchesDepartureRange(c, colFilters.departureStart, colFilters.departureEnd)) return false;
+      if (!cruiseMatchesArrivalRange(c, arrivalRangeStart, arrivalRangeEnd)) return false;
       if (colFilters.minLaunch) {
         const min = parseInt(colFilters.minLaunch, 10);
         if (!isNaN(min) && (!c.shipLaunchYear || c.shipLaunchYear < min)) return false;
@@ -3492,6 +3541,8 @@
     document.querySelectorAll('.col-filter').forEach(el => {
       if (el.value) p.set(el.dataset.field, el.value);
     });
+    if (arrivalRangeStart) p.set('arrivalStart', arrivalRangeStart);
+    if (arrivalRangeEnd)   p.set('arrivalEnd', arrivalRangeEnd);
     return p.toString();
   }
 
@@ -3551,7 +3602,7 @@
     return Number.isFinite(n) && n > 0 ? n : null;
   }
 
-  function followOnArrivalDateKey(c) {
+  function cruiseArrivalDateKey(c) {
     const explicit = cruiseDepartureDateKey(c?.arrivalDate);
     if (explicit) return explicit;
     const departure = cruiseDepartureDateKey(c?.departureDate);
@@ -3561,7 +3612,7 @@
 
   function followOnSearchHash(cruise) {
     const destinationPort = getDestinationPortDisplay(cruise);
-    const arrival = followOnArrivalDateKey(cruise);
+    const arrival = cruiseArrivalDateKey(cruise);
     if (!destinationPort || !arrival) return '';
     const departurePort = simplifyPortName(destinationPort) || destinationPort;
     return new URLSearchParams({
@@ -3577,6 +3628,30 @@
     if (!hash) return;
     const opened = window.open(appUrlForHash(hash), '_blank', 'noopener');
     if (!opened) showShareNotice('Follow-on search opened');
+  }
+
+  // The reverse of followOnSearchHash: find cruises whose destination port is
+  // this cruise's departure port and which arrive within the configured window
+  // before it sails — i.e. an onward leg you could take *into* this cruise.
+  function beforeCruiseSearchHash(cruise) {
+    const departurePort = String(cruise?.departurePort || '').trim();
+    const departureKey = cruiseDepartureDateKey(cruise?.departureDate);
+    if (!departurePort || !departureKey) return '';
+    const destinationPort = simplifyPortName(departurePort) || departurePort;
+    const days = normalizeFollowOnDays(settings.followOnDays);
+    return new URLSearchParams({
+      destinationPort,
+      arrivalStart: addDaysIso(departureKey, -days),
+      arrivalEnd: departureKey,
+    }).toString();
+  }
+
+  function openBeforeCruiseSearch(cruiseId) {
+    const cruise = cruiseById.get(cruiseId);
+    const hash = cruise ? beforeCruiseSearchHash(cruise) : '';
+    if (!hash) return;
+    const opened = window.open(appUrlForHash(hash), '_blank', 'noopener');
+    if (!opened) showShareNotice('Pre-cruise search opened');
   }
 
   function shareCurrentSearch() {
@@ -3607,11 +3682,15 @@
     const hash = window.location.hash.replace(/^#/, '');
     selectedCruiseId = '';
     favoritesOnly = false;
+    arrivalRangeStart = '';
+    arrivalRangeEnd = '';
     if (!hash) return;
     const p = new URLSearchParams(hash);
 
     selectedCruiseId = p.get('cruise') || '';
     favoritesOnly = p.get('favorites') === '1';
+    arrivalRangeStart = p.get('arrivalStart') || '';
+    arrivalRangeEnd = p.get('arrivalEnd') || '';
 
     const sortVal = p.get('sort');
     if (sortVal && /^\d+-(asc|desc)$/.test(sortVal)) {

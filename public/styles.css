@@ -412,7 +412,8 @@
     .share-view-btn svg { width: 15px; height: 15px; flex: 0 0 auto; }
     .share-view-mobile { display: none; width: 40px; padding: 6px; }
     .cruise-share-btn,
-    .cruise-follow-on-btn {
+    .cruise-follow-on-btn,
+    .cruise-before-btn {
       appearance: none;
       display: inline-flex;
       align-items: center;
@@ -428,18 +429,22 @@
       flex: 0 0 auto;
     }
     .cruise-share-btn:hover,
-    .cruise-follow-on-btn:hover { background: var(--blue-pale); border-color: var(--blue); }
+    .cruise-follow-on-btn:hover,
+    .cruise-before-btn:hover { background: var(--blue-pale); border-color: var(--blue); }
     .cruise-share-btn svg,
-    .cruise-follow-on-btn svg { width: 14px; height: 14px; }
+    .cruise-follow-on-btn svg,
+    .cruise-before-btn svg { width: 14px; height: 14px; }
     .launch-share-wrap { display: inline-flex; align-items: center; gap: 5px; }
-    .destination-port-wrap {
+    .destination-port-wrap,
+    .departure-port-wrap {
       display: inline-flex;
       align-items: center;
       gap: 5px;
       max-width: 100%;
       vertical-align: middle;
     }
-    .destination-port-text {
+    .destination-port-text,
+    .departure-port-text {
       min-width: 0;
       overflow-wrap: anywhere;
     }
