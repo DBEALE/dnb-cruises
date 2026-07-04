@@ -87,23 +87,45 @@ test('normalizeCruise is idempotent for already-normalized cruises', () => {
   assert.equal(provider.normalizeCruise(once), once);
 });
 
-test('fetchCruises paginates the search API and dedupes by id', async () => {
-  // Fake API: 25 results across pages of 10 via the `start` offset.
-  const makeRow = (n) => apiResult({ cruiseId: `C${n}`, cabins: [{ roomTypeId: 'I', lowerPrice: 500 + n }] });
-  const all = Array.from({ length: 25 }, (_, i) => makeRow(i));
-  const requested = [];
+test('fetchCruises runs one pass per cabin type and merges per-cabin fares', async () => {
+  const seen = new Set();
+  // One sailing priced differently in the Inside and Balcony passes only.
+  const fetchImpl = async (url) => {
+    const u = new URL(url);
+    const roomType = u.searchParams.get('roomTypes');
+    const start = Number(u.searchParams.get('start')) || 0;
+    seen.add(roomType);
+    const fare = { I: 500, B: 900 }[roomType];
+    const rows = (start === 0 && fare)
+      ? [apiResult({ cruiseId: 'C1', cabins: [{ roomTypeId: roomType, lowerPrice: fare }] })]
+      : [];
+    return { ok: true, json: async () => ({ results: rows.length, searchResults: rows }) };
+  };
 
+  const cruises = await provider.fetchCruises({ fetchImpl, logger: { warn() {} } });
+
+  assert.deepEqual([...seen].sort(), ['B', 'I', 'O', 'S'], 'one pass per cabin type');
+  assert.equal(cruises.length, 1);
+  assert.equal(cruises[0].prices.inside, '500');
+  assert.equal(cruises[0].prices.balcony, '900');
+  assert.equal(cruises[0].prices.oceanView, null);
+  assert.equal(cruises[0].priceFrom, '500', 'priceFrom is the cheapest populated cabin');
+});
+
+test('fetchCruises paginates each pass by start offset and dedupes across passes', async () => {
+  const all = Array.from({ length: 25 }, (_, i) => apiResult({ cruiseId: `C${i}` }));
+  const starts = [];
   const fetchImpl = async (url) => {
     const start = Number(new URL(url).searchParams.get('start')) || 0;
-    requested.push(start);
+    starts.push(start);
     return { ok: true, json: async () => ({ results: all.length, searchResults: all.slice(start, start + 10) }) };
   };
 
   const cruises = await provider.fetchCruises({ fetchImpl, logger: { warn() {} } });
 
-  assert.equal(cruises.length, 25, 'all pages collected');
-  assert.deepEqual(requested.sort((a, b) => a - b), [0, 10, 20], 'paginated by start offset');
-  assert.equal(new Set(cruises.map(c => c.id)).size, 25, 'ids are unique');
+  assert.equal(cruises.length, 25, 'deduped across the four passes');
+  assert.deepEqual([...new Set(starts)].sort((a, b) => a - b), [0, 10, 20], 'paginated by start offset');
+  assert.equal(starts.length, 12, 'four cabin passes × three pages each');
 });
 
 test('fetchCruises throws when the API returns nothing (never overwrites good data)', async () => {

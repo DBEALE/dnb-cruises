@@ -37,6 +37,13 @@ const PAGE_SIZE        = 10;    // the API's fixed page size (no size param hono
 const PAGE_CONCURRENCY = 6;
 const MAX_PAGES        = 300;   // safety cap (~3000 cruises) against a bad total
 
+// The base search returns only each sailing's cheapest cabin. Filtering by
+// roomType surfaces that specific cabin's fare, so we run one pass per cabin
+// type and merge the prices. Their union covers the whole catalogue (every
+// sailing has at least one of these).
+const ROOM_TYPES    = ['I', 'O', 'B', 'S'];
+const PRICE_BUCKETS = ['inside', 'oceanView', 'balcony', 'suite'];
+
 const SHIPS = {
   Arcadia:   { shipClass: 'Vista',      shipLaunchYear: 2005 },
   Arvia:     { shipClass: 'Excellence', shipLaunchYear: 2022 },
@@ -149,14 +156,33 @@ function normalizeApiCruise(raw) {
   };
 }
 
-async function fetchSearchPage(start, fetchImpl = fetchWithTimeout) {
-  const res = await fetchImpl(`${CRUISE_SEARCH_URL}?start=${start}`, { headers: API_HEADERS });
-  if (!res.ok) throw new Error(`P&O search HTTP ${res.status} at start=${start}`);
+async function fetchSearchPage(start, fetchImpl = fetchWithTimeout, roomType = '') {
+  const rt = roomType ? `&roomTypes=${encodeURIComponent(roomType)}` : '';
+  const res = await fetchImpl(`${CRUISE_SEARCH_URL}?start=${start}${rt}`, { headers: API_HEADERS });
+  if (!res.ok) throw new Error(`P&O search HTTP ${res.status} at start=${start}${roomType ? ` (${roomType})` : ''}`);
   const data = await res.json();
   return {
     total: Number(data?.results),
     results: Array.isArray(data?.searchResults) ? data.searchResults : [],
   };
+}
+
+// Paginate one cabin-type pass fully. A failed page is logged and skipped so a
+// single blip doesn't lose the whole pass.
+async function fetchRoomTypePages(roomType, fetchImpl, logger) {
+  const first = await fetchSearchPage(0, fetchImpl, roomType);
+  const total = Number.isFinite(first.total) && first.total > 0 ? first.total : first.results.length;
+  const starts = [];
+  for (let start = PAGE_SIZE; start < total && starts.length < MAX_PAGES; start += PAGE_SIZE) starts.push(start);
+  const pages = await mapWithConcurrency(starts, PAGE_CONCURRENCY, async (start) => {
+    try {
+      return (await fetchSearchPage(start, fetchImpl, roomType)).results;
+    } catch (err) {
+      if (logger?.warn) logger.warn(`  [P&O] ${roomType} page start=${start} failed: ${err.message}`);
+      return [];
+    }
+  });
+  return [first.results, ...pages].flat();
 }
 
 // Small bounded-concurrency map (kept local so this provider stays self-contained).
@@ -177,32 +203,35 @@ async function fetchCruises(options = {}) {
   const fetchImpl = options.fetchImpl || fetchWithTimeout;
   const logger    = options.logger || console;
 
-  const first = await fetchSearchPage(0, fetchImpl);
-  const total = Number.isFinite(first.total) && first.total > 0 ? first.total : first.results.length;
-
-  const starts = [];
-  for (let start = PAGE_SIZE; start < total && starts.length < MAX_PAGES; start += PAGE_SIZE) starts.push(start);
-
-  let failed = 0;
-  const pages = await mapWithConcurrency(starts, PAGE_CONCURRENCY, async (start) => {
-    try {
-      return (await fetchSearchPage(start, fetchImpl)).results;
-    } catch (err) {
-      failed += 1;
-      if (logger?.warn) logger.warn(`  [P&O] page start=${start} failed: ${err.message}`);
-      return [];
-    }
-  });
-
+  // One pass per cabin type, merging each sailing's per-cabin fares by id.
   const byId = new Map();
-  for (const raw of [first.results, ...pages].flat()) {
-    const cruise = normalizeApiCruise(raw);
-    if (cruise && !byId.has(cruise.id)) byId.set(cruise.id, cruise);
+  for (const roomType of ROOM_TYPES) {
+    const rows = await fetchRoomTypePages(roomType, fetchImpl, logger);
+    for (const raw of rows) {
+      const cruise = normalizeApiCruise(raw);
+      if (!cruise) continue;
+      const existing = byId.get(cruise.id);
+      if (!existing) {
+        byId.set(cruise.id, cruise);
+        continue;
+      }
+      for (const bucket of PRICE_BUCKETS) {
+        if (existing.prices[bucket] == null && cruise.prices[bucket] != null) {
+          existing.prices[bucket] = cruise.prices[bucket];
+        }
+      }
+    }
   }
 
   const cruises = [...byId.values()];
+  // priceFrom = the cheapest populated cabin across all passes.
+  for (const cruise of cruises) {
+    const fares = PRICE_BUCKETS.map(b => Number(cruise.prices[b])).filter(n => Number.isFinite(n) && n > 0);
+    if (fares.length) cruise.priceFrom = String(Math.min(...fares));
+  }
+
   if (!cruises.length) throw new Error('P&O returned no cruise results');
-  console.log(`  [P&O] ${cruises.length} cruises from ${starts.length + 1} page(s) (API total ${total}${failed ? `, ${failed} page(s) failed` : ''})`);
+  console.log(`  [P&O] ${cruises.length} cruises with per-cabin prices (${ROOM_TYPES.join('/')} passes)`);
   return cruises;
 }
 
