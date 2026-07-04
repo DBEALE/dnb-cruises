@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 584,
+  "count": 585,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -32858,6 +32858,80 @@
           "at": "2026-07-03T05:18:05.086Z",
           "prices": {
             "suite": 2533
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AWG070_AP_20260704",
+      "shipName": "Grand Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 1998,
+      "itinerary": "Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Skagway, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
+      "departureDate": "2026-07-04",
+      "duration": "7 Nights",
+      "departurePort": "Anchorage (Whittier), Alaska",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "destinationPort": "Vancouver, Canada",
+      "priceFrom": "599",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A626",
+      "prices": {
+        "inside": "599",
+        "oceanView": null,
+        "balcony": "1999",
+        "suite": null
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-06-24T03:07:31.861Z",
+      "lastSeenAt": "2026-07-04T05:16:50.049Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-24T03:07:31.861Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 999,
+            "balcony": 1999
+          }
+        },
+        {
+          "at": "2026-06-25T14:59:59.852Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 733,
+            "balcony": 1999
+          }
+        },
+        {
+          "at": "2026-07-01T00:43:49.290Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 747,
+            "balcony": 1999
+          }
+        },
+        {
+          "at": "2026-07-02T22:23:33.129Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 747,
+            "balcony": 2218
+          }
+        },
+        {
+          "at": "2026-07-03T05:18:05.086Z",
+          "prices": {
+            "inside": 599,
+            "balcony": 2218
+          }
+        },
+        {
+          "at": "2026-07-03T07:06:14.302Z",
+          "prices": {
+            "inside": 599,
+            "balcony": 1999
           }
         }
       ]
