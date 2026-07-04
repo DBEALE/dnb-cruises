@@ -187,7 +187,10 @@ function jinaReaderHeaders() {
     ...PANDO_READER_HEADERS,
     authorization: `Bearer ${key}`,
     'x-wait-for-selector': `[data-testid="${CRUISE_TILE_SENTINEL}"]`,
-    'x-timeout': '30',
+    // Give Jina room to render on a cold start — the first cabin request warms
+    // its browser cache, so later cabins are fast, but that first one can be
+    // slow. Paired with a longer client timeout below (see JINA_READER_TIMEOUT_MS).
+    'x-timeout': '45',
   };
   // Return just the tile subtree (keeps tokens tiny). Disable with
   // PANDO_JINA_NO_TARGET=1 if a run shows the targeted HTML parses poorly.
@@ -235,11 +238,15 @@ async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout, options 
   }
 
   // Jina AI reader renders the page with JavaScript before returning HTML.
+  // The authenticated path waits for the tiles to render, which on a cold first
+  // request can exceed the plain 60s budget — give it more headroom so cabin I
+  // (always first, always cold) succeeds too and inside-cabin prices come through.
   const jinaHeaders = options.jinaHeaders || jinaReaderHeaders();
+  const jinaTimeoutMs = process.env.JINA_API_KEY ? 90_000 : 60_000;
   try {
     const text = platform === 'win32'
-      ? await requestTextViaPowerShellImpl(readerUrl, 60_000, jinaHeaders)
-      : await requestTextImpl(readerUrl, jinaHeaders, 60_000);
+      ? await requestTextViaPowerShellImpl(readerUrl, jinaTimeoutMs, jinaHeaders)
+      : await requestTextImpl(readerUrl, jinaHeaders, jinaTimeoutMs);
     if (text.includes(CRUISE_TILE_SENTINEL)) return text;
     warn(logger, `  [P&O] ${cabinCode} Jina reader (${jinaModeLabel()}) → no tiles (${text.length} bytes)${skipPlaywright ? '' : '; trying browser'}`);
   } catch (err) {
@@ -296,9 +303,10 @@ async function requestTextViaPowerShell(url, timeoutMs, headers = PANDO_READER_H
   const headerLines = Object.entries(headers)
     .map(([key, value]) => `  '${key.replace(/'/g, "''")}'='${String(value).replace(/'/g, "''")}'`)
     .join('; ');
+  const timeoutSec = Math.max(1, Math.ceil(timeoutMs / 1000));
   const command = [
     `$headers = @{${headerLines}}`,
-    `$response = Invoke-WebRequest -Uri '${escapedUrl}' -UseBasicParsing -Headers $headers -TimeoutSec 60`,
+    `$response = Invoke-WebRequest -Uri '${escapedUrl}' -UseBasicParsing -Headers $headers -TimeoutSec ${timeoutSec}`,
     '[Console]::Out.Write($response.Content)',
   ].join('; ');
   const { stdout } = await execFileAsync(

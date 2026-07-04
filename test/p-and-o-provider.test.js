@@ -199,6 +199,7 @@ test('jinaReaderHeaders upgrades the request only when JINA_API_KEY is set', () 
     assert.equal(keyed.authorization, 'Bearer test-key-123');
     assert.match(keyed['x-wait-for-selector'], /po-cuk-cruise-tile-wrapper/);
     assert.match(keyed['x-target-selector'], /po-cuk-cruise-tile-wrapper/);
+    assert.equal(keyed['x-timeout'], '45');
     assert.equal(keyed['x-proxy'], undefined, 'proxy stays off unless explicitly enabled');
 
     // Proxy opt-in only when PANDO_JINA_PROXY is set.
