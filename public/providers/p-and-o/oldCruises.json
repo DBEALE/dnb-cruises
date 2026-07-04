@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 1,
+  "count": 2,
   "cruises": [
     {
       "id": "pando-A627",
@@ -50,6 +50,41 @@
           "prices": {
             "inside": 699,
             "oceanView": 1209
+          }
+        }
+      ]
+    },
+    {
+      "id": "pando-JTV",
+      "provider": "P&O Cruises",
+      "shipName": "Arcadia",
+      "shipClass": "Vista",
+      "shipLaunchYear": 2005,
+      "itinerary": "San Francisco → Auckland, New Zealand → Sydney, Australia",
+      "departureDate": "2028-01-29",
+      "duration": "25 Nights",
+      "departurePort": "San Francisco",
+      "departureRegion": "Other",
+      "destination": "World-Cruise",
+      "destinationPort": "Sydney, Australia",
+      "seaDays": 16,
+      "priceFrom": "5809",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "5809",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/JTV/JTV",
+      "arrivalDate": "",
+      "firstSeenAt": "2026-07-04T11:52:45.512Z",
+      "lastSeenAt": "2026-07-04T16:22:54.788Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "balcony": 5809
           }
         }
       ]
