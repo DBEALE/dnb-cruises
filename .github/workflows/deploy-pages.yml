@@ -56,6 +56,10 @@ jobs:
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           ALERT_EMAIL:    ${{ secrets.ALERT_EMAIL }}
+          # P&O's edge black-holes datacenter IPs, so the headless-browser tier
+          # just hangs 60s/cabin here. Skip it and let the direct/Jina tiers
+          # (which log why they fall through) do the work.
+          PANDO_SKIP_PLAYWRIGHT: '1'
 
       # Persist the fresh cruises.json + oldCruises.json to the 'data' branch
       # as an audit log. The branch is an orphan (no shared history with main)

@@ -20,6 +20,10 @@ const CRUISE_TILE_SENTINEL = 'po-cuk-cruise-tile-wrapper';
 const PANDO_SEARCH_URL = 'https://www.pocruises.com/find-a-cruise';
 const PANDO_READER_PREFIX = 'https://r.jina.ai/';
 const CABIN_FILTERS = ['I', 'O', 'B', 'S'];
+// P&O's edge black-holes datacenter IPs, so a blocked page.goto hangs the full
+// timeout. Keep it short so a doomed browser attempt fails fast rather than
+// burning a minute per cabin.
+const PANDO_PLAYWRIGHT_GOTO_TIMEOUT_MS = 25_000;
 const PANDO_BROWSER_HEADERS = Object.freeze({
   'user-agent': DEFAULT_USER_AGENT,
   accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
@@ -173,6 +177,12 @@ async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout, options 
   const target = `${PANDO_SEARCH_URL}?roomTypes=${encodeURIComponent(cabinCode)}&web2=true`;
   const readerUrl = `${PANDO_READER_PREFIX}${target}`;
   const platform = options.platform || process.platform;
+  const logger = options.logger || console;
+  // The headless-browser tier navigates pocruises.com directly. From a
+  // datacenter egress IP (e.g. GitHub Actions) P&O's edge black-holes the
+  // request — page.goto never even commits — so it just wastes 60s per cabin.
+  // Skip it there (PANDO_SKIP_PLAYWRIGHT=1) and rely on the direct/Jina tiers.
+  const skipPlaywright = options.skipPlaywright ?? process.env.PANDO_SKIP_PLAYWRIGHT === '1';
   const requestTextImpl = options.requestText || requestText;
   const requestTextViaPowerShellImpl = options.requestTextViaPowerShell || requestTextViaPowerShell;
   const fetchWithPlaywrightImpl = options.fetchWithPlaywright || fetchSearchPageWithPlaywright;
@@ -183,11 +193,16 @@ async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout, options 
   // through to the Jina reader which executes JavaScript before returning HTML.
   try {
     const response = await fetchImpl(target, { headers: PANDO_BROWSER_HEADERS });
-    if (response.ok) {
+    if (!response.ok) {
+      warn(logger, `  [P&O] ${cabinCode} direct fetch → HTTP ${response.status}; trying Jina reader`);
+    } else {
       const text = await response.text();
       if (text.includes(CRUISE_TILE_SENTINEL)) return text;
+      warn(logger, `  [P&O] ${cabinCode} direct fetch → JS app shell, no tiles (${text.length} bytes); trying Jina reader`);
     }
-  } catch {}
+  } catch (err) {
+    warn(logger, `  [P&O] ${cabinCode} direct fetch failed: ${err?.message || err}; trying Jina reader`);
+  }
 
   // Jina AI reader renders the page with JavaScript before returning HTML.
   try {
@@ -195,9 +210,16 @@ async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout, options 
       ? await requestTextViaPowerShellImpl(readerUrl, 60_000, PANDO_READER_HEADERS)
       : await requestTextImpl(readerUrl, PANDO_READER_HEADERS, 60_000);
     if (text.includes(CRUISE_TILE_SENTINEL)) return text;
-  } catch {}
+    warn(logger, `  [P&O] ${cabinCode} Jina reader → no tiles (${text.length} bytes)${skipPlaywright ? '' : '; trying browser'}`);
+  } catch (err) {
+    warn(logger, `  [P&O] ${cabinCode} Jina reader failed: ${err?.message || err}${skipPlaywright ? '' : '; trying browser'}`);
+  }
 
-  // Last resort: use a real Playwright browser to render the page.
+  // Last resort: a real Playwright browser. Skipped where the egress IP is
+  // blocked (see above) so we fail fast instead of hanging on page.goto.
+  if (skipPlaywright) {
+    throw new Error('no cruise tiles from direct fetch or Jina reader; browser tier skipped (PANDO_SKIP_PLAYWRIGHT)');
+  }
   return fetchWithPlaywrightImpl(cabinCode);
 }
 
@@ -222,7 +244,7 @@ async function fetchSearchPageWithPlaywright(cabinCode) {
     let lastError = null;
     for (let attempt = 1; attempt <= 2; attempt++) {
       try {
-        await page.goto(target, { waitUntil: 'commit', timeout: 60_000, referer: 'https://www.pocruises.com/' });
+        await page.goto(target, { waitUntil: 'commit', timeout: PANDO_PLAYWRIGHT_GOTO_TIMEOUT_MS, referer: 'https://www.pocruises.com/' });
         lastError = null;
         break;
       } catch (err) {
@@ -295,7 +317,7 @@ async function fetchCruises(options = {}) {
   const logger = options.logger || console;
   for (const cabinCode of CABIN_FILTERS) {
     try {
-      const html = await fetchPage(cabinCode);
+      const html = await fetchPage(cabinCode, undefined, { logger });
       const cruises = parseSearchHtml(html, cabinCode);
       if (cruises.length) {
         pages.push(cruises);

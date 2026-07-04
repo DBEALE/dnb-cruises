@@ -180,6 +180,44 @@ test('fetchSearchPage sends browser-compatible headers to P&O', async () => {
   assert.equal(requestOptions.headers['upgrade-insecure-requests'], '1');
 });
 
+test('fetchSearchPage skips the browser tier and fails fast when skipPlaywright is set', async () => {
+  const appShellHtml = '<html><body><div id="app"></div></body></html>';
+  const warnings = [];
+  let playwrightCalls = 0;
+
+  await assert.rejects(
+    () => provider.fetchSearchPage('I', async () => ({ ok: true, text: async () => appShellHtml }), {
+      platform: 'linux',
+      skipPlaywright: true,
+      logger: { warn: message => warnings.push(message) },
+      requestText: async () => appShellHtml, // Jina also returns no tiles
+      fetchWithPlaywright: async () => { playwrightCalls++; return ''; },
+    }),
+    /browser tier skipped \(PANDO_SKIP_PLAYWRIGHT\)/,
+  );
+
+  assert.equal(playwrightCalls, 0, 'browser tier must not be invoked when skipped');
+  // Each fallen-through tier explains itself so CI logs pinpoint the failure.
+  assert.ok(warnings.some(w => /direct fetch → JS app shell/.test(w)), 'logs the direct-fetch reason');
+  assert.ok(warnings.some(w => /Jina reader → no tiles/.test(w)), 'logs the Jina reason');
+});
+
+test('fetchSearchPage logs the direct-fetch HTTP status before falling through', async () => {
+  const warnings = [];
+  const rendered = `<html><body>${tile({ id: 'JINA1', cabin: 'Inside', price: '450' })}</body></html>`;
+
+  const result = await provider.fetchSearchPage('O', async () => ({ ok: false, status: 403, text: async () => '' }), {
+    platform: 'linux',
+    logger: { warn: message => warnings.push(message) },
+    requestText: async () => rendered,
+    fetchWithPlaywright: async () => { throw new Error('should not reach browser'); },
+  });
+
+  assert.ok(warnings.some(w => /direct fetch → HTTP 403/.test(w)), 'logs the HTTP status');
+  const [cruise] = provider.parseSearchHtml(result, 'O');
+  assert.equal(cruise.id, 'pando-JINA1');
+});
+
 test('fetchCruises keeps successful P&O cabin pages when another cabin page fails', async () => {
   const warnings = [];
   const cruises = await provider.fetchCruises({
