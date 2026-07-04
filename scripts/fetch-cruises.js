@@ -260,7 +260,9 @@ async function fetchProviderSnapshot(provider, options = {}) {
   const retryDelayMs = options.emptyResultRetryDelayMs ?? EMPTY_RESULT_RETRY_DELAY_MS;
   for (let attempt = 0; attempt <= retries; attempt++) {
     console.log(`Fetching from ${provider.name}${attempt ? ` (retry ${attempt})` : ''}…`);
-    const cruises = await provider.fetchCruises();
+    // Providers that support incremental itinerary enrichment (Royal Caribbean)
+    // read the previous snapshot from here; others ignore the extra field.
+    const cruises = await provider.fetchCruises({ priorEnrichmentById: options.priorEnrichmentById });
     if (Array.isArray(cruises) && cruises.length > 0) {
       console.log(`  ✓ ${cruises.length} cruises from ${provider.name}`);
       return { provider, cruises };
@@ -290,9 +292,12 @@ async function fetchProviderSnapshot(provider, options = {}) {
 // one-at-a-time behaviour as an escape hatch.
 async function fetchAllSnapshots(activeProviders, options = {}) {
   const settled = [];
+  // Per-provider previous snapshot (id → cruise) for incremental enrichment.
+  const priorByProvider = options.priorByProvider instanceof Map ? options.priorByProvider : new Map();
   const runOne = async (provider) => {
+    const providerOptions = { ...options, priorEnrichmentById: priorByProvider.get(provider.id) };
     try {
-      settled.push({ status: 'fulfilled', value: await fetchProviderSnapshot(provider, options) });
+      settled.push({ status: 'fulfilled', value: await fetchProviderSnapshot(provider, providerOptions) });
     } catch (err) {
       console.error(`  ✗ ${provider.name} failed: ${err.message}`);
       settled.push({ status: 'rejected', reason: err });
@@ -466,7 +471,7 @@ async function main() {
   console.log(`Exchange rate: 1 USD = £${usdToGbp.toFixed(4)}`);
 
   const scrapedAt = new Date().toISOString();
-  const settled = await fetchAllSnapshots(activeProviders);
+  const settled = await fetchAllSnapshots(activeProviders, { priorByProvider: previousActiveByProvider });
 
   const providerSnapshots = settled
     .filter(r => r.status === 'fulfilled')

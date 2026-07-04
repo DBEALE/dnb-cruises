@@ -6,7 +6,7 @@ const { getDepartureRegion, estimateSeaDays, cleanText, DEFAULT_USER_AGENT,
         getDestinationPort } = require('./shared');
 const { createRciRoomSelection, mapWithConcurrency,
         extractPricesFromClassPricing, extractRoomTypePricesFromPayload,
-        classifyRoomType } = require('./rci-room-selection');
+        classifyRoomType, canReuseEnrichment, applyReusedEnrichment } = require('./rci-room-selection');
 
 const ROOM_SELECTION_API_URL = 'https://www.royalcaribbean.com/room-selection/api/v1/rooms';
 
@@ -191,6 +191,9 @@ async function enrichCruiseItinerary(cruise) {
         duration: cruise.duration,
         portsIncludeEndpoints: true,
       }),
+      // Stamp only on success so a failed (degraded) enrichment is retried next
+      // run rather than cached. Enables cross-run reuse (see fetchCruises).
+      enrichedAt: new Date().toISOString(),
     };
   } catch (err) {
     console.warn(`  [RC] enrich failed for ${cruise.id || cruise.bookingUrl}: ${err.message}`);
@@ -238,21 +241,37 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
     return normalizeCruise(cruise);
   }
 
-  async fetchCruises() {
+  async fetchCruises(options = {}) {
     const cruises = await super.fetchCruises();
+    // Reuse last run's itinerary enrichment for unchanged sailings so we only
+    // hit the room-selection endpoint for new/changed ones (plus a rolling
+    // refresh). RC prices come from the GraphQL search, not enrichment, so this
+    // never staleness-freezes prices. See canReuseEnrichment for the safety net.
+    const priorById = options.priorEnrichmentById instanceof Map ? options.priorEnrichmentById : new Map();
+    const now = Date.now();
     const cache = new Map();
     const concurrency = 2;
+    let fetched = 0;
+    let reused = 0;
 
     const enrichedCruises = await mapWithConcurrency(cruises, concurrency, async (cruise) => {
+      const prior = priorById.get(cruise.id);
+      if (canReuseEnrichment(prior, cruise, now)) {
+        reused += 1;
+        return applyReusedEnrichment(cruise, prior);
+      }
       const context = parseBookingContext(cruise.bookingUrl);
       const cacheKey = context ? rci.roomSelectionCacheKey(context) : null;
       if (!cacheKey) return cruise;
-      if (!cache.has(cacheKey)) cache.set(cacheKey, enrichCruiseItinerary(cruise));
+      if (!cache.has(cacheKey)) {
+        fetched += 1;
+        cache.set(cacheKey, enrichCruiseItinerary(cruise));
+      }
       return cache.get(cacheKey);
     });
 
     if (enrichedCruises.length > 0) {
-      console.log(`  ${this.progressPrefix} itinerary enrichment complete (${enrichedCruises.length} sailings)`);
+      console.log(`  ${this.progressPrefix} itinerary enrichment: ${fetched} fetched, ${reused} reused (${enrichedCruises.length} sailings)`);
     }
 
     return enrichedCruises;

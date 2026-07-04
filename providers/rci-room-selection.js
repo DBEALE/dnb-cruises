@@ -285,8 +285,64 @@ function createRciRoomSelection(hostConfig) {
   };
 }
 
+// ── Incremental enrichment reuse ─────────────────────────────────────────────
+// Itinerary enrichment (port sequence → detailed itinerary, destination port,
+// sea days) is derived from a sailing's fixed route, which barely changes. To
+// spare the room-selection endpoint — hundreds of calls per run, and the source
+// of the 503s — reuse the previous run's enrichment for an unchanged sailing and
+// only re-fetch new/changed ones, plus a slow rolling refresh (a per-cruise
+// jittered TTL) so a rare route change still self-heals within a week or two.
+//
+// SAFETY: only for providers whose enrichment does NOT carry live prices. Royal
+// Caribbean qualifies (enrichment = ports only; prices come from the GraphQL
+// search). Celebrity's enrichment also fetches live prices, so it MUST run every
+// time and must NOT reuse. canReuseEnrichment fails closed (returns false) for
+// any cruise lacking `enrichedAt`, so an un-stamped provider never reuses.
+const ENRICH_REUSE_MIN_MS    = 7 * 24 * 60 * 60 * 1000;   // reuse for at least a week
+const ENRICH_REUSE_JITTER_MS = 7 * 24 * 60 * 60 * 1000;   // spread refresh across the next week
+
+// The fields that identify a specific sailing. If they all match between the
+// prior and fresh records, the route (and thus the enrichment) is the same.
+function enrichmentSignature(cruise) {
+  return ['shipName', 'departureDate', 'duration', 'departurePort']
+    .map(key => String(cruise?.[key] ?? '').trim().toLowerCase())
+    .join('|');
+}
+
+function hashString(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i += 1) hash = (hash * 31 + str.charCodeAt(i)) | 0;
+  return Math.abs(hash);
+}
+
+// True when the previous-run `prior` record can stand in for enriching `fresh`,
+// so we can skip its room-selection HTTP call this run.
+function canReuseEnrichment(prior, fresh, now = Date.now()) {
+  if (!prior || !fresh || !prior.enrichedAt) return false;
+  if (enrichmentSignature(prior) !== enrichmentSignature(fresh)) return false;
+  const enrichedMs = Date.parse(prior.enrichedAt);
+  if (!Number.isFinite(enrichedMs)) return false;
+  const ttl = ENRICH_REUSE_MIN_MS + (hashString(String(prior.id || '')) % (ENRICH_REUSE_JITTER_MS + 1));
+  return (now - enrichedMs) < ttl;
+}
+
+// Carry the prior run's itinerary fields onto the fresh (freshly-priced) cruise.
+// Only the route-derived fields are copied; price/date/etc. stay fresh.
+function applyReusedEnrichment(fresh, prior) {
+  return {
+    ...fresh,
+    itinerary: prior.itinerary || fresh.itinerary,
+    destinationPort: prior.destinationPort ?? fresh.destinationPort,
+    seaDays: prior.seaDays ?? fresh.seaDays,
+    enrichedAt: prior.enrichedAt,
+  };
+}
+
 module.exports = {
   createRciRoomSelection,
+  enrichmentSignature,
+  canReuseEnrichment,
+  applyReusedEnrichment,
   classifyRoomType,
   extractPriceFromEntry,
   extractRoomTypePricesFromPayload,
