@@ -173,6 +173,36 @@ function mergeCruises(groups) {
   return [...byId.values()].sort((a, b) => a.departureDate.localeCompare(b.departureDate) || a.id.localeCompare(b.id));
 }
 
+// When a JINA_API_KEY is present we upgrade the reader request: authenticate
+// (higher rate limit), wait for the client-rendered cruise tiles to appear,
+// and return only those elements so the token bill — charged on output size —
+// stays small. An optional country proxy (PANDO_JINA_PROXY=gb) routes Jina's
+// fetch through a UK IP if P&O geo-gates results; it's off by default as it's a
+// paid add-on. Without a key the headers are unchanged, so the keyless/local
+// path (and existing tests) behave exactly as before.
+function jinaReaderHeaders() {
+  const key = process.env.JINA_API_KEY;
+  if (!key) return PANDO_READER_HEADERS;
+  const headers = {
+    ...PANDO_READER_HEADERS,
+    authorization: `Bearer ${key}`,
+    'x-wait-for-selector': `[data-testid="${CRUISE_TILE_SENTINEL}"]`,
+    'x-timeout': '30',
+  };
+  // Return just the tile subtree (keeps tokens tiny). Disable with
+  // PANDO_JINA_NO_TARGET=1 if a run shows the targeted HTML parses poorly.
+  if (process.env.PANDO_JINA_NO_TARGET !== '1') {
+    headers['x-target-selector'] = `[data-testid="${CRUISE_TILE_SENTINEL}"]`;
+  }
+  if (process.env.PANDO_JINA_PROXY) headers['x-proxy'] = process.env.PANDO_JINA_PROXY;
+  return headers;
+}
+
+function jinaModeLabel() {
+  if (!process.env.JINA_API_KEY) return 'free';
+  return `authenticated${process.env.PANDO_JINA_PROXY ? `, proxy=${process.env.PANDO_JINA_PROXY}` : ''}`;
+}
+
 async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout, options = {}) {
   const target = `${PANDO_SEARCH_URL}?roomTypes=${encodeURIComponent(cabinCode)}&web2=true`;
   const readerUrl = `${PANDO_READER_PREFIX}${target}`;
@@ -205,14 +235,15 @@ async function fetchSearchPage(cabinCode, fetchImpl = fetchWithTimeout, options 
   }
 
   // Jina AI reader renders the page with JavaScript before returning HTML.
+  const jinaHeaders = options.jinaHeaders || jinaReaderHeaders();
   try {
     const text = platform === 'win32'
-      ? await requestTextViaPowerShellImpl(readerUrl, 60_000, PANDO_READER_HEADERS)
-      : await requestTextImpl(readerUrl, PANDO_READER_HEADERS, 60_000);
+      ? await requestTextViaPowerShellImpl(readerUrl, 60_000, jinaHeaders)
+      : await requestTextImpl(readerUrl, jinaHeaders, 60_000);
     if (text.includes(CRUISE_TILE_SENTINEL)) return text;
-    warn(logger, `  [P&O] ${cabinCode} Jina reader → no tiles (${text.length} bytes)${skipPlaywright ? '' : '; trying browser'}`);
+    warn(logger, `  [P&O] ${cabinCode} Jina reader (${jinaModeLabel()}) → no tiles (${text.length} bytes)${skipPlaywright ? '' : '; trying browser'}`);
   } catch (err) {
-    warn(logger, `  [P&O] ${cabinCode} Jina reader failed: ${err?.message || err}${skipPlaywright ? '' : '; trying browser'}`);
+    warn(logger, `  [P&O] ${cabinCode} Jina reader (${jinaModeLabel()}) failed: ${err?.message || err}${skipPlaywright ? '' : '; trying browser'}`);
   }
 
   // Last resort: a real Playwright browser. Skipped where the egress IP is
@@ -378,4 +409,5 @@ module.exports.mergeCruises = mergeCruises;
 module.exports.toIsoDate = toIsoDate;
 module.exports.emptyPrices = emptyPrices;
 module.exports.fetchSearchPage = fetchSearchPage;
+module.exports.jinaReaderHeaders = jinaReaderHeaders;
 module.exports.PANDO_BROWSER_HEADERS = PANDO_BROWSER_HEADERS;

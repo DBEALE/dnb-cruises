@@ -180,6 +180,60 @@ test('fetchSearchPage sends browser-compatible headers to P&O', async () => {
   assert.equal(requestOptions.headers['upgrade-insecure-requests'], '1');
 });
 
+test('jinaReaderHeaders upgrades the request only when JINA_API_KEY is set', () => {
+  const prevKey = process.env.JINA_API_KEY;
+  const prevProxy = process.env.PANDO_JINA_PROXY;
+  try {
+    // Keyless: unchanged from the plain reader headers (no auth, no wait/target).
+    delete process.env.JINA_API_KEY;
+    delete process.env.PANDO_JINA_PROXY;
+    const keyless = provider.jinaReaderHeaders();
+    assert.equal(keyless.authorization, undefined);
+    assert.equal(keyless['x-wait-for-selector'], undefined);
+    assert.equal(keyless['x-target-selector'], undefined);
+    assert.equal(keyless['x-proxy'], undefined);
+
+    // Keyed: authenticated, waits for and targets the tile selector, no proxy.
+    process.env.JINA_API_KEY = 'test-key-123';
+    const keyed = provider.jinaReaderHeaders();
+    assert.equal(keyed.authorization, 'Bearer test-key-123');
+    assert.match(keyed['x-wait-for-selector'], /po-cuk-cruise-tile-wrapper/);
+    assert.match(keyed['x-target-selector'], /po-cuk-cruise-tile-wrapper/);
+    assert.equal(keyed['x-proxy'], undefined, 'proxy stays off unless explicitly enabled');
+
+    // Proxy opt-in only when PANDO_JINA_PROXY is set.
+    process.env.PANDO_JINA_PROXY = 'gb';
+    assert.equal(provider.jinaReaderHeaders()['x-proxy'], 'gb');
+  } finally {
+    if (prevKey === undefined) delete process.env.JINA_API_KEY; else process.env.JINA_API_KEY = prevKey;
+    if (prevProxy === undefined) delete process.env.PANDO_JINA_PROXY; else process.env.PANDO_JINA_PROXY = prevProxy;
+  }
+});
+
+test('fetchSearchPage sends the authenticated Jina headers when a key is present', async () => {
+  const prevKey = process.env.JINA_API_KEY;
+  process.env.JINA_API_KEY = 'test-key-abc';
+  try {
+    let captured = null;
+    const rendered = `<html><body>${tile({ id: 'KEY1', cabin: 'Inside', price: '500' })}</body></html>`;
+    const result = await provider.fetchSearchPage(
+      'I',
+      async () => ({ ok: true, text: async () => '<html><body><div id="app"></div></body></html>' }),
+      {
+        platform: 'linux',
+        requestText: async (_url, headers) => { captured = headers; return rendered; },
+        fetchWithPlaywright: async () => { throw new Error('should not reach browser'); },
+      },
+    );
+    assert.equal(captured.authorization, 'Bearer test-key-abc');
+    assert.match(captured['x-wait-for-selector'], /po-cuk-cruise-tile-wrapper/);
+    const [cruise] = provider.parseSearchHtml(result, 'I');
+    assert.equal(cruise.id, 'pando-KEY1');
+  } finally {
+    if (prevKey === undefined) delete process.env.JINA_API_KEY; else process.env.JINA_API_KEY = prevKey;
+  }
+});
+
 test('fetchSearchPage skips the browser tier and fails fast when skipPlaywright is set', async () => {
   const appShellHtml = '<html><body><div id="app"></div></body></html>';
   const warnings = [];
@@ -199,7 +253,7 @@ test('fetchSearchPage skips the browser tier and fails fast when skipPlaywright 
   assert.equal(playwrightCalls, 0, 'browser tier must not be invoked when skipped');
   // Each fallen-through tier explains itself so CI logs pinpoint the failure.
   assert.ok(warnings.some(w => /direct fetch → JS app shell/.test(w)), 'logs the direct-fetch reason');
-  assert.ok(warnings.some(w => /Jina reader → no tiles/.test(w)), 'logs the Jina reason');
+  assert.ok(warnings.some(w => /Jina reader \(free\) → no tiles/.test(w)), 'logs the Jina reason');
 });
 
 test('fetchSearchPage logs the direct-fetch HTTP status before falling through', async () => {
