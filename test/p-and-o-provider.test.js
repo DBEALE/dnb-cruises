@@ -5,310 +5,124 @@ const assert = require('node:assert/strict');
 
 const provider = require('../providers/p-and-o');
 
-function tile({ id = 'G621', cabin = 'Inside', price = '909' } = {}) {
-  return `
-    <div data-testid="po-cuk-cruise-tile-wrapper">
-      <input type="checkbox" id="${id}" />
-      <h5>Norwegian Fjords, 7 Nights</h5>
-      <div><label>Ship</label><p><span>Iona</span><span>7 Nights</span></p></div>
-      <div><label>Departs</label><p><span>Southampton, UK</span><span>4 Jul 2026</span></p></div>
-      <div><label>Arrives</label><p><span>Southampton, UK</span><span>11 Jul 2026</span></p></div>
-      <span data-testid="itinerary-port">Southampton, Stavanger, Olden, Southampton</span>
-      <div data-testid="c-price-block"><span>${cabin} Cabin Based On 2 Guests From</span>
-        <span data-testid="c-curreny-content"><i>£</i>${price}<span>pp</span></span>
-      </div>
-    </div>`;
+// A representative `searchResults` entry from the cruise-query-processor API.
+function apiResult(overrides = {}) {
+  return {
+    entityId: 'A627A_A627A',
+    itineraryId: 'A627A',
+    cruiseId: 'A627A',
+    name: 'Mediterranean Fly-Cruise, 14 Nights',
+    duration: 14,
+    departDate: '2026-07-09T00:00:00Z',
+    destinationIds: ['Mediterranean'],
+    portOfCallIds: ['MLA', 'ATSEADAY', 'ARM', 'CFU', 'ATSEADAY', 'MLA'],
+    shipName: 'Azura',
+    embarkPortCode: 'MLA',
+    disembarkPortCode: 'MLA',
+    arrivalAtArrivalPort: '2026-07-23T06:00:00Z',
+    availableRoomTypes: ['B', 'I'],
+    avgPerPersonPrice: 2532.33,
+    cabins: [{ roomTypeId: 'B', lowerPrice: 2409 }],
+    ...overrides,
+  };
 }
 
-test('classifies every P&O cabin type into the application buckets', () => {
+test('classifies P&O room-type ids into the application cabin buckets', () => {
   assert.equal(provider.classifyCabinType('I'), 'inside');
-  assert.equal(provider.classifyCabinType('Inside'), 'inside');
   assert.equal(provider.classifyCabinType('O'), 'oceanView');
-  assert.equal(provider.classifyCabinType('Sea view'), 'oceanView');
   assert.equal(provider.classifyCabinType('B'), 'balcony');
-  assert.equal(provider.classifyCabinType('Balcony'), 'balcony');
   assert.equal(provider.classifyCabinType('S'), 'suite');
-  assert.equal(provider.classifyCabinType('Suite'), 'suite');
+  assert.equal(provider.classifyCabinType('?'), null);
 });
 
-test('parses a P&O result card into the shared cruise contract', () => {
-  const [cruise] = provider.parseSearchHtml(tile());
-  assert.equal(cruise.id, 'pando-G621');
+test('maps known embark/disembark port codes to display names', () => {
+  assert.equal(provider.portName('SOU'), 'Southampton');
+  assert.equal(provider.portName('BGI'), 'Bridgetown, Barbados');
+  // Unknown codes fall back to the raw code rather than dropping the port.
+  assert.equal(provider.portName('ZZZ'), 'ZZZ');
+  assert.equal(provider.portName(''), '');
+});
+
+test('counts sea days from the ATSEADAY itinerary markers', () => {
+  assert.equal(provider.countSeaDays(['MLA', 'ATSEADAY', 'ARM', 'ATSEADAY', 'MLA']), 2);
+  assert.equal(provider.countSeaDays(['MLA', 'ARM']), null);
+  assert.equal(provider.countSeaDays(undefined), null);
+});
+
+test('normalizes an API search result into the shared cruise contract', () => {
+  const cruise = provider.normalizeApiCruise(apiResult());
+  assert.equal(cruise.id, 'pando-A627A');
   assert.equal(cruise.provider, 'P&O Cruises');
-  assert.equal(cruise.shipName, 'Iona');
-  assert.equal(cruise.shipClass, 'Excellence');
-  assert.equal(cruise.shipLaunchYear, 2020);
-  assert.equal(cruise.departureDate, '2026-07-04');
-  assert.equal(cruise.duration, '7 Nights');
-  assert.equal(cruise.departurePort, 'Southampton, UK');
-  assert.equal(cruise.departureRegion, 'UK & Ireland');
-  assert.equal(cruise.destinationPort, 'Southampton');
-  assert.equal(cruise.priceFrom, '909');
-  assert.deepEqual(cruise.prices, { inside: '909', oceanView: null, balcony: null, suite: null });
-  assert.equal(cruise.bookingUrl, 'https://www.pocruises.com/find-a-cruise/G621/G621');
+  assert.equal(cruise.shipName, 'Azura');
+  assert.equal(cruise.shipClass, 'Grand');
+  assert.equal(cruise.shipLaunchYear, 2010);
+  assert.equal(cruise.itinerary, 'Mediterranean Fly-Cruise, 14 Nights');
+  assert.equal(cruise.departureDate, '2026-07-09');
+  assert.equal(cruise.arrivalDate, '2026-07-23');
+  assert.equal(cruise.duration, '14 Nights');
+  assert.equal(cruise.departurePort, 'Valletta, Malta');
+  assert.equal(cruise.departureRegion, 'Mediterranean');
+  assert.equal(cruise.destination, 'Mediterranean');
+  assert.equal(cruise.destinationPort, 'Valletta, Malta');
+  assert.equal(cruise.seaDays, 2);
+  assert.equal(cruise.priceFrom, '2409');
+  assert.equal(cruise.currency, 'GBP');
+  // The cheapest cabin's bucket is populated; the rest stay null.
+  assert.deepEqual(cruise.prices, { inside: null, oceanView: null, balcony: '2409', suite: null });
+  assert.equal(cruise.bookingUrl, 'https://www.pocruises.com/find-a-cruise/A627A/A627A');
 });
 
-test('merges independently filtered pages so all cabin fares are retained', () => {
-  const groups = [
-    provider.parseSearchHtml(tile({ cabin: 'Inside', price: '909' }), 'I'),
-    provider.parseSearchHtml(tile({ cabin: 'Sea view', price: '1,049' }), 'O'),
-    provider.parseSearchHtml(tile({ cabin: 'Balcony', price: '1,299' }), 'B'),
-    provider.parseSearchHtml(tile({ cabin: 'Suite', price: '1,809' }), 'S'),
-  ];
-  const [cruise] = provider.mergeCruises(groups);
-  assert.equal(cruise.priceFrom, '909');
-  assert.deepEqual(cruise.prices, {
-    inside: '909',
-    oceanView: '1049',
-    balcony: '1299',
-    suite: '1809',
-  });
+test('normalizeApiCruise falls back to avgPerPersonPrice when no cabin fare is present', () => {
+  const cruise = provider.normalizeApiCruise(apiResult({ cabins: [] }));
+  assert.equal(cruise.priceFrom, '2532');
+  assert.deepEqual(cruise.prices, provider.emptyPrices());
 });
 
-test('does not treat missing P&O cabin fares as zero', () => {
-  const groups = [
-    provider.parseSearchHtml(tile({ cabin: 'Sea view', price: '599' }), 'O'),
-    provider.parseSearchHtml(tile({ cabin: 'Balcony', price: '699' }), 'B'),
-  ];
-  const [cruise] = provider.mergeCruises(groups);
-  assert.equal(cruise.priceFrom, '599');
-  assert.equal(cruise.prices.inside, null);
-  assert.equal(cruise.prices.suite, null);
+test('normalizeApiCruise returns null without a cruise id', () => {
+  assert.equal(provider.normalizeApiCruise({ shipName: 'Iona' }), null);
 });
 
-test('normalizes representative P&O data for the provider registry smoke test', () => {
-  const cruise = provider.normalizeCruise({
-    id: 'SMOKE-PANDO',
-    shipName: 'Arvia',
-    departureDate: '5 Jul 2026',
-    duration: '14 Nights',
-    departurePort: 'Southampton, UK',
-    prices: { I: '999', O: '1099', B: '1299', S: '1799' },
-  });
-  assert.equal(cruise.provider, 'P&O Cruises');
-  assert.equal(cruise.departureDate, '2026-07-05');
-  assert.equal(cruise.shipClass, 'Excellence');
-  assert.deepEqual(cruise.prices, { inside: '999', oceanView: '1099', balcony: '1299', suite: '1799' });
+test('normalizeCruise is idempotent for already-normalized cruises', () => {
+  const once = provider.normalizeApiCruise(apiResult());
+  assert.equal(provider.normalizeCruise(once), once);
 });
 
-test('fetchSearchPage falls through to Jina reader when direct fetch returns app shell without tiles', async () => {
-  // Simulate a server that returns 200 OK but with a JS app shell (no cruise tiles)
-  const appShellHtml = '<html><body><div id="app"></div><script src="/bundle.js"></script></body></html>';
-  const tileHtml = tile({ id: 'X999', cabin: 'Inside', price: '500' });
-  const rendered = `<html><body>${tileHtml}</body></html>`;
+test('fetchCruises paginates the search API and dedupes by id', async () => {
+  // Fake API: 25 results across pages of 10 via the `start` offset.
+  const makeRow = (n) => apiResult({ cruiseId: `C${n}`, cabins: [{ roomTypeId: 'I', lowerPrice: 500 + n }] });
+  const all = Array.from({ length: 25 }, (_, i) => makeRow(i));
+  const requested = [];
 
-  let jinaCallCount = 0;
-  const result = await provider.fetchSearchPage(
-    'I',
-    async () => ({ ok: true, text: async () => appShellHtml }),
-    {
-      platform: 'linux',
-      requestText: async () => {
-        jinaCallCount++;
-        return rendered;
-      },
-      fetchWithPlaywright: async () => {
-        throw new Error('Playwright fallback should not be needed');
-      },
-    },
-  );
+  const fetchImpl = async (url) => {
+    const start = Number(new URL(url).searchParams.get('start')) || 0;
+    requested.push(start);
+    return { ok: true, json: async () => ({ results: all.length, searchResults: all.slice(start, start + 10) }) };
+  };
 
-  assert.equal(jinaCallCount, 1);
-  const [cruise] = provider.parseSearchHtml(result, 'I');
-  assert.equal(cruise.id, 'pando-X999');
-  assert.equal(cruise.prices.inside, '500');
+  const cruises = await provider.fetchCruises({ fetchImpl, logger: { warn() {} } });
+
+  assert.equal(cruises.length, 25, 'all pages collected');
+  assert.deepEqual(requested.sort((a, b) => a - b), [0, 10, 20], 'paginated by start offset');
+  assert.equal(new Set(cruises.map(c => c.id)).size, 25, 'ids are unique');
 });
 
-test('fetchSearchPage on Windows validates Jina output before falling back to Playwright', async () => {
-  const appShellHtml = '<html><body><div id="app"></div><script src="/bundle.js"></script></body></html>';
-  const rendered = `<html><body>${tile({ id: 'PLAY1', cabin: 'Inside', price: '600' })}</body></html>`;
-
-  let powershellReaderCalls = 0;
-  let playwrightCalls = 0;
-  const result = await provider.fetchSearchPage(
-    'I',
-    async () => ({ ok: true, text: async () => appShellHtml }),
-    {
-      platform: 'win32',
-      requestTextViaPowerShell: async () => {
-        powershellReaderCalls++;
-        return appShellHtml;
-      },
-      fetchWithPlaywright: async () => {
-        playwrightCalls++;
-        return rendered;
-      },
-    },
-  );
-
-  assert.equal(powershellReaderCalls, 1);
-  assert.equal(playwrightCalls, 1);
-  const [cruise] = provider.parseSearchHtml(result, 'I');
-  assert.equal(cruise.id, 'pando-PLAY1');
-  assert.equal(cruise.prices.inside, '600');
-});
-
-test('fetchSearchPage uses direct fetch HTML when it contains rendered cruise tiles', async () => {
-  const tileHtml = `<html><body>${tile({ id: 'DIRECT1', cabin: 'Balcony', price: '800' })}</body></html>`;
-
-  const result = await provider.fetchSearchPage('B', async () => ({
-    ok: true,
-    text: async () => tileHtml,
-  }));
-
-  assert.equal(result, tileHtml, 'should return direct fetch HTML when tiles are present');
-  const [cruise] = provider.parseSearchHtml(result, 'B');
-  assert.equal(cruise.id, 'pando-DIRECT1');
-  assert.equal(cruise.prices.balcony, '800');
-});
-
-test('fetchSearchPage sends browser-compatible headers to P&O', async () => {
-  const tileHtml = `<html><body>${tile({ id: 'HEADER1', cabin: 'Inside', price: '700' })}</body></html>`;
-  let requestOptions = null;
-
-  await provider.fetchSearchPage('I', async (_url, options) => {
-    requestOptions = options;
-    return {
-      ok: true,
-      text: async () => tileHtml,
-    };
-  });
-
-  assert.equal(requestOptions.headers['user-agent'], provider.PANDO_BROWSER_HEADERS['user-agent']);
-  assert.equal(requestOptions.headers['accept-language'], 'en-GB,en;q=0.9');
-  assert.equal(requestOptions.headers['sec-fetch-mode'], 'navigate');
-  assert.equal(requestOptions.headers['upgrade-insecure-requests'], '1');
-});
-
-test('jinaReaderHeaders upgrades the request only when JINA_API_KEY is set', () => {
-  const prevKey = process.env.JINA_API_KEY;
-  const prevProxy = process.env.PANDO_JINA_PROXY;
-  try {
-    // Keyless: unchanged from the plain reader headers (no auth, no wait/target).
-    delete process.env.JINA_API_KEY;
-    delete process.env.PANDO_JINA_PROXY;
-    const keyless = provider.jinaReaderHeaders();
-    assert.equal(keyless.authorization, undefined);
-    assert.equal(keyless['x-wait-for-selector'], undefined);
-    assert.equal(keyless['x-target-selector'], undefined);
-    assert.equal(keyless['x-proxy'], undefined);
-
-    // Keyed: authenticated, waits for and targets the tile selector, no proxy.
-    process.env.JINA_API_KEY = 'test-key-123';
-    const keyed = provider.jinaReaderHeaders();
-    assert.equal(keyed.authorization, 'Bearer test-key-123');
-    assert.match(keyed['x-wait-for-selector'], /po-cuk-cruise-tile-wrapper/);
-    assert.match(keyed['x-target-selector'], /po-cuk-cruise-tile-wrapper/);
-    assert.equal(keyed['x-timeout'], '45');
-    assert.equal(keyed['x-proxy'], undefined, 'proxy stays off unless explicitly enabled');
-
-    // Proxy opt-in only when PANDO_JINA_PROXY is set.
-    process.env.PANDO_JINA_PROXY = 'gb';
-    assert.equal(provider.jinaReaderHeaders()['x-proxy'], 'gb');
-  } finally {
-    if (prevKey === undefined) delete process.env.JINA_API_KEY; else process.env.JINA_API_KEY = prevKey;
-    if (prevProxy === undefined) delete process.env.PANDO_JINA_PROXY; else process.env.PANDO_JINA_PROXY = prevProxy;
-  }
-});
-
-test('fetchSearchPage sends the authenticated Jina headers when a key is present', async () => {
-  const prevKey = process.env.JINA_API_KEY;
-  process.env.JINA_API_KEY = 'test-key-abc';
-  try {
-    let captured = null;
-    const rendered = `<html><body>${tile({ id: 'KEY1', cabin: 'Inside', price: '500' })}</body></html>`;
-    const result = await provider.fetchSearchPage(
-      'I',
-      async () => ({ ok: true, text: async () => '<html><body><div id="app"></div></body></html>' }),
-      {
-        platform: 'linux',
-        requestText: async (_url, headers) => { captured = headers; return rendered; },
-        fetchWithPlaywright: async () => { throw new Error('should not reach browser'); },
-      },
-    );
-    assert.equal(captured.authorization, 'Bearer test-key-abc');
-    assert.match(captured['x-wait-for-selector'], /po-cuk-cruise-tile-wrapper/);
-    const [cruise] = provider.parseSearchHtml(result, 'I');
-    assert.equal(cruise.id, 'pando-KEY1');
-  } finally {
-    if (prevKey === undefined) delete process.env.JINA_API_KEY; else process.env.JINA_API_KEY = prevKey;
-  }
-});
-
-test('fetchSearchPage skips the browser tier and fails fast when skipPlaywright is set', async () => {
-  const appShellHtml = '<html><body><div id="app"></div></body></html>';
-  const warnings = [];
-  let playwrightCalls = 0;
-
+test('fetchCruises throws when the API returns nothing (never overwrites good data)', async () => {
+  const fetchImpl = async () => ({ ok: true, json: async () => ({ results: 0, searchResults: [] }) });
   await assert.rejects(
-    () => provider.fetchSearchPage('I', async () => ({ ok: true, text: async () => appShellHtml }), {
-      platform: 'linux',
-      skipPlaywright: true,
-      logger: { warn: message => warnings.push(message) },
-      requestText: async () => appShellHtml, // Jina also returns no tiles
-      fetchWithPlaywright: async () => { playwrightCalls++; return ''; },
-    }),
-    /browser tier skipped \(PANDO_SKIP_PLAYWRIGHT\)/,
+    () => provider.fetchCruises({ fetchImpl, logger: { warn() {} } }),
+    /P&O returned no cruise results/,
   );
-
-  assert.equal(playwrightCalls, 0, 'browser tier must not be invoked when skipped');
-  // Each fallen-through tier explains itself so CI logs pinpoint the failure.
-  assert.ok(warnings.some(w => /direct fetch → JS app shell/.test(w)), 'logs the direct-fetch reason');
-  assert.ok(warnings.some(w => /Jina reader \(free\) → no tiles/.test(w)), 'logs the Jina reason');
 });
 
-test('fetchSearchPage logs the direct-fetch HTTP status before falling through', async () => {
+test('fetchCruises keeps successful pages when one page request fails', async () => {
+  const rows = Array.from({ length: 20 }, (_, i) => apiResult({ cruiseId: `C${i}` }));
+  const fetchImpl = async (url) => {
+    const start = Number(new URL(url).searchParams.get('start')) || 0;
+    if (start === 10) return { ok: false, status: 500, json: async () => ({}) };
+    return { ok: true, json: async () => ({ results: 20, searchResults: rows.slice(start, start + 10) }) };
+  };
   const warnings = [];
-  const rendered = `<html><body>${tile({ id: 'JINA1', cabin: 'Inside', price: '450' })}</body></html>`;
-
-  const result = await provider.fetchSearchPage('O', async () => ({ ok: false, status: 403, text: async () => '' }), {
-    platform: 'linux',
-    logger: { warn: message => warnings.push(message) },
-    requestText: async () => rendered,
-    fetchWithPlaywright: async () => { throw new Error('should not reach browser'); },
-  });
-
-  assert.ok(warnings.some(w => /direct fetch → HTTP 403/.test(w)), 'logs the HTTP status');
-  const [cruise] = provider.parseSearchHtml(result, 'O');
-  assert.equal(cruise.id, 'pando-JINA1');
-});
-
-test('fetchCruises keeps successful P&O cabin pages when another cabin page fails', async () => {
-  const warnings = [];
-  const cruises = await provider.fetchCruises({
-    logger: { warn: message => warnings.push(message) },
-    fetchSearchPage: async cabinCode => {
-      if (cabinCode === 'I') return `<html><body>${tile({ id: 'PARTIAL1', cabin: 'Inside', price: '700' })}</body></html>`;
-      if (cabinCode === 'B') return `<html><body>${tile({ id: 'PARTIAL1', cabin: 'Balcony', price: '1200' })}</body></html>`;
-      throw new Error(`blocked ${cabinCode}`);
-    },
-  });
-
-  assert.equal(cruises.length, 1);
-  assert.equal(cruises[0].id, 'pando-PARTIAL1');
-  assert.equal(cruises[0].priceFrom, '700');
-  assert.deepEqual(cruises[0].prices, {
-    inside: '700',
-    oceanView: null,
-    balcony: '1200',
-    suite: null,
-  });
-  assert.equal(warnings.length, 1);
-  assert.match(warnings[0], /2 cabin page\(s\) failed/);
-});
-
-test('fetchCruises reports all P&O cabin failures before failing closed', async () => {
-  const warnings = [];
-
-  await assert.rejects(
-    () => provider.fetchCruises({
-      logger: { warn: message => warnings.push(message) },
-      fetchSearchPage: async cabinCode => {
-        throw new Error(`blocked ${cabinCode}`);
-      },
-    }),
-    /P&O returned no parseable cruise results.*I: blocked I.*O: blocked O.*B: blocked B.*S: blocked S/,
-  );
-  assert.equal(warnings.length, 1);
-  assert.match(warnings[0], /4 cabin page\(s\) failed/);
+  const cruises = await provider.fetchCruises({ fetchImpl, logger: { warn: m => warnings.push(m) } });
+  assert.equal(cruises.length, 10, 'first page kept despite the second failing');
+  assert.match(warnings.join(' '), /page start=10 failed/);
 });

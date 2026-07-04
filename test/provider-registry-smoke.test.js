@@ -60,19 +60,24 @@ const smokeCases = {
     'Southampton (for London), England',
   ),
   'p-and-o': provider => provider.normalizeCruise({
-    id: 'SMOKE-PANDO',
+    cruiseId: 'SMOKE1',
     shipName: 'Iona',
-    departureDate: '2026-09-01',
-    duration: '7 Nights',
-    departurePort: 'Southampton, UK',
-    prices: { I: '799', O: '899', B: '999', S: '1299' },
+    departDate: '2026-09-01T00:00:00Z',
+    duration: 7,
+    embarkPortCode: 'SOU',
+    disembarkPortCode: 'BGI',
+    destinationIds: ['Caribbean'],
+    name: 'Caribbean Fly-Cruise, 14 Nights',
+    cabins: [{ roomTypeId: 'I', lowerPrice: 799 }],
+    portOfCallIds: ['SOU', 'ATSEADAY', 'BGI'],
+    arrivalAtArrivalPort: '2026-09-08T00:00:00Z',
   }),
 };
 
 // Which real providers launch a headless Chromium. The scrape scheduler
 // serialises exactly these so two never contend and starve into empty results;
 // keep this in lockstep with the `usesBrowser` flags on the provider modules.
-const BROWSER_PROVIDER_IDS = new Set(['ncl-cruises', 'p-and-o', 'princess-cruises']);
+const BROWSER_PROVIDER_IDS = new Set(['ncl-cruises', 'princess-cruises']);
 
 test('browser providers are flagged usesBrowser so the scheduler serialises them', () => {
   for (const provider of providers) {

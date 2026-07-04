@@ -75,6 +75,13 @@
   const SITE_CHANGES = [
     {
       date: '4 Jul 2026',
+      title: 'Full P&O Cruises catalogue',
+      items: [
+        'P&O Cruises now lists its whole programme (900+ sailings) instead of a small sample, pulled directly from P&O\'s cruise-search data for faster, more reliable updates.',
+      ],
+    },
+    {
+      date: '4 Jul 2026',
       title: 'Find a connecting cruise before, too',
       items: [
         'The departure-port column now has a button that searches for a cruise arriving at that port shortly before this one sails — the mirror of the existing "cruise after" button. Both use the connecting-cruise window in display options.',
