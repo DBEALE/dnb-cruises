@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 2,
+  "count": 3,
   "cruises": [
     {
       "id": "pando-A627",
@@ -85,6 +85,41 @@
           "at": "2026-07-04T11:52:45.512Z",
           "prices": {
             "balcony": 5809
+          }
+        }
+      ]
+    },
+    {
+      "id": "pando-G622",
+      "provider": "P&O Cruises",
+      "shipName": "Iona",
+      "shipClass": "Excellence",
+      "shipLaunchYear": 2020,
+      "itinerary": "Southampton",
+      "departureDate": "2026-07-11",
+      "duration": "7 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Norwegian-Fjords-And-Iceland",
+      "destinationPort": "Southampton",
+      "seaDays": 2,
+      "priceFrom": "899",
+      "currency": "GBP",
+      "prices": {
+        "inside": "899",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/G622/G622",
+      "arrivalDate": "2026-07-18",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "lastSeenAt": "2026-07-04T20:21:18.169Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "inside": 899
           }
         }
       ]
