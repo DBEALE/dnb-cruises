@@ -41,50 +41,66 @@
       ]
     },
     {
-      "id": "pando-B617",
+      "id": "pando-A629",
       "provider": "P&O Cruises",
-      "shipName": "Britannia",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2015,
-      "itinerary": "Southampton",
-      "departureDate": "2026-07-17",
-      "duration": "14 Nights",
-      "departurePort": "Southampton",
-      "departureRegion": "UK & Ireland",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Valletta, Malta",
+      "departureDate": "2026-07-23",
+      "duration": "7 Nights",
+      "departurePort": "Valletta",
+      "departureRegion": "Mediterranean",
       "destination": "Mediterranean",
-      "destinationPort": "Southampton",
-      "seaDays": 7,
-      "priceFrom": "1099",
+      "destinationPort": "Valletta",
+      "seaDays": 2,
+      "priceFrom": "999",
       "currency": "GBP",
       "prices": {
-        "inside": "1099",
-        "oceanView": null,
-        "balcony": "1649",
+        "inside": "999",
+        "oceanView": "1049",
+        "balcony": null,
         "suite": null
       },
-      "bookingUrl": "https://www.pocruises.com/find-a-cruise/B617/B617",
-      "arrivalDate": "2026-07-31",
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A629/A629",
+      "arrivalDate": "2026-07-30",
       "firstSeenAt": "2026-07-04T10:39:49.793Z",
-      "lastSeenAt": "2026-07-06T13:36:43.732Z",
+      "lastSeenAt": "2026-07-06T17:01:37.354Z",
       "priceHistory": [
         {
           "at": "2026-07-04T10:39:49.793Z",
           "prices": {
-            "inside": 1099,
-            "balcony": 1649
+            "oceanView": 1049,
+            "balcony": 1299
           }
         },
         {
           "at": "2026-07-04T11:52:45.512Z",
           "prices": {
-            "inside": 1099
+            "inside": 999
           }
         },
         {
           "at": "2026-07-04T12:11:31.689Z",
           "prices": {
-            "inside": 1099,
-            "balcony": 1649
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1299
+          }
+        },
+        {
+          "at": "2026-07-05T00:35:44.262Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1199,
+            "balcony": 1299
+          }
+        },
+        {
+          "at": "2026-07-06T13:36:43.732Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049
           }
         }
       ]
