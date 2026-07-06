@@ -108,6 +108,18 @@ async function setupRoutes(page, fixtures = {}) {
     }),
   }));
   await page.route('**/build-info.json', r => r.fulfill({ status: 404, body: '' }));
+  await page.route('**/ports.json', r => r.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify({
+      ports: fixtures.ports || [
+        { name: 'Southampton', lat: 50.897, lon: -1.404, land: 'great-britain', aliases: ['southampton'] },
+        { name: 'Barcelona', lat: 41.353, lon: 2.178, land: 'continental-europe', aliases: ['barcelona'] },
+        { name: 'Miami', lat: 25.775, lon: -80.176, land: 'north-america', aliases: ['miami'] },
+        { name: 'Fort Lauderdale', lat: 26.092, lon: -80.117, land: 'north-america', aliases: ['lauderdale', 'fort lauderdale'] },
+      ],
+    }),
+  }));
   await page.route('**/open.er-api.com/**', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ rates: { GBP: fixtures.gbpRate || 1 } }) }));
 }
 
@@ -603,6 +615,48 @@ test.describe('URL state', () => {
     // rc_a arrives 09-07 and rc_b 09-15 — both outside the window, so filtered out.
     await expect(beforePage.locator('#cruiseBody')).not.toContainText('Anthem of the Seas');
     await beforePage.close();
+  });
+
+  test('port search radius matches nearby departure ports', async ({ page }) => {
+    const fixtures = {
+      royalCaribbean: {
+        scrapedAt: CRUISES_RC.scrapedAt,
+        cruises: [
+          cruise({ id: 'p_mia', shipName: 'Miami Ship', provider: 'Royal Caribbean', priceFrom: 500, port: 'Miami', firstSeenAt: isoAgo(DAY) }),
+          cruise({ id: 'p_ftl', shipName: 'Lauderdale Ship', provider: 'Royal Caribbean', priceFrom: 600, port: 'Fort Lauderdale', firstSeenAt: isoAgo(DAY) }),
+          cruise({ id: 'p_bcn', shipName: 'Barca Ship', provider: 'Royal Caribbean', priceFrom: 700, port: 'Barcelona', firstSeenAt: isoAgo(DAY) }),
+        ],
+      },
+    };
+
+    // Radius 100mi: filtering "Miami" also matches Fort Lauderdale (~22mi) but not Barcelona.
+    await page.addInitScript(s => localStorage.setItem('cruise-explorer-settings', JSON.stringify(s)), { ...ALL_ON, proximityMiles: 100 });
+    await setupRoutes(page, fixtures);
+    await page.goto('/#departurePort=Miami');
+    await page.waitForSelector('tbody tr:not(.empty-row)');
+
+    await expect(page.locator('#cruiseBody')).toContainText('Miami Ship');
+    await expect(page.locator('#cruiseBody')).toContainText('Lauderdale Ship'); // within 100mi (after ports.json loads)
+    await expect(page.locator('#cruiseBody')).not.toContainText('Barca Ship');
+  });
+
+  test('port search radius off falls back to exact port match', async ({ page }) => {
+    const fixtures = {
+      royalCaribbean: {
+        scrapedAt: CRUISES_RC.scrapedAt,
+        cruises: [
+          cruise({ id: 'p_mia', shipName: 'Miami Ship', provider: 'Royal Caribbean', priceFrom: 500, port: 'Miami', firstSeenAt: isoAgo(DAY) }),
+          cruise({ id: 'p_ftl', shipName: 'Lauderdale Ship', provider: 'Royal Caribbean', priceFrom: 600, port: 'Fort Lauderdale', firstSeenAt: isoAgo(DAY) }),
+        ],
+      },
+    };
+    await page.addInitScript(s => localStorage.setItem('cruise-explorer-settings', JSON.stringify(s)), { ...ALL_ON, proximityMiles: 0 });
+    await setupRoutes(page, fixtures);
+    await page.goto('/#departurePort=Miami');
+    await page.waitForSelector('tbody tr:not(.empty-row)');
+
+    await expect(page.locator('#cruiseBody')).toContainText('Miami Ship');
+    await expect(page.locator('#cruiseBody')).not.toContainText('Lauderdale Ship');
   });
 });
 

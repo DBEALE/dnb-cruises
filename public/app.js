@@ -38,6 +38,10 @@
     // from its destination port. Raise it to allow a stayover before the next
     // sailing. See followOnSearchHash().
     followOnDays: 3,
+    // Port search radius (miles). 0 = off (exact port match). When set, the
+    // departure/destination port filters — and the connecting-cruise search —
+    // also match ports within this many miles of the one you pick.
+    proximityMiles: 0,
   };
   let settings = { ...SETTINGS_DEFAULTS };
   let loadedProviders = [];
@@ -73,6 +77,14 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '6 Jul 2026',
+      title: 'Search ports by distance',
+      items: [
+        'Departure and arrival ports are now standardised to consistent names across all cruise lines.',
+        'New "Port search radius" display option: filter by a port and also match ports within a chosen distance (e.g. filtering Miami with a 100-mile radius also finds Fort Lauderdale). The "cruise before/after" buttons use it too, so a connecting cruise can start from a nearby port.',
+      ],
+    },
     {
       date: '6 Jul 2026',
       title: 'Virgin Voyages added',
@@ -1048,6 +1060,7 @@
     pruneLegacyLocalStorageCache();
     fetchGBPRate();
     fetchShipWikiLinks();
+    loadPortRegistry();
     loadSettings();
     wireSettingsHandlers();
     wireMobileFilterSheet();
@@ -1226,6 +1239,50 @@
       shipWikiLinks     = data?.ships     || {};
       providerWikiLinks = data?.providers || {};
       classWikiLinks    = data?.classes   || {};
+      if (allCruises.length) applyFilters();
+    } catch {}
+  }
+
+  // ── Port geo (proximity search) ─────────────────────────────────────────────
+  // Canonical port registry (public/ports.json) with coordinates, so the
+  // departure/destination filters — and the connecting-cruise search — can
+  // match ports within N miles of the one you pick (N is a display setting).
+  let portRegistry = [];
+  const portGeoCache = new Map();
+
+  function normPortKey(raw) {
+    return String(raw || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+  function resolvePortGeo(raw) {
+    const key = normPortKey(raw);
+    if (!key) return null;
+    if (portGeoCache.has(key)) return portGeoCache.get(key);
+    let found = null;
+    for (const port of portRegistry) {
+      if (Array.isArray(port.aliases) && port.aliases.some(alias => key.includes(alias))) { found = port; break; }
+    }
+    portGeoCache.set(key, found);
+    return found;
+  }
+  function portDistanceMiles(a, b) {
+    if (!a || !b || !Number.isFinite(a.lat) || !Number.isFinite(b.lat)) return null;
+    const toRad = d => (d * Math.PI) / 180;
+    const dLat = toRad(b.lat - a.lat);
+    const dLon = toRad(b.lon - a.lon);
+    const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLon / 2) ** 2;
+    return 2 * 3958.8 * Math.asin(Math.min(1, Math.sqrt(h)));
+  }
+  async function loadPortRegistry() {
+    try {
+      const res = await fetch(resolveStaticUrl('./ports.json'), { cache: 'no-store' });
+      if (!res.ok) return;
+      const data = await res.json();
+      portRegistry = Array.isArray(data.ports) ? data.ports : [];
+      portGeoCache.clear();
       if (allCruises.length) applyFilters();
     } catch {}
   }
@@ -2301,6 +2358,27 @@
     return Math.min(60, Math.max(1, n));
   }
 
+  // Port search radius in miles; 0 (or invalid) means off / exact match.
+  function normalizeProximityMiles(value) {
+    const n = Math.round(Number(value));
+    return Number.isFinite(n) && n > 0 ? Math.min(500, n) : 0;
+  }
+
+  // Substring match OR, when a radius is set and both the filter value and the
+  // cruise's port resolve to known ports, within that many miles.
+  function portFilterMatches(cruisePortRaw, portMeta, portMetaSimple, filterValue) {
+    if (!filterValue) return true;
+    if (portMetaMatchesFilter(portMeta, portMetaSimple, filterValue)) return true;
+    const radius = normalizeProximityMiles(settings.proximityMiles);
+    if (radius > 0) {
+      const origin = resolvePortGeo(filterValue);
+      const target = resolvePortGeo(cruisePortRaw);
+      const miles = portDistanceMiles(origin, target);
+      if (Number.isFinite(miles) && miles <= radius) return true;
+    }
+    return false;
+  }
+
   function loadSettings() {
     try {
       const raw = localStorage.getItem(SETTINGS_KEY);
@@ -2343,6 +2421,8 @@
     if (linkTarget) linkTarget.value = settings.linkTarget;
     const followOnDays = document.getElementById('settingsFollowOnDays');
     if (followOnDays) followOnDays.value = String(settings.followOnDays);
+    const proximityMiles = document.getElementById('settingsProximityMiles');
+    if (proximityMiles) proximityMiles.value = String(normalizeProximityMiles(settings.proximityMiles));
     const phoneInput = document.getElementById('settingsPhone');
     if (phoneInput) phoneInput.value = rememberedPhone();
     const homePortInput = document.getElementById('settingsHomePort');
@@ -2391,6 +2471,15 @@
       });
     }
 
+    const proximityMiles = document.getElementById('settingsProximityMiles');
+    if (proximityMiles) {
+      proximityMiles.addEventListener('change', () => {
+        settings.proximityMiles = normalizeProximityMiles(proximityMiles.value);
+        saveSettings();
+        if (allCruises.length) applyFilters();
+      });
+    }
+
     // Phone number — save on every change, lightly validate, show inline status.
     const phoneInput  = document.getElementById('settingsPhone');
     const phoneStatus = document.getElementById('settingsPhoneStatus');
@@ -2432,6 +2521,7 @@
       });
       if (linkTarget) linkTarget.value = settings.linkTarget;
       if (followOnDays) followOnDays.value = String(settings.followOnDays);
+      if (proximityMiles) proximityMiles.value = String(settings.proximityMiles);
       applySettingsToDom();
       saveSettings();
       if (allCruises.length) applyFilters();
@@ -3400,12 +3490,12 @@
       const text = ['shipName', 'provider', 'destination', 'departurePort'];
       for (const f of text) {
         if (f === 'departurePort') {
-          if (!portMetaMatchesFilter(meta.departurePort, meta.departurePortSimple, normalizedFilters[f])) return false;
+          if (!portFilterMatches(c.departurePort, meta.departurePort, meta.departurePortSimple, normalizedFilters[f])) return false;
         } else if (normalizedFilters[f] && !meta[f].includes(normalizedFilters[f])) {
           return false;
         }
       }
-      if (normalizedFilters.destinationPort && !portMetaMatchesFilter(meta.destinationPort, meta.destinationPortSimple, normalizedFilters.destinationPort)) return false;
+      if (!portFilterMatches(getDestinationPortDisplay(c), meta.destinationPort, meta.destinationPortSimple, normalizedFilters.destinationPort)) return false;
       // shipClass filter is bi-modal: `tier:<size>` filters by computed
       // size tier from SHIP_TIER_BY_CLASS; anything else is a substring
       // match against the class name (unchanged behaviour).

@@ -609,6 +609,17 @@
             <option value="14">14 days</option>
           </select>
         </li>
+        <li class="settings-select-item">
+          <label for="settingsProximityMiles"><span>Port search radius</span><small>When you filter by a departure or destination port — or use the connecting-cruise buttons — also match ports within this distance. "Off" means an exact port only.</small></label>
+          <select id="settingsProximityMiles" data-setting="proximityMiles">
+            <option value="0">Off (exact port)</option>
+            <option value="25">Within 25 miles</option>
+            <option value="50">Within 50 miles</option>
+            <option value="100">Within 100 miles</option>
+            <option value="150">Within 150 miles</option>
+            <option value="250">Within 250 miles</option>
+          </select>
+        </li>
         <li><label><input type="checkbox" data-setting="classDots">   <span>Class quality dots</span><small>The four green dots next to ship-class names.</small></label></li>
         <li><label><input type="checkbox" data-setting="launchYear">  <span>Ship launch year</span><small>The year column (desktop) and grey year next to ship name (mobile).</small></label></li>
         <li><label><input type="checkbox" data-setting="shipIcons">   <span>Ship icons</span><small>A small cruise-line-coloured ship icon next to each ship name.</small></label></li>
