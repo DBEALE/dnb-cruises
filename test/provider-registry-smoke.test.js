@@ -72,6 +72,17 @@ const smokeCases = {
     portOfCallIds: ['SOU', 'ATSEADAY', 'BGI'],
     arrivalAtArrivalPort: '2026-09-08T00:00:00Z',
   }),
+  'virgin-voyages': provider => provider.normalizeCruise({
+    shipCode: 'SC',
+    packageCode: '5NCM',
+    startDate: '2026-09-01',
+    endDate: '2026-09-06',
+    duration: 5,
+    homePort: 'MIA',
+    ports: ['MIA', 'CZM', 'BIM', 'MIA'],
+    minPrice: 899,
+    region: 'CARIBBEAN',
+  }),
 };
 
 // Which real providers launch a headless Chromium. The scrape scheduler

@@ -12,6 +12,7 @@ const providers = [
   require('./ncl-cruises'),
   require('./princess-cruises'),
   require('./p-and-o'),
+  require('./virgin-voyages'),
   // require('./msc-cruises'),
 ];
 

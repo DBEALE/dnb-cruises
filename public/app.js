@@ -74,6 +74,13 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '6 Jul 2026',
+      title: 'Virgin Voyages added',
+      items: [
+        'Added Virgin Voyages — 400+ adult-only sailings across the four Lady ships, with itineraries and lead-in prices.',
+      ],
+    },
+    {
       date: '4 Jul 2026',
       title: 'Full P&O Cruises catalogue',
       items: [
@@ -689,6 +696,7 @@
     America: 2,
     Coral: 2,
     Royal: 4,
+    Lady: 3,
     Vision: 1,
     Galapagos: 1,
     Sun: 1,
@@ -1433,6 +1441,7 @@
     // Medium — 2,000–3,000 pax
     'Radiance':       'medium',
     'Vision':         'medium',
+    'Lady':           'medium',
     'Millennium':     'medium',
     'Solstice':       'medium',
     'Jewel':          'medium',
