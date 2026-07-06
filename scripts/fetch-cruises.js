@@ -4,6 +4,7 @@ const fs        = require('fs');
 const path      = require('path');
 const providers = require('../providers');
 const { fetchWithTimeout } = require('../providers/shared');
+const { canonicalPortName } = require('../providers/ports');
 const {
   hasUniformCabinPrices,
   isInvalidLeadingHistoryEntry,
@@ -492,6 +493,10 @@ async function main() {
       const priceHistory = mergePriceHistory(snapshot.provider.id, prevCruise, cruise, scrapedAt);
       return {
         ...cruise,
+        // Standardise embark/disembark ports to canonical names so proximity
+        // search and the connecting-cruise features compare like with like.
+        departurePort:   canonicalPortName(cruise.departurePort),
+        destinationPort: canonicalPortName(cruise.destinationPort),
         firstSeenAt: firstSeenAt(prevCruise, priceHistory, scrapedAt),
         priceHistory,
         lastSeenAt:  scrapedAt,
