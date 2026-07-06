@@ -3,6 +3,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 
+const fs = require('node:fs');
+const path = require('node:path');
 const providers = require('../providers');
 
 const CABIN_BUCKETS = ['balcony', 'inside', 'oceanView', 'suite'];
@@ -89,6 +91,19 @@ const smokeCases = {
 // serialises exactly these so two never contend and starve into empty results;
 // keep this in lockstep with the `usesBrowser` flags on the provider modules.
 const BROWSER_PROVIDER_IDS = new Set(['ncl-cruises', 'princess-cruises']);
+
+test('committed providers/index.json manifest lists exactly the registered providers', () => {
+  // The push-deploy workflow ships this committed manifest, so if it drifts
+  // from the registry a provider silently disappears from the site (its data
+  // deploys but the frontend never loads it). Keep them in lockstep.
+  const manifestPath = path.join(__dirname, '..', 'public', 'providers', 'index.json');
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  assert.deepEqual(
+    (manifest.providers || []).map(p => p.id),
+    providers.map(p => p.id),
+    'public/providers/index.json is out of sync with providers/index.js',
+  );
+});
 
 test('browser providers are flagged usesBrowser so the scheduler serialises them', () => {
   for (const provider of providers) {

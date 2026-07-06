@@ -102,23 +102,25 @@ function sanitizeHistoryFile(providerId, filePath) {
   }
 }
 
-// Provider IDs come from the live providers/index.json on Pages. Falls back
-// to the local tracked copy in this repo if Pages isn't reachable (first
-// deploy, network blip).
+// Provider IDs to pull, as the UNION of the committed manifest (this repo's
+// current provider list) and the live manifest on Pages. Using the union means
+// a newly-added provider's data (present in the committed manifest before the
+// next scrape has refreshed the live one) is still pulled in on a push-only
+// deploy — otherwise that provider would be dropped from the redeployed site.
 async function getProviderIds() {
+  const ids = new Set();
+  try {
+    const localPath = path.join(PUBLIC_DIR, 'providers', 'index.json');
+    const local = JSON.parse(fs.readFileSync(localPath, 'utf8'));
+    for (const p of (local.providers || [])) if (p.id) ids.add(p.id);
+  } catch {}
   try {
     const index = await fetchJson(`${BASE_URL}providers/index.json`);
-    return (index.providers || []).map(p => p.id).filter(Boolean);
+    for (const p of (index.providers || [])) if (p.id) ids.add(p.id);
   } catch (err) {
-    console.log(`  − live providers/index.json unavailable (${err.message}); falling back to local file`);
-    try {
-      const localPath = path.join(PUBLIC_DIR, 'providers', 'index.json');
-      const local = JSON.parse(fs.readFileSync(localPath, 'utf8'));
-      return (local.providers || []).map(p => p.id).filter(Boolean);
-    } catch {
-      return [];
-    }
+    console.log(`  − live providers/index.json unavailable (${err.message}); using committed manifest only`);
   }
+  return [...ids];
 }
 
 async function main() {
