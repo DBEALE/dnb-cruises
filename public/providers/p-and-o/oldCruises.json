@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 2,
+  "count": 3,
   "cruises": [
     {
       "id": "pando-G622",
@@ -101,6 +101,47 @@
           "prices": {
             "inside": 999,
             "oceanView": 1049
+          }
+        }
+      ]
+    },
+    {
+      "id": "pando-A627A",
+      "provider": "P&O Cruises",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Valletta, Malta",
+      "departureDate": "2026-07-09",
+      "duration": "14 Nights",
+      "departurePort": "Valletta",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean",
+      "destinationPort": "Valletta",
+      "seaDays": 4,
+      "priceFrom": "2559",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "2559",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A627A/A627A",
+      "arrivalDate": "2026-07-23",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "lastSeenAt": "2026-07-07T05:20:16.655Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "balcony": 2409
+          }
+        },
+        {
+          "at": "2026-07-06T18:38:42.187Z",
+          "prices": {
+            "balcony": 2559
           }
         }
       ]
