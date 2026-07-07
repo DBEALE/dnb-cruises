@@ -47,6 +47,11 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /<option value="20">24hr price reduction<\/option>/);
   assert.match(html, /id="mobFilterPriceDrop"/);
   assert.match(html, /id="mobFilterNewWithin"/);
+  assert.match(html, /mob-filter-heading-highlights">Highlights/);
+  assert.match(html, /mob-filter-heading-cruise">Cruise/);
+  assert.match(html, /mob-filter-heading-route">Route &amp; ports/);
+  assert.match(html, /mob-filter-heading-dates">Dates &amp; length/);
+  assert.match(html, /mob-filter-heading-price">Price/);
   assert.match(html, /id="departureRangeDialog"/);
   assert.match(html, /Departure port/);
   assert.match(html, /Sea days/);
@@ -119,6 +124,9 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(app, /async function clearMobileFilters\(\)/);
   assert.match(app, /btn\.textContent = 'Clearing\.\.\.'/);
   assert.match(css, /#mobClearFilters\.is-busy::before/);
+  assert.match(css, /\.mob-filter-heading \{/);
+  assert.match(css, /\.mob-filter-route \{ order: 41; \}/);
+  assert.match(css, /\.mob-filter-dates \{ order: 51; \}/);
   assert.match(css, /\.ph-table-wrap \{[^}]*overflow-y: auto/);
   assert.match(css, /\.ph-table-wrap \{[^}]*overflow-x: hidden/);
   assert.match(css, /dialog#mobFilters \{[^}]*100dvh - 72px/s);

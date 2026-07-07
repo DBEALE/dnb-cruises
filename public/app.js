@@ -79,6 +79,13 @@
   const SITE_CHANGES = [
     {
       date: '7 Jul 2026',
+      title: 'Grouped mobile filters',
+      items: [
+        'The mobile Sort & filter sheet now groups related controls into Highlights, Cruise, Route & ports, Dates & length, and Price sections.',
+      ],
+    },
+    {
+      date: '7 Jul 2026',
       title: 'Round-trip route filter',
       items: [
         'Added an Endpoint ports filter so you can show cruises that return to their departure port, or only cruises that finish somewhere different.',

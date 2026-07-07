@@ -163,6 +163,7 @@
         <button type="button" class="mob-filters-close" id="mobFiltersClose" aria-label="Close filters">×</button>
       </div>
       <div class="mob-filter-grid">
+      <div class="mob-filter-heading mob-filter-heading-sort">Sort</div>
       <!-- Sort is now part of the filter sheet — single tap to access. -->
       <div class="mob-filter-group mob-filter-full mob-sort-inline">
         <label for="mobileSortSelect">Sort by</label>
@@ -187,7 +188,8 @@
           <button id="mobileSortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-heading mob-filter-heading-highlights">Highlights</div>
+      <div class="mob-filter-group mob-filter-deals">
         <label for="mobFilterPriceDrop">Price reduced</label>
         <div class="filter-entry">
           <select id="mobFilterPriceDrop" class="mob-filter" data-field="priceDropWindow" onchange="mobileFilterSync(this)">
@@ -198,7 +200,7 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('priceDropWindow')" aria-label="Clear recent price reduction filter" title="Clear recent price reduction filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-deals">
         <label for="mobFilterNewWithin">New cruises</label>
         <div class="filter-entry">
           <select id="mobFilterNewWithin" class="mob-filter" data-field="newWithin" onchange="mobileFilterSync(this)">
@@ -209,7 +211,9 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('newWithin')" aria-label="Clear newly added filter" title="Clear newly added filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-heading mob-filter-heading-cruise">Cruise</div>
+      <div class="mob-filter-heading mob-filter-heading-route">Route &amp; ports</div>
+      <div class="mob-filter-group mob-filter-route">
         <label for="mobFilterEndpointMatch">Endpoint ports</label>
         <div class="filter-entry">
           <select id="mobFilterEndpointMatch" class="mob-filter" data-field="endpointMatch" onchange="mobileFilterSync(this)">
@@ -220,7 +224,7 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('endpointMatch')" aria-label="Clear endpoint port filter" title="Clear endpoint port filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-cruise">
         <label for="mobFilterShip">Ship</label>
         <div class="filter-entry">
           <select id="mobFilterShip" class="mob-filter" data-field="shipName" onchange="mobileFilterSync(this)">
@@ -229,7 +233,7 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('shipName')" aria-label="Clear ship filter" title="Clear ship filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-cruise">
         <label for="mobFilterProvider">Cruise line</label>
         <div class="filter-entry">
           <select id="mobFilterProvider" class="mob-filter" data-field="provider" onchange="mobileFilterSync(this)">
@@ -238,7 +242,7 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('provider')" aria-label="Clear cruise line filter" title="Clear cruise line filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-cruise">
         <label for="mobFilterClass">Ship class</label>
         <div class="filter-entry">
           <select id="mobFilterClass" class="mob-filter" data-field="shipClass" onchange="mobileFilterSync(this)">
@@ -247,35 +251,35 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('shipClass')" aria-label="Clear ship class filter" title="Clear ship class filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-cruise">
         <label for="mobFilterLaunch">Min launch year</label>
         <div class="filter-entry">
           <input id="mobFilterLaunch" class="mob-filter" data-field="minLaunch" placeholder="e.g. 2018" type="number" min="1990" oninput="mobileFilterSync(this)">
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('minLaunch')" aria-label="Clear launch year filter" title="Clear launch year filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group mob-filter-full">
+      <div class="mob-filter-group mob-filter-full mob-filter-route">
         <label for="mobFilterItinerary">Itinerary</label>
         <div class="filter-entry">
           <input id="mobFilterItinerary" class="mob-filter" data-field="itinerary" placeholder="e.g. Caribbean" oninput="mobileFilterSync(this)">
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('itinerary')" aria-label="Clear itinerary filter" title="Clear itinerary filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-route">
         <label for="mobFilterDestination">Destination</label>
         <div class="filter-entry">
           <input id="mobFilterDestination" class="mob-filter" data-field="destination" placeholder="Type…" oninput="mobileFilterSync(this)">
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('destination')" aria-label="Clear destination filter" title="Clear destination filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-route">
         <label for="mobFilterDestinationPort">Destination port</label>
         <div class="filter-entry">
           <input id="mobFilterDestinationPort" class="mob-filter" data-field="destinationPort" placeholder="e.g. Barcelona" oninput="mobileFilterSync(this)">
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('destinationPort')" aria-label="Clear destination port filter" title="Clear destination port filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-route">
         <label for="mobFilterRegion">Region</label>
         <div class="filter-entry">
           <select id="mobFilterRegion" class="mob-filter" data-field="departureRegion" onchange="mobileFilterSync(this)">
@@ -302,7 +306,8 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('departureRegion')" aria-label="Clear region filter" title="Clear region filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-heading mob-filter-heading-dates">Dates &amp; length</div>
+      <div class="mob-filter-group mob-filter-dates">
         <label for="mobDepartureRangeBtn">Departure</label>
         <input id="mobFilterDepartureStart" class="mob-filter" data-field="departureStart" type="hidden">
         <input id="mobFilterDepartureEnd" class="mob-filter" data-field="departureEnd" type="hidden">
@@ -311,28 +316,29 @@
           <button type="button" class="filter-clear-btn" onclick="clearDepartureRange()" aria-label="Clear departure date range" title="Clear departure date range">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-route">
         <label for="mobFilterPort">Departure port</label>
         <div class="filter-entry">
           <input id="mobFilterPort" class="mob-filter" data-field="departurePort" placeholder="e.g. Southampton" oninput="mobileFilterSync(this)">
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('departurePort')" aria-label="Clear departure port filter" title="Clear departure port filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-dates">
         <label for="mobFilterDuration">Min nights</label>
         <div class="filter-entry">
           <input id="mobFilterDuration" class="mob-filter" data-field="duration" placeholder="e.g. 7" type="number" min="0" oninput="mobileFilterSync(this)">
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('duration')" aria-label="Clear nights filter" title="Clear nights filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
-        <label for="mobMaxPrice">Max price (£)</label>
+      <div class="mob-filter-heading mob-filter-heading-price">Price</div>
+      <div class="mob-filter-group mob-filter-price">
+        <label for="mobMaxPrice">Max price (GBP)</label>
         <div class="filter-entry">
           <input id="mobMaxPrice" class="mob-filter" data-field="maxPrice" placeholder="Max £…" type="number" min="0" oninput="mobileFilterSync(this)">
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('maxPrice')" aria-label="Clear max price filter" title="Clear max price filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group">
+      <div class="mob-filter-group mob-filter-dates">
         <label for="mobFilterSeaDays">Max sea days</label>
         <div class="filter-entry">
           <input id="mobFilterSeaDays" class="mob-filter" data-field="seaDays" placeholder="e.g. 2" type="number" min="0" oninput="mobileFilterSync(this)">

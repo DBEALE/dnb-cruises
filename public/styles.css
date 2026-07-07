@@ -1603,9 +1603,39 @@
         padding: 14px 14px 18px;
         overflow-y: auto;
       }
+
+      .mob-filter-heading {
+        grid-column: 1 / -1;
+        margin: 6px 0 -2px;
+        padding-top: 10px;
+        border-top: 1px solid var(--gray-100);
+        color: var(--gray-700);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .mob-filter-heading-sort {
+        order: 10;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+      }
+      .mob-filter-heading-highlights { order: 20; }
+      .mob-filter-heading-cruise { order: 30; }
+      .mob-filter-heading-route { order: 40; }
+      .mob-filter-heading-dates { order: 50; }
+      .mob-filter-heading-price { order: 60; }
+      .mob-sort-inline { order: 11; }
+      .mob-filter-deals { order: 21; }
+      .mob-filter-cruise { order: 31; }
+      .mob-filter-route { order: 41; }
+      .mob-filter-dates { order: 51; }
+      .mob-filter-price { order: 61; }
       .mob-filter-actions {
         display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
         margin-top: 6px;
+        order: 90;
       }
       #mobApplyFilters {
         width: 100%; padding: 10px; border: none; border-radius: 8px;
@@ -1634,7 +1664,6 @@
         background: var(--blue-pale);
         border: 1px solid #cfdcfb;
         border-radius: 10px;
-        margin-bottom: 4px;
       }
       .mob-sort-inline .mob-sort-controls {
         display: flex;
@@ -2322,6 +2351,7 @@
     body.dark-mode .ph-when-date,
     body.dark-mode .ph-table td.ph-price,
     body.dark-mode .mob-filters-head h2,
+    body.dark-mode .mob-filter-heading,
     body.dark-mode .settings-head h2,
     body.dark-mode .settings-info-label,
     body.dark-mode .settings-provider-status h3,
