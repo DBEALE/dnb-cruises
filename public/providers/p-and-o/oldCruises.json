@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 2,
+  "count": 3,
   "cruises": [
     {
       "id": "pando-G622",
@@ -77,6 +77,43 @@
           "at": "2026-07-06T18:38:42.187Z",
           "prices": {
             "balcony": 2559
+          }
+        }
+      ]
+    },
+    {
+      "id": "pando-J609",
+      "provider": "P&O Cruises",
+      "shipName": "Arcadia",
+      "shipClass": "Vista",
+      "shipLaunchYear": 2005,
+      "itinerary": "Southampton",
+      "departureDate": "2026-07-20",
+      "duration": "16 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "North-Europe-And-Scandinavia",
+      "destinationPort": "Southampton",
+      "seaDays": 6,
+      "priceFrom": "1499",
+      "currency": "GBP",
+      "prices": {
+        "inside": "1499",
+        "oceanView": "2099",
+        "balcony": "2199",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/J609/J609",
+      "arrivalDate": "2026-08-05",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-07-07T09:07:12.248Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-06T17:01:37.354Z",
+          "prices": {
+            "inside": 1499,
+            "oceanView": 2099,
+            "balcony": 2199
           }
         }
       ]
