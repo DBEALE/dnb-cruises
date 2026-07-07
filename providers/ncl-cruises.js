@@ -235,6 +235,16 @@ function buildDepartureDate(departureDate, returnDate) {
   return departure;
 }
 
+// NCL's itinerary API returns sail dates as epoch milliseconds (anchored to
+// midnight US-Eastern, so the UTC calendar date is the departure day). Convert
+// to an ISO YYYY-MM-DD string, which the frontend both filters and displays.
+function formatEpochDate(value) {
+  const ms = Number(value);
+  if (!Number.isFinite(ms) || ms <= 0) return '';
+  const d = new Date(ms);
+  return Number.isNaN(d.getTime()) ? '' : d.toISOString().slice(0, 10);
+}
+
 function getLowestPrice(detail) {
   const sailings = Array.isArray(detail?.sailings) ? detail.sailings : [];
   for (const sailing of sailings) {
@@ -373,15 +383,40 @@ function normalizeCruise(detail, bookingUrl) {
   const sailing = Array.isArray(detail?.sailings) ? detail.sailings[0] : null;
   const itineraryCode = cleanText(detail?.code || sailing?.itineraryCode);
   const baseItinerary = cleanText(detail?.shortTitle || detail?.title);
-  const ports = extractPortsFromSlug(bookingUrl, departurePort);
-  const isRoundTrip = isRoundTripBookingUrl(bookingUrl);
-  const itineraryPorts = ports.length > 0
-    ? [departurePort, ...ports, ...(isRoundTrip && departurePort ? [departurePort] : [])].filter(Boolean)
-    : ports;
-  const destinationPort = isRoundTrip && departurePort
-    ? departurePort
-    : ports.length > 0 ? getDestinationPort([departurePort, ...ports]) : '';
+
+  // Prefer the NCL itinerary API's authoritative port sequence (full port
+  // titles, in order). It gives the true final port — the booking-URL slug
+  // often ends in a region word (e.g. "…-and-norway"), which the slug parser
+  // would otherwise mistake for the destination. Fall back to slug parsing
+  // only when the API port list is missing.
+  const apiPorts = Array.isArray(detail?.portsOfCall)
+    ? detail.portsOfCall.map(port => cleanText(port?.title)).filter(Boolean)
+    : [];
+
+  let itineraryPorts;
+  let destinationPort;
+  let seaDayLabels;
+  let seaDaysIncludeEndpoints;
+  if (apiPorts.length > 1) {
+    itineraryPorts = apiPorts;
+    destinationPort = getDestinationPort(apiPorts);
+    seaDayLabels = apiPorts;
+    seaDaysIncludeEndpoints = true;
+  } else {
+    const ports = extractPortsFromSlug(bookingUrl, departurePort);
+    const isRoundTrip = isRoundTripBookingUrl(bookingUrl);
+    itineraryPorts = ports.length > 0
+      ? [departurePort, ...ports, ...(isRoundTrip && departurePort ? [departurePort] : [])].filter(Boolean)
+      : ports;
+    destinationPort = isRoundTrip && departurePort
+      ? departurePort
+      : ports.length > 0 ? getDestinationPort([departurePort, ...ports]) : '';
+    seaDayLabels = ports;
+    seaDaysIncludeEndpoints = false;
+  }
+
   const roomPrices = extractRoomTypePrices(detail);
+  const arrivalDate = cleanText(sailing?.returnDate || sailing?.sailEndDate);
 
   return {
     provider: 'Norwegian Cruise Line',
@@ -396,14 +431,15 @@ function normalizeCruise(detail, bookingUrl) {
     departureRegion: getDepartureRegion(departurePort),
     destination: cleanText(detail?.destination?.title || detail?.shortTitle || detail?.title),
     ...(destinationPort ? { destinationPort } : {}),
+    ...(arrivalDate ? { arrivalDate } : {}),
     priceFrom: getLowestPrice(detail)?.toString() || '',
     currency: cleanText(detail?.currency) || 'GBP',
     bookingUrl: resolveUrl(bookingUrl),
     prices: roomPrices,
     seaDays: estimateSeaDays({
-      labels: ports,
+      labels: seaDayLabels,
       duration: detail?.duration?.text || '',
-      portsIncludeEndpoints: false,
+      portsIncludeEndpoints: seaDaysIncludeEndpoints,
     }),
   };
 }
@@ -522,32 +558,42 @@ async function collectCruiseCards() {
 
     await Promise.allSettled(itineraryPromises);
 
-    const cruises = Array.from(cards.values()).map(card => ({
-      code: card.code,
-      bookingUrl: card.bookingUrl,
-      detail: {
+    const cruises = Array.from(cards.values()).map(card => {
+      // The itinerary API (already captured for pricing) is the source of truth
+      // for sail dates and the port sequence; the card DOM selectors are a
+      // fallback for the handful of cruises whose API detail wasn't captured.
+      const api = itineraryDetails.get(card.code);
+      const apiSailing = api?.sailings?.[0];
+      const apiRooms = Array.isArray(apiSailing?.staterooms) ? apiSailing.staterooms : [];
+      const portsOfCall = Array.isArray(api?.portsOfCall) ? api.portsOfCall : [];
+      const departureDate = formatEpochDate(apiSailing?.departureDate ?? apiSailing?.sailStartDate)
+        || buildDepartureDate(card.departureDate, card.returnDate);
+      const returnDate = formatEpochDate(apiSailing?.returnDate ?? apiSailing?.sailEndDate)
+        || extractFirstDateText(card.returnDate);
+      return {
         code: card.code,
-        title: card.itinerary,
-        shortTitle: card.itinerary,
-        duration: { text: card.duration },
-        currency: card.currency,
-        ship: { title: card.shipName },
-        destination: { title: card.destination },
-        embarkationPort: { title: card.departurePort },
-        sailings: [{
-          departureDate: buildDepartureDate(card.departureDate, card.returnDate),
-          sailStartDate: buildDepartureDate(card.departureDate, card.returnDate),
-          returnDate: extractFirstDateText(card.returnDate),
-          staterooms: (() => {
-            const apiSailing = itineraryDetails.get(card.code)?.sailings?.[0];
-            const apiRooms = Array.isArray(apiSailing?.staterooms) ? apiSailing.staterooms : [];
-            return apiRooms.length > 0
+        bookingUrl: card.bookingUrl,
+        detail: {
+          code: card.code,
+          title: card.itinerary,
+          shortTitle: card.itinerary,
+          duration: { text: card.duration },
+          currency: card.currency,
+          ship: { title: card.shipName },
+          destination: { title: card.destination },
+          embarkationPort: { title: card.departurePort },
+          portsOfCall,
+          sailings: [{
+            departureDate,
+            sailStartDate: departureDate,
+            returnDate,
+            staterooms: apiRooms.length > 0
               ? apiRooms
-              : [{ code: 'INSIDE', title: 'Inside', combinedPrice: card.priceFrom }];
-          })(),
-        }],
-      },
-    }));
+              : [{ code: 'INSIDE', title: 'Inside', combinedPrice: card.priceFrom }],
+          }],
+        },
+      };
+    });
 
     let bookingFallbacks = 0;
     let skippedBookingFallbacks = 0;
@@ -623,6 +669,7 @@ module.exports.usesBrowser = true;
 module.exports.normalizeCruise = normalizeCruise;
 module.exports.collectCruiseCards = collectCruiseCards;
 module.exports.extractFirstDateText = extractFirstDateText;
+module.exports.formatEpochDate = formatEpochDate;
 module.exports.extractPriceFromText = extractPriceFromText;
 module.exports.extractDateFromText = extractDateFromText;
 module.exports.extractPortsFromSlug = extractPortsFromSlug;

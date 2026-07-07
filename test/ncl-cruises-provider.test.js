@@ -264,3 +264,69 @@ test('extractRoomTypePrices maps NCL stateroom labels to cabin buckets', () => {
     suite: '2775',
   });
 });
+
+test('formatEpochDate converts NCL epoch-ms sail dates to ISO dates', () => {
+  // 1787457600000 = the real STAR11 departure (midnight US-Eastern → UTC 04:00).
+  assert.equal(provider.formatEpochDate(1787457600000), '2026-08-23');
+  assert.equal(provider.formatEpochDate('1788408000000'), '2026-09-03');
+  assert.equal(provider.formatEpochDate(0), '');
+  assert.equal(provider.formatEpochDate(null), '');
+  assert.equal(provider.formatEpochDate('not-a-date'), '');
+});
+
+// Regression for the reported bug: the booking-URL slug ends in "…-and-norway",
+// which the slug parser turned into a "Norway" destination and, when the card
+// date selector broke, left the departure date blank. The itinerary API's
+// portsOfCall + epoch dates fix both at the root.
+test('normalizeCruise uses the API port sequence and epoch dates over the slug', () => {
+  const cruise = provider.normalizeCruise({
+    code: 'STAR11SOUNWHKWLBGOAESAKUISAREY',
+    title: 'Northern Europe: Iceland, Scotland & Norway',
+    shortTitle: 'Northern Europe: Iceland, Scotland & Norway',
+    duration: { text: '11-day Cruise' },
+    currency: 'GBP',
+    ship: { title: 'Norwegian Star' },
+    destination: { title: 'Northern Europe Cruises' },
+    embarkationPort: { title: 'London (Southampton), United Kingdom' },
+    portsOfCall: [
+      { code: 'SOU', title: 'London (Southampton), United Kingdom' },
+      { code: 'NWH', title: 'Edinburgh (Newhaven), Scotland' },
+      { code: 'KWL', title: 'Kirkwall, Orkney Isles, Scotland' },
+      { code: 'BGO', title: 'Bergen, Norway' },
+      { code: 'AES', title: 'Alesund, Norway' },
+      { code: 'AKU', title: 'Akureyri, Iceland' },
+      { code: 'ISA', title: 'Isafjordur, Iceland' },
+      { code: 'REY', title: 'Reykjavik, Iceland' },
+    ],
+    sailings: [{
+      departureDate: '2026-08-23',
+      sailStartDate: '2026-08-23',
+      returnDate: '2026-09-03',
+      staterooms: [{ code: 'INSIDE', title: 'Inside', combinedPrice: '810' }],
+    }],
+  }, '/uk/en/cruises/11-day-northern-europe-from-london-to-reykjavik-iceland-scotland-and-norway-STAR11SOUNWHKWLBGOAESAKUISAREY?itineraryCode=STAR11SOUNWHKWLBGOAESAKUISAREY');
+
+  assert.equal(cruise.departureDate, '2026-08-23', 'departure date populated from the API');
+  assert.equal(cruise.arrivalDate, '2026-09-03', 'arrival date populated from the API return date');
+  assert.equal(cruise.destinationPort, 'Reykjavik, Iceland', 'final port, not the trailing "Norway" slug word');
+  assert.equal(cruise.seaDays, 4, '11 nights minus 8 endpoint-inclusive port calls, floored at 0');
+});
+
+test('normalizeCruise treats an API round trip as returning to the departure port', () => {
+  const cruise = provider.normalizeCruise({
+    code: 'RT',
+    title: 'Caribbean',
+    shortTitle: 'Caribbean',
+    duration: { text: '7-day Cruise' },
+    ship: { title: 'Norwegian Star' },
+    embarkationPort: { title: 'Miami, Florida' },
+    portsOfCall: [
+      { code: 'MIA', title: 'Miami, Florida' },
+      { code: 'CZM', title: 'Cozumel, Mexico' },
+      { code: 'MIA', title: 'Miami, Florida' },
+    ],
+    sailings: [{ departureDate: '2026-05-02', staterooms: [{ combinedPrice: '599' }] }],
+  }, '/uk/en/cruises/round-trip-RT?itineraryCode=RT');
+
+  assert.equal(cruise.destinationPort, 'Miami, Florida');
+});
