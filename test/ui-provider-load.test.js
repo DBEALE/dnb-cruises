@@ -40,6 +40,10 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /data-field="seaDays"/);
   assert.match(html, /data-field="priceDropWindow"/);
   assert.match(html, /data-field="newWithin"/);
+  assert.match(html, /data-field="endpointMatch"/);
+  assert.match(html, /id="mobFilterEndpointMatch"/);
+  assert.match(html, /<option value="same">Same port<\/option>/);
+  assert.match(html, /<option value="different">Different ports<\/option>/);
   assert.match(html, /<option value="20">24hr price reduction<\/option>/);
   assert.match(html, /id="mobFilterPriceDrop"/);
   assert.match(html, /id="mobFilterNewWithin"/);
@@ -51,7 +55,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(html, /id="totalPrices"/);
   assert.match(html, /class="ph-table-wrap"/);
   const clearButtonCount = (html.match(/class="filter-clear-btn"/g) || []).length;
-  assert.ok(clearButtonCount >= 22, `expected at least 22 filter clear buttons, found ${clearButtonCount}`);
+  assert.ok(clearButtonCount >= 24, `expected at least 24 filter clear buttons, found ${clearButtonCount}`);
   assert.match(html, /class="settings-scroll"/);
   assert.match(html, /id="settingsProviderScrapes"/);
   assert.match(html, /Last successful scrape/);
@@ -92,6 +96,9 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(app, /function inferSeaDays\(c\)/);
   assert.match(app, /function getRecentPriceReductionPct\(c, windowMs, now = Date\.now\(\)\)/);
   assert.match(app, /function isFirstSeenWithin\(c, windowMs, now = Date\.now\(\)\)/);
+  assert.match(app, /function cruiseEndpointPortsMatch\(c\)/);
+  assert.match(app, /colFilters\.endpointMatch === 'same'/);
+  assert.match(app, /colFilters\.endpointMatch === 'different'/);
   assert.match(app, /class="ph-price-line"/);
   assert.match(app, /function wireHeaderWavePress\(\)/);
   assert.match(app, /triggerHeaderWavePress\(\)/);

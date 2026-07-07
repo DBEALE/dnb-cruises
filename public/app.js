@@ -79,6 +79,13 @@
   const SITE_CHANGES = [
     {
       date: '7 Jul 2026',
+      title: 'Round-trip route filter',
+      items: [
+        'Added an Endpoint ports filter so you can show cruises that return to their departure port, or only cruises that finish somewhere different.',
+      ],
+    },
+    {
+      date: '7 Jul 2026',
       title: 'Virgin Voyages cabin prices',
       items: [
         'Virgin Voyages cruises now show per-cabin fares (Insider, Sea View, Sea Terrace and RockStar) instead of just a lead-in price, with price-history sparklines like the other cruise lines.',
@@ -1983,6 +1990,13 @@
     return c[CRUISE_SEARCH_META];
   }
 
+  function cruiseEndpointPortsMatch(c) {
+    const meta = searchMeta(c);
+    const departure = meta.departurePortSimple || meta.departurePort;
+    const destination = meta.destinationPortSimple || meta.destinationPort;
+    return Boolean(departure && destination && departure === destination);
+  }
+
   function portMetaMatchesFilter(port, simplePort, filterValue) {
     const query = lowerText(filterValue);
     if (!query) return true;
@@ -2846,6 +2860,11 @@
     if (key === 'departureRegion') return v;
     if (key === 'departurePort') return `From ${v}`;
     if (key === 'destinationPort') return `To ${v}`;
+    if (key === 'endpointMatch') {
+      if (v === 'same') return 'Returns to departure port';
+      if (v === 'different') return 'Different destination port';
+      return '';
+    }
     if (key === 'destination') return v;
     if (key === 'itinerary') return v;
     if (key === 'departureDate') return v;
@@ -2898,6 +2917,7 @@
       'shipClass',
       'departureRegion',
       'provider',
+      'endpointMatch',
       'priceDropWindow',
       'newWithin',
       'seaDays',
@@ -2923,6 +2943,7 @@
     add(savedViewFilterLabel('departureRegion', source.departureRegion));
     add(savedViewFilterLabel('departurePort', source.departurePort));
     add(savedViewFilterLabel('destinationPort', source.destinationPort));
+    add(savedViewFilterLabel('endpointMatch', source.endpointMatch));
     const departureParams = new URLSearchParams();
     if (source.departureStart) departureParams.set('departureStart', source.departureStart);
     if (source.departureEnd) departureParams.set('departureEnd', source.departureEnd);
@@ -3554,6 +3575,11 @@
       if (colFilters.newWithin) {
         const windowMs = RECENT_WINDOW_MS[colFilters.newWithin];
         if (!isFirstSeenWithin(c, windowMs)) return false;
+      }
+      if (colFilters.endpointMatch) {
+        const endpointsMatch = cruiseEndpointPortsMatch(c);
+        if (colFilters.endpointMatch === 'same' && !endpointsMatch) return false;
+        if (colFilters.endpointMatch === 'different' && endpointsMatch) return false;
       }
       return true;
     });

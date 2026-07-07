@@ -81,6 +81,17 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('newWithin')" aria-label="Clear newly added filter" title="Clear newly added filter">&times;</button>
         </span>
       </label>
+      <label class="toolbar-filter-wrap">
+        <span class="toolbar-filter-label">Endpoint ports</span>
+        <span class="filter-entry">
+          <select class="col-filter" data-field="endpointMatch" onchange="scheduleApplyFilters()">
+            <option value="">Any route</option>
+            <option value="same">Same port</option>
+            <option value="different">Different ports</option>
+          </select>
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('endpointMatch')" aria-label="Clear endpoint port filter" title="Clear endpoint port filter">&times;</button>
+        </span>
+      </label>
       <label class="sort-wrap" for="sortSelect">
         <span class="sort-label">Sort</span>
         <select id="sortSelect" onchange="sortSelectChange(this)">
@@ -196,6 +207,17 @@
             <option value="7d">Added in past week</option>
           </select>
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('newWithin')" aria-label="Clear newly added filter" title="Clear newly added filter">&times;</button>
+        </div>
+      </div>
+      <div class="mob-filter-group">
+        <label for="mobFilterEndpointMatch">Endpoint ports</label>
+        <div class="filter-entry">
+          <select id="mobFilterEndpointMatch" class="mob-filter" data-field="endpointMatch" onchange="mobileFilterSync(this)">
+            <option value="">Any route</option>
+            <option value="same">Same port</option>
+            <option value="different">Different ports</option>
+          </select>
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('endpointMatch')" aria-label="Clear endpoint port filter" title="Clear endpoint port filter">&times;</button>
         </div>
       </div>
       <div class="mob-filter-group">

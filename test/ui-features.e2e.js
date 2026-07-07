@@ -374,6 +374,43 @@ test.describe('Sort and filter', () => {
     await expect(page.locator('#summary')).toContainText('From Southampton');
   });
 
+  test('endpoint port filter separates round trips from open-jaw cruises', async ({ page }) => {
+    await gotoFresh(page, null, {
+      royalCaribbean: {
+        scrapedAt: CRUISES_RC.scrapedAt,
+        cruises: [
+          cruise({
+            id: 'rc_roundtrip', shipName: 'Round Trip of the Seas', provider: 'Royal Caribbean',
+            priceFrom: 700, departureDate: '2026-09-08', firstSeenAt: isoAgo(DAY),
+            port: 'Southampton (for London), England',
+            destinationPort: 'Southampton',
+          }),
+          cruise({
+            id: 'rc_openjaw', shipName: 'Open Jaw of the Seas', provider: 'Royal Caribbean',
+            priceFrom: 800, departureDate: '2026-09-09', firstSeenAt: isoAgo(DAY),
+            port: 'Southampton',
+            destinationPort: 'Barcelona, Spain',
+          }),
+        ],
+      },
+      celebrity: { scrapedAt: CRUISES_CEL.scrapedAt, cruises: [] },
+    });
+
+    const filter = page.locator('.col-filter[data-field="endpointMatch"]');
+    await filter.selectOption('same');
+    await expect(page.locator('#summary')).toContainText('1 of 2');
+    await expect(page.locator('#summary')).toContainText('Returns to departure port');
+    await expect(page.locator('#cruiseBody')).toContainText('Round Trip of the Seas');
+    await expect(page.locator('#cruiseBody')).not.toContainText('Open Jaw of the Seas');
+    await expect(page).toHaveURL(/endpointMatch=same/);
+
+    await filter.selectOption('different');
+    await expect(page.locator('#summary')).toContainText('1 of 2');
+    await expect(page.locator('#summary')).toContainText('Different destination port');
+    await expect(page.locator('#cruiseBody')).toContainText('Open Jaw of the Seas');
+    await expect(page.locator('#cruiseBody')).not.toContainText('Round Trip of the Seas');
+  });
+
   test('sea days filter narrows results and updates summary count', async ({ page }) => {
     await gotoFresh(page);
     await page.locator('.col-filter[data-field="seaDays"]').fill('4');
