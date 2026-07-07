@@ -648,6 +648,15 @@
             <option value="250">Within 250 miles</option>
           </select>
         </li>
+        <li class="settings-select-item">
+          <label for="settingsTreeDepth"><span>Onward journey depth</span><small>How many onward legs the follow-on tree explorer (the branch button beside a destination port) maps out from a cruise.</small></label>
+          <select id="settingsTreeDepth" data-setting="treeDepth">
+            <option value="2">2 hops</option>
+            <option value="3">3 hops</option>
+            <option value="4">4 hops</option>
+            <option value="5">5 hops</option>
+          </select>
+        </li>
         <li><label><input type="checkbox" data-setting="classDots">   <span>Class quality dots</span><small>The four green dots next to ship-class names.</small></label></li>
         <li><label><input type="checkbox" data-setting="launchYear">  <span>Ship launch year</span><small>The year column (desktop) and grey year next to ship name (mobile).</small></label></li>
         <li><label><input type="checkbox" data-setting="shipIcons">   <span>Ship icons</span><small>A small cruise-line-coloured ship icon next to each ship name.</small></label></li>
@@ -745,6 +754,22 @@
         <tbody id="phTableBody"></tbody>
       </table>
     </div>
+  </div>
+</dialog>
+
+<dialog id="treeExplorerDialog" aria-labelledby="treeExplorerTitle">
+  <div class="tree-box">
+    <div class="tree-head">
+      <div>
+        <h2 id="treeExplorerTitle">Onward journey explorer</h2>
+        <div class="tree-sub" id="treeExplorerSub"></div>
+      </div>
+      <div class="tree-head-actions">
+        <button type="button" class="tree-expand-all" id="treeExpandAll">Expand all</button>
+        <button type="button" class="ph-close" id="treeExplorerClose" aria-label="Close">×</button>
+      </div>
+    </div>
+    <div class="tree-scroll" id="treeExplorerBody"></div>
   </div>
 </dialog>
 

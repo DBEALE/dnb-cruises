@@ -42,6 +42,9 @@
     // departure/destination port filters — and the connecting-cruise search —
     // also match ports within this many miles of the one you pick.
     proximityMiles: 0,
+    // How many onward legs (hops) the follow-on tree explorer maps from a
+    // cruise's destination port. See buildCruiseTree() / openTreeExplorer().
+    treeDepth: 4,
   };
   let settings = { ...SETTINGS_DEFAULTS };
   let loadedProviders = [];
@@ -77,6 +80,13 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '7 Jul 2026',
+      title: 'Onward journey explorer',
+      items: [
+        'New button beside a cruise\'s destination port (shown only when there are onward sailings) opens a tree of onward journeys — each connecting port shows its cheapest fare and how many cruise options there are, expandable out to several hops with an Expand all / Collapse all toggle. Tapping a port opens those cruises in a new tab. Depth is adjustable in Display options.',
+      ],
+    },
     {
       date: '7 Jul 2026',
       title: 'Grouped mobile filters',
@@ -1091,6 +1101,7 @@
     wireDepartureRangeHandlers();
     refreshMobileSavedSelect();
     wirePriceHistoryHandlers();
+    wireTreeExplorerHandlers();
     wireHeaderWavePress();
     wireStickySummary();
     recordVisitorCount();
@@ -1577,6 +1588,42 @@
     const days = normalizeFollowOnDays(settings.followOnDays);
     const label = `Find cruises from ${destinationPort} departing within ${days} day${days === 1 ? '' : 's'} of arrival`;
     return `<button type="button" class="cruise-follow-on-btn" data-follow-on-cruise="${escHtml(c.id)}" aria-label="${escHtml(label)}" title="${escHtml(label)}">${followOnIcon()}</button>`;
+  }
+
+  // Sitemap/hierarchy icon (a parent port branching to onward ports) — distinct
+  // from the dots-and-lines share glyph.
+  function treeExploreIcon() {
+    return '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7.5" y="2" width="5" height="4.2" rx="1"/><rect x="2" y="13.8" width="5" height="4.2" rx="1"/><rect x="13" y="13.8" width="5" height="4.2" rx="1"/><path d="M10 6.2v3.4M4.5 13.8v-2.2a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v2.2"/></svg>';
+  }
+
+  // A reusable tree context (departure-port index + tunables) cached against the
+  // current cruise set and settings, so per-row onward checks don't rebuild it.
+  let onwardCtx = null;
+  let onwardCtxSrc = null;
+  let onwardCtxKey = '';
+  function getOnwardCtx() {
+    const key = normalizeFollowOnDays(settings.followOnDays) + '|' + normalizeProximityMiles(settings.proximityMiles);
+    if (onwardCtx && onwardCtxSrc === allCruises && onwardCtxKey === key) return onwardCtx;
+    onwardCtx = makeTreeCtx(allCruises);
+    onwardCtxSrc = allCruises;
+    onwardCtxKey = key;
+    return onwardCtx;
+  }
+  function cruiseHasOnwardOptions(c) {
+    const port = getDestinationPortDisplay(c);
+    const date = searchMeta(c).arrivalDateKey;
+    if (!port || !date) return false;
+    const ctx = getOnwardCtx();
+    return buildTreeChildren(port, date, new Set([lowerText(simplifyPortName(port))]), ctx).length > 0;
+  }
+
+  // Sits beside followOnButton: opens the multi-hop onward-journey tree explorer.
+  // Only shown when the destination port actually has onward cruises to explore.
+  function exploreButton(c, destinationPort = '') {
+    if (!c?.id || !destinationPort || !cruiseArrivalDateKey(c)) return '';
+    if (!cruiseHasOnwardOptions(c)) return '';
+    const label = `Explore onward cruises from ${destinationPort}`;
+    return `<button type="button" class="cruise-explore-btn" data-explore-cruise="${escHtml(c.id)}" aria-label="${escHtml(label)}" title="${escHtml(label)}">${treeExploreIcon()}</button>`;
   }
 
   // Left-pointing mirror of followOnIcon: a cruise arriving *into* this port.
@@ -2214,7 +2261,7 @@
       const seaDays = formatSeaDaysDisplay(c);
       const destinationPort = getDestinationPortDisplay(c);
       const destinationPortCell = highlightHomePort(destinationPort);
-      const destinationPortAction = `<span class="destination-port-wrap"><span class="destination-port-text">${destinationPortCell || '&mdash;'}</span>${followOnButton(c, destinationPort)}</span>`;
+      const destinationPortAction = `<span class="destination-port-wrap"><span class="destination-port-text">${destinationPortCell || '&mdash;'}</span>${followOnButton(c, destinationPort)}${exploreButton(c, destinationPort)}</span>`;
       const departurePortCell = highlightHomePort(c.departurePort);
       const departurePortAction = `<span class="departure-port-wrap"><span class="departure-port-text">${departurePortCell || '&mdash;'}</span>${beforeCruiseButton(c, c.departurePort)}</span>`;
 
@@ -2392,6 +2439,14 @@
     return Number.isFinite(n) && n > 0 ? Math.min(500, n) : 0;
   }
 
+  // Follow-on tree depth (onward legs). Clamped 2–5 so a hand-edited or legacy
+  // setting can't produce a runaway tree.
+  function normalizeTreeDepth(value) {
+    const n = Math.round(Number(value));
+    if (!Number.isFinite(n)) return SETTINGS_DEFAULTS.treeDepth;
+    return Math.min(5, Math.max(2, n));
+  }
+
   // Substring match OR, when a radius is set and both the filter value and the
   // cruise's port resolve to known ports, within that many miles.
   function portFilterMatches(cruisePortRaw, portMeta, portMetaSimple, filterValue) {
@@ -2419,6 +2474,7 @@
       }
     } catch {}
     settings.followOnDays = normalizeFollowOnDays(settings.followOnDays);
+    settings.treeDepth = normalizeTreeDepth(settings.treeDepth);
     applySettingsToDom();
   }
   function saveSettings() {
@@ -2451,6 +2507,8 @@
     if (followOnDays) followOnDays.value = String(settings.followOnDays);
     const proximityMiles = document.getElementById('settingsProximityMiles');
     if (proximityMiles) proximityMiles.value = String(normalizeProximityMiles(settings.proximityMiles));
+    const treeDepth = document.getElementById('settingsTreeDepth');
+    if (treeDepth) treeDepth.value = String(normalizeTreeDepth(settings.treeDepth));
     const phoneInput = document.getElementById('settingsPhone');
     if (phoneInput) phoneInput.value = rememberedPhone();
     const homePortInput = document.getElementById('settingsHomePort');
@@ -2505,6 +2563,14 @@
         settings.proximityMiles = normalizeProximityMiles(proximityMiles.value);
         saveSettings();
         if (allCruises.length) applyFilters();
+      });
+    }
+
+    const treeDepth = document.getElementById('settingsTreeDepth');
+    if (treeDepth) {
+      treeDepth.addEventListener('change', () => {
+        settings.treeDepth = normalizeTreeDepth(treeDepth.value);
+        saveSettings();
       });
     }
 
@@ -3185,6 +3251,12 @@
           openBeforeCruiseSearch(beforeBtn.dataset.beforeCruise);
           return;
         }
+        const exploreBtn = ev.target.closest('[data-explore-cruise]');
+        if (exploreBtn) {
+          ev.preventDefault();
+          openTreeExplorer(exploreBtn.dataset.exploreCruise);
+          return;
+        }
         const btn = ev.target.closest('.price-spark');
         if (!btn) return;
         ev.preventDefault();
@@ -3799,6 +3871,307 @@
     if (!hash) return;
     const opened = window.open(appUrlForHash(hash), '_blank', 'noopener');
     if (!opened) showShareNotice('Pre-cruise search opened');
+  }
+
+  // ── Follow-on tree explorer ────────────────────────────────────────────────
+  // Recursively maps onward journeys from a cruise's destination port as a tree
+  // of ports. The builders below are pure (all inputs passed in) so they can be
+  // unit-tested via window.__cruiseTree; the DOM layer renders them lazily,
+  // building a branch's children only when it is expanded.
+  const TREE_MAX_CHILDREN = 25;
+
+  // Precompute an index of cruises by simplified departure-port key plus the
+  // tunables, so each hop scans one bucket rather than the whole catalogue.
+  function makeTreeCtx(cruises, opts = {}) {
+    const list = Array.isArray(cruises) ? cruises : [];
+    const byDeparturePortKey = new Map();
+    for (const c of list) {
+      const key = searchMeta(c).departurePortSimple;
+      if (!key) continue;
+      if (!byDeparturePortKey.has(key)) byDeparturePortKey.set(key, []);
+      byDeparturePortKey.get(key).push(c);
+    }
+    const num = (v, fallback) => (Number.isFinite(v) ? v : fallback);
+    return {
+      cruises: list,
+      byDeparturePortKey,
+      windowDays:  num(opts.windowDays,  normalizeFollowOnDays(settings.followOnDays)),
+      radiusMiles: num(opts.radiusMiles, normalizeProximityMiles(settings.proximityMiles)),
+      maxDepth:    num(opts.maxDepth,    normalizeTreeDepth(settings.treeDepth)),
+      maxChildren: num(opts.maxChildren, TREE_MAX_CHILDREN),
+    };
+  }
+
+  // Cruises departing `fromPortRaw` within [fromDateKey, fromDateKey+windowDays].
+  // Proximity-aware (like portFilterMatches) when a radius is set.
+  function findOnwardCruises(fromPortRaw, fromDateKey, ctx) {
+    if (!fromPortRaw || !fromDateKey) return [];
+    const endKey = addDaysIso(fromDateKey, ctx.windowDays);
+    const fromKey = lowerText(simplifyPortName(fromPortRaw));
+    const inWindow = c => {
+      const dep = searchMeta(c).departureDateKey;
+      return dep && dep >= fromDateKey && dep <= endKey;
+    };
+    const matches = new Map();
+    for (const [key, bucket] of ctx.byDeparturePortKey) {
+      if (!(key === fromKey || key.includes(fromKey) || fromKey.includes(key))) continue;
+      for (const c of bucket) if (inWindow(c)) matches.set(c.id, c);
+    }
+    if (ctx.radiusMiles > 0) {
+      const origin = resolvePortGeo(fromPortRaw);
+      if (origin) {
+        for (const c of ctx.cruises) {
+          if (matches.has(c.id) || !inWindow(c)) continue;
+          const miles = portDistanceMiles(origin, resolvePortGeo(c.departurePort));
+          if (Number.isFinite(miles) && miles <= ctx.radiusMiles) matches.set(c.id, c);
+        }
+      }
+    }
+    return [...matches.values()];
+  }
+
+  // One tree level: group onward cruises by destination port into child nodes,
+  // each carrying its cheapest fare, option count and earliest onward date.
+  function buildTreeChildren(fromPortRaw, fromDateKey, visitedPortKeys, ctx) {
+    const fromKey = lowerText(simplifyPortName(fromPortRaw));
+    const groups = new Map();
+    for (const c of findOnwardCruises(fromPortRaw, fromDateKey, ctx)) {
+      const destRaw = getDestinationPortDisplay(c);
+      const destKey = lowerText(simplifyPortName(destRaw));
+      if (!destRaw || !destKey) continue;
+      // Include round-trips back to the same port; only block returning to a
+      // *different* earlier port on this path (prevents A→B→A ping-pong while
+      // still allowing chained round-trips from one port).
+      if (destKey !== fromKey && visitedPortKeys.has(destKey)) continue;
+      if (!groups.has(destKey)) groups.set(destKey, { portRaw: destRaw, portKey: destKey, cruises: [] });
+      groups.get(destKey).cruises.push(c);
+    }
+    const nodes = [];
+    for (const g of groups.values()) {
+      let lowest = Infinity;
+      let earliest = '';
+      for (const c of g.cruises) {
+        const p = getLowestRoomPrice(c);
+        if (Number.isFinite(p) && p < lowest) lowest = p;
+        const a = searchMeta(c).arrivalDateKey;
+        if (a && (!earliest || a < earliest)) earliest = a;
+      }
+      nodes.push({
+        portRaw: g.portRaw,
+        portKey: g.portKey,
+        portDisplay: simplifyPortName(g.portRaw) || g.portRaw,
+        optionCount: g.cruises.length,
+        lowestPrice: lowest === Infinity ? NaN : lowest,
+        earliestArrivalKey: earliest,
+        cruiseIds: g.cruises.map(c => c.id),
+        fromPortRaw,
+        fromDateKey,
+      });
+    }
+    nodes.sort((a, b) => {
+      const pa = Number.isFinite(a.lowestPrice) ? a.lowestPrice : Infinity;
+      const pb = Number.isFinite(b.lowestPrice) ? b.lowestPrice : Infinity;
+      return pa - pb;
+    });
+    return nodes.slice(0, ctx.maxChildren);
+  }
+
+  // Root = the selected cruise itself (departure → destination); onward cruises
+  // are searched from its destination port + arrival date, and computed eagerly.
+  function buildCruiseTree(rootCruise, ctx) {
+    const portRaw = getDestinationPortDisplay(rootCruise);
+    const dateKey = searchMeta(rootCruise).arrivalDateKey;
+    if (!portRaw || !dateKey) return null;
+    const portKey = lowerText(simplifyPortName(portRaw));
+    const departureRaw = String(rootCruise?.departurePort || '').trim();
+    return {
+      portRaw,
+      portKey,
+      portDisplay: simplifyPortName(portRaw) || portRaw,
+      departureDisplay: simplifyPortName(departureRaw) || departureRaw,
+      originPrice: getLowestRoomPrice(rootCruise),
+      dateKey,
+      children: buildTreeChildren(portRaw, dateKey, new Set([portKey]), ctx),
+    };
+  }
+
+  if (typeof window !== 'undefined') {
+    // Test hook — the algorithm is otherwise script-private. Side-effect free.
+    window.__cruiseTree = { makeTreeCtx, findOnwardCruises, buildTreeChildren, buildCruiseTree };
+  }
+
+  // ── Tree explorer DOM layer ─────────────────────────────────────────────────
+  let treeCtx = null;
+  const treeNodeRegistry = new Map();
+  let treeNodeSeq = 0;
+
+  function treeNodeCanExpand(node, depth) {
+    return depth < treeCtx.maxDepth && !!node.earliestArrivalKey && node.optionCount > 0;
+  }
+
+  function renderTreeNodeRow(node, depth, visited) {
+    const id = 'tn' + (treeNodeSeq++);
+    treeNodeRegistry.set(id, { node, depth, visited });
+    const caret = treeNodeCanExpand(node, depth)
+      ? `<button type="button" class="tree-caret" data-tree-expand="${id}" aria-expanded="false" aria-label="Expand ${escHtml(node.portDisplay)}">▸</button>`
+      : '<span class="tree-caret tree-caret-empty" aria-hidden="true"></span>';
+    const price = Number.isFinite(node.lowestPrice)
+      ? `<span class="tree-price">from ${escHtml(formatPriceDisplay(node.lowestPrice, 'GBP'))}</span>`
+      : '';
+    const opts = `${node.optionCount} option${node.optionCount === 1 ? '' : 's'}`;
+    return `<li class="tree-item" data-tree-node="${id}">
+      <div class="tree-row">${caret}<button type="button" class="tree-port" data-tree-show="${id}" title="Show these cruises in a new tab"><span class="tree-port-name">${escHtml(node.portDisplay)}</span><span class="tree-port-meta">${price}<span class="tree-count">${opts}</span></span></button></div>
+    </li>`;
+  }
+
+  function toggleTreeNode(id, caretBtn) {
+    const entry = treeNodeRegistry.get(id);
+    const li = document.querySelector(`[data-tree-node="${id}"]`);
+    if (!entry || !li) return;
+    const existing = li.querySelector(':scope > ul.tree-children');
+    if (existing) {
+      existing.remove();
+      caretBtn.setAttribute('aria-expanded', 'false');
+      caretBtn.textContent = '▸';
+      setTreeExpandAllLabel();
+      return;
+    }
+    const childVisited = new Set(entry.visited);
+    childVisited.add(entry.node.portKey);
+    const children = buildTreeChildren(entry.node.portRaw, entry.node.earliestArrivalKey, childVisited, treeCtx);
+    const ul = document.createElement('ul');
+    ul.className = 'tree-children';
+    ul.innerHTML = children.length
+      ? children.map(ch => renderTreeNodeRow(ch, entry.depth + 1, childVisited)).join('')
+      : `<li class="tree-empty">No onward cruises within ${treeCtx.windowDays} day${treeCtx.windowDays === 1 ? '' : 's'}.</li>`;
+    li.appendChild(ul);
+    caretBtn.setAttribute('aria-expanded', 'true');
+    caretBtn.textContent = '▾';
+    setTreeExpandAllLabel();
+  }
+
+  // The header toggle reflects whether anything is currently expanded.
+  function setTreeExpandAllLabel() {
+    const btn = document.getElementById('treeExpandAll');
+    if (!btn) return;
+    const anyExpanded = !!document.querySelector('#treeExplorerBody ul.tree-children');
+    btn.textContent = anyExpanded ? 'Collapse all' : 'Expand all';
+  }
+
+  // Expand every branch down to the depth limit, then drop dead-end branches
+  // (ports with no onward cruises) so the tree isn't padded with empty rows.
+  function expandAllTreeNodes() {
+    const body = document.getElementById('treeExplorerBody');
+    if (!body) return;
+    let budget = 800;
+    while (budget > 0) {
+      const collapsed = body.querySelectorAll('[data-tree-expand][aria-expanded="false"]');
+      if (!collapsed.length) break;
+      for (const caret of collapsed) {
+        if (budget-- <= 0) break;
+        toggleTreeNode(caret.dataset.treeExpand, caret);
+      }
+    }
+    body.querySelectorAll('ul.tree-children').forEach(ul => {
+      if (ul.children.length === 1 && ul.firstElementChild.classList.contains('tree-empty')) {
+        const li = ul.closest('li.tree-item');
+        ul.remove();
+        const caret = li && li.querySelector(':scope > .tree-row > [data-tree-expand]');
+        if (caret) { caret.setAttribute('aria-expanded', 'false'); caret.textContent = '▸'; }
+      }
+    });
+    setTreeExpandAllLabel();
+  }
+
+  function collapseAllTreeNodes() {
+    const body = document.getElementById('treeExplorerBody');
+    if (!body) return;
+    body.querySelectorAll('ul.tree-children').forEach(ul => ul.remove());
+    body.querySelectorAll('[data-tree-expand][aria-expanded="true"]').forEach(caret => {
+      caret.setAttribute('aria-expanded', 'false');
+      caret.textContent = '▸';
+    });
+    setTreeExpandAllLabel();
+  }
+
+  // Clicking a node opens its specific leg (from parent port → this port, in the
+  // window) in a new tab — same mechanism as the flat follow-on button.
+  function treeNodeSearchHash(node) {
+    const departurePort = simplifyPortName(node.fromPortRaw) || node.fromPortRaw;
+    if (!departurePort || !node.portDisplay || !node.fromDateKey) return '';
+    return new URLSearchParams({
+      departurePort,
+      destinationPort: node.portDisplay,
+      departureStart: node.fromDateKey,
+      departureEnd: addDaysIso(node.fromDateKey, treeCtx.windowDays),
+    }).toString();
+  }
+
+  function openTreeNodeCruises(id) {
+    const entry = treeNodeRegistry.get(id);
+    const hash = entry ? treeNodeSearchHash(entry.node) : '';
+    if (!hash) return;
+    const opened = window.open(appUrlForHash(hash), '_blank', 'noopener');
+    if (!opened) showShareNotice('Search opened');
+  }
+
+  function openTreeExplorer(cruiseId) {
+    const cruise = cruiseById.get(cruiseId);
+    const dlg = document.getElementById('treeExplorerDialog');
+    const body = document.getElementById('treeExplorerBody');
+    if (!cruise || !dlg || !body) return;
+    treeCtx = makeTreeCtx(allCruises);
+    treeNodeRegistry.clear();
+    treeNodeSeq = 0;
+    const tree = buildCruiseTree(cruise, treeCtx);
+    const sub = document.getElementById('treeExplorerSub');
+    if (sub) {
+      sub.textContent = tree
+        ? `Connecting within ${treeCtx.windowDays} day${treeCtx.windowDays === 1 ? '' : 's'} · up to ${treeCtx.maxDepth} hop${treeCtx.maxDepth === 1 ? '' : 's'}`
+        : (cruise.shipName || 'This cruise');
+    }
+    // The origin node = the selected cruise's own leg (departure → destination).
+    const originHtml = tree ? (() => {
+      const route = tree.departureDisplay
+        ? `${escHtml(tree.departureDisplay)} → ${escHtml(tree.portDisplay)}`
+        : escHtml(tree.portDisplay);
+      const price = Number.isFinite(tree.originPrice)
+        ? `<span class="tree-price">from ${escHtml(formatPriceDisplay(tree.originPrice, 'GBP'))}</span>` : '';
+      return `<div class="tree-origin"><span class="tree-origin-route">${route}</span>${price}<span class="tree-origin-date">arriving ${escHtml(dateInputToDisplay(tree.dateKey))}</span></div>`;
+    })() : '';
+    if (!tree) {
+      body.innerHTML = '<p class="tree-empty">This cruise has no destination port or arrival date to explore from.</p>';
+    } else if (!tree.children.length) {
+      body.innerHTML = `${originHtml}<p class="tree-empty">No onward cruises from ${escHtml(tree.portDisplay)} within ${treeCtx.windowDays} day${treeCtx.windowDays === 1 ? '' : 's'}.</p>`;
+    } else {
+      const visited = new Set([tree.portKey]);
+      body.innerHTML = `${originHtml}<ul class="tree-root">${tree.children.map(ch => renderTreeNodeRow(ch, 1, visited)).join('')}</ul>`;
+    }
+    const expandAllBtn = document.getElementById('treeExpandAll');
+    if (expandAllBtn) {
+      expandAllBtn.textContent = 'Expand all';
+      expandAllBtn.style.display = (tree && tree.children && tree.children.length) ? '' : 'none';
+    }
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open', '');
+  }
+
+  function wireTreeExplorerHandlers() {
+    const dlg = document.getElementById('treeExplorerDialog');
+    if (!dlg || dlg.dataset.wired) return;
+    dlg.dataset.wired = '1';
+    document.getElementById('treeExplorerClose')?.addEventListener('click', () => dlg.close());
+    document.getElementById('treeExpandAll')?.addEventListener('click', () => {
+      if (document.querySelector('#treeExplorerBody ul.tree-children')) collapseAllTreeNodes();
+      else expandAllTreeNodes();
+    });
+    dlg.addEventListener('click', ev => {
+      if (ev.target === dlg) { dlg.close(); return; }
+      const expandBtn = ev.target.closest('[data-tree-expand]');
+      if (expandBtn) { ev.preventDefault(); toggleTreeNode(expandBtn.dataset.treeExpand, expandBtn); return; }
+      const showBtn = ev.target.closest('[data-tree-show]');
+      if (showBtn) { ev.preventDefault(); openTreeNodeCruises(showBtn.dataset.treeShow); }
+    });
   }
 
   function shareCurrentSearch() {

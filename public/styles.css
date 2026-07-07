@@ -413,7 +413,8 @@
     .share-view-mobile { display: none; width: 40px; padding: 6px; }
     .cruise-share-btn,
     .cruise-follow-on-btn,
-    .cruise-before-btn {
+    .cruise-before-btn,
+    .cruise-explore-btn {
       appearance: none;
       display: inline-flex;
       align-items: center;
@@ -430,10 +431,12 @@
     }
     .cruise-share-btn:hover,
     .cruise-follow-on-btn:hover,
-    .cruise-before-btn:hover { background: var(--blue-pale); border-color: var(--blue); }
+    .cruise-before-btn:hover,
+    .cruise-explore-btn:hover { background: var(--blue-pale); border-color: var(--blue); }
     .cruise-share-btn svg,
     .cruise-follow-on-btn svg,
-    .cruise-before-btn svg { width: 14px; height: 14px; }
+    .cruise-before-btn svg,
+    .cruise-explore-btn svg { width: 14px; height: 14px; }
     .launch-share-wrap { display: inline-flex; align-items: center; gap: 5px; }
     .destination-port-wrap,
     .departure-port-wrap {
@@ -1037,6 +1040,67 @@
     .ph-legend-item   { display: inline-flex; align-items: center; gap: 5px; }
     .ph-legend-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 
+    /* ── Onward journey (tree) explorer ─────────────────────────────────────── */
+    dialog#treeExplorerDialog {
+      position: fixed;
+      inset: 0;
+      margin: auto;
+      border: none;
+      border-radius: 14px;
+      padding: 0;
+      width: min(560px, calc(100vw - 24px));
+      height: calc(100vh - 32px);
+      height: calc(100dvh - 24px);
+      max-height: calc(100vh - 32px);
+      max-height: calc(100dvh - 24px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    dialog#treeExplorerDialog::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(3px); }
+    .tree-box { display: flex; flex-direction: column; max-height: inherit; height: 100%; padding: 20px 20px 18px; overflow: hidden; }
+    .tree-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 12px; }
+    .tree-head h2 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 0 0 4px; }
+    .tree-head .tree-sub { font-size: 0.82rem; color: var(--gray-600); line-height: 1.35; }
+    .tree-head-actions { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; }
+    .tree-expand-all {
+      appearance: none; border: 1px solid var(--gray-200); background: #fff; color: var(--blue);
+      border-radius: 7px; padding: 5px 10px; font-size: 0.78rem; font-weight: 650;
+      cursor: pointer; white-space: nowrap;
+    }
+    .tree-expand-all:hover { background: var(--blue-pale); border-color: var(--blue); }
+    .tree-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; border-top: 1px solid var(--gray-100); padding-top: 8px; }
+    .tree-empty { color: var(--gray-500); font-size: 0.85rem; padding: 12px 4px; }
+    .tree-origin {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
+      padding: 8px 11px; margin-bottom: 8px; border: 1px solid var(--blue);
+      background: var(--blue-pale); border-radius: 8px;
+    }
+    .tree-origin-route { font-weight: 700; color: var(--navy); font-size: 0.9rem; }
+    .tree-origin-date { color: var(--gray-600); font-size: 0.78rem; margin-left: auto; }
+    .tree-root, .tree-children { list-style: none; margin: 0; padding: 0; }
+    .tree-root { margin-left: 6px; padding-left: 10px; border-left: 2px solid var(--gray-200); }
+    .tree-children { margin-left: 15px; padding-left: 9px; border-left: 1px solid var(--gray-200); }
+    .tree-item { margin: 2px 0; }
+    .tree-row { display: flex; align-items: stretch; gap: 4px; }
+    .tree-caret {
+      appearance: none; flex: 0 0 auto; width: 22px; align-self: center;
+      height: 22px; padding: 0; border: none; background: transparent;
+      color: var(--gray-500); cursor: pointer; font-size: 0.7rem; line-height: 1;
+      display: inline-flex; align-items: center; justify-content: center; border-radius: 5px;
+    }
+    .tree-caret:hover { background: var(--gray-100); color: var(--navy); }
+    .tree-caret-empty { cursor: default; }
+    .tree-port {
+      appearance: none; flex: 1 1 auto; min-width: 0; text-align: left; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 7px 10px; border: 1px solid var(--gray-200); border-radius: 8px;
+      background: #fff; color: var(--navy);
+    }
+    .tree-port:hover { background: var(--blue-pale); border-color: var(--blue); }
+    .tree-port-name { font-weight: 650; font-size: 0.88rem; overflow-wrap: anywhere; }
+    .tree-port-meta { flex: 0 0 auto; display: inline-flex; align-items: baseline; gap: 8px; white-space: nowrap; }
+    .tree-price { font-weight: 700; color: var(--blue); font-size: 0.84rem; font-variant-numeric: tabular-nums; }
+    .tree-count { font-size: 0.74rem; color: var(--gray-500); }
+
     td.duration { text-align: center; white-space: nowrap; }
     td.col-sea-days { text-align: center; white-space: nowrap; }
 
@@ -1347,6 +1411,21 @@
       .ph-head               { gap: 10px; margin-bottom: 8px; }
       .ph-head h2            { font-size: 0.98rem; }
       .ph-head .ph-sub       { font-size: 0.76rem; line-height: 1.25; }
+
+      dialog#treeExplorerDialog {
+        width: calc(100vw - 16px);
+        height: calc(100vh - 16px);
+        height: calc(100dvh - 16px);
+        max-height: calc(100vh - 16px);
+        max-height: calc(100dvh - 16px);
+      }
+      .tree-box              { padding: 12px 12px 10px; }
+      .tree-head             { gap: 10px; margin-bottom: 8px; }
+      .tree-head h2          { font-size: 0.98rem; }
+      .tree-head .tree-sub   { font-size: 0.76rem; line-height: 1.25; }
+      .tree-children         { margin-left: 10px; padding-left: 7px; }
+      .tree-port             { padding: 8px 9px; }
+      .tree-port-name        { font-size: 0.85rem; }
       .ph-chart              { padding: 8px 9px; margin-bottom: 8px; }
       .ph-chart svg          { height: 92px; }
       .ph-table              { font-size: 0.78rem; }
@@ -2325,6 +2404,9 @@
     body.dark-mode dialog#savedViewsDialog,
     body.dark-mode dialog#settingsDialog,
     body.dark-mode dialog#siteChangesDialog,
+    body.dark-mode dialog#treeExplorerDialog,
+    body.dark-mode .tree-port,
+    body.dark-mode .tree-expand-all,
     body.dark-mode dialog#departureRangeDialog,
     body.dark-mode .settings-user-detail input,
     body.dark-mode .settings-list .settings-select-item select,
@@ -2350,6 +2432,9 @@
     body.dark-mode .ph-head h2,
     body.dark-mode .ph-when-date,
     body.dark-mode .ph-table td.ph-price,
+    body.dark-mode .tree-head h2,
+    body.dark-mode .tree-port-name,
+    body.dark-mode .tree-origin-route,
     body.dark-mode .mob-filters-head h2,
     body.dark-mode .mob-filter-heading,
     body.dark-mode .settings-head h2,

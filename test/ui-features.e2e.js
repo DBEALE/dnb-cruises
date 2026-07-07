@@ -1016,3 +1016,135 @@ test.describe('Site changes dialog', () => {
     await expect(page.locator('#changesClose')).toBeInViewport();
   });
 });
+
+test.describe('Onward journey explorer', () => {
+  // A deliberate chain of onward legs: Southampton →(root)→ Reykjavik →
+  // New York (two options) → Miami → Nassau, plus a cycle back to Reykjavik
+  // and an out-of-window sailing to Oslo. Prices/dates are chosen so the
+  // aggregation, window and cycle-guard behaviour is deterministic.
+  function chainFixtures() {
+    const leg = (id, shipName, port, destinationPort, departureDate, arrivalDate, inside) =>
+      cruise({ id, shipName, provider: 'Royal Caribbean', priceFrom: inside, days: 7,
+        departureDate, arrivalDate, firstSeenAt: isoAgo(DAY), port, destinationPort,
+        prices: { inside: String(inside), oceanView: null, balcony: null, suite: null } });
+    return {
+      royalCaribbean: {
+        scrapedAt: CRUISES_RC.scrapedAt,
+        cruises: [
+          leg('rc_root',  'Root Ship',  'Southampton', 'Reykjavik', '2026-09-01', '2026-09-08', 500),
+          leg('rc_hop1',  'Hop One',    'Reykjavik',   'New York',  '2026-09-09', '2026-09-16', 400),
+          leg('rc_hop1b', 'Hop One B',  'Reykjavik',   'New York',  '2026-09-10', '2026-09-18', 300),
+          leg('rc_hop2',  'Hop Two',    'New York',    'Miami',     '2026-09-17', '2026-09-24', 250),
+          leg('rc_hop3',  'Hop Three',  'Miami',       'Nassau',    '2026-09-25', '2026-09-29', 200),
+          leg('rc_cycle', 'Cycle Ship', 'New York',    'Reykjavik', '2026-09-17', '2026-09-22', 999),
+          leg('rc_far',   'Far Ship',   'Reykjavik',   'Oslo',      '2026-09-20', '2026-09-26', 111),
+        ],
+      },
+      celebrity: { scrapedAt: CRUISES_CEL.scrapedAt, cruises: [] },
+    };
+  }
+
+  test('buildCruiseTree aggregates onward legs and guards the date window + cycles', async ({ page }) => {
+    const fixtures = chainFixtures();
+    await gotoFresh(page, null, fixtures);
+
+    const result = await page.evaluate((cruises) => {
+      const T = window.__cruiseTree;
+      const ctx = T.makeTreeCtx(cruises, { windowDays: 3, radiusMiles: 0, maxDepth: 4 });
+      const root = cruises.find(c => c.id === 'rc_root');
+      const tree = T.buildCruiseTree(root, ctx);
+      const ny = tree.children.find(n => n.portDisplay === 'New York');
+      const hop2 = T.buildTreeChildren(ny.portRaw, ny.earliestArrivalKey, new Set([tree.portKey, ny.portKey]), ctx);
+      return {
+        rootPort: tree.portDisplay,
+        childPorts: tree.children.map(n => n.portDisplay),
+        ny: { optionCount: ny.optionCount, lowestPrice: ny.lowestPrice, earliest: ny.earliestArrivalKey },
+        hop2Ports: hop2.map(n => n.portDisplay),
+      };
+    }, fixtures.royalCaribbean.cruises);
+
+    expect(result.rootPort).toBe('Reykjavik');
+    // Only New York is within 3 days of the 2026-09-08 arrival; Oslo (09-20) is out.
+    expect(result.childPorts).toEqual(['New York']);
+    expect(result.ny.optionCount).toBe(2);          // two Reykjavik→New York sailings
+    expect(result.ny.lowestPrice).toBe(300);        // cheapest of the two
+    expect(result.ny.earliest).toBe('2026-09-16');  // earliest onward arrival drives the next hop
+    // From New York, Miami is reachable but the cycle back to Reykjavik is dropped.
+    expect(result.hop2Ports).toEqual(['Miami']);
+  });
+
+  test('explorer opens from a row, shows nodes, expands lazily, and opens a leg in a new tab', async ({ page }) => {
+    await page.addInitScript(() => {
+      window.open = (url, target, features) => { window.__opened = { url, target, features }; return {}; };
+    });
+    await gotoFresh(page, null, chainFixtures());
+
+    await page.locator('.cruise-explore-btn[data-explore-cruise="rc_root"]').click();
+    await page.waitForSelector('dialog#treeExplorerDialog[open]');
+
+    // The origin node shows the selected cruise's own leg (departure → destination).
+    await expect(page.locator('.tree-origin')).toContainText('Southampton → Reykjavik');
+
+    const nyRow = page.locator('.tree-item', { hasText: 'New York' }).first();
+    await expect(nyRow).toContainText('from £300');
+    await expect(nyRow).toContainText('2 options');
+
+    // Lazily expand New York → Miami appears in a nested list.
+    await page.locator('[data-tree-expand]').first().click();
+    await expect(page.locator('.tree-children')).toContainText('Miami');
+
+    // Clicking the port opens that leg (Reykjavik → New York, in the 3-day window).
+    await page.locator('.tree-port', { hasText: 'New York' }).first().click();
+    const opened = await page.evaluate(() => window.__opened);
+    expect(opened.target).toBe('_blank');
+    expect(opened.features).toContain('noopener');
+    expect(opened.url).toContain('departurePort=Reykjavik');
+    expect(opened.url).toContain('destinationPort=New+York');
+    expect(opened.url).toContain('departureStart=2026-09-08');
+    expect(opened.url).toContain('departureEnd=2026-09-11');
+  });
+
+  test('onward journey depth setting limits how deep the tree expands', async ({ page }) => {
+    await gotoFresh(page, { ...ALL_ON, treeDepth: 2 }, chainFixtures());
+    await page.locator('.cruise-explore-btn[data-explore-cruise="rc_root"]').click();
+    await page.waitForSelector('dialog#treeExplorerDialog[open]');
+
+    // Depth 2: New York (hop 1) can expand; Miami (hop 2) is the depth cap → no caret.
+    await page.locator('[data-tree-expand]').first().click();
+    const miami = page.locator('.tree-children .tree-item', { hasText: 'Miami' });
+    await expect(miami).toHaveCount(1);
+    await expect(miami.locator('[data-tree-expand]')).toHaveCount(0);
+  });
+
+  test('expand all / collapse all toggles the whole tree', async ({ page }) => {
+    await gotoFresh(page, null, chainFixtures());
+    await page.locator('.cruise-explore-btn[data-explore-cruise="rc_root"]').click();
+    await page.waitForSelector('dialog#treeExplorerDialog[open]');
+
+    const toggle = page.locator('#treeExpandAll');
+    await expect(toggle).toHaveText('Expand all');
+
+    await toggle.click();
+    await expect(toggle).toHaveText('Collapse all');
+    // The whole reachable path is now open: New York → Miami → Nassau (terminal).
+    await expect(page.locator('#treeExplorerBody')).toContainText('Nassau');
+    expect(await page.locator('.tree-children').count()).toBeGreaterThan(1);
+
+    await toggle.click();
+    await expect(toggle).toHaveText('Expand all');
+    expect(await page.locator('.tree-children').count()).toBe(0);
+    // Back to just the root ports.
+    await expect(page.locator('.tree-root')).toContainText('New York');
+    await expect(page.locator('#treeExplorerBody')).not.toContainText('Miami');
+  });
+
+  test('explore button only appears when the destination has onward cruises', async ({ page }) => {
+    await gotoFresh(page, null, chainFixtures());
+    // Reykjavik (rc_root) has onward sailings → button shown.
+    await expect(page.locator('.cruise-explore-btn[data-explore-cruise="rc_root"]')).toHaveCount(1);
+    // Nassau (rc_hop3) and Oslo (rc_far) are terminal — no onward sailing departs
+    // them, so the explorer button is omitted entirely.
+    await expect(page.locator('.cruise-explore-btn[data-explore-cruise="rc_hop3"]')).toHaveCount(0);
+    await expect(page.locator('.cruise-explore-btn[data-explore-cruise="rc_far"]')).toHaveCount(0);
+  });
+});
