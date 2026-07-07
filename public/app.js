@@ -78,6 +78,13 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '7 Jul 2026',
+      title: 'Virgin Voyages cabin prices',
+      items: [
+        'Virgin Voyages cruises now show per-cabin fares (Insider, Sea View, Sea Terrace and RockStar) instead of just a lead-in price, with price-history sparklines like the other cruise lines.',
+      ],
+    },
+    {
       date: '6 Jul 2026',
       title: 'Search ports by distance',
       items: [

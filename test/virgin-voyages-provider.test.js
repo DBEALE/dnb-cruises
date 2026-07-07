@@ -89,12 +89,114 @@ test('parsePortMap reads code→name pairs and decodes JSON escapes', () => {
 test('fetchCruises parses the page and dedupes voyages', async () => {
   const html = `<html>"sailingsAvailability":{"data":{"data":[${JSON.stringify(voyage())},${JSON.stringify(voyage())},${JSON.stringify(voyage({ shipCode: 'SC', packageCode: '5NCM' }))}]}} {"code":"SEA","name":"Seattle, Washington"}</html>`;
   const fetchImpl = async () => ({ ok: true, text: async () => html });
-  const cruises = await provider.fetchCruises({ fetchImpl });
+  const cruises = await provider.fetchCruises({ fetchImpl, enrichPrices: false });
   assert.equal(cruises.length, 2, 'the two identical voyages dedupe to one');
   assert.ok(cruises.some(c => c.shipName === 'Scarlet Lady'));
 });
 
 test('fetchCruises throws when no voyages are found (never overwrites good data)', async () => {
   const fetchImpl = async () => ({ ok: true, text: async () => '<html>no data here</html>' });
-  await assert.rejects(() => provider.fetchCruises({ fetchImpl }), /no voyages/);
+  await assert.rejects(() => provider.fetchCruises({ fetchImpl, enrichPrices: false }), /no voyages/);
+});
+
+// ── Per-cabin pricing (CabinCategoriesAvailability) ──────────────────────────
+
+// A realistic slice of the GraphQL response: one seq, several categories, each
+// with multiple cabin types so the "cheapest type wins" reduction is exercised.
+function cabinResponse() {
+  const price = amount => ({ lowestAvailablePrice: { totalPrice: { amount } } });
+  return {
+    data: {
+      cabinCategoriesAvailability: [{
+        availableCategories: [
+          { code: 'INSIDER', submetas: [{ cabinTypes: [price(2530)] }] },
+          { code: 'SEA VIEW', submetas: [{ cabinTypes: [price(3668), price(2800)] }] },
+          { code: 'SEA TERRACE', submetas: [{ cabinTypes: [price(4580)] }, { cabinTypes: [price(3360)] }] },
+          { code: 'ROCKSTAR SUITES', submetas: [{ cabinTypes: [price(7200)] }] },
+          { code: 'MEGA ROCKSTAR', submetas: [{ cabinTypes: [price(20000)] }] },
+        ],
+      }],
+    },
+  };
+}
+
+test('parseCabinPrices halves 2-guest totals and takes the cheapest per bucket', () => {
+  const prices = provider.parseCabinPrices(cabinResponse().data.cabinCategoriesAvailability);
+  assert.deepEqual(prices, {
+    inside: 1265,      // 2530 / 2
+    oceanView: 1400,   // min(3668, 2800) / 2
+    balcony: 1680,     // min(4580, 3360) / 2
+    suite: 3600,       // min(ROCKSTAR 7200, MEGA 20000) / 2
+  });
+});
+
+test('parseCabinPrices leaves sold-out / unknown categories null', () => {
+  assert.deepEqual(
+    provider.parseCabinPrices([{ availableCategories: [{ code: 'MYSTERY', submetas: [] }] }]),
+    { inside: null, oceanView: null, balcony: null, suite: null },
+  );
+  assert.deepEqual(provider.parseCabinPrices(null), { inside: null, oceanView: null, balcony: null, suite: null });
+});
+
+test('buildCabinVars asks for 2 adults in GBP for the given voyage', () => {
+  const v = provider.buildCabinVars('BR2607097NSBE').value;
+  assert.equal(v.voyageId, 'BR2607097NSBE');
+  assert.equal(v.currencyCode, 'GBP');
+  assert.deepEqual(v.cabins[0].travelParty, [{ ageCategory: 'ADULT', count: 2 }]);
+});
+
+test('canReuseCabinPrices reuses fresh priced records and refuses stale/empty ones', () => {
+  const now = Date.parse('2026-07-03T12:00:00Z');
+  const priced = { id: 'virgin-X', prices: { inside: 1000, oceanView: null, balcony: null, suite: null }, pricesEnrichedAt: '2026-07-03T09:00:00Z' };
+  assert.equal(provider.canReuseCabinPrices(priced, now), true, 'fresh (3h old) → reuse');
+  assert.equal(provider.canReuseCabinPrices({ ...priced, pricesEnrichedAt: '2026-07-01T00:00:00Z' }, now), false, 'stale (>1 day) → refetch');
+  assert.equal(provider.canReuseCabinPrices({ ...priced, prices: { inside: null, oceanView: null, balcony: null, suite: null } }, now), false, 'no prior price → refetch');
+  assert.equal(provider.canReuseCabinPrices({ ...priced, pricesEnrichedAt: undefined }, now), false, 'never enriched → refetch');
+  assert.equal(provider.canReuseCabinPrices(null, now), false);
+});
+
+test('enrichCabinPrices fetches with a stub token and populates buckets', async () => {
+  const cruises = [{ id: 'virgin-BR2607097NSBE', prices: { inside: null, oceanView: null, balcony: null, suite: null } }];
+  const fetchCabinImpl = async () => ({ ok: true, json: async () => cabinResponse() });
+  await provider.enrichCabinPrices(cruises, { token: 'stub', fetchCabinImpl, priorEnrichmentById: new Map() });
+  assert.equal(cruises[0].prices.inside, 1265);
+  assert.equal(cruises[0].prices.suite, 3600);
+  assert.ok(cruises[0].pricesEnrichedAt, 'stamps enrichment time on a fresh fetch');
+});
+
+test('enrichCabinPrices reuses prior prices within TTL instead of fetching', async () => {
+  const prior = new Map([['virgin-BR2607097NSBE', {
+    id: 'virgin-BR2607097NSBE',
+    prices: { inside: 999, oceanView: null, balcony: null, suite: null },
+    pricesEnrichedAt: new Date().toISOString(),
+  }]]);
+  const cruises = [{ id: 'virgin-BR2607097NSBE', prices: { inside: null, oceanView: null, balcony: null, suite: null } }];
+  let called = false;
+  const fetchCabinImpl = async () => { called = true; throw new Error('should not fetch'); };
+  await provider.enrichCabinPrices(cruises, { token: 'stub', fetchCabinImpl, priorEnrichmentById: prior });
+  assert.equal(called, false, 'a fresh prior is reused, no fetch');
+  assert.equal(cruises[0].prices.inside, 999);
+});
+
+test('enrichCabinPrices carries prior prices forward when a fetch fails', async () => {
+  const prior = new Map([['virgin-BR2607097NSBE', {
+    id: 'virgin-BR2607097NSBE',
+    prices: { inside: 888, oceanView: null, balcony: null, suite: null },
+    pricesEnrichedAt: '2026-01-01T00:00:00Z', // stale → would refetch, but fetch fails
+  }]]);
+  const cruises = [{ id: 'virgin-BR2607097NSBE', prices: { inside: null, oceanView: null, balcony: null, suite: null } }];
+  const fetchCabinImpl = async () => ({ ok: false, status: 500 });
+  await provider.enrichCabinPrices(cruises, { token: 'stub', fetchCabinImpl, priorEnrichmentById: prior });
+  assert.equal(cruises[0].prices.inside, 888, 'prior price preserved on failure — never regresses to null');
+});
+
+test('enrichCabinPrices without a token carries prior prices forward (no regression)', async () => {
+  const prior = new Map([['virgin-BR2607097NSBE', {
+    id: 'virgin-BR2607097NSBE',
+    prices: { inside: 777, oceanView: null, balcony: null, suite: null },
+    pricesEnrichedAt: '2026-07-03T09:00:00Z',
+  }]]);
+  const cruises = [{ id: 'virgin-BR2607097NSBE', prices: { inside: null, oceanView: null, balcony: null, suite: null } }];
+  await provider.enrichCabinPrices(cruises, { grabToken: async () => null, priorEnrichmentById: prior });
+  assert.equal(cruises[0].prices.inside, 777);
 });
