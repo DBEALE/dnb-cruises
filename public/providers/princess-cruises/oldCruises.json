@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 597,
+  "count": 598,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -35168,6 +35168,60 @@
             "oceanView": 7619,
             "balcony": 8940,
             "suite": 10266
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_CPR14H_CB_20260726",
+      "shipName": "Caribbean Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Port Canaveral (Orlando), Florida → Grand Turk, Turks & Caicos → Amber Cove, Dominican Republic → San Juan, Puerto Rico → Port Canaveral (Orlando), Florida → San Juan, Puerto Rico → Amber Cove, Dominican Republic → Grand Turk, Turks & Caicos → Port Canaveral (Orlando), Florida",
+      "departureDate": "2026-07-26",
+      "duration": "14 Nights",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "destinationPort": "Port Canaveral",
+      "priceFrom": "1487",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=B624A",
+      "prices": {
+        "inside": "1487",
+        "oceanView": null,
+        "balcony": "2593",
+        "suite": null
+      },
+      "seaDays": 6,
+      "firstSeenAt": "2026-07-01T20:35:40.902Z",
+      "lastSeenAt": "2026-07-08T05:04:29.284Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-01T20:35:40.902Z",
+          "prices": {
+            "inside": 1487
+          }
+        },
+        {
+          "at": "2026-07-03T09:04:04.249Z",
+          "prices": {
+            "inside": 1487,
+            "balcony": 2593
+          }
+        },
+        {
+          "at": "2026-07-03T22:22:03.645Z",
+          "prices": {
+            "inside": 1487
+          }
+        },
+        {
+          "at": "2026-07-04T07:01:02.159Z",
+          "prices": {
+            "inside": 1487,
+            "balcony": 2593
           }
         }
       ]

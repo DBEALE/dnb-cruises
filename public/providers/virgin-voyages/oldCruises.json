@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 5,
+  "count": 3,
   "cruises": [
     {
       "id": "virgin-RS2607115NTC",
@@ -103,96 +103,6 @@
           "at": "2026-07-07T14:10:40.613Z",
           "prices": {
             "balcony": 1034
-          }
-        }
-      ]
-    },
-    {
-      "id": "virgin-VL2607197NBTA",
-      "provider": "Virgin Voyages",
-      "shipName": "Valiant Lady",
-      "shipClass": "Lady",
-      "shipLaunchYear": 2021,
-      "itinerary": "EUROPE",
-      "departureDate": "2026-07-19",
-      "duration": "7 Nights",
-      "departurePort": "Barcelona",
-      "departureRegion": "Mediterranean",
-      "destination": "Mediterranean",
-      "destinationPort": "Barcelona",
-      "seaDays": null,
-      "priceFrom": "2750",
-      "currency": "GBP",
-      "prices": {
-        "inside": 1040,
-        "oceanView": 1225,
-        "balcony": 1330,
-        "suite": 2695
-      },
-      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=VL2607197NBTA&currencyCode=GBP",
-      "arrivalDate": "2026-07-26",
-      "pricesEnrichedAt": "2026-07-08T03:04:50.910Z",
-      "firstSeenAt": "2026-07-07T19:22:48.665Z",
-      "lastSeenAt": "2026-07-08T03:03:52.510Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-07T19:22:48.665Z",
-          "prices": {
-            "inside": 1040,
-            "oceanView": 1225,
-            "balcony": 1330,
-            "suite": 2695
-          }
-        },
-        {
-          "at": "2026-07-07T22:24:45.737Z",
-          "prices": {
-            "suite": 2695
-          }
-        },
-        {
-          "at": "2026-07-08T03:03:52.510Z",
-          "prices": {
-            "inside": 1040,
-            "oceanView": 1225,
-            "balcony": 1330,
-            "suite": 2695
-          }
-        }
-      ]
-    },
-    {
-      "id": "virgin-BR2607307NSBE",
-      "provider": "Virgin Voyages",
-      "shipName": "Brilliant Lady",
-      "shipClass": "Lady",
-      "shipLaunchYear": 2025,
-      "itinerary": "NORTH ..",
-      "departureDate": "2026-07-30",
-      "duration": "7 Nights",
-      "departurePort": "Seattle",
-      "departureRegion": "Americas",
-      "destination": "Americas",
-      "destinationPort": "Seattle",
-      "seaDays": null,
-      "priceFrom": "2086",
-      "currency": "GBP",
-      "prices": {
-        "inside": 801,
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=BR2607307NSBE&currencyCode=GBP",
-      "arrivalDate": "2026-08-06",
-      "pricesEnrichedAt": "2026-07-08T03:04:50.910Z",
-      "firstSeenAt": "2026-07-07T00:36:28.979Z",
-      "lastSeenAt": "2026-07-08T03:03:52.510Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-08T03:03:52.510Z",
-          "prices": {
-            "inside": 801
           }
         }
       ]
