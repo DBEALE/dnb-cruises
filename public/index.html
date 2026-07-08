@@ -213,6 +213,40 @@
       </div>
       <div class="mob-filter-heading mob-filter-heading-cruise">Cruise</div>
       <div class="mob-filter-heading mob-filter-heading-route">Route &amp; ports</div>
+      <div class="mob-filter-group mob-filter-full mob-filter-route">
+        <label for="mobFilterItinerary">Itinerary</label>
+        <div class="filter-entry">
+          <input id="mobFilterItinerary" class="mob-filter" data-field="itinerary" placeholder="e.g. Caribbean" oninput="mobileFilterSync(this)">
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('itinerary')" aria-label="Clear itinerary filter" title="Clear itinerary filter">&times;</button>
+        </div>
+      </div>
+      <div class="mob-filter-group mob-filter-route">
+        <label for="mobFilterRegion">Region</label>
+        <div class="filter-entry">
+          <select id="mobFilterRegion" class="mob-filter" data-field="departureRegion" onchange="mobileFilterSync(this)">
+            <option value="">All regions</option>
+            <optgroup label="By area">
+              <option value="group:europe">Europe (UK, N. Europe, Med.)</option>
+              <option value="group:americas">Americas (N + S + Caribbean)</option>
+              <option value="group:asia-pacific">Asia &amp; Pacific</option>
+            </optgroup>
+            <optgroup label="By region">
+              <option>UK &amp; Ireland</option>
+              <option>Northern Europe</option>
+              <option>Mediterranean</option>
+              <option>Caribbean</option>
+              <option>Americas</option>
+              <option>Asia &amp; Far East</option>
+              <option>Middle East</option>
+              <option>Africa</option>
+              <option>Australia &amp; Pacific</option>
+              <option>South America</option>
+              <option>Other</option>
+            </optgroup>
+          </select>
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('departureRegion')" aria-label="Clear region filter" title="Clear region filter">&times;</button>
+        </div>
+      </div>
       <div class="mob-filter-group mob-filter-route">
         <label for="mobFilterEndpointMatch">Endpoint ports</label>
         <div class="filter-entry">
@@ -222,6 +256,20 @@
             <option value="different">Different ports</option>
           </select>
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('endpointMatch')" aria-label="Clear endpoint port filter" title="Clear endpoint port filter">&times;</button>
+        </div>
+      </div>
+      <div class="mob-filter-group mob-filter-route">
+        <label for="mobFilterPort">Departure port</label>
+        <div class="filter-entry">
+          <input id="mobFilterPort" class="mob-filter" data-field="departurePort" placeholder="e.g. Southampton" oninput="mobileFilterSync(this)">
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('departurePort')" aria-label="Clear departure port filter" title="Clear departure port filter">&times;</button>
+        </div>
+      </div>
+      <div class="mob-filter-group mob-filter-route">
+        <label for="mobFilterDestinationPort">Destination port</label>
+        <div class="filter-entry">
+          <input id="mobFilterDestinationPort" class="mob-filter" data-field="destinationPort" placeholder="e.g. Barcelona" oninput="mobileFilterSync(this)">
+          <button type="button" class="filter-clear-btn" onclick="clearFilterField('destinationPort')" aria-label="Clear destination port filter" title="Clear destination port filter">&times;</button>
         </div>
       </div>
       <div class="mob-filter-group mob-filter-cruise">
@@ -258,54 +306,6 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('minLaunch')" aria-label="Clear launch year filter" title="Clear launch year filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group mob-filter-full mob-filter-route">
-        <label for="mobFilterItinerary">Itinerary</label>
-        <div class="filter-entry">
-          <input id="mobFilterItinerary" class="mob-filter" data-field="itinerary" placeholder="e.g. Caribbean" oninput="mobileFilterSync(this)">
-          <button type="button" class="filter-clear-btn" onclick="clearFilterField('itinerary')" aria-label="Clear itinerary filter" title="Clear itinerary filter">&times;</button>
-        </div>
-      </div>
-      <div class="mob-filter-group mob-filter-route">
-        <label for="mobFilterDestination">Destination</label>
-        <div class="filter-entry">
-          <input id="mobFilterDestination" class="mob-filter" data-field="destination" placeholder="Type…" oninput="mobileFilterSync(this)">
-          <button type="button" class="filter-clear-btn" onclick="clearFilterField('destination')" aria-label="Clear destination filter" title="Clear destination filter">&times;</button>
-        </div>
-      </div>
-      <div class="mob-filter-group mob-filter-route">
-        <label for="mobFilterDestinationPort">Destination port</label>
-        <div class="filter-entry">
-          <input id="mobFilterDestinationPort" class="mob-filter" data-field="destinationPort" placeholder="e.g. Barcelona" oninput="mobileFilterSync(this)">
-          <button type="button" class="filter-clear-btn" onclick="clearFilterField('destinationPort')" aria-label="Clear destination port filter" title="Clear destination port filter">&times;</button>
-        </div>
-      </div>
-      <div class="mob-filter-group mob-filter-route">
-        <label for="mobFilterRegion">Region</label>
-        <div class="filter-entry">
-          <select id="mobFilterRegion" class="mob-filter" data-field="departureRegion" onchange="mobileFilterSync(this)">
-            <option value="">All regions</option>
-            <optgroup label="By area">
-              <option value="group:europe">Europe (UK, N. Europe, Med.)</option>
-              <option value="group:americas">Americas (N + S + Caribbean)</option>
-              <option value="group:asia-pacific">Asia &amp; Pacific</option>
-            </optgroup>
-            <optgroup label="By region">
-              <option>UK &amp; Ireland</option>
-              <option>Northern Europe</option>
-              <option>Mediterranean</option>
-              <option>Caribbean</option>
-              <option>Americas</option>
-              <option>Asia &amp; Far East</option>
-              <option>Middle East</option>
-              <option>Africa</option>
-              <option>Australia &amp; Pacific</option>
-              <option>South America</option>
-              <option>Other</option>
-            </optgroup>
-          </select>
-          <button type="button" class="filter-clear-btn" onclick="clearFilterField('departureRegion')" aria-label="Clear region filter" title="Clear region filter">&times;</button>
-        </div>
-      </div>
       <div class="mob-filter-heading mob-filter-heading-dates">Dates &amp; length</div>
       <div class="mob-filter-group mob-filter-dates">
         <label for="mobDepartureRangeBtn">Departure</label>
@@ -314,13 +314,6 @@
         <div class="filter-entry">
           <button id="mobDepartureRangeBtn" class="date-range-btn date-range-mobile" type="button" onclick="openDepartureRange()" aria-label="Choose departure date range">Any date</button>
           <button type="button" class="filter-clear-btn" onclick="clearDepartureRange()" aria-label="Clear departure date range" title="Clear departure date range">&times;</button>
-        </div>
-      </div>
-      <div class="mob-filter-group mob-filter-route">
-        <label for="mobFilterPort">Departure port</label>
-        <div class="filter-entry">
-          <input id="mobFilterPort" class="mob-filter" data-field="departurePort" placeholder="e.g. Southampton" oninput="mobileFilterSync(this)">
-          <button type="button" class="filter-clear-btn" onclick="clearFilterField('departurePort')" aria-label="Clear departure port filter" title="Clear departure port filter">&times;</button>
         </div>
       </div>
       <div class="mob-filter-group mob-filter-dates">
