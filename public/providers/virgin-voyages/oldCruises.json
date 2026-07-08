@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 2,
+  "count": 5,
   "cruises": [
     {
       "id": "virgin-RS2607115NTC",
@@ -60,6 +60,132 @@
       "firstSeenAt": "2026-07-07T00:36:28.979Z",
       "lastSeenAt": "2026-07-07T05:20:16.655Z",
       "priceHistory": []
+    },
+    {
+      "id": "virgin-VL2607118NBVA",
+      "provider": "Virgin Voyages",
+      "shipName": "Valiant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2021,
+      "itinerary": "EUROPE",
+      "departureDate": "2026-07-11",
+      "duration": "8 Nights",
+      "departurePort": "Barcelona",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean",
+      "destinationPort": "Barcelona",
+      "seaDays": null,
+      "priceFrom": "3184",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": 1400,
+        "balcony": 1680,
+        "suite": 5440
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=VL2607118NBVA&currencyCode=GBP",
+      "arrivalDate": "2026-07-19",
+      "pricesEnrichedAt": "2026-07-07T14:11:37.294Z",
+      "firstSeenAt": "2026-07-06T20:38:14.027Z",
+      "lastSeenAt": "2026-07-07T22:24:45.737Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "oceanView": 1400,
+            "balcony": 1680,
+            "suite": 5440
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-BR2607167NSBE",
+      "provider": "Virgin Voyages",
+      "shipName": "Brilliant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2025,
+      "itinerary": "NORTH ..",
+      "departureDate": "2026-07-16",
+      "duration": "7 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Seattle",
+      "seaDays": null,
+      "priceFrom": "2228",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": 856,
+        "balcony": 1494,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=BR2607167NSBE&currencyCode=GBP",
+      "arrivalDate": "2026-07-23",
+      "pricesEnrichedAt": "2026-07-07T19:23:45.437Z",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-07-07T22:24:45.737Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "balcony": 1825
+          }
+        },
+        {
+          "at": "2026-07-07T19:22:48.665Z",
+          "prices": {
+            "oceanView": 856,
+            "balcony": 1494
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-VL2607197NBTA",
+      "provider": "Virgin Voyages",
+      "shipName": "Valiant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2021,
+      "itinerary": "EUROPE",
+      "departureDate": "2026-07-19",
+      "duration": "7 Nights",
+      "departurePort": "Barcelona",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean",
+      "destinationPort": "Barcelona",
+      "seaDays": null,
+      "priceFrom": "7070",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": 2695
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=VL2607197NBTA&currencyCode=GBP",
+      "arrivalDate": "2026-07-26",
+      "pricesEnrichedAt": "2026-07-07T22:25:47.041Z",
+      "firstSeenAt": "2026-07-07T19:22:48.665Z",
+      "lastSeenAt": "2026-07-07T22:24:45.737Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T19:22:48.665Z",
+          "prices": {
+            "inside": 1040,
+            "oceanView": 1225,
+            "balcony": 1330,
+            "suite": 2695
+          }
+        },
+        {
+          "at": "2026-07-07T22:24:45.737Z",
+          "prices": {
+            "suite": 2695
+          }
+        }
+      ]
     }
   ]
 }
