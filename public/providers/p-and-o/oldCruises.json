@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 3,
+  "count": 4,
   "cruises": [
     {
       "id": "pando-A627A",
@@ -154,6 +154,60 @@
           "prices": {
             "inside": 699,
             "balcony": 999
+          }
+        }
+      ]
+    },
+    {
+      "id": "pando-N616",
+      "provider": "P&O Cruises",
+      "shipName": "Ventura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2008,
+      "itinerary": "Southampton",
+      "departureDate": "2026-07-11",
+      "duration": "7 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Spain-France-And-Portugal",
+      "destinationPort": "Southampton",
+      "seaDays": 2,
+      "priceFrom": "799",
+      "currency": "GBP",
+      "prices": {
+        "inside": "799",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/N616/N616",
+      "arrivalDate": "2026-07-18",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "lastSeenAt": "2026-07-08T08:52:48.726Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "oceanView": 899
+          }
+        },
+        {
+          "at": "2026-07-04T16:22:54.788Z",
+          "prices": {
+            "inside": 969,
+            "oceanView": 899
+          }
+        },
+        {
+          "at": "2026-07-05T20:25:03.788Z",
+          "prices": {
+            "oceanView": 899
+          }
+        },
+        {
+          "at": "2026-07-06T13:36:43.732Z",
+          "prices": {
+            "inside": 799
           }
         }
       ]
