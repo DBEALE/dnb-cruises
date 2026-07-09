@@ -1118,16 +1118,23 @@ test.describe('Onward journey explorer', () => {
     await expect(nyRow.locator('.tree-summary')).toContainText('total from £800');
 
     // Expanding the leg lists its cruises, cheapest first (£300, then £400),
-    // each showing nights + ship + its own fare.
+    // each showing nights + ship + its own fare, plus an EXACT running total
+    // (not a "from"): £500 root + £300 = £800.
     await nyRow.locator('[data-tree-expand]').first().click();
     const cruiseRows = nyRow.locator('.tree-children > .tree-item');
     await expect(cruiseRows.first()).toContainText('7N');
     await expect(cruiseRows.first().locator('.tree-price')).toHaveText('£300');
+    // Exact total + cumulative nights (root 7N + this 7N = 14N).
+    await expect(cruiseRows.first().locator('.tree-summary')).toContainText('total £800');
+    await expect(cruiseRows.first().locator('.tree-summary')).toContainText('14N');
 
-    // The £400 cruise (nth 1) arrives in time to sail on to Miami; expanding it
-    // shows the onward leg with the running total £500 + £400 + £250 = £1,150.
+    // The £400 cruise (nth 1) — exact total £500 + £400 = £900 over 14 nights —
+    // arrives in time to sail on to Miami; expanding it shows the onward leg with
+    // the running total £500 + £400 + £250 = £1,150.
     const hop1Cruise = cruiseRows.nth(1);
     await expect(hop1Cruise.locator('.tree-price')).toHaveText('£400');
+    await expect(hop1Cruise.locator('.tree-summary').first()).toContainText('total £900');
+    await expect(hop1Cruise.locator('.tree-summary').first()).toContainText('14N');
     await hop1Cruise.locator('[data-tree-expand]').first().click();
     const miamiRow = hop1Cruise.locator('.tree-item', { hasText: 'Miami' }).first();
     await expect(miamiRow.locator('.tree-port-name').first()).toHaveText('New York → Miami');

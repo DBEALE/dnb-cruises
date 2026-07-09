@@ -1111,12 +1111,13 @@
       margin-left: auto; font-weight: 700; color: var(--navy);
       font-variant-numeric: tabular-nums;
     }
+    .tree-total-nights { color: var(--gray-500); font-weight: 600; }
     /* Individual cruise rows nested under a leg — lighter than the leg headline. */
     .tree-cruise { background: var(--gray-50); }
     .tree-cruise .tree-port-name { font-weight: 600; font-size: 0.85rem; }
     .tree-cruise-nights {
       color: var(--gray-500); font-weight: 700; font-size: 0.78rem;
-      font-variant-numeric: tabular-nums; margin-right: 3px;
+      font-variant-numeric: tabular-nums;
     }
 
     td.duration { text-align: center; white-space: nowrap; }
