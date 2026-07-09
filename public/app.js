@@ -2063,13 +2063,44 @@
     );
   }
 
+  // Cache the derived home-port highlight terms so a full render (which asks for
+  // them on every port cell) does one localStorage read instead of ~900. Stays
+  // valid until rememberHomePort (the only writer) invalidates it; a cache hit
+  // never touches localStorage.
+  let _homePortTermsValid = false;
+  let _homePortTermsCache = [];
+  function invalidateHomePortTermsCache() { _homePortTermsValid = false; }
   function homePortHighlightTerms() {
+    if (_homePortTermsValid) return _homePortTermsCache;
+    _homePortTermsValid = true;
     const raw = rememberedHomePort().trim();
-    if (!raw) return [];
+    if (!raw) { _homePortTermsCache = []; return _homePortTermsCache; }
     const terms = [raw];
     const shortName = simplifyPortName(raw);
     if (shortName && shortName.length >= 2) terms.push(shortName);
-    return Array.from(new Set(terms.map(term => term.toLowerCase()).filter(Boolean)));
+    _homePortTermsCache = Array.from(new Set(terms.map(term => term.toLowerCase()).filter(Boolean)));
+    return _homePortTermsCache;
+  }
+
+  // Compiling the matcher regex + classByTerm map is identical for every cell in
+  // a render (same highlight term set), so memoize on the term/class signature.
+  const _highlightMatcherCache = new Map();
+  function buildHighlightMatcher(terms) {
+    const signature = terms
+      .map(entry => `${entry.term} ${entry.className}`)
+      .sort()
+      .join('');
+    let cached = _highlightMatcherCache.get(signature);
+    if (!cached) {
+      const classByTerm = new Map(terms.map(entry => [entry.term, entry.className]));
+      const matcher = new RegExp(Array.from(classByTerm.keys())
+        .map(escapeRegex)
+        .sort((a, b) => b.length - a.length)
+        .join('|'), 'ig');
+      cached = { classByTerm, matcher };
+      _highlightMatcherCache.set(signature, cached);
+    }
+    return cached;
   }
 
   function highlightTextTerms(text, entries) {
@@ -2083,11 +2114,8 @@
       .filter(entry => entry.term && entry.className);
     if (!terms.length) return escHtml(displayText);
 
-    const classByTerm = new Map(terms.map(entry => [entry.term, entry.className]));
-    const matcher = new RegExp(Array.from(classByTerm.keys())
-      .map(escapeRegex)
-      .sort((a, b) => b.length - a.length)
-      .join('|'), 'ig');
+    const { classByTerm, matcher } = buildHighlightMatcher(terms);
+    matcher.lastIndex = 0; // reset: the cached regex is global/stateful
 
     let lastIndex = 0;
     let html = '';
@@ -2242,49 +2270,88 @@
     return String(c?.destinationPort || inferDestinationPortFromItinerary(c?.itinerary) || '').trim();
   }
 
+  function buildRowHtml(c, i, colFilters) {
+    const date     = formatDateDisplay(c.departureDate);
+    const duration = formatDurationDisplay(c.duration);
+    const url      = c.bookingUrl ? escHtml(absoluteUrl(c.bookingUrl)) : '';
+    const priceCell = buildPriceCell(c, url);
+    const perNight  = getPricePerNight(c);
+    const perNightCell = Number.isFinite(perNight)
+      ? `${escHtml(formatPriceDisplay(perNight, 'GBP'))}<span class="per-night-suffix">/night</span>`
+      : '—';
+    const firstSeen = formatFirstSeenDisplay(c);
+    const seaDays = formatSeaDaysDisplay(c);
+    const destinationPort = getDestinationPortDisplay(c);
+    const destinationPortCell = highlightHomePort(destinationPort);
+    const destinationPortAction = `<span class="destination-port-wrap"><span class="destination-port-text">${destinationPortCell || '&mdash;'}</span>${followOnButton(c, destinationPort)}${exploreButton(c, destinationPort)}</span>`;
+    const departurePortCell = highlightHomePort(c.departurePort);
+    const departurePortAction = `<span class="departure-port-wrap"><span class="departure-port-text">${departurePortCell || '&mdash;'}</span>${beforeCruiseButton(c, c.departurePort)}</span>`;
+
+    return `<tr data-provider="${escHtml(c.provider || '')}">
+      <td class="col-num" data-label="#">${i + 1}</td>
+      <td class="col-ship ship-name" data-label="Ship">${mobileShipHeader(c)}${mobileShipDetails(c)}</td>
+      <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerLinkUrl(c))}</td>
+      <td class="col-class" data-label="Class"><span class="class-cell">${wikiLink(c.shipClass, classLinkUrl(c))}${classDots(c.shipClass)}</span></td>
+      <td class="col-launch" data-label="Launch"><span class="launch-share-wrap">${launchYearBadge(c.shipLaunchYear)}${cruiseShareButton(c, 'desktop-cruise-share')}</span></td>
+      <td class="col-itinerary" data-label="Itinerary">${highlightItinerary(c.itinerary, colFilters.itinerary) || '—'}</td>
+      <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
+      <td class="col-destination-port" data-label="Destination port">${destinationPortAction}</td>
+      <td class="col-date" data-label="Departure">${escHtml(date)}</td>
+      <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
+      <td class="col-sea-days duration" data-label="Sea days">${escHtml(seaDays)}</td>
+      <td class="col-port" data-label="Departure port">${departurePortAction}</td>
+      <td class="col-region" data-label="Region">${regionBadge(c.departureRegion)}</td>
+      <td class="col-first-seen" data-label="First seen"><span class="first-seen-val">${escHtml(firstSeen)}</span></td>
+      <td class="col-price price" data-label="Price">${priceCell}</td>
+      <td class="col-per-night per-night" data-label="£/night">${perNightCell}</td>
+    </tr>`;
+  }
+
+  function renderRowsHtml(list, start, end, colFilters) {
+    let html = '';
+    for (let i = start; i < end; i++) html += buildRowHtml(list[i], i, colFilters);
+    return html;
+  }
+
+  // Progressive rendering: paint the first chunk synchronously so the screen
+  // updates immediately, then append the remainder across animation frames so a
+  // large result set (or "Show all", which renders every filtered row) never
+  // blocks the main thread in one task. _renderRunId cancels an in-flight
+  // progressive render when a newer filter/sort apply starts.
+  const RENDER_CHUNK = 60;
+  let _renderRunId = 0;
   function renderBody(list, colFilters = {}) {
+    const runId = ++_renderRunId;
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
       tbody.innerHTML = '<tr class="empty-row"><td colspan="16">No cruises match your filters.</td></tr>';
       return;
     }
-    tbody.innerHTML = list.map((c, i) => {
-      const date     = formatDateDisplay(c.departureDate);
-      const duration = formatDurationDisplay(c.duration);
-      const url      = c.bookingUrl ? escHtml(absoluteUrl(c.bookingUrl)) : '';
-      const priceCell = buildPriceCell(c, url);
-      const perNight  = getPricePerNight(c);
-      const perNightCell = Number.isFinite(perNight)
-        ? `${escHtml(formatPriceDisplay(perNight, 'GBP'))}<span class="per-night-suffix">/night</span>`
-        : '—';
-      const firstSeen = formatFirstSeenDisplay(c);
-      const seaDays = formatSeaDaysDisplay(c);
-      const destinationPort = getDestinationPortDisplay(c);
-      const destinationPortCell = highlightHomePort(destinationPort);
-      const destinationPortAction = `<span class="destination-port-wrap"><span class="destination-port-text">${destinationPortCell || '&mdash;'}</span>${followOnButton(c, destinationPort)}${exploreButton(c, destinationPort)}</span>`;
-      const departurePortCell = highlightHomePort(c.departurePort);
-      const departurePortAction = `<span class="departure-port-wrap"><span class="departure-port-text">${departurePortCell || '&mdash;'}</span>${beforeCruiseButton(c, c.departurePort)}</span>`;
-
-      return `<tr data-provider="${escHtml(c.provider || '')}">
-        <td class="col-num" data-label="#">${i + 1}</td>
-        <td class="col-ship ship-name" data-label="Ship">${mobileShipHeader(c)}${mobileShipDetails(c)}</td>
-        <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerLinkUrl(c))}</td>
-        <td class="col-class" data-label="Class"><span class="class-cell">${wikiLink(c.shipClass, classLinkUrl(c))}${classDots(c.shipClass)}</span></td>
-        <td class="col-launch" data-label="Launch"><span class="launch-share-wrap">${launchYearBadge(c.shipLaunchYear)}${cruiseShareButton(c, 'desktop-cruise-share')}</span></td>
-        <td class="col-itinerary" data-label="Itinerary">${highlightItinerary(c.itinerary, colFilters.itinerary) || '—'}</td>
-        <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
-        <td class="col-destination-port" data-label="Destination port">${destinationPortAction}</td>
-        <td class="col-date" data-label="Departure">${escHtml(date)}</td>
-        <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
-        <td class="col-sea-days duration" data-label="Sea days">${escHtml(seaDays)}</td>
-        <td class="col-port" data-label="Departure port">${departurePortAction}</td>
-        <td class="col-region" data-label="Region">${regionBadge(c.departureRegion)}</td>
-        <td class="col-first-seen" data-label="First seen"><span class="first-seen-val">${escHtml(firstSeen)}</span></td>
-        <td class="col-price price" data-label="Price">${priceCell}</td>
-        <td class="col-per-night per-night" data-label="£/night">${perNightCell}</td>
-      </tr>`;
-    }).join('');
+    const total = list.length;
+    const firstEnd = Math.min(RENDER_CHUNK, total);
+    tbody.innerHTML = renderRowsHtml(list, 0, firstEnd, colFilters);
     observeNewSparks();
+    if (firstEnd >= total) return;
+
+    // Render the remainder synchronously when there is no paint to protect:
+    // no rAF (non-browser/test env), or a hidden tab (rAF is paused while
+    // backgrounded, which would otherwise stall the render at the first chunk).
+    if (typeof requestAnimationFrame !== 'function' || (typeof document !== 'undefined' && document.hidden)) {
+      tbody.insertAdjacentHTML('beforeend', renderRowsHtml(list, firstEnd, total, colFilters));
+      observeNewSparks();
+      return;
+    }
+
+    let next = firstEnd;
+    const step = () => {
+      if (runId !== _renderRunId) return; // superseded by a newer render
+      const end = Math.min(next + RENDER_CHUNK, total);
+      tbody.insertAdjacentHTML('beforeend', renderRowsHtml(list, next, end, colFilters));
+      observeNewSparks();
+      next = end;
+      if (next < total) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
   }
 
   // ── Price-history dialog ───────────────────────────────────────────────────
@@ -3199,6 +3266,7 @@
   }
   function rememberHomePort(port) {
     try { localStorage.setItem(HOME_PORT_KEY, port); } catch {}
+    invalidateHomePortTermsCache();
   }
   function wireSavedViewsHandlers() {
     const dlg = document.getElementById('savedViewsDialog');
@@ -3669,9 +3737,16 @@
     // provider load order.
     const effectiveSortCol = sortColIndex >= 0 ? sortColIndex : 11;
     const effectiveSortAsc = sortColIndex >= 0 ? sortAsc : true;
-    const sorted = [...filtered].sort((a, b) =>
-      compare(getCellValue(a, effectiveSortCol), getCellValue(b, effectiveSortCol), !effectiveSortAsc)
-    );
+    // Decorate-sort-undecorate: compute each row's sort key exactly once rather
+    // than calling getCellValue (which, for the Default price sort, walks four
+    // cabin buckets) twice per comparison. The idx tiebreak keeps equal-key
+    // ordering identical to the previous engine-stable sort.
+    const decorated = filtered.map((c, idx) => ({ c, idx, key: getCellValue(c, effectiveSortCol) }));
+    decorated.sort((A, B) => {
+      const r = compare(A.key, B.key, !effectiveSortAsc);
+      return r !== 0 ? r : A.idx - B.idx;
+    });
+    const sorted = decorated.map(d => d.c);
 
     const capped = !showAll && sorted.length > ROW_CAP ? sorted.slice(0, ROW_CAP) : sorted;
     const allLabel = `${allCruises.length.toLocaleString()}`;
