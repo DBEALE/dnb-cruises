@@ -152,28 +152,50 @@ function buildItinerary(name, portOfCallIds, portMap) {
 }
 
 // The port code → name map lives in the find-a-cruise page's __NEXT_DATA__
-// (search results only carry codes). Fetched once per scrape; an empty map on
-// failure just degrades the itinerary to the cruise name.
-async function fetchPortMap(fetchImpl = fetchWithTimeout) {
-  try {
-    const res = await fetchImpl(`${BOOKING_BASE_URL}?web2=true`, {
-      headers: { 'user-agent': DEFAULT_USER_AGENT, 'accept-language': 'en-GB,en;q=0.9' },
-    });
-    if (!res.ok) return {};
-    const html = await res.text();
-    const match = html.match(/"portOfCalls":\{"items":(\[[^\]]*\])/);
-    if (!match) return {};
-    const map = {};
-    for (const item of JSON.parse(match[1])) {
-      const code = cleanText(item?.id).toUpperCase();
-      // Some source names have a stray space before the comma ("Chania) , Crete").
-      const name = cleanText(item?.txName).replace(/\s+,/g, ',');
-      if (code && name) map[code] = name;
-    }
-    return map;
-  } catch {
-    return {};
+// (search results only carry codes). Without it, itineraries can only resolve
+// the handful of hardcoded PORT_NAMES codes and collapse to a single port, so a
+// blip here is treated as fatal by the caller (fetchCruises) rather than
+// silently deploying degraded itineraries.
+const PORT_MAP_ATTEMPTS   = 3;
+const PORT_MAP_RETRY_MS   = 1500;
+// A healthy fetch yields ~1400+ ports; a failed/blocked one yields 0. This floor
+// never trips on a good parse but catches an empty or partial one.
+const MIN_PORT_MAP_SIZE   = 100;
+
+async function fetchPortMapOnce(fetchImpl) {
+  const res = await fetchImpl(`${BOOKING_BASE_URL}?web2=true`, {
+    headers: { 'user-agent': DEFAULT_USER_AGENT, 'accept-language': 'en-GB,en;q=0.9' },
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const html = await res.text();
+  const match = html.match(/"portOfCalls":\{"items":(\[[^\]]*\])/);
+  if (!match) throw new Error('portOfCalls items not found in page');
+  const map = {};
+  for (const item of JSON.parse(match[1])) {
+    const code = cleanText(item?.id).toUpperCase();
+    // Some source names have a stray space before the comma ("Chania) , Crete").
+    const name = cleanText(item?.txName).replace(/\s+,/g, ',');
+    if (code && name) map[code] = name;
   }
+  if (!Object.keys(map).length) throw new Error('parsed an empty port map');
+  return map;
+}
+
+// Fetches the port map, retrying transient failures. Returns {} only when every
+// attempt fails; the caller decides whether an empty map is fatal.
+async function fetchPortMap(fetchImpl = fetchWithTimeout, options = {}) {
+  const attempts     = options.attempts ?? PORT_MAP_ATTEMPTS;
+  const retryDelayMs = options.retryDelayMs ?? PORT_MAP_RETRY_MS;
+  const logger       = options.logger;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      return await fetchPortMapOnce(fetchImpl);
+    } catch (err) {
+      if (logger?.warn) logger.warn(`  [P&O] port map attempt ${attempt}/${attempts} failed: ${err.message}`);
+      if (attempt < attempts) await new Promise(resolve => setTimeout(resolve, retryDelayMs));
+    }
+  }
+  return {};
 }
 
 /**
@@ -271,8 +293,19 @@ async function fetchCruises(options = {}) {
   const logger    = options.logger || console;
 
   // Port code → name map (for itineraries), fetched once. options.portMap lets
-  // tests inject one.
-  const portMap = options.portMap || await fetchPortMap(fetchImpl);
+  // tests inject one. A self-fetched map that comes back (near-)empty means the
+  // itinerary source is unavailable — throw so the orchestrator keeps the last
+  // good snapshot instead of overwriting it with degraded single-port
+  // itineraries. An injected map (tests) bypasses this guard.
+  const injectedPortMap = options.portMap != null;
+  const portMap = injectedPortMap
+    ? options.portMap
+    : await fetchPortMap(fetchImpl, { logger, ...options.portMapOptions });
+  if (!injectedPortMap && Object.keys(portMap).length < MIN_PORT_MAP_SIZE) {
+    throw new Error(
+      `P&O port map unavailable (${Object.keys(portMap).length} ports) — skipping to preserve existing itineraries`,
+    );
+  }
 
   // One pass per cabin type, merging each sailing's per-cabin fares by id.
   const byId = new Map();

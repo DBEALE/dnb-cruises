@@ -63,9 +63,22 @@ test('fetchPortMap parses the port code→name map from the find-a-cruise page',
   assert.equal(map.CFU, 'Corfu, Greece');
 });
 
-test('fetchPortMap returns an empty map (not an error) when the page fails', async () => {
-  assert.deepEqual(await provider.fetchPortMap(async () => ({ ok: false, status: 500 })), {});
-  assert.deepEqual(await provider.fetchPortMap(async () => { throw new Error('offline'); }), {});
+test('fetchPortMap returns an empty map (not an error) when every attempt fails', async () => {
+  assert.deepEqual(await provider.fetchPortMap(async () => ({ ok: false, status: 500 }), { attempts: 1 }), {});
+  assert.deepEqual(await provider.fetchPortMap(async () => { throw new Error('offline'); }, { attempts: 1 }), {});
+});
+
+test('fetchPortMap retries a transient failure before succeeding', async () => {
+  let calls = 0;
+  const html = `<html>${JSON.stringify({ portOfCalls: { items: [{ id: 'MLA', txName: 'Valletta, Malta' }] } })}</html>`;
+  const fetchImpl = async () => {
+    calls += 1;
+    if (calls < 3) throw new Error('transient blip');
+    return { ok: true, text: async () => html };
+  };
+  const map = await provider.fetchPortMap(fetchImpl, { retryDelayMs: 0 });
+  assert.equal(calls, 3, 'kept retrying until the fetch succeeded');
+  assert.equal(map.MLA, 'Valletta, Malta');
 });
 
 test('counts sea days from the ATSEADAY itinerary markers', () => {
@@ -168,6 +181,20 @@ test('fetchCruises paginates each pass by start offset and dedupes across passes
   assert.equal(cruises.length, 25, 'deduped across the four passes');
   assert.deepEqual([...new Set(starts)].sort((a, b) => a - b), [0, 10, 20], 'paginated by start offset');
   assert.equal(starts.length, 12, 'four cabin passes × three pages each');
+});
+
+test('fetchCruises throws when the self-fetched port map is empty (never degrades itineraries)', async () => {
+  // Port-map page fails; search API would return good rows. Without the guard
+  // these rows would be written with single-port itineraries, overwriting good
+  // data — so the pass must abort instead.
+  const fetchImpl = async (url) => {
+    if (String(url).includes('/find-a-cruise')) return { ok: false, status: 503 };
+    return { ok: true, json: async () => ({ results: 1, searchResults: [apiResult({ cruiseId: 'C1' })] }) };
+  };
+  await assert.rejects(
+    () => provider.fetchCruises({ fetchImpl, portMapOptions: { attempts: 1 }, logger: { warn() {} } }),
+    /port map unavailable/,
+  );
 });
 
 test('fetchCruises throws when the API returns nothing (never overwrites good data)', async () => {
