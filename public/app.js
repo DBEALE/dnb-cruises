@@ -4092,8 +4092,14 @@
   const treeNodeRegistry = new Map();
   let treeNodeSeq = 0;
 
-  function treeNodeCanExpand(node, depth) {
-    return depth < treeCtx.maxDepth && !!node.earliestArrivalKey && node.optionCount > 0;
+  // A leg (port group) always expands to its individual cruise options.
+  function legCanExpand(node) {
+    return node.optionCount > 0;
+  }
+  // A cruise expands to onward legs from its own arrival — bounded by the hop
+  // limit and only when it actually has a destination + arrival date to sail on.
+  function cruiseCanExpand(cruiseNode, hop) {
+    return hop < treeCtx.maxDepth && !!cruiseNode.arrivalDateKey && !!cruiseNode.destPortKey;
   }
 
   // Short cruise-line labels for the onward-leg summary line.
@@ -4110,17 +4116,43 @@
     return PROVIDER_ABBR[n] || n;
   }
 
+  // The specific cruises behind a leg, cheapest first, capped like the tree's
+  // other levels. Each carries its own destination + arrival so it can expand
+  // onward from exactly where (and when) it lands.
+  function buildLegCruiseNodes(legNode) {
+    const cruises = (legNode.cruiseIds || [])
+      .map(id => cruiseById.get(id))
+      .filter(Boolean)
+      .sort((a, b) => {
+        const pa = getLowestRoomPrice(a);
+        const pb = getLowestRoomPrice(b);
+        return (Number.isFinite(pa) ? pa : Infinity) - (Number.isFinite(pb) ? pb : Infinity);
+      });
+    return cruises.slice(0, treeCtx.maxChildren).map(c => {
+      const destRaw = getDestinationPortDisplay(c);
+      return {
+        id: c.id,
+        price: getLowestRoomPrice(c),
+        nights: durationNights(c),
+        shipName: c.shipName || 'Cruise',
+        destPortRaw: destRaw,
+        destPortKey: lowerText(simplifyPortName(destRaw)),
+        arrivalDateKey: searchMeta(c).arrivalDateKey,
+      };
+    });
+  }
+
   // baseTotal = summed cheapest fares of every leg before this one (the root
   // cruise + ancestors). The node's cumulative "total from" is that plus this
   // leg's cheapest fare — only shown when every leg on the path has a price.
-  function renderTreeNodeRow(node, depth, visited, baseTotal = NaN) {
+  function renderTreeNodeRow(node, hop, visited, baseTotal = NaN) {
     const id = 'tn' + (treeNodeSeq++);
     const cumulativeTotal = (Number.isFinite(baseTotal) && Number.isFinite(node.lowestPrice))
       ? baseTotal + node.lowestPrice
       : NaN;
-    treeNodeRegistry.set(id, { node, depth, visited, cumulativeTotal });
-    const caret = treeNodeCanExpand(node, depth)
-      ? `<button type="button" class="tree-caret" data-tree-expand="${id}" aria-expanded="false" aria-label="Expand ${escHtml(node.portDisplay)}">▸</button>`
+    treeNodeRegistry.set(id, { kind: 'leg', node, hop, visited, baseTotal, cumulativeTotal });
+    const caret = legCanExpand(node)
+      ? `<button type="button" class="tree-caret" data-tree-expand="${id}" aria-expanded="false" aria-label="Show cruises for ${escHtml(node.portDisplay)}">▸</button>`
       : '<span class="tree-caret tree-caret-empty" aria-hidden="true"></span>';
     const price = Number.isFinite(node.lowestPrice)
       ? `<span class="tree-price">from ${escHtml(formatPriceDisplay(node.lowestPrice, 'GBP'))}</span>`
@@ -4147,6 +4179,27 @@
     </li>`;
   }
 
+  // A single cruise within a leg: nights + ship + its own fare. The label links
+  // to that sailing in the main table; the caret (when present) explores onward
+  // from this specific cruise.
+  function renderTreeCruiseRow(cn, hop, visited, baseTotal = NaN) {
+    const id = 'tn' + (treeNodeSeq++);
+    const cumulativeTotal = (Number.isFinite(baseTotal) && Number.isFinite(cn.price))
+      ? baseTotal + cn.price
+      : NaN;
+    treeNodeRegistry.set(id, { kind: 'cruise', cruiseNode: cn, hop, visited, baseTotal, cumulativeTotal });
+    const caret = cruiseCanExpand(cn, hop)
+      ? `<button type="button" class="tree-caret" data-tree-expand="${id}" aria-expanded="false" aria-label="Explore onward from ${escHtml(cn.shipName)}">▸</button>`
+      : '<span class="tree-caret tree-caret-empty" aria-hidden="true"></span>';
+    const nights = Number.isFinite(cn.nights) ? `<span class="tree-cruise-nights">${cn.nights}N</span> ` : '';
+    const price = Number.isFinite(cn.price)
+      ? `<span class="tree-price">${escHtml(formatPriceDisplay(cn.price, 'GBP'))}</span>`
+      : '';
+    return `<li class="tree-item" data-tree-node="${id}">
+      <div class="tree-row">${caret}<button type="button" class="tree-port tree-cruise" data-tree-cruise="${escHtml(cn.id)}" title="Show this cruise in the table (new tab)"><span class="tree-port-name">${nights}${escHtml(cn.shipName)}</span><span class="tree-port-meta">${price}</span></button></div>
+    </li>`;
+  }
+
   function toggleTreeNode(id, caretBtn) {
     const entry = treeNodeRegistry.get(id);
     const li = document.querySelector(`[data-tree-node="${id}"]`);
@@ -4159,14 +4212,24 @@
       setTreeExpandAllLabel();
       return;
     }
-    const childVisited = new Set(entry.visited);
-    childVisited.add(entry.node.portKey);
-    const children = buildTreeChildren(entry.node.portRaw, entry.node.earliestArrivalKey, childVisited, treeCtx);
     const ul = document.createElement('ul');
     ul.className = 'tree-children';
-    ul.innerHTML = children.length
-      ? children.map(ch => renderTreeNodeRow(ch, entry.depth + 1, childVisited, entry.cumulativeTotal)).join('')
-      : `<li class="tree-empty">No onward cruises within ${treeCtx.windowDays} day${treeCtx.windowDays === 1 ? '' : 's'}.</li>`;
+    if (entry.kind === 'cruise') {
+      // Cruise → onward legs from this specific sailing's destination + arrival.
+      const cn = entry.cruiseNode;
+      const childVisited = new Set(entry.visited);
+      childVisited.add(cn.destPortKey);
+      const legs = buildTreeChildren(cn.destPortRaw, cn.arrivalDateKey, childVisited, treeCtx);
+      ul.innerHTML = legs.length
+        ? legs.map(leg => renderTreeNodeRow(leg, entry.hop + 1, childVisited, entry.cumulativeTotal)).join('')
+        : `<li class="tree-empty">No onward cruises within ${treeCtx.windowDays} day${treeCtx.windowDays === 1 ? '' : 's'}.</li>`;
+    } else {
+      // Leg → its individual cruise options (same hop; running total unchanged).
+      const cruiseNodes = buildLegCruiseNodes(entry.node);
+      ul.innerHTML = cruiseNodes.length
+        ? cruiseNodes.map(cn => renderTreeCruiseRow(cn, entry.hop, entry.visited, entry.baseTotal)).join('')
+        : '<li class="tree-empty">No cruise details available.</li>';
+    }
     li.appendChild(ul);
     caretBtn.setAttribute('aria-expanded', 'true');
     caretBtn.textContent = '▾';
@@ -4293,9 +4356,20 @@
       if (ev.target === dlg) { dlg.close(); return; }
       const expandBtn = ev.target.closest('[data-tree-expand]');
       if (expandBtn) { ev.preventDefault(); toggleTreeNode(expandBtn.dataset.treeExpand, expandBtn); return; }
+      const cruiseBtn = ev.target.closest('[data-tree-cruise]');
+      if (cruiseBtn) { ev.preventDefault(); openTreeCruiseInTable(cruiseBtn.dataset.treeCruise); return; }
       const showBtn = ev.target.closest('[data-tree-show]');
       if (showBtn) { ev.preventDefault(); openTreeNodeCruises(showBtn.dataset.treeShow); }
     });
+  }
+
+  // Opens a single cruise in the main table (its `cruise=<id>` shared view) in a
+  // new tab — the leaf link of the onward-journey explorer.
+  function openTreeCruiseInTable(cruiseId) {
+    if (!cruiseId) return;
+    const hash = new URLSearchParams({ cruise: cruiseId }).toString();
+    const opened = window.open(appUrlForHash(hash), '_blank', 'noopener');
+    if (!opened) showShareNotice('Cruise opened');
   }
 
   function shareCurrentSearch() {
