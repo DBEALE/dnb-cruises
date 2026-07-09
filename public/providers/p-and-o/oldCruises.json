@@ -213,55 +213,6 @@
       ]
     },
     {
-      "id": "pando-B617",
-      "provider": "P&O Cruises",
-      "shipName": "Britannia",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2015,
-      "itinerary": "Southampton",
-      "departureDate": "2026-07-17",
-      "duration": "14 Nights",
-      "departurePort": "Southampton",
-      "departureRegion": "UK & Ireland",
-      "destination": "Mediterranean",
-      "destinationPort": "Southampton",
-      "seaDays": 7,
-      "priceFrom": "1099",
-      "currency": "GBP",
-      "prices": {
-        "inside": "1099",
-        "oceanView": null,
-        "balcony": "1649",
-        "suite": null
-      },
-      "bookingUrl": "https://www.pocruises.com/find-a-cruise/B617/B617",
-      "arrivalDate": "2026-07-31",
-      "firstSeenAt": "2026-07-04T10:39:49.793Z",
-      "lastSeenAt": "2026-07-08T12:34:24.461Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-04T10:39:49.793Z",
-          "prices": {
-            "inside": 1099,
-            "balcony": 1649
-          }
-        },
-        {
-          "at": "2026-07-04T11:52:45.512Z",
-          "prices": {
-            "inside": 1099
-          }
-        },
-        {
-          "at": "2026-07-04T12:11:31.689Z",
-          "prices": {
-            "inside": 1099,
-            "balcony": 1649
-          }
-        }
-      ]
-    },
-    {
       "id": "pando-G622",
       "provider": "P&O Cruises",
       "shipName": "Iona",
@@ -292,6 +243,83 @@
           "at": "2026-07-04T10:39:49.793Z",
           "prices": {
             "inside": 899
+          }
+        }
+      ]
+    },
+    {
+      "id": "pando-R611",
+      "provider": "P&O Cruises",
+      "shipName": "Aurora",
+      "shipClass": "R",
+      "shipLaunchYear": 2000,
+      "itinerary": "Southampton",
+      "departureDate": "2026-07-17",
+      "duration": "5 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Short-Break",
+      "destinationPort": "Southampton",
+      "seaDays": 2,
+      "priceFrom": "599",
+      "currency": "GBP",
+      "prices": {
+        "inside": "599",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/R611/R611",
+      "arrivalDate": "2026-07-22",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "lastSeenAt": "2026-07-09T07:17:11.222Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 629,
+            "balcony": 749
+          }
+        },
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "inside": 599
+          }
+        },
+        {
+          "at": "2026-07-04T12:11:31.689Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 629
+          }
+        },
+        {
+          "at": "2026-07-04T16:22:54.788Z",
+          "prices": {
+            "inside": 629,
+            "oceanView": 629
+          }
+        },
+        {
+          "at": "2026-07-05T12:29:25.179Z",
+          "prices": {
+            "inside": 629,
+            "oceanView": 669
+          }
+        },
+        {
+          "at": "2026-07-06T13:36:43.732Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 629
+          }
+        },
+        {
+          "at": "2026-07-07T11:02:08.179Z",
+          "prices": {
+            "inside": 599
           }
         }
       ]
