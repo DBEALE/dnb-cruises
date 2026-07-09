@@ -1100,6 +1100,17 @@
     .tree-port-meta { flex: 0 0 auto; display: inline-flex; align-items: baseline; gap: 8px; white-space: nowrap; }
     .tree-price { font-weight: 700; color: var(--blue); font-size: 0.84rem; font-variant-numeric: tabular-nums; }
     .tree-count { font-size: 0.74rem; color: var(--gray-500); }
+    /* Onward-leg summary: cruise lines on the left, running total on the right,
+       indented to sit under the port label (past the caret). */
+    .tree-summary {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 1px 10px;
+      padding: 2px 10px 3px 36px; font-size: 0.74rem;
+    }
+    .tree-lines { color: var(--gray-600); }
+    .tree-total {
+      margin-left: auto; font-weight: 700; color: var(--navy);
+      font-variant-numeric: tabular-nums;
+    }
 
     td.duration { text-align: center; white-space: nowrap; }
     td.col-sea-days { text-align: center; white-space: nowrap; }
@@ -2435,6 +2446,7 @@
     body.dark-mode .tree-head h2,
     body.dark-mode .tree-port-name,
     body.dark-mode .tree-origin-route,
+    body.dark-mode .tree-total,
     body.dark-mode .mob-filters-head h2,
     body.dark-mode .mob-filter-heading,
     body.dark-mode .settings-head h2,

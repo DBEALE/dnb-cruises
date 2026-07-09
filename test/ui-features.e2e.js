@@ -1104,6 +1104,25 @@ test.describe('Onward journey explorer', () => {
     expect(opened.url).toContain('departureEnd=2026-09-11');
   });
 
+  test('onward legs show source → target ports, cruise lines, and a cumulative total', async ({ page }) => {
+    await gotoFresh(page, null, chainFixtures());
+    await page.locator('.cruise-explore-btn[data-explore-cruise="rc_root"]').click();
+    await page.waitForSelector('dialog#treeExplorerDialog[open]');
+
+    // Hop 1 shows its own leg's source → destination, the cruise line, and the
+    // running total: root £500 + this leg's cheapest £300 = £800.
+    const nyRow = page.locator('.tree-item', { hasText: 'New York' }).first();
+    await expect(nyRow.locator('.tree-port-name')).toHaveText('Reykjavik → New York');
+    await expect(nyRow.locator('.tree-summary')).toContainText('(RC)');
+    await expect(nyRow.locator('.tree-summary')).toContainText('total from £800');
+
+    // Hop 2 keeps accumulating: £500 + £300 + £250 = £1,050.
+    await nyRow.locator('[data-tree-expand]').first().click();
+    const miamiRow = page.locator('.tree-children .tree-item', { hasText: 'Miami' }).first();
+    await expect(miamiRow.locator('.tree-port-name')).toHaveText('New York → Miami');
+    await expect(miamiRow.locator('.tree-summary')).toContainText('total from £1,050');
+  });
+
   test('onward journey depth setting limits how deep the tree expands', async ({ page }) => {
     await gotoFresh(page, { ...ALL_ON, treeDepth: 2 }, chainFixtures());
     await page.locator('.cruise-explore-btn[data-explore-cruise="rc_root"]').click();
