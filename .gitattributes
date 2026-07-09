@@ -1,0 +1,16 @@
+# Normalize line endings: text files are stored as LF in the repo and checked
+# out as LF everywhere. This repo is developed on Windows (core.autocrlf=true)
+# but its files are LF; without this, editors/tools that rewrite a file with
+# CRLF produce whole-file diffs. Declaring the intent here makes it deterministic
+# regardless of each contributor's git config.
+* text=auto eol=lf
+
+# Binary assets — never touch their bytes.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
