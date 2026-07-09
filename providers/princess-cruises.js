@@ -571,6 +571,12 @@ class PrincessCruisesProvider {
 
     const portMap = new Map();
     for (const p of data.ports?.ports || []) portMap.set(p.id, p.name);
+    // We have sailings but no ports lookup: every itinerary (and dep/dest port)
+    // would degrade to raw port IDs. Fail closed so the orchestrator keeps the
+    // last good snapshot rather than overwriting it with degraded data.
+    if (portMap.size === 0) {
+      throw new Error('Princess port map unavailable — skipping to preserve existing itineraries');
+    }
 
     // Build voyage-id → { fare, prices } lookup. The pricing endpoint carries
     // full fare-category data, which we destructure into the same four cabin

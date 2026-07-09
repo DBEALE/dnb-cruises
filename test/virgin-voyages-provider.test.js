@@ -99,6 +99,17 @@ test('fetchCruises throws when no voyages are found (never overwrites good data)
   await assert.rejects(() => provider.fetchCruises({ fetchImpl, enrichPrices: false }), /no voyages/);
 });
 
+test('fetchCruises throws when the self-parsed port map is empty (never degrades itineraries)', async () => {
+  // Voyages parse fine but the page carries no {code,name} port entries, so every
+  // itinerary would collapse to raw 3-letter codes — the pass must abort instead.
+  const html = `<html>"sailingsAvailability":{"data":{"data":[${JSON.stringify(voyage())}]}}</html>`;
+  const fetchImpl = async () => ({ ok: true, text: async () => html });
+  await assert.rejects(
+    () => provider.fetchCruises({ fetchImpl, enrichPrices: false }),
+    /port map unavailable/,
+  );
+});
+
 // ── Per-cabin pricing (CabinCategoriesAvailability) ──────────────────────────
 
 // A realistic slice of the GraphQL response: one seq, several categories, each

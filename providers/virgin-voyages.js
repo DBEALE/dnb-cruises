@@ -344,7 +344,8 @@ async function fetchCruises(options = {}) {
   const unescaped = (await res.text()).split('\\"').join('"');
 
   const voyages = options.voyages || parseVoyages(unescaped);
-  const portMap = options.portMap || parsePortMap(unescaped);
+  const injectedPortMap = options.portMap != null;
+  const portMap = injectedPortMap ? options.portMap : parsePortMap(unescaped);
 
   const byId = new Map();
   for (const voyage of voyages) {
@@ -354,6 +355,13 @@ async function fetchCruises(options = {}) {
 
   const cruises = [...byId.values()];
   if (!cruises.length) throw new Error('Virgin Voyages returned no voyages');
+  // A self-parsed but empty port map means the page's port names weren't found,
+  // so every itinerary (and dep/dest port) would degrade to raw 3-letter codes.
+  // Fail closed so the orchestrator keeps the last good snapshot instead of
+  // overwriting it. (An injected map — tests — is trusted.)
+  if (!injectedPortMap && Object.keys(portMap).length === 0) {
+    throw new Error('Virgin Voyages port map unavailable — skipping to preserve existing itineraries');
+  }
   console.log(`  [Virgin] ${cruises.length} voyages (${Object.keys(portMap).length} ports mapped)`);
 
   await enrichCabinPrices(cruises, options);
