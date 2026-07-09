@@ -1089,9 +1089,10 @@ test.describe('Onward journey explorer', () => {
     await expect(nyRow).toContainText('from £300');
     await expect(nyRow).toContainText('2 options');
 
-    // Lazily expand New York → Miami appears in a nested list.
-    await page.locator('[data-tree-expand]').first().click();
-    await expect(page.locator('.tree-children')).toContainText('Miami');
+    // Lazily expand the New York leg → its two individual cruise options appear.
+    await nyRow.locator('[data-tree-expand]').first().click();
+    await expect(nyRow.locator('.tree-children .tree-cruise')).toHaveCount(2);
+    await expect(nyRow.locator('.tree-children')).toContainText('Hop One');
 
     // Clicking the port opens that leg (Reykjavik → New York, in the 3-day window).
     await page.locator('.tree-port', { hasText: 'New York' }).first().click();
@@ -1116,11 +1117,38 @@ test.describe('Onward journey explorer', () => {
     await expect(nyRow.locator('.tree-summary')).toContainText('(RC)');
     await expect(nyRow.locator('.tree-summary')).toContainText('total from £800');
 
-    // Hop 2 keeps accumulating: £500 + £300 + £250 = £1,050.
+    // Expanding the leg lists its cruises, cheapest first (£300, then £400),
+    // each showing nights + ship + its own fare.
     await nyRow.locator('[data-tree-expand]').first().click();
-    const miamiRow = page.locator('.tree-children .tree-item', { hasText: 'Miami' }).first();
-    await expect(miamiRow.locator('.tree-port-name')).toHaveText('New York → Miami');
-    await expect(miamiRow.locator('.tree-summary')).toContainText('total from £1,050');
+    const cruiseRows = nyRow.locator('.tree-children > .tree-item');
+    await expect(cruiseRows.first()).toContainText('7N');
+    await expect(cruiseRows.first().locator('.tree-price')).toHaveText('£300');
+
+    // The £400 cruise (nth 1) arrives in time to sail on to Miami; expanding it
+    // shows the onward leg with the running total £500 + £400 + £250 = £1,150.
+    const hop1Cruise = cruiseRows.nth(1);
+    await expect(hop1Cruise.locator('.tree-price')).toHaveText('£400');
+    await hop1Cruise.locator('[data-tree-expand]').first().click();
+    const miamiRow = hop1Cruise.locator('.tree-item', { hasText: 'Miami' }).first();
+    await expect(miamiRow.locator('.tree-port-name').first()).toHaveText('New York → Miami');
+    await expect(miamiRow.locator('.tree-summary').first()).toContainText('total from £1,150');
+  });
+
+  test('clicking a cruise opens that sailing in the main table (new tab)', async ({ page }) => {
+    await page.addInitScript(() => {
+      window.open = (url, target, features) => { window.__opened = { url, target, features }; return {}; };
+    });
+    await gotoFresh(page, null, chainFixtures());
+    await page.locator('.cruise-explore-btn[data-explore-cruise="rc_root"]').click();
+    await page.waitForSelector('dialog#treeExplorerDialog[open]');
+
+    const nyRow = page.locator('.tree-item', { hasText: 'New York' }).first();
+    await nyRow.locator('[data-tree-expand]').first().click();
+    // The cheapest cruise (£300) is rc_hop1b; clicking it opens its shared view.
+    await nyRow.locator('.tree-cruise').first().click();
+    const opened = await page.evaluate(() => window.__opened);
+    expect(opened.target).toBe('_blank');
+    expect(opened.url).toContain('cruise=rc_hop1b');
   });
 
   test('onward journey depth setting limits how deep the tree expands', async ({ page }) => {
@@ -1128,11 +1156,18 @@ test.describe('Onward journey explorer', () => {
     await page.locator('.cruise-explore-btn[data-explore-cruise="rc_root"]').click();
     await page.waitForSelector('dialog#treeExplorerDialog[open]');
 
-    // Depth 2: New York (hop 1) can expand; Miami (hop 2) is the depth cap → no caret.
-    await page.locator('[data-tree-expand]').first().click();
-    const miami = page.locator('.tree-children .tree-item', { hasText: 'Miami' });
-    await expect(miami).toHaveCount(1);
-    await expect(miami.locator('[data-tree-expand]')).toHaveCount(0);
+    // Depth 2 = two onward hops. Expand New York leg → cruises (hop 1); expand
+    // the £400 cruise → Miami leg (hop 2); expand it → the Hop Two cruise, which
+    // sits at the depth cap and so has no caret.
+    const nyLeg = page.locator('.tree-item', { hasText: 'New York' }).first();
+    await nyLeg.locator('[data-tree-expand]').first().click();
+    const hop1Cruise = nyLeg.locator('.tree-children > .tree-item').nth(1); // £400, reaches Miami
+    await hop1Cruise.locator('[data-tree-expand]').first().click();
+    const miamiLeg = hop1Cruise.locator('.tree-item', { hasText: 'Miami' }).first();
+    await miamiLeg.locator('[data-tree-expand]').first().click();
+    const hopTwoCruise = miamiLeg.locator('.tree-item', { hasText: 'Hop Two' }).first();
+    await expect(hopTwoCruise).toContainText('Hop Two');
+    await expect(hopTwoCruise.locator('[data-tree-expand]')).toHaveCount(0);
   });
 
   test('expand all / collapse all toggles the whole tree', async ({ page }) => {
