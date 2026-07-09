@@ -113,6 +113,10 @@
         </select>
         <button id="sortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
       </label>
+      <button id="findRouteBtn" class="share-view-btn" type="button" onclick="openRouteFinder()" title="Find a multi-cruise route between two ports" aria-label="Find a route">
+        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M9.69 18.9a.75.75 0 00.62 0C13.6 17.4 16 13.9 16 10a6 6 0 10-12 0c0 3.9 2.4 7.4 5.69 8.9zM10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+        <span>Find route</span>
+      </button>
       <button id="shareSearchBtn" class="share-view-btn" type="button" onclick="shareCurrentSearch()" title="Share current search" aria-label="Share current search">
         <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M14 6a3 3 0 1 0-2.83-4 3 3 0 0 0 .06 2.13L6.91 6.29a3 3 0 1 0 0 3.42l4.32 2.16A3 3 0 1 0 12.1 10l-4.32-2.16a3 3 0 0 0 0-.68l4.32-2.16A3 3 0 0 0 14 6Z"/></svg>
         <span>Share search</span>
@@ -156,6 +160,9 @@
         </select>
         <button id="mobilePageSortDirBtn" type="button" onclick="toggleSortDir()" class="sort-dir-btn" disabled aria-label="Toggle sort direction" title="Pick a sort column first">↑</button>
       </div>
+      <button class="mob-find-route" type="button" onclick="openRouteFinder()" title="Find a route" aria-label="Find a route">
+        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M9.69 18.9a.75.75 0 00.62 0C13.6 17.4 16 13.9 16 10a6 6 0 10-12 0c0 3.9 2.4 7.4 5.69 8.9zM10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+      </button>
     </div>
     <dialog id="mobFilters" aria-labelledby="mobFiltersTitle">
       <div class="mob-filters-head">
@@ -763,6 +770,40 @@
       </div>
     </div>
     <div class="tree-scroll" id="treeExplorerBody"></div>
+  </div>
+</dialog>
+
+<dialog id="routeFinderDialog" aria-labelledby="routeFinderTitle">
+  <div class="tree-box">
+    <div class="tree-head">
+      <div>
+        <h2 id="routeFinderTitle">Find a route</h2>
+        <div class="tree-sub">Chain connecting cruises from one port to another, keeping the combined fare within your budget.</div>
+      </div>
+      <div class="tree-head-actions">
+        <button type="button" class="ph-close" id="routeFinderClose" aria-label="Close">×</button>
+      </div>
+    </div>
+    <form id="routeFinderForm" class="route-form">
+      <div class="route-field">
+        <label for="routeFrom">From port</label>
+        <input id="routeFrom" type="text" placeholder="e.g. Southampton" autocomplete="off">
+      </div>
+      <div class="route-field">
+        <label for="routeTo">To port</label>
+        <input id="routeTo" type="text" placeholder="e.g. Barcelona" autocomplete="off">
+      </div>
+      <div class="route-field route-field-via">
+        <label for="routeVia">Via ports (optional)</label>
+        <input id="routeVia" type="text" placeholder="e.g. Lisbon, Barcelona" autocomplete="off">
+      </div>
+      <div class="route-field route-field-price">
+        <label for="routeMax">Max total (£)</label>
+        <input id="routeMax" type="number" min="0" step="50" placeholder="e.g. 2000">
+      </div>
+      <button type="submit" class="route-search-btn">Find routes</button>
+    </form>
+    <div class="tree-scroll" id="routeFinderBody"><p class="tree-empty">Enter a departure port, a destination port, and your maximum total spend, then search. Routes chain connecting cruises using your journey-depth and connecting-window settings.</p></div>
   </div>
 </dialog>
 
