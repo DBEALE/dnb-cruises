@@ -1102,6 +1102,7 @@
     refreshMobileSavedSelect();
     wirePriceHistoryHandlers();
     wireTreeExplorerHandlers();
+    wireRouteFinderHandlers();
     wireHeaderWavePress();
     wireStickySummary();
     recordVisitorCount();
@@ -2293,17 +2294,16 @@
       <td class="col-provider" data-label="Cruise line">${wikiLink(c.provider, providerLinkUrl(c))}</td>
       <td class="col-class" data-label="Class"><span class="class-cell">${wikiLink(c.shipClass, classLinkUrl(c))}${classDots(c.shipClass)}</span></td>
       <td class="col-launch" data-label="Launch"><span class="launch-share-wrap">${launchYearBadge(c.shipLaunchYear)}${cruiseShareButton(c, 'desktop-cruise-share')}</span></td>
-      <td class="col-itinerary" data-label="Itinerary">${highlightItinerary(c.itinerary, colFilters.itinerary) || '—'}</td>
-      <td class="col-destination" data-label="Destination">${escHtml(c.destination || '—')}</td>
-      <td class="col-destination-port" data-label="Destination port">${destinationPortAction}</td>
       <td class="col-date" data-label="Departure">${escHtml(date)}</td>
+      <td class="col-port" data-label="Departure port">${departurePortAction}</td>
+      <td class="col-itinerary" data-label="Itinerary">${highlightItinerary(c.itinerary, colFilters.itinerary) || '—'}</td>
+      <td class="col-destination-port" data-label="Destination port">${destinationPortAction}</td>
       <td class="col-duration duration" data-label="Nights">${escHtml(duration)}</td>
       <td class="col-sea-days duration" data-label="Sea days">${escHtml(seaDays)}</td>
-      <td class="col-port" data-label="Departure port">${departurePortAction}</td>
       <td class="col-region" data-label="Region">${regionBadge(c.departureRegion)}</td>
-      <td class="col-first-seen" data-label="First seen"><span class="first-seen-val">${escHtml(firstSeen)}</span></td>
       <td class="col-price price" data-label="Price">${priceCell}</td>
       <td class="col-per-night per-night" data-label="£/night">${perNightCell}</td>
+      <td class="col-first-seen" data-label="First seen"><span class="first-seen-val">${escHtml(firstSeen)}</span></td>
     </tr>`;
   }
 
@@ -2324,7 +2324,7 @@
     const runId = ++_renderRunId;
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="16">No cruises match your filters.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="15">No cruises match your filters.</td></tr>';
       return;
     }
     const total = list.length;
@@ -4083,9 +4083,117 @@
     };
   }
 
+  // ── Route finder ────────────────────────────────────────────────────────────
+  // Cruises departing `fromPortRaw` on/after `notBeforeKey` (blank = any date).
+  // Proximity-aware like findOnwardCruises; used to seed a route search.
+  function findDeparturesFromPort(fromPortRaw, ctx, notBeforeKey = '') {
+    if (!fromPortRaw) return [];
+    const fromKey = lowerText(simplifyPortName(fromPortRaw));
+    const onOrAfter = c => {
+      const dep = searchMeta(c).departureDateKey;
+      return dep && (!notBeforeKey || dep >= notBeforeKey);
+    };
+    const matches = new Map();
+    for (const [key, bucket] of ctx.byDeparturePortKey) {
+      if (!(key === fromKey || key.includes(fromKey) || fromKey.includes(key))) continue;
+      for (const c of bucket) if (onOrAfter(c)) matches.set(c.id, c);
+    }
+    if (ctx.radiusMiles > 0) {
+      const origin = resolvePortGeo(fromPortRaw);
+      if (origin) {
+        for (const c of ctx.cruises) {
+          if (matches.has(c.id) || !onOrAfter(c)) continue;
+          const miles = portDistanceMiles(origin, resolvePortGeo(c.departurePort));
+          if (Number.isFinite(miles) && miles <= ctx.radiusMiles) matches.set(c.id, c);
+        }
+      }
+    }
+    return [...matches.values()];
+  }
+
+  // Depth-first search over the cruise graph: chains of connecting cruises from
+  // `fromPortRaw` to `toPortRaw` whose summed cheapest fares stay within
+  // `maxPrice`. Reuses the tree ctx (connecting-cruise window for timing, journey
+  // depth for the hop cap, port radius for fuzzy matching). Cheapest-first with
+  // price pruning, cycle prevention, and node/route budgets keep it bounded.
+  const ROUTE_MAX_RESULTS   = 40;
+  const ROUTE_NODE_BUDGET   = 25000;
+  const ROUTE_NODE_BREADTH  = 12;   // cheapest onward cruises explored per hop
+  function findRoutes(opts = {}) {
+    const ctx = opts.ctx;
+    const fromKey = lowerText(simplifyPortName(opts.fromPortRaw));
+    const toKey   = lowerText(simplifyPortName(opts.toPortRaw));
+    const maxPrice = Number(opts.maxPrice);
+    if (!ctx || !fromKey || !toKey || !Number.isFinite(maxPrice) || maxPrice <= 0) {
+      return { routes: [], truncated: false };
+    }
+    const notBeforeKey = opts.notBeforeKey || '';
+    // Ordered waypoints: ports the route must call at (in order) between source
+    // and destination. A leg arriving at the next-required waypoint advances the
+    // pointer; a route only counts once every waypoint has been passed.
+    const waypointKeys = (Array.isArray(opts.waypoints) ? opts.waypoints : [])
+      .map(w => lowerText(simplifyPortName(w)))
+      .filter(Boolean);
+    // Each waypoint forces at least one more stop, so allow the hop cap to grow
+    // with the number of waypoints (a direct chain through them is reachable).
+    const effectiveMaxDepth = Math.max(ctx.maxDepth, waypointKeys.length + 1);
+    const priceOf = c => getLowestRoomPrice(c);
+    const cheapestFirst = (a, b) => (Number.isFinite(priceOf(a)) ? priceOf(a) : Infinity)
+                                  - (Number.isFinite(priceOf(b)) ? priceOf(b) : Infinity);
+
+    const routes = [];
+    let budget = ROUTE_NODE_BUDGET;
+    let truncated = false;
+
+    const walk = (cruise, chain, total, visited, wpIndex) => {
+      if (routes.length >= ROUTE_MAX_RESULTS) { truncated = true; return; }
+      if (budget-- <= 0) { truncated = true; return; }
+      const price = priceOf(cruise);
+      if (!Number.isFinite(price)) return;          // unpriced leg → can't verify budget
+      const newTotal = total + price;
+      if (newTotal > maxPrice) return;              // prune: positive fares only grow
+      const destRaw = getDestinationPortDisplay(cruise);
+      const destKey = lowerText(simplifyPortName(destRaw));
+      if (!destKey) return;
+      const chainNext = chain.concat(cruise);
+      const nextWp = (wpIndex < waypointKeys.length && destKey === waypointKeys[wpIndex])
+        ? wpIndex + 1 : wpIndex;
+      if (destKey === toKey) {
+        // Only a valid route once every waypoint has been called at in order.
+        if (nextWp >= waypointKeys.length) routes.push({ cruises: chainNext, total: newTotal });
+        return;
+      }
+      if (chainNext.length >= effectiveMaxDepth) return; // hop cap
+      if (visited.has(destKey)) return;             // no revisiting ports (cycles)
+      const arrival = searchMeta(cruise).arrivalDateKey;
+      if (!arrival) return;
+      const nextVisited = new Set(visited);
+      nextVisited.add(destKey);
+      const onward = findOnwardCruises(destRaw, arrival, ctx)
+        .sort(cheapestFirst)
+        .slice(0, ROUTE_NODE_BREADTH);
+      for (const next of onward) {
+        walk(next, chainNext, newTotal, nextVisited, nextWp);
+        if (routes.length >= ROUTE_MAX_RESULTS) break;
+      }
+    };
+
+    const seeds = findDeparturesFromPort(opts.fromPortRaw, ctx, notBeforeKey).sort(cheapestFirst);
+    const rootVisited = new Set([fromKey]);
+    for (const seed of seeds) {
+      walk(seed, [], 0, rootVisited, 0);
+      if (routes.length >= ROUTE_MAX_RESULTS || budget <= 0) break;
+    }
+    routes.sort((a, b) => a.total - b.total);
+    return { routes, truncated };
+  }
+
   if (typeof window !== 'undefined') {
     // Test hook — the algorithm is otherwise script-private. Side-effect free.
-    window.__cruiseTree = { makeTreeCtx, findOnwardCruises, buildTreeChildren, buildCruiseTree };
+    window.__cruiseTree = {
+      makeTreeCtx, findOnwardCruises, buildTreeChildren, buildCruiseTree,
+      findDeparturesFromPort, findRoutes,
+    };
   }
 
   // ── Tree explorer DOM layer ─────────────────────────────────────────────────
@@ -4387,6 +4495,109 @@
     const hash = new URLSearchParams({ cruise: cruiseId }).toString();
     const opened = window.open(appUrlForHash(hash), '_blank', 'noopener');
     if (!opened) showShareNotice('Cruise opened');
+  }
+
+  // ── Route finder DOM layer ──────────────────────────────────────────────────
+  function routePortLabel(raw) {
+    return simplifyPortName(raw) || String(raw || '').trim();
+  }
+  // Full port sequence of a route: first cruise's departure, then each leg's
+  // destination, consecutive duplicates collapsed.
+  function routePathDisplay(cruises) {
+    if (!cruises.length) return '';
+    const ports = [routePortLabel(cruises[0].departurePort)];
+    for (const c of cruises) ports.push(routePortLabel(getDestinationPortDisplay(c)));
+    return ports.filter((p, i) => (i === 0 || p !== ports[i - 1]) && p).join(' → ');
+  }
+  function routeLegHtml(c) {
+    const from = routePortLabel(c.departurePort);
+    const to   = routePortLabel(getDestinationPortDisplay(c));
+    const nights = durationNights(c);
+    const nightsHtml = Number.isFinite(nights) ? `<span class="tree-cruise-nights">${nights}N</span>` : '';
+    const price = getLowestRoomPrice(c);
+    const priceHtml = Number.isFinite(price) ? `<span class="tree-price">${escHtml(formatPriceDisplay(price, 'GBP'))}</span>` : '';
+    const dep = formatDateDisplay(c.departureDate);
+    return `<li><button type="button" class="tree-port route-leg" data-tree-cruise="${escHtml(c.id || '')}" title="Show this cruise in the table (new tab)">
+      <span class="route-leg-main"><span class="route-leg-route">${escHtml(from)} → ${escHtml(to)}</span><span class="route-leg-ship">${escHtml(c.shipName || 'Cruise')} · ${escHtml(dep)}</span></span>
+      <span class="tree-port-meta">${nightsHtml}${priceHtml}</span>
+    </button></li>`;
+  }
+  function renderRouteResults(result, params) {
+    const body = document.getElementById('routeFinderBody');
+    if (!body) return;
+    const { routes, truncated } = result;
+    if (!routes.length) {
+      const via = (params.waypoints || []).length ? ` via ${escHtml(params.waypoints.join(', '))}` : '';
+      body.innerHTML = `<p class="tree-empty">No routes from ${escHtml(params.fromPortRaw)} to ${escHtml(params.toPortRaw)}${via} within ${escHtml(formatPriceDisplay(params.maxPrice, 'GBP'))} — connecting cruises departing within ${params.ctx.windowDays} day${params.ctx.windowDays === 1 ? '' : 's'} of each arrival. Try a higher budget, fewer waypoints, or a wider connecting window / journey depth in Settings.</p>`;
+      return;
+    }
+    const cards = routes.map(r => {
+      const nights = r.cruises.reduce((n, c) => n + (durationNights(c) || 0), 0);
+      const hops = r.cruises.length;
+      return `<div class="route-result">
+        <div class="route-result-head">
+          <span class="route-result-path">${escHtml(routePathDisplay(r.cruises))}</span>
+          <span class="route-result-total"><span class="route-result-hops">${hops} cruise${hops === 1 ? '' : 's'}${nights ? ` · ${nights}N` : ''}</span><span class="tree-total">total ${escHtml(formatPriceDisplay(r.total, 'GBP'))}</span></span>
+        </div>
+        <ol class="route-legs">${r.cruises.map(routeLegHtml).join('')}</ol>
+      </div>`;
+    }).join('');
+    const note = truncated
+      ? `<p class="route-note">Showing the ${routes.length} cheapest routes found — refine the ports or lower the budget to narrow it down.</p>`
+      : `<p class="route-note">${routes.length} route${routes.length === 1 ? '' : 's'} found, cheapest first.</p>`;
+    body.innerHTML = cards + note;
+  }
+  function runRouteFinder() {
+    const body = document.getElementById('routeFinderBody');
+    const from = (document.getElementById('routeFrom')?.value || '').trim();
+    const to   = (document.getElementById('routeTo')?.value || '').trim();
+    const via  = (document.getElementById('routeVia')?.value || '').trim();
+    const max  = parseFloat(document.getElementById('routeMax')?.value || '');
+    const waypoints = via ? via.split(',').map(s => s.trim()).filter(Boolean) : [];
+    if (!from || !to || !Number.isFinite(max) || max <= 0) {
+      if (body) body.innerHTML = '<p class="tree-empty">Enter a departure port, a destination port, and a maximum total price.</p>';
+      return;
+    }
+    if (body) body.innerHTML = '<p class="tree-empty">Searching…</p>';
+    const ctx = makeTreeCtx(allCruises);
+    const notBeforeKey = new Date().toISOString().slice(0, 10);
+    const run = () => {
+      const result = findRoutes({ ctx, fromPortRaw: from, toPortRaw: to, maxPrice: max, waypoints, notBeforeKey });
+      renderRouteResults(result, { fromPortRaw: from, toPortRaw: to, maxPrice: max, waypoints, ctx });
+    };
+    // Defer with a timer (not rAF, which pauses in a background tab) so the
+    // "Searching…" state paints first while still running when backgrounded.
+    setTimeout(run, 16);
+  }
+  function openRouteFinder() {
+    const dlg = document.getElementById('routeFinderDialog');
+    if (!dlg) return;
+    wireRouteFinderHandlers();
+    // Prefill from the current departure/destination port filters when empty.
+    const depFilter  = document.querySelector('.col-filter[data-field="departurePort"]')?.value?.trim() || '';
+    const destFilter = document.querySelector('.col-filter[data-field="destinationPort"]')?.value?.trim() || '';
+    const fromEl = document.getElementById('routeFrom');
+    const toEl   = document.getElementById('routeTo');
+    if (fromEl && !fromEl.value && depFilter) fromEl.value = depFilter;
+    if (toEl && !toEl.value && destFilter) toEl.value = destFilter;
+    if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+    (fromEl && !fromEl.value ? fromEl : (toEl && !toEl.value ? toEl : fromEl))?.focus();
+  }
+  function closeRouteFinder() {
+    const dlg = document.getElementById('routeFinderDialog');
+    if (dlg?.open) dlg.close();
+  }
+  function wireRouteFinderHandlers() {
+    const dlg = document.getElementById('routeFinderDialog');
+    if (!dlg || dlg.dataset.wired) return;
+    dlg.dataset.wired = '1';
+    document.getElementById('routeFinderClose')?.addEventListener('click', closeRouteFinder);
+    document.getElementById('routeFinderForm')?.addEventListener('submit', ev => { ev.preventDefault(); runRouteFinder(); });
+    dlg.addEventListener('click', ev => {
+      if (ev.target === dlg) { closeRouteFinder(); return; }
+      const cruiseBtn = ev.target.closest('[data-tree-cruise]');
+      if (cruiseBtn) { ev.preventDefault(); openTreeCruiseInTable(cruiseBtn.dataset.treeCruise); }
+    });
   }
 
   function shareCurrentSearch() {

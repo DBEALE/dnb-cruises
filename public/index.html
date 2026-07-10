@@ -379,13 +379,12 @@
             <th class="col-provider"    data-sort="2"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(2)">Cruise line</th>
             <th class="col-class"       data-sort="3"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(3)">Class</th>
             <th class="col-launch"      data-sort="4"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(4)">Launch</th>
-            <th class="col-itinerary"   data-sort="5"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(5)">Itinerary</th>
-            <th class="col-destination" data-sort="6"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(6)">Destination</th>
-            <th class="col-destination-port" data-sort="21" tabindex="0" role="button" aria-sort="none" onclick="sortTable(21)">Destination port</th>
             <th class="col-date"        data-sort="7"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(7)">Departure</th>
+            <th class="col-port"        data-sort="9"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(9)">Departure port</th>
+            <th class="col-itinerary"   data-sort="5"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(5)">Itinerary</th>
+            <th class="col-destination-port" data-sort="21" tabindex="0" role="button" aria-sort="none" onclick="sortTable(21)">Destination port</th>
             <th class="col-duration"    data-sort="8"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(8)">Nights</th>
             <th class="col-sea-days"    data-sort="19" tabindex="0" role="button" aria-sort="none" onclick="sortTable(19)">Sea days</th>
-            <th class="col-port"        data-sort="9"  tabindex="0" role="button" aria-sort="none" onclick="sortTable(9)">Departure port</th>
             <th class="col-region"      data-sort="10" tabindex="0" role="button" aria-sort="none" onclick="sortTable(10)">Region</th>
             <th class="col-price"       data-sort="11" tabindex="0" role="button" aria-sort="none" onclick="sortTable(11)" data-col="11">Price</th>
             <th class="col-per-night"   data-sort="17" tabindex="0" role="button" aria-sort="none" onclick="sortTable(17)">£/night</th>
@@ -423,30 +422,30 @@
                 <button type="button" class="filter-clear-btn" onclick="clearFilterField('minLaunch')" aria-label="Clear launch year filter" title="Clear launch year filter">&times;</button>
               </div>
             </td>
-            <td class="col-itinerary">
-              <div class="filter-entry">
-                <input class="col-filter" data-field="itinerary" placeholder="Filter…" oninput="debouncedApplyFilters()">
-                <button type="button" class="filter-clear-btn" onclick="clearFilterField('itinerary')" aria-label="Clear itinerary filter" title="Clear itinerary filter">&times;</button>
-              </div>
-            </td>
-            <td class="col-destination">
-              <div class="filter-entry">
-                <input class="col-filter" data-field="destination" placeholder="Filter…" oninput="debouncedApplyFilters()">
-                <button type="button" class="filter-clear-btn" onclick="clearFilterField('destination')" aria-label="Clear destination filter" title="Clear destination filter">&times;</button>
-              </div>
-            </td>
-            <td class="col-destination-port">
-              <div class="filter-entry">
-                <input class="col-filter" data-field="destinationPort" placeholder="Filter..." oninput="debouncedApplyFilters()">
-                <button type="button" class="filter-clear-btn" onclick="clearFilterField('destinationPort')" aria-label="Clear destination port filter" title="Clear destination port filter">&times;</button>
-              </div>
-            </td>
             <td class="col-date">
               <input id="filterDepartureStart" class="col-filter" data-field="departureStart" type="hidden">
               <input id="filterDepartureEnd" class="col-filter" data-field="departureEnd" type="hidden">
               <div class="filter-entry">
                 <button id="departureRangeBtn" class="date-range-btn" type="button" onclick="openDepartureRange()" aria-label="Choose departure date range">Any date</button>
                 <button type="button" class="filter-clear-btn" onclick="clearDepartureRange()" aria-label="Clear departure date range" title="Clear departure date range">&times;</button>
+              </div>
+            </td>
+            <td class="col-port">
+              <div class="filter-entry">
+                <input class="col-filter" data-field="departurePort" placeholder="Filter…" oninput="debouncedApplyFilters()">
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('departurePort')" aria-label="Clear departure port filter" title="Clear departure port filter">&times;</button>
+              </div>
+            </td>
+            <td class="col-itinerary">
+              <div class="filter-entry">
+                <input class="col-filter" data-field="itinerary" placeholder="Filter…" oninput="debouncedApplyFilters()">
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('itinerary')" aria-label="Clear itinerary filter" title="Clear itinerary filter">&times;</button>
+              </div>
+            </td>
+            <td class="col-destination-port">
+              <div class="filter-entry">
+                <input class="col-filter" data-field="destinationPort" placeholder="Filter..." oninput="debouncedApplyFilters()">
+                <button type="button" class="filter-clear-btn" onclick="clearFilterField('destinationPort')" aria-label="Clear destination port filter" title="Clear destination port filter">&times;</button>
               </div>
             </td>
             <td class="col-duration">
@@ -459,12 +458,6 @@
               <div class="filter-entry">
                 <input class="col-filter" data-field="seaDays" placeholder="Max…" type="number" min="0" oninput="debouncedApplyFilters()">
                 <button type="button" class="filter-clear-btn" onclick="clearFilterField('seaDays')" aria-label="Clear sea days filter" title="Clear sea days filter">&times;</button>
-              </div>
-            </td>
-            <td class="col-port">
-              <div class="filter-entry">
-                <input class="col-filter" data-field="departurePort" placeholder="Filter…" oninput="debouncedApplyFilters()">
-                <button type="button" class="filter-clear-btn" onclick="clearFilterField('departurePort')" aria-label="Clear departure port filter" title="Clear departure port filter">&times;</button>
               </div>
             </td>
             <td class="col-region">
@@ -507,7 +500,7 @@
           <!-- Skeleton rows shown until applyCruiseResults() replaces them.
                Mimic the real card structure so the layout doesn't reflow. -->
           <tr class="skeleton-row">
-            <td colspan="16">
+            <td colspan="15">
               <div class="skeleton-card">
                 <div class="skeleton skeleton-line w70"></div>
                 <div class="skeleton skeleton-line w50"></div>
@@ -521,7 +514,7 @@
             </td>
           </tr>
           <tr class="skeleton-row">
-            <td colspan="16">
+            <td colspan="15">
               <div class="skeleton-card">
                 <div class="skeleton skeleton-line w60"></div>
                 <div class="skeleton skeleton-line w40"></div>
@@ -535,7 +528,7 @@
             </td>
           </tr>
           <tr class="skeleton-row">
-            <td colspan="16">
+            <td colspan="15">
               <div class="skeleton-card">
                 <div class="skeleton skeleton-line w80"></div>
                 <div class="skeleton skeleton-line w50"></div>

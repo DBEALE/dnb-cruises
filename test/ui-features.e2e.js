@@ -752,7 +752,8 @@ test.describe('Mobile filters', () => {
     await expect(page.locator('#shareSearchBtn')).toBeVisible();
     await expect(page.locator('#shareSearchBtn')).toContainText('Share search');
     await expect(page.locator('.share-view-mobile')).toBeHidden();
-    await expect(page.locator('.share-view-btn:visible')).toHaveCount(1);
+    // The toolbar now has two pill actions on desktop: Find route + Share search.
+    await expect(page.locator('.share-view-btn:visible')).toHaveCount(2);
   });
 });
 
@@ -799,18 +800,18 @@ test.describe('Saved views', () => {
     await page.selectOption('#sortSelect', '14');
     await page.locator('.col-filter[data-field="departurePort"]').fill('Southampton');
     await page.locator('.col-filter[data-field="duration"]').fill('7');
-    await page.locator('.col-filter[data-field="destination"]').fill('Mediterranean');
+    await page.locator('.col-filter[data-field="destinationPort"]').fill('Barcelona');
 
     await page.click('#savedViewsBtn');
     await page.waitForSelector('dialog#savedViewsDialog[open]');
-    await expect(page.locator('#svNameInput')).toHaveValue('Southampton 7N Mediterranean');
+    await expect(page.locator('#svNameInput')).toHaveValue('Southampton 7N To Barcelona');
 
     await page.locator('#svNameInput').fill('My balcony shortlist');
     await page.locator('#svSaveForm button[type="submit"]').click();
     const customView = page.locator('.sv-item:not(.sv-built-in)').first();
     await expect(customView.locator('.sv-name')).toHaveText('My balcony shortlist');
     await expect(customView.locator('.sv-hash')).toContainText('Sort: Price (Balcony)');
-    await expect(customView.locator('.sv-hash')).toContainText('destination=Mediterranean');
+    await expect(customView.locator('.sv-hash')).toContainText('destinationPort=Barcelona');
   });
 });
 
@@ -1017,32 +1018,34 @@ test.describe('Site changes dialog', () => {
   });
 });
 
+// A deliberate chain of onward legs: Southampton →(root)→ Reykjavik →
+// New York (two options) → Miami → Nassau, plus a cycle back to Reykjavik
+// and an out-of-window sailing to Oslo. Prices/dates are chosen so the
+// aggregation, window and cycle-guard behaviour is deterministic. Shared by
+// the onward-explorer and route-finder suites.
+function chainFixtures() {
+  const leg = (id, shipName, port, destinationPort, departureDate, arrivalDate, inside) =>
+    cruise({ id, shipName, provider: 'Royal Caribbean', priceFrom: inside, days: 7,
+      departureDate, arrivalDate, firstSeenAt: isoAgo(DAY), port, destinationPort,
+      prices: { inside: String(inside), oceanView: null, balcony: null, suite: null } });
+  return {
+    royalCaribbean: {
+      scrapedAt: CRUISES_RC.scrapedAt,
+      cruises: [
+        leg('rc_root',  'Root Ship',  'Southampton', 'Reykjavik', '2026-09-01', '2026-09-08', 500),
+        leg('rc_hop1',  'Hop One',    'Reykjavik',   'New York',  '2026-09-09', '2026-09-16', 400),
+        leg('rc_hop1b', 'Hop One B',  'Reykjavik',   'New York',  '2026-09-10', '2026-09-18', 300),
+        leg('rc_hop2',  'Hop Two',    'New York',    'Miami',     '2026-09-17', '2026-09-24', 250),
+        leg('rc_hop3',  'Hop Three',  'Miami',       'Nassau',    '2026-09-25', '2026-09-29', 200),
+        leg('rc_cycle', 'Cycle Ship', 'New York',    'Reykjavik', '2026-09-17', '2026-09-22', 999),
+        leg('rc_far',   'Far Ship',   'Reykjavik',   'Oslo',      '2026-09-20', '2026-09-26', 111),
+      ],
+    },
+    celebrity: { scrapedAt: CRUISES_CEL.scrapedAt, cruises: [] },
+  };
+}
+
 test.describe('Onward journey explorer', () => {
-  // A deliberate chain of onward legs: Southampton →(root)→ Reykjavik →
-  // New York (two options) → Miami → Nassau, plus a cycle back to Reykjavik
-  // and an out-of-window sailing to Oslo. Prices/dates are chosen so the
-  // aggregation, window and cycle-guard behaviour is deterministic.
-  function chainFixtures() {
-    const leg = (id, shipName, port, destinationPort, departureDate, arrivalDate, inside) =>
-      cruise({ id, shipName, provider: 'Royal Caribbean', priceFrom: inside, days: 7,
-        departureDate, arrivalDate, firstSeenAt: isoAgo(DAY), port, destinationPort,
-        prices: { inside: String(inside), oceanView: null, balcony: null, suite: null } });
-    return {
-      royalCaribbean: {
-        scrapedAt: CRUISES_RC.scrapedAt,
-        cruises: [
-          leg('rc_root',  'Root Ship',  'Southampton', 'Reykjavik', '2026-09-01', '2026-09-08', 500),
-          leg('rc_hop1',  'Hop One',    'Reykjavik',   'New York',  '2026-09-09', '2026-09-16', 400),
-          leg('rc_hop1b', 'Hop One B',  'Reykjavik',   'New York',  '2026-09-10', '2026-09-18', 300),
-          leg('rc_hop2',  'Hop Two',    'New York',    'Miami',     '2026-09-17', '2026-09-24', 250),
-          leg('rc_hop3',  'Hop Three',  'Miami',       'Nassau',    '2026-09-25', '2026-09-29', 200),
-          leg('rc_cycle', 'Cycle Ship', 'New York',    'Reykjavik', '2026-09-17', '2026-09-22', 999),
-          leg('rc_far',   'Far Ship',   'Reykjavik',   'Oslo',      '2026-09-20', '2026-09-26', 111),
-        ],
-      },
-      celebrity: { scrapedAt: CRUISES_CEL.scrapedAt, cruises: [] },
-    };
-  }
 
   test('buildCruiseTree aggregates onward legs and guards the date window + cycles', async ({ page }) => {
     const fixtures = chainFixtures();
@@ -1207,5 +1210,66 @@ test.describe('Onward journey explorer', () => {
     // them, so the explorer button is omitted entirely.
     await expect(page.locator('.cruise-explore-btn[data-explore-cruise="rc_hop3"]')).toHaveCount(0);
     await expect(page.locator('.cruise-explore-btn[data-explore-cruise="rc_far"]')).toHaveCount(0);
+  });
+});
+
+test.describe('Route finder', () => {
+  test('findRoutes chains connecting cruises within budget, cheapest first', async ({ page }) => {
+    const fixtures = chainFixtures();
+    await gotoFresh(page, null, fixtures);
+
+    const res = await page.evaluate((cruises) => {
+      const T = window.__cruiseTree;
+      const ctx = T.makeTreeCtx(cruises, { windowDays: 3, radiusMiles: 0, maxDepth: 4 });
+      const route = (to, maxPrice) => T.findRoutes({ ctx, fromPortRaw: 'Southampton', toPortRaw: to, maxPrice, notBeforeKey: '' })
+        .routes.map(r => ({ ids: r.cruises.map(c => c.id), total: r.total }));
+      const routeVia = (to, maxPrice, waypoints) => T.findRoutes({ ctx, fromPortRaw: 'Southampton', toPortRaw: to, maxPrice, waypoints, notBeforeKey: '' })
+        .routes.map(r => ({ ids: r.cruises.map(c => c.id), total: r.total }));
+      return {
+        nassau: route('Nassau', 2000),
+        ny: route('New York', 1000),
+        tightCount: route('Nassau', 1300).length,
+        viaOrdered: routeVia('Nassau', 2000, ['New York', 'Miami']),
+        viaWrongOrder: routeVia('Nassau', 2000, ['Miami', 'New York']),
+        viaMissing: routeVia('Nassau', 2000, ['Oslo']),
+      };
+    }, fixtures.royalCaribbean.cruises);
+
+    // Southampton → Nassau: one 4-cruise chain, £500+£400+£250+£200 = £1,350.
+    expect(res.nassau).toEqual([{ ids: ['rc_root', 'rc_hop1', 'rc_hop2', 'rc_hop3'], total: 1350 }]);
+    // Southampton → New York within £1,000: two routes, cheapest first (£800, £900).
+    expect(res.ny.map(r => r.total)).toEqual([800, 900]);
+    expect(res.ny[0].ids).toEqual(['rc_root', 'rc_hop1b']);
+    // A £1,300 budget can't afford the £1,350 Nassau chain → no routes.
+    expect(res.tightCount).toBe(0);
+    // Waypoints must be called at in order: New York then Miami is on the path…
+    expect(res.viaOrdered).toEqual([{ ids: ['rc_root', 'rc_hop1', 'rc_hop2', 'rc_hop3'], total: 1350 }]);
+    // …but Miami-then-New-York (wrong order) or a port not on the path → none.
+    expect(res.viaWrongOrder).toEqual([]);
+    expect(res.viaMissing).toEqual([]);
+  });
+
+  test('the Find route button opens the finder, lists routes, and links each leg', async ({ page }) => {
+    await page.addInitScript(() => {
+      window.open = (url, target, features) => { window.__opened = { url, target, features }; return {}; };
+    });
+    await gotoFresh(page, null, chainFixtures());
+
+    await page.locator('#findRouteBtn').click();
+    await page.waitForSelector('dialog#routeFinderDialog[open]');
+    await page.fill('#routeFrom', 'Southampton');
+    await page.fill('#routeTo', 'New York');
+    await page.fill('#routeMax', '1000');
+    await page.locator('.route-search-btn').click();
+
+    const firstRoute = page.locator('.route-result').first();
+    await expect(firstRoute.locator('.route-result-path')).toHaveText('Southampton → Reykjavik → New York');
+    await expect(firstRoute.locator('.route-result-total')).toContainText('total £800');
+
+    // Each leg links to that sailing in the main table (new tab).
+    await firstRoute.locator('.route-leg').first().click();
+    const opened = await page.evaluate(() => window.__opened);
+    expect(opened.target).toBe('_blank');
+    expect(opened.url).toContain('cruise=rc_root');
   });
 });
