@@ -140,7 +140,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.changes-box \{[^}]*overflow: hidden/);
   assert.match(css, /\.changes-scroll \{[^}]*overflow: auto/);
   assert.match(css, /\.mob-sort-row \{[^}]*gap: 6px[^}]*padding: 7px 9px/);
-  assert.match(css, /\.share-view-mobile \{[^}]*flex: 0 0 36px/);
+  assert.match(css, /\.share-view-mobile[^{}]*\{[^}]*flex: 0 0 36px/);
   assert.match(css, /\.filter-entry \{/);
   assert.match(css, /\.filter-clear-btn \{/);
   assert.match(css, /\.first-seen-val \{[^}]*font-size: 0\.8rem/);
