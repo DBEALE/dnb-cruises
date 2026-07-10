@@ -3592,38 +3592,219 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT11AKLTAULYTORRMELBWTQDNSYD",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "Australia & New Zealand: Dusky Sound & Melbourne",
-      "departureDate": "2027-02-05",
-      "duration": "11-day Cruise",
-      "departurePort": "Auckland",
-      "departureRegion": "Australia & Pacific",
-      "destination": "Australia & New Zealand: Dusky Sound & Melbourne",
-      "destinationPort": "Sydney",
-      "arrivalDate": "2027-02-16",
-      "priceFrom": "1500",
+      "id": "ncl_JOY10SEAJNUSGYHGCSITICYKTNVICSEA",
+      "shipName": "Norwegian Joy",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2017,
+      "itinerary": "Alaska: Hubbard Glacier, Skagway, Ketchikan & Sitka",
+      "departureDate": "2026-08-14",
+      "duration": "10-day Cruise",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Alaska: Hubbard Glacier, Skagway, Ketchikan & Sitka",
+      "destinationPort": "Seattle",
+      "arrivalDate": "2026-08-24",
+      "priceFrom": "1143",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-australia-and-new-zealand-from-auckland-to-sydney-SPIRIT11AKLTAULYTORRMELBWTQDNSYD?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT11AKLTAULYTORRMELBWTQDNSYD",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/10-day-alaska-round-trip-seattle-hubbard-glacier-skagway-ketchikan-and-sitka-JOY10SEAJNUSGYHGCSITICYKTNVICSEA?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=JOY10SEAJNUSGYHGCSITICYKTNVICSEA",
       "prices": {
-        "inside": "1500",
-        "oceanView": "2025",
-        "balcony": "3715",
-        "suite": "7815"
+        "inside": null,
+        "oceanView": "1143",
+        "balcony": "1458",
+        "suite": "1773"
       },
-      "seaDays": 4,
+      "seaDays": 2,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "lastSeenAt": "2026-07-09T12:55:18.964Z",
+      "lastSeenAt": "2026-07-10T14:55:10.352Z",
       "priceHistory": [
         {
           "at": "2026-06-09T10:57:00.972Z",
           "prices": {
-            "inside": 1500,
-            "oceanView": 2025,
-            "balcony": 3715,
-            "suite": 7815
+            "inside": 713,
+            "oceanView": 948,
+            "suite": 2783
+          }
+        },
+        {
+          "at": "2026-06-09T18:52:55.794Z",
+          "prices": {
+            "inside": 698,
+            "oceanView": 868,
+            "suite": 2723
+          }
+        },
+        {
+          "at": "2026-06-10T05:32:54.965Z",
+          "prices": {
+            "inside": 698,
+            "balcony": 1403
+          }
+        },
+        {
+          "at": "2026-06-20T18:30:41.320Z",
+          "prices": {
+            "inside": 773,
+            "oceanView": 1143,
+            "balcony": 1578,
+            "suite": 1928
+          }
+        },
+        {
+          "at": "2026-06-23T20:44:09.441Z",
+          "prices": {
+            "inside": 788,
+            "oceanView": 1048,
+            "balcony": 1578,
+            "suite": 1928
+          }
+        },
+        {
+          "at": "2026-06-24T20:35:18.829Z",
+          "prices": {
+            "inside": 788,
+            "oceanView": 1048,
+            "balcony": 1578,
+            "suite": 1938
+          }
+        },
+        {
+          "at": "2026-06-25T05:21:58.907Z",
+          "prices": {
+            "oceanView": 1048,
+            "balcony": 1578,
+            "suite": 1928
+          }
+        },
+        {
+          "at": "2026-06-25T18:45:22.523Z",
+          "prices": {
+            "inside": 828,
+            "oceanView": 1048,
+            "balcony": 1578,
+            "suite": 1928
+          }
+        },
+        {
+          "at": "2026-06-26T05:27:02.119Z",
+          "prices": {
+            "inside": 868,
+            "oceanView": 1023,
+            "balcony": 1458,
+            "suite": 1773
+          }
+        },
+        {
+          "at": "2026-07-01T05:33:39.367Z",
+          "prices": {
+            "oceanView": 1048,
+            "balcony": 1578,
+            "suite": 1928
+          }
+        },
+        {
+          "at": "2026-07-02T07:08:25.848Z",
+          "prices": {
+            "balcony": 1578,
+            "suite": 1928
+          }
+        },
+        {
+          "at": "2026-07-03T16:31:59.365Z",
+          "prices": {
+            "oceanView": 1143,
+            "balcony": 1578,
+            "suite": 1938
+          }
+        },
+        {
+          "at": "2026-07-04T00:33:51.683Z",
+          "prices": {
+            "inside": 948,
+            "oceanView": 1103,
+            "balcony": 1458,
+            "suite": 1773
+          }
+        },
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "oceanView": 1143,
+            "balcony": 1578,
+            "suite": 1928
+          }
+        },
+        {
+          "at": "2026-07-05T00:35:44.262Z",
+          "prices": {
+            "oceanView": 1143,
+            "balcony": 1578,
+            "suite": 1938
+          }
+        },
+        {
+          "at": "2026-07-05T07:06:25.018Z",
+          "prices": {
+            "oceanView": 1143,
+            "suite": 1938
+          }
+        },
+        {
+          "at": "2026-07-06T18:38:42.187Z",
+          "prices": {
+            "oceanView": 1143,
+            "balcony": 1578,
+            "suite": 9938
+          }
+        },
+        {
+          "at": "2026-07-07T05:20:16.655Z",
+          "prices": {
+            "inside": 1103,
+            "oceanView": 1143,
+            "balcony": 1578,
+            "suite": 1928
+          }
+        },
+        {
+          "at": "2026-07-07T07:11:54.626Z",
+          "prices": {
+            "oceanView": 1143,
+            "balcony": 1578,
+            "suite": 9938
+          }
+        },
+        {
+          "at": "2026-07-07T09:07:12.248Z",
+          "prices": {
+            "inside": 1103,
+            "oceanView": 1143,
+            "balcony": 1578,
+            "suite": 1928
+          }
+        },
+        {
+          "at": "2026-07-08T06:50:31.520Z",
+          "prices": {
+            "oceanView": 1143,
+            "balcony": 1578,
+            "suite": 1928
+          }
+        },
+        {
+          "at": "2026-07-08T18:30:14.814Z",
+          "prices": {
+            "inside": 948,
+            "oceanView": 1143,
+            "balcony": 1458,
+            "suite": 1773
+          }
+        },
+        {
+          "at": "2026-07-10T06:40:41.897Z",
+          "prices": {
+            "oceanView": 1143,
+            "balcony": 1458,
+            "suite": 1773
           }
         }
       ]
