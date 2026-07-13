@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 11,
+  "count": 12,
   "cruises": [
     {
       "id": "virgin-BR2607097NSBE",
@@ -469,60 +469,132 @@
       ]
     },
     {
-      "id": "virgin-RS2607304NKW",
+      "id": "virgin-RS2607205NCZ",
       "provider": "Virgin Voyages",
       "shipName": "Resilient Lady",
       "shipClass": "Lady",
       "shipLaunchYear": 2023,
-      "itinerary": "Miami, Florida → Key West, Florida → The Beach Club at Bimini, Bahamas",
-      "departureDate": "2026-07-30",
-      "duration": "4 Nights",
+      "itinerary": "CARIBB..",
+      "departureDate": "2026-07-20",
+      "duration": "5 Nights",
       "departurePort": "Miami",
       "departureRegion": "Americas",
       "destination": "Americas",
-      "destinationPort": "The Beach Club at Bimini",
+      "destinationPort": "Miami",
       "seaDays": null,
-      "priceFrom": "1992",
+      "priceFrom": "3252",
       "currency": "GBP",
       "prices": {
         "inside": null,
-        "oceanView": 841,
-        "balcony": 765,
-        "suite": null
+        "oceanView": 976,
+        "balcony": 976,
+        "suite": 2229
       },
-      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=RS2607304NKW&currencyCode=GBP",
-      "arrivalDate": "2026-08-03",
-      "pricesEnrichedAt": "2026-07-12T08:45:58.871Z",
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=RS2607205NCZ&currencyCode=GBP",
+      "arrivalDate": "2026-07-25",
+      "pricesEnrichedAt": "2026-07-13T00:31:24.764Z",
       "firstSeenAt": "2026-07-06T17:01:37.354Z",
-      "lastSeenAt": "2026-07-12T22:17:14.347Z",
+      "lastSeenAt": "2026-07-13T00:30:27.697Z",
       "priceHistory": [
         {
           "at": "2026-07-07T14:10:40.613Z",
           "prices": {
-            "oceanView": 704,
-            "balcony": 765
+            "oceanView": 842,
+            "balcony": 880,
+            "suite": 1802
           }
         },
         {
           "at": "2026-07-08T18:30:14.814Z",
           "prices": {
-            "oceanView": 841,
-            "balcony": 765
+            "oceanView": 976,
+            "balcony": 976
           }
         },
         {
-          "at": "2026-07-11T03:03:27.882Z",
+          "at": "2026-07-10T20:31:47.354Z",
           "prices": {
-            "inside": 869,
-            "oceanView": 841,
-            "balcony": 765
+            "oceanView": 976,
+            "balcony": 976,
+            "suite": 2229
           }
         },
         {
           "at": "2026-07-12T08:45:06.801Z",
           "prices": {
-            "oceanView": 841,
-            "balcony": 765
+            "oceanView": 976,
+            "balcony": 976
+          }
+        },
+        {
+          "at": "2026-07-13T00:30:27.697Z",
+          "prices": {
+            "oceanView": 976,
+            "balcony": 976,
+            "suite": 2229
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-RS2607255NTC",
+      "provider": "Virgin Voyages",
+      "shipName": "Resilient Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2023,
+      "itinerary": "CARIBB..",
+      "departureDate": "2026-07-25",
+      "duration": "5 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Miami",
+      "seaDays": null,
+      "priceFrom": "3536",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": 996,
+        "balcony": 1111,
+        "suite": 2071
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=RS2607255NTC&currencyCode=GBP",
+      "arrivalDate": "2026-07-30",
+      "pricesEnrichedAt": "2026-07-13T00:31:24.764Z",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-07-13T00:30:27.697Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "balcony": 1034
+          }
+        },
+        {
+          "at": "2026-07-10T06:40:41.897Z",
+          "prices": {
+            "balcony": 1358
+          }
+        },
+        {
+          "at": "2026-07-10T22:22:27.649Z",
+          "prices": {
+            "balcony": 1111,
+            "suite": 2071
+          }
+        },
+        {
+          "at": "2026-07-12T03:04:05.756Z",
+          "prices": {
+            "balcony": 1358
+          }
+        },
+        {
+          "at": "2026-07-13T00:30:27.697Z",
+          "prices": {
+            "oceanView": 996,
+            "balcony": 1111,
+            "suite": 2071
           }
         }
       ]
