@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 6,
+  "count": 7,
   "cruises": [
     {
       "id": "virgin-BR2607097NSBE",
@@ -287,6 +287,48 @@
             "inside": 801,
             "oceanView": 856,
             "balcony": 1124
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-RS2607164NKW",
+      "provider": "Virgin Voyages",
+      "shipName": "Resilient Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2023,
+      "itinerary": "CARIBB..",
+      "departureDate": "2026-07-16",
+      "duration": "4 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Miami",
+      "seaDays": null,
+      "priceFrom": "2072",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": 796,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=RS2607164NKW&currencyCode=GBP",
+      "arrivalDate": "2026-07-20",
+      "pricesEnrichedAt": "2026-07-13T05:11:28.219Z",
+      "firstSeenAt": "2026-07-10T20:31:47.354Z",
+      "lastSeenAt": "2026-07-13T11:02:45.620Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-10T20:31:47.354Z",
+          "prices": {
+            "inside": 723
+          }
+        },
+        {
+          "at": "2026-07-13T05:10:33.508Z",
+          "prices": {
+            "balcony": 796
           }
         }
       ]
