@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 4,
+  "count": 5,
   "cruises": [
     {
       "id": "virgin-BR2607097NSBE",
@@ -167,6 +167,69 @@
           "at": "2026-07-13T15:00:12.525Z",
           "prices": {
             "balcony": 913
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-BR2607167NSBE",
+      "provider": "Virgin Voyages",
+      "shipName": "Brilliant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2025,
+      "itinerary": "NORTH ..",
+      "departureDate": "2026-07-16",
+      "duration": "7 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Seattle",
+      "seaDays": null,
+      "priceFrom": "2086",
+      "currency": "GBP",
+      "prices": {
+        "inside": 801,
+        "oceanView": 856,
+        "balcony": 1124,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=BR2607167NSBE&currencyCode=GBP",
+      "arrivalDate": "2026-07-23",
+      "pricesEnrichedAt": "2026-07-14T05:01:31.877Z",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-07-14T12:28:05.345Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "balcony": 1825
+          }
+        },
+        {
+          "at": "2026-07-07T19:22:48.665Z",
+          "prices": {
+            "oceanView": 856,
+            "balcony": 1494
+          }
+        },
+        {
+          "at": "2026-07-08T03:03:52.510Z",
+          "prices": {
+            "suite": 5110
+          }
+        },
+        {
+          "at": "2026-07-10T06:40:41.897Z",
+          "prices": {
+            "suite": 4410
+          }
+        },
+        {
+          "at": "2026-07-11T03:03:27.882Z",
+          "prices": {
+            "inside": 801,
+            "oceanView": 856,
+            "balcony": 1124
           }
         }
       ]
