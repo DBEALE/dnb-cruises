@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 5,
+  "count": 6,
   "cruises": [
     {
       "id": "virgin-BR2607097NSBE",
@@ -124,54 +124,6 @@
       ]
     },
     {
-      "id": "virgin-RS2607164NKW",
-      "provider": "Virgin Voyages",
-      "shipName": "Resilient Lady",
-      "shipClass": "Lady",
-      "shipLaunchYear": 2023,
-      "itinerary": "CARIBB..",
-      "departureDate": "2026-07-16",
-      "duration": "4 Nights",
-      "departurePort": "Miami",
-      "departureRegion": "Americas",
-      "destination": "Americas",
-      "destinationPort": "Miami",
-      "seaDays": null,
-      "priceFrom": "2378",
-      "currency": "GBP",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": 913,
-        "suite": null
-      },
-      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=RS2607164NKW&currencyCode=GBP",
-      "arrivalDate": "2026-07-20",
-      "pricesEnrichedAt": "2026-07-13T15:00:35.741Z",
-      "firstSeenAt": "2026-07-10T20:31:47.354Z",
-      "lastSeenAt": "2026-07-13T18:34:02.388Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-10T20:31:47.354Z",
-          "prices": {
-            "inside": 723
-          }
-        },
-        {
-          "at": "2026-07-13T05:10:33.508Z",
-          "prices": {
-            "balcony": 796
-          }
-        },
-        {
-          "at": "2026-07-13T15:00:12.525Z",
-          "prices": {
-            "balcony": 913
-          }
-        }
-      ]
-    },
-    {
       "id": "virgin-BR2607167NSBE",
       "provider": "Virgin Voyages",
       "shipName": "Brilliant Lady",
@@ -230,6 +182,132 @@
             "inside": 801,
             "oceanView": 856,
             "balcony": 1124
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-RS2607255NTC",
+      "provider": "Virgin Voyages",
+      "shipName": "Resilient Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2023,
+      "itinerary": "CARIBB..",
+      "departureDate": "2026-07-25",
+      "duration": "5 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Miami",
+      "seaDays": null,
+      "priceFrom": "3536",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": 1249,
+        "balcony": 1111,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=RS2607255NTC&currencyCode=GBP",
+      "arrivalDate": "2026-07-30",
+      "pricesEnrichedAt": "2026-07-14T05:01:31.877Z",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-07-14T14:34:52.788Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "balcony": 1034
+          }
+        },
+        {
+          "at": "2026-07-10T06:40:41.897Z",
+          "prices": {
+            "balcony": 1358
+          }
+        },
+        {
+          "at": "2026-07-10T22:22:27.649Z",
+          "prices": {
+            "balcony": 1111,
+            "suite": 2071
+          }
+        },
+        {
+          "at": "2026-07-12T03:04:05.756Z",
+          "prices": {
+            "balcony": 1358
+          }
+        },
+        {
+          "at": "2026-07-13T00:30:27.697Z",
+          "prices": {
+            "oceanView": 996,
+            "balcony": 1111,
+            "suite": 2071
+          }
+        },
+        {
+          "at": "2026-07-13T05:10:33.508Z",
+          "prices": {
+            "oceanView": 996,
+            "balcony": 1111
+          }
+        },
+        {
+          "at": "2026-07-14T05:00:37.545Z",
+          "prices": {
+            "oceanView": 1249,
+            "balcony": 1111
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-BR2607307NSBE",
+      "provider": "Virgin Voyages",
+      "shipName": "Brilliant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2025,
+      "itinerary": "NORTH ..",
+      "departureDate": "2026-07-30",
+      "duration": "7 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Seattle",
+      "seaDays": null,
+      "priceFrom": "2558",
+      "currency": "GBP",
+      "prices": {
+        "inside": 983,
+        "oceanView": null,
+        "balcony": 1391,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=BR2607307NSBE&currencyCode=GBP",
+      "arrivalDate": "2026-08-06",
+      "pricesEnrichedAt": "2026-07-14T08:45:28.727Z",
+      "firstSeenAt": "2026-07-07T00:36:28.979Z",
+      "lastSeenAt": "2026-07-14T14:34:52.788Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-08T03:03:52.510Z",
+          "prices": {
+            "inside": 801
+          }
+        },
+        {
+          "at": "2026-07-11T08:34:43.760Z",
+          "prices": {
+            "balcony": 1775
+          }
+        },
+        {
+          "at": "2026-07-14T08:44:32.782Z",
+          "prices": {
+            "inside": 983,
+            "balcony": 1391
           }
         }
       ]
