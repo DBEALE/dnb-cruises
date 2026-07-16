@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 6,
+  "count": 8,
   "cruises": [
     {
       "id": "virgin-BR2607097NSBE",
@@ -291,6 +291,152 @@
           "at": "2026-07-14T16:28:05.699Z",
           "prices": {
             "balcony": 796
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-RS2607304NKW",
+      "provider": "Virgin Voyages",
+      "shipName": "Resilient Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2023,
+      "itinerary": "CARIBB..",
+      "departureDate": "2026-07-30",
+      "duration": "4 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Miami",
+      "seaDays": null,
+      "priceFrom": "2152",
+      "currency": "GBP",
+      "prices": {
+        "inside": 928,
+        "oceanView": null,
+        "balcony": 827,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=RS2607304NKW&currencyCode=GBP",
+      "arrivalDate": "2026-08-03",
+      "pricesEnrichedAt": "2026-07-16T10:40:26.074Z",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-07-16T12:33:17.220Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "oceanView": 704,
+            "balcony": 765
+          }
+        },
+        {
+          "at": "2026-07-08T18:30:14.814Z",
+          "prices": {
+            "oceanView": 841,
+            "balcony": 765
+          }
+        },
+        {
+          "at": "2026-07-11T03:03:27.882Z",
+          "prices": {
+            "inside": 869,
+            "oceanView": 841,
+            "balcony": 765
+          }
+        },
+        {
+          "at": "2026-07-12T08:45:06.801Z",
+          "prices": {
+            "oceanView": 841,
+            "balcony": 765
+          }
+        },
+        {
+          "at": "2026-07-13T03:04:40.504Z",
+          "prices": {
+            "inside": 869,
+            "oceanView": 841,
+            "balcony": 765
+          }
+        },
+        {
+          "at": "2026-07-15T10:34:19.721Z",
+          "prices": {
+            "inside": 928,
+            "oceanView": 898,
+            "balcony": 827
+          }
+        },
+        {
+          "at": "2026-07-16T10:39:27.578Z",
+          "prices": {
+            "inside": 928,
+            "balcony": 827
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-SC2703205NTC",
+      "provider": "Virgin Voyages",
+      "shipName": "Scarlet Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2021,
+      "itinerary": "Miami, Florida → Grand Turk, Turks and Caicos → The Beach Club at Bimini, Bahamas",
+      "departureDate": "2027-03-20",
+      "duration": "5 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "The Beach Club at Bimini",
+      "seaDays": null,
+      "priceFrom": "2064",
+      "currency": "GBP",
+      "prices": {
+        "inside": 574,
+        "oceanView": 793,
+        "balcony": 793,
+        "suite": 1940
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=SC2703205NTC&currencyCode=GBP",
+      "arrivalDate": "2027-03-25",
+      "pricesEnrichedAt": "2026-07-16T05:03:40.635Z",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-07-16T12:33:17.220Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "oceanView": 793,
+            "balcony": 793,
+            "suite": 1940
+          }
+        },
+        {
+          "at": "2026-07-11T08:34:43.760Z",
+          "prices": {
+            "inside": 574,
+            "oceanView": 793,
+            "balcony": 793,
+            "suite": 1940
+          }
+        },
+        {
+          "at": "2026-07-13T11:02:45.620Z",
+          "prices": {
+            "oceanView": 793,
+            "balcony": 793,
+            "suite": 1940
+          }
+        },
+        {
+          "at": "2026-07-15T06:45:51.789Z",
+          "prices": {
+            "inside": 574,
+            "oceanView": 793,
+            "balcony": 793,
+            "suite": 1940
           }
         }
       ]
