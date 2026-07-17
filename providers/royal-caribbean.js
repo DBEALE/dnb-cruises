@@ -82,6 +82,7 @@ const SHIP_LAUNCH_YEAR = {
   'Icon of the Seas':         2024,
   'Independence of the Seas': 2008,
   'Jewel of the Seas':        2004,
+  'Legend of the Seas':       2026,
   'Liberty of the Seas':      2007,
   'Mariner of the Seas':      2003,
   'Navigator of the Seas':    2002,
@@ -93,6 +94,7 @@ const SHIP_LAUNCH_YEAR = {
   'Rhapsody of the Seas':     1997,
   'Serenade of the Seas':     2003,
   'Spectrum of the Seas':     2019,
+  'Star of the Seas':         2025,
   'Symphony of the Seas':     2018,
   'Utopia of the Seas':       2024,
   'Vision of the Seas':       1998,
@@ -102,6 +104,8 @@ const SHIP_LAUNCH_YEAR = {
 
 const SHIP_CLASS = {
   'Icon of the Seas':         'Icon',
+  'Legend of the Seas':       'Icon',
+  'Star of the Seas':         'Icon',
   'Utopia of the Seas':       'Oasis',
   'Wonder of the Seas':       'Oasis',
   'Symphony of the Seas':     'Oasis',

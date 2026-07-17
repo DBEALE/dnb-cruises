@@ -63,8 +63,8 @@ const SHIP_CLASS = {
   'Ruby Princess':       'Grand',
   'Sapphire Princess':   'Grand',
   'Sky Princess':        'Royal',
-  'Star Princess':       'Grand',
-  'Sun Princess':        'Royal',
+  'Star Princess':       'Sphere',
+  'Sun Princess':        'Sphere',
 };
 
 const SHIP_LAUNCH_YEAR = {
@@ -84,7 +84,7 @@ const SHIP_LAUNCH_YEAR = {
   'Ruby Princess':       2008,
   'Sapphire Princess':   2004,
   'Sky Princess':        2019,
-  'Star Princess':       2002,
+  'Star Princess':       2025,
   'Sun Princess':        2024,
 };
 
