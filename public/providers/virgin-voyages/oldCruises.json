@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 10,
+  "count": 12,
   "cruises": [
     {
       "id": "virgin-BR2607097NSBE",
@@ -647,6 +647,131 @@
           "at": "2026-07-17T03:03:31.225Z",
           "prices": {
             "balcony": 1358
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-BR2607307NSBE",
+      "provider": "Virgin Voyages",
+      "shipName": "Brilliant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2025,
+      "itinerary": "NORTH ..",
+      "departureDate": "2026-07-30",
+      "duration": "7 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Seattle",
+      "seaDays": null,
+      "priceFrom": "4622",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=BR2607307NSBE&currencyCode=GBP",
+      "arrivalDate": "2026-08-06",
+      "pricesEnrichedAt": "2026-07-18T16:20:34.741Z",
+      "firstSeenAt": "2026-07-07T00:36:28.979Z",
+      "lastSeenAt": "2026-07-18T16:19:51.123Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-08T03:03:52.510Z",
+          "prices": {
+            "inside": 801
+          }
+        },
+        {
+          "at": "2026-07-11T08:34:43.760Z",
+          "prices": {
+            "balcony": 1775
+          }
+        },
+        {
+          "at": "2026-07-14T08:44:32.782Z",
+          "prices": {
+            "inside": 983,
+            "balcony": 1391
+          }
+        },
+        {
+          "at": "2026-07-17T08:44:04.650Z",
+          "prices": {
+            "inside": 801,
+            "balcony": 1391
+          }
+        },
+        {
+          "at": "2026-07-18T08:34:20.830Z",
+          "prices": {
+            "balcony": 1775
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-BR2608067NSBE",
+      "provider": "Virgin Voyages",
+      "shipName": "Brilliant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2025,
+      "itinerary": "NORTH ..",
+      "departureDate": "2026-08-06",
+      "duration": "7 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Seattle",
+      "seaDays": null,
+      "priceFrom": "3690",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": 1416,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=BR2608067NSBE&currencyCode=GBP",
+      "arrivalDate": "2026-08-13",
+      "pricesEnrichedAt": "2026-07-18T08:35:13.670Z",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-07-18T16:19:51.123Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "suite": 3221
+          }
+        },
+        {
+          "at": "2026-07-08T15:02:35.621Z",
+          "prices": {
+            "inside": 909,
+            "balcony": 1545
+          }
+        },
+        {
+          "at": "2026-07-14T03:02:49.522Z",
+          "prices": {
+            "balcony": 1416
+          }
+        },
+        {
+          "at": "2026-07-16T22:21:11.294Z",
+          "prices": {
+            "inside": 909,
+            "oceanView": 1124,
+            "balcony": 1339
+          }
+        },
+        {
+          "at": "2026-07-18T00:27:42.400Z",
+          "prices": {
+            "balcony": 1416
           }
         }
       ]
