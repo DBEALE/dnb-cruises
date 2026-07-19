@@ -14,10 +14,12 @@
  * path including the plain homepage) rather than just this provider's calls,
  * consistent with a bot-management WAF that fingerprints the TLS/HTTP client
  * rather than something request-shape-specific. So all requests now go through
- * a real headless Chromium session (see fetchCruisesViaBrowser) instead of
- * Node's fetch: page.goto() once to pick up whatever cookies/challenge the WAF
- * requires, then every API call runs as page.evaluate(() => fetch(...)) so it
- * shares that session and carries a genuine browser fingerprint. The pure
+ * a real browser session (see fetchCruisesViaBrowser): page.goto() once to
+ * pick up whatever cookies/challenge the WAF requires, then every API call
+ * runs as page.evaluate(() => fetch(...)) so it shares that session and
+ * carries a genuine browser fingerprint. Several launch flavours are tried in
+ * turn (BROWSER_LAUNCH_CONFIGS) because the WAF has been seen resetting the
+ * Playwright headless-shell build's HTTP/2 connection outright. The pure
  * fetchImpl-based implementation (fetchCruisesWithFetchImpl) is unchanged and
  * still what the test suite exercises directly.
  */
@@ -379,6 +381,44 @@ async function fetchCruisesWithFetchImpl(options = {}) {
   return cruises;
 }
 
+// ── Browser session (WAF evasion) ─────────────────────────────────────────────
+//
+// What gets blocked, in order of what we've observed:
+//   • Node fetch (from every network tried): instant 403 on every path.
+//   • Playwright's chromium_headless_shell build from CI (2026-07-19 run):
+//     HTTP/2 connection reset during page.goto (net::ERR_HTTP2_PROTOCOL_ERROR)
+//     — the classic bot-manager response to a recognised headless TLS/HTTP2
+//     fingerprint, served before any page content.
+// So no single launch flavour is trustworthy. Each config below changes the
+// network-stack fingerprint in a different way; the cascade walks the list
+// until a session both loads the page and gets JSON out of the search API.
+const BROWSER_LAUNCH_CONFIGS = [
+  // GitHub-hosted runners preinstall Google Chrome: a genuine Chrome binary in
+  // (new) headless mode, whose TLS/HTTP2 stack matches real browser traffic
+  // most closely. Falls through cleanly where Chrome isn't installed.
+  { label: 'system Chrome', channel: 'chrome' },
+  // Playwright's full Chromium build in new-headless mode — the real binary,
+  // not the stripped headless shell that got its connection reset.
+  { label: 'Chromium new-headless', channel: 'chromium' },
+  // Last resort: the default headless shell forced onto HTTP/1.1, sidestepping
+  // HTTP/2-frame fingerprinting entirely.
+  { label: 'headless shell HTTP/1.1', extraArgs: ['--disable-http2'] },
+];
+
+// Post-goto pause: the WAF's sensor script needs a beat to run and set its
+// session cookies before in-page API calls will be trusted.
+const SESSION_SETTLE_MS = 3000;
+
+// Headless Chrome advertises "HeadlessChrome/<version>" in its UA — an instant
+// bot flag — so every context gets an explicit UA. It's built from the running
+// binary's own major version (hardcoding one that drifts behind the binary is
+// itself a detectable mismatch) on the Linux platform CI actually runs, in
+// Chrome's reduced-UA format (real Chrome sends exactly "<major>.0.0.0").
+function chromeUserAgent(browserVersion) {
+  const major = String(browserVersion || '').split('.')[0] || '131';
+  return `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${major}.0.0.0 Safari/537.36`;
+}
+
 // Wraps a Playwright `page` as a fetchImpl: every request runs as
 // page.evaluate(() => fetch(...)) so it executes inside the browser's own JS
 // engine — sharing whatever cookies/session the initial page.goto() picked up
@@ -387,6 +427,13 @@ async function fetchCruisesWithFetchImpl(options = {}) {
 // text()/json()) so it's a drop-in for fetchPortMapOnce and fetchSearchPage.
 function createBrowserFetch(page) {
   return async function browserFetch(url, opts = {}) {
+    // Drop any user-agent override: browsers honour it on fetch() (UA is no
+    // longer a forbidden header), and a request UA disagreeing with the page's
+    // own session UA is exactly the inconsistency a bot-manager looks for.
+    const headers = { ...(opts.headers || {}) };
+    for (const key of Object.keys(headers)) {
+      if (key.toLowerCase() === 'user-agent') delete headers[key];
+    }
     const result = await page.evaluate(async ({ url, headers }) => {
       try {
         const res = await fetch(url, { headers });
@@ -394,7 +441,7 @@ function createBrowserFetch(page) {
       } catch (err) {
         return { ok: false, status: 0, statusText: String(err?.message || err), body: '' };
       }
-    }, { url: String(url), headers: opts.headers || {} });
+    }, { url: String(url), headers });
     return {
       ok: result.ok,
       status: result.status,
@@ -405,26 +452,63 @@ function createBrowserFetch(page) {
   };
 }
 
-// Production entrypoint: launches a headless Chromium, loads the find-a-cruise
-// page once to pick up cookies/session, then delegates to the exact same
-// fetchCruisesWithFetchImpl logic the test suite exercises — just swapping
-// Node's fetch for one routed through the browser.
-async function fetchCruisesViaBrowser(options = {}) {
-  const browser = await chromium.launch({
+// Launches one config and proves the session actually works before committing
+// to it: the find-a-cruise page must load without a WAF reset or 4xx, AND the
+// search API must answer an in-page probe (a challenge page can come back as a
+// clean 200, so a loaded page alone proves nothing). Throws — after closing
+// the browser — to move the cascade on to the next config.
+async function openVerifiedSession(launchImpl, config) {
+  const browser = await launchImpl({
     headless: true,
-    args: ['--disable-blink-features=AutomationControlled'],
+    channel: config.channel,
+    args: ['--disable-blink-features=AutomationControlled', ...(config.extraArgs || [])],
   });
   try {
     const page = await browser.newPage({
-      userAgent: DEFAULT_USER_AGENT,
+      userAgent: chromeUserAgent(browser.version()),
       viewport: { width: 1440, height: 900 },
+      locale: 'en-GB',
+      timezoneId: 'Europe/London',
     });
-    await page.goto(`${BOOKING_BASE_URL}?web2=true`, { waitUntil: 'domcontentloaded', timeout: 45000 });
-    const browserFetch = createBrowserFetch(page);
-    return await fetchCruisesWithFetchImpl({ ...options, fetchImpl: browserFetch });
-  } finally {
-    await browser.close();
+    const response = await page.goto(`${BOOKING_BASE_URL}?web2=true`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    if (response && response.status() >= 400) throw new Error(`find-a-cruise HTTP ${response.status()}`);
+    await page.waitForTimeout(SESSION_SETTLE_MS);
+    const fetchImpl = createBrowserFetch(page);
+    const probe = await fetchImpl(`${CRUISE_SEARCH_URL}?start=0`, { headers: API_HEADERS });
+    if (!probe.ok) throw new Error(`search API probe HTTP ${probe.status}`);
+    return { browser, fetchImpl };
+  } catch (err) {
+    await browser.close().catch(() => {});
+    throw err;
   }
+}
+
+// Production entrypoint: walks BROWSER_LAUNCH_CONFIGS until one yields a
+// verified session, then delegates to the exact same fetchCruisesWithFetchImpl
+// logic the test suite exercises — just swapping Node's fetch for one routed
+// through the browser. options.launchImpl lets tests inject a fake launcher.
+async function fetchCruisesViaBrowser(options = {}) {
+  const logger = options.logger || console;
+  const launchImpl = options.launchImpl || (launchOptions => chromium.launch(launchOptions));
+  const failures = [];
+  for (const config of BROWSER_LAUNCH_CONFIGS) {
+    let session;
+    try {
+      session = await openVerifiedSession(launchImpl, config);
+    } catch (err) {
+      const reason = String(err?.message || err).split('\n')[0];
+      failures.push(`${config.label}: ${reason}`);
+      logger?.warn?.(`  [P&O] ${config.label} blocked/unavailable: ${reason}`);
+      continue;
+    }
+    logger?.log?.(`  [P&O] session established via ${config.label}`);
+    try {
+      return await fetchCruisesWithFetchImpl({ ...options, fetchImpl: session.fetchImpl });
+    } finally {
+      await session.browser.close().catch(() => {});
+    }
+  }
+  throw new Error(`P&O blocked across all browser configs (${failures.join('; ')})`);
 }
 
 const provider = {
@@ -454,3 +538,4 @@ module.exports.countSeaDays = countSeaDays;
 module.exports.emptyPrices = emptyPrices;
 module.exports.PORT_NAMES = PORT_NAMES;
 module.exports.createBrowserFetch = createBrowserFetch;
+module.exports.chromeUserAgent = chromeUserAgent;

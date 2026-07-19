@@ -331,3 +331,103 @@ test('fetchCruises routes to the browser path only when no fetchImpl is supplied
     /P&O returned no cruise results/,
   );
 });
+
+test('createBrowserFetch strips user-agent overrides so requests match the session UA', async () => {
+  const realFetch = global.fetch;
+  let seenHeaders;
+  global.fetch = async (url, opts) => {
+    seenHeaders = opts.headers;
+    return { ok: true, status: 200, statusText: 'OK', text: async () => '{}' };
+  };
+  try {
+    const fakePage = { evaluate: async (fn, arg) => fn(arg) };
+    const browserFetch = provider.createBrowserFetch(fakePage);
+    await browserFetch('https://example.com/x', { headers: { 'User-Agent': 'Spoofed/1.0', brand: 'po' } });
+    assert.deepEqual(seenHeaders, { brand: 'po' }, 'user-agent removed, API headers kept');
+  } finally {
+    global.fetch = realFetch;
+  }
+});
+
+test('chromeUserAgent tracks the running binary version and never says Headless', () => {
+  const ua = provider.chromeUserAgent('143.0.6900.21');
+  assert.match(ua, /Chrome\/143\.0\.0\.0/, 'major version from the binary, reduced-UA format');
+  assert.doesNotMatch(ua, /Headless/i);
+});
+
+// A fake in-page environment for the browser-cascade tests: global.fetch plays
+// the browser's fetch, the fake page's evaluate just runs the callback in-process.
+function stubBrowserEnvironment() {
+  const items = Array.from({ length: 150 }, (_, i) => ({ id: `P${i}`, txName: `Port ${i}` }));
+  const html = `<html>${JSON.stringify({ portOfCalls: { items } })}</html>`;
+  const row = apiResult({ cruiseId: 'C1' });
+  global.fetch = async (url) => {
+    const body = String(url).includes('find-a-cruise')
+      ? html
+      : JSON.stringify({ results: 1, searchResults: [row] });
+    return { ok: true, status: 200, statusText: 'OK', text: async () => body };
+  };
+  return {
+    page: {
+      evaluate: async (fn, arg) => fn(arg),
+      goto: async () => ({ status: () => 200 }),
+      waitForTimeout: async () => {},
+    },
+  };
+}
+
+test('browser cascade falls through failed launch configs to a working session', async () => {
+  const realFetch = global.fetch;
+  const { page } = stubBrowserEnvironment();
+  const attempts = [];
+  const launchImpl = async (launchOptions) => {
+    attempts.push(launchOptions.channel || 'default');
+    // First config (system Chrome) unavailable — e.g. not installed locally.
+    if (attempts.length === 1) throw new Error("Chromium distribution 'chrome' is not found");
+    return { newPage: async () => page, close: async () => {}, version: () => '143.0.1.2' };
+  };
+  try {
+    const cruises = await provider.fetchCruises({ launchImpl, logger: { warn() {}, log() {} } });
+    assert.deepEqual(attempts, ['chrome', 'chromium'], 'stopped at the first config that worked');
+    assert.equal(cruises.length, 1);
+    assert.equal(cruises[0].id, 'pando-C1');
+  } finally {
+    global.fetch = realFetch;
+  }
+});
+
+test('browser cascade reports every config when all of them are blocked', async () => {
+  const launchImpl = async () => { throw new Error('net::ERR_HTTP2_PROTOCOL_ERROR'); };
+  await assert.rejects(
+    () => provider.fetchCruises({ launchImpl, logger: { warn() {}, log() {} } }),
+    (err) => {
+      assert.match(err.message, /blocked across all browser configs/);
+      assert.match(err.message, /system Chrome/);
+      assert.match(err.message, /Chromium new-headless/);
+      assert.match(err.message, /headless shell HTTP\/1\.1/);
+      return true;
+    },
+  );
+});
+
+test('browser cascade rejects a session whose search-API probe fails despite the page loading', async () => {
+  // A challenge page can come back as a clean 200 — the probe must catch that.
+  const realFetch = global.fetch;
+  global.fetch = async (url) => (String(url).includes('cruise-query-processor')
+    ? { ok: false, status: 403, statusText: 'Forbidden', text: async () => '' }
+    : { ok: true, status: 200, statusText: 'OK', text: async () => '<html>challenge</html>' });
+  const page = {
+    evaluate: async (fn, arg) => fn(arg),
+    goto: async () => ({ status: () => 200 }),
+    waitForTimeout: async () => {},
+  };
+  const launchImpl = async () => ({ newPage: async () => page, close: async () => {}, version: () => '143.0.1.2' });
+  try {
+    await assert.rejects(
+      () => provider.fetchCruises({ launchImpl, logger: { warn() {}, log() {} } }),
+      /search API probe HTTP 403/,
+    );
+  } finally {
+    global.fetch = realFetch;
+  }
+});
