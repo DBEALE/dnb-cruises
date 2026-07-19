@@ -1359,15 +1359,6 @@
         box-shadow: 0 4px 12px rgba(13, 27, 46, .07);
       }
 
-      /* Off-screen cards skip layout & paint entirely — with thousands of rows
-         on "Show all" this keeps scrolling and re-filtering fluid on phones.
-         The intrinsic-size estimate only affects scrollbar geometry; `auto`
-         remembers each card's real height once it has rendered. */
-      tbody tr {
-        content-visibility: auto;
-        contain-intrinsic-size: auto 320px;
-      }
-
       /* On the mobile card layout the inset shadow is hidden by overflow:hidden;
          use a fat coloured left border instead so the stripe shows. */
       tbody tr[data-provider] {

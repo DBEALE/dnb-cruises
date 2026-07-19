@@ -6,7 +6,6 @@
   const FAVORITES_KEY = 'cruise-explorer-favorite-cruises';
   const FAVORITES_VIEW_ID = '__favorites__';
   const CRUISE_SEARCH_META = Symbol('cruiseSearchMeta');
-  const CRUISE_SEA_DAYS    = Symbol('cruiseSeaDays');
 
   // Region groupings used by the departureRegion filter. Picking
   // `group:europe` matches cruises departing from any of these atomic
@@ -2162,23 +2161,7 @@
       .join(' ');
   }
 
-  // Memoised wrapper: computeSeaDays runs regexes and (for NCL) URL parsing,
-  // and gets called for every row on every filter/sort/render pass. The value
-  // only depends on immutable cruise fields, so compute it once per cruise
-  // object (data reloads replace the objects, invalidating naturally).
   function inferSeaDays(c) {
-    if (!c) return computeSeaDays(c);
-    if (!(CRUISE_SEA_DAYS in c)) {
-      Object.defineProperty(c, CRUISE_SEA_DAYS, {
-        value: computeSeaDays(c),
-        enumerable: false,
-        configurable: true,
-      });
-    }
-    return c[CRUISE_SEA_DAYS];
-  }
-
-  function computeSeaDays(c) {
     const itinerary = String(c?.itinerary || '').trim();
     const fromField = parseFloat(c?.seaDays);
     if (Number.isFinite(fromField) && !/scenic cruising/i.test(itinerary)) {
@@ -2335,16 +2318,7 @@
   // large result set (or "Show all", which renders every filtered row) never
   // blocks the main thread in one task. _renderRunId cancels an in-flight
   // progressive render when a newer filter/sort apply starts.
-  //
-  // Chunks grow geometrically (60 → 120 → 240 → …) rather than staying fixed:
-  // the dominant cost per frame is not building the HTML but the browser
-  // re-laying-out the ENTIRE table after each append (auto table layout is
-  // global), so a fixed chunk makes total layout work quadratic in row count —
-  // measured at ~30s to finish a 4,200-row "Show all". Doubling the chunk
-  // bounds the number of full-table layout passes at O(log n) (~7 passes for
-  // 4,200 rows) while the first frames stay small enough to feel instant.
-  const RENDER_CHUNK     = 60;    // first synchronous paint + initial frame chunk
-  const MAX_RENDER_CHUNK = 2048;  // growth cap so one frame never inserts unbounded HTML
+  const RENDER_CHUNK = 60;
   let _renderRunId = 0;
   function renderBody(list, colFilters = {}) {
     const runId = ++_renderRunId;
@@ -2356,7 +2330,7 @@
     const total = list.length;
     const firstEnd = Math.min(RENDER_CHUNK, total);
     tbody.innerHTML = renderRowsHtml(list, 0, firstEnd, colFilters);
-    observeSparksInRows(tbody, 0);
+    observeNewSparks();
     if (firstEnd >= total) return;
 
     // Render the remainder synchronously when there is no paint to protect:
@@ -2364,42 +2338,20 @@
     // backgrounded, which would otherwise stall the render at the first chunk).
     if (typeof requestAnimationFrame !== 'function' || (typeof document !== 'undefined' && document.hidden)) {
       tbody.insertAdjacentHTML('beforeend', renderRowsHtml(list, firstEnd, total, colFilters));
-      observeSparksInRows(tbody, firstEnd);
+      observeNewSparks();
       return;
     }
 
     let next = firstEnd;
-    let chunk = RENDER_CHUNK;
     const step = () => {
       if (runId !== _renderRunId) return; // superseded by a newer render
-      const end = Math.min(next + chunk, total);
+      const end = Math.min(next + RENDER_CHUNK, total);
       tbody.insertAdjacentHTML('beforeend', renderRowsHtml(list, next, end, colFilters));
-      observeSparksInRows(tbody, next);
+      observeNewSparks();
       next = end;
-      chunk = Math.min(chunk * 2, MAX_RENDER_CHUNK);
       if (next < total) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
-  }
-
-  // Registers sparkline placeholders with the lazy-fill observer, scoped to
-  // rows appended from `fromRowIndex` onward. The previous approach re-queried
-  // every unfilled placeholder in the whole tbody after each chunk — O(rows²)
-  // across a full progressive render, which produced visibly long frames near
-  // the end of a "Show all" pass. Environments without a real rows collection
-  // (the node test DOM stub) fall back to the old whole-document scan.
-  function observeSparksInRows(tbody, fromRowIndex) {
-    const rows = tbody?.rows;
-    if (!rows) { observeNewSparks(); return; }
-    ensureSparkObserver();
-    for (let r = fromRowIndex; r < rows.length; r++) {
-      const sparks = rows[r].querySelectorAll('.price-spark');
-      for (const btn of sparks) {
-        if (btn.dataset.sparkFilled) continue;
-        if (sparkObserver) sparkObserver.observe(btn);
-        else fillSparkButton(btn);
-      }
-    }
   }
 
   // ── Price-history dialog ───────────────────────────────────────────────────
@@ -4760,28 +4712,7 @@
 
   // Largest current cabin-price reduction within a recent time window.
   // Returns a positive percentage, or NaN when there is no comparable drop.
-  //
-  // Memoised per history array + window: the raw computation sorts and maps the
-  // whole history, and with the price-drop filter or sort active it runs for
-  // every cruise on every pass. Keying the cache on the priceHistory array
-  // identity means lazy history hydration (which swaps in a new array)
-  // invalidates naturally; the short TTL covers the value's dependence on the
-  // moving time window without ever serving minutes-stale results.
-  const _reductionCache = new WeakMap();
-  const REDUCTION_CACHE_TTL_MS = 60_000;
   function getRecentPriceReductionPct(c, windowMs, now = Date.now()) {
-    const history = Array.isArray(c?.priceHistory) ? c.priceHistory : null;
-    if (!history) return computeRecentPriceReductionPct(c, windowMs, now);
-    let byWindow = _reductionCache.get(history);
-    if (!byWindow) { byWindow = new Map(); _reductionCache.set(history, byWindow); }
-    const hit = byWindow.get(windowMs);
-    if (hit && (now - hit.at) < REDUCTION_CACHE_TTL_MS) return hit.value;
-    const value = computeRecentPriceReductionPct(c, windowMs, now);
-    byWindow.set(windowMs, { value, at: now });
-    return value;
-  }
-
-  function computeRecentPriceReductionPct(c, windowMs, now) {
     if (!Number.isFinite(windowMs) || windowMs <= 0) return NaN;
     const history = Array.isArray(c?.priceHistory) ? c.priceHistory : [];
     const timed = history
