@@ -16706,105 +16706,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_NQB10A_SA_20260913",
-      "shipName": "Sapphire Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2004,
-      "itinerary": "Quebec City, Canada → Quebec City, Canada → Saguenay, Canada → Charlottetown, Canada → Sydney, Canada → Halifax, Canada → Saint John (for the Bay of Fundy), Canada → Boston, Massachusetts",
-      "departureDate": "2026-09-13",
-      "duration": "10 Nights",
-      "departurePort": "Quebec City, Canada",
-      "departureRegion": "Americas",
-      "destination": "Northern Europe",
-      "priceFrom": "2049",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H624",
-      "prices": {
-        "inside": "2049",
-        "oceanView": "2313",
-        "balcony": "4019",
-        "suite": "5819"
-      },
-      "seaDays": 3,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 1874,
-            "oceanView": 1974,
-            "balcony": 3849,
-            "suite": 5599
-          }
-        },
-        {
-          "at": "2026-05-31T02:56:26.204Z",
-          "prices": {
-            "inside": 1874,
-            "oceanView": 1974,
-            "balcony": 3849,
-            "suite": 6399
-          }
-        },
-        {
-          "at": "2026-06-01T20:13:35.019Z",
-          "prices": {
-            "inside": 1874,
-            "oceanView": 1974,
-            "balcony": 3849,
-            "suite": 6199
-          }
-        },
-        {
-          "at": "2026-06-02T18:05:24.346Z",
-          "prices": {
-            "inside": 1874,
-            "oceanView": 1974,
-            "balcony": 3849,
-            "suite": 5899
-          }
-        },
-        {
-          "at": "2026-06-03T22:26:29.557Z",
-          "prices": {
-            "inside": 1874,
-            "oceanView": 2304,
-            "balcony": 3849,
-            "suite": 5899
-          }
-        },
-        {
-          "at": "2026-06-05T21:21:41.187Z",
-          "prices": {
-            "inside": 1874,
-            "oceanView": 1974,
-            "balcony": 3849,
-            "suite": 5599
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 1874,
-            "oceanView": 1974,
-            "balcony": 3849,
-            "suite": 6399
-          }
-        },
-        {
-          "at": "2026-06-16T07:57:55.777Z",
-          "prices": {
-            "inside": 2049,
-            "oceanView": 2313,
-            "balcony": 4019,
-            "suite": 5819
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-16T21:04:10.162Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_HFR16A_RU_20260917",
       "shipName": "Ruby Princess",
       "shipClass": "Grand",
@@ -42231,6 +42132,66 @@
             "inside": 1154,
             "oceanView": 1444,
             "suite": 2484
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_NQB10A_SA_20261003",
+      "shipName": "Sapphire Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Quebec City, Canada → Quebec City, Canada → Saguenay, Canada → Charlottetown, Canada → Sydney, Canada → Halifax, Canada → Saint John (for the Bay of Fundy), Canada → Portland, Maine → Boston, Massachusetts",
+      "departureDate": "2026-10-03",
+      "duration": "10 Nights",
+      "departurePort": "Quebec City",
+      "departureRegion": "Americas",
+      "destination": "Northern Europe",
+      "destinationPort": "Boston",
+      "priceFrom": "2123",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H626",
+      "prices": {
+        "inside": "2123",
+        "oceanView": "2439",
+        "balcony": "4509",
+        "suite": null
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-07-19T18:18:43.271Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-17T10:33:26.020Z",
+          "prices": {
+            "inside": 2123,
+            "oceanView": 2529,
+            "balcony": 4718
+          }
+        },
+        {
+          "at": "2026-07-17T13:34:04.959Z",
+          "prices": {
+            "inside": 2019,
+            "oceanView": 2529,
+            "balcony": 4509
+          }
+        },
+        {
+          "at": "2026-07-17T20:20:03.891Z",
+          "prices": {
+            "inside": 2019,
+            "oceanView": 2439,
+            "balcony": 4509
+          }
+        },
+        {
+          "at": "2026-07-19T14:28:36.171Z",
+          "prices": {
+            "inside": 2123,
+            "oceanView": 2439,
+            "balcony": 4509
           }
         }
       ]

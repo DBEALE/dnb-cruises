@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 13,
+  "count": 12,
   "cruises": [
     {
       "id": "pando-A627A",
@@ -322,7 +322,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T12:18:43.072Z"
+      "lastSeenAt": "2026-07-19T20:17:46.868Z"
     },
     {
       "id": "pando-J608",
@@ -371,7 +371,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T18:18:43.271Z"
+      "lastSeenAt": "2026-07-19T20:17:46.868Z"
     },
     {
       "id": "pando-A628",
@@ -460,7 +460,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T18:18:43.271Z"
+      "lastSeenAt": "2026-07-19T20:17:46.868Z"
     },
     {
       "id": "pando-A628A",
@@ -591,7 +591,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T18:18:43.271Z"
+      "lastSeenAt": "2026-07-19T20:17:46.868Z"
     },
     {
       "id": "pando-B617",
@@ -607,10 +607,10 @@
       "destination": "Mediterranean",
       "destinationPort": "Southampton",
       "seaDays": 7,
-      "priceFrom": "1099",
+      "priceFrom": "1649",
       "currency": "GBP",
       "prices": {
-        "inside": "1099",
+        "inside": null,
         "oceanView": null,
         "balcony": "1649",
         "suite": null
@@ -651,9 +651,15 @@
             "inside": 1099,
             "balcony": 1649
           }
+        },
+        {
+          "at": "2026-07-19T20:17:46.868Z",
+          "prices": {
+            "balcony": 1649
+          }
         }
       ],
-      "lastSeenAt": "2026-07-19T18:18:43.271Z"
+      "lastSeenAt": "2026-07-19T20:17:46.868Z"
     },
     {
       "id": "pando-N617",
@@ -669,10 +675,10 @@
       "destination": "Canary-Islands",
       "destinationPort": "Southampton",
       "seaDays": 6,
-      "priceFrom": "999",
+      "priceFrom": "1099",
       "currency": "GBP",
       "prices": {
-        "inside": "999",
+        "inside": null,
         "oceanView": "1099",
         "balcony": null,
         "suite": null
@@ -786,9 +792,15 @@
             "inside": 999,
             "oceanView": 1099
           }
+        },
+        {
+          "at": "2026-07-19T20:17:46.868Z",
+          "prices": {
+            "oceanView": 1099
+          }
         }
       ],
-      "lastSeenAt": "2026-07-19T18:18:43.271Z"
+      "lastSeenAt": "2026-07-19T20:17:46.868Z"
     },
     {
       "id": "pando-G623",
@@ -869,42 +881,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T18:18:43.271Z"
-    },
-    {
-      "id": "pando-JLX",
-      "provider": "P&O Cruises",
-      "shipName": "Arcadia",
-      "shipClass": "Vista",
-      "shipLaunchYear": 2005,
-      "itinerary": "Southampton, UK → Gran Canaria, Spain → Bridgetown, Barbados → Oranjestad, Aruba → Panama Canal (full transit) → Manzanillo, Mexico → San Diego, United States → San Francisco, United States → Honolulu, United States → Nawiliwili (Hawaii), United States → Cross International Date Line → Apia, Samoan Islands → Suva, Fiji → Auckland, New Zealand → Tauranga, New Zealand → Wellington, New Zealand → Sydney, Australia → Airlie Beach, Australia → Cairns, Australia → Rabaul, Papua New Guinea → Busan, Korea → Nagasaki, Japan → Kagoshima, Japan → Tokyo, Japan → Hong Kong, Hong Kong",
-      "departureDate": "2028-01-06",
-      "duration": "74 Nights",
-      "departurePort": "Southampton",
-      "departureRegion": "UK & Ireland",
-      "destination": "World-Cruise",
-      "destinationPort": "Hong Kong",
-      "seaDays": 47,
-      "priceFrom": "13169",
-      "currency": "GBP",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": "13169",
-        "suite": null
-      },
-      "bookingUrl": "https://www.pocruises.com/find-a-cruise/JLX/JLX",
-      "arrivalDate": "",
-      "firstSeenAt": "2026-07-04T11:52:45.512Z",
-      "lastSeenAt": "2026-07-19T12:18:43.072Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-04T11:52:45.512Z",
-          "prices": {
-            "balcony": 13169
-          }
-        }
-      ]
+      "lastSeenAt": "2026-07-19T20:17:46.868Z"
     }
   ]
 }
