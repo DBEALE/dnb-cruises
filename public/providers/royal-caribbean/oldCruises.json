@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 2,
+  "count": 4,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -814,6 +814,88 @@
           "at": "2026-07-17T05:03:19.935Z",
           "prices": {
             "suite": 3798
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_AD05PCN-2297889509",
+      "shipName": "Adventure of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2001,
+      "itinerary": "Perfect Day at CocoCay & Caribbean: Orlando (Port Canaveral), Florida, Perfect Day at CocoCay, Bahamas, Puerto Plata, Dominican Republic, Orlando (Port Canaveral), Florida",
+      "departureDate": "2027-06-11",
+      "duration": "5 Nights",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "629",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AD05PCN-2297889509&sailDate=2027-06-11&shipCode=AD&packageCode=AD05E088&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "629",
+        "oceanView": "674",
+        "balcony": "871",
+        "suite": "1518"
+      },
+      "destinationPort": "Port Canaveral",
+      "seaDays": 1,
+      "enrichedAt": "2026-07-19T12:19:43.257Z",
+      "firstSeenAt": "2026-07-16T00:28:36.766Z",
+      "lastSeenAt": "2026-07-19T12:18:43.072Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-16T00:28:36.766Z",
+          "prices": {
+            "inside": 629,
+            "oceanView": 674,
+            "balcony": 946,
+            "suite": 1368
+          }
+        },
+        {
+          "at": "2026-07-16T22:21:11.294Z",
+          "prices": {
+            "inside": 629,
+            "oceanView": 674,
+            "balcony": 871,
+            "suite": 1518
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_SR07YVR-3380411548",
+      "shipName": "Serenade of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2003,
+      "itinerary": "Alaska Inside Passage Cruise: Vancouver, British Columbia, Inside Passage (Cruising), Canada, Sitka, Alaska, Endicott Arm & Dawes Glacier (Cruising), Alaska, Juneau, Alaska, Ketchikan, Alaska, Prince Rupert, British Columbia, Vancouver, British Columbia",
+      "departureDate": "2026-08-30",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "1905",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=SR07YVR-3380411548&sailDate=2026-08-30&shipCode=SR&packageCode=SR07A424&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "1905",
+        "suite": null
+      },
+      "destinationPort": "Vancouver",
+      "seaDays": 0,
+      "enrichedAt": "2026-07-19T05:05:42.123Z",
+      "firstSeenAt": "2026-07-19T05:04:09.574Z",
+      "lastSeenAt": "2026-07-19T12:18:43.072Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-19T05:04:09.574Z",
+          "prices": {
+            "balcony": 1905
           }
         }
       ]
