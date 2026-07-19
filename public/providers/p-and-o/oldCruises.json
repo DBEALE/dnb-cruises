@@ -322,7 +322,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T20:17:46.868Z"
+      "lastSeenAt": "2026-07-19T22:18:00.815Z"
     },
     {
       "id": "pando-J608",
@@ -371,7 +371,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T20:17:46.868Z"
+      "lastSeenAt": "2026-07-19T22:18:00.815Z"
     },
     {
       "id": "pando-A628",
@@ -460,7 +460,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T20:17:46.868Z"
+      "lastSeenAt": "2026-07-19T22:18:00.815Z"
     },
     {
       "id": "pando-A628A",
@@ -480,7 +480,7 @@
       "currency": "GBP",
       "prices": {
         "inside": "999",
-        "oceanView": null,
+        "oceanView": "2019",
         "balcony": "1599",
         "suite": null
       },
@@ -589,9 +589,17 @@
             "inside": 999,
             "balcony": 1599
           }
+        },
+        {
+          "at": "2026-07-19T22:18:00.815Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 2019,
+            "balcony": 1599
+          }
         }
       ],
-      "lastSeenAt": "2026-07-19T20:17:46.868Z"
+      "lastSeenAt": "2026-07-19T22:18:00.815Z"
     },
     {
       "id": "pando-B617",
@@ -659,7 +667,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T20:17:46.868Z"
+      "lastSeenAt": "2026-07-19T22:18:00.815Z"
     },
     {
       "id": "pando-N617",
@@ -675,11 +683,11 @@
       "destination": "Canary-Islands",
       "destinationPort": "Southampton",
       "seaDays": 6,
-      "priceFrom": "1099",
+      "priceFrom": "999",
       "currency": "GBP",
       "prices": {
         "inside": null,
-        "oceanView": "1099",
+        "oceanView": "999",
         "balcony": null,
         "suite": null
       },
@@ -798,9 +806,15 @@
           "prices": {
             "oceanView": 1099
           }
+        },
+        {
+          "at": "2026-07-19T22:18:00.815Z",
+          "prices": {
+            "oceanView": 999
+          }
         }
       ],
-      "lastSeenAt": "2026-07-19T20:17:46.868Z"
+      "lastSeenAt": "2026-07-19T22:18:00.815Z"
     },
     {
       "id": "pando-G623",
@@ -881,7 +895,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T20:17:46.868Z"
+      "lastSeenAt": "2026-07-19T22:18:00.815Z"
     }
   ]
 }

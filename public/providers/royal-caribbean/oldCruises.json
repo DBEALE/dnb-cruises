@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 2,
+  "count": 3,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -370,6 +370,62 @@
           "at": "2026-07-19T05:04:09.574Z",
           "prices": {
             "balcony": 1905
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_ID09BYE-1948136797",
+      "shipName": "Independence of the Seas",
+      "shipClass": "Freedom",
+      "shipLaunchYear": 2008,
+      "itinerary": "Bermuda & Eastern Caribbean: Cape Liberty (New York), New Jersey, Royal Naval Dockyard, Bermuda, Philipsburg, St. Maarten, San Juan, Puerto Rico, Labadee, Haiti, Cape Liberty (New York), New Jersey",
+      "departureDate": "2027-06-10",
+      "duration": "9 Nights",
+      "departurePort": "Cape Liberty (New York)",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1164.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=ID09BYE-1948136797&sailDate=2027-06-10&shipCode=ID&packageCode=ID09E066&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1164.5",
+        "oceanView": "1261.5",
+        "balcony": "1667.5",
+        "suite": "2742.5"
+      },
+      "destinationPort": "Cape Liberty (New York)",
+      "seaDays": 3,
+      "enrichedAt": "2026-07-15T00:27:00.292Z",
+      "firstSeenAt": "2026-07-15T00:25:09.232Z",
+      "lastSeenAt": "2026-07-19T20:17:46.868Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-15T00:25:09.232Z",
+          "prices": {
+            "inside": 1082.5,
+            "oceanView": 1169.5,
+            "balcony": 1536.5,
+            "suite": 2510
+          }
+        },
+        {
+          "at": "2026-07-15T18:25:02.237Z",
+          "prices": {
+            "inside": 1164.5,
+            "oceanView": 1261.5,
+            "balcony": 1667.5,
+            "suite": 2760
+          }
+        },
+        {
+          "at": "2026-07-16T22:21:11.294Z",
+          "prices": {
+            "inside": 1164.5,
+            "oceanView": 1261.5,
+            "balcony": 1667.5,
+            "suite": 2742.5
           }
         }
       ]
