@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 6,
+  "count": 13,
   "cruises": [
     {
       "id": "pando-A627A",
@@ -253,7 +253,7 @@
       "shipName": "Aurora",
       "shipClass": "R",
       "shipLaunchYear": 2000,
-      "itinerary": "Southampton",
+      "itinerary": "Southampton, UK → Hamburg, Germany → Zeebrugge (for Bruges), Belgium → Southampton, UK",
       "departureDate": "2026-07-17",
       "duration": "5 Nights",
       "departurePort": "Southampton",
@@ -272,7 +272,6 @@
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/R611/R611",
       "arrivalDate": "2026-07-22",
       "firstSeenAt": "2026-07-04T10:39:49.793Z",
-      "lastSeenAt": "2026-07-09T07:17:11.222Z",
       "priceHistory": [
         {
           "at": "2026-07-04T10:39:49.793Z",
@@ -320,6 +319,527 @@
           "at": "2026-07-07T11:02:08.179Z",
           "prices": {
             "inside": 599
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-19T07:15:00.811Z"
+    },
+    {
+      "id": "pando-J608",
+      "provider": "P&O Cruises",
+      "shipName": "Arcadia",
+      "shipClass": "Vista",
+      "shipLaunchYear": 2005,
+      "itinerary": "Southampton, UK → La Coruna, Spain → Gijon, Spain → Santander, Spain → Cherbourg, France → Southampton, UK",
+      "departureDate": "2026-07-13",
+      "duration": "7 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Spain-France-And-Portugal",
+      "destinationPort": "Southampton",
+      "seaDays": 2,
+      "priceFrom": "899",
+      "currency": "GBP",
+      "prices": {
+        "inside": "899",
+        "oceanView": "1029",
+        "balcony": null,
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/J608/J608",
+      "arrivalDate": "2026-07-20",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 1029
+          }
+        },
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "inside": 899
+          }
+        },
+        {
+          "at": "2026-07-04T12:11:31.689Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 1029
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-19T07:15:00.811Z"
+    },
+    {
+      "id": "pando-A628",
+      "provider": "P&O Cruises",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Valletta, Malta → Souda Bay (for Chania), Crete → Piraeus (tours to Athens), Greece → Mykonos, Greece → Heraklion, Greece → Valletta, Malta",
+      "departureDate": "2026-07-16",
+      "duration": "7 Nights",
+      "departurePort": "Valletta",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean",
+      "destinationPort": "Valletta",
+      "seaDays": 2,
+      "priceFrom": "899",
+      "currency": "GBP",
+      "prices": {
+        "inside": "899",
+        "oceanView": "929",
+        "balcony": "949",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A628/A628",
+      "arrivalDate": "2026-07-23",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 999,
+            "balcony": 999
+          }
+        },
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "balcony": 999
+          }
+        },
+        {
+          "at": "2026-07-04T12:11:31.689Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 999,
+            "balcony": 999
+          }
+        },
+        {
+          "at": "2026-07-06T13:36:43.732Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 929,
+            "balcony": 949
+          }
+        },
+        {
+          "at": "2026-07-09T11:06:45.984Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 929
+          }
+        },
+        {
+          "at": "2026-07-19T07:15:00.811Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 929,
+            "balcony": 949
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-19T07:15:00.811Z"
+    },
+    {
+      "id": "pando-A628A",
+      "provider": "P&O Cruises",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Valletta, Malta → Souda Bay (for Chania), Crete → Piraeus (tours to Athens), Greece → Mykonos, Greece → Heraklion, Greece → Valletta, Malta → Corfu, Greece → Kotor, Montenegro → Split, Croatia → Dubrovnik, Croatia → Valletta, Malta",
+      "departureDate": "2026-07-16",
+      "duration": "14 Nights",
+      "departurePort": "Valletta",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean",
+      "destinationPort": "Valletta",
+      "seaDays": 4,
+      "priceFrom": "999",
+      "currency": "GBP",
+      "prices": {
+        "inside": "999",
+        "oceanView": null,
+        "balcony": "1499",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A628A/A628A",
+      "arrivalDate": "2026-07-30",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "inside": 1179,
+            "oceanView": 1209,
+            "balcony": 1829
+          }
+        },
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "inside": 1179
+          }
+        },
+        {
+          "at": "2026-07-04T12:11:31.689Z",
+          "prices": {
+            "inside": 1179,
+            "oceanView": 1209,
+            "balcony": 1829
+          }
+        },
+        {
+          "at": "2026-07-05T12:29:25.179Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1029,
+            "balcony": 1649
+          }
+        },
+        {
+          "at": "2026-07-05T14:32:26.592Z",
+          "prices": {
+            "inside": 1179,
+            "oceanView": 1209,
+            "balcony": 1829
+          }
+        },
+        {
+          "at": "2026-07-05T20:25:03.788Z",
+          "prices": {
+            "inside": 1179,
+            "balcony": 1829
+          }
+        },
+        {
+          "at": "2026-07-06T13:36:43.732Z",
+          "prices": {
+            "inside": 1179,
+            "balcony": 1779
+          }
+        },
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "inside": 999,
+            "balcony": 1599
+          }
+        },
+        {
+          "at": "2026-07-08T10:42:11.452Z",
+          "prices": {
+            "inside": 999,
+            "balcony": 1499
+          }
+        },
+        {
+          "at": "2026-07-09T11:06:45.984Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 2019,
+            "balcony": 1499
+          }
+        },
+        {
+          "at": "2026-07-19T07:15:00.811Z",
+          "prices": {
+            "inside": 999,
+            "balcony": 1499
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-19T07:15:00.811Z"
+    },
+    {
+      "id": "pando-B617",
+      "provider": "P&O Cruises",
+      "shipName": "Britannia",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2015,
+      "itinerary": "Southampton",
+      "departureDate": "2026-07-17",
+      "duration": "14 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Mediterranean",
+      "destinationPort": "Southampton",
+      "seaDays": 7,
+      "priceFrom": "1099",
+      "currency": "GBP",
+      "prices": {
+        "inside": "1099",
+        "oceanView": null,
+        "balcony": "1649",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/B617/B617",
+      "arrivalDate": "2026-07-31",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "lastSeenAt": "2026-07-09T11:06:45.984Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "inside": 1099,
+            "balcony": 1649
+          }
+        },
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "inside": 1099
+          }
+        },
+        {
+          "at": "2026-07-04T12:11:31.689Z",
+          "prices": {
+            "inside": 1099,
+            "balcony": 1649
+          }
+        }
+      ]
+    },
+    {
+      "id": "pando-N617",
+      "provider": "P&O Cruises",
+      "shipName": "Ventura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2008,
+      "itinerary": "Southampton, UK → Madeira, Portugal → La Palma, Spain → Tenerife, Spain → Gran Canaria, Spain → Arrecife de Lanzarote, Spain → Cadiz (tours to Seville), Spain → Lisbon, Portugal → Southampton, UK",
+      "departureDate": "2026-07-18",
+      "duration": "14 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Canary-Islands",
+      "destinationPort": "Southampton",
+      "seaDays": 6,
+      "priceFrom": "1099",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": "1099",
+        "balcony": null,
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/N617/N617",
+      "arrivalDate": "2026-08-01",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1099,
+            "balcony": 1299
+          }
+        },
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "inside": 999
+          }
+        },
+        {
+          "at": "2026-07-04T12:11:31.689Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1099,
+            "balcony": 1299
+          }
+        },
+        {
+          "at": "2026-07-04T16:22:54.788Z",
+          "prices": {
+            "inside": 1089,
+            "oceanView": 1099,
+            "balcony": 1299
+          }
+        },
+        {
+          "at": "2026-07-04T20:21:18.169Z",
+          "prices": {
+            "inside": 1089,
+            "oceanView": 1099,
+            "balcony": 1609
+          }
+        },
+        {
+          "at": "2026-07-05T12:29:25.179Z",
+          "prices": {
+            "inside": 1089,
+            "oceanView": 1129
+          }
+        },
+        {
+          "at": "2026-07-06T13:36:43.732Z",
+          "prices": {
+            "inside": 1089,
+            "oceanView": 999
+          }
+        },
+        {
+          "at": "2026-07-06T17:01:37.354Z",
+          "prices": {
+            "inside": 1089,
+            "oceanView": 1099,
+            "balcony": 1649
+          }
+        },
+        {
+          "at": "2026-07-07T12:49:22.192Z",
+          "prices": {
+            "inside": 1089,
+            "oceanView": 1099
+          }
+        },
+        {
+          "at": "2026-07-08T15:02:35.621Z",
+          "prices": {
+            "oceanView": 1099
+          }
+        },
+        {
+          "at": "2026-07-09T11:06:45.984Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 999
+          }
+        },
+        {
+          "at": "2026-07-19T07:15:00.811Z",
+          "prices": {
+            "oceanView": 1099
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-19T07:15:00.811Z"
+    },
+    {
+      "id": "pando-G623",
+      "provider": "P&O Cruises",
+      "shipName": "Iona",
+      "shipClass": "Excellence",
+      "shipLaunchYear": 2020,
+      "itinerary": "Southampton, UK → Stavanger, Norway → Olden, Norway → Cruise in Innvikfjorden, Norway → Cruise in Nordfjord, Norway → Hellesylt, Norway → Cruise in Geirangerfjord, Norway → Cruise in Sunnylvsfjorden, Norway → Cruise in Storfjorden, Norway → Haugesund, Norway → Southampton, UK",
+      "departureDate": "2026-07-18",
+      "duration": "7 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Norwegian-Fjords-And-Iceland",
+      "destinationPort": "Southampton",
+      "seaDays": 2,
+      "priceFrom": "849",
+      "currency": "GBP",
+      "prices": {
+        "inside": "849",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/G623/G623",
+      "arrivalDate": "2026-07-25",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "inside": 849,
+            "balcony": 1529
+          }
+        },
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "inside": 849
+          }
+        },
+        {
+          "at": "2026-07-04T12:11:31.689Z",
+          "prices": {
+            "inside": 849,
+            "balcony": 1529
+          }
+        },
+        {
+          "at": "2026-07-06T17:01:37.354Z",
+          "prices": {
+            "inside": 879,
+            "balcony": 1529
+          }
+        },
+        {
+          "at": "2026-07-07T11:23:54.862Z",
+          "prices": {
+            "inside": 849,
+            "balcony": 1529
+          }
+        },
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "inside": 849
+          }
+        },
+        {
+          "at": "2026-07-08T08:52:48.726Z",
+          "prices": {
+            "inside": 879
+          }
+        },
+        {
+          "at": "2026-07-08T10:42:11.452Z",
+          "prices": {
+            "inside": 849
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-19T07:15:00.811Z"
+    },
+    {
+      "id": "pando-JLT",
+      "provider": "P&O Cruises",
+      "shipName": "Arcadia",
+      "shipClass": "Vista",
+      "shipLaunchYear": 2005,
+      "itinerary": "Southampton → Bridgetown, Barbados → San Francisco",
+      "departureDate": "2028-01-06",
+      "duration": "23 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "World-Cruise",
+      "destinationPort": "San Francisco",
+      "seaDays": 16,
+      "priceFrom": "3879",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": "3879",
+        "balcony": "4919",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/JLT/JLT",
+      "arrivalDate": "",
+      "firstSeenAt": "2026-07-04T11:52:45.512Z",
+      "lastSeenAt": "2026-07-09T11:06:45.984Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "balcony": 4919
+          }
+        },
+        {
+          "at": "2026-07-09T11:06:45.984Z",
+          "prices": {
+            "oceanView": 3879,
+            "balcony": 4919
           }
         }
       ]
