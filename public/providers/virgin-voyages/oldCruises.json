@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 11,
+  "count": 12,
   "cruises": [
     {
       "id": "virgin-BR2607097NSBE",
@@ -732,6 +732,86 @@
             "oceanView": 1150,
             "balcony": 1673,
             "suite": 5550
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-BR2607237NSBE",
+      "provider": "Virgin Voyages",
+      "shipName": "Brilliant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2025,
+      "itinerary": "NORTH ..",
+      "departureDate": "2026-07-23",
+      "duration": "7 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Seattle",
+      "seaDays": null,
+      "priceFrom": "2366",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": 909,
+        "balcony": 1314,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=BR2607237NSBE&currencyCode=GBP",
+      "arrivalDate": "2026-07-30",
+      "pricesEnrichedAt": "2026-07-19T06:52:47.284Z",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-07-19T07:15:00.811Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "suite": 5104
+          }
+        },
+        {
+          "at": "2026-07-11T03:03:27.882Z",
+          "prices": {
+            "oceanView": 1314,
+            "balcony": 1314
+          }
+        },
+        {
+          "at": "2026-07-13T05:10:33.508Z",
+          "prices": {
+            "inside": 982,
+            "oceanView": 1314,
+            "balcony": 1314,
+            "suite": 5104
+          }
+        },
+        {
+          "at": "2026-07-14T06:45:02.062Z",
+          "prices": {
+            "inside": 801,
+            "oceanView": 1314,
+            "balcony": 1178,
+            "suite": 5104
+          }
+        },
+        {
+          "at": "2026-07-15T08:47:23.484Z",
+          "prices": {
+            "balcony": 1775
+          }
+        },
+        {
+          "at": "2026-07-16T10:39:27.578Z",
+          "prices": {
+            "suite": 5104
+          }
+        },
+        {
+          "at": "2026-07-19T06:52:16.011Z",
+          "prices": {
+            "oceanView": 909,
+            "balcony": 1314
           }
         }
       ]
