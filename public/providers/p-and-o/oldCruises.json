@@ -322,7 +322,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T10:31:12.618Z"
+      "lastSeenAt": "2026-07-19T12:18:43.072Z"
     },
     {
       "id": "pando-J608",
@@ -371,7 +371,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T10:31:12.618Z"
+      "lastSeenAt": "2026-07-19T12:18:43.072Z"
     },
     {
       "id": "pando-A628",
@@ -392,7 +392,7 @@
       "prices": {
         "inside": "899",
         "oceanView": "929",
-        "balcony": "949",
+        "balcony": null,
         "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/A628/A628",
@@ -443,9 +443,16 @@
             "oceanView": 929,
             "balcony": 949
           }
+        },
+        {
+          "at": "2026-07-19T12:18:43.072Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 929
+          }
         }
       ],
-      "lastSeenAt": "2026-07-19T10:31:12.618Z"
+      "lastSeenAt": "2026-07-19T12:18:43.072Z"
     },
     {
       "id": "pando-A628A",
@@ -466,7 +473,7 @@
       "prices": {
         "inside": "999",
         "oceanView": null,
-        "balcony": "1599",
+        "balcony": "1499",
         "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/A628A/A628A",
@@ -560,9 +567,16 @@
             "inside": 999,
             "balcony": 1599
           }
+        },
+        {
+          "at": "2026-07-19T12:18:43.072Z",
+          "prices": {
+            "inside": 999,
+            "balcony": 1499
+          }
         }
       ],
-      "lastSeenAt": "2026-07-19T10:31:12.618Z"
+      "lastSeenAt": "2026-07-19T12:18:43.072Z"
     },
     {
       "id": "pando-B617",
@@ -578,10 +592,10 @@
       "destination": "Mediterranean",
       "destinationPort": "Southampton",
       "seaDays": 7,
-      "priceFrom": "1099",
+      "priceFrom": "1649",
       "currency": "GBP",
       "prices": {
-        "inside": "1099",
+        "inside": null,
         "oceanView": null,
         "balcony": "1649",
         "suite": null
@@ -609,9 +623,15 @@
             "inside": 1099,
             "balcony": 1649
           }
+        },
+        {
+          "at": "2026-07-19T12:18:43.072Z",
+          "prices": {
+            "balcony": 1649
+          }
         }
       ],
-      "lastSeenAt": "2026-07-19T10:31:12.618Z"
+      "lastSeenAt": "2026-07-19T12:18:43.072Z"
     },
     {
       "id": "pando-N617",
@@ -627,10 +647,10 @@
       "destination": "Canary-Islands",
       "destinationPort": "Southampton",
       "seaDays": 6,
-      "priceFrom": "1089",
+      "priceFrom": "1099",
       "currency": "GBP",
       "prices": {
-        "inside": "1089",
+        "inside": null,
         "oceanView": "1099",
         "balcony": null,
         "suite": null
@@ -731,9 +751,15 @@
             "inside": 1089,
             "oceanView": 1099
           }
+        },
+        {
+          "at": "2026-07-19T12:18:43.072Z",
+          "prices": {
+            "oceanView": 1099
+          }
         }
       ],
-      "lastSeenAt": "2026-07-19T10:31:12.618Z"
+      "lastSeenAt": "2026-07-19T12:18:43.072Z"
     },
     {
       "id": "pando-G623",
@@ -814,7 +840,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T10:31:12.618Z"
+      "lastSeenAt": "2026-07-19T12:18:43.072Z"
     }
   ]
 }
