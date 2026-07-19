@@ -46,6 +46,29 @@ function getProviderArchivePath(providerId) {
   return path.join(PROVIDERS_DIR, providerId, 'oldCruises.json');
 }
 
+// Sidecar cache of provider-specific auxiliary data (currently just P&O's
+// port-code→name map) that a provider can fall back to when it can't be
+// freshly fetched. See providers/p-and-o.js's options.priorPortMap/onPortMap.
+function getProviderPortMapPath(providerId) {
+  return path.join(PROVIDERS_DIR, providerId, 'port-map.json');
+}
+
+function readProviderPortMap(providerId) {
+  try {
+    const data = JSON.parse(fs.readFileSync(getProviderPortMapPath(providerId), 'utf8'));
+    return data && typeof data === 'object' ? data : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeProviderPortMap(providerId, portMap) {
+  if (!portMap || !Object.keys(portMap).length) return;
+  const outPath = getProviderPortMapPath(providerId);
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, JSON.stringify(portMap, null, 2) + '\n');
+}
+
 // Price history is split out of cruises.json into this sibling file so the
 // frontend's initial load only downloads table-visible fields (~⅓ smaller)
 // and hydrates history lazily. See docs/IMPROVEMENTS.md.
@@ -262,8 +285,13 @@ async function fetchProviderSnapshot(provider, options = {}) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     console.log(`Fetching from ${provider.name}${attempt ? ` (retry ${attempt})` : ''}…`);
     // Providers that support incremental itinerary enrichment (Royal Caribbean)
-    // read the previous snapshot from here; others ignore the extra field.
-    const cruises = await provider.fetchCruises({ priorEnrichmentById: options.priorEnrichmentById });
+    // or an auxiliary-data fallback (P&O's port map) read these from here;
+    // others ignore the extra fields.
+    const cruises = await provider.fetchCruises({
+      priorEnrichmentById: options.priorEnrichmentById,
+      priorPortMap:        options.priorPortMap,
+      onPortMap:           options.onPortMap,
+    });
     if (Array.isArray(cruises) && cruises.length > 0) {
       console.log(`  ✓ ${cruises.length} cruises from ${provider.name}`);
       return { provider, cruises };
@@ -296,7 +324,12 @@ async function fetchAllSnapshots(activeProviders, options = {}) {
   // Per-provider previous snapshot (id → cruise) for incremental enrichment.
   const priorByProvider = options.priorByProvider instanceof Map ? options.priorByProvider : new Map();
   const runOne = async (provider) => {
-    const providerOptions = { ...options, priorEnrichmentById: priorByProvider.get(provider.id) };
+    const providerOptions = {
+      ...options,
+      priorEnrichmentById: priorByProvider.get(provider.id),
+      priorPortMap:        readProviderPortMap(provider.id),
+      onPortMap:           (portMap) => writeProviderPortMap(provider.id, portMap),
+    };
     try {
       settled.push({ status: 'fulfilled', value: await fetchProviderSnapshot(provider, providerOptions) });
     } catch (err) {

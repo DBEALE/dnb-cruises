@@ -197,6 +197,70 @@ test('fetchCruises throws when the self-fetched port map is empty (never degrade
   );
 });
 
+// A fake ~150-entry map — big enough to clear MIN_PORT_MAP_SIZE (100).
+function bigPortMap() {
+  const map = {};
+  for (let i = 0; i < 150; i++) map[`P${i}`] = `Port ${i}`;
+  map.MLA = 'Valletta, Malta';
+  return map;
+}
+
+test('fetchCruises reuses a prior port map when the site blocks the fresh fetch', async () => {
+  const fetchImpl = async (url) => {
+    if (String(url).includes('/find-a-cruise')) return { ok: false, status: 403 };
+    return {
+      ok: true,
+      json: async () => ({ results: 1, searchResults: [apiResult({ cruiseId: 'C1', portOfCallIds: ['MLA'] })] }),
+    };
+  };
+  const warnings = [];
+  const cruises = await provider.fetchCruises({
+    fetchImpl,
+    portMapOptions: { attempts: 1 },
+    priorPortMap: bigPortMap(),
+    logger: { warn: m => warnings.push(m) },
+  });
+  assert.equal(cruises.length, 1, 'falls back instead of throwing');
+  assert.equal(cruises[0].departurePort, 'Valletta, Malta', 'itinerary resolved via the prior map');
+  assert.match(warnings.join(' '), /reusing last known-good map/);
+});
+
+test('fetchCruises still throws when neither the fresh fetch nor the prior map are usable', async () => {
+  const fetchImpl = async (url) => {
+    if (String(url).includes('/find-a-cruise')) return { ok: false, status: 403 };
+    return { ok: true, json: async () => ({ results: 1, searchResults: [apiResult({ cruiseId: 'C1' })] }) };
+  };
+  await assert.rejects(
+    () => provider.fetchCruises({
+      fetchImpl,
+      portMapOptions: { attempts: 1 },
+      priorPortMap: { MLA: 'Valletta, Malta' }, // far below MIN_PORT_MAP_SIZE
+      logger: { warn() {} },
+    }),
+    /port map unavailable/,
+  );
+});
+
+test('fetchCruises reports the resolved port map via onPortMap so the orchestrator can persist it', async () => {
+  // Needs 100+ items to clear MIN_PORT_MAP_SIZE so it's used as-is (not treated
+  // as a failed fetch requiring a fallback).
+  const items = Array.from({ length: 150 }, (_, i) => ({ id: `P${i}`, txName: `Port ${i}` }));
+  items.push({ id: 'MLA', txName: 'Valletta, Malta' });
+  const html = `<html><script id="__NEXT_DATA__" type="application/json">${JSON.stringify({
+    x: { portOfCalls: { items } },
+  })}</script></html>`;
+  const fetchImpl = async (url) => {
+    if (String(url).includes('/find-a-cruise')) return { ok: true, text: async () => html };
+    return { ok: true, json: async () => ({ results: 0, searchResults: [] }) };
+  };
+  let reported = null;
+  await assert.rejects(
+    () => provider.fetchCruises({ fetchImpl, onPortMap: (m) => { reported = m; }, logger: { warn() {} } }),
+    /P&O returned no cruise results/,
+  );
+  assert.equal(reported?.MLA, 'Valletta, Malta', 'onPortMap still fires even though the search pass came up empty');
+});
+
 test('fetchCruises throws when the API returns nothing (never overwrites good data)', async () => {
   const fetchImpl = async () => ({ ok: true, json: async () => ({ results: 0, searchResults: [] }) });
   await assert.rejects(
@@ -216,4 +280,54 @@ test('fetchCruises keeps successful pages when one page request fails', async ()
   const cruises = await provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn: m => warnings.push(m) } });
   assert.equal(cruises.length, 10, 'first page kept despite the second failing');
   assert.match(warnings.join(' '), /page start=10 failed/);
+});
+
+// createBrowserFetch wraps a Playwright `page` as a fetchImpl by running the
+// request as page.evaluate(() => fetch(...)). These tests fake `page.evaluate`
+// by invoking the callback directly (with global.fetch stubbed for the
+// duration) rather than spinning up a real browser — real Chromium behaviour
+// is only verified by an actual scrape run.
+test('createBrowserFetch translates an in-page fetch into a Response-like object', async () => {
+  const realFetch = global.fetch;
+  global.fetch = async (url, opts) => {
+    assert.equal(url, 'https://example.com/x');
+    assert.deepEqual(opts.headers, { accept: 'application/json' });
+    return { ok: true, status: 200, statusText: 'OK', text: async () => '{"a":1}' };
+  };
+  try {
+    const fakePage = { evaluate: async (fn, arg) => fn(arg) };
+    const browserFetch = provider.createBrowserFetch(fakePage);
+    const res = await browserFetch('https://example.com/x', { headers: { accept: 'application/json' } });
+    assert.equal(res.ok, true);
+    assert.equal(res.status, 200);
+    assert.equal(await res.text(), '{"a":1}');
+    assert.deepEqual(await res.json(), { a: 1 });
+  } finally {
+    global.fetch = realFetch;
+  }
+});
+
+test('createBrowserFetch surfaces a failed in-page fetch as a non-ok response instead of throwing', async () => {
+  const realFetch = global.fetch;
+  global.fetch = async () => { throw new Error('blocked'); };
+  try {
+    const fakePage = { evaluate: async (fn, arg) => fn(arg) };
+    const browserFetch = provider.createBrowserFetch(fakePage);
+    const res = await browserFetch('https://example.com/x');
+    assert.equal(res.ok, false);
+    assert.equal(res.status, 0);
+    assert.match(res.statusText, /blocked/);
+  } finally {
+    global.fetch = realFetch;
+  }
+});
+
+test('fetchCruises routes to the browser path only when no fetchImpl is supplied', async () => {
+  // Sanity check for the dispatcher itself: passing fetchImpl (as every other
+  // test in this file does) must never attempt to launch a real browser.
+  const fetchImpl = async () => ({ ok: true, json: async () => ({ results: 0, searchResults: [] }) });
+  await assert.rejects(
+    () => provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn() {} } }),
+    /P&O returned no cruise results/,
+  );
 });

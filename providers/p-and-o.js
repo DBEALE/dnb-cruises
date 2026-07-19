@@ -8,8 +8,21 @@
  * results (~24 of 900+). This provider instead calls the same JSON search API
  * the SPA uses — `cruise-query-processor/cruisesearch` — paginating through the
  * whole catalogue. It needs brand/locale/currency request headers and paginates
- * with a `start` offset (fixed page size of 10). No browser required.
+ * with a `start` offset (fixed page size of 10).
+ *
+ * pocruises.com started rejecting plain HTTP requests outright (403, on every
+ * path including the plain homepage) rather than just this provider's calls,
+ * consistent with a bot-management WAF that fingerprints the TLS/HTTP client
+ * rather than something request-shape-specific. So all requests now go through
+ * a real headless Chromium session (see fetchCruisesViaBrowser) instead of
+ * Node's fetch: page.goto() once to pick up whatever cookies/challenge the WAF
+ * requires, then every API call runs as page.evaluate(() => fetch(...)) so it
+ * shares that session and carries a genuine browser fingerprint. The pure
+ * fetchImpl-based implementation (fetchCruisesWithFetchImpl) is unchanged and
+ * still what the test suite exercises directly.
  */
+
+const { chromium } = require('@playwright/test');
 
 const {
   cleanText,
@@ -288,23 +301,50 @@ async function mapWithConcurrency(items, concurrency, mapper) {
   return out;
 }
 
+// Public entrypoint. Tests always pass an explicit fetchImpl (so they never
+// touch a real browser); the orchestrator's production calls don't, and get
+// routed through a real Chromium session — see the file-level comment above.
 async function fetchCruises(options = {}) {
-  const fetchImpl = options.fetchImpl || fetchWithTimeout;
+  if (!options.fetchImpl) return fetchCruisesViaBrowser(options);
+  return fetchCruisesWithFetchImpl(options);
+}
+
+async function fetchCruisesWithFetchImpl(options = {}) {
+  const fetchImpl = options.fetchImpl;
   const logger    = options.logger || console;
 
   // Port code → name map (for itineraries), fetched once. options.portMap lets
-  // tests inject one. A self-fetched map that comes back (near-)empty means the
-  // itinerary source is unavailable — throw so the orchestrator keeps the last
-  // good snapshot instead of overwriting it with degraded single-port
-  // itineraries. An injected map (tests) bypasses this guard.
+  // tests inject one, bypassing all of the below. In production, a self-fetched
+  // map that comes back (near-)empty falls back to the last known-good map
+  // (options.priorPortMap, supplied by the orchestrator from a persisted sidecar
+  // file) rather than immediately aborting — pocruises.com has started blocking
+  // this page outright for stretches of time, and reusing a slightly stale map
+  // beats freezing the whole provider indefinitely. Only when neither the fresh
+  // fetch nor the prior map are usable do we throw, so the orchestrator keeps
+  // the last good cruises.json instead of overwriting it with degraded
+  // single-port itineraries.
   const injectedPortMap = options.portMap != null;
-  const portMap = injectedPortMap
-    ? options.portMap
-    : await fetchPortMap(fetchImpl, { logger, ...options.portMapOptions });
-  if (!injectedPortMap && Object.keys(portMap).length < MIN_PORT_MAP_SIZE) {
-    throw new Error(
-      `P&O port map unavailable (${Object.keys(portMap).length} ports) — skipping to preserve existing itineraries`,
-    );
+  let portMap;
+  if (injectedPortMap) {
+    portMap = options.portMap;
+  } else {
+    const freshPortMap = await fetchPortMap(fetchImpl, { logger, ...options.portMapOptions });
+    if (Object.keys(freshPortMap).length >= MIN_PORT_MAP_SIZE) {
+      portMap = freshPortMap;
+    } else {
+      const priorPortMap = options.priorPortMap && typeof options.priorPortMap === 'object' ? options.priorPortMap : {};
+      if (Object.keys(priorPortMap).length >= MIN_PORT_MAP_SIZE) {
+        logger?.warn?.(
+          `  [P&O] port map unavailable (${Object.keys(freshPortMap).length} ports) — reusing last known-good map (${Object.keys(priorPortMap).length} ports)`,
+        );
+        portMap = priorPortMap;
+      } else {
+        throw new Error(
+          `P&O port map unavailable (${Object.keys(freshPortMap).length} ports) and no usable prior map — skipping to preserve existing itineraries`,
+        );
+      }
+    }
+    if (typeof options.onPortMap === 'function') options.onPortMap(portMap);
   }
 
   // One pass per cabin type, merging each sailing's per-cabin fares by id.
@@ -339,10 +379,62 @@ async function fetchCruises(options = {}) {
   return cruises;
 }
 
+// Wraps a Playwright `page` as a fetchImpl: every request runs as
+// page.evaluate(() => fetch(...)) so it executes inside the browser's own JS
+// engine — sharing whatever cookies/session the initial page.goto() picked up
+// and carrying a genuine Chromium network fingerprint, unlike a raw Node
+// fetch() from this process. Returns a Response-like object (ok/status/
+// text()/json()) so it's a drop-in for fetchPortMapOnce and fetchSearchPage.
+function createBrowserFetch(page) {
+  return async function browserFetch(url, opts = {}) {
+    const result = await page.evaluate(async ({ url, headers }) => {
+      try {
+        const res = await fetch(url, { headers });
+        return { ok: res.ok, status: res.status, statusText: res.statusText, body: await res.text() };
+      } catch (err) {
+        return { ok: false, status: 0, statusText: String(err?.message || err), body: '' };
+      }
+    }, { url: String(url), headers: opts.headers || {} });
+    return {
+      ok: result.ok,
+      status: result.status,
+      statusText: result.statusText,
+      text: async () => result.body,
+      json: async () => JSON.parse(result.body),
+    };
+  };
+}
+
+// Production entrypoint: launches a headless Chromium, loads the find-a-cruise
+// page once to pick up cookies/session, then delegates to the exact same
+// fetchCruisesWithFetchImpl logic the test suite exercises — just swapping
+// Node's fetch for one routed through the browser.
+async function fetchCruisesViaBrowser(options = {}) {
+  const browser = await chromium.launch({
+    headless: true,
+    args: ['--disable-blink-features=AutomationControlled'],
+  });
+  try {
+    const page = await browser.newPage({
+      userAgent: DEFAULT_USER_AGENT,
+      viewport: { width: 1440, height: 900 },
+    });
+    await page.goto(`${BOOKING_BASE_URL}?web2=true`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    const browserFetch = createBrowserFetch(page);
+    return await fetchCruisesWithFetchImpl({ ...options, fetchImpl: browserFetch });
+  } finally {
+    await browser.close();
+  }
+}
+
 const provider = {
   id: 'p-and-o',
   name: 'P&O Cruises',
   fetchCruises,
+  // Launches its own headless Chromium (see fetchCruisesViaBrowser), so the
+  // orchestrator serialises it with the other browser providers rather than
+  // running it in the concurrent network-only lane.
+  usesBrowser: true,
   // Accept both raw API results and already-normalized cruises (idempotent).
   normalizeCruise(raw) {
     if (raw?.id && raw?.provider === provider.name) return raw;
@@ -361,3 +453,4 @@ module.exports.portName = portName;
 module.exports.countSeaDays = countSeaDays;
 module.exports.emptyPrices = emptyPrices;
 module.exports.PORT_NAMES = PORT_NAMES;
+module.exports.createBrowserFetch = createBrowserFetch;

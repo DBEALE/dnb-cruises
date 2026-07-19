@@ -90,7 +90,7 @@ const smokeCases = {
 // Which real providers launch a headless Chromium. The scrape scheduler
 // serialises exactly these so two never contend and starve into empty results;
 // keep this in lockstep with the `usesBrowser` flags on the provider modules.
-const BROWSER_PROVIDER_IDS = new Set(['ncl-cruises', 'princess-cruises', 'virgin-voyages']);
+const BROWSER_PROVIDER_IDS = new Set(['ncl-cruises', 'princess-cruises', 'virgin-voyages', 'p-and-o']);
 
 test('committed providers/index.json manifest lists exactly the registered providers', () => {
   // The push-deploy workflow ships this committed manifest, so if it drifts

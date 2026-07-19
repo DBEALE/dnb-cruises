@@ -134,13 +134,13 @@ async function main() {
   let okCount = 0;
   for (const id of providerIds) {
     const dir = path.join(PUBLIC_DIR, 'providers', id);
-    for (const file of ['cruises.json', 'oldCruises.json', 'price-history.json']) {
+    for (const file of ['cruises.json', 'oldCruises.json', 'price-history.json', 'port-map.json']) {
       const url = `${BASE_URL}providers/${id}/${file}`;
       const outPath = path.join(dir, file);
       try {
         if (await fetchToFile(url, outPath)) {
-          const removed = file === 'price-history.json'
-            ? sanitizeHistoryFile(id, outPath)
+          const removed = file === 'price-history.json' ? sanitizeHistoryFile(id, outPath)
+            : file === 'port-map.json'                  ? 0
             : sanitizeProviderFile(id, outPath);
           if (removed) console.log(`    cleaned ${removed} ${id} legacy or invalid history entr${removed === 1 ? 'y' : 'ies'}`);
           okCount++;
