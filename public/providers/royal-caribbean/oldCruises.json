@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 9,
+  "count": 12,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -2353,272 +2353,366 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_AL06FLL-1143316846",
-      "shipName": "Allure of the Seas",
-      "shipClass": "Oasis",
-      "shipLaunchYear": 2010,
-      "itinerary": "Perfect Day at CocoCay & Caribbean: Fort Lauderdale, Florida, Perfect Day at CocoCay, Bahamas, Falmouth, Jamaica, Labadee, Haiti, Fort Lauderdale, Florida",
-      "departureDate": "2027-09-26",
-      "duration": "6 Nights",
-      "departurePort": "Fort Lauderdale",
+      "id": "rc_SR07YVR-4060558473",
+      "shipName": "Serenade of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2003,
+      "itinerary": "Alaska Inside Passage Cruise: Vancouver, British Columbia, Inside Passage (Cruising), Canada, Sitka, Alaska, Endicott Arm & Dawes Glacier (Cruising), Alaska, Juneau, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Vancouver, British Columbia",
+      "departureDate": "2026-09-06",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver",
       "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "577.5",
+      "destination": "Alaska",
+      "priceFrom": "693",
       "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AL06FLL-1143316846&sailDate=2027-09-26&shipCode=AL&packageCode=AL06W328&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=SR07YVR-4060558473&sailDate=2026-09-06&shipCode=SR&packageCode=SR07A423&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
       "prices": {
-        "inside": "577.5",
-        "oceanView": "651.5",
-        "balcony": "664.5",
-        "suite": "1232.5"
+        "inside": "693",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
       },
-      "destinationPort": "Fort Lauderdale",
-      "seaDays": 1,
-      "enrichedAt": "2026-07-10T06:41:58.521Z",
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "lastSeenAt": "2026-07-20T14:45:12.286Z",
+      "destinationPort": "Vancouver",
+      "seaDays": 0,
+      "enrichedAt": "2026-07-20T14:46:22.933Z",
+      "firstSeenAt": "2026-07-20T05:14:19.257Z",
+      "lastSeenAt": "2026-07-20T16:30:57.010Z",
       "priceHistory": [
         {
-          "at": "2026-05-29T18:29:37.417Z",
+          "at": "2026-07-20T05:14:19.257Z",
           "prices": {
-            "inside": 765.15,
-            "oceanView": 865.15,
-            "balcony": 885.15,
-            "suite": 1644.65
+            "inside": 693
           }
-        },
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_EX07BLQ-2042566270",
+      "shipName": "Explorer of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2000,
+      "itinerary": "Italy & Croatia Cruise: Ravenna, Italy, Zadar, Croatia, Split, Croatia, Bar, Montenegro, Sicily (Messina), Italy, Naples/Capri, Italy, Rome (Civitavecchia), Italy",
+      "departureDate": "2027-07-19",
+      "duration": "7 Nights",
+      "departurePort": "Venice (Ravenna)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "743",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=EX07BLQ-2042566270&sailDate=2027-07-19&shipCode=EX&packageCode=EX07M855&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "743",
+        "oceanView": "1070",
+        "balcony": "1184",
+        "suite": "1687.5"
+      },
+      "destinationPort": "Rome (Civitavecchia)",
+      "seaDays": 0,
+      "enrichedAt": "2026-07-20T16:32:13.493Z",
+      "firstSeenAt": "2026-06-09T18:52:55.794Z",
+      "lastSeenAt": "2026-07-20T16:30:57.010Z",
+      "priceHistory": [
         {
-          "at": "2026-05-31T12:12:25.302Z",
+          "at": "2026-06-09T18:52:55.794Z",
           "prices": {
-            "inside": 577.5,
-            "oceanView": 652.5,
-            "balcony": 665.5,
-            "suite": 1235.5
-          }
-        },
-        {
-          "at": "2026-06-01T20:13:35.019Z",
-          "prices": {
-            "inside": 574.5,
-            "oceanView": 648.5,
-            "balcony": 661.5,
-            "suite": 1225.5
-          }
-        },
-        {
-          "at": "2026-06-01T23:24:11.880Z",
-          "prices": {
-            "inside": 574.5,
-            "oceanView": 648.5,
-            "balcony": 661.5,
-            "suite": 1245.5
-          }
-        },
-        {
-          "at": "2026-06-04T23:05:48.621Z",
-          "prices": {
-            "inside": 574.5,
-            "oceanView": 648.5,
-            "balcony": 661.5,
-            "suite": 1263
-          }
-        },
-        {
-          "at": "2026-06-08T18:22:55.802Z",
-          "prices": {
-            "inside": 572.5,
-            "oceanView": 647.5,
-            "balcony": 659.5,
-            "suite": 1259
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 622.5,
-            "oceanView": 697.5,
-            "balcony": 696.5,
-            "suite": 1433.5
+            "inside": 870,
+            "oceanView": 1234,
+            "balcony": 1358,
+            "suite": 2263
           }
         },
         {
           "at": "2026-06-10T17:06:21.326Z",
           "prices": {
-            "inside": 585.5,
-            "oceanView": 682.5,
-            "balcony": 689.5,
-            "suite": 1433.5
+            "inside": 890,
+            "oceanView": 1181,
+            "balcony": 1380,
+            "suite": 2198
           }
         },
         {
           "at": "2026-06-11T22:36:23.717Z",
           "prices": {
-            "inside": 572.5,
-            "oceanView": 647.5,
-            "balcony": 659.5,
-            "suite": 1221.5
+            "inside": 807.5,
+            "oceanView": 1098.5,
+            "balcony": 1267.5,
+            "suite": 1860.5
           }
         },
         {
-          "at": "2026-06-15T17:40:31.110Z",
+          "at": "2026-06-15T00:47:54.065Z",
           "prices": {
-            "inside": 575.5,
-            "oceanView": 650.5,
-            "balcony": 663.5,
-            "suite": 1230.5
+            "inside": 812.5,
+            "oceanView": 1104.5,
+            "balcony": 1275.5,
+            "suite": 1873.5
           }
         },
         {
           "at": "2026-06-15T22:41:56.222Z",
           "prices": {
-            "inside": 575.5,
-            "oceanView": 650.5,
-            "balcony": 663.5,
-            "suite": 1248
+            "inside": 812.5,
+            "oceanView": 1104.5,
+            "balcony": 1275.5,
+            "suite": 1891
+          }
+        },
+        {
+          "at": "2026-06-18T00:47:52.090Z",
+          "prices": {
+            "inside": 812.5,
+            "oceanView": 1104.5,
+            "balcony": 1275.5,
+            "suite": 1831
           }
         },
         {
           "at": "2026-06-18T22:45:19.994Z",
           "prices": {
-            "inside": 575.5,
-            "oceanView": 650.5,
-            "balcony": 663.5,
-            "suite": 1230.5
+            "inside": 812.5,
+            "oceanView": 1104.5,
+            "balcony": 1275.5,
+            "suite": 1813.5
           }
         },
         {
-          "at": "2026-06-22T17:32:44.953Z",
+          "at": "2026-06-22T00:46:25.534Z",
           "prices": {
-            "inside": 575.5,
-            "oceanView": 650.5,
-            "balcony": 662.5,
-            "suite": 1228.5
+            "inside": 812.5,
+            "oceanView": 1102.5,
+            "balcony": 1273.5,
+            "suite": 1808.5
           }
         },
         {
           "at": "2026-06-22T22:34:33.495Z",
           "prices": {
-            "inside": 575.5,
-            "oceanView": 650.5,
-            "balcony": 662.5,
-            "suite": 1246
+            "inside": 795,
+            "oceanView": 1085,
+            "balcony": 1236,
+            "suite": 1751
           }
         },
         {
           "at": "2026-06-25T22:31:29.453Z",
           "prices": {
-            "inside": 575.5,
-            "oceanView": 650.5,
-            "balcony": 662.5,
-            "suite": 1228.5
+            "inside": 795,
+            "oceanView": 1085,
+            "balcony": 1236,
+            "suite": 1733.5
+          }
+        },
+        {
+          "at": "2026-06-29T00:43:30.685Z",
+          "prices": {
+            "inside": 803,
+            "oceanView": 1098,
+            "balcony": 1251,
+            "suite": 1758.5
           }
         },
         {
           "at": "2026-06-29T22:24:35.755Z",
           "prices": {
-            "inside": 588.5,
-            "oceanView": 684.5,
-            "balcony": 692.5,
-            "suite": 1499
+            "inside": 903,
+            "oceanView": 1198,
+            "balcony": 1401,
+            "suite": 2171
+          }
+        },
+        {
+          "at": "2026-06-30T14:53:25.431Z",
+          "prices": {
+            "inside": 885.5,
+            "oceanView": 1180.5,
+            "balcony": 1363.5,
+            "suite": 2096
           }
         },
         {
           "at": "2026-07-01T18:40:09.630Z",
           "prices": {
-            "inside": 565.5,
-            "oceanView": 692.5,
-            "balcony": 700.5,
-            "suite": 1519
+            "inside": 833.5,
+            "oceanView": 1180.5,
+            "balcony": 1311.5,
+            "suite": 2096
           }
         },
         {
           "at": "2026-07-03T05:18:05.086Z",
           "prices": {
-            "inside": 565.5,
-            "oceanView": 692.5,
-            "balcony": 700.5,
-            "suite": 1461.5
+            "inside": 768.5,
+            "oceanView": 1115.5,
+            "balcony": 1236.5,
+            "suite": 1793.5
           }
         },
         {
-          "at": "2026-07-05T00:35:44.262Z",
+          "at": "2026-07-06T00:36:03.625Z",
           "prices": {
-            "inside": 565.5,
-            "oceanView": 692.5,
-            "balcony": 700.5,
-            "suite": 1650.5
-          }
-        },
-        {
-          "at": "2026-07-06T07:33:15.628Z",
-          "prices": {
-            "inside": 565.5,
-            "oceanView": 692.5,
-            "balcony": 700.5,
-            "suite": 1461.5
-          }
-        },
-        {
-          "at": "2026-07-06T18:38:42.187Z",
-          "prices": {
-            "inside": 566.5,
-            "oceanView": 694.5,
-            "balcony": 702.5,
-            "suite": 1467.5
+            "inside": 770.5,
+            "oceanView": 1118.5,
+            "balcony": 1240.5,
+            "suite": 1800.5
           }
         },
         {
           "at": "2026-07-07T22:24:45.737Z",
           "prices": {
-            "inside": 566.5,
-            "oceanView": 694.5,
-            "balcony": 702.5,
-            "suite": 1525
+            "inside": 853,
+            "oceanView": 1201,
+            "balcony": 1353,
+            "suite": 2178
+          }
+        },
+        {
+          "at": "2026-07-08T05:04:29.284Z",
+          "prices": {
+            "inside": 835.5,
+            "oceanView": 1183.5,
+            "balcony": 1315.5,
+            "suite": 2123
           }
         },
         {
           "at": "2026-07-08T18:30:14.814Z",
           "prices": {
-            "inside": 596.5,
-            "oceanView": 694.5,
-            "balcony": 702.5,
-            "suite": 1504
+            "inside": 835.5,
+            "oceanView": 1183.5,
+            "balcony": 1315.5,
+            "suite": 2056
           }
         },
         {
           "at": "2026-07-10T06:40:41.897Z",
           "prices": {
-            "inside": 583.5,
-            "oceanView": 658.5,
-            "balcony": 672.5,
-            "suite": 1250.5
+            "inside": 753,
+            "oceanView": 1101,
+            "balcony": 1203,
+            "suite": 1718.5
           }
         },
         {
-          "at": "2026-07-13T18:34:02.388Z",
+          "at": "2026-07-13T00:30:27.697Z",
           "prices": {
-            "inside": 577.5,
-            "oceanView": 651.5,
-            "balcony": 664.5,
-            "suite": 1232.5
+            "inside": 743,
+            "oceanView": 1088,
+            "balcony": 1187,
+            "suite": 1692.5
           }
         },
         {
           "at": "2026-07-13T22:19:04.599Z",
           "prices": {
-            "inside": 577.5,
-            "oceanView": 651.5,
-            "balcony": 664.5,
-            "suite": 1250
+            "inside": 743,
+            "oceanView": 1088,
+            "balcony": 1187,
+            "suite": 1710
+          }
+        },
+        {
+          "at": "2026-07-15T18:25:02.237Z",
+          "prices": {
+            "inside": 743,
+            "oceanView": 1074,
+            "balcony": 1187,
+            "suite": 1710
           }
         },
         {
           "at": "2026-07-16T22:21:11.294Z",
           "prices": {
-            "inside": 577.5,
-            "oceanView": 651.5,
-            "balcony": 664.5,
-            "suite": 1232.5
+            "inside": 743,
+            "oceanView": 1074,
+            "balcony": 1187,
+            "suite": 1692.5
+          }
+        },
+        {
+          "at": "2026-07-20T03:04:41.794Z",
+          "prices": {
+            "inside": 743,
+            "oceanView": 1070,
+            "balcony": 1184,
+            "suite": 1687.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_AD06PCN-2917184521",
+      "shipName": "Adventure of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2001,
+      "itinerary": "Western Caribbean Cruise: Orlando (Port Canaveral), Florida, George Town, Grand Cayman, Falmouth, Jamaica, Grand Bahama Island, Bahamas, Orlando (Port Canaveral), Florida",
+      "departureDate": "2026-08-01",
+      "duration": "6 Nights",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1045",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AD06PCN-2917184521&sailDate=2026-08-01&shipCode=AD&packageCode=AD06W276&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1045",
+        "oceanView": "1325",
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Port Canaveral",
+      "seaDays": 1,
+      "enrichedAt": "2026-07-20T16:32:33.745Z",
+      "firstSeenAt": "2026-07-19T20:17:46.868Z",
+      "lastSeenAt": "2026-07-20T16:30:57.010Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-19T20:17:46.868Z",
+          "prices": {
+            "inside": 1045
+          }
+        },
+        {
+          "at": "2026-07-20T14:45:12.286Z",
+          "prices": {
+            "inside": 1045,
+            "oceanView": 1325
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_EX13BCN-677903297",
+      "shipName": "Explorer of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2000,
+      "itinerary": "Spain, & Bermuda Transatlantic: Barcelona, Spain, Palma de Mallorca, Spain, Cartagena, Spain, Ponta Delgada, Azores, Royal Naval Dockyard, Bermuda, Orlando (Port Canaveral), Florida",
+      "departureDate": "2026-10-31",
+      "duration": "13 Nights",
+      "departurePort": "Barcelona",
+      "departureRegion": "Mediterranean",
+      "destination": "Transatlantic",
+      "priceFrom": "2388",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=EX13BCN-677903297&sailDate=2026-10-31&shipCode=EX&packageCode=EX13T147&destinationCode=T.ATL&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "2388"
+      },
+      "destinationPort": "Port Canaveral",
+      "seaDays": 7,
+      "enrichedAt": "2026-07-20T16:32:40.827Z",
+      "firstSeenAt": "2026-07-20T16:30:57.010Z",
+      "lastSeenAt": "2026-07-20T16:30:57.010Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-20T16:30:57.010Z",
+          "prices": {
+            "suite": 2388
           }
         }
       ]
