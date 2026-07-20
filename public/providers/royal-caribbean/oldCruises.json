@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 12,
+  "count": 14,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -2517,6 +2517,79 @@
           "at": "2026-07-20T05:14:19.257Z",
           "prices": {
             "suite": 3798
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_GR07CTG-2482042411",
+      "shipName": "Grandeur of the Seas",
+      "shipClass": "Vision",
+      "shipLaunchYear": 1996,
+      "itinerary": "Southern Caribbean Cruise: Cartagena, Colombia, Oranjestad, Aruba, Willemstad, Curacao, Cabo Rojo, Dominican Republic, Colón, Panama, Cartagena, Colombia",
+      "departureDate": "2026-07-26",
+      "duration": "7 Nights",
+      "departurePort": "Cartagena",
+      "departureRegion": "South America",
+      "destination": "Caribbean",
+      "priceFrom": "967",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=GR07CTG-2482042411&sailDate=2026-07-26&shipCode=GR&packageCode=GR7IP220&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "967",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Cartagena (Colombia)",
+      "seaDays": 1,
+      "enrichedAt": "2026-07-20T20:31:54.526Z",
+      "firstSeenAt": "2026-07-20T20:30:17.978Z",
+      "lastSeenAt": "2026-07-20T20:30:17.978Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-20T20:30:17.978Z",
+          "prices": {
+            "inside": 967
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_AN13SWD-681944878",
+      "shipName": "Anthem of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2015,
+      "itinerary": "Alaska Wilderness & Chena River Ultimate Cruisetour: Fairbanks, Alaska, Denali, Alaska, Talkeetna, Alaska, Anchorage, Alaska, Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Vancouver, British Columbia",
+      "departureDate": "2027-06-18",
+      "duration": "13 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2875.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AN13SWD-681944878&sailDate=2027-06-18&shipCode=AN&packageCode=AN13BL08&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "2875.5",
+        "oceanView": "3438.5",
+        "balcony": "3512.5",
+        "suite": "4954.5"
+      },
+      "destinationPort": "Vancouver",
+      "seaDays": 2,
+      "enrichedAt": "2026-07-20T20:32:09.393Z",
+      "firstSeenAt": "2026-07-20T20:30:17.978Z",
+      "lastSeenAt": "2026-07-20T20:30:17.978Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-20T20:30:17.978Z",
+          "prices": {
+            "inside": 2875.5,
+            "oceanView": 3438.5,
+            "balcony": 3512.5,
+            "suite": 4954.5
           }
         }
       ]
