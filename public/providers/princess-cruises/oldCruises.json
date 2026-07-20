@@ -12462,60 +12462,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_OTR10E_SA_20280319",
-      "shipName": "Sapphire Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2004,
-      "itinerary": "Tokyo, Japan → Kagoshima, Japan → Nagasaki, Japan → Busan, South Korea → Kanmon Straits, Japan → Hiroshima, Japan → Miyazaki (Aburatsu), Japan → Kochi, Japan → Shimizu (for Mt. Fuji), Japan → Tokyo, Japan",
-      "departureDate": "2028-03-19",
-      "duration": "10 Nights",
-      "departurePort": "Tokyo, Japan",
-      "departureRegion": "Asia & Far East",
-      "destination": "Japan",
-      "priceFrom": "1884",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H810",
-      "prices": {
-        "inside": "1884",
-        "oceanView": "2334",
-        "balcony": "3209",
-        "suite": "3799"
-      },
-      "seaDays": 1,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 1884,
-            "oceanView": 2334,
-            "balcony": 3209,
-            "suite": 3799
-          }
-        },
-        {
-          "at": "2026-06-05T21:21:41.187Z",
-          "prices": {
-            "inside": 1859,
-            "oceanView": 2309,
-            "balcony": 3109,
-            "suite": 3649
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 1884,
-            "oceanView": 2334,
-            "balcony": 3209,
-            "suite": 3799
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-10T17:06:21.326Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_ERB14E_SU_20280402",
       "shipName": "Sun Princess",
       "shipClass": "Royal",
@@ -42061,6 +42007,43 @@
             "oceanView": 3376,
             "balcony": 4380,
             "suite": 4849
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OTR10E_SA_20280329",
+      "shipName": "Sapphire Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Tokyo, Japan → Nagoya, Japan → Osaka (for Kyoto), Japan → Kochi, Japan → Miyazaki (Aburatsu), Japan → Yatsushiro, Japan → Busan, South Korea → Kanmon Straits, Japan → Hiroshima, Japan → Tokyo, Japan",
+      "departureDate": "2028-03-29",
+      "duration": "10 Nights",
+      "departurePort": "Tokyo (Yokohama)",
+      "departureRegion": "Asia & Far East",
+      "destination": "Japan",
+      "destinationPort": "Tokyo (Yokohama)",
+      "priceFrom": "1849",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H811",
+      "prices": {
+        "inside": "1849",
+        "oceanView": "2419",
+        "balcony": "3374",
+        "suite": "4669"
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-07-20T05:14:19.257Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-17T10:33:26.020Z",
+          "prices": {
+            "inside": 1849,
+            "oceanView": 2419,
+            "balcony": 3374,
+            "suite": 4669
           }
         }
       ]
