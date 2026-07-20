@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 12,
+  "count": 13,
   "cruises": [
     {
       "id": "pando-A627A",
@@ -322,7 +322,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T22:18:00.815Z"
+      "lastSeenAt": "2026-07-20T00:31:12.150Z"
     },
     {
       "id": "pando-J608",
@@ -371,7 +371,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T22:18:00.815Z"
+      "lastSeenAt": "2026-07-20T00:31:12.150Z"
     },
     {
       "id": "pando-A628",
@@ -460,7 +460,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T22:18:00.815Z"
+      "lastSeenAt": "2026-07-20T00:31:12.150Z"
     },
     {
       "id": "pando-A628A",
@@ -480,8 +480,8 @@
       "currency": "GBP",
       "prices": {
         "inside": "999",
-        "oceanView": "2019",
-        "balcony": "1599",
+        "oceanView": null,
+        "balcony": "1499",
         "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/A628A/A628A",
@@ -597,9 +597,16 @@
             "oceanView": 2019,
             "balcony": 1599
           }
+        },
+        {
+          "at": "2026-07-20T00:31:12.150Z",
+          "prices": {
+            "inside": 999,
+            "balcony": 1499
+          }
         }
       ],
-      "lastSeenAt": "2026-07-19T22:18:00.815Z"
+      "lastSeenAt": "2026-07-20T00:31:12.150Z"
     },
     {
       "id": "pando-B617",
@@ -683,11 +690,11 @@
       "destination": "Canary-Islands",
       "destinationPort": "Southampton",
       "seaDays": 6,
-      "priceFrom": "999",
+      "priceFrom": "1099",
       "currency": "GBP",
       "prices": {
         "inside": null,
-        "oceanView": "999",
+        "oceanView": "1099",
         "balcony": null,
         "suite": null
       },
@@ -812,9 +819,15 @@
           "prices": {
             "oceanView": 999
           }
+        },
+        {
+          "at": "2026-07-20T00:31:12.150Z",
+          "prices": {
+            "oceanView": 1099
+          }
         }
       ],
-      "lastSeenAt": "2026-07-19T22:18:00.815Z"
+      "lastSeenAt": "2026-07-20T00:31:12.150Z"
     },
     {
       "id": "pando-G623",
@@ -895,7 +908,89 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T22:18:00.815Z"
+      "lastSeenAt": "2026-07-20T00:31:12.150Z"
+    },
+    {
+      "id": "pando-K616",
+      "provider": "P&O Cruises",
+      "shipName": "Arvia",
+      "shipClass": "Excellence",
+      "shipLaunchYear": 2022,
+      "itinerary": "Southampton, UK → Getxo (tours to Bilbao), Spain → La Coruna, Spain → Vigo, Spain → Cherbourg, France → Southampton, UK",
+      "departureDate": "2026-07-19",
+      "duration": "7 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Spain-France-And-Portugal",
+      "destinationPort": "Southampton",
+      "seaDays": 2,
+      "priceFrom": "749",
+      "currency": "GBP",
+      "prices": {
+        "inside": "749",
+        "oceanView": null,
+        "balcony": "999",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/K616/K616",
+      "arrivalDate": "2026-07-26",
+      "firstSeenAt": "2026-07-04T10:39:49.793Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T10:39:49.793Z",
+          "prices": {
+            "inside": 749,
+            "oceanView": 1099,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "inside": 749
+          }
+        },
+        {
+          "at": "2026-07-04T12:11:31.689Z",
+          "prices": {
+            "inside": 749,
+            "oceanView": 1099,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-07-06T13:36:43.732Z",
+          "prices": {
+            "inside": 749,
+            "oceanView": 999,
+            "balcony": 999
+          }
+        },
+        {
+          "at": "2026-07-06T18:38:42.187Z",
+          "prices": {
+            "inside": 749,
+            "oceanView": 999,
+            "balcony": 1079
+          }
+        },
+        {
+          "at": "2026-07-07T11:02:08.179Z",
+          "prices": {
+            "inside": 749,
+            "oceanView": 999,
+            "balcony": 999
+          }
+        },
+        {
+          "at": "2026-07-07T11:23:54.862Z",
+          "prices": {
+            "inside": 749,
+            "balcony": 999
+          }
+        }
+      ],
+      "lastSeenAt": "2026-07-20T00:31:12.150Z"
     }
   ]
 }
