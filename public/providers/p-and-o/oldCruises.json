@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 13,
+  "count": 14,
   "cruises": [
     {
       "id": "pando-A627A",
@@ -322,7 +322,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-20T03:04:41.794Z"
+      "lastSeenAt": "2026-07-20T05:14:19.257Z"
     },
     {
       "id": "pando-J608",
@@ -371,7 +371,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-20T03:04:41.794Z"
+      "lastSeenAt": "2026-07-20T05:14:19.257Z"
     },
     {
       "id": "pando-A628",
@@ -460,7 +460,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-20T03:04:41.794Z"
+      "lastSeenAt": "2026-07-20T05:14:19.257Z"
     },
     {
       "id": "pando-A628A",
@@ -481,7 +481,7 @@
       "prices": {
         "inside": "999",
         "oceanView": null,
-        "balcony": "1499",
+        "balcony": "1599",
         "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/A628A/A628A",
@@ -604,9 +604,16 @@
             "inside": 999,
             "balcony": 1499
           }
+        },
+        {
+          "at": "2026-07-20T05:14:19.257Z",
+          "prices": {
+            "inside": 999,
+            "balcony": 1599
+          }
         }
       ],
-      "lastSeenAt": "2026-07-20T03:04:41.794Z"
+      "lastSeenAt": "2026-07-20T05:14:19.257Z"
     },
     {
       "id": "pando-B617",
@@ -674,7 +681,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-19T22:18:00.815Z"
+      "lastSeenAt": "2026-07-20T05:14:19.257Z"
     },
     {
       "id": "pando-N617",
@@ -827,7 +834,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-20T03:04:41.794Z"
+      "lastSeenAt": "2026-07-20T05:14:19.257Z"
     },
     {
       "id": "pando-G623",
@@ -908,7 +915,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-20T03:04:41.794Z"
+      "lastSeenAt": "2026-07-20T05:14:19.257Z"
     },
     {
       "id": "pando-K616",
@@ -990,7 +997,80 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-20T03:04:41.794Z"
+      "lastSeenAt": "2026-07-20T05:14:19.257Z"
+    },
+    {
+      "id": "pando-B625",
+      "provider": "P&O Cruises",
+      "shipName": "Britannia",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2015,
+      "itinerary": "Southampton, UK → Madeira, Portugal → La Palma, Spain → Tenerife, Spain → Gran Canaria, Spain → Arrecife de Lanzarote, Spain → Cadiz (tours to Seville), Spain → Lisbon, Portugal → Southampton, UK",
+      "departureDate": "2026-10-16",
+      "duration": "14 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Canary-Islands",
+      "destinationPort": "Southampton",
+      "seaDays": 6,
+      "priceFrom": "1049",
+      "currency": "GBP",
+      "prices": {
+        "inside": "1049",
+        "oceanView": null,
+        "balcony": "1499",
+        "suite": "3899"
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/B625/B625",
+      "arrivalDate": "2026-10-30",
+      "firstSeenAt": "2026-07-04T11:52:45.512Z",
+      "lastSeenAt": "2026-07-20T03:04:41.794Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-04T11:52:45.512Z",
+          "prices": {
+            "inside": 1149
+          }
+        },
+        {
+          "at": "2026-07-04T12:11:31.689Z",
+          "prices": {
+            "inside": 1149,
+            "balcony": 1499,
+            "suite": 3899
+          }
+        },
+        {
+          "at": "2026-07-06T17:01:37.354Z",
+          "prices": {
+            "inside": 1049,
+            "balcony": 1499,
+            "suite": 3899
+          }
+        },
+        {
+          "at": "2026-07-19T08:47:31.600Z",
+          "prices": {
+            "inside": 1049,
+            "balcony": 1499
+          }
+        },
+        {
+          "at": "2026-07-19T10:31:12.618Z",
+          "prices": {
+            "balcony": 1499,
+            "suite": 3899
+          }
+        },
+        {
+          "at": "2026-07-19T12:18:43.072Z",
+          "prices": {
+            "inside": 1049,
+            "balcony": 1499,
+            "suite": 3899
+          }
+        }
+      ]
     }
   ]
 }
