@@ -40301,101 +40301,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_AWG070_AP_20260912",
-      "shipName": "Grand Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 1998,
-      "itinerary": "Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Skagway, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
-      "departureDate": "2026-09-12",
-      "duration": "7 Nights",
-      "departurePort": "Anchorage",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "destinationPort": "Vancouver",
-      "priceFrom": "599",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A636",
-      "prices": {
-        "inside": "599",
-        "oceanView": "1293",
-        "balcony": null,
-        "suite": "2799"
-      },
-      "seaDays": 1,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "lastSeenAt": "2026-07-20T07:04:40.716Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 599,
-            "oceanView": 1159,
-            "suite": 3177
-          }
-        },
-        {
-          "at": "2026-06-07T19:14:50.671Z",
-          "prices": {
-            "inside": 599,
-            "oceanView": 1159,
-            "suite": 3274
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 599,
-            "oceanView": 1159,
-            "suite": 3177
-          }
-        },
-        {
-          "at": "2026-06-10T00:45:43.085Z",
-          "prices": {
-            "inside": 599,
-            "oceanView": 1159,
-            "balcony": 2777,
-            "suite": 2889
-          }
-        },
-        {
-          "at": "2026-07-15T16:31:52.851Z",
-          "prices": {
-            "inside": 599,
-            "oceanView": 1293,
-            "balcony": 2900,
-            "suite": 2799
-          }
-        },
-        {
-          "at": "2026-07-15T22:21:07.087Z",
-          "prices": {
-            "inside": 599,
-            "oceanView": 1293,
-            "balcony": 2900
-          }
-        },
-        {
-          "at": "2026-07-16T16:29:44.641Z",
-          "prices": {
-            "inside": 599,
-            "oceanView": 1293,
-            "balcony": 2900,
-            "suite": 2799
-          }
-        },
-        {
-          "at": "2026-07-19T22:18:00.815Z",
-          "prices": {
-            "inside": 599,
-            "oceanView": 1293,
-            "suite": 2799
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_ZMS24A_AP_20270406",
       "shipName": "Grand Princess",
       "shipClass": "Grand",
@@ -42423,6 +42328,68 @@
             "oceanView": 2244,
             "balcony": 2368,
             "suite": 2824
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AWG070_XP_20260905",
+      "shipName": "Discovery Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2022,
+      "itinerary": "Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Icy Strait Point, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
+      "departureDate": "2026-09-05",
+      "duration": "7 Nights",
+      "departurePort": "Anchorage",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "destinationPort": "Vancouver",
+      "priceFrom": "599",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=X630",
+      "prices": {
+        "inside": "599",
+        "oceanView": null,
+        "balcony": "1220",
+        "suite": null
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-06-26T22:26:51.659Z",
+      "lastSeenAt": "2026-07-21T05:04:34.229Z",
+      "priceHistory": [
+        {
+          "at": "2026-06-26T22:26:51.659Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 1699,
+            "balcony": 1699,
+            "suite": 2369
+          }
+        },
+        {
+          "at": "2026-07-07T03:05:58.897Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 1389,
+            "balcony": 1389,
+            "suite": 2369
+          }
+        },
+        {
+          "at": "2026-07-12T20:16:52.663Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 1389,
+            "balcony": 1450,
+            "suite": 2369
+          }
+        },
+        {
+          "at": "2026-07-20T09:03:35.128Z",
+          "prices": {
+            "inside": 599,
+            "balcony": 1220
           }
         }
       ]
