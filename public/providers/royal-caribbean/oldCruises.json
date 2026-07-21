@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 16,
+  "count": 17,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -3081,6 +3081,53 @@
           "at": "2026-07-20T20:30:17.978Z",
           "prices": {
             "suite": 1452
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_ID07BYE-2215482442",
+      "shipName": "Independence of the Seas",
+      "shipClass": "Freedom",
+      "shipLaunchYear": 2008,
+      "itinerary": "Bermuda Cruise: Cape Liberty (New York), New Jersey, Royal Naval Dockyard, Bermuda, Cape Liberty (New York), New Jersey",
+      "departureDate": "2026-08-27",
+      "duration": "7 Nights",
+      "departurePort": "Cape Liberty (New York)",
+      "departureRegion": "Americas",
+      "destination": "Bermuda",
+      "priceFrom": "1006.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=ID07BYE-2215482442&sailDate=2026-08-27&shipCode=ID&packageCode=ID07B067&destinationCode=BERMU&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1006.5",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Cape Liberty (New York)",
+      "seaDays": 4,
+      "enrichedAt": "2026-07-20T16:32:30.428Z",
+      "firstSeenAt": "2026-07-20T16:30:57.010Z",
+      "lastSeenAt": "2026-07-21T00:30:04.393Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-20T16:30:57.010Z",
+          "prices": {
+            "inside": 992
+          }
+        },
+        {
+          "at": "2026-07-20T18:38:23.916Z",
+          "prices": {
+            "inside": 989
+          }
+        },
+        {
+          "at": "2026-07-21T00:30:04.393Z",
+          "prices": {
+            "inside": 1006.5
           }
         }
       ]
