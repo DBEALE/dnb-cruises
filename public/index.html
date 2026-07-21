@@ -9,6 +9,13 @@
 </head>
 <body>
 
+<!-- Everything that reshapes between the desktop table and the mobile card
+     layout lives inside .view-shell. Its width (via the Layout display option)
+     drives the container queries in styles.css, so the user can force either
+     layout regardless of the actual screen size. Fixed overlays (sticky
+     summary, back-to-top) stay OUTSIDE the shell so they remain pinned to the
+     viewport rather than to the (contained) shell. -->
+<div class="view-shell">
 <header>
   <button id="siteChangesBtn" type="button" onclick="openSiteChanges()" title="Site changes" aria-label="Site changes">i</button>
   <button id="settingsBtn" type="button" onclick="openSettings()" title="Display options" aria-label="Display options">⚙</button>
@@ -355,20 +362,6 @@
 
   <div class="summary-bar"><span id="summary"></span></div>
 
-  <!-- Sticky compact bar that fades in once the main summary scrolls off-screen.
-       Clicking the count scrolls back to the filters. -->
-  <div id="stickySummary" aria-hidden="true">
-    <button type="button" class="sticky-summary-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-      <span id="stickySummaryText">Showing all</span>
-      <span class="sticky-summary-up" aria-hidden="true">↑</span>
-    </button>
-  </div>
-
-  <!-- Back-to-top FAB. Fades in once the page is scrolled past a threshold. -->
-  <button type="button" id="backToTopFab" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Back to top" title="Back to top">
-    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 4l-6 6h4v6h4v-6h4z"/></svg>
-  </button>
-
   <div class="table-card">
     <div class="table-wrapper">
       <table id="cruiseTable">
@@ -546,6 +539,24 @@
     </div>
   </div>
 </main>
+</div><!-- /.view-shell -->
+
+<!-- Fixed overlays live outside .view-shell so container/layout containment on
+     the shell doesn't reparent their fixed positioning to the shell. -->
+<!-- Sticky compact bar that fades in once the main summary scrolls off-screen.
+     Clicking the count scrolls back to the filters. -->
+<div id="stickySummary" aria-hidden="true">
+  <button type="button" class="sticky-summary-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+    <span id="stickySummaryText">Showing all</span>
+    <span class="sticky-summary-up" aria-hidden="true">↑</span>
+  </button>
+</div>
+
+<!-- Back-to-top FAB. Fades in once the page is scrolled past a threshold. -->
+<button type="button" id="backToTopFab" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 4l-6 6h4v6h4v-6h4z"/></svg>
+</button>
+
 <div id="shareNotice" class="share-notice" role="status" aria-live="polite"></div>
 
 <dialog id="savedViewsDialog" aria-labelledby="svTitle">
@@ -605,6 +616,14 @@
       </div>
 
       <ul class="settings-list">
+        <li class="settings-select-item">
+          <label for="settingsViewMode"><span>Layout</span><small>Force the desktop table or the mobile card layout, or follow the screen size automatically.</small></label>
+          <select id="settingsViewMode" data-setting="viewMode">
+            <option value="auto">Automatic (match screen)</option>
+            <option value="desktop">Desktop layout</option>
+            <option value="mobile">Mobile layout</option>
+          </select>
+        </li>
         <li><label><input type="checkbox" data-setting="darkMode"> <span>Dark mode</span><small>Uses a darker colour theme throughout the site.</small></label></li>
         <li><label><input type="checkbox" data-setting="sparklines">  <span>Price-history sparklines</span><small>The small trend line beneath each cabin price.</small></label></li>
         <li><label><input type="checkbox" data-setting="perNight">    <span>Price per night column</span><small>Adds a sortable £/night value to each cruise.</small></label></li>

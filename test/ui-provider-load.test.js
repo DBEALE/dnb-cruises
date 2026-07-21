@@ -166,7 +166,7 @@ test('ship, cruise line, and class filters are dropdowns and port is labeled dep
   assert.match(css, /\.header-wave \.wave-crest/);
   assert.match(css, /\.header-wave \.wave-surge/);
   assert.match(css, /\.header-wave\.is-sweeping \.wave-surge/);
-  assert.match(css, /@media \(max-width: 640px\)[\s\S]*?header \{ padding: 16px 16px 0; \}/);
+  assert.match(css, /@container view \(max-width: 640px\)[\s\S]*?header \{ padding: 16px 16px 0; \}/);
   assert.match(css, /@keyframes wave-surge-sweep/);
   assert.match(css, /animation: wave-drift 32s linear infinite/);
 });

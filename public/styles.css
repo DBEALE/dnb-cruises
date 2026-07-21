@@ -211,6 +211,34 @@
       .header-wave.is-sweeping .wave-surge { animation: wave-surge-sweep 1ms linear 1; }
     }
 
+    /* ── View shell (mobile/desktop layout container) ───────────────────────── */
+    /* The header + main are wrapped in .view-shell, which is a size container.
+       The responsive layout rules below query THIS element's width (via
+       `@container view`) instead of the viewport, so the "Layout" display option
+       can force either layout by setting the shell's width:
+         auto    → width:100%     → container tracks the viewport (default)
+         desktop → always wide    → narrow container queries never match
+         mobile  → always narrow  → card-layout container queries always match
+       container-type: inline-size makes the shell the containing block for any
+       fixed/absolute descendants, which is why the sticky summary and
+       back-to-top FAB are kept OUTSIDE it (see index.html). */
+    .view-shell {
+      container-type: inline-size;
+      container-name: view;
+      width: 100%;
+    }
+    /* Force desktop: at least wider than the largest layout breakpoint (1100px)
+       so no narrow rule fires; full width on real desktops, horizontal scroll on
+       phones (the classic "request desktop site" behaviour). */
+    body.force-desktop .view-shell { width: max(1140px, 100%); }
+    /* Force mobile: a phone-width column, centred, so the card layout shows even
+       on a wide desktop. Never wider than the real viewport. */
+    body.force-mobile .view-shell {
+      width: 420px;
+      max-width: 100%;
+      margin-inline: auto;
+    }
+
     /* ── Main ───────────────────────────────────────────────────────────────── */
     main {
       max-width: 1800px;
@@ -782,7 +810,7 @@
       100% { background-position: -200% 0; }
     }
     /* On the mobile card layout, skeleton-row td still spans full width. */
-    @media (max-width: 480px) {
+    @container view (max-width: 480px) {
       .skeleton-row td { padding: 16px; margin: 0 10px 8px; border-radius: 12px; box-shadow: 0 4px 12px rgba(13,27,46,.07); }
     }
 
@@ -1276,19 +1304,19 @@
     .visitor-stats { color: var(--gray-500); }
 
     /* ── Responsive column hiding ────────────────────────────────────────────── */
-    @media (max-width: 1100px) {
+    @container view (max-width: 1100px) {
       .col-launch, .col-destination, .col-destination-port, .col-per-night { display: none; }
       .mobile-ship-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
       .mobile-ship-actions { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; }
       .mobile-launch-year { display: inline-flex; }
     }
 
-    @media (max-width: 860px) {
+    @container view (max-width: 860px) {
       .col-region { display: none; }
       table { min-width: 0; }
     }
 
-    @media (max-width: 640px) {
+    @container view (max-width: 640px) {
       /* Overlay the utility buttons on the title row. The waves stay nested
          in the title, so the icon, caption, and wave alignment moves as one. */
       header { padding: 16px 16px 0; }
@@ -1316,7 +1344,7 @@
       .toggle-wrap { align-self: stretch; }
     }
 
-    @media (max-width: 480px) {
+    @container view (max-width: 480px) {
       header h1 { margin-bottom: 4px; }
       .header-stats {
         margin-top: 16px;
@@ -1446,6 +1474,13 @@
         display: none;
       }
 
+    }
+
+    /* Dialogs open in the top layer and escape the .view-shell size container,
+       so their small-screen rules must stay keyed to the real viewport
+       (@media). This keeps modals correctly sized on an actual phone even when
+       the main view is forced to desktop, and vice-versa. */
+    @media (max-width: 480px) {
       /* The price-history dialog's table is its own thing — undo the
          card-layout transformation so headers + cells stay aligned. */
       .ph-table              { display: table; min-width: 0; }
@@ -1493,7 +1528,9 @@
       .ph-table th:first-child,
       .ph-table .ph-when     { width: 76px; }
       .ph-when-meta          { font-size: 0.7rem; }
+    }
 
+    @container view (max-width: 480px) {
       /* Ship name row: name on left, launch year on right */
       .mobile-ship-header {
         display: flex;
@@ -1667,7 +1704,13 @@
         background: var(--blue);
         color: white;
       }
+    }
 
+    /* The mobile filter sheet is a top-layer <dialog>, so it stays viewport-keyed
+       (@media) like the other dialogs above. Note: forcing the mobile layout on a
+       wide desktop shows the card view, but this bottom-sheet only takes its
+       small-screen styling on a genuinely narrow viewport. */
+    @media (max-width: 480px) {
       /* Bottom-sheet filter dialog on mobile — slides up from the bottom.
          Note: only the [open] selector sets `display`. Closed <dialog>s keep
          the browser-default `display: none` so they stay hidden. */
@@ -2544,7 +2587,7 @@
       background: rgba(127,29,29,.18);
     }
 
-    @media (max-width: 480px) {
+    @container view (max-width: 480px) {
       body.dark-mode #cruiseBody td {
         border-bottom-color: transparent;
       }

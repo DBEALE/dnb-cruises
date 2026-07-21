@@ -26,6 +26,11 @@
   // someone who explicitly turned a setting on (and saved) won't get it
   // flipped back by this change.
   const SETTINGS_DEFAULTS = {
+    // Layout: 'auto' follows the screen width (the default responsive
+    // behaviour); 'desktop' forces the table layout and 'mobile' forces the
+    // card layout regardless of screen size. Driven by container queries on
+    // .view-shell — see applySettingsToDom() and styles.css.
+    viewMode:   'auto',
     darkMode:   false,
     sparklines: false,
     perNight:   false,
@@ -81,6 +86,13 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '21 Jul 2026',
+      title: 'Force desktop or mobile layout',
+      items: [
+        'Display options now has a "Layout" choice — leave it on Automatic to follow your screen size, or force the desktop table or the mobile card layout on any device. Handy for pulling up the full table on a phone, or previewing the card view on a desktop.',
+      ],
+    },
     {
       date: '7 Jul 2026',
       title: 'Onward journey explorer',
@@ -2549,6 +2561,9 @@
     if (!Number.isFinite(n)) return SETTINGS_DEFAULTS.treeDepth;
     return Math.min(5, Math.max(2, n));
   }
+  function normalizeViewMode(value) {
+    return ['auto', 'desktop', 'mobile'].includes(value) ? value : SETTINGS_DEFAULTS.viewMode;
+  }
 
   // Substring match OR, when a radius is set and both the filter value and the
   // cruise's port resolve to known ports, within that many miles.
@@ -2578,6 +2593,7 @@
     } catch {}
     settings.followOnDays = normalizeFollowOnDays(settings.followOnDays);
     settings.treeDepth = normalizeTreeDepth(settings.treeDepth);
+    settings.viewMode = normalizeViewMode(settings.viewMode);
     applySettingsToDom();
   }
   function saveSettings() {
@@ -2587,6 +2603,10 @@
   // re-render needed. Sparklines are lazy anyway; placeholder buttons just
   // get display:none when off.
   function applySettingsToDom() {
+    // Layout override — drives the .view-shell size container in styles.css.
+    // 'auto' leaves both classes off so the shell tracks the real screen width.
+    document.body.classList.toggle('force-desktop', settings.viewMode === 'desktop');
+    document.body.classList.toggle('force-mobile',  settings.viewMode === 'mobile');
     document.body.classList.toggle('dark-mode', !!settings.darkMode);
     document.body.classList.toggle('hide-sparklines', !settings.sparklines);
     document.body.classList.toggle('hide-per-night',  !settings.perNight);
@@ -2604,6 +2624,8 @@
     dlg.querySelectorAll('input[data-setting]').forEach(cb => {
       cb.checked = !!settings[cb.dataset.setting];
     });
+    const viewMode = document.getElementById('settingsViewMode');
+    if (viewMode) viewMode.value = normalizeViewMode(settings.viewMode);
     const linkTarget = document.getElementById('settingsLinkTarget');
     if (linkTarget) linkTarget.value = settings.linkTarget;
     const followOnDays = document.getElementById('settingsFollowOnDays');
@@ -2640,6 +2662,15 @@
         saveSettings();
       });
     });
+
+    const viewMode = document.getElementById('settingsViewMode');
+    if (viewMode) {
+      viewMode.addEventListener('change', () => {
+        settings.viewMode = normalizeViewMode(viewMode.value);
+        applySettingsToDom();   // pure CSS switch — no re-render needed
+        saveSettings();
+      });
+    }
 
     const linkTarget = document.getElementById('settingsLinkTarget');
     if (linkTarget) {
@@ -2716,6 +2747,7 @@
       dlg.querySelectorAll('input[data-setting]').forEach(cb => {
         cb.checked = !!settings[cb.dataset.setting];
       });
+      if (viewMode) viewMode.value = settings.viewMode;
       if (linkTarget) linkTarget.value = settings.linkTarget;
       if (followOnDays) followOnDays.value = String(settings.followOnDays);
       if (proximityMiles) proximityMiles.value = String(settings.proximityMiles);
