@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 650,
+  "count": 651,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -3544,39 +3544,6 @@
         }
       ],
       "lastSeenAt": "2026-06-02T03:30:12.803Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_FSP27A_YP_20261024",
-      "shipName": "Sky Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2019,
-      "itinerary": "Southampton (for London), England → Hamburg, Germany (for Berlin) → Hamburg, Germany (for Berlin) → Copenhagen, Denmark → Skagen, Denmark → Oslo, Norway → Rotterdam, The Netherlands → Zeebrugge (for Brussels/Bruges), Belgium → Le Havre (for Paris/Normandy), France → Southampton (for London), England → Portland, England → Vigo, Spain (for Santiago de Compostela) → Madeira (Funchal), Portugal → Santa Cruz De Tenerife, Spain → Port Canaveral (Orlando), Florida",
-      "departureDate": "2026-10-24",
-      "duration": "27 Nights",
-      "departurePort": "Southampton (for London), England",
-      "departureRegion": "UK & Ireland",
-      "destination": "Transatlantic",
-      "priceFrom": "3118",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=Y631A",
-      "prices": {
-        "inside": "3118",
-        "oceanView": null,
-        "balcony": "4257",
-        "suite": "4894"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-06-01T15:52:12.787Z",
-          "prices": {
-            "inside": 3118,
-            "balcony": 4257,
-            "suite": 4894
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-02T08:24:13.015Z"
     },
     {
       "provider": "Princess Cruises",
@@ -41666,6 +41633,258 @@
             "oceanView": 2874,
             "balcony": 3922,
             "suite": 5065
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ESR28G_YP_20260912",
+      "shipName": "Sky Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2019,
+      "itinerary": "Southampton (for London), England → Skagen, Denmark → Copenhagen, Denmark → Warnemunde (for Berlin), Germany → Stockholm, Sweden → Stockholm, Sweden → Tallinn, Estonia → Helsinki, Finland → Visby, Sweden → Zeebrugge (for Brussels/Bruges), Belgium → Southampton (for London), England → Le Havre (for Paris/Normandy), France → Zeebrugge (for Brussels/Bruges), Belgium → Rotterdam, The Netherlands → Skagen, Denmark → Copenhagen, Denmark → Aarhus, Denmark → Kristiansand, Norway → Oslo, Norway → Hamburg, Germany (for Berlin) → Hamburg, Germany (for Berlin) → Southampton (for London), England",
+      "departureDate": "2026-09-12",
+      "duration": "28 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "destinationPort": "Southampton",
+      "priceFrom": "7308",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=Y628A",
+      "prices": {
+        "inside": null,
+        "oceanView": "7308",
+        "balcony": "7667",
+        "suite": null
+      },
+      "seaDays": 7,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-07-21T16:30:36.042Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 5659,
+            "balcony": 6879,
+            "suite": 7879
+          }
+        },
+        {
+          "at": "2026-05-31T07:41:32.283Z",
+          "prices": {
+            "inside": 5659,
+            "oceanView": 6750,
+            "balcony": 6879,
+            "suite": 7879
+          }
+        },
+        {
+          "at": "2026-06-16T00:52:58.946Z",
+          "prices": {
+            "inside": 5759,
+            "oceanView": 7103,
+            "balcony": 7239,
+            "suite": 8259
+          }
+        },
+        {
+          "at": "2026-06-24T16:44:42.772Z",
+          "prices": {
+            "oceanView": 7103,
+            "balcony": 7239
+          }
+        },
+        {
+          "at": "2026-06-29T15:10:39.772Z",
+          "prices": {
+            "oceanView": 7209,
+            "balcony": 7359
+          }
+        },
+        {
+          "at": "2026-07-02T05:19:45.155Z",
+          "prices": {
+            "oceanView": 7209,
+            "balcony": 7456
+          }
+        },
+        {
+          "at": "2026-07-07T05:20:16.655Z",
+          "prices": {
+            "oceanView": 7209,
+            "balcony": 7564
+          }
+        },
+        {
+          "at": "2026-07-07T18:41:37.366Z",
+          "prices": {
+            "oceanView": 7308,
+            "balcony": 7667
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_NQB10A_SA_20260913",
+      "shipName": "Sapphire Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Quebec City, Canada → Quebec City, Canada → Saguenay, Canada → Charlottetown, Canada → Sydney, Canada → Halifax, Canada → Saint John (for the Bay of Fundy), Canada → Boston, Massachusetts",
+      "departureDate": "2026-09-13",
+      "duration": "10 Nights",
+      "departurePort": "Quebec City",
+      "departureRegion": "Americas",
+      "destination": "Northern Europe",
+      "destinationPort": "Boston",
+      "priceFrom": "2178",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H624",
+      "prices": {
+        "inside": "2178",
+        "oceanView": "2333",
+        "balcony": "4149",
+        "suite": "6453"
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-07-21T16:30:36.042Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-29T18:29:37.417Z",
+          "prices": {
+            "inside": 1874,
+            "oceanView": 1974,
+            "balcony": 3849,
+            "suite": 5599
+          }
+        },
+        {
+          "at": "2026-05-31T02:56:26.204Z",
+          "prices": {
+            "inside": 1874,
+            "oceanView": 1974,
+            "balcony": 3849,
+            "suite": 6399
+          }
+        },
+        {
+          "at": "2026-06-01T20:13:35.019Z",
+          "prices": {
+            "inside": 1874,
+            "oceanView": 1974,
+            "balcony": 3849,
+            "suite": 6199
+          }
+        },
+        {
+          "at": "2026-06-02T18:05:24.346Z",
+          "prices": {
+            "inside": 1874,
+            "oceanView": 1974,
+            "balcony": 3849,
+            "suite": 5899
+          }
+        },
+        {
+          "at": "2026-06-03T22:26:29.557Z",
+          "prices": {
+            "inside": 1874,
+            "oceanView": 2304,
+            "balcony": 3849,
+            "suite": 5899
+          }
+        },
+        {
+          "at": "2026-06-05T21:21:41.187Z",
+          "prices": {
+            "inside": 1874,
+            "oceanView": 1974,
+            "balcony": 3849,
+            "suite": 5599
+          }
+        },
+        {
+          "at": "2026-06-08T23:09:59.467Z",
+          "prices": {
+            "inside": 1874,
+            "oceanView": 1974,
+            "balcony": 3849,
+            "suite": 6399
+          }
+        },
+        {
+          "at": "2026-06-16T07:57:55.777Z",
+          "prices": {
+            "inside": 2049,
+            "oceanView": 2313,
+            "balcony": 4019,
+            "suite": 5819
+          }
+        },
+        {
+          "at": "2026-07-19T20:17:46.868Z",
+          "prices": {
+            "inside": 2178,
+            "oceanView": 2333,
+            "balcony": 4565,
+            "suite": 6253
+          }
+        },
+        {
+          "at": "2026-07-19T22:18:00.815Z",
+          "prices": {
+            "inside": 2341,
+            "oceanView": 2333,
+            "balcony": 4565,
+            "suite": 6253
+          }
+        },
+        {
+          "at": "2026-07-20T03:04:41.794Z",
+          "prices": {
+            "inside": 2341,
+            "oceanView": 2333,
+            "balcony": 4742,
+            "suite": 6253
+          }
+        },
+        {
+          "at": "2026-07-20T16:30:57.010Z",
+          "prices": {
+            "inside": 2178,
+            "oceanView": 2333,
+            "balcony": 4565,
+            "suite": 6453
+          }
+        },
+        {
+          "at": "2026-07-20T18:38:23.916Z",
+          "prices": {
+            "inside": 2178,
+            "oceanView": 2333,
+            "balcony": 4742,
+            "suite": 6453
+          }
+        },
+        {
+          "at": "2026-07-21T14:41:22.806Z",
+          "prices": {
+            "inside": 2178,
+            "oceanView": 2333,
+            "balcony": 4149,
+            "suite": 6253
+          }
+        },
+        {
+          "at": "2026-07-21T16:30:36.042Z",
+          "prices": {
+            "inside": 2178,
+            "oceanView": 2333,
+            "balcony": 4149,
+            "suite": 6453
           }
         }
       ]
