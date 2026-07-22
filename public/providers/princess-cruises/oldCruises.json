@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 647,
+  "count": 649,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -15480,40 +15480,6 @@
         }
       ],
       "lastSeenAt": "2026-06-16T07:57:55.777Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_ASG070_RP_20260822",
-      "shipName": "Royal Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2013,
-      "itinerary": "Seattle, Washington → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Ketchikan, Alaska → Victoria, Canada → Seattle, Washington",
-      "departureDate": "2026-08-22",
-      "duration": "7 Nights",
-      "departurePort": "Seattle, Washington",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "1099",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1636",
-      "prices": {
-        "inside": "1099",
-        "oceanView": null,
-        "balcony": null,
-        "suite": "2821"
-      },
-      "seaDays": 1,
-      "firstSeenAt": "2026-06-16T07:57:55.777Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-16T07:57:55.777Z",
-          "prices": {
-            "inside": 1099,
-            "suite": 2821
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-16T09:56:45.505Z"
     },
     {
       "provider": "Princess Cruises",
@@ -41244,75 +41210,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_NQB10A_SA_20261003",
-      "shipName": "Sapphire Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2004,
-      "itinerary": "Quebec City, Canada → Quebec City, Canada → Saguenay, Canada → Charlottetown, Canada → Sydney, Canada → Halifax, Canada → Saint John (for the Bay of Fundy), Canada → Portland, Maine → Boston, Massachusetts",
-      "departureDate": "2026-10-03",
-      "duration": "10 Nights",
-      "departurePort": "Quebec City",
-      "departureRegion": "Americas",
-      "destination": "Northern Europe",
-      "destinationPort": "Boston",
-      "priceFrom": "2123",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=H626",
-      "prices": {
-        "inside": "2123",
-        "oceanView": "2529",
-        "balcony": "4509",
-        "suite": "5728"
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-07-17T10:33:26.020Z",
-      "lastSeenAt": "2026-07-22T14:41:18.079Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-17T10:33:26.020Z",
-          "prices": {
-            "inside": 2123,
-            "oceanView": 2529,
-            "balcony": 4718
-          }
-        },
-        {
-          "at": "2026-07-17T13:34:04.959Z",
-          "prices": {
-            "inside": 2019,
-            "oceanView": 2529,
-            "balcony": 4509
-          }
-        },
-        {
-          "at": "2026-07-17T20:20:03.891Z",
-          "prices": {
-            "inside": 2019,
-            "oceanView": 2439,
-            "balcony": 4509
-          }
-        },
-        {
-          "at": "2026-07-19T14:28:36.171Z",
-          "prices": {
-            "inside": 2123,
-            "oceanView": 2439,
-            "balcony": 4509
-          }
-        },
-        {
-          "at": "2026-07-22T08:53:35.551Z",
-          "prices": {
-            "inside": 2123,
-            "oceanView": 2529,
-            "balcony": 4509,
-            "suite": 5728
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_CFR12B_IP_20261130",
       "shipName": "Island Princess",
       "shipClass": "Coral",
@@ -41516,6 +41413,206 @@
             "inside": 849,
             "oceanView": 1249,
             "suite": 1699
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ASG070_RP_20260912",
+      "shipName": "Royal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2013,
+      "itinerary": "Seattle, Washington → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Ketchikan, Alaska → Victoria, Canada → Seattle, Washington",
+      "departureDate": "2026-09-12",
+      "duration": "7 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "destinationPort": "Seattle",
+      "priceFrom": "799",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1639",
+      "prices": {
+        "inside": "799",
+        "oceanView": null,
+        "balcony": null,
+        "suite": "2185"
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-07-22T20:24:22.697Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-17T10:33:26.020Z",
+          "prices": {
+            "inside": 849,
+            "balcony": 1699,
+            "suite": 2199
+          }
+        },
+        {
+          "at": "2026-07-18T00:27:42.400Z",
+          "prices": {
+            "inside": 799,
+            "balcony": 1699,
+            "suite": 2199
+          }
+        },
+        {
+          "at": "2026-07-22T00:28:37.395Z",
+          "prices": {
+            "inside": 799,
+            "suite": 2199
+          }
+        },
+        {
+          "at": "2026-07-22T08:53:35.551Z",
+          "prices": {
+            "inside": 799,
+            "suite": 2185
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_EAB07C_SU_20261003",
+      "shipName": "Sun Princess",
+      "shipClass": "Sphere",
+      "shipLaunchYear": 2024,
+      "itinerary": "Athens (Piraeus), Greece → Bar, Montenegro → Corfu, Greece → Sicily (Messina), Italy → Naples, Italy (for Capri & Pompeii) → Barcelona, Spain",
+      "departureDate": "2026-10-03",
+      "duration": "7 Nights",
+      "departurePort": "Athens (Piraeus)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "destinationPort": "Barcelona",
+      "priceFrom": "2238",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=U639",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-07-22T20:24:22.697Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-17T10:33:26.020Z",
+          "prices": {
+            "inside": 1348,
+            "suite": 1879
+          }
+        },
+        {
+          "at": "2026-07-17T16:26:38.111Z",
+          "prices": {
+            "suite": 1879
+          }
+        },
+        {
+          "at": "2026-07-17T20:20:03.891Z",
+          "prices": {
+            "suite": 2001
+          }
+        },
+        {
+          "at": "2026-07-18T22:17:14.134Z",
+          "prices": {
+            "suite": 2071
+          }
+        },
+        {
+          "at": "2026-07-20T18:38:23.916Z",
+          "prices": {
+            "suite": 2159
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_FRF16A_EX_20261117",
+      "shipName": "Enchanted Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2020,
+      "itinerary": "Civitavecchia (for Rome), Italy → Mallorca (Palma), Spain → Gibraltar → Casablanca, Morocco (for Marrakech) → Santa Cruz De Tenerife, Spain → La Palma, Canary Islands, Spain → Ft. Lauderdale, Florida",
+      "departureDate": "2026-11-17",
+      "duration": "16 Nights",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Transatlantic",
+      "destinationPort": "Fort Lauderdale",
+      "priceFrom": "20096",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N640",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "20096"
+      },
+      "seaDays": 10,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-07-22T20:24:22.697Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-17T10:33:26.020Z",
+          "prices": {
+            "suite": 7131
+          }
+        },
+        {
+          "at": "2026-07-20T07:04:40.716Z",
+          "prices": {
+            "suite": 7331
+          }
+        },
+        {
+          "at": "2026-07-22T12:33:27.684Z",
+          "prices": {
+            "suite": 20096
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ESR07E_YP_20281007",
+      "shipName": "Sky Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2019,
+      "itinerary": "Southampton (for London), England → La Coruna, Spain (for Santiago de Compostela) → Bilbao, Spain → Le Verdon (for Bordeaux), France → Cherbourg, France → Southampton (for London), England",
+      "departureDate": "2028-10-07",
+      "duration": "7 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "destinationPort": "Southampton",
+      "priceFrom": "1125",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=Y830",
+      "prices": {
+        "inside": "1125",
+        "oceanView": "1324",
+        "balcony": "1300",
+        "suite": "1575"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-07-22T20:24:22.697Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-17T10:33:26.020Z",
+          "prices": {
+            "inside": 1125,
+            "oceanView": 1324,
+            "balcony": 1300,
+            "suite": 1575
           }
         }
       ]
