@@ -40658,52 +40658,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_FRF16A_EX_20261117",
-      "shipName": "Enchanted Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2020,
-      "itinerary": "Civitavecchia (for Rome), Italy → Mallorca (Palma), Spain → Gibraltar → Casablanca, Morocco (for Marrakech) → Santa Cruz De Tenerife, Spain → La Palma, Canary Islands, Spain → Ft. Lauderdale, Florida",
-      "departureDate": "2026-11-17",
-      "duration": "16 Nights",
-      "departurePort": "Rome (Civitavecchia)",
-      "departureRegion": "Mediterranean",
-      "destination": "Transatlantic",
-      "destinationPort": "Fort Lauderdale",
-      "priceFrom": "20096",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N640",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": null,
-        "suite": "20096"
-      },
-      "seaDays": 10,
-      "firstSeenAt": "2026-07-17T10:33:26.020Z",
-      "lastSeenAt": "2026-07-22T20:24:22.697Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-17T10:33:26.020Z",
-          "prices": {
-            "suite": 7131
-          }
-        },
-        {
-          "at": "2026-07-20T07:04:40.716Z",
-          "prices": {
-            "suite": 7331
-          }
-        },
-        {
-          "at": "2026-07-22T12:33:27.684Z",
-          "prices": {
-            "suite": 20096
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_FCB15A_SA_20260819",
       "shipName": "Sapphire Princess",
       "shipClass": "Grand",
@@ -41745,6 +41699,52 @@
             "oceanView": 2529,
             "balcony": 4509,
             "suite": 5728
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_CSR14N_KP_20270307",
+      "shipName": "Crown Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2006,
+      "itinerary": "San Juan, Puerto Rico → St. Thomas, Virgin Islands → St. Maarten → Antigua → St. Lucia → Barbados → San Juan, Puerto Rico → St. Thomas, Virgin Islands → St. Kitts → Dominica → Grenada → Barbados → San Juan, Puerto Rico",
+      "departureDate": "2027-03-07",
+      "duration": "14 Nights",
+      "departurePort": "San Juan",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "destinationPort": "San Juan",
+      "priceFrom": "1441",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3711A",
+      "prices": {
+        "inside": "1441",
+        "oceanView": "1981",
+        "balcony": "2566",
+        "suite": "4066"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-07-23T18:30:37.860Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-17T10:33:26.020Z",
+          "prices": {
+            "inside": 1466,
+            "oceanView": 2006,
+            "balcony": 2716,
+            "suite": 4266
+          }
+        },
+        {
+          "at": "2026-07-22T08:53:35.551Z",
+          "prices": {
+            "inside": 1441,
+            "oceanView": 1981,
+            "balcony": 2566,
+            "suite": 4066
           }
         }
       ]

@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 24,
+  "count": 25,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -7707,6 +7707,54 @@
           "at": "2026-07-22T22:21:55.959Z",
           "prices": {
             "balcony": 1217.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_GR07ONX-3545485474",
+      "shipName": "Grandeur of the Seas",
+      "shipClass": "Vision",
+      "shipLaunchYear": 1996,
+      "itinerary": "Southern Caribbean Cruise: Colón, Panama, Cartagena, Colombia, Oranjestad, Aruba, Willemstad, Curacao, Cabo Rojo, Dominican Republic, Colón, Panama",
+      "departureDate": "2026-07-25",
+      "duration": "7 Nights",
+      "departurePort": "Colon",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "718.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=GR07ONX-3545485474&sailDate=2026-07-25&shipCode=GR&packageCode=GR07D487&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "718.5",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Colon",
+      "seaDays": 1,
+      "enrichedAt": "2026-07-23T18:32:01.999Z",
+      "firstSeenAt": "2026-07-20T14:45:12.286Z",
+      "lastSeenAt": "2026-07-23T18:30:37.860Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-20T14:45:12.286Z",
+          "prices": {
+            "inside": 701,
+            "suite": 1452
+          }
+        },
+        {
+          "at": "2026-07-20T20:30:17.978Z",
+          "prices": {
+            "suite": 1452
+          }
+        },
+        {
+          "at": "2026-07-23T14:45:47.106Z",
+          "prices": {
+            "inside": 718.5
           }
         }
       ]
