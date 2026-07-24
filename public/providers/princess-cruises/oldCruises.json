@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 649,
+  "count": 650,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -7782,69 +7782,6 @@
             "oceanView": 1424,
             "balcony": 1739,
             "suite": 2862
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-10T17:06:21.326Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_LLC070_EP_20270314",
-      "shipName": "Emerald Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2007,
-      "itinerary": "Los Angeles, California → San Francisco, California → Santa Barbara, California → San Diego, California → Ensenada, Mexico → Los Angeles, California",
-      "departureDate": "2027-03-14",
-      "duration": "7 Nights",
-      "departurePort": "Los Angeles, California",
-      "departureRegion": "Americas",
-      "destination": "South America",
-      "priceFrom": "619",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=E706",
-      "prices": {
-        "inside": "619",
-        "oceanView": "709",
-        "balcony": "1524",
-        "suite": "2099"
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 624,
-            "oceanView": 724,
-            "balcony": 1424,
-            "suite": 1949
-          }
-        },
-        {
-          "at": "2026-06-01T20:13:35.019Z",
-          "prices": {
-            "inside": 649,
-            "oceanView": 749,
-            "balcony": 1474,
-            "suite": 1999
-          }
-        },
-        {
-          "at": "2026-06-03T14:25:08.048Z",
-          "prices": {
-            "inside": 594,
-            "oceanView": 684,
-            "balcony": 1474,
-            "suite": 1999
-          }
-        },
-        {
-          "at": "2026-06-08T23:09:59.467Z",
-          "prices": {
-            "inside": 619,
-            "oceanView": 709,
-            "balcony": 1524,
-            "suite": 2099
           }
         }
       ],
@@ -41894,6 +41831,116 @@
             "oceanView": 1923,
             "balcony": 2118,
             "suite": 2828
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_HRL16A_EP_20270210",
+      "shipName": "Emerald Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2007,
+      "itinerary": "Los Angeles, California → Kahului, Hawaii → Hilo, Hawaii → Kona, Hawaii → Honolulu, Hawaii → Ensenada, Mexico → Los Angeles, California",
+      "departureDate": "2027-02-10",
+      "duration": "16 Nights",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Hawaii",
+      "destinationPort": "Los Angeles",
+      "priceFrom": "1114",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=E704",
+      "prices": {
+        "inside": "1114",
+        "oceanView": "1824",
+        "balcony": "1729",
+        "suite": "3499"
+      },
+      "seaDays": 10,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-07-23T22:21:34.053Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-17T10:33:26.020Z",
+          "prices": {
+            "inside": 1149,
+            "oceanView": 1849,
+            "balcony": 2049,
+            "suite": 3599
+          }
+        },
+        {
+          "at": "2026-07-18T04:57:57.911Z",
+          "prices": {
+            "inside": 1139,
+            "oceanView": 1849,
+            "balcony": 1879,
+            "suite": 3699
+          }
+        },
+        {
+          "at": "2026-07-22T08:53:35.551Z",
+          "prices": {
+            "inside": 1114,
+            "oceanView": 1824,
+            "balcony": 1729,
+            "suite": 3499
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_LLC070_EP_20270321",
+      "shipName": "Emerald Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2007,
+      "itinerary": "Los Angeles, California → Ensenada, Mexico → San Diego, California → San Francisco, California → San Francisco, California → Los Angeles, California",
+      "departureDate": "2027-03-21",
+      "duration": "7 Nights",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "South America",
+      "destinationPort": "Los Angeles",
+      "priceFrom": "524",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=E707",
+      "prices": {
+        "inside": "524",
+        "oceanView": "564",
+        "balcony": "879",
+        "suite": "1499"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-07-23T22:21:34.053Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-17T10:33:26.020Z",
+          "prices": {
+            "inside": 569,
+            "oceanView": 599,
+            "balcony": 954,
+            "suite": 1599
+          }
+        },
+        {
+          "at": "2026-07-18T04:57:57.911Z",
+          "prices": {
+            "inside": 549,
+            "oceanView": 589,
+            "balcony": 954,
+            "suite": 1599
+          }
+        },
+        {
+          "at": "2026-07-22T08:53:35.551Z",
+          "prices": {
+            "inside": 524,
+            "oceanView": 564,
+            "balcony": 879,
+            "suite": 1499
           }
         }
       ]
