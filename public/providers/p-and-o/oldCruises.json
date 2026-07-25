@@ -322,7 +322,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
       "id": "pando-J608",
@@ -371,7 +371,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
       "id": "pando-A628",
@@ -565,7 +565,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
       "id": "pando-A628A",
@@ -586,7 +586,7 @@
       "prices": {
         "inside": "999",
         "oceanView": null,
-        "balcony": "1499",
+        "balcony": "1599",
         "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/A628A/A628A",
@@ -918,9 +918,16 @@
             "inside": 999,
             "balcony": 1499
           }
+        },
+        {
+          "at": "2026-07-25T00:31:57.942Z",
+          "prices": {
+            "inside": 999,
+            "balcony": 1599
+          }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
       "id": "pando-B617",
@@ -936,12 +943,12 @@
       "destination": "Mediterranean",
       "destinationPort": "Southampton",
       "seaDays": 7,
-      "priceFrom": "1099",
+      "priceFrom": "1649",
       "currency": "GBP",
       "prices": {
-        "inside": "1099",
+        "inside": null,
         "oceanView": null,
-        "balcony": null,
+        "balcony": "1649",
         "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/B617/B617",
@@ -1145,9 +1152,15 @@
           "prices": {
             "inside": 1099
           }
+        },
+        {
+          "at": "2026-07-25T00:31:57.942Z",
+          "prices": {
+            "balcony": 1649
+          }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
       "id": "pando-N617",
@@ -1163,10 +1176,10 @@
       "destination": "Canary-Islands",
       "destinationPort": "Southampton",
       "seaDays": 6,
-      "priceFrom": "1089",
+      "priceFrom": "1099",
       "currency": "GBP",
       "prices": {
-        "inside": "1089",
+        "inside": null,
         "oceanView": "1099",
         "balcony": null,
         "suite": null
@@ -1499,9 +1512,15 @@
             "inside": 1089,
             "oceanView": 1099
           }
+        },
+        {
+          "at": "2026-07-25T00:31:57.942Z",
+          "prices": {
+            "oceanView": 1099
+          }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
       "id": "pando-G623",
@@ -1582,7 +1601,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
       "id": "pando-K616",
@@ -1664,7 +1683,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
       "id": "pando-R612",
@@ -1722,7 +1741,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
       "id": "pando-A629",
@@ -1738,12 +1757,12 @@
       "destination": "Mediterranean",
       "destinationPort": "Valletta",
       "seaDays": 2,
-      "priceFrom": "1049",
+      "priceFrom": "999",
       "currency": "GBP",
       "prices": {
-        "inside": "1209",
+        "inside": "999",
         "oceanView": "1049",
-        "balcony": "1299",
+        "balcony": null,
         "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/A629/A629",
@@ -2112,9 +2131,16 @@
             "oceanView": 1049,
             "balcony": 1299
           }
+        },
+        {
+          "at": "2026-07-25T00:31:57.942Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049
+          }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
       "id": "pando-A629A",
@@ -2130,12 +2156,12 @@
       "destination": "Mediterranean",
       "destinationPort": "Valletta",
       "seaDays": 4,
-      "priceFrom": "1449",
+      "priceFrom": "1499",
       "currency": "GBP",
       "prices": {
-        "inside": "1449",
+        "inside": "1629",
         "oceanView": "1499",
-        "balcony": "1829",
+        "balcony": "1649",
         "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/A629A/A629A",
@@ -2461,41 +2487,421 @@
             "oceanView": 1499,
             "balcony": 1829
           }
+        },
+        {
+          "at": "2026-07-25T00:31:57.942Z",
+          "prices": {
+            "inside": 1629,
+            "oceanView": 1499,
+            "balcony": 1649
+          }
         }
       ],
-      "lastSeenAt": "2026-07-24T22:23:38.138Z"
+      "lastSeenAt": "2026-07-25T00:31:57.942Z"
     },
     {
-      "id": "pando-J801",
+      "id": "pando-A630",
       "provider": "P&O Cruises",
-      "shipName": "Arcadia",
-      "shipClass": "Vista",
-      "shipLaunchYear": 2005,
-      "itinerary": "Southampton, UK → Gran Canaria, Spain → Bridgetown, Barbados → Oranjestad, Aruba → Panama Canal (full transit) → Manzanillo, Mexico → San Diego, United States → San Francisco, United States → Honolulu, United States → Nawiliwili (Hawaii), United States → Cross International Date Line → Apia, Samoan Islands → Suva, Fiji → Auckland, New Zealand → Tauranga, New Zealand → Wellington, New Zealand → Sydney, Australia → Airlie Beach, Australia → Cairns, Australia → Rabaul, Papua New Guinea → Busan, Korea → Nagasaki, Japan → Kagoshima, Japan → Tokyo, Japan → Hong Kong, Hong Kong → Manila, Philippines → Nha Trang, Vietnam → Laem Chabang, Thailand → Singapore, Singapore → Port Kelang, Malaysia → Colombo, Sri Lanka → Male, Maldives → Port Louis, Mauritius → Reunion, Reunion → Durban, South Africa → Gqeberha (Port Elizabeth), South Africa → Cape Town, South Africa → Walvis Bay, Namibia → St Vincent, Cape Verde → Tenerife, Spain → Southampton, UK",
-      "departureDate": "2028-01-06",
-      "duration": "124 Nights",
-      "departurePort": "Southampton",
-      "departureRegion": "UK & Ireland",
-      "destination": "World-Cruise",
-      "destinationPort": "Southampton",
-      "seaDays": 79,
-      "priceFrom": "23839",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Valletta, Malta → Mykonos, Greece → Piraeus (tours to Athens), Greece → Souda Bay (for Chania), Crete → Katakolon (for Olympia), Greece → Valletta, Malta",
+      "departureDate": "2026-07-30",
+      "duration": "7 Nights",
+      "departurePort": "Valletta",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean",
+      "destinationPort": "Valletta",
+      "seaDays": 2,
+      "priceFrom": "699",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "699",
         "oceanView": null,
-        "balcony": "23839",
+        "balcony": "899",
         "suite": null
       },
-      "bookingUrl": "https://www.pocruises.com/find-a-cruise/J801/J801",
-      "arrivalDate": "2028-05-10",
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A630/A630",
+      "arrivalDate": "2026-08-06",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
-      "lastSeenAt": "2026-07-24T20:29:57.785Z",
+      "lastSeenAt": "2026-07-24T22:23:38.138Z",
       "priceHistory": [
         {
           "at": "2026-07-04T11:52:45.512Z",
           "prices": {
-            "balcony": 23839
+            "inside": 699
+          }
+        },
+        {
+          "at": "2026-07-04T12:11:31.689Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 729,
+            "balcony": 849
+          }
+        },
+        {
+          "at": "2026-07-04T20:21:18.169Z",
+          "prices": {
+            "inside": 799,
+            "oceanView": 729,
+            "balcony": 849
+          }
+        },
+        {
+          "at": "2026-07-05T12:29:25.179Z",
+          "prices": {
+            "inside": 799,
+            "oceanView": 729,
+            "balcony": 939
+          }
+        },
+        {
+          "at": "2026-07-05T20:25:03.788Z",
+          "prices": {
+            "inside": 799,
+            "oceanView": 809,
+            "balcony": 939
+          }
+        },
+        {
+          "at": "2026-07-06T13:36:43.732Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 729,
+            "balcony": 849
+          }
+        },
+        {
+          "at": "2026-07-08T12:34:24.461Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 729,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-07-08T15:02:35.621Z",
+          "prices": {
+            "inside": 749,
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-08T16:32:38.105Z",
+          "prices": {
+            "inside": 849,
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-08T18:30:14.814Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-19T08:47:31.600Z",
+          "prices": {
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-19T10:31:12.618Z",
+          "prices": {
+            "oceanView": 729
+          }
+        },
+        {
+          "at": "2026-07-19T12:18:43.072Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-19T18:18:43.271Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-19T20:17:46.868Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-19T22:18:00.815Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-20T03:04:41.794Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-20T05:14:19.257Z",
+          "prices": {
+            "inside": 699,
+            "balcony": 849
+          }
+        },
+        {
+          "at": "2026-07-20T07:04:40.716Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-20T11:01:31.810Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-20T18:38:23.916Z",
+          "prices": {
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-20T20:30:17.978Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-20T22:20:46.486Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-21T06:52:12.656Z",
+          "prices": {
+            "inside": 699
+          }
+        },
+        {
+          "at": "2026-07-21T08:54:10.453Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-21T14:41:22.806Z",
+          "prices": {
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-21T16:30:36.042Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-21T18:28:43.747Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 729,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-21T20:27:18.329Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-21T22:18:52.305Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-22T00:28:37.395Z",
+          "prices": {
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-22T03:03:31.266Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-22T06:52:31.659Z",
+          "prices": {
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-22T08:53:35.551Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 779,
+            "balcony": 849
+          }
+        },
+        {
+          "at": "2026-07-22T10:43:38.718Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-22T12:33:27.684Z",
+          "prices": {
+            "oceanView": 729,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-22T14:41:18.079Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-22T18:26:26.045Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-22T22:21:55.959Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 729
+          }
+        },
+        {
+          "at": "2026-07-23T00:30:31.629Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 729,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-23T05:04:53.822Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-23T10:44:52.157Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-23T14:45:47.106Z",
+          "prices": {
+            "oceanView": 729,
+            "balcony": 849
+          }
+        },
+        {
+          "at": "2026-07-23T18:30:37.860Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 849
+          }
+        },
+        {
+          "at": "2026-07-23T20:24:08.504Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 779,
+            "balcony": 849
+          }
+        },
+        {
+          "at": "2026-07-23T22:21:34.053Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-24T03:03:34.407Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-24T06:51:21.404Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-24T08:52:11.730Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-24T10:41:41.925Z",
+          "prices": {
+            "oceanView": 779,
+            "balcony": 849
+          }
+        },
+        {
+          "at": "2026-07-24T14:35:09.169Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-24T16:32:45.535Z",
+          "prices": {
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-24T18:31:04.002Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 779,
+            "balcony": 899
+          }
+        },
+        {
+          "at": "2026-07-24T20:29:57.785Z",
+          "prices": {
+            "oceanView": 779
+          }
+        },
+        {
+          "at": "2026-07-24T22:23:38.138Z",
+          "prices": {
+            "inside": 699,
+            "balcony": 899
           }
         }
       ]
