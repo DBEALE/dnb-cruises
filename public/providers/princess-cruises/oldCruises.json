@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 654,
+  "count": 655,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -42236,6 +42236,52 @@
             "oceanView": 2333,
             "balcony": 4149,
             "suite": 6453
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OYR20M_DI_20260826",
+      "shipName": "Diamond Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2004,
+      "itinerary": "Tokyo (Yokohama), Japan → Toba, Japan → Osaka (for Kyoto), Japan → Kochi, Japan → Hiroshima, Japan → Kanmon Straits, Japan → Busan, South Korea → Nagasaki, Japan → Shimizu (for Mt. Fuji), Japan → Tokyo (Yokohama), Japan → Hakodate, Japan → Niigata, Japan → Busan, South Korea → Nagasaki, Japan → Kagoshima, Japan → Kochi, Japan → Shimizu (for Mt. Fuji), Japan → Tokyo (Yokohama), Japan",
+      "departureDate": "2026-08-26",
+      "duration": "20 Nights",
+      "departurePort": "Tokyo (Yokohama)",
+      "departureRegion": "Asia & Far East",
+      "destination": "Japan",
+      "destinationPort": "Tokyo (Yokohama)",
+      "priceFrom": "8747",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=M624A",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "8747"
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-05-30T09:55:04.493Z",
+      "lastSeenAt": "2026-07-26T20:21:51.513Z",
+      "priceHistory": [
+        {
+          "at": "2026-05-30T09:55:04.493Z",
+          "prices": {
+            "balcony": 6917
+          }
+        },
+        {
+          "at": "2026-06-15T17:40:31.110Z",
+          "prices": {
+            "inside": 3863
+          }
+        },
+        {
+          "at": "2026-07-26T18:21:34.416Z",
+          "prices": {
+            "suite": 8747
           }
         }
       ]
