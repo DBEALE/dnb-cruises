@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 656,
+  "count": 655,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -41089,50 +41089,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ZSA05E_AP_20271009",
-      "shipName": "Grand Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 1998,
-      "itinerary": "Sydney, Australia → Melbourne, Australia → Kangaroo Island, Australia → Adelaide, Australia",
-      "departureDate": "2027-10-09",
-      "duration": "5 Nights",
-      "departurePort": "Sydney",
-      "departureRegion": "Australia & Pacific",
-      "destination": "Australia & New Zealand",
-      "destinationPort": "Adelaide",
-      "priceFrom": "919",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A718A",
-      "prices": {
-        "inside": "919",
-        "oceanView": "1433",
-        "balcony": "1419",
-        "suite": null
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-07-17T10:33:26.020Z",
-      "lastSeenAt": "2026-07-24T00:27:14.402Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-17T10:33:26.020Z",
-          "prices": {
-            "inside": 944,
-            "oceanView": 1458,
-            "balcony": 1444
-          }
-        },
-        {
-          "at": "2026-07-22T08:53:35.551Z",
-          "prices": {
-            "inside": 919,
-            "oceanView": 1433,
-            "balcony": 1419
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_ASG070_RP_20260829",
       "shipName": "Royal Princess",
       "shipClass": "Royal",
@@ -41305,79 +41261,6 @@
             "inside": 524,
             "oceanView": 624,
             "suite": 749
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_EBR07B_SU_20260808",
-      "shipName": "Sun Princess",
-      "shipClass": "Sphere",
-      "shipLaunchYear": 2024,
-      "itinerary": "Barcelona, Spain → Gibraltar → Cartagena, Spain → Total Solar Eclipse 2026 → La Spezia (for Florence/Pisa),Italy → Civitavecchia (for Rome), Italy",
-      "departureDate": "2026-08-08",
-      "duration": "7 Nights",
-      "departurePort": "Barcelona",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "destinationPort": "Rome (Civitavecchia)",
-      "priceFrom": "2679",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=U631",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": null,
-        "suite": "2679"
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "lastSeenAt": "2026-07-24T12:31:40.926Z",
-      "priceHistory": [
-        {
-          "at": "2026-05-29T18:29:37.417Z",
-          "prices": {
-            "inside": 2179,
-            "oceanView": 2759,
-            "suite": 3229
-          }
-        },
-        {
-          "at": "2026-06-11T05:56:28.754Z",
-          "prices": {
-            "inside": 2179,
-            "oceanView": 2509,
-            "suite": 2929
-          }
-        },
-        {
-          "at": "2026-06-30T16:44:59.336Z",
-          "prices": {
-            "oceanView": 2509,
-            "suite": 2929
-          }
-        },
-        {
-          "at": "2026-07-10T06:40:41.897Z",
-          "prices": {
-            "inside": 2179,
-            "oceanView": 2509,
-            "suite": 2679
-          }
-        },
-        {
-          "at": "2026-07-10T14:55:10.352Z",
-          "prices": {
-            "inside": 1979,
-            "oceanView": 2309,
-            "suite": 2679
-          }
-        },
-        {
-          "at": "2026-07-13T22:19:04.599Z",
-          "prices": {
-            "suite": 2679
           }
         }
       ]
@@ -42220,6 +42103,61 @@
             "oceanView": 1608,
             "balcony": 2118,
             "suite": 3082
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ERR07F_EX_20270612",
+      "shipName": "Enchanted Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2020,
+      "itinerary": "Civitavecchia (for Rome), Italy → Amalfi Coast (Salerno) → Crete (Chania), Greece → Kusadasi, Turkey (for Ephesus) → Katakolon (for Olympia), Greece → Civitavecchia (for Rome), Italy",
+      "departureDate": "2027-06-12",
+      "duration": "7 Nights",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "destinationPort": "Rome (Civitavecchia)",
+      "priceFrom": "924",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N717",
+      "prices": {
+        "inside": "924",
+        "oceanView": "1694",
+        "balcony": "1619",
+        "suite": "1669"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-07-27T00:32:26.294Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-17T10:33:26.020Z",
+          "prices": {
+            "inside": 929,
+            "oceanView": 1689,
+            "balcony": 1664,
+            "suite": 1669
+          }
+        },
+        {
+          "at": "2026-07-22T08:53:35.551Z",
+          "prices": {
+            "inside": 904,
+            "oceanView": 1664,
+            "balcony": 1589,
+            "suite": 1569
+          }
+        },
+        {
+          "at": "2026-07-27T00:32:26.294Z",
+          "prices": {
+            "inside": 924,
+            "oceanView": 1694,
+            "balcony": 1619,
+            "suite": 1669
           }
         }
       ]
