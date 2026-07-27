@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 19,
+  "count": 18,
   "cruises": [
     {
       "id": "pando-A627A",
@@ -322,7 +322,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-27T00:32:26.294Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-J608",
@@ -371,7 +371,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-A628",
@@ -580,7 +580,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-A628A",
@@ -600,7 +600,7 @@
       "currency": "GBP",
       "prices": {
         "inside": "999",
-        "oceanView": "2019",
+        "oceanView": null,
         "balcony": "1599",
         "suite": null
       },
@@ -1027,9 +1027,16 @@
             "oceanView": 2019,
             "balcony": 1599
           }
+        },
+        {
+          "at": "2026-07-27T05:17:37.620Z",
+          "prices": {
+            "inside": 999,
+            "balcony": 1599
+          }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-B617",
@@ -1045,10 +1052,10 @@
       "destination": "Mediterranean",
       "destinationPort": "Southampton",
       "seaDays": 7,
-      "priceFrom": "1099",
+      "priceFrom": "1649",
       "currency": "GBP",
       "prices": {
-        "inside": "1099",
+        "inside": null,
         "oceanView": null,
         "balcony": "1649",
         "suite": null
@@ -1329,9 +1336,15 @@
             "inside": 1099,
             "balcony": 1649
           }
+        },
+        {
+          "at": "2026-07-27T05:17:37.620Z",
+          "prices": {
+            "balcony": 1649
+          }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-N617",
@@ -1347,11 +1360,11 @@
       "destination": "Canary-Islands",
       "destinationPort": "Southampton",
       "seaDays": 6,
-      "priceFrom": "999",
+      "priceFrom": "1099",
       "currency": "GBP",
       "prices": {
-        "inside": "999",
-        "oceanView": "999",
+        "inside": null,
+        "oceanView": "1099",
         "balcony": null,
         "suite": null
       },
@@ -1359,14 +1372,6 @@
       "arrivalDate": "2026-08-01",
       "firstSeenAt": "2026-07-04T10:39:49.793Z",
       "priceHistory": [
-        {
-          "at": "2026-07-04T20:21:18.169Z",
-          "prices": {
-            "inside": 1089,
-            "oceanView": 1099,
-            "balcony": 1609
-          }
-        },
         {
           "at": "2026-07-05T12:29:25.179Z",
           "prices": {
@@ -1750,9 +1755,15 @@
             "inside": 999,
             "oceanView": 999
           }
+        },
+        {
+          "at": "2026-07-27T05:17:37.620Z",
+          "prices": {
+            "oceanView": 1099
+          }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-G623",
@@ -1833,7 +1844,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-K616",
@@ -1915,7 +1926,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-R612",
@@ -1973,7 +1984,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-A629",
@@ -2448,7 +2459,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-A629A",
@@ -2931,7 +2942,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-G624",
@@ -2947,10 +2958,10 @@
       "destination": "Norwegian-Fjords-And-Iceland",
       "destinationPort": "Southampton",
       "seaDays": 2,
-      "priceFrom": "1649",
+      "priceFrom": "939",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "939",
         "oceanView": null,
         "balcony": "1649",
         "suite": null
@@ -2959,12 +2970,6 @@
       "arrivalDate": "2026-08-01",
       "firstSeenAt": "2026-07-04T10:39:49.793Z",
       "priceHistory": [
-        {
-          "at": "2026-07-08T20:29:23.585Z",
-          "prices": {
-            "inside": 939
-          }
-        },
         {
           "at": "2026-07-09T11:06:45.984Z",
           "prices": {
@@ -3357,9 +3362,16 @@
           "prices": {
             "balcony": 1649
           }
+        },
+        {
+          "at": "2026-07-27T05:17:37.620Z",
+          "prices": {
+            "inside": 939,
+            "balcony": 1649
+          }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     },
     {
       "id": "pando-K617",
@@ -3871,42 +3883,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-07-27T03:05:17.831Z"
-    },
-    {
-      "id": "pando-JLX",
-      "provider": "P&O Cruises",
-      "shipName": "Arcadia",
-      "shipClass": "Vista",
-      "shipLaunchYear": 2005,
-      "itinerary": "Southampton, UK → Gran Canaria, Spain → Bridgetown, Barbados → Oranjestad, Aruba → Panama Canal (full transit) → Manzanillo, Mexico → San Diego, United States → San Francisco, United States → Honolulu, United States → Nawiliwili (Hawaii), United States → Cross International Date Line → Apia, Samoan Islands → Suva, Fiji → Auckland, New Zealand → Tauranga, New Zealand → Wellington, New Zealand → Sydney, Australia → Airlie Beach, Australia → Cairns, Australia → Rabaul, Papua New Guinea → Busan, Korea → Nagasaki, Japan → Kagoshima, Japan → Tokyo, Japan → Hong Kong, Hong Kong",
-      "departureDate": "2028-01-06",
-      "duration": "74 Nights",
-      "departurePort": "Southampton",
-      "departureRegion": "UK & Ireland",
-      "destination": "World-Cruise",
-      "destinationPort": "Hong Kong",
-      "seaDays": 47,
-      "priceFrom": "13169",
-      "currency": "GBP",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": "13169",
-        "suite": null
-      },
-      "bookingUrl": "https://www.pocruises.com/find-a-cruise/JLX/JLX",
-      "arrivalDate": "",
-      "firstSeenAt": "2026-07-04T11:52:45.512Z",
-      "lastSeenAt": "2026-07-27T00:32:26.294Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-04T11:52:45.512Z",
-          "prices": {
-            "balcony": 13169
-          }
-        }
-      ]
+      "lastSeenAt": "2026-07-27T05:17:37.620Z"
     }
   ]
 }
