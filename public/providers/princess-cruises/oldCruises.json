@@ -41884,42 +41884,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_OYR10U_DI_20260816",
-      "shipName": "Diamond Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2004,
-      "itinerary": "Tokyo (Yokohama), Japan → Kumano, Japan → Wakayama, Japan → Kochi, Japan → Busan, South Korea → Nagasaki, Japan → Kagoshima, Japan → Shimizu (for Mt. Fuji), Japan → Tokyo (Yokohama), Japan",
-      "departureDate": "2026-08-16",
-      "duration": "10 Nights",
-      "departurePort": "Tokyo (Yokohama)",
-      "departureRegion": "Asia & Far East",
-      "destination": "Japan",
-      "destinationPort": "Tokyo (Yokohama)",
-      "priceFrom": "1831",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=M623",
-      "prices": {
-        "inside": null,
-        "oceanView": "1831",
-        "balcony": "2332",
-        "suite": "2812"
-      },
-      "seaDays": 2,
-      "firstSeenAt": "2026-07-28T18:29:53.475Z",
-      "lastSeenAt": "2026-07-29T06:54:33.403Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-28T18:29:53.475Z",
-          "prices": {
-            "oceanView": 1831,
-            "balcony": 2332,
-            "suite": 2812
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_AWG070_XP_20260905",
       "shipName": "Discovery Princess",
       "shipClass": "Royal",
@@ -42285,6 +42249,61 @@
             "oceanView": 831,
             "balcony": 2249,
             "suite": 2589
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_MLR070_XP_20261128",
+      "shipName": "Discovery Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2022,
+      "itinerary": "Los Angeles, California → Cabo San Lucas, Mexico → Mazatlan, Mexico → Puerto Vallarta, Mexico → Los Angeles, California",
+      "departureDate": "2026-11-28",
+      "duration": "7 Nights",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexico",
+      "destinationPort": "Los Angeles",
+      "priceFrom": "549",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=X642",
+      "prices": {
+        "inside": "549",
+        "oceanView": "749",
+        "balcony": "724",
+        "suite": "799"
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-07-24T18:31:04.002Z",
+      "lastSeenAt": "2026-07-29T16:30:36.136Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-24T18:31:04.002Z",
+          "prices": {
+            "inside": 574,
+            "oceanView": 724,
+            "balcony": 649,
+            "suite": 699
+          }
+        },
+        {
+          "at": "2026-07-24T22:23:38.138Z",
+          "prices": {
+            "inside": 524,
+            "oceanView": 724,
+            "balcony": 649,
+            "suite": 699
+          }
+        },
+        {
+          "at": "2026-07-28T08:56:14.534Z",
+          "prices": {
+            "inside": 549,
+            "oceanView": 749,
+            "balcony": 724,
+            "suite": 799
           }
         }
       ]
