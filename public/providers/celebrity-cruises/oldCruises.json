@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 86,
+  "count": 87,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -10928,120 +10928,601 @@
     },
     {
       "provider": "Celebrity Cruises",
-      "id": "celebrity_FL07BAL-88698382",
-      "shipName": "Celebrity Flora",
-      "shipClass": "Galapagos",
-      "shipLaunchYear": 2019,
-      "itinerary": "Galapagos Inner Loop Itinerary: Baltra Island, Galapagos, Egas Port, Santiago Island, Rabida Island, Elizabeth Bay, Tagus Cove, Isabela Island, Sullivan Bay (Santiago Island), Bartolome Island, Las Bachas, Santa Cruz Island, Daphne Island (Cruising), North Seymour Island, Puerto Baquerizo Moreno, San Cristobal Island, Punta Pitt, San Cristobal Island, Puerto Ayora, Santa Cruz Island, Baltra Island, Galapagos",
-      "departureDate": "2027-09-26",
+      "id": "celebrity_IN07ATH-3859393728",
+      "shipName": "Celebrity Infinity",
+      "shipClass": "Millennium",
+      "shipLaunchYear": 2001,
+      "itinerary": "Best of Greece: Athens (Piraeus), Greece, Rhodes, Greece, Ephesus (Kusadasi), Turkey, Mykonos, Greece, Thessaloniki, Greece, Cruising (Cruising), Santorini, Greece, Athens (Piraeus), Greece",
+      "departureDate": "2026-08-23",
       "duration": "7 Nights",
-      "departurePort": "Baltra (Galapagos)",
-      "departureRegion": "South America",
-      "destination": "Galapagos",
-      "priceFrom": "8684.5",
+      "departurePort": "Athens (Piraeus)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "2473.69",
       "currency": "USD",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=FL07BAL-88698382&pID=FL07G059&sDT=2027-09-26&sCD=FL&sCT=CO&country=GBR",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=IN07ATH-3859393728&pID=IN07M841&sDT=2026-08-23&sCD=IN&sCT=CO&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": "2473.69",
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Athens (Piraeus)",
+      "seaDays": 0,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-07-30T12:34:44.884Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "inside": 688,
+            "oceanView": 939
+          }
+        },
+        {
+          "at": "2026-07-29T08:58:32.018Z",
+          "prices": {
+            "inside": 688,
+            "oceanView": 2648.41
+          }
+        },
+        {
+          "at": "2026-07-29T14:46:36.053Z",
+          "prices": {
+            "oceanView": 2473.69
+          }
+        },
+        {
+          "at": "2026-07-29T22:19:52.372Z",
+          "prices": {
+            "balcony": 3262.41
+          }
+        },
+        {
+          "at": "2026-07-30T05:02:31.501Z",
+          "prices": {
+            "oceanView": 2473.69,
+            "balcony": 3129.69
+          }
+        },
+        {
+          "at": "2026-07-30T10:43:31.733Z",
+          "prices": {
+            "oceanView": 2473.69
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_SM07YVR-3033031581",
+      "shipName": "Celebrity Summit",
+      "shipClass": "Millennium",
+      "shipLaunchYear": 2001,
+      "itinerary": "Alaska Hubbard Glacier: Vancouver, British Columbia, Inside Passage (Cruising), Icy Strait Point, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Ketchikan (Ward Cove), Alaska, Vancouver, British Columbia",
+      "departureDate": "2027-05-16",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "824",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SM07YVR-3033031581&pID=SM07A446&sDT=2027-05-16&sCD=SM&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "824",
+        "oceanView": "880",
+        "balcony": "1179",
+        "suite": "2808"
+      },
+      "destinationPort": "Vancouver",
+      "seaDays": 1,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-07-30T12:34:44.884Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "inside": 822,
+            "oceanView": 880,
+            "balcony": 1179,
+            "suite": 2808
+          }
+        },
+        {
+          "at": "2026-07-30T10:43:31.733Z",
+          "prices": {
+            "inside": 824,
+            "oceanView": 880,
+            "balcony": 1179,
+            "suite": 2808
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_EG07SEA-3808142442",
+      "shipName": "Celebrity Edge",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2018,
+      "itinerary": "Alaska Dawes Glacier: Seattle, Washington, Cruising (Cruising), Ketchikan, Alaska, Endicott Arm (Cruising), Juneau, Alaska, Skagway, Alaska, Victoria, British Columbia, Vancouver, British Columbia",
+      "departureDate": "2026-09-11",
+      "duration": "7 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "3191.54",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EG07SEA-3808142442&pID=EG07A397&sDT=2026-09-11&sCD=EG&sCT=CO&country=GBR",
       "prices": {
         "inside": null,
         "oceanView": null,
-        "balcony": null,
-        "suite": "8684.5"
+        "balcony": "3191.54",
+        "suite": null
       },
-      "destinationPort": "Baltra (Galapagos)",
+      "destinationPort": "Vancouver",
       "seaDays": 0,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "lastSeenAt": "2026-07-30T10:43:31.733Z",
+      "lastSeenAt": "2026-07-30T12:34:44.884Z",
       "priceHistory": [
+        {
+          "at": "2026-06-27T18:25:47.461Z",
+          "prices": {
+            "oceanView": 2109.54,
+            "balcony": 3191.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-06-28T03:08:26.594Z",
+          "prices": {
+            "inside": 833,
+            "oceanView": 1079,
+            "balcony": 1578,
+            "suite": 3301
+          }
+        },
+        {
+          "at": "2026-06-28T14:35:10.389Z",
+          "prices": {
+            "inside": 1598.54,
+            "oceanView": 2109.54,
+            "balcony": 3191.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-06-28T16:27:18.651Z",
+          "prices": {
+            "oceanView": 2109.54,
+            "balcony": 3191.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-06-28T22:22:53.037Z",
+          "prices": {
+            "balcony": 3191.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-06-29T03:09:12.052Z",
+          "prices": {
+            "balcony": 3426.54,
+            "suite": 6178.54
+          }
+        },
+        {
+          "at": "2026-06-30T00:41:27.289Z",
+          "prices": {
+            "balcony": 3426.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-06-30T03:07:32.334Z",
+          "prices": {
+            "inside": 833,
+            "balcony": 1692,
+            "suite": 3301
+          }
+        },
+        {
+          "at": "2026-06-30T05:23:53.282Z",
+          "prices": {
+            "balcony": 3426.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-06-30T14:53:25.431Z",
+          "prices": {
+            "balcony": 3426.54,
+            "suite": 6178.54
+          }
+        },
+        {
+          "at": "2026-07-01T03:08:54.828Z",
+          "prices": {
+            "oceanView": 2109.54,
+            "balcony": 3191.54,
+            "suite": 6178.54
+          }
+        },
+        {
+          "at": "2026-07-01T15:00:31.539Z",
+          "prices": {
+            "balcony": 3191.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-03T18:28:31.831Z",
+          "prices": {
+            "balcony": 3191.54,
+            "suite": 8269.54
+          }
+        },
+        {
+          "at": "2026-07-05T05:19:59.185Z",
+          "prices": {
+            "balcony": 3191.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-05T20:25:03.788Z",
+          "prices": {
+            "balcony": 3426.54,
+            "suite": 8269.54
+          }
+        },
+        {
+          "at": "2026-07-07T16:47:31.024Z",
+          "prices": {
+            "balcony": 3426.54,
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-08T03:03:52.510Z",
+          "prices": {
+            "balcony": 3426.54
+          }
+        },
+        {
+          "at": "2026-07-08T05:04:29.284Z",
+          "prices": {
+            "balcony": 3191.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-08T12:34:24.461Z",
+          "prices": {
+            "balcony": 3426.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-08T15:02:35.621Z",
+          "prices": {
+            "balcony": 3426.54,
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-08T18:30:14.814Z",
+          "prices": {
+            "balcony": 3426.54
+          }
+        },
+        {
+          "at": "2026-07-09T05:25:24.977Z",
+          "prices": {
+            "balcony": 3426.54,
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-10T06:40:41.897Z",
+          "prices": {
+            "balcony": 3626.54,
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-10T07:11:21.013Z",
+          "prices": {
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-10T22:22:27.649Z",
+          "prices": {
+            "oceanView": 2109.54,
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-11T00:29:06.759Z",
+          "prices": {
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-11T03:03:27.882Z",
+          "prices": {
+            "balcony": 3191.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-11T12:19:00.378Z",
+          "prices": {
+            "balcony": 3191.54,
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-11T16:18:20.613Z",
+          "prices": {
+            "oceanView": 2109.54,
+            "balcony": 3191.54,
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-13T00:30:27.697Z",
+          "prices": {
+            "oceanView": 2109.54,
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-13T03:04:40.504Z",
+          "prices": {
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-14T03:02:49.522Z",
+          "prices": {
+            "balcony": 3715.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-14T05:00:37.545Z",
+          "prices": {
+            "balcony": 3715.54,
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-14T16:28:05.699Z",
+          "prices": {
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-14T20:25:06.089Z",
+          "prices": {
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-15T05:00:53.322Z",
+          "prices": {
+            "oceanView": 2109.54,
+            "balcony": 3191.54,
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-15T22:21:07.087Z",
+          "prices": {
+            "oceanView": 2109.54,
+            "balcony": 3191.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-16T00:28:36.766Z",
+          "prices": {
+            "oceanView": 2109.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-16T14:40:38.141Z",
+          "prices": {
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-17T18:22:25.739Z",
+          "prices": {
+            "suite": 8188.54
+          }
+        },
+        {
+          "at": "2026-07-18T04:57:57.911Z",
+          "prices": {
+            "balcony": 3191.54
+          }
+        },
+        {
+          "at": "2026-07-19T06:52:16.011Z",
+          "prices": {
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-19T14:28:36.171Z",
+          "prices": {
+            "balcony": 3191.54
+          }
+        },
+        {
+          "at": "2026-07-20T05:14:19.257Z",
+          "prices": {
+            "oceanView": 2109.54
+          }
+        },
+        {
+          "at": "2026-07-20T11:01:31.810Z",
+          "prices": {
+            "oceanView": 2109.54,
+            "balcony": 3626.54
+          }
+        },
+        {
+          "at": "2026-07-21T00:30:04.393Z",
+          "prices": {
+            "balcony": 3626.54
+          }
+        },
+        {
+          "at": "2026-07-21T16:30:36.042Z",
+          "prices": {
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-22T05:04:08.015Z",
+          "prices": {
+            "balcony": 3191.54,
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-22T14:41:18.079Z",
+          "prices": {
+            "balcony": 3191.54
+          }
+        },
+        {
+          "at": "2026-07-23T05:04:53.822Z",
+          "prices": {
+            "balcony": 3626.54
+          }
+        },
+        {
+          "at": "2026-07-24T00:27:14.402Z",
+          "prices": {
+            "suite": 8697.54
+          }
+        },
+        {
+          "at": "2026-07-24T20:29:57.785Z",
+          "prices": {
+            "oceanView": 2449.54,
+            "balcony": 3191.54
+          }
+        },
+        {
+          "at": "2026-07-24T22:23:38.138Z",
+          "prices": {
+            "oceanView": 2449.54
+          }
+        },
+        {
+          "at": "2026-07-25T05:03:25.393Z",
+          "prices": {
+            "suite": 6900.54
+          }
+        },
+        {
+          "at": "2026-07-26T05:08:25.381Z",
+          "prices": {
+            "balcony": 3626.54
+          }
+        },
+        {
+          "at": "2026-07-27T05:17:37.620Z",
+          "prices": {
+            "balcony": 3191.54
+          }
+        },
+        {
+          "at": "2026-07-28T05:03:19.884Z",
+          "prices": {
+            "oceanView": 2449.54
+          }
+        },
+        {
+          "at": "2026-07-28T18:29:53.475Z",
+          "prices": {
+            "balcony": 3715.54
+          }
+        },
         {
           "at": "2026-07-29T05:04:33.589Z",
           "prices": {
-            "suite": 7059
+            "balcony": 3626.54
           }
         },
         {
-          "at": "2026-07-29T18:21:06.211Z",
+          "at": "2026-07-30T05:02:31.501Z",
           "prices": {
-            "suite": 8139
-          }
-        },
-        {
-          "at": "2026-07-30T00:28:30.408Z",
-          "prices": {
-            "suite": 8684.5
+            "balcony": 3191.54
           }
         }
       ]
     },
     {
       "provider": "Celebrity Cruises",
-      "id": "celebrity_XC16BCN-3199282797",
-      "shipName": "Celebrity Xcel",
-      "shipClass": "Edge",
-      "shipLaunchYear": 2025,
-      "itinerary": "Spain & Bermuda Transatlantic: Barcelona, Spain, Provence (Marseille), France, Palma De Mallorca, Spain, Alicante, Spain, Malaga, Spain, Tangier, Morocco, Cruising (Cruising), Royal Naval Dockyard, Bermuda, Fort Lauderdale, Florida",
-      "departureDate": "2027-10-29",
-      "duration": "16 Nights",
-      "departurePort": "Barcelona",
-      "departureRegion": "Mediterranean",
-      "destination": "Transatlantic",
-      "priceFrom": "1371",
-      "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=XC16BCN-3199282797&pID=XC16T113&sDT=2027-10-29&sCD=XC&sCT=CO&country=GBR",
-      "prices": {
-        "inside": "1371",
-        "oceanView": "1687",
-        "balcony": "2200",
-        "suite": "12898"
-      },
-      "destinationPort": "Fort Lauderdale",
-      "seaDays": 8,
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "lastSeenAt": "2026-07-30T10:43:31.733Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-29T05:04:33.589Z",
-          "prices": {
-            "inside": 1371,
-            "oceanView": 1687,
-            "balcony": 2200,
-            "suite": 12898
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Celebrity Cruises",
-      "id": "celebrity_SL15SYD-1634182107",
+      "id": "celebrity_SL12YOK-1259723610",
       "shipName": "Celebrity Solstice",
       "shipClass": "Solstice",
       "shipLaunchYear": 2008,
-      "itinerary": "Australia: Sydney, Australia, Cruising (Cruising), Airlie Beach (Queensland), Australia, Cairns (Yorkey's Knob), Australia, Port Douglas, Australia, Darwin, Australia, Benoa (Bali), Indonesia, Celukan Bawang, Indonesia, Singapore",
-      "departureDate": "2027-11-10",
-      "duration": "15 Nights",
-      "departurePort": "Sydney",
-      "departureRegion": "Australia & Pacific",
-      "destination": "Australia and New Zealand",
-      "priceFrom": "1800",
+      "itinerary": "Japan Cherry Blossoms: Tokyo, Kyoto: Tokyo (Yokohama), Japan, Mt Fuji (Shimizu), Japan, Cruising (Cruising), Kumamoto (Yatsushiro), Japan, Busan, South Korea, Fukuoka, Japan, Okinawa, Japan, Kobe, Japan, Tokyo (Yokohama), Japan",
+      "departureDate": "2028-03-28",
+      "duration": "12 Nights",
+      "departurePort": "Tokyo (Yokohama)",
+      "departureRegion": "Asia & Far East",
+      "destination": "Asia",
+      "priceFrom": "1514",
       "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL15SYD-1634182107&pID=SL15K027&sDT=2027-11-10&sCD=SL&sCT=CO&country=GBR",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL12YOK-1259723610&pID=SL12I236&sDT=2028-03-28&sCD=SL&sCT=CO&country=GBR",
       "prices": {
-        "inside": "1800",
-        "oceanView": "2023",
-        "balcony": "2154",
-        "suite": "6051"
+        "inside": "1514",
+        "oceanView": "1806",
+        "balcony": "2164",
+        "suite": "9217"
       },
-      "destinationPort": "Singapore",
-      "seaDays": 7,
+      "destinationPort": "Tokyo (Yokohama)",
+      "seaDays": 4,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "lastSeenAt": "2026-07-30T10:43:31.733Z",
+      "lastSeenAt": "2026-07-30T12:34:44.884Z",
       "priceHistory": [
         {
           "at": "2026-07-29T05:04:33.589Z",
           "prices": {
-            "inside": 1800,
-            "oceanView": 2023,
-            "balcony": 2154,
-            "suite": 6051
+            "inside": 1514,
+            "oceanView": 1806,
+            "balcony": 2164,
+            "suite": 9217
+          }
+        },
+        {
+          "at": "2026-07-30T03:03:05.581Z",
+          "prices": {
+            "inside": 1514,
+            "oceanView": 1979,
+            "balcony": 2164,
+            "suite": 9217
+          }
+        },
+        {
+          "at": "2026-07-30T05:02:31.501Z",
+          "prices": {
+            "inside": 1514,
+            "oceanView": 1806,
+            "balcony": 2164,
+            "suite": 9217
           }
         }
       ]
