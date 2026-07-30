@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 86,
+  "count": 87,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -11855,6 +11855,54 @@
           "at": "2026-07-29T16:30:36.136Z",
           "prices": {
             "suite": 33958.76
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_CS10BLQ-3866198472",
+      "shipName": "Celebrity Constellation",
+      "shipClass": "Millennium",
+      "shipLaunchYear": 2002,
+      "itinerary": "Best of Italy & Croatia: Ravenna, Italy, Split, Croatia, Dubrovnik, Croatia, Kotor, Montenegro, Cruising (Cruising), Sicily (Messina), Italy, Amalfi Coast (Salerno), Italy, Portofino, Italy, Florence/Pisa (Livorno), Italy, Rome (Civitavecchia), Italy",
+      "departureDate": "2026-08-21",
+      "duration": "10 Nights",
+      "departurePort": "Venice (Ravenna)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "8127.37",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=CS10BLQ-3866198472&pID=CS10M386&sDT=2026-08-21&sCD=CS&sCT=CO&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "8127.37"
+      },
+      "destinationPort": "Rome (Civitavecchia)",
+      "seaDays": 1,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-07-29T22:19:52.372Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "balcony": 3856.37,
+            "suite": 11136.37
+          }
+        },
+        {
+          "at": "2026-07-29T14:46:36.053Z",
+          "prices": {
+            "balcony": 3856.37,
+            "suite": 8127.37
+          }
+        },
+        {
+          "at": "2026-07-29T20:21:26.773Z",
+          "prices": {
+            "suite": 8127.37
           }
         }
       ]
