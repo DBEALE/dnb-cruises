@@ -343,6 +343,15 @@ test.describe('Sort and filter', () => {
     await expect(page.locator('#sortDirBtn')).toHaveText('↓');
   });
 
+  test('this-week price reduction sort ranks the largest weekly drop first', async ({ page }) => {
+    await gotoFresh(page);
+    // Anthem's 20-day-old £1000 → £500 fall is a 50% weekly drop, ahead of
+    // Celebrity Edge's ~10% — the opposite of the 24-hour ordering above.
+    await page.selectOption('#sortSelect', '22');
+    await expect(page.locator('tbody tr:first-child .col-ship')).toContainText('Anthem of the Seas');
+    await expect(page.locator('#sortDirBtn')).toHaveText('↓');
+  });
+
   test('column filter narrows results and updates summary count', async ({ page }) => {
     await gotoFresh(page);
     await page.locator('.col-filter[data-field="provider"]').selectOption('Celebrity Cruises');

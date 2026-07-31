@@ -3101,6 +3101,7 @@
       18: 'Recently found',
       19: 'Sea days',
       20: '24hr price reduction',
+      22: 'Price drop this week',
     };
     return names[col] || '';
   }
@@ -3428,7 +3429,7 @@
       sortAsc = true;
     } else {
       sortColIndex = parseInt(val, 10);
-      sortAsc = sortColIndex === 18 || sortColIndex === 20 ? false : true;
+      sortAsc = sortColIndex === 18 || sortColIndex === 20 || sortColIndex === 22 ? false : true;
     }
     syncSortControls();
     scheduleApplyFilters();
@@ -3652,6 +3653,7 @@
       case 18: return getFirstSeenTime(c);
       case 19: return inferSeaDays(c);
       case 20: return getRecentPriceReductionPct(c, RECENT_WINDOW_MS['24h']);
+      case 22: return getRecentPriceReductionPct(c, RECENT_WINDOW_MS['7d']);
       case 21: return getDestinationPortDisplay(c);
       default: return '';
     }
