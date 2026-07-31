@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 19,
+  "count": 20,
   "cruises": [
     {
       "id": "virgin-BR2607097NSBE",
@@ -1685,6 +1685,102 @@
           "prices": {
             "balcony": 1567,
             "suite": 5520
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-VL26080515NWDF",
+      "provider": "Virgin Voyages",
+      "shipName": "Valiant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2021,
+      "itinerary": "EUROPE",
+      "departureDate": "2026-08-05",
+      "duration": "15 Nights",
+      "departurePort": "Portsmouth",
+      "departureRegion": "UK & Ireland",
+      "destination": "UK & Ireland",
+      "destinationPort": "Portsmouth",
+      "seaDays": null,
+      "priceFrom": "4470",
+      "currency": "GBP",
+      "prices": {
+        "inside": 1500,
+        "oceanView": 2803,
+        "balcony": 2803,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=VL26080515NWDF&currencyCode=GBP",
+      "arrivalDate": "2026-08-20",
+      "pricesEnrichedAt": "2026-07-31T16:36:25.234Z",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-07-31T18:37:01.180Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "inside": 1500,
+            "oceanView": 1575,
+            "balcony": 1725,
+            "suite": 9000
+          }
+        },
+        {
+          "at": "2026-07-13T11:02:45.620Z",
+          "prices": {
+            "inside": 1500,
+            "oceanView": 1575,
+            "balcony": 1725,
+            "suite": 12150
+          }
+        },
+        {
+          "at": "2026-07-15T10:34:19.721Z",
+          "prices": {
+            "inside": 1500,
+            "oceanView": 1575,
+            "balcony": 2803,
+            "suite": 13500
+          }
+        },
+        {
+          "at": "2026-07-16T10:39:27.578Z",
+          "prices": {
+            "balcony": 2803,
+            "suite": 13500
+          }
+        },
+        {
+          "at": "2026-07-21T08:54:10.453Z",
+          "prices": {
+            "inside": 1500,
+            "oceanView": 1575,
+            "balcony": 1725,
+            "suite": 13500
+          }
+        },
+        {
+          "at": "2026-07-22T08:53:35.551Z",
+          "prices": {
+            "balcony": 2803,
+            "suite": 13500
+          }
+        },
+        {
+          "at": "2026-07-25T08:41:23.232Z",
+          "prices": {
+            "inside": 1500,
+            "oceanView": 1575,
+            "balcony": 2803
+          }
+        },
+        {
+          "at": "2026-07-28T22:22:07.898Z",
+          "prices": {
+            "inside": 1500,
+            "oceanView": 2803,
+            "balcony": 2803
           }
         }
       ]
