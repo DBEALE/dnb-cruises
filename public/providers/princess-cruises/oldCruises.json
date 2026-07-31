@@ -4991,39 +4991,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_AYR14A_KP_20270828",
-      "shipName": "Crown Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2006,
-      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Skagway, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
-      "departureDate": "2027-08-28",
-      "duration": "14 Nights",
-      "departurePort": "Vancouver, Canada",
-      "departureRegion": "Americas",
-      "destination": "Alaska",
-      "priceFrom": "1486",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3735A",
-      "prices": {
-        "inside": "1486",
-        "oceanView": "2883",
-        "balcony": "4243",
-        "suite": null
-      },
-      "priceHistory": [
-        {
-          "at": "2026-06-06T11:39:02.880Z",
-          "prices": {
-            "inside": 1486,
-            "oceanView": 2883,
-            "balcony": 4243
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-06T15:10:22.563Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_EAB07A_SU_20280702",
       "shipName": "Sun Princess",
       "shipClass": "Royal",
@@ -43073,6 +43040,59 @@
             "oceanView": 596,
             "balcony": 822,
             "suite": 1929
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AYR14A_KP_20270522",
+      "shipName": "Crown Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2006,
+      "itinerary": "Vancouver, Canada → Ketchikan, Alaska → Juneau, Alaska → Skagway, Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Hubbard Glacier (Scenic Cruising), Alaska → Glacier Bay National Park (Scenic Cruising), Alaska → Skagway, Alaska → Juneau, Alaska → Ketchikan, Alaska → Vancouver, Canada",
+      "departureDate": "2027-05-22",
+      "duration": "14 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "destinationPort": "Vancouver",
+      "priceFrom": "1266",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3721A",
+      "prices": {
+        "inside": "1266",
+        "oceanView": "1758",
+        "balcony": "2725",
+        "suite": null
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-28T22:22:07.898Z",
+      "lastSeenAt": "2026-07-31T09:01:34.099Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-28T22:22:07.898Z",
+          "prices": {
+            "inside": 1341,
+            "oceanView": 1833,
+            "balcony": 2719,
+            "suite": 3825
+          }
+        },
+        {
+          "at": "2026-07-31T03:03:44.837Z",
+          "prices": {
+            "inside": 1341,
+            "oceanView": 1833,
+            "balcony": 2825
+          }
+        },
+        {
+          "at": "2026-07-31T06:59:17.691Z",
+          "prices": {
+            "inside": 1266,
+            "oceanView": 1758,
+            "balcony": 2725
           }
         }
       ]

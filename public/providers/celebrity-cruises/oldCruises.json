@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 84,
+  "count": 89,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -11757,55 +11757,269 @@
     },
     {
       "provider": "Celebrity Cruises",
-      "id": "celebrity_AT11ROM-3185341685",
-      "shipName": "Celebrity Ascent",
-      "shipClass": "Edge",
-      "shipLaunchYear": 2023,
-      "itinerary": "Italy & Spain Solar Eclipse: Rome (Civitavecchia), Italy, Florence/Pisa (Livorno), Italy, Portofino, Italy, Cruising (Cruising), Barcelona, Spain, Cartagena, Spain, Malaga, Spain, Solar Eclipse (Cruising), Cagliari, Sardinia, Sicily (Palermo), Italy, Rome (Civitavecchia), Italy",
-      "departureDate": "2027-07-26",
-      "duration": "11 Nights",
+      "id": "celebrity_EQ09ROM-594526585",
+      "shipName": "Celebrity Equinox",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2009,
+      "itinerary": "Italian Riviera, France & Spain: Rome (Civitavecchia), Italy, Naples, Italy, Cruising (Cruising), Florence/Pisa (La Spezia), Italy, Portofino, Italy, Cannes, France, Palma De Mallorca, Spain, Barcelona, Spain",
+      "departureDate": "2027-06-08",
+      "duration": "9 Nights",
       "departurePort": "Rome (Civitavecchia)",
       "departureRegion": "Mediterranean",
       "destination": "Europe",
-      "priceFrom": "2631",
+      "priceFrom": "1199",
       "currency": "GBP",
-      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AT11ROM-3185341685&pID=AT11M317&sDT=2027-07-26&sCD=AT&sCT=CO&country=GBR",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EQ09ROM-594526585&pID=EQ09M333&sDT=2027-06-08&sCD=EQ&sCT=CO&country=GBR",
       "prices": {
-        "inside": "2631",
-        "oceanView": "3361",
-        "balcony": "3689",
-        "suite": "8432"
+        "inside": "1199",
+        "oceanView": "1549",
+        "balcony": "1600",
+        "suite": "4387"
       },
-      "destinationPort": "Rome (Civitavecchia)",
-      "seaDays": 1,
+      "destinationPort": "Barcelona",
+      "seaDays": 2,
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "lastSeenAt": "2026-07-31T06:59:17.691Z",
+      "lastSeenAt": "2026-07-31T09:01:34.099Z",
       "priceHistory": [
         {
           "at": "2026-07-29T05:04:33.589Z",
           "prices": {
-            "inside": 2631,
-            "oceanView": 3361,
-            "balcony": 3689,
-            "suite": 8432
+            "inside": 1199,
+            "oceanView": 1549,
+            "balcony": 1600,
+            "suite": 4387
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_EC07AMS-190222241",
+      "shipName": "Celebrity Eclipse",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2010,
+      "itinerary": "Norwegian Fjords: Amsterdam, Netherlands, Cruising (Cruising), Stavanger, Norway, Skjolden, Norway, Bergen, Norway, Alesund, Norway, Amsterdam, Netherlands",
+      "departureDate": "2027-05-19",
+      "duration": "7 Nights",
+      "departurePort": "Amsterdam",
+      "departureRegion": "Northern Europe",
+      "destination": "Europe",
+      "priceFrom": "1386",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC07AMS-190222241&pID=EC07U259&sDT=2027-05-19&sCD=EC&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1386",
+        "oceanView": "1523",
+        "balcony": "1886",
+        "suite": "3756"
+      },
+      "destinationPort": "Amsterdam",
+      "seaDays": 1,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-07-31T09:01:34.099Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "inside": 1386,
+            "oceanView": 1523,
+            "balcony": 1886,
+            "suite": 3756
+          }
+        },
+        {
+          "at": "2026-07-31T03:03:44.837Z",
+          "prices": {
+            "inside": 1467,
+            "oceanView": 1523,
+            "balcony": 1886,
+            "suite": 3756
+          }
+        },
+        {
+          "at": "2026-07-31T06:59:17.691Z",
+          "prices": {
+            "inside": 1386,
+            "oceanView": 1523,
+            "balcony": 1886,
+            "suite": 3756
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_SL11HKG-377071798",
+      "shipName": "Celebrity Solstice",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2008,
+      "itinerary": "Vietnam & Thailand: Hong Kong, China, Cruising (Cruising), Hanoi (Halong Bay), Vietnam, Hue/Danang (Chan May), Vietnam, Ho Chi Minh (Phu My), Vietnam, Bangkok/Laemchabang, Thailand, Ko Samui, Thailand, Singapore",
+      "departureDate": "2027-01-02",
+      "duration": "11 Nights",
+      "departurePort": "Hong Kong",
+      "departureRegion": "Asia & Far East",
+      "destination": "Asia",
+      "priceFrom": "5297.5",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL11HKG-377071798&pID=SL11I019&sDT=2027-01-02&sCD=SL&sCT=CO&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": "5297.5",
+        "balcony": "6093.5",
+        "suite": "11582.5"
+      },
+      "destinationPort": "Singapore",
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-07-31T09:01:34.099Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "oceanView": 5297.5,
+            "balcony": 5885.5,
+            "suite": 13101.5
           }
         },
         {
           "at": "2026-07-29T14:46:36.053Z",
           "prices": {
-            "inside": 2631,
-            "oceanView": 3361,
-            "balcony": 3689,
-            "suite": 7636
+            "oceanView": 5297.5,
+            "suite": 13101.5
           }
         },
         {
-          "at": "2026-07-30T10:43:31.733Z",
+          "at": "2026-07-30T00:28:30.408Z",
           "prices": {
-            "inside": 2631,
-            "oceanView": 3361,
-            "balcony": 3689,
-            "suite": 8432
+            "oceanView": 5297.5,
+            "suite": 11582.5
+          }
+        },
+        {
+          "at": "2026-07-30T05:02:31.501Z",
+          "prices": {
+            "oceanView": 5297.5,
+            "balcony": 5885.5,
+            "suite": 11582.5
+          }
+        },
+        {
+          "at": "2026-07-31T09:01:34.099Z",
+          "prices": {
+            "oceanView": 5297.5,
+            "balcony": 6093.5,
+            "suite": 11582.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_EG09YVR-2839624838",
+      "shipName": "Celebrity Edge",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2018,
+      "itinerary": "Hawaii Cruise: Vancouver, British Columbia, Seattle, Washington, Cruising (Cruising), Hilo, Hawaii, Honolulu (Oahu), Hawaii",
+      "departureDate": "2027-10-01",
+      "duration": "9 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Hawaii",
+      "priceFrom": "744",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EG09YVR-2839624838&pID=EG09H022&sDT=2027-10-01&sCD=EG&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "744",
+        "oceanView": "1017",
+        "balcony": "1235",
+        "suite": "3331"
+      },
+      "destinationPort": "Honolulu",
+      "seaDays": 5,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-07-31T09:01:34.099Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "inside": 744,
+            "oceanView": 1017,
+            "balcony": 1235,
+            "suite": 3331
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_EC12FLL-2827040659",
+      "shipName": "Celebrity Eclipse",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2010,
+      "itinerary": "Ultimate Southern Caribbean: Fort Lauderdale, Florida, Cruising (Cruising), Oranjestad, Aruba, Willemstad, Curacao, Kralendijk, Bonaire, Philipsburg, St. Maarten, Castries, St. Lucia, St. Johns, Antigua, Fort Lauderdale, Florida",
+      "departureDate": "2028-01-17",
+      "duration": "12 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1021",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC12FLL-2827040659&pID=EC12D059&sDT=2028-01-17&sCD=EC&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1021",
+        "oceanView": "1182",
+        "balcony": "1420",
+        "suite": "4607"
+      },
+      "destinationPort": "Fort Lauderdale",
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-07-31T09:01:34.099Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "inside": 1021,
+            "oceanView": 1182,
+            "balcony": 1420,
+            "suite": 4607
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_EC12FLL-2413840107",
+      "shipName": "Celebrity Eclipse",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2010,
+      "itinerary": "Ultimate Southern Caribbean: Fort Lauderdale, Florida, Cruising (Cruising), George Town, Grand Cayman, Oranjestad, Aruba, Willemstad, Curacao, Castries, St. Lucia, Basseterre, St Kitts & Nevis, San Juan, Puerto Rico, Puerto Plata, Dominican Republic, Fort Lauderdale, Florida",
+      "departureDate": "2028-01-05",
+      "duration": "12 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1042",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EC12FLL-2413840107&pID=EC12D058&sDT=2028-01-05&sCD=EC&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1042",
+        "oceanView": "1203",
+        "balcony": "1441",
+        "suite": "4260"
+      },
+      "destinationPort": "Fort Lauderdale",
+      "seaDays": 3,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-07-31T09:01:34.099Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "inside": 1042,
+            "oceanView": 1203,
+            "balcony": 1441,
+            "suite": 4260
           }
         }
       ]
