@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 671,
+  "count": 672,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -43737,6 +43737,46 @@
             "inside": 3352,
             "balcony": 3337,
             "suite": 3626
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_EAB07B_SU_20260822",
+      "shipName": "Sun Princess",
+      "shipClass": "Sphere",
+      "shipLaunchYear": 2024,
+      "itinerary": "Athens (Piraeus), Greece → Santorini, Greece → Bar, Montenegro → Taranto, Italy → Sicily (Messina), Italy → Barcelona, Spain",
+      "departureDate": "2026-08-22",
+      "duration": "7 Nights",
+      "departurePort": "Athens (Piraeus)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "destinationPort": "Barcelona",
+      "priceFrom": "2094",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=U633",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "2094"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-10T06:40:41.897Z",
+      "lastSeenAt": "2026-08-01T16:20:49.187Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-10T06:40:41.897Z",
+          "prices": {
+            "suite": 2181
+          }
+        },
+        {
+          "at": "2026-08-01T06:51:57.405Z",
+          "prices": {
+            "suite": 2094
           }
         }
       ]
