@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 85,
+  "count": 86,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -12197,6 +12197,64 @@
           "at": "2026-08-01T16:20:49.187Z",
           "prices": {
             "balcony": 2966.22
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_SM07SWD-1391220390",
+      "shipName": "Celebrity Summit",
+      "shipClass": "Millennium",
+      "shipLaunchYear": 2001,
+      "itinerary": "Alaska Southbound Glacier: Seward, Alaska, Hubbard Glacier (Cruising), Alaska, Juneau, Alaska, Skagway, Alaska, Icy Strait Point, Alaska, Ketchikan, Alaska, Inside Passage (Cruising), Vancouver, British Columbia",
+      "departureDate": "2026-09-04",
+      "duration": "7 Nights",
+      "departurePort": "Seward",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "5325.27",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SM07SWD-1391220390&pID=SM07A394&sDT=2026-09-04&sCD=SM&sCT=CO&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Vancouver",
+      "seaDays": 0,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-08-01T18:20:37.185Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "inside": 603
+          }
+        },
+        {
+          "at": "2026-07-29T14:46:36.053Z",
+          "prices": {
+            "inside": 771
+          }
+        },
+        {
+          "at": "2026-07-30T05:02:31.501Z",
+          "prices": {
+            "inside": 603
+          }
+        },
+        {
+          "at": "2026-07-30T06:53:20.072Z",
+          "prices": {
+            "inside": 771
+          }
+        },
+        {
+          "at": "2026-08-01T03:03:25.921Z",
+          "prices": {
+            "inside": 603
           }
         }
       ]
