@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 81,
+  "count": 82,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -11304,6 +11304,61 @@
           "at": "2026-08-01T12:22:06.776Z",
           "prices": {
             "balcony": 3536.95
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_SL12YOK-1259723610",
+      "shipName": "Celebrity Solstice",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2008,
+      "itinerary": "Japan Cherry Blossoms: Tokyo, Kyoto: Tokyo (Yokohama), Japan, Mt Fuji (Shimizu), Japan, Cruising (Cruising), Kumamoto (Yatsushiro), Japan, Busan, South Korea, Fukuoka, Japan, Okinawa, Japan, Kobe, Japan, Tokyo (Yokohama), Japan",
+      "departureDate": "2028-03-28",
+      "duration": "12 Nights",
+      "departurePort": "Tokyo (Yokohama)",
+      "departureRegion": "Asia & Far East",
+      "destination": "Asia",
+      "priceFrom": "1514",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL12YOK-1259723610&pID=SL12I236&sDT=2028-03-28&sCD=SL&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "1514",
+        "oceanView": "1806",
+        "balcony": "2164",
+        "suite": "9217"
+      },
+      "destinationPort": "Tokyo (Yokohama)",
+      "seaDays": 4,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-08-02T10:32:17.346Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "inside": 1514,
+            "oceanView": 1806,
+            "balcony": 2164,
+            "suite": 9217
+          }
+        },
+        {
+          "at": "2026-07-30T03:03:05.581Z",
+          "prices": {
+            "inside": 1514,
+            "oceanView": 1979,
+            "balcony": 2164,
+            "suite": 9217
+          }
+        },
+        {
+          "at": "2026-07-30T05:02:31.501Z",
+          "prices": {
+            "inside": 1514,
+            "oceanView": 1806,
+            "balcony": 2164,
+            "suite": 9217
           }
         }
       ]
