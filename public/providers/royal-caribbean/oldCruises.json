@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 31,
+  "count": 32,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -9807,6 +9807,83 @@
           "at": "2026-08-02T05:04:49.633Z",
           "prices": {
             "balcony": 1600.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_AN07SEA-2909514450",
+      "shipName": "Anthem of the Seas",
+      "shipClass": "Quantum",
+      "shipLaunchYear": 2015,
+      "itinerary": "Alaska Adventure Cruise: Seattle, Washington, Sitka, Alaska, Skagway, Alaska, Endicott Arm & Dawes Glacier (Cruising), Alaska, Juneau, Alaska, Victoria, British Columbia, Seattle, Washington",
+      "departureDate": "2026-08-03",
+      "duration": "7 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2793.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AN07SEA-2909514450&sailDate=2026-08-03&shipCode=AN&packageCode=AN07A399&destinationCode=ALCAN&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "2793.5",
+        "suite": null
+      },
+      "destinationPort": "Seattle",
+      "seaDays": 0,
+      "enrichedAt": "2026-08-01T16:22:45.026Z",
+      "firstSeenAt": "2026-07-20T16:30:57.010Z",
+      "lastSeenAt": "2026-08-02T18:20:24.840Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-20T16:30:57.010Z",
+          "prices": {
+            "balcony": 1454
+          }
+        },
+        {
+          "at": "2026-07-22T22:21:55.959Z",
+          "prices": {
+            "balcony": 4713.5
+          }
+        },
+        {
+          "at": "2026-07-27T16:42:49.260Z",
+          "prices": {
+            "inside": 1336.5
+          }
+        },
+        {
+          "at": "2026-07-31T16:34:20.143Z",
+          "prices": {
+            "inside": 1211.5
+          }
+        },
+        {
+          "at": "2026-07-31T18:37:01.180Z",
+          "prices": {
+            "inside": 1193.5
+          }
+        },
+        {
+          "at": "2026-07-31T20:29:08.348Z",
+          "prices": {
+            "balcony": 2637.5
+          }
+        },
+        {
+          "at": "2026-07-31T22:21:15.116Z",
+          "prices": {
+            "inside": 781.5
+          }
+        },
+        {
+          "at": "2026-08-01T16:20:49.187Z",
+          "prices": {
+            "balcony": 2793.5
           }
         }
       ]
