@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 85,
+  "count": 86,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -12646,6 +12646,60 @@
           "prices": {
             "inside": 695,
             "oceanView": 1987.85
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_SI12BOS-2167893569",
+      "shipName": "Celebrity Silhouette",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2011,
+      "itinerary": "Boston, Maine & Canada: Boston, Massachusetts, Rockland, Maine, Saint John, Nb (Bay Of Fundy), Halifax, Nova Scotia, Sydney, Nova Scotia, Cruising (Cruising), Quebec City, Charlottetown, PEI, Portland, Maine, Boston, Massachusetts",
+      "departureDate": "2026-09-05",
+      "duration": "12 Nights",
+      "departurePort": "Boston",
+      "departureRegion": "Americas",
+      "destination": "Canada",
+      "priceFrom": "8368.3",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SI12BOS-2167893569&pID=SI12N020&sDT=2026-09-05&sCD=SI&sCT=CO&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Boston",
+      "seaDays": 3,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-08-02T20:20:46.877Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "balcony": 5955.3
+          }
+        },
+        {
+          "at": "2026-07-31T18:37:01.180Z",
+          "prices": {
+            "inside": 1741,
+            "balcony": 2703
+          }
+        },
+        {
+          "at": "2026-07-31T20:29:08.348Z",
+          "prices": {
+            "inside": 1741,
+            "balcony": 5955.3
+          }
+        },
+        {
+          "at": "2026-07-31T22:21:15.116Z",
+          "prices": {
+            "inside": 1741
           }
         }
       ]
