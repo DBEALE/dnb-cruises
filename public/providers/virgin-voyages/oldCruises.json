@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 21,
+  "count": 22,
   "cruises": [
     {
       "id": "virgin-BR2607097NSBE",
@@ -1859,133 +1859,230 @@
       ]
     },
     {
-      "id": "virgin-RS2608085NTC",
+      "id": "virgin-VL26080515NWDF",
       "provider": "Virgin Voyages",
-      "shipName": "Resilient Lady",
+      "shipName": "Valiant Lady",
       "shipClass": "Lady",
-      "shipLaunchYear": 2023,
-      "itinerary": "CARIBB..",
-      "departureDate": "2026-08-08",
-      "duration": "5 Nights",
-      "departurePort": "Miami",
-      "departureRegion": "Americas",
-      "destination": "Americas",
-      "destinationPort": "Miami",
+      "shipLaunchYear": 2021,
+      "itinerary": "EUROPE",
+      "departureDate": "2026-08-05",
+      "duration": "15 Nights",
+      "departurePort": "Portsmouth",
+      "departureRegion": "UK & Ireland",
+      "destination": "UK & Ireland",
+      "destinationPort": "Portsmouth",
       "seaDays": null,
-      "priceFrom": "9190",
+      "priceFrom": "4470",
       "currency": "GBP",
       "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": null,
-        "suite": 3531
+        "inside": 1725,
+        "oceanView": 2803,
+        "balcony": 2803,
+        "suite": null
       },
-      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=RS2608085NTC&currencyCode=GBP",
-      "arrivalDate": "2026-08-13",
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=VL26080515NWDF&currencyCode=GBP",
+      "arrivalDate": "2026-08-20",
       "pricesEnrichedAt": "2026-08-03T13:05:29.036Z",
       "firstSeenAt": "2026-07-06T17:01:37.354Z",
-      "lastSeenAt": "2026-08-03T13:03:23.636Z",
+      "lastSeenAt": "2026-08-03T15:01:37.710Z",
       "priceHistory": [
         {
           "at": "2026-07-07T14:10:40.613Z",
           "prices": {
-            "inside": 920,
-            "oceanView": 841,
-            "balcony": 880,
-            "suite": 4130
-          }
-        },
-        {
-          "at": "2026-07-08T12:34:24.461Z",
-          "prices": {
-            "oceanView": 880,
-            "balcony": 919
-          }
-        },
-        {
-          "at": "2026-07-10T11:01:44.154Z",
-          "prices": {
-            "oceanView": 975,
-            "balcony": 975
-          }
-        },
-        {
-          "at": "2026-07-11T08:34:43.760Z",
-          "prices": {
-            "inside": 957,
-            "balcony": 1066
+            "inside": 1500,
+            "oceanView": 1575,
+            "balcony": 1725,
+            "suite": 9000
           }
         },
         {
           "at": "2026-07-13T11:02:45.620Z",
           "prices": {
-            "inside": 957,
-            "oceanView": 975,
-            "balcony": 919
+            "inside": 1500,
+            "oceanView": 1575,
+            "balcony": 1725,
+            "suite": 12150
           }
         },
         {
-          "at": "2026-07-14T08:44:32.782Z",
+          "at": "2026-07-15T10:34:19.721Z",
           "prices": {
-            "inside": 994,
-            "oceanView": 1012,
-            "balcony": 957
+            "inside": 1500,
+            "oceanView": 1575,
+            "balcony": 2803,
+            "suite": 13500
           }
         },
         {
-          "at": "2026-07-15T06:45:51.789Z",
+          "at": "2026-07-16T10:39:27.578Z",
           "prices": {
-            "balcony": 957
+            "balcony": 2803,
+            "suite": 13500
           }
         },
         {
-          "at": "2026-07-16T05:02:46.359Z",
+          "at": "2026-07-21T08:54:10.453Z",
           "prices": {
-            "oceanView": 1048,
-            "balcony": 1048
+            "inside": 1500,
+            "oceanView": 1575,
+            "balcony": 1725,
+            "suite": 13500
           }
         },
         {
-          "at": "2026-07-18T00:27:42.400Z",
+          "at": "2026-07-22T08:53:35.551Z",
           "prices": {
-            "oceanView": 1085,
-            "balcony": 1085
+            "balcony": 2803,
+            "suite": 13500
           }
         },
         {
-          "at": "2026-07-18T22:17:14.134Z",
+          "at": "2026-07-25T08:41:23.232Z",
           "prices": {
-            "balcony": 1085
+            "inside": 1500,
+            "oceanView": 1575,
+            "balcony": 2803
           }
         },
         {
-          "at": "2026-07-20T18:38:23.916Z",
+          "at": "2026-07-28T22:22:07.898Z",
           "prices": {
-            "balcony": 1176
+            "inside": 1500,
+            "oceanView": 2803,
+            "balcony": 2803
+          }
+        },
+        {
+          "at": "2026-08-02T03:03:54.018Z",
+          "prices": {
+            "inside": 1725,
+            "oceanView": 2803,
+            "balcony": 2803
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-BR2608137NSBE",
+      "provider": "Virgin Voyages",
+      "shipName": "Brilliant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2025,
+      "itinerary": "NORTH ..",
+      "departureDate": "2026-08-13",
+      "duration": "7 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Americas",
+      "destinationPort": "Seattle",
+      "seaDays": null,
+      "priceFrom": "2506",
+      "currency": "GBP",
+      "prices": {
+        "inside": 963,
+        "oceanView": 1124,
+        "balcony": 1339,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=BR2608137NSBE&currencyCode=GBP",
+      "arrivalDate": "2026-08-20",
+      "pricesEnrichedAt": "2026-08-03T09:07:39.658Z",
+      "firstSeenAt": "2026-07-06T17:01:37.354Z",
+      "lastSeenAt": "2026-08-03T15:01:37.710Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-07T14:10:40.613Z",
+          "prices": {
+            "inside": 909,
+            "oceanView": 1070,
+            "balcony": 1285,
+            "suite": 3221
+          }
+        },
+        {
+          "at": "2026-07-12T14:30:43.836Z",
+          "prices": {
+            "suite": 3221
+          }
+        },
+        {
+          "at": "2026-07-13T16:48:18.981Z",
+          "prices": {
+            "inside": 909,
+            "oceanView": 1070,
+            "balcony": 1285,
+            "suite": 3221
+          }
+        },
+        {
+          "at": "2026-07-14T20:25:06.089Z",
+          "prices": {
+            "balcony": 1519,
+            "suite": 3221
+          }
+        },
+        {
+          "at": "2026-07-16T00:28:36.766Z",
+          "prices": {
+            "oceanView": 1070,
+            "balcony": 1285,
+            "suite": 5158
+          }
+        },
+        {
+          "at": "2026-07-17T03:03:31.225Z",
+          "prices": {
+            "inside": 909,
+            "oceanView": 1070,
+            "balcony": 1285,
+            "suite": 5158
+          }
+        },
+        {
+          "at": "2026-07-21T16:30:36.042Z",
+          "prices": {
+            "suite": 5158
+          }
+        },
+        {
+          "at": "2026-07-22T20:24:22.697Z",
+          "prices": {
+            "inside": 909,
+            "oceanView": 1070,
+            "balcony": 1285,
+            "suite": 5158
           }
         },
         {
           "at": "2026-07-24T00:27:14.402Z",
           "prices": {
-            "suite": 4130
+            "suite": 6185
           }
         },
         {
-          "at": "2026-07-24T22:23:38.138Z",
+          "at": "2026-07-25T03:03:00.381Z",
           "prices": {
-            "suite": 3531
+            "suite": 5158
           }
         },
         {
-          "at": "2026-07-29T10:52:48.570Z",
+          "at": "2026-07-28T20:26:21.397Z",
           "prices": {
-            "balcony": 1176
+            "suite": 3221
           }
         },
         {
-          "at": "2026-07-30T22:23:18.614Z",
+          "at": "2026-07-31T06:59:17.691Z",
           "prices": {
-            "suite": 3531
+            "balcony": 1519
+          }
+        },
+        {
+          "at": "2026-08-02T22:18:53.485Z",
+          "prices": {
+            "inside": 963,
+            "oceanView": 1124,
+            "balcony": 1339
           }
         }
       ]
