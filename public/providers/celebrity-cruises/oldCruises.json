@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 88,
+  "count": 89,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -12975,6 +12975,78 @@
           "at": "2026-08-02T22:18:53.485Z",
           "prices": {
             "inside": 2317.13
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_EG12SYD-2567708244",
+      "shipName": "Celebrity Edge",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2018,
+      "itinerary": "New Zealand Holiday: Sydney, Australia, Cruising (Cruising), Milford Sound (Cruising), New Zealand, Doubtful Sound (Cruising), Dusky Sound (Cruising), Dunedin, New Zealand, Christchurch, New Zealand, Auckland, New Zealand, Bay Of Islands, New Zealand, Sydney, Australia",
+      "departureDate": "2026-12-21",
+      "duration": "12 Nights",
+      "departurePort": "Sydney",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia and New Zealand",
+      "priceFrom": "5867.55",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=EG12SYD-2567708244&pID=EG12K184&sDT=2026-12-21&sCD=EG&sCT=CO&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "5867.55",
+        "suite": null
+      },
+      "destinationPort": "Sydney",
+      "seaDays": 3,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-08-03T00:31:34.828Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-29T05:04:33.589Z",
+          "prices": {
+            "inside": 1728,
+            "balcony": 2719,
+            "suite": 4021
+          }
+        },
+        {
+          "at": "2026-07-30T00:28:30.408Z",
+          "prices": {
+            "inside": 1728,
+            "balcony": 2719,
+            "suite": 3955
+          }
+        },
+        {
+          "at": "2026-07-30T22:23:18.614Z",
+          "prices": {
+            "inside": 1728,
+            "balcony": 2653,
+            "suite": 3955
+          }
+        },
+        {
+          "at": "2026-07-31T03:03:44.837Z",
+          "prices": {
+            "inside": 1728,
+            "balcony": 2653
+          }
+        },
+        {
+          "at": "2026-07-31T06:59:17.691Z",
+          "prices": {
+            "inside": 1778,
+            "balcony": 2653
+          }
+        },
+        {
+          "at": "2026-08-02T12:23:11.156Z",
+          "prices": {
+            "balcony": 5867.55
           }
         }
       ]
