@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 80,
+  "count": 81,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -10617,6 +10617,52 @@
           "at": "2026-08-03T16:48:34.964Z",
           "prices": {
             "suite": 11904.05
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_SL07YVR-1176201108",
+      "shipName": "Celebrity Solstice",
+      "shipClass": "Solstice",
+      "shipLaunchYear": 2008,
+      "itinerary": "Alaska Dawes Glacier: Vancouver, British Columbia, Inside Passage (Cruising), Icy Strait Point, Alaska, Skagway, Alaska, Endicott Arm (Cruising), Juneau, Alaska, Ketchikan, Alaska, Vancouver, British Columbia",
+      "departureDate": "2026-08-30",
+      "duration": "7 Nights",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "priceFrom": "2265.22",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=SL07YVR-1176201108&pID=SL07A436&sDT=2026-08-30&sCD=SL&sCT=CO&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": "2265.22",
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Vancouver",
+      "seaDays": 0,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-08-05T05:03:34.089Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-04T06:52:50.395Z",
+          "prices": {
+            "balcony": 2377.83
+          }
+        },
+        {
+          "at": "2026-08-04T12:38:31.105Z",
+          "prices": {
+            "balcony": 2677.22
+          }
+        },
+        {
+          "at": "2026-08-05T05:03:34.089Z",
+          "prices": {
+            "oceanView": 2265.22
           }
         }
       ]
