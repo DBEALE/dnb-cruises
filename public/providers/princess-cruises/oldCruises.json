@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 689,
+  "count": 691,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -46719,6 +46719,104 @@
           "at": "2026-07-29T16:30:36.136Z",
           "prices": {
             "suite": 2713
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_EAB07B_SU_20260822",
+      "shipName": "Sun Princess",
+      "shipClass": "Sphere",
+      "shipLaunchYear": 2024,
+      "itinerary": "Athens (Piraeus), Greece → Santorini, Greece → Bar, Montenegro → Taranto, Italy → Sicily (Messina), Italy → Barcelona, Spain",
+      "departureDate": "2026-08-22",
+      "duration": "7 Nights",
+      "departurePort": "Athens (Piraeus)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "destinationPort": "Barcelona",
+      "priceFrom": "2041",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=U633",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "2041"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-10T06:40:41.897Z",
+      "lastSeenAt": "2026-08-07T20:12:51.146Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-10T06:40:41.897Z",
+          "prices": {
+            "suite": 2181
+          }
+        },
+        {
+          "at": "2026-08-01T06:51:57.405Z",
+          "prices": {
+            "suite": 2094
+          }
+        },
+        {
+          "at": "2026-08-05T08:56:33.972Z",
+          "prices": {
+            "suite": 2006
+          }
+        },
+        {
+          "at": "2026-08-07T20:12:51.146Z",
+          "prices": {
+            "suite": 2041
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_MLR070_XP_20270109",
+      "shipName": "Discovery Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2022,
+      "itinerary": "Los Angeles, California → Cabo San Lucas, Mexico → Mazatlan, Mexico → Puerto Vallarta, Mexico → Los Angeles, California",
+      "departureDate": "2027-01-09",
+      "duration": "7 Nights",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexico",
+      "destinationPort": "Los Angeles",
+      "priceFrom": "429",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=X703",
+      "prices": {
+        "inside": "429",
+        "oceanView": "639",
+        "balcony": "618",
+        "suite": "839"
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-08-05T18:32:39.315Z",
+      "lastSeenAt": "2026-08-07T20:12:51.146Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-05T18:32:39.315Z",
+          "prices": {
+            "inside": 479,
+            "oceanView": 689,
+            "balcony": 693,
+            "suite": 939
+          }
+        },
+        {
+          "at": "2026-08-07T08:24:20.549Z",
+          "prices": {
+            "inside": 429,
+            "oceanView": 639,
+            "balcony": 618,
+            "suite": 839
           }
         }
       ]
