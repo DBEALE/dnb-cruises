@@ -240,6 +240,7 @@ async function createSandbox({
     scrapedAt: '2026-04-27T20:00:00.000Z',
   })],
   providerPayloads = null,
+  providerArchives = {},
 } = {}) {
   const resolvedProviderPayloads = providerPayloads || {
     'royal-caribbean': {
@@ -327,6 +328,14 @@ async function createSandbox({
       // These fixtures inline history (or omit it), so a 404 here is expected.
       if (String(url).includes('/price-history.json')) {
         return { ok: false, status: 404, json: async () => ({}) };
+      }
+
+      // Archived (expired) sailings — fetched lazily by the Expired view.
+      const archiveMatch = String(url).match(/\/providers\/([^/]+)\/oldCruises\.json/);
+      if (archiveMatch) {
+        const payload = providerArchives[archiveMatch[1]];
+        if (!payload) return { ok: false, status: 404, json: async () => ({}) };
+        return { ok: true, status: 200, json: async () => payload };
       }
 
       const providerMatch = String(url).match(/\/providers\/([^/]+)\/cruises\.json/);
@@ -580,4 +589,63 @@ test('class dot lookup covers all mapped ship classes', async () => {
   assert.match(sandbox.classDots('Royal'), /title="Royal class — Modern flagship \(4\/5\)"/);
   assert.match(sandbox.classDots('Grand'), /title="Grand class — Recent generation \(3\/5\)"/);
   assert.match(sandbox.classDots('Coral'), /title="Coral class — Older generation \(2\/5\)"/);
+});
+
+test('expired view loads provider archives and shows only archived sailings', async () => {
+  const { sandbox, elements, calls } = await createSandbox({
+    providerArchives: {
+      'royal-caribbean': {
+        cruises: [buildCruise({
+          shipName: 'Voyager of the Seas',
+          itinerary: 'Farewell Baltic',
+          departurePort: 'Copenhagen',
+          destination: 'Northern Europe',
+          priceFrom: '499',
+          currency: 'GBP',
+          scrapedAt: '2026-03-01T00:00:00.000Z',
+        })],
+      },
+    },
+  });
+
+  await sandbox.applyExpiredView();
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const archiveCall = calls.find((c) => String(c.url).includes('/providers/royal-caribbean/oldCruises.json'));
+  assert.ok(archiveCall, 'expected the expired view to fetch the provider archive');
+  assert.match(elements.summary.innerHTML, /1 expired sailing\b/);
+  assert.match(elements.summary.innerHTML, /View current cruises/);
+  assert.match(elements.cruiseBody.innerHTML, /Voyager of the Seas/);
+  assert.doesNotMatch(elements.cruiseBody.innerHTML, /Harmony of the Seas/);
+
+  sandbox.clearExpiredView();
+  assert.match(elements.summary.innerHTML, /Showing all 1 sailings/);
+  assert.match(elements.cruiseBody.innerHTML, /Harmony of the Seas/);
+});
+
+test('expired view shows an empty table (not an error) when no archives exist', async () => {
+  const { sandbox, elements } = await createSandbox();  // no providerArchives → 404
+
+  await sandbox.applyExpiredView();
+  await new Promise((resolve) => setImmediate(resolve));
+
+  assert.match(elements.summary.innerHTML, /0 expired sailings/);
+  assert.match(elements.cruiseBody.innerHTML, /No cruises match your filters/);
+
+  sandbox.clearExpiredView();
+  assert.match(elements.cruiseBody.innerHTML, /Harmony of the Seas/);
+});
+
+test('returning to a stale tab reloads the cruise data; a fresh tab does not', async () => {
+  const { sandbox, calls } = await createSandbox();
+  const countLoads = () => calls.filter((c) => String(c.url).includes('/providers/index.json')).length;
+  const initial = countLoads();
+
+  sandbox.maybeRefreshStaleData();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(countLoads(), initial, 'no reload while the data is fresh');
+
+  sandbox.maybeRefreshStaleData(Date.now() + 3 * 60 * 60 * 1000);
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(countLoads(), initial + 1, 'a stale return triggers a fresh data load');
 });

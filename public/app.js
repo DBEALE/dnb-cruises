@@ -5,6 +5,7 @@
   const SAVED_VIEWS_KEY = 'cruise-explorer-saved-views';
   const FAVORITES_KEY = 'cruise-explorer-favorite-cruises';
   const FAVORITES_VIEW_ID = '__favorites__';
+  const EXPIRED_VIEW_ID = '__expired__';
   const CRUISE_SEARCH_META = Symbol('cruiseSearchMeta');
   const CRUISE_SEA_DAYS    = Symbol('cruiseSeaDays');
 
@@ -68,6 +69,18 @@
   let selectedCruiseId = '';
   let favoriteCruiseIds = new Set();
   let favoritesOnly = false;
+  // Expired (archived) sailings view. The scraper moves cruises more than a
+  // day past departure out of cruises.json into a per-provider oldCruises.json;
+  // this view swaps the table's data source to those archives. Loaded lazily
+  // the first time the view is opened — most visits never pay for it.
+  let expiredOnly = false;
+  let expiredCruises = null;       // null = not yet loaded
+  let expiredLoadPromise = null;
+  // Stale-tab refresh state (declared up here — the init IIFE calls loadData(),
+  // which stamps lastDataLoadAt, before later declarations are reached).
+  const STALE_DATA_MS = 30 * 60 * 1000;
+  let lastDataLoadAt = 0;          // set each time loadData() starts
+  let staleRefreshInFlight = false;
   // Arrival-date window for the "cruise before" search. Held as module state
   // (like selectedCruiseId) rather than a visible filter — it's set from the
   // URL by the pre-cruise button and round-trips through serialize/applyUrlState.
@@ -86,6 +99,14 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '22 Jul 2026',
+      title: 'Expired cruises view & fresher data',
+      items: [
+        'New "⌛ Expired cruises" option in the Views menu shows past sailings that are no longer bookable, with all the usual filters and price history. The summary bar links back to current cruises.',
+        'Coming back to a tab you left open now refreshes the cruise data automatically when it\'s more than 30 minutes old — no more stale tables (or missing cruise lines) until a manual browser refresh.',
+      ],
+    },
     {
       date: '21 Jul 2026',
       title: 'Force desktop or mobile layout',
@@ -1118,6 +1139,7 @@
     wireRouteFinderHandlers();
     wireHeaderWavePress();
     wireStickySummary();
+    wireStaleDataRefresh();
     recordVisitorCount();
 
     fetch(resolveStaticUrl('./build-info.json'), { cache: 'no-store' })
@@ -1133,7 +1155,36 @@
       .catch(() => {});
   })();
 
+  // ── Stale-tab refresh ───────────────────────────────────────────────────────
+  // A tab left open in the background keeps showing whatever it loaded hours
+  // ago — and if that load happened to catch a partial scrape (some providers
+  // failed), it sits on a few providers' worth of cruises until a manual
+  // browser refresh. When the user returns to the tab, silently re-run the
+  // data load if the last one is older than STALE_DATA_MS. loadData()
+  // re-applies filters/sort/view from the URL hash, so only the data
+  // refreshes — the visible view is preserved.
+  function maybeRefreshStaleData(now = Date.now()) {
+    if (typeof document !== 'undefined' && document.hidden) return;
+    if (staleRefreshInFlight) return;
+    if (now - lastDataLoadAt < STALE_DATA_MS) return;
+    staleRefreshInFlight = true;
+    Promise.resolve(loadData())
+      .catch(() => {})
+      .finally(() => { staleRefreshInFlight = false; });
+  }
+
+  function wireStaleDataRefresh() {
+    // visibilitychange covers tab switches; focus covers window/app switches
+    // where the tab stayed "visible"; pageshow(persisted) covers restores from
+    // the back-forward cache. All funnel into the same staleness check, so
+    // firing more than one for the same return is harmless.
+    document.addEventListener?.('visibilitychange', () => maybeRefreshStaleData());
+    window.addEventListener?.('focus', () => maybeRefreshStaleData());
+    window.addEventListener?.('pageshow', (ev) => { if (ev?.persisted) maybeRefreshStaleData(); });
+  }
+
   async function loadData() {
+    lastDataLoadAt = Date.now();
     const { providers } = await loadProviderCatalog();
     loadedProviders = providers;
 
@@ -1199,6 +1250,42 @@
       if (!cached) showStatus('Could not load cruise data: unable to load the static cruise files.', true);
       else hideStatus();
     }
+  }
+
+  // Fetches every provider's oldCruises.json archive once, on first use of the
+  // Expired view. Providers whose archive is missing (404) are skipped rather
+  // than failing the whole load. The merged list is kept separately from
+  // allCruises so the two views never mix.
+  function ensureExpiredCruisesLoaded() {
+    if (expiredCruises) return Promise.resolve(expiredCruises);
+    if (!expiredLoadPromise) {
+      expiredLoadPromise = (async () => {
+        const providers = loadedProviders.length ? loadedProviders : [normalizeProvider(DEFAULT_PROVIDER)];
+        const settled = await Promise.allSettled(providers.map(async (provider) => {
+          const archiveUrl = String(provider.cruisesUrl || '').replace(/cruises\.json$/, 'oldCruises.json');
+          const res = await fetchStaticJson(archiveUrl);
+          if (!res.ok) throw new Error(`archive not-found:${provider.id}`);
+          const json = await res.json();
+          return Array.isArray(json?.cruises) ? json.cruises : [];
+        }));
+        const merged = [];
+        for (const result of settled) {
+          if (result.status === 'fulfilled') merged.push(...result.value);
+        }
+        merged.forEach(searchMeta);
+        // Make expired rows first-class for row actions (price-history dialog,
+        // sharing, favorites). Ids never collide with active cruises — the
+        // scraper removes a cruise from cruises.json when it archives it.
+        for (const c of merged) {
+          if (c.id && !cruiseById.has(c.id)) cruiseById.set(c.id, c);
+        }
+        expiredCruises = merged;
+        return merged;
+      })();
+      // Allow a retry on a later toggle if every fetch failed outright.
+      expiredLoadPromise.catch(() => { expiredLoadPromise = null; });
+    }
+    return expiredLoadPromise;
   }
 
   function getVisitorId() {
@@ -2405,7 +2492,8 @@
   // ── Price-history dialog ───────────────────────────────────────────────────
   function openPriceHistory(cruiseId) {
     const dialog = document.getElementById('priceHistoryDialog');
-    const cruise = allCruises.find(c => c.id === cruiseId);
+    // cruiseById covers both active and (once loaded) expired cruises.
+    const cruise = cruiseById.get(cruiseId);
     const history = cruise && Array.isArray(cruise.priceHistory) ? cruise.priceHistory : [];
     if (!cruise || history.length < 2) return;
 
@@ -2939,6 +3027,7 @@
       .sort((a, b) => (b.savedAt || '').localeCompare(a.savedAt || ''));
     const opts = ['<option value="">Saved views…</option>'];
     opts.push(`<option value="${FAVORITES_VIEW_ID}">❤️ Favorites</option>`);
+    opts.push(`<option value="${EXPIRED_VIEW_ID}">⌛ Expired cruises</option>`);
     opts.push('<option value="__save__">＋ Save current view…</option>');
     if (views.length) {
       opts.push('<optgroup label="Your views">');
@@ -2966,6 +3055,10 @@
       applyFavoritesView();
       return;
     }
+    if (v === EXPIRED_VIEW_ID) {
+      applyExpiredView();
+      return;
+    }
     if (v === '__manage__' || v === '__save__') {
       openSavedViews();
       // For "Save current view", focus the name input so the user can type
@@ -2988,7 +3081,13 @@
         <span class="sv-hash">Cruises you marked as favorites</span>
       </button>
     </li>`;
-    list.innerHTML = favoritesItem + views
+    const expiredItem = `<li class="sv-item sv-built-in">
+      <button type="button" class="sv-apply" data-id="${EXPIRED_VIEW_ID}">
+        <span class="sv-name">⌛ Expired cruises</span>
+        <span class="sv-hash">Past sailings that are no longer bookable</span>
+      </button>
+    </li>`;
+    list.innerHTML = favoritesItem + expiredItem + views
       .slice() // don't mutate
       .sort((a, b) => (b.savedAt || '').localeCompare(a.savedAt || ''))
       .map(v => {
@@ -3212,6 +3311,7 @@
     showAll = false;
     selectedCruiseId = '';
     favoritesOnly = true;
+    expiredOnly = false;
     syncSortControls();
     applyFilters();
     document.getElementById('savedViewsDialog')?.close();
@@ -3219,6 +3319,30 @@
 
   function clearFavoritesView() {
     favoritesOnly = false;
+    applyFilters();
+  }
+
+  // Switches the table to archived (expired) sailings only. Mirrors
+  // applyFavoritesView: filters/sort reset so the view starts clean, and the
+  // summary line carries the way back out.
+  async function applyExpiredView() {
+    document.getElementById('savedViewsDialog')?.close();
+    try { await ensureExpiredCruisesLoaded(); } catch {}
+    document.querySelectorAll('.col-filter, .mob-filter').forEach(el => { el.value = ''; });
+    updateDepartureRangeControls();
+    updateMobileFilterActiveStates();
+    sortColIndex = -1;
+    sortAsc = true;
+    showAll = false;
+    selectedCruiseId = '';
+    favoritesOnly = false;
+    expiredOnly = true;
+    syncSortControls();
+    applyFilters();
+  }
+
+  function clearExpiredView() {
+    expiredOnly = false;
     applyFilters();
   }
 
@@ -3352,6 +3476,7 @@
       const del    = ev.target.closest('.sv-delete');
       const notify = ev.target.closest('.sv-notify');
       if (apply?.dataset.id === FAVORITES_VIEW_ID) applyFavoritesView();
+      else if (apply?.dataset.id === EXPIRED_VIEW_ID) applyExpiredView();
       else if (apply) applySavedView(apply.dataset.id);
       else if (del) deleteSavedView(del.dataset.id);
       else if (notify && !notify.disabled) openNotifyForView(notify.dataset.id);
@@ -3724,7 +3849,10 @@
     };
     const itineraryTerms = itinerarySearchTerms(colFilters.itinerary);
 
-    const filtered = allCruises.filter(c => {
+    // The Expired view swaps the data source to the archived sailings; every
+    // filter/sort below works identically on either list.
+    const sourceCruises = expiredOnly ? (expiredCruises || []) : allCruises;
+    const filtered = sourceCruises.filter(c => {
       if (selectedCruiseId && c.id !== selectedCruiseId) return false;
       if (favoritesOnly && !favoriteCruiseIds.has(String(c.id || ''))) return false;
       const meta = searchMeta(c);
@@ -3825,7 +3953,13 @@
     const filterSummary = selectedFilterSummary(colFilters);
     const filterSuffix = filterSummary ? ` · ${filterSummary}` : '';
     let summary;
-    if (favoritesOnly) {
+    if (expiredOnly) {
+      const noun = sorted.length === 1 ? 'expired sailing' : 'expired sailings';
+      const shown = capped.length < sorted.length
+        ? `Showing first ${capped.length.toLocaleString()} of ${sorted.length.toLocaleString()} ${noun}${filterSuffix} · ${showAllLink}`
+        : `Showing ${sorted.length.toLocaleString()} ${noun}${filterSuffix}`;
+      summary = `${shown} · <button type="button" class="show-all-btn" onclick="clearExpiredView()">View current cruises</button>`;
+    } else if (favoritesOnly) {
       const shown = capped.length < sorted.length
         ? `Showing first ${capped.length.toLocaleString()} of ${sorted.length.toLocaleString()} favorites`
         : `Showing ${sorted.length.toLocaleString()} ${sorted.length === 1 ? 'favorite' : 'favorites'}`;
@@ -3842,7 +3976,7 @@
       summary = `Showing ${filtered.length.toLocaleString()} of ${allLabel} sailings${filterSuffix}.`;
     }
     document.getElementById('summary').innerHTML = summary;
-    syncStickySummary(capped.length, sorted.length, !favoritesOnly && filtered.length === allCruises.length);
+    syncStickySummary(capped.length, sorted.length, !favoritesOnly && !expiredOnly && filtered.length === allCruises.length);
 
     renderBody(capped, colFilters);
     writeUrlState();
@@ -3856,7 +3990,9 @@
       ? `Showing first ${shownCount.toLocaleString()} of ${totalAvailable.toLocaleString()}`
       : isAllUnfiltered
         ? `Showing all ${totalAvailable.toLocaleString()} sailings`
-        : `Showing ${totalAvailable.toLocaleString()} of ${allCruises.length.toLocaleString()}`;
+        : expiredOnly
+          ? `Showing ${totalAvailable.toLocaleString()} expired`
+          : `Showing ${totalAvailable.toLocaleString()} of ${allCruises.length.toLocaleString()}`;
   }
 
   // Reveal the sticky pill only when the original summary bar is off-screen.
@@ -3893,6 +4029,7 @@
   function serializeUrlState() {
     const p = new URLSearchParams(serializeSearchState());
     if (favoritesOnly) p.set('favorites', '1');
+    if (expiredOnly) p.set('expired', '1');
     if (selectedCruiseId) p.set('cruise', selectedCruiseId);
     return p.toString();
   }
@@ -4698,6 +4835,7 @@
     const hash = window.location.hash.replace(/^#/, '');
     selectedCruiseId = '';
     favoritesOnly = false;
+    expiredOnly = false;
     arrivalRangeStart = '';
     arrivalRangeEnd = '';
     if (!hash) return;
@@ -4705,6 +4843,15 @@
 
     selectedCruiseId = p.get('cruise') || '';
     favoritesOnly = p.get('favorites') === '1';
+    expiredOnly = p.get('expired') === '1';
+    // Landing directly on an expired-view URL: the archives haven't been
+    // fetched yet, so the first render is empty — kick off the load and
+    // re-render when it arrives (if the user hasn't toggled back meanwhile).
+    if (expiredOnly && !expiredCruises) {
+      ensureExpiredCruisesLoaded()
+        .then(() => { if (expiredOnly) applyFilters(); })
+        .catch(() => {});
+    }
     arrivalRangeStart = p.get('arrivalStart') || '';
     arrivalRangeEnd = p.get('arrivalEnd') || '';
 
