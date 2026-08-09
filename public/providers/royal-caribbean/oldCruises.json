@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 34,
+  "count": 35,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -11668,6 +11668,71 @@
           "at": "2026-08-08T20:06:59.879Z",
           "prices": {
             "balcony": 2722
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_BR07TRS-4049809292",
+      "shipName": "Brilliance of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2002,
+      "itinerary": "Italy, Croatia & The Adriatic: Trieste, Italy, Koper, Slovenia, Split, Croatia, Dubrovnik, Croatia, Kotor, Montenegro, Amalfi Coast (Salerno), Italy, Rome (Civitavecchia), Italy",
+      "departureDate": "2026-08-10",
+      "duration": "7 Nights",
+      "departurePort": "Trieste",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "1290.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=BR07TRS-4049809292&sailDate=2026-08-10&shipCode=BR&packageCode=BR07M816&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1290.5",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Rome (Civitavecchia)",
+      "seaDays": 0,
+      "enrichedAt": "2026-08-09T06:17:04.923Z",
+      "firstSeenAt": "2026-07-30T16:31:49.107Z",
+      "lastSeenAt": "2026-08-09T10:10:39.712Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-30T16:31:49.107Z",
+          "prices": {
+            "inside": 1182.5
+          }
+        },
+        {
+          "at": "2026-08-01T06:51:57.405Z",
+          "prices": {
+            "inside": 1176.5
+          }
+        },
+        {
+          "at": "2026-08-05T18:32:39.315Z",
+          "prices": {
+            "inside": 1185.5
+          }
+        },
+        {
+          "at": "2026-08-07T00:01:05.576Z",
+          "prices": {
+            "inside": 1290.5
+          }
+        },
+        {
+          "at": "2026-08-07T06:25:00.304Z",
+          "prices": {
+            "inside": 1185.5
+          }
+        },
+        {
+          "at": "2026-08-07T12:16:23.413Z",
+          "prices": {
+            "inside": 1290.5
           }
         }
       ]
