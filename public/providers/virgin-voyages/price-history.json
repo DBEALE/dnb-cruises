@@ -391,6 +391,13 @@
         "prices": {
           "oceanView": 1054
         }
+      },
+      {
+        "at": "2026-08-10T04:32:09.416Z",
+        "prices": {
+          "inside": 896,
+          "balcony": 1319
+        }
       }
     ],
     "virgin-SC2608229NCC": [
@@ -553,129 +560,6 @@
         }
       }
     ],
-    "virgin-RS2608274NKW": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "oceanView": 519,
-          "balcony": 550,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-07-08T12:34:24.461Z",
-        "prices": {
-          "inside": 458,
-          "oceanView": 489,
-          "balcony": 519,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-07-22T14:41:18.079Z",
-        "prices": {
-          "inside": 533,
-          "oceanView": 489,
-          "balcony": 519,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-07-23T12:33:43.421Z",
-        "prices": {
-          "inside": 519,
-          "oceanView": 519,
-          "balcony": 550,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-07-24T10:41:41.925Z",
-        "prices": {
-          "oceanView": 519,
-          "balcony": 550,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-07-25T08:41:23.232Z",
-        "prices": {
-          "inside": 591,
-          "oceanView": 519,
-          "balcony": 550,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-07-28T03:03:00.536Z",
-        "prices": {
-          "oceanView": 581,
-          "balcony": 612,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-07-29T03:03:03.802Z",
-        "prices": {
-          "oceanView": 612,
-          "balcony": 642,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-07-31T20:29:08.348Z",
-        "prices": {
-          "oceanView": 642,
-          "balcony": 673,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-08-02T16:20:33.193Z",
-        "prices": {
-          "oceanView": 708,
-          "balcony": 673,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-08-04T10:53:48.606Z",
-        "prices": {
-          "balcony": 704,
-          "suite": 1318
-        }
-      },
-      {
-        "at": "2026-08-05T08:56:33.972Z",
-        "prices": {
-          "oceanView": 663,
-          "balcony": 693,
-          "suite": 1299
-        }
-      },
-      {
-        "at": "2026-08-06T06:54:43.505Z",
-        "prices": {
-          "oceanView": 693,
-          "balcony": 723,
-          "suite": 1514
-        }
-      },
-      {
-        "at": "2026-08-07T04:39:43.964Z",
-        "prices": {
-          "balcony": 723,
-          "suite": 1299
-        }
-      },
-      {
-        "at": "2026-08-08T02:38:57.448Z",
-        "prices": {
-          "balcony": 754,
-          "suite": 1299
-        }
-      }
-    ],
     "virgin-BR2608277NSBE": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -799,6 +683,129 @@
         "at": "2026-08-09T10:10:39.712Z",
         "prices": {
           "suite": 3840
+        }
+      }
+    ],
+    "virgin-RS2608274NKW": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "oceanView": 519,
+          "balcony": 550,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-07-08T12:34:24.461Z",
+        "prices": {
+          "inside": 458,
+          "oceanView": 489,
+          "balcony": 519,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-07-22T14:41:18.079Z",
+        "prices": {
+          "inside": 533,
+          "oceanView": 489,
+          "balcony": 519,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-07-23T12:33:43.421Z",
+        "prices": {
+          "inside": 519,
+          "oceanView": 519,
+          "balcony": 550,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-07-24T10:41:41.925Z",
+        "prices": {
+          "oceanView": 519,
+          "balcony": 550,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-07-25T08:41:23.232Z",
+        "prices": {
+          "inside": 591,
+          "oceanView": 519,
+          "balcony": 550,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-07-28T03:03:00.536Z",
+        "prices": {
+          "oceanView": 581,
+          "balcony": 612,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-07-29T03:03:03.802Z",
+        "prices": {
+          "oceanView": 612,
+          "balcony": 642,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-07-31T20:29:08.348Z",
+        "prices": {
+          "oceanView": 642,
+          "balcony": 673,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-08-02T16:20:33.193Z",
+        "prices": {
+          "oceanView": 708,
+          "balcony": 673,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-08-04T10:53:48.606Z",
+        "prices": {
+          "balcony": 704,
+          "suite": 1318
+        }
+      },
+      {
+        "at": "2026-08-05T08:56:33.972Z",
+        "prices": {
+          "oceanView": 663,
+          "balcony": 693,
+          "suite": 1299
+        }
+      },
+      {
+        "at": "2026-08-06T06:54:43.505Z",
+        "prices": {
+          "oceanView": 693,
+          "balcony": 723,
+          "suite": 1514
+        }
+      },
+      {
+        "at": "2026-08-07T04:39:43.964Z",
+        "prices": {
+          "balcony": 723,
+          "suite": 1299
+        }
+      },
+      {
+        "at": "2026-08-08T02:38:57.448Z",
+        "prices": {
+          "balcony": 754,
+          "suite": 1299
         }
       }
     ],
@@ -974,6 +981,62 @@
         }
       }
     ],
+    "virgin-SC26083110NCA": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 1800,
+          "oceanView": 2250,
+          "balcony": 2350,
+          "suite": 4550
+        }
+      },
+      {
+        "at": "2026-07-26T22:20:05.747Z",
+        "prices": {
+          "inside": 1966,
+          "oceanView": 2250,
+          "balcony": 2350,
+          "suite": 4550
+        }
+      },
+      {
+        "at": "2026-07-28T22:22:07.898Z",
+        "prices": {
+          "inside": 1800,
+          "oceanView": 2250,
+          "balcony": 2350,
+          "suite": 4550
+        }
+      },
+      {
+        "at": "2026-08-01T22:19:05.353Z",
+        "prices": {
+          "inside": 1550,
+          "oceanView": 2000,
+          "balcony": 2050,
+          "suite": 4600
+        }
+      },
+      {
+        "at": "2026-08-04T22:24:31.602Z",
+        "prices": {
+          "inside": 1200,
+          "oceanView": 1750,
+          "balcony": 1750,
+          "suite": 4600
+        }
+      },
+      {
+        "at": "2026-08-09T00:15:05.534Z",
+        "prices": {
+          "inside": 1200,
+          "oceanView": 1750,
+          "balcony": 1750,
+          "suite": 5400
+        }
+      }
+    ],
     "virgin-RS2608315NPP": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -1087,62 +1150,6 @@
           "oceanView": 678,
           "balcony": 754,
           "suite": 1548
-        }
-      }
-    ],
-    "virgin-SC26083110NCA": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 1800,
-          "oceanView": 2250,
-          "balcony": 2350,
-          "suite": 4550
-        }
-      },
-      {
-        "at": "2026-07-26T22:20:05.747Z",
-        "prices": {
-          "inside": 1966,
-          "oceanView": 2250,
-          "balcony": 2350,
-          "suite": 4550
-        }
-      },
-      {
-        "at": "2026-07-28T22:22:07.898Z",
-        "prices": {
-          "inside": 1800,
-          "oceanView": 2250,
-          "balcony": 2350,
-          "suite": 4550
-        }
-      },
-      {
-        "at": "2026-08-01T22:19:05.353Z",
-        "prices": {
-          "inside": 1550,
-          "oceanView": 2000,
-          "balcony": 2050,
-          "suite": 4600
-        }
-      },
-      {
-        "at": "2026-08-04T22:24:31.602Z",
-        "prices": {
-          "inside": 1200,
-          "oceanView": 1750,
-          "balcony": 1750,
-          "suite": 4600
-        }
-      },
-      {
-        "at": "2026-08-09T00:15:05.534Z",
-        "prices": {
-          "inside": 1200,
-          "oceanView": 1750,
-          "balcony": 1750,
-          "suite": 5400
         }
       }
     ],
@@ -1523,69 +1530,6 @@
         }
       }
     ],
-    "virgin-SC26091010NATH4": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 1650,
-          "oceanView": 2100,
-          "balcony": 2200,
-          "suite": 4750
-        }
-      },
-      {
-        "at": "2026-07-08T12:34:24.461Z",
-        "prices": {
-          "inside": 1650,
-          "oceanView": 2100,
-          "balcony": 2486,
-          "suite": 4750
-        }
-      },
-      {
-        "at": "2026-07-09T11:06:45.984Z",
-        "prices": {
-          "inside": 1650,
-          "oceanView": 2100,
-          "balcony": 2200,
-          "suite": 4750
-        }
-      },
-      {
-        "at": "2026-08-02T03:03:54.018Z",
-        "prices": {
-          "inside": 1600,
-          "oceanView": 2050,
-          "balcony": 2150,
-          "suite": 4850
-        }
-      },
-      {
-        "at": "2026-08-04T03:03:27.901Z",
-        "prices": {
-          "inside": 1600,
-          "oceanView": 2050,
-          "balcony": 2391,
-          "suite": 5000
-        }
-      },
-      {
-        "at": "2026-08-07T03:01:42.041Z",
-        "prices": {
-          "oceanView": 2391,
-          "balcony": 2391,
-          "suite": 5000
-        }
-      },
-      {
-        "at": "2026-08-08T02:38:57.448Z",
-        "prices": {
-          "oceanView": 2391,
-          "balcony": 2150,
-          "suite": 5000
-        }
-      }
-    ],
     "virgin-RS2609104NKW": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -1700,6 +1644,69 @@
           "oceanView": 571,
           "balcony": 602,
           "suite": 1237
+        }
+      }
+    ],
+    "virgin-SC26091010NATH4": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 1650,
+          "oceanView": 2100,
+          "balcony": 2200,
+          "suite": 4750
+        }
+      },
+      {
+        "at": "2026-07-08T12:34:24.461Z",
+        "prices": {
+          "inside": 1650,
+          "oceanView": 2100,
+          "balcony": 2486,
+          "suite": 4750
+        }
+      },
+      {
+        "at": "2026-07-09T11:06:45.984Z",
+        "prices": {
+          "inside": 1650,
+          "oceanView": 2100,
+          "balcony": 2200,
+          "suite": 4750
+        }
+      },
+      {
+        "at": "2026-08-02T03:03:54.018Z",
+        "prices": {
+          "inside": 1600,
+          "oceanView": 2050,
+          "balcony": 2150,
+          "suite": 4850
+        }
+      },
+      {
+        "at": "2026-08-04T03:03:27.901Z",
+        "prices": {
+          "inside": 1600,
+          "oceanView": 2050,
+          "balcony": 2391,
+          "suite": 5000
+        }
+      },
+      {
+        "at": "2026-08-07T03:01:42.041Z",
+        "prices": {
+          "oceanView": 2391,
+          "balcony": 2391,
+          "suite": 5000
+        }
+      },
+      {
+        "at": "2026-08-08T02:38:57.448Z",
+        "prices": {
+          "oceanView": 2391,
+          "balcony": 2150,
+          "suite": 5000
         }
       }
     ],
@@ -1985,6 +1992,125 @@
         }
       }
     ],
+    "virgin-VL2609198NNBCA": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 1101,
+          "oceanView": 1346,
+          "balcony": 1730
+        }
+      },
+      {
+        "at": "2026-07-08T16:32:38.105Z",
+        "prices": {
+          "inside": 1101,
+          "oceanView": 1346,
+          "balcony": 1469
+        }
+      },
+      {
+        "at": "2026-07-15T22:21:07.087Z",
+        "prices": {
+          "inside": 978,
+          "oceanView": 1224,
+          "balcony": 1346
+        }
+      },
+      {
+        "at": "2026-07-21T08:54:10.453Z",
+        "prices": {
+          "oceanView": 1224,
+          "balcony": 1346
+        }
+      },
+      {
+        "at": "2026-07-23T12:33:43.421Z",
+        "prices": {
+          "inside": 978,
+          "oceanView": 1415,
+          "balcony": 1346
+        }
+      },
+      {
+        "at": "2026-07-26T18:21:34.416Z",
+        "prices": {
+          "inside": 978,
+          "oceanView": 1415,
+          "balcony": 1415
+        }
+      },
+      {
+        "at": "2026-07-27T20:30:55.885Z",
+        "prices": {
+          "inside": 978,
+          "oceanView": 1415,
+          "balcony": 1346
+        }
+      },
+      {
+        "at": "2026-07-28T22:22:07.898Z",
+        "prices": {
+          "inside": 854,
+          "oceanView": 1298,
+          "balcony": 1224
+        }
+      },
+      {
+        "at": "2026-07-30T00:28:30.408Z",
+        "prices": {
+          "oceanView": 1298,
+          "balcony": 1224
+        }
+      },
+      {
+        "at": "2026-07-31T05:11:01.820Z",
+        "prices": {
+          "inside": 854,
+          "oceanView": 1298,
+          "balcony": 1224
+        }
+      },
+      {
+        "at": "2026-08-01T06:51:57.405Z",
+        "prices": {
+          "oceanView": 1101,
+          "balcony": 1224,
+          "suite": 3999
+        }
+      },
+      {
+        "at": "2026-08-02T08:48:28.553Z",
+        "prices": {
+          "oceanView": 1101,
+          "balcony": 1224
+        }
+      },
+      {
+        "at": "2026-08-04T12:38:31.105Z",
+        "prices": {
+          "oceanView": 1101,
+          "balcony": 1224,
+          "suite": 3999
+        }
+      },
+      {
+        "at": "2026-08-05T14:49:54.628Z",
+        "prices": {
+          "oceanView": 1023,
+          "balcony": 1083,
+          "suite": 3939
+        }
+      },
+      {
+        "at": "2026-08-09T04:27:49.143Z",
+        "prices": {
+          "oceanView": 1023,
+          "balcony": 1083,
+          "suite": 3908
+        }
+      }
+    ],
     "virgin-RS2609195NTC": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -2137,125 +2263,6 @@
           "oceanView": 677,
           "balcony": 714,
           "suite": 1433
-        }
-      }
-    ],
-    "virgin-VL2609198NNBCA": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 1101,
-          "oceanView": 1346,
-          "balcony": 1730
-        }
-      },
-      {
-        "at": "2026-07-08T16:32:38.105Z",
-        "prices": {
-          "inside": 1101,
-          "oceanView": 1346,
-          "balcony": 1469
-        }
-      },
-      {
-        "at": "2026-07-15T22:21:07.087Z",
-        "prices": {
-          "inside": 978,
-          "oceanView": 1224,
-          "balcony": 1346
-        }
-      },
-      {
-        "at": "2026-07-21T08:54:10.453Z",
-        "prices": {
-          "oceanView": 1224,
-          "balcony": 1346
-        }
-      },
-      {
-        "at": "2026-07-23T12:33:43.421Z",
-        "prices": {
-          "inside": 978,
-          "oceanView": 1415,
-          "balcony": 1346
-        }
-      },
-      {
-        "at": "2026-07-26T18:21:34.416Z",
-        "prices": {
-          "inside": 978,
-          "oceanView": 1415,
-          "balcony": 1415
-        }
-      },
-      {
-        "at": "2026-07-27T20:30:55.885Z",
-        "prices": {
-          "inside": 978,
-          "oceanView": 1415,
-          "balcony": 1346
-        }
-      },
-      {
-        "at": "2026-07-28T22:22:07.898Z",
-        "prices": {
-          "inside": 854,
-          "oceanView": 1298,
-          "balcony": 1224
-        }
-      },
-      {
-        "at": "2026-07-30T00:28:30.408Z",
-        "prices": {
-          "oceanView": 1298,
-          "balcony": 1224
-        }
-      },
-      {
-        "at": "2026-07-31T05:11:01.820Z",
-        "prices": {
-          "inside": 854,
-          "oceanView": 1298,
-          "balcony": 1224
-        }
-      },
-      {
-        "at": "2026-08-01T06:51:57.405Z",
-        "prices": {
-          "oceanView": 1101,
-          "balcony": 1224,
-          "suite": 3999
-        }
-      },
-      {
-        "at": "2026-08-02T08:48:28.553Z",
-        "prices": {
-          "oceanView": 1101,
-          "balcony": 1224
-        }
-      },
-      {
-        "at": "2026-08-04T12:38:31.105Z",
-        "prices": {
-          "oceanView": 1101,
-          "balcony": 1224,
-          "suite": 3999
-        }
-      },
-      {
-        "at": "2026-08-05T14:49:54.628Z",
-        "prices": {
-          "oceanView": 1023,
-          "balcony": 1083,
-          "suite": 3939
-        }
-      },
-      {
-        "at": "2026-08-09T04:27:49.143Z",
-        "prices": {
-          "oceanView": 1023,
-          "balcony": 1083,
-          "suite": 3908
         }
       }
     ],
@@ -3901,62 +3908,6 @@
         }
       }
     ],
-    "virgin-RS2610175NTC": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 651,
-          "oceanView": 688,
-          "balcony": 726,
-          "suite": 1841
-        }
-      },
-      {
-        "at": "2026-07-20T14:45:12.286Z",
-        "prices": {
-          "inside": 651,
-          "oceanView": 688,
-          "balcony": 726,
-          "suite": 2152
-        }
-      },
-      {
-        "at": "2026-07-21T18:28:43.747Z",
-        "prices": {
-          "inside": 651,
-          "oceanView": 688,
-          "balcony": 726,
-          "suite": 1841
-        }
-      },
-      {
-        "at": "2026-07-29T22:19:52.372Z",
-        "prices": {
-          "inside": 688,
-          "oceanView": 726,
-          "balcony": 812,
-          "suite": 1841
-        }
-      },
-      {
-        "at": "2026-07-31T05:11:01.820Z",
-        "prices": {
-          "inside": 688,
-          "oceanView": 726,
-          "balcony": 766,
-          "suite": 1841
-        }
-      },
-      {
-        "at": "2026-08-04T22:24:31.602Z",
-        "prices": {
-          "inside": 678,
-          "oceanView": 715,
-          "balcony": 753,
-          "suite": 1812
-        }
-      }
-    ],
     "virgin-BR2610177NLAX2": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -4028,6 +3979,62 @@
           "oceanView": 684,
           "balcony": 790,
           "suite": 2431
+        }
+      }
+    ],
+    "virgin-RS2610175NTC": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 651,
+          "oceanView": 688,
+          "balcony": 726,
+          "suite": 1841
+        }
+      },
+      {
+        "at": "2026-07-20T14:45:12.286Z",
+        "prices": {
+          "inside": 651,
+          "oceanView": 688,
+          "balcony": 726,
+          "suite": 2152
+        }
+      },
+      {
+        "at": "2026-07-21T18:28:43.747Z",
+        "prices": {
+          "inside": 651,
+          "oceanView": 688,
+          "balcony": 726,
+          "suite": 1841
+        }
+      },
+      {
+        "at": "2026-07-29T22:19:52.372Z",
+        "prices": {
+          "inside": 688,
+          "oceanView": 726,
+          "balcony": 812,
+          "suite": 1841
+        }
+      },
+      {
+        "at": "2026-07-31T05:11:01.820Z",
+        "prices": {
+          "inside": 688,
+          "oceanView": 726,
+          "balcony": 766,
+          "suite": 1841
+        }
+      },
+      {
+        "at": "2026-08-04T22:24:31.602Z",
+        "prices": {
+          "inside": 678,
+          "oceanView": 715,
+          "balcony": 753,
+          "suite": 1812
         }
       }
     ],
@@ -5604,6 +5611,80 @@
         }
       }
     ],
+    "virgin-VL2611287NSJCA": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 748,
+          "oceanView": 802,
+          "balcony": 856,
+          "suite": 2200
+        }
+      },
+      {
+        "at": "2026-07-08T18:30:14.814Z",
+        "prices": {
+          "inside": 748,
+          "oceanView": 748,
+          "balcony": 802,
+          "suite": 2200
+        }
+      },
+      {
+        "at": "2026-07-10T06:40:41.897Z",
+        "prices": {
+          "inside": 695,
+          "oceanView": 748,
+          "balcony": 802,
+          "suite": 2200
+        }
+      },
+      {
+        "at": "2026-07-21T22:18:52.305Z",
+        "prices": {
+          "inside": 695,
+          "oceanView": 748,
+          "balcony": 850,
+          "suite": 2200
+        }
+      },
+      {
+        "at": "2026-07-23T03:03:20.955Z",
+        "prices": {
+          "inside": 695,
+          "oceanView": 748,
+          "balcony": 802,
+          "suite": 2200
+        }
+      },
+      {
+        "at": "2026-07-28T22:22:07.898Z",
+        "prices": {
+          "inside": 641,
+          "oceanView": 695,
+          "balcony": 802,
+          "suite": 2200
+        }
+      },
+      {
+        "at": "2026-07-31T06:59:17.691Z",
+        "prices": {
+          "inside": 587,
+          "oceanView": 695,
+          "balcony": 802,
+          "suite": 2200
+        }
+      },
+      {
+        "at": "2026-08-04T22:24:31.602Z",
+        "prices": {
+          "inside": 577,
+          "oceanView": 683,
+          "balcony": 789,
+          "suite": 2166
+        }
+      }
+    ],
     "virgin-SC2611285NCM": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -5693,80 +5774,6 @@
           "oceanView": 450,
           "balcony": 526,
           "suite": 1471
-        }
-      }
-    ],
-    "virgin-VL2611287NSJCA": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 748,
-          "oceanView": 802,
-          "balcony": 856,
-          "suite": 2200
-        }
-      },
-      {
-        "at": "2026-07-08T18:30:14.814Z",
-        "prices": {
-          "inside": 748,
-          "oceanView": 748,
-          "balcony": 802,
-          "suite": 2200
-        }
-      },
-      {
-        "at": "2026-07-10T06:40:41.897Z",
-        "prices": {
-          "inside": 695,
-          "oceanView": 748,
-          "balcony": 802,
-          "suite": 2200
-        }
-      },
-      {
-        "at": "2026-07-21T22:18:52.305Z",
-        "prices": {
-          "inside": 695,
-          "oceanView": 748,
-          "balcony": 850,
-          "suite": 2200
-        }
-      },
-      {
-        "at": "2026-07-23T03:03:20.955Z",
-        "prices": {
-          "inside": 695,
-          "oceanView": 748,
-          "balcony": 802,
-          "suite": 2200
-        }
-      },
-      {
-        "at": "2026-07-28T22:22:07.898Z",
-        "prices": {
-          "inside": 641,
-          "oceanView": 695,
-          "balcony": 802,
-          "suite": 2200
-        }
-      },
-      {
-        "at": "2026-07-31T06:59:17.691Z",
-        "prices": {
-          "inside": 587,
-          "oceanView": 695,
-          "balcony": 802,
-          "suite": 2200
-        }
-      },
-      {
-        "at": "2026-08-04T22:24:31.602Z",
-        "prices": {
-          "inside": 577,
-          "oceanView": 683,
-          "balcony": 789,
-          "suite": 2166
         }
       }
     ],
@@ -6224,71 +6231,6 @@
         }
       }
     ],
-    "virgin-VL2612127NSJR": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 855,
-          "oceanView": 909,
-          "balcony": 962,
-          "suite": 2200
-        }
-      },
-      {
-        "at": "2026-07-08T15:02:35.621Z",
-        "prices": {
-          "inside": 801,
-          "oceanView": 855,
-          "balcony": 909,
-          "suite": 1984
-        }
-      },
-      {
-        "at": "2026-07-10T06:40:41.897Z",
-        "prices": {
-          "inside": 801,
-          "oceanView": 855,
-          "balcony": 909,
-          "suite": 2038
-        }
-      },
-      {
-        "at": "2026-07-15T10:34:19.721Z",
-        "prices": {
-          "inside": 855,
-          "oceanView": 909,
-          "balcony": 962,
-          "suite": 2038
-        }
-      },
-      {
-        "at": "2026-07-22T10:43:38.718Z",
-        "prices": {
-          "inside": 855,
-          "oceanView": 909,
-          "balcony": 962,
-          "suite": 2200
-        }
-      },
-      {
-        "at": "2026-08-05T10:51:06.730Z",
-        "prices": {
-          "inside": 842,
-          "oceanView": 895,
-          "balcony": 948,
-          "suite": 2166
-        }
-      },
-      {
-        "at": "2026-08-06T10:52:40.073Z",
-        "prices": {
-          "inside": 789,
-          "oceanView": 842,
-          "balcony": 895,
-          "suite": 2166
-        }
-      }
-    ],
     "virgin-SC2612125NTC": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -6423,6 +6365,71 @@
           "oceanView": 563,
           "balcony": 601,
           "suite": 1661
+        }
+      }
+    ],
+    "virgin-VL2612127NSJR": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 855,
+          "oceanView": 909,
+          "balcony": 962,
+          "suite": 2200
+        }
+      },
+      {
+        "at": "2026-07-08T15:02:35.621Z",
+        "prices": {
+          "inside": 801,
+          "oceanView": 855,
+          "balcony": 909,
+          "suite": 1984
+        }
+      },
+      {
+        "at": "2026-07-10T06:40:41.897Z",
+        "prices": {
+          "inside": 801,
+          "oceanView": 855,
+          "balcony": 909,
+          "suite": 2038
+        }
+      },
+      {
+        "at": "2026-07-15T10:34:19.721Z",
+        "prices": {
+          "inside": 855,
+          "oceanView": 909,
+          "balcony": 962,
+          "suite": 2038
+        }
+      },
+      {
+        "at": "2026-07-22T10:43:38.718Z",
+        "prices": {
+          "inside": 855,
+          "oceanView": 909,
+          "balcony": 962,
+          "suite": 2200
+        }
+      },
+      {
+        "at": "2026-08-05T10:51:06.730Z",
+        "prices": {
+          "inside": 842,
+          "oceanView": 895,
+          "balcony": 948,
+          "suite": 2166
+        }
+      },
+      {
+        "at": "2026-08-06T10:52:40.073Z",
+        "prices": {
+          "inside": 789,
+          "oceanView": 842,
+          "balcony": 895,
+          "suite": 2166
         }
       }
     ],
@@ -7691,71 +7698,6 @@
         }
       }
     ],
-    "virgin-VL2701097NSE": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 748,
-          "oceanView": 909,
-          "balcony": 1070,
-          "suite": 3060
-        }
-      },
-      {
-        "at": "2026-07-15T08:47:23.484Z",
-        "prices": {
-          "inside": 852,
-          "oceanView": 909,
-          "balcony": 1070,
-          "suite": 3060
-        }
-      },
-      {
-        "at": "2026-07-16T06:50:12.416Z",
-        "prices": {
-          "inside": 748,
-          "oceanView": 909,
-          "balcony": 1070,
-          "suite": 3060
-        }
-      },
-      {
-        "at": "2026-08-01T05:05:19.408Z",
-        "prices": {
-          "inside": 801,
-          "oceanView": 855,
-          "balcony": 963,
-          "suite": 3060
-        }
-      },
-      {
-        "at": "2026-08-04T05:03:51.599Z",
-        "prices": {
-          "inside": 855,
-          "oceanView": 909,
-          "balcony": 963,
-          "suite": 3060
-        }
-      },
-      {
-        "at": "2026-08-05T05:03:34.089Z",
-        "prices": {
-          "inside": 842,
-          "oceanView": 895,
-          "balcony": 948,
-          "suite": 3013
-        }
-      },
-      {
-        "at": "2026-08-07T04:39:43.964Z",
-        "prices": {
-          "inside": 843,
-          "oceanView": 895,
-          "balcony": 949,
-          "suite": 3014
-        }
-      }
-    ],
     "virgin-SC2701095NTC": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -7827,6 +7769,71 @@
           "oceanView": 677,
           "balcony": 716,
           "suite": 1699
+        }
+      }
+    ],
+    "virgin-VL2701097NSE": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 748,
+          "oceanView": 909,
+          "balcony": 1070,
+          "suite": 3060
+        }
+      },
+      {
+        "at": "2026-07-15T08:47:23.484Z",
+        "prices": {
+          "inside": 852,
+          "oceanView": 909,
+          "balcony": 1070,
+          "suite": 3060
+        }
+      },
+      {
+        "at": "2026-07-16T06:50:12.416Z",
+        "prices": {
+          "inside": 748,
+          "oceanView": 909,
+          "balcony": 1070,
+          "suite": 3060
+        }
+      },
+      {
+        "at": "2026-08-01T05:05:19.408Z",
+        "prices": {
+          "inside": 801,
+          "oceanView": 855,
+          "balcony": 963,
+          "suite": 3060
+        }
+      },
+      {
+        "at": "2026-08-04T05:03:51.599Z",
+        "prices": {
+          "inside": 855,
+          "oceanView": 909,
+          "balcony": 963,
+          "suite": 3060
+        }
+      },
+      {
+        "at": "2026-08-05T05:03:34.089Z",
+        "prices": {
+          "inside": 842,
+          "oceanView": 895,
+          "balcony": 948,
+          "suite": 3013
+        }
+      },
+      {
+        "at": "2026-08-07T04:39:43.964Z",
+        "prices": {
+          "inside": 843,
+          "oceanView": 895,
+          "balcony": 949,
+          "suite": 3014
         }
       }
     ],
@@ -8124,80 +8131,6 @@
         }
       }
     ],
-    "virgin-RS2701168NCRB": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 855,
-          "oceanView": 917,
-          "balcony": 977,
-          "suite": 2453
-        }
-      },
-      {
-        "at": "2026-07-08T12:34:24.461Z",
-        "prices": {
-          "inside": 855,
-          "oceanView": 917,
-          "balcony": 977,
-          "suite": 2514
-        }
-      },
-      {
-        "at": "2026-07-29T03:03:03.802Z",
-        "prices": {
-          "inside": 855,
-          "oceanView": 917,
-          "balcony": 1004,
-          "suite": 2514
-        }
-      },
-      {
-        "at": "2026-07-30T03:03:05.581Z",
-        "prices": {
-          "inside": 855,
-          "oceanView": 917,
-          "balcony": 977,
-          "suite": 2514
-        }
-      },
-      {
-        "at": "2026-08-05T14:49:54.628Z",
-        "prices": {
-          "inside": 843,
-          "oceanView": 903,
-          "balcony": 964,
-          "suite": 2476
-        }
-      },
-      {
-        "at": "2026-08-06T12:37:54.591Z",
-        "prices": {
-          "inside": 843,
-          "oceanView": 903,
-          "balcony": 961,
-          "suite": 2476
-        }
-      },
-      {
-        "at": "2026-08-07T10:18:59.052Z",
-        "prices": {
-          "inside": 842,
-          "oceanView": 903,
-          "balcony": 961,
-          "suite": 2477
-        }
-      },
-      {
-        "at": "2026-08-08T08:13:01.236Z",
-        "prices": {
-          "inside": 782,
-          "oceanView": 842,
-          "balcony": 903,
-          "suite": 2477
-        }
-      }
-    ],
     "virgin-VL2701167NSJR": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -8299,6 +8232,80 @@
         }
       }
     ],
+    "virgin-RS2701168NCRB": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 855,
+          "oceanView": 917,
+          "balcony": 977,
+          "suite": 2453
+        }
+      },
+      {
+        "at": "2026-07-08T12:34:24.461Z",
+        "prices": {
+          "inside": 855,
+          "oceanView": 917,
+          "balcony": 977,
+          "suite": 2514
+        }
+      },
+      {
+        "at": "2026-07-29T03:03:03.802Z",
+        "prices": {
+          "inside": 855,
+          "oceanView": 917,
+          "balcony": 1004,
+          "suite": 2514
+        }
+      },
+      {
+        "at": "2026-07-30T03:03:05.581Z",
+        "prices": {
+          "inside": 855,
+          "oceanView": 917,
+          "balcony": 977,
+          "suite": 2514
+        }
+      },
+      {
+        "at": "2026-08-05T14:49:54.628Z",
+        "prices": {
+          "inside": 843,
+          "oceanView": 903,
+          "balcony": 964,
+          "suite": 2476
+        }
+      },
+      {
+        "at": "2026-08-06T12:37:54.591Z",
+        "prices": {
+          "inside": 843,
+          "oceanView": 903,
+          "balcony": 961,
+          "suite": 2476
+        }
+      },
+      {
+        "at": "2026-08-07T10:18:59.052Z",
+        "prices": {
+          "inside": 842,
+          "oceanView": 903,
+          "balcony": 961,
+          "suite": 2477
+        }
+      },
+      {
+        "at": "2026-08-08T08:13:01.236Z",
+        "prices": {
+          "inside": 782,
+          "oceanView": 842,
+          "balcony": 903,
+          "suite": 2477
+        }
+      }
+    ],
     "virgin-SC2701185NPP": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -8366,6 +8373,53 @@
         }
       }
     ],
+    "virgin-SC2701235NTC": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 650,
+          "oceanView": 689,
+          "balcony": 727,
+          "suite": 1979
+        }
+      },
+      {
+        "at": "2026-07-08T15:02:35.621Z",
+        "prices": {
+          "inside": 650,
+          "oceanView": 689,
+          "balcony": 727,
+          "suite": 1687
+        }
+      },
+      {
+        "at": "2026-07-28T10:50:40.948Z",
+        "prices": {
+          "inside": 612,
+          "oceanView": 650,
+          "balcony": 689,
+          "suite": 1687
+        }
+      },
+      {
+        "at": "2026-08-05T10:51:06.730Z",
+        "prices": {
+          "inside": 602,
+          "oceanView": 640,
+          "balcony": 677,
+          "suite": 1661
+        }
+      },
+      {
+        "at": "2026-08-07T10:18:59.052Z",
+        "prices": {
+          "inside": 602,
+          "oceanView": 640,
+          "balcony": 678,
+          "suite": 1661
+        }
+      }
+    ],
     "virgin-VL2701236NSJB": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -8419,53 +8473,6 @@
           "oceanView": 677,
           "balcony": 723,
           "suite": 2493
-        }
-      }
-    ],
-    "virgin-SC2701235NTC": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 650,
-          "oceanView": 689,
-          "balcony": 727,
-          "suite": 1979
-        }
-      },
-      {
-        "at": "2026-07-08T15:02:35.621Z",
-        "prices": {
-          "inside": 650,
-          "oceanView": 689,
-          "balcony": 727,
-          "suite": 1687
-        }
-      },
-      {
-        "at": "2026-07-28T10:50:40.948Z",
-        "prices": {
-          "inside": 612,
-          "oceanView": 650,
-          "balcony": 689,
-          "suite": 1687
-        }
-      },
-      {
-        "at": "2026-08-05T10:51:06.730Z",
-        "prices": {
-          "inside": 602,
-          "oceanView": 640,
-          "balcony": 677,
-          "suite": 1661
-        }
-      },
-      {
-        "at": "2026-08-07T10:18:59.052Z",
-        "prices": {
-          "inside": 602,
-          "oceanView": 640,
-          "balcony": 678,
-          "suite": 1661
         }
       }
     ],
@@ -8877,71 +8884,6 @@
         }
       }
     ],
-    "virgin-VL2702067NSJ8": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 750,
-          "oceanView": 855,
-          "balcony": 1005,
-          "suite": 2737
-        }
-      },
-      {
-        "at": "2026-07-08T15:02:35.621Z",
-        "prices": {
-          "inside": 640,
-          "oceanView": 855,
-          "balcony": 1005,
-          "suite": 2737
-        }
-      },
-      {
-        "at": "2026-08-01T06:51:57.405Z",
-        "prices": {
-          "inside": 748,
-          "oceanView": 801,
-          "balcony": 909,
-          "suite": 2737
-        }
-      },
-      {
-        "at": "2026-08-04T08:57:15.657Z",
-        "prices": {
-          "inside": 801,
-          "oceanView": 855,
-          "balcony": 909,
-          "suite": 2737
-        }
-      },
-      {
-        "at": "2026-08-05T08:56:33.972Z",
-        "prices": {
-          "inside": 788,
-          "oceanView": 842,
-          "balcony": 895,
-          "suite": 2696
-        }
-      },
-      {
-        "at": "2026-08-06T08:57:02.083Z",
-        "prices": {
-          "inside": 788,
-          "oceanView": 842,
-          "balcony": 895,
-          "suite": 2590
-        }
-      },
-      {
-        "at": "2026-08-07T10:18:59.052Z",
-        "prices": {
-          "inside": 790,
-          "oceanView": 842,
-          "balcony": 896,
-          "suite": 2591
-        }
-      }
-    ],
     "virgin-SC2702065NTC": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -9013,6 +8955,71 @@
           "oceanView": 716,
           "balcony": 753,
           "suite": 1661
+        }
+      }
+    ],
+    "virgin-VL2702067NSJ8": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 750,
+          "oceanView": 855,
+          "balcony": 1005,
+          "suite": 2737
+        }
+      },
+      {
+        "at": "2026-07-08T15:02:35.621Z",
+        "prices": {
+          "inside": 640,
+          "oceanView": 855,
+          "balcony": 1005,
+          "suite": 2737
+        }
+      },
+      {
+        "at": "2026-08-01T06:51:57.405Z",
+        "prices": {
+          "inside": 748,
+          "oceanView": 801,
+          "balcony": 909,
+          "suite": 2737
+        }
+      },
+      {
+        "at": "2026-08-04T08:57:15.657Z",
+        "prices": {
+          "inside": 801,
+          "oceanView": 855,
+          "balcony": 909,
+          "suite": 2737
+        }
+      },
+      {
+        "at": "2026-08-05T08:56:33.972Z",
+        "prices": {
+          "inside": 788,
+          "oceanView": 842,
+          "balcony": 895,
+          "suite": 2696
+        }
+      },
+      {
+        "at": "2026-08-06T08:57:02.083Z",
+        "prices": {
+          "inside": 788,
+          "oceanView": 842,
+          "balcony": 895,
+          "suite": 2590
+        }
+      },
+      {
+        "at": "2026-08-07T10:18:59.052Z",
+        "prices": {
+          "inside": 790,
+          "oceanView": 842,
+          "balcony": 896,
+          "suite": 2591
         }
       }
     ],
@@ -11383,44 +11390,6 @@
         }
       }
     ],
-    "virgin-SC2704035NTC": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 614,
-          "oceanView": 688,
-          "balcony": 851,
-          "suite": 1979
-        }
-      },
-      {
-        "at": "2026-07-23T20:24:08.504Z",
-        "prices": {
-          "inside": 578,
-          "oceanView": 650,
-          "balcony": 778,
-          "suite": 1979
-        }
-      },
-      {
-        "at": "2026-08-04T18:32:32.410Z",
-        "prices": {
-          "inside": 568,
-          "oceanView": 639,
-          "balcony": 765,
-          "suite": 1948
-        }
-      },
-      {
-        "at": "2026-08-07T12:16:23.413Z",
-        "prices": {
-          "inside": 566,
-          "oceanView": 640,
-          "balcony": 763,
-          "suite": 1949
-        }
-      }
-    ],
     "virgin-VL2704037NSE": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -11474,6 +11443,44 @@
           "oceanView": 895,
           "balcony": 1002,
           "suite": 3014
+        }
+      }
+    ],
+    "virgin-SC2704035NTC": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 614,
+          "oceanView": 688,
+          "balcony": 851,
+          "suite": 1979
+        }
+      },
+      {
+        "at": "2026-07-23T20:24:08.504Z",
+        "prices": {
+          "inside": 578,
+          "oceanView": 650,
+          "balcony": 778,
+          "suite": 1979
+        }
+      },
+      {
+        "at": "2026-08-04T18:32:32.410Z",
+        "prices": {
+          "inside": 568,
+          "oceanView": 639,
+          "balcony": 765,
+          "suite": 1948
+        }
+      },
+      {
+        "at": "2026-08-07T12:16:23.413Z",
+        "prices": {
+          "inside": 566,
+          "oceanView": 640,
+          "balcony": 763,
+          "suite": 1949
         }
       }
     ],
@@ -11924,44 +11931,6 @@
         }
       }
     ],
-    "virgin-RS2704185NTC": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 720,
-          "oceanView": 766,
-          "balcony": 881,
-          "suite": 2229
-        }
-      },
-      {
-        "at": "2026-07-13T16:48:18.981Z",
-        "prices": {
-          "inside": 720,
-          "oceanView": 957,
-          "balcony": 881,
-          "suite": 2229
-        }
-      },
-      {
-        "at": "2026-07-23T22:21:34.053Z",
-        "prices": {
-          "inside": 720,
-          "oceanView": 885,
-          "balcony": 804,
-          "suite": 2229
-        }
-      },
-      {
-        "at": "2026-08-05T10:51:06.730Z",
-        "prices": {
-          "inside": 709,
-          "oceanView": 871,
-          "balcony": 791,
-          "suite": 2194
-        }
-      }
-    ],
     "virgin-BR2704187NLAX": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -11997,6 +11966,44 @@
           "oceanView": 737,
           "balcony": 789,
           "suite": 2167
+        }
+      }
+    ],
+    "virgin-RS2704185NTC": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 720,
+          "oceanView": 766,
+          "balcony": 881,
+          "suite": 2229
+        }
+      },
+      {
+        "at": "2026-07-13T16:48:18.981Z",
+        "prices": {
+          "inside": 720,
+          "oceanView": 957,
+          "balcony": 881,
+          "suite": 2229
+        }
+      },
+      {
+        "at": "2026-07-23T22:21:34.053Z",
+        "prices": {
+          "inside": 720,
+          "oceanView": 885,
+          "balcony": 804,
+          "suite": 2229
+        }
+      },
+      {
+        "at": "2026-08-05T10:51:06.730Z",
+        "prices": {
+          "inside": 709,
+          "oceanView": 871,
+          "balcony": 791,
+          "suite": 2194
         }
       }
     ],
@@ -12320,35 +12327,6 @@
         }
       }
     ],
-    "virgin-BR2705029NLAV": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 685,
-          "oceanView": 830,
-          "balcony": 1031,
-          "suite": 3243
-        }
-      },
-      {
-        "at": "2026-08-05T10:51:06.730Z",
-        "prices": {
-          "inside": 674,
-          "oceanView": 817,
-          "balcony": 1015,
-          "suite": 3194
-        }
-      },
-      {
-        "at": "2026-08-07T10:18:59.052Z",
-        "prices": {
-          "inside": 674,
-          "oceanView": 811,
-          "balcony": 1015,
-          "suite": 3194
-        }
-      }
-    ],
     "virgin-RS27050214NMSB": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -12472,6 +12450,35 @@
         "prices": {
           "balcony": 1050,
           "suite": 4199
+        }
+      }
+    ],
+    "virgin-BR2705029NLAV": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 685,
+          "oceanView": 830,
+          "balcony": 1031,
+          "suite": 3243
+        }
+      },
+      {
+        "at": "2026-08-05T10:51:06.730Z",
+        "prices": {
+          "inside": 674,
+          "oceanView": 817,
+          "balcony": 1015,
+          "suite": 3194
+        }
+      },
+      {
+        "at": "2026-08-07T10:18:59.052Z",
+        "prices": {
+          "inside": 674,
+          "oceanView": 811,
+          "balcony": 1015,
+          "suite": 3194
         }
       }
     ],
@@ -12728,62 +12735,6 @@
         }
       }
     ],
-    "virgin-SC2705167NACK": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 1078,
-          "oceanView": 1155,
-          "balcony": 1225,
-          "suite": 3500
-        }
-      },
-      {
-        "at": "2026-07-17T03:03:31.225Z",
-        "prices": {
-          "inside": 945,
-          "oceanView": 1155,
-          "balcony": 1225,
-          "suite": 3500
-        }
-      },
-      {
-        "at": "2026-07-30T14:46:14.728Z",
-        "prices": {
-          "inside": 945,
-          "oceanView": 1155,
-          "balcony": 1344,
-          "suite": 3500
-        }
-      },
-      {
-        "at": "2026-08-02T08:48:28.553Z",
-        "prices": {
-          "inside": 980,
-          "oceanView": 1190,
-          "balcony": 1377,
-          "suite": 3535
-        }
-      },
-      {
-        "at": "2026-08-06T03:03:04.826Z",
-        "prices": {
-          "inside": 945,
-          "oceanView": 1155,
-          "balcony": 1344,
-          "suite": 3499
-        }
-      },
-      {
-        "at": "2026-08-08T02:38:57.448Z",
-        "prices": {
-          "inside": 945,
-          "oceanView": 1155,
-          "balcony": 1225,
-          "suite": 3499
-        }
-      }
-    ],
     "virgin-RS2705167NMC6": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -12866,32 +12817,59 @@
         }
       }
     ],
-    "virgin-VL2705204NKW": [
+    "virgin-SC2705167NACK": [
       {
         "at": "2026-07-07T14:10:40.613Z",
         "prices": {
-          "inside": 489,
-          "oceanView": 612,
-          "balcony": 673,
-          "suite": 1813
+          "inside": 1078,
+          "oceanView": 1155,
+          "balcony": 1225,
+          "suite": 3500
         }
       },
       {
-        "at": "2026-08-05T08:56:33.972Z",
+        "at": "2026-07-17T03:03:31.225Z",
         "prices": {
-          "inside": 482,
-          "oceanView": 602,
-          "balcony": 663,
-          "suite": 1785
+          "inside": 945,
+          "oceanView": 1155,
+          "balcony": 1225,
+          "suite": 3500
         }
       },
       {
-        "at": "2026-08-07T04:39:43.964Z",
+        "at": "2026-07-30T14:46:14.728Z",
         "prices": {
-          "inside": 481,
-          "oceanView": 602,
-          "balcony": 663,
-          "suite": 1785
+          "inside": 945,
+          "oceanView": 1155,
+          "balcony": 1344,
+          "suite": 3500
+        }
+      },
+      {
+        "at": "2026-08-02T08:48:28.553Z",
+        "prices": {
+          "inside": 980,
+          "oceanView": 1190,
+          "balcony": 1377,
+          "suite": 3535
+        }
+      },
+      {
+        "at": "2026-08-06T03:03:04.826Z",
+        "prices": {
+          "inside": 945,
+          "oceanView": 1155,
+          "balcony": 1344,
+          "suite": 3499
+        }
+      },
+      {
+        "at": "2026-08-08T02:38:57.448Z",
+        "prices": {
+          "inside": 945,
+          "oceanView": 1155,
+          "balcony": 1225,
+          "suite": 3499
         }
       }
     ],
@@ -12975,6 +12953,35 @@
           "oceanView": 896,
           "balcony": 1214,
           "suite": 3332
+        }
+      }
+    ],
+    "virgin-VL2705204NKW": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 489,
+          "oceanView": 612,
+          "balcony": 673,
+          "suite": 1813
+        }
+      },
+      {
+        "at": "2026-08-05T08:56:33.972Z",
+        "prices": {
+          "inside": 482,
+          "oceanView": 602,
+          "balcony": 663,
+          "suite": 1785
+        }
+      },
+      {
+        "at": "2026-08-07T04:39:43.964Z",
+        "prices": {
+          "inside": 481,
+          "oceanView": 602,
+          "balcony": 663,
+          "suite": 1785
         }
       }
     ],
@@ -13323,35 +13330,6 @@
         }
       }
     ],
-    "virgin-VL2706034NKW": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 489,
-          "oceanView": 612,
-          "balcony": 673,
-          "suite": 1813
-        }
-      },
-      {
-        "at": "2026-08-04T22:24:31.602Z",
-        "prices": {
-          "inside": 482,
-          "oceanView": 603,
-          "balcony": 663,
-          "suite": 1786
-        }
-      },
-      {
-        "at": "2026-08-07T12:16:23.413Z",
-        "prices": {
-          "inside": 481,
-          "oceanView": 602,
-          "balcony": 662,
-          "suite": 1785
-        }
-      }
-    ],
     "virgin-BR2706037NSBC2": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -13396,6 +13374,35 @@
           "oceanView": 842,
           "balcony": 1107,
           "suite": 3225
+        }
+      }
+    ],
+    "virgin-VL2706034NKW": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 489,
+          "oceanView": 612,
+          "balcony": 673,
+          "suite": 1813
+        }
+      },
+      {
+        "at": "2026-08-04T22:24:31.602Z",
+        "prices": {
+          "inside": 482,
+          "oceanView": 603,
+          "balcony": 663,
+          "suite": 1786
+        }
+      },
+      {
+        "at": "2026-08-07T12:16:23.413Z",
+        "prices": {
+          "inside": 481,
+          "oceanView": 602,
+          "balcony": 662,
+          "suite": 1785
         }
       }
     ],
@@ -13909,6 +13916,53 @@
         }
       }
     ],
+    "virgin-RS2706277NBVI": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 945,
+          "oceanView": 1155,
+          "balcony": 1225,
+          "suite": 2695
+        }
+      },
+      {
+        "at": "2026-07-08T12:34:24.461Z",
+        "prices": {
+          "inside": 945,
+          "oceanView": 1155,
+          "balcony": 1306,
+          "suite": 2695
+        }
+      },
+      {
+        "at": "2026-07-30T22:23:18.614Z",
+        "prices": {
+          "inside": 1107,
+          "oceanView": 1155,
+          "balcony": 1306,
+          "suite": 2695
+        }
+      },
+      {
+        "at": "2026-08-01T18:20:37.185Z",
+        "prices": {
+          "inside": 1107,
+          "oceanView": 1190,
+          "balcony": 1340,
+          "suite": 2730
+        }
+      },
+      {
+        "at": "2026-08-06T06:54:43.505Z",
+        "prices": {
+          "inside": 1107,
+          "oceanView": 1156,
+          "balcony": 1307,
+          "suite": 2695
+        }
+      }
+    ],
     "virgin-SC2706277NGM": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -13989,53 +14043,6 @@
           "oceanView": 1261,
           "balcony": 1365,
           "suite": 2975
-        }
-      }
-    ],
-    "virgin-RS2706277NBVI": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 945,
-          "oceanView": 1155,
-          "balcony": 1225,
-          "suite": 2695
-        }
-      },
-      {
-        "at": "2026-07-08T12:34:24.461Z",
-        "prices": {
-          "inside": 945,
-          "oceanView": 1155,
-          "balcony": 1306,
-          "suite": 2695
-        }
-      },
-      {
-        "at": "2026-07-30T22:23:18.614Z",
-        "prices": {
-          "inside": 1107,
-          "oceanView": 1155,
-          "balcony": 1306,
-          "suite": 2695
-        }
-      },
-      {
-        "at": "2026-08-01T18:20:37.185Z",
-        "prices": {
-          "inside": 1107,
-          "oceanView": 1190,
-          "balcony": 1340,
-          "suite": 2730
-        }
-      },
-      {
-        "at": "2026-08-06T06:54:43.505Z",
-        "prices": {
-          "inside": 1107,
-          "oceanView": 1156,
-          "balcony": 1307,
-          "suite": 2695
         }
       }
     ],
@@ -14278,35 +14285,6 @@
         }
       }
     ],
-    "virgin-SC27071110NATH": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 1600,
-          "oceanView": 1800,
-          "balcony": 1950,
-          "suite": 4950
-        }
-      },
-      {
-        "at": "2026-08-02T14:31:30.563Z",
-        "prices": {
-          "inside": 1550,
-          "oceanView": 1750,
-          "balcony": 1900,
-          "suite": 5000
-        }
-      },
-      {
-        "at": "2026-08-07T00:01:05.576Z",
-        "prices": {
-          "inside": 1600,
-          "oceanView": 1800,
-          "balcony": 1950,
-          "suite": 4899
-        }
-      }
-    ],
     "virgin-RS2707117NMC6": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -14333,6 +14311,35 @@
           "oceanView": 1260,
           "balcony": 1330,
           "suite": 3185
+        }
+      }
+    ],
+    "virgin-SC27071110NATH": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 1600,
+          "oceanView": 1800,
+          "balcony": 1950,
+          "suite": 4950
+        }
+      },
+      {
+        "at": "2026-08-02T14:31:30.563Z",
+        "prices": {
+          "inside": 1550,
+          "oceanView": 1750,
+          "balcony": 1900,
+          "suite": 5000
+        }
+      },
+      {
+        "at": "2026-08-07T00:01:05.576Z",
+        "prices": {
+          "inside": 1600,
+          "oceanView": 1800,
+          "balcony": 1950,
+          "suite": 4899
         }
       }
     ],
@@ -15030,6 +15037,35 @@
         }
       }
     ],
+    "virgin-VL2708124NKW": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 458,
+          "oceanView": 520,
+          "balcony": 643,
+          "suite": 1813
+        }
+      },
+      {
+        "at": "2026-08-05T10:51:06.730Z",
+        "prices": {
+          "inside": 451,
+          "oceanView": 512,
+          "balcony": 632,
+          "suite": 1786
+        }
+      },
+      {
+        "at": "2026-08-07T14:22:15.075Z",
+        "prices": {
+          "inside": 452,
+          "oceanView": 512,
+          "balcony": 633,
+          "suite": 1786
+        }
+      }
+    ],
     "virgin-BR27081212NSBC2": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -15101,35 +15137,6 @@
           "oceanView": 2127,
           "balcony": 2075,
           "suite": 5444
-        }
-      }
-    ],
-    "virgin-VL2708124NKW": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 458,
-          "oceanView": 520,
-          "balcony": 643,
-          "suite": 1813
-        }
-      },
-      {
-        "at": "2026-08-05T10:51:06.730Z",
-        "prices": {
-          "inside": 451,
-          "oceanView": 512,
-          "balcony": 632,
-          "suite": 1786
-        }
-      },
-      {
-        "at": "2026-08-07T14:22:15.075Z",
-        "prices": {
-          "inside": 452,
-          "oceanView": 512,
-          "balcony": 633,
-          "suite": 1786
         }
       }
     ],
@@ -16009,35 +16016,6 @@
         }
       }
     ],
-    "virgin-BR2710027NLAX": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 641,
-          "oceanView": 748,
-          "balcony": 909,
-          "suite": 2684
-        }
-      },
-      {
-        "at": "2026-08-05T06:54:09.484Z",
-        "prices": {
-          "inside": 631,
-          "oceanView": 736,
-          "balcony": 895,
-          "suite": 2643
-        }
-      },
-      {
-        "at": "2026-08-07T12:16:23.413Z",
-        "prices": {
-          "inside": 631,
-          "oceanView": 737,
-          "balcony": 896,
-          "suite": 2643
-        }
-      }
-    ],
     "virgin-VL2710025NTC": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -16064,6 +16042,35 @@
           "oceanView": 640,
           "balcony": 792,
           "suite": 2214
+        }
+      }
+    ],
+    "virgin-BR2710027NLAX": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 641,
+          "oceanView": 748,
+          "balcony": 909,
+          "suite": 2684
+        }
+      },
+      {
+        "at": "2026-08-05T06:54:09.484Z",
+        "prices": {
+          "inside": 631,
+          "oceanView": 736,
+          "balcony": 895,
+          "suite": 2643
+        }
+      },
+      {
+        "at": "2026-08-07T12:16:23.413Z",
+        "prices": {
+          "inside": 631,
+          "oceanView": 737,
+          "balcony": 896,
+          "suite": 2643
         }
       }
     ],
@@ -16294,35 +16301,6 @@
         }
       }
     ],
-    "virgin-VL2710165NTC": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 612,
-          "oceanView": 688,
-          "balcony": 804,
-          "suite": 2248
-        }
-      },
-      {
-        "at": "2026-08-04T22:24:31.602Z",
-        "prices": {
-          "inside": 601,
-          "oceanView": 677,
-          "balcony": 790,
-          "suite": 2213
-        }
-      },
-      {
-        "at": "2026-08-07T08:24:20.549Z",
-        "prices": {
-          "inside": 602,
-          "oceanView": 677,
-          "balcony": 791,
-          "suite": 2214
-        }
-      }
-    ],
     "virgin-BR2710167NLAX": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -16352,32 +16330,32 @@
         }
       }
     ],
-    "virgin-RS2710177NBAP2": [
+    "virgin-VL2710165NTC": [
       {
         "at": "2026-07-07T14:10:40.613Z",
         "prices": {
-          "inside": 840,
-          "oceanView": 1015,
-          "balcony": 1155,
-          "suite": 3185
+          "inside": 612,
+          "oceanView": 688,
+          "balcony": 804,
+          "suite": 2248
         }
       },
       {
-        "at": "2026-08-01T18:20:37.185Z",
+        "at": "2026-08-04T22:24:31.602Z",
         "prices": {
-          "inside": 840,
-          "oceanView": 1015,
-          "balcony": 1225,
-          "suite": 3220
+          "inside": 601,
+          "oceanView": 677,
+          "balcony": 790,
+          "suite": 2213
         }
       },
       {
-        "at": "2026-08-06T08:57:02.083Z",
+        "at": "2026-08-07T08:24:20.549Z",
         "prices": {
-          "inside": 840,
-          "oceanView": 1015,
-          "balcony": 1225,
-          "suite": 3184
+          "inside": 602,
+          "oceanView": 677,
+          "balcony": 791,
+          "suite": 2214
         }
       }
     ],
@@ -16407,6 +16385,35 @@
           "oceanView": 1120,
           "balcony": 1261,
           "suite": 3500
+        }
+      }
+    ],
+    "virgin-RS2710177NBAP2": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 840,
+          "oceanView": 1015,
+          "balcony": 1155,
+          "suite": 3185
+        }
+      },
+      {
+        "at": "2026-08-01T18:20:37.185Z",
+        "prices": {
+          "inside": 840,
+          "oceanView": 1015,
+          "balcony": 1225,
+          "suite": 3220
+        }
+      },
+      {
+        "at": "2026-08-06T08:57:02.083Z",
+        "prices": {
+          "inside": 840,
+          "oceanView": 1015,
+          "balcony": 1225,
+          "suite": 3184
         }
       }
     ],
@@ -16468,35 +16475,6 @@
         }
       }
     ],
-    "virgin-SC2710247NAAB": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 910,
-          "oceanView": 1015,
-          "balcony": 1155,
-          "suite": 3500
-        }
-      },
-      {
-        "at": "2026-08-02T08:48:28.553Z",
-        "prices": {
-          "inside": 910,
-          "oceanView": 1015,
-          "balcony": 1225,
-          "suite": 3535
-        }
-      },
-      {
-        "at": "2026-08-07T00:01:05.576Z",
-        "prices": {
-          "inside": 910,
-          "oceanView": 1015,
-          "balcony": 1225,
-          "suite": 3500
-        }
-      }
-    ],
     "virgin-RS27102414NBSM": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -16523,6 +16501,35 @@
           "oceanView": 1120,
           "balcony": 1203,
           "suite": 4620
+        }
+      }
+    ],
+    "virgin-SC2710247NAAB": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 910,
+          "oceanView": 1015,
+          "balcony": 1155,
+          "suite": 3500
+        }
+      },
+      {
+        "at": "2026-08-02T08:48:28.553Z",
+        "prices": {
+          "inside": 910,
+          "oceanView": 1015,
+          "balcony": 1225,
+          "suite": 3535
+        }
+      },
+      {
+        "at": "2026-08-07T00:01:05.576Z",
+        "prices": {
+          "inside": 910,
+          "oceanView": 1015,
+          "balcony": 1225,
+          "suite": 3500
         }
       }
     ],
@@ -16564,6 +16571,35 @@
         }
       }
     ],
+    "virgin-BR2710307NLEC": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 587,
+          "oceanView": 748,
+          "balcony": 909,
+          "suite": 2683
+        }
+      },
+      {
+        "at": "2026-08-05T16:33:18.007Z",
+        "prices": {
+          "inside": 578,
+          "oceanView": 738,
+          "balcony": 896,
+          "suite": 2644
+        }
+      },
+      {
+        "at": "2026-08-07T00:01:05.576Z",
+        "prices": {
+          "inside": 578,
+          "oceanView": 737,
+          "balcony": 896,
+          "suite": 2643
+        }
+      }
+    ],
     "virgin-VL2710305NCZH": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -16599,35 +16635,6 @@
           "oceanView": 640,
           "balcony": 754,
           "suite": 2233
-        }
-      }
-    ],
-    "virgin-BR2710307NLEC": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 587,
-          "oceanView": 748,
-          "balcony": 909,
-          "suite": 2683
-        }
-      },
-      {
-        "at": "2026-08-05T16:33:18.007Z",
-        "prices": {
-          "inside": 578,
-          "oceanView": 738,
-          "balcony": 896,
-          "suite": 2644
-        }
-      },
-      {
-        "at": "2026-08-07T00:01:05.576Z",
-        "prices": {
-          "inside": 578,
-          "oceanView": 737,
-          "balcony": 896,
-          "suite": 2643
         }
       }
     ],
@@ -16966,35 +16973,6 @@
         }
       }
     ],
-    "virgin-BR2711207NLCL": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 695,
-          "oceanView": 803,
-          "balcony": 964,
-          "suite": 2685
-        }
-      },
-      {
-        "at": "2026-08-05T10:51:06.730Z",
-        "prices": {
-          "inside": 684,
-          "oceanView": 789,
-          "balcony": 948,
-          "suite": 2643
-        }
-      },
-      {
-        "at": "2026-08-07T10:18:59.052Z",
-        "prices": {
-          "inside": 683,
-          "oceanView": 789,
-          "balcony": 949,
-          "suite": 2643
-        }
-      }
-    ],
     "virgin-RS2711208NPSST": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -17062,6 +17040,35 @@
         }
       }
     ],
+    "virgin-BR2711207NLCL": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 695,
+          "oceanView": 803,
+          "balcony": 964,
+          "suite": 2685
+        }
+      },
+      {
+        "at": "2026-08-05T10:51:06.730Z",
+        "prices": {
+          "inside": 684,
+          "oceanView": 789,
+          "balcony": 948,
+          "suite": 2643
+        }
+      },
+      {
+        "at": "2026-08-07T10:18:59.052Z",
+        "prices": {
+          "inside": 683,
+          "oceanView": 789,
+          "balcony": 949,
+          "suite": 2643
+        }
+      }
+    ],
     "virgin-VL2711225NGCB": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -17085,6 +17092,35 @@
         "at": "2026-08-07T03:01:42.041Z",
         "prices": {
           "inside": 488,
+          "oceanView": 602,
+          "balcony": 754,
+          "suite": 2270
+        }
+      }
+    ],
+    "virgin-VL2711275NTC": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 534,
+          "oceanView": 611,
+          "balcony": 765,
+          "suite": 2305
+        }
+      },
+      {
+        "at": "2026-08-05T16:33:18.007Z",
+        "prices": {
+          "inside": 526,
+          "oceanView": 602,
+          "balcony": 753,
+          "suite": 2270
+        }
+      },
+      {
+        "at": "2026-08-07T00:01:05.576Z",
+        "prices": {
+          "inside": 526,
           "oceanView": 602,
           "balcony": 754,
           "suite": 2270
@@ -17200,35 +17236,6 @@
           "oceanView": 684,
           "balcony": 937,
           "suite": 2913
-        }
-      }
-    ],
-    "virgin-VL2711275NTC": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 534,
-          "oceanView": 611,
-          "balcony": 765,
-          "suite": 2305
-        }
-      },
-      {
-        "at": "2026-08-05T16:33:18.007Z",
-        "prices": {
-          "inside": 526,
-          "oceanView": 602,
-          "balcony": 753,
-          "suite": 2270
-        }
-      },
-      {
-        "at": "2026-08-07T00:01:05.576Z",
-        "prices": {
-          "inside": 526,
-          "oceanView": 602,
-          "balcony": 754,
-          "suite": 2270
         }
       }
     ],
@@ -17801,26 +17808,6 @@
         }
       }
     ],
-    "virgin-RS2801027NNSP": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 640,
-          "oceanView": 802,
-          "balcony": 963,
-          "suite": 2690
-        }
-      },
-      {
-        "at": "2026-08-05T08:56:33.972Z",
-        "prices": {
-          "inside": 631,
-          "oceanView": 789,
-          "balcony": 949,
-          "suite": 2648
-        }
-      }
-    ],
     "virgin-SC2801026NSJKR": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -17874,6 +17861,26 @@
           "oceanView": 586,
           "balcony": 813,
           "suite": 2497
+        }
+      }
+    ],
+    "virgin-RS2801027NNSP": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 640,
+          "oceanView": 802,
+          "balcony": 963,
+          "suite": 2690
+        }
+      },
+      {
+        "at": "2026-08-05T08:56:33.972Z",
+        "prices": {
+          "inside": 631,
+          "oceanView": 789,
+          "balcony": 949,
+          "suite": 2648
         }
       }
     ],
@@ -17937,26 +17944,6 @@
         }
       }
     ],
-    "virgin-SC2801087NSJ8": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 586,
-          "oceanView": 693,
-          "balcony": 962,
-          "suite": 2958
-        }
-      },
-      {
-        "at": "2026-08-05T10:51:06.730Z",
-        "prices": {
-          "inside": 577,
-          "oceanView": 683,
-          "balcony": 948,
-          "suite": 2913
-        }
-      }
-    ],
     "virgin-VL2801085NTC": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -17974,6 +17961,26 @@
           "oceanView": 602,
           "balcony": 753,
           "suite": 2270
+        }
+      }
+    ],
+    "virgin-SC2801087NSJ8": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 586,
+          "oceanView": 693,
+          "balcony": 962,
+          "suite": 2958
+        }
+      },
+      {
+        "at": "2026-08-05T10:51:06.730Z",
+        "prices": {
+          "inside": 577,
+          "oceanView": 683,
+          "balcony": 948,
+          "suite": 2913
         }
       }
     ],
@@ -18135,26 +18142,6 @@
         }
       }
     ],
-    "virgin-VL2801225NPP": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 457,
-          "oceanView": 573,
-          "balcony": 726,
-          "suite": 2305
-        }
-      },
-      {
-        "at": "2026-08-05T03:03:21.490Z",
-        "prices": {
-          "inside": 450,
-          "oceanView": 564,
-          "balcony": 715,
-          "suite": 2270
-        }
-      }
-    ],
     "virgin-SC2801227NSJCO2": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -18172,6 +18159,26 @@
           "oceanView": 683,
           "balcony": 948,
           "suite": 2913
+        }
+      }
+    ],
+    "virgin-VL2801225NPP": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 457,
+          "oceanView": 573,
+          "balcony": 726,
+          "suite": 2305
+        }
+      },
+      {
+        "at": "2026-08-05T03:03:21.490Z",
+        "prices": {
+          "inside": 450,
+          "oceanView": 564,
+          "balcony": 715,
+          "suite": 2270
         }
       }
     ],
@@ -18235,26 +18242,6 @@
         }
       }
     ],
-    "virgin-SC2801297NSJBF2": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 586,
-          "oceanView": 694,
-          "balcony": 963,
-          "suite": 2958
-        }
-      },
-      {
-        "at": "2026-08-04T22:24:31.602Z",
-        "prices": {
-          "inside": 578,
-          "oceanView": 684,
-          "balcony": 948,
-          "suite": 2913
-        }
-      }
-    ],
     "virgin-RS2801298NPSP": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -18272,6 +18259,26 @@
           "oceanView": 902,
           "balcony": 1084,
           "suite": 2966
+        }
+      }
+    ],
+    "virgin-SC2801297NSJBF2": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 586,
+          "oceanView": 694,
+          "balcony": 963,
+          "suite": 2958
+        }
+      },
+      {
+        "at": "2026-08-04T22:24:31.602Z",
+        "prices": {
+          "inside": 578,
+          "oceanView": 684,
+          "balcony": 948,
+          "suite": 2913
         }
       }
     ],
@@ -18315,26 +18322,6 @@
         }
       }
     ],
-    "virgin-VL2802055NTC": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 534,
-          "oceanView": 611,
-          "balcony": 765,
-          "suite": 2305
-        }
-      },
-      {
-        "at": "2026-08-05T14:49:54.628Z",
-        "prices": {
-          "inside": 526,
-          "oceanView": 602,
-          "balcony": 753,
-          "suite": 2270
-        }
-      }
-    ],
     "virgin-SC2802057NSJ8": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -18352,6 +18339,26 @@
           "oceanView": 736,
           "balcony": 1001,
           "suite": 2913
+        }
+      }
+    ],
+    "virgin-VL2802055NTC": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 534,
+          "oceanView": 611,
+          "balcony": 765,
+          "suite": 2305
+        }
+      },
+      {
+        "at": "2026-08-05T14:49:54.628Z",
+        "prices": {
+          "inside": 526,
+          "oceanView": 602,
+          "balcony": 753,
+          "suite": 2270
         }
       }
     ],
@@ -18655,26 +18662,6 @@
         }
       }
     ],
-    "virgin-SC2803047NSJ8": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 693,
-          "oceanView": 801,
-          "balcony": 1070,
-          "suite": 2957
-        }
-      },
-      {
-        "at": "2026-08-05T16:33:18.007Z",
-        "prices": {
-          "inside": 684,
-          "oceanView": 789,
-          "balcony": 1053,
-          "suite": 2913
-        }
-      }
-    ],
     "virgin-VL2803045NTC": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -18692,6 +18679,26 @@
           "oceanView": 640,
           "balcony": 792,
           "suite": 2270
+        }
+      }
+    ],
+    "virgin-SC2803047NSJ8": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 693,
+          "oceanView": 801,
+          "balcony": 1070,
+          "suite": 2957
+        }
+      },
+      {
+        "at": "2026-08-05T16:33:18.007Z",
+        "prices": {
+          "inside": 684,
+          "oceanView": 789,
+          "balcony": 1053,
+          "suite": 2913
         }
       }
     ],
@@ -18795,26 +18802,6 @@
         }
       }
     ],
-    "virgin-VL2803185NPP": [
-      {
-        "at": "2026-07-07T14:10:40.613Z",
-        "prices": {
-          "inside": 534,
-          "oceanView": 610,
-          "balcony": 764,
-          "suite": 2305
-        }
-      },
-      {
-        "at": "2026-08-05T08:56:33.972Z",
-        "prices": {
-          "inside": 526,
-          "oceanView": 602,
-          "balcony": 753,
-          "suite": 2270
-        }
-      }
-    ],
     "virgin-SC2803187NSJCO2": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -18832,6 +18819,26 @@
           "oceanView": 789,
           "balcony": 948,
           "suite": 2913
+        }
+      }
+    ],
+    "virgin-VL2803185NPP": [
+      {
+        "at": "2026-07-07T14:10:40.613Z",
+        "prices": {
+          "inside": 534,
+          "oceanView": 610,
+          "balcony": 764,
+          "suite": 2305
+        }
+      },
+      {
+        "at": "2026-08-05T08:56:33.972Z",
+        "prices": {
+          "inside": 526,
+          "oceanView": 602,
+          "balcony": 753,
+          "suite": 2270
         }
       }
     ],
@@ -19208,17 +19215,6 @@
         }
       }
     ],
-    "virgin-SC28050410NBTV": [
-      {
-        "at": "2026-07-23T08:53:52.463Z",
-        "prices": {
-          "inside": 1298,
-          "oceanView": 1682,
-          "balcony": 1836,
-          "suite": 4610
-        }
-      }
-    ],
     "virgin-RS2805044NKW": [
       {
         "at": "2026-07-07T14:10:40.613Z",
@@ -19236,6 +19232,17 @@
           "oceanView": 481,
           "balcony": 603,
           "suite": 1604
+        }
+      }
+    ],
+    "virgin-SC28050410NBTV": [
+      {
+        "at": "2026-07-23T08:53:52.463Z",
+        "prices": {
+          "inside": 1298,
+          "oceanView": 1682,
+          "balcony": 1836,
+          "suite": 4610
         }
       }
     ],
@@ -19341,17 +19348,6 @@
         }
       }
     ],
-    "virgin-VL2805217NTRP2": [
-      {
-        "at": "2026-07-23T08:53:52.463Z",
-        "prices": {
-          "inside": 909,
-          "oceanView": 1179,
-          "balcony": 1286,
-          "suite": 3227
-        }
-      }
-    ],
     "virgin-SC2805217NKDS": [
       {
         "at": "2026-07-23T08:53:52.463Z",
@@ -19360,6 +19356,17 @@
           "oceanView": 1286,
           "balcony": 1394,
           "suite": 3228
+        }
+      }
+    ],
+    "virgin-VL2805217NTRP2": [
+      {
+        "at": "2026-07-23T08:53:52.463Z",
+        "prices": {
+          "inside": 909,
+          "oceanView": 1179,
+          "balcony": 1286,
+          "suite": 3227
         }
       }
     ],
@@ -19403,17 +19410,6 @@
         }
       }
     ],
-    "virgin-VL2805287NLAP2": [
-      {
-        "at": "2026-07-23T08:53:52.463Z",
-        "prices": {
-          "inside": 910,
-          "oceanView": 1179,
-          "balcony": 1287,
-          "suite": 3227
-        }
-      }
-    ],
     "virgin-SC2805287NGM2": [
       {
         "at": "2026-07-23T08:53:52.463Z",
@@ -19421,6 +19417,17 @@
           "inside": 963,
           "oceanView": 1232,
           "balcony": 1286,
+          "suite": 3227
+        }
+      }
+    ],
+    "virgin-VL2805287NLAP2": [
+      {
+        "at": "2026-07-23T08:53:52.463Z",
+        "prices": {
+          "inside": 910,
+          "oceanView": 1179,
+          "balcony": 1287,
           "suite": 3227
         }
       }
@@ -20276,17 +20283,6 @@
         }
       }
     ],
-    "virgin-VL2810087NACP": [
-      {
-        "at": "2026-07-23T08:53:52.463Z",
-        "prices": {
-          "inside": 855,
-          "oceanView": 1178,
-          "balcony": 1232,
-          "suite": 3227
-        }
-      }
-    ],
     "virgin-SC2810087NGM2": [
       {
         "at": "2026-07-23T08:53:52.463Z",
@@ -20295,6 +20291,17 @@
           "oceanView": 1179,
           "balcony": 1287,
           "suite": 3228
+        }
+      }
+    ],
+    "virgin-VL2810087NACP": [
+      {
+        "at": "2026-07-23T08:53:52.463Z",
+        "prices": {
+          "inside": 855,
+          "oceanView": 1178,
+          "balcony": 1232,
+          "suite": 3227
         }
       }
     ],
@@ -20432,5 +20439,5 @@
       }
     ]
   },
-  "scrapedAt": "2026-08-10T02:46:43.152Z"
+  "scrapedAt": "2026-08-10T04:32:09.416Z"
 }
