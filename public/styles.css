@@ -1706,268 +1706,271 @@
       }
     }
 
-    /* The mobile filter sheet is a top-layer <dialog>, so it stays viewport-keyed
-       (@media) like the other dialogs above. Note: forcing the mobile layout on a
-       wide desktop shows the card view, but this bottom-sheet only takes its
-       small-screen styling on a genuinely narrow viewport. */
-    @media (max-width: 480px) {
-      /* Bottom-sheet filter dialog on mobile — slides up from the bottom.
-         Note: only the [open] selector sets `display`. Closed <dialog>s keep
-         the browser-default `display: none` so they stay hidden. */
-      dialog#mobFilters {
-        position: fixed;
-        inset: auto 0 0 0;            /* pin to bottom, full width */
-        margin: 0;
-        width: 100%; max-width: 100%;
-        height: calc(100vh - 72px);
-        height: calc(100dvh - 72px);
-        block-size: calc(100vh - 72px);
-        block-size: calc(100dvh - 72px);
-        max-height: calc(100vh - 72px);
-        max-height: calc(100dvh - 72px);
-        max-block-size: calc(100vh - 72px);
-        max-block-size: calc(100dvh - 72px);
-        padding: 0;
-        border: none;
-        border-radius: 18px 18px 0 0;
-        box-shadow: 0 -12px 40px rgba(0,0,0,.28);
-        background: white;
-        overflow: hidden;             /* the inner grid scrolls instead */
-      }
-      dialog#mobFilters[open] {
-        display: grid;
-        height: calc(100vh - 72px);
-        height: calc(100dvh - 72px);
-        block-size: calc(100vh - 72px);
-        block-size: calc(100dvh - 72px);
-        grid-template-rows: auto 1fr; /* head + scrollable body */
-        animation: sheet-slide-up .22s cubic-bezier(.2,.7,.3,1) both;
-      }
-      dialog#mobFilters::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(2px); }
-      @keyframes sheet-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    /* The mobile filter sheet is a top-layer <dialog>, so neither the .view-shell
+       container query nor a viewport @media can describe it correctly: in the
+       top layer it escapes the shell's containment, and keying it to
+       `max-width: 480px` left it unstyled (UA-default, centred, auto-width) when
+       the Layout option forces the mobile card view on a wide desktop. These
+       rules are therefore unconditional — every selector below is scoped to the
+       sheet, which is only ever reachable from the mobile toolbar — and the
+       sheet's width adapts instead: full-bleed on a phone, a centred phone-width
+       panel on a wide screen. */
+    /* Bottom-sheet filter dialog — slides up from the bottom.
+       Note: only the [open] selector sets `display`. Closed <dialog>s keep
+       the browser-default `display: none` so they stay hidden. */
+    dialog#mobFilters {
+      position: fixed;
+      inset: auto 0 0 0;            /* pin to the bottom of the viewport */
+      margin: 0 auto;               /* centred once capped below viewport width */
+      width: 100%; max-width: 480px;
+      height: calc(100vh - 72px);
+      height: calc(100dvh - 72px);
+      block-size: calc(100vh - 72px);
+      block-size: calc(100dvh - 72px);
+      max-height: calc(100vh - 72px);
+      max-height: calc(100dvh - 72px);
+      max-block-size: calc(100vh - 72px);
+      max-block-size: calc(100dvh - 72px);
+      padding: 0;
+      border: none;
+      border-radius: 18px 18px 0 0;
+      box-shadow: 0 -12px 40px rgba(0,0,0,.28);
+      background: white;
+      overflow: hidden;             /* the inner grid scrolls instead */
+    }
+    dialog#mobFilters[open] {
+      display: grid;
+      height: calc(100vh - 72px);
+      height: calc(100dvh - 72px);
+      block-size: calc(100vh - 72px);
+      block-size: calc(100dvh - 72px);
+      grid-template-rows: auto 1fr; /* head + scrollable body */
+      animation: sheet-slide-up .22s cubic-bezier(.2,.7,.3,1) both;
+    }
+    dialog#mobFilters::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(2px); }
+    @keyframes sheet-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-      .mob-filters-head {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 20px 18px 12px;
-        border-bottom: 1px solid var(--gray-100);
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        background: white;
-      }
-      /* iOS-style grabber */
-      .mob-filters-head::before {
-        content: '';
-        position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
-        width: 38px; height: 4px; border-radius: 2px; background: var(--gray-200);
-      }
-      .mob-filters-head h2 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 0; }
-      .mob-active-filter-count {
-        display: inline-block;
-        margin-left: 6px;
-        padding: 2px 6px;
-        border-radius: 999px;
-        background: var(--blue-pale);
-        color: var(--blue);
-        font-size: 0.66rem;
-        font-weight: 700;
-        vertical-align: 2px;
-      }
-      .mob-active-filter-count[hidden] { display: none; }
-      .mob-filters-close {
-        appearance: none; background: var(--gray-100); border: none;
-        width: 30px; height: 30px; border-radius: 50%;
-        font-size: 1.1rem; color: var(--gray-700); cursor: pointer;
-      }
-      .mob-filters-close:hover { background: var(--gray-200); color: var(--navy); }
+    .mob-filters-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 18px 12px;
+      border-bottom: 1px solid var(--gray-100);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: white;
+    }
+    /* iOS-style grabber */
+    .mob-filters-head::before {
+      content: '';
+      position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+      width: 38px; height: 4px; border-radius: 2px; background: var(--gray-200);
+    }
+    .mob-filters-head h2 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 0; }
+    .mob-active-filter-count {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: var(--blue-pale);
+      color: var(--blue);
+      font-size: 0.66rem;
+      font-weight: 700;
+      vertical-align: 2px;
+    }
+    .mob-active-filter-count[hidden] { display: none; }
+    .mob-filters-close {
+      appearance: none; background: var(--gray-100); border: none;
+      width: 30px; height: 30px; border-radius: 50%;
+      font-size: 1.1rem; color: var(--gray-700); cursor: pointer;
+    }
+    .mob-filters-close:hover { background: var(--gray-200); color: var(--navy); }
 
-      .mob-filter-grid {
-        display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-        padding: 14px 14px 18px;
-        overflow-y: auto;
-      }
+    .mob-filter-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      padding: 14px 14px 18px;
+      overflow-y: auto;
+    }
 
-      .mob-filter-heading {
-        grid-column: 1 / -1;
-        margin: 6px 0 -2px;
-        padding-top: 10px;
-        border-top: 1px solid var(--gray-100);
-        color: var(--gray-700);
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-      .mob-filter-heading-sort {
-        order: 10;
-        margin-top: 0;
-        padding-top: 0;
-        border-top: 0;
-      }
-      .mob-filter-heading-highlights { order: 20; }
-      .mob-filter-heading-cruise { order: 30; }
-      .mob-filter-heading-route { order: 40; }
-      .mob-filter-heading-dates { order: 50; }
-      .mob-filter-heading-price { order: 60; }
-      .mob-sort-inline { order: 11; }
-      .mob-filter-deals { order: 21; }
-      .mob-filter-cruise { order: 31; }
-      .mob-filter-route { order: 41; }
-      .mob-filter-dates { order: 51; }
-      .mob-filter-price { order: 61; }
-      .mob-filter-actions {
-        display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-        margin-top: 6px;
-        order: 90;
-      }
-      #mobApplyFilters {
-        width: 100%; padding: 10px; border: none; border-radius: 8px;
-        background: var(--blue); color: white; font-weight: 700; cursor: pointer;
-      }
-      #mobApplyFilters:hover { background: #1e40af; }
+    .mob-filter-heading {
+      grid-column: 1 / -1;
+      margin: 6px 0 -2px;
+      padding-top: 10px;
+      border-top: 1px solid var(--gray-100);
+      color: var(--gray-700);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .mob-filter-heading-sort {
+      order: 10;
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+    .mob-filter-heading-highlights { order: 20; }
+    .mob-filter-heading-cruise { order: 30; }
+    .mob-filter-heading-route { order: 40; }
+    .mob-filter-heading-dates { order: 50; }
+    .mob-filter-heading-price { order: 60; }
+    .mob-sort-inline { order: 11; }
+    .mob-filter-deals { order: 21; }
+    .mob-filter-cruise { order: 31; }
+    .mob-filter-route { order: 41; }
+    .mob-filter-dates { order: 51; }
+    .mob-filter-price { order: 61; }
+    .mob-filter-actions {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      margin-top: 6px;
+      order: 90;
+    }
+    #mobApplyFilters {
+      width: 100%; padding: 10px; border: none; border-radius: 8px;
+      background: var(--blue); color: white; font-weight: 700; cursor: pointer;
+    }
+    #mobApplyFilters:hover { background: #1e40af; }
 
-      .mob-filter-row {
-        display: contents;
-      }
+    .mob-filter-row {
+      display: contents;
+    }
 
-      .mob-filter-group {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-        min-width: 0;
-      }
+    .mob-filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
 
-      .mob-filter-group.mob-filter-full {
-        grid-column: 1 / -1;
-      }
+    .mob-filter-group.mob-filter-full {
+      grid-column: 1 / -1;
+    }
 
-      /* Sort dropdown + direction button at the top of the filter sheet. */
-      .mob-sort-inline {
-        padding: 10px;
-        background: var(--blue-pale);
-        border: 1px solid #cfdcfb;
-        border-radius: 10px;
-      }
-      .mob-sort-inline .mob-sort-controls {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-      }
-      .mob-sort-inline select {
-        flex: 1;
-        padding: 8px 10px;
-        border: 1px solid var(--gray-200);
-        border-radius: 8px;
-        font-size: 0.92rem;
-        background: white;
-      }
-      .mob-sort-inline .sort-dir-btn { flex-shrink: 0; }
+    /* Sort dropdown + direction button at the top of the filter sheet. */
+    .mob-sort-inline {
+      padding: 10px;
+      background: var(--blue-pale);
+      border: 1px solid #cfdcfb;
+      border-radius: 10px;
+    }
+    .mob-sort-inline .mob-sort-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .mob-sort-inline select {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      background: white;
+    }
+    .mob-sort-inline .sort-dir-btn { flex-shrink: 0; }
 
-      .mob-filter-group label {
-        font-size: 0.62rem;
-        font-weight: 700;
-        letter-spacing: 0.07em;
-        text-transform: uppercase;
-        color: var(--gray-600);
-        white-space: nowrap;
-      }
+    .mob-filter-group label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--gray-600);
+      white-space: nowrap;
+    }
 
-      .mob-filter {
-        width: 100%;
-        min-width: 0;
-        border: 1px solid var(--gray-200);
-        border-radius: 7px;
-        padding: 7px 8px;
-        font-size: 0.82rem;
-        background: var(--gray-50);
-        color: var(--gray-800);
-        outline: none;
-      }
+    .mob-filter {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid var(--gray-200);
+      border-radius: 7px;
+      padding: 7px 8px;
+      font-size: 0.82rem;
+      background: var(--gray-50);
+      color: var(--gray-800);
+      outline: none;
+    }
 
-      .mob-filter:focus { border-color: var(--blue); background: white; }
+    .mob-filter:focus { border-color: var(--blue); background: white; }
 
-      .mob-filter-group.has-active-filter label { color: var(--blue); }
-      .mob-filter-group.has-active-filter .mob-filter,
-      .mob-filter-group.has-active-filter .date-range-mobile {
-        border-color: var(--blue);
-        background: var(--blue-pale);
-        box-shadow: 0 0 0 1px var(--blue);
-        color: var(--navy);
-        font-weight: 650;
-      }
-      .mob-filter-group.has-active-filter .filter-clear-btn {
-        border-color: var(--blue);
-        background: var(--blue-pale);
-        color: var(--blue);
-      }
+    .mob-filter-group.has-active-filter label { color: var(--blue); }
+    .mob-filter-group.has-active-filter .mob-filter,
+    .mob-filter-group.has-active-filter .date-range-mobile {
+      border-color: var(--blue);
+      background: var(--blue-pale);
+      box-shadow: 0 0 0 1px var(--blue);
+      color: var(--navy);
+      font-weight: 650;
+    }
+    .mob-filter-group.has-active-filter .filter-clear-btn {
+      border-color: var(--blue);
+      background: var(--blue-pale);
+      color: var(--blue);
+    }
 
-      select.mob-filter { cursor: pointer; }
-      .mob-filter-group .filter-entry {
-        gap: 5px;
-      }
-      .mob-filter-group .filter-clear-btn {
-        flex-basis: 20px;
-        width: 20px;
-        height: 20px;
-        border-color: var(--gray-200);
-        background: var(--gray-50);
-        color: var(--gray-600);
-      }
-      .mob-filter-group .filter-clear-btn:hover,
-      .mob-filter-group .filter-clear-btn:focus-visible {
-        border-color: var(--blue);
-        background: white;
-        color: var(--navy);
-      }
+    select.mob-filter { cursor: pointer; }
+    .mob-filter-group .filter-entry {
+      gap: 5px;
+    }
+    .mob-filter-group .filter-clear-btn {
+      flex-basis: 20px;
+      width: 20px;
+      height: 20px;
+      border-color: var(--gray-200);
+      background: var(--gray-50);
+      color: var(--gray-600);
+    }
+    .mob-filter-group .filter-clear-btn:hover,
+    .mob-filter-group .filter-clear-btn:focus-visible {
+      border-color: var(--blue);
+      background: white;
+      color: var(--navy);
+    }
 
-      .date-range-mobile {
-        border: 1px solid var(--gray-200);
-        border-radius: 7px;
-        padding: 7px 8px;
-        font-size: 0.82rem;
-        background: var(--gray-50);
-        color: var(--gray-800);
-      }
-      .date-range-mobile:hover,
-      .date-range-mobile:focus-visible {
-        border-color: var(--blue);
-        background: white;
-        color: var(--gray-800);
-      }
-      .date-range-mobile.has-value {
-        border-color: var(--blue);
-        background: var(--blue-pale);
-        color: var(--navy);
-      }
+    .date-range-mobile {
+      border: 1px solid var(--gray-200);
+      border-radius: 7px;
+      padding: 7px 8px;
+      font-size: 0.82rem;
+      background: var(--gray-50);
+      color: var(--gray-800);
+    }
+    .date-range-mobile:hover,
+    .date-range-mobile:focus-visible {
+      border-color: var(--blue);
+      background: white;
+      color: var(--gray-800);
+    }
+    .date-range-mobile.has-value {
+      border-color: var(--blue);
+      background: var(--blue-pale);
+      color: var(--navy);
+    }
 
-      #mobClearFilters {
-        width: 100%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 7px;
-        padding: 8px;
-        border: 1px solid var(--gray-200);
-        border-radius: 7px;
-        background: var(--gray-100);
-        color: var(--gray-600);
-        font-size: 0.82rem;
-        font-weight: 600;
-        cursor: pointer;
-      }
-      #mobClearFilters:disabled {
-        cursor: wait;
-        opacity: 0.85;
-      }
-      #mobClearFilters.is-busy::before {
-        content: "";
-        width: 12px;
-        height: 12px;
-        border: 2px solid currentColor;
-        border-right-color: transparent;
-        border-radius: 50%;
-        animation: mobBusySpin .7s linear infinite;
-      }
+    #mobClearFilters {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 8px;
+      border: 1px solid var(--gray-200);
+      border-radius: 7px;
+      background: var(--gray-100);
+      color: var(--gray-600);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #mobClearFilters:disabled {
+      cursor: wait;
+      opacity: 0.85;
+    }
+    #mobClearFilters.is-busy::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: mobBusySpin .7s linear infinite;
     }
 
     /* ── Fade in on load ─────────────────────────────────────────────────────── */
