@@ -3,7 +3,7 @@
     "id": "virgin-voyages",
     "name": "Virgin Voyages"
   },
-  "count": 26,
+  "count": 27,
   "cruises": [
     {
       "id": "virgin-BR2607097NSBE",
@@ -2703,6 +2703,44 @@
           "at": "2026-08-12T10:23:30.317Z",
           "prices": {
             "balcony": 1899
+          }
+        }
+      ]
+    },
+    {
+      "id": "virgin-VL28081411NBHG",
+      "provider": "Virgin Voyages",
+      "shipName": "Valiant Lady",
+      "shipClass": "Lady",
+      "shipLaunchYear": 2021,
+      "itinerary": "EUROPE",
+      "departureDate": "2028-08-14",
+      "duration": "11 Nights",
+      "departurePort": "Amsterdam",
+      "departureRegion": "Northern Europe",
+      "destination": "Northern Europe",
+      "destinationPort": "Amsterdam",
+      "seaDays": null,
+      "priceFrom": "5366",
+      "currency": "GBP",
+      "prices": {
+        "inside": 2031,
+        "oceanView": 2546,
+        "balcony": 2239,
+        "suite": null
+      },
+      "bookingUrl": "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=VL28081411NBHG&currencyCode=GBP",
+      "arrivalDate": "2028-08-25",
+      "pricesEnrichedAt": "2026-08-13T08:31:48.404Z",
+      "firstSeenAt": "2026-08-13T08:30:36.029Z",
+      "lastSeenAt": "2026-08-13T12:17:42.245Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-13T08:30:36.029Z",
+          "prices": {
+            "inside": 2031,
+            "oceanView": 2546,
+            "balcony": 2239
           }
         }
       ]
