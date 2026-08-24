@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 36,
+  "count": 31,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -2002,424 +2002,650 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT11LTKDENSVUDRAVLIMYSSYD",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Fiji & Vanuatu",
-      "departureDate": "2027-12-01",
-      "duration": "11-day Cruise",
-      "departurePort": "Lautoka, Fiji",
-      "departureRegion": "Australia & Pacific",
-      "destination": "South Pacific: Fiji & Vanuatu",
-      "destinationPort": "Sydney",
-      "arrivalDate": "2027-12-12",
-      "priceFrom": "1495",
+      "id": "ncl_BREAKAWAY7BOSPWMBHBSJBHALBOS",
+      "shipName": "Norwegian Breakaway",
+      "shipClass": "Breakaway",
+      "shipLaunchYear": 2013,
+      "itinerary": "Canada & New England: Bar Harbor & Halifax",
+      "departureDate": "2026-08-23",
+      "duration": "7-day Cruise",
+      "departurePort": "Boston",
+      "departureRegion": "Americas",
+      "destination": "Canada & New England: Bar Harbor & Halifax",
+      "destinationPort": "Boston",
+      "arrivalDate": "2026-08-30",
+      "priceFrom": "625",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-south-pacific-from-fiji-to-sydney-fiji-and-vanuatu-SPIRIT11LTKDENSVUDRAVLIMYSSYD?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT11LTKDENSVUDRAVLIMYSSYD",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-canada-and-new-england-round-trip-boston-bar-harbor-and-halifax-BREAKAWAY7BOSPWMBHBSJBHALBOS?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=BREAKAWAY7BOSPWMBHBSJBHALBOS",
       "prices": {
-        "inside": "1495",
-        "oceanView": "1770",
-        "balcony": "3325",
-        "suite": "8040"
-      },
-      "seaDays": 5,
-      "firstSeenAt": "2026-08-15T06:06:42.544Z",
-      "lastSeenAt": "2026-08-23T20:03:59.287Z",
-      "priceHistory": [
-        {
-          "at": "2026-08-15T06:06:42.544Z",
-          "prices": {
-            "inside": 1495,
-            "oceanView": 1770,
-            "balcony": 3325,
-            "suite": 8040
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12LTKDRASUVPPGAPWPPGRARBRBRAIMOZPPT",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Suva, Rarotonga & Dravuni",
-      "departureDate": "2026-10-12",
-      "duration": "12-day Cruise",
-      "departurePort": "Lautoka, Fiji",
-      "departureRegion": "Australia & Pacific",
-      "destination": "South Pacific: Suva, Rarotonga & Dravuni",
-      "destinationPort": "Papeete (Tahiti), French Polynesia",
-      "arrivalDate": "2026-10-24",
-      "priceFrom": "717",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-lautoka-to-papeete-suva-rarotonga-and-dravuni-SPIRIT12LTKDRASUVPPGAPWPPGRARBRBRAIMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12LTKDRASUVPPGAPWPPGRARBRBRAIMOZPPT",
-      "prices": {
-        "inside": "717",
-        "oceanView": "1010",
-        "balcony": "1572",
-        "suite": "11700"
+        "inside": "625",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
       },
       "seaDays": 2,
       "firstSeenAt": "2026-08-15T02:22:35.278Z",
-      "lastSeenAt": "2026-08-23T20:03:59.287Z",
       "priceHistory": [
         {
           "at": "2026-08-15T02:22:35.278Z",
           "prices": {
-            "inside": 1575,
-            "oceanView": 1890,
-            "balcony": 3005,
-            "suite": 11165
+            "inside": 720,
+            "oceanView": 925,
+            "balcony": 1190,
+            "suite": 1425
           }
         },
         {
-          "at": "2026-08-15T22:03:41.875Z",
+          "at": "2026-08-15T10:05:07.034Z",
           "prices": {
-            "inside": 775,
-            "oceanView": 1010,
-            "balcony": 1572,
-            "suite": 11170
+            "inside": 665,
+            "oceanView": 925,
+            "balcony": 1190,
+            "suite": 1425
+          }
+        },
+        {
+          "at": "2026-08-15T20:04:16.159Z",
+          "prices": {
+            "inside": 665,
+            "oceanView": 885,
+            "balcony": 1190,
+            "suite": 1425
+          }
+        },
+        {
+          "at": "2026-08-19T14:11:11.654Z",
+          "prices": {
+            "inside": 770
+          }
+        },
+        {
+          "at": "2026-08-19T22:07:49.508Z",
+          "prices": {
+            "inside": 625,
+            "oceanView": 845,
+            "balcony": 1145,
+            "suite": 1390
           }
         },
         {
           "at": "2026-08-21T08:13:05.121Z",
           "prices": {
-            "inside": 717,
-            "oceanView": 1010,
-            "balcony": 1572,
-            "suite": 11165
+            "inside": 770
           }
         },
         {
           "at": "2026-08-21T22:04:58.627Z",
           "prices": {
-            "inside": 717,
-            "oceanView": 1010,
-            "balcony": 1572,
-            "suite": 11170
-          }
-        },
-        {
-          "at": "2026-08-23T00:11:05.057Z",
-          "prices": {
-            "inside": 717,
-            "oceanView": 1010,
-            "balcony": 1572
-          }
-        },
-        {
-          "at": "2026-08-23T04:14:09.572Z",
-          "prices": {
-            "inside": 717,
-            "oceanView": 1010,
-            "balcony": 1572,
-            "suite": 11700
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12LTKDRASUVAPWRARRAIBRBMOZPPT",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Fiji, Moorea & Bora Bora",
-      "departureDate": "2027-07-24",
-      "duration": "12-day Cruise",
-      "departurePort": "Lautoka, Fiji",
-      "departureRegion": "Australia & Pacific",
-      "destination": "South Pacific: Fiji, Moorea & Bora Bora",
-      "destinationPort": "Papeete (Tahiti), French Polynesia",
-      "arrivalDate": "2027-08-05",
-      "priceFrom": "1970",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-fiji-to-papeete-fiji-moorea-and-bora-bora-SPIRIT12LTKDRASUVAPWRARRAIBRBMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12LTKDRASUVAPWRARRAIBRBMOZPPT",
-      "prices": {
-        "inside": "1970",
-        "oceanView": "2480",
-        "balcony": "3950",
-        "suite": "9795"
-      },
-      "seaDays": 4,
-      "firstSeenAt": "2026-08-15T06:06:42.544Z",
-      "lastSeenAt": "2026-08-23T20:03:59.287Z",
-      "priceHistory": [
-        {
-          "at": "2026-08-15T06:06:42.544Z",
-          "prices": {
-            "inside": 1970,
-            "oceanView": 2480,
-            "balcony": 3950,
-            "suite": 9795
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12LTKDENSVUDRAVLIMYSBNENTLSYD",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Fiji, Brisbane & Vanuatu",
-      "departureDate": "2026-11-30",
-      "duration": "12-day Cruise",
-      "departurePort": "Lautoka, Fiji",
-      "departureRegion": "Australia & Pacific",
-      "destination": "South Pacific: Fiji, Brisbane & Vanuatu",
-      "destinationPort": "Sydney",
-      "arrivalDate": "2026-12-12",
-      "priceFrom": "537",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-lautoka-to-sydney-fiji-brisbane-and-vanuatu-SPIRIT12LTKDENSVUDRAVLIMYSBNENTLSYD?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12LTKDENSVUDRAVLIMYSBNENTLSYD",
-      "prices": {
-        "inside": "537",
-        "oceanView": "652",
-        "balcony": "1150",
-        "suite": "5255"
-      },
-      "seaDays": 4,
-      "firstSeenAt": "2026-08-15T02:22:35.278Z",
-      "lastSeenAt": "2026-08-23T20:03:59.287Z",
-      "priceHistory": [
-        {
-          "at": "2026-08-15T02:22:35.278Z",
-          "prices": {
-            "inside": 920,
-            "oceanView": 1235,
-            "balcony": 2155,
-            "suite": 5255
-          }
-        },
-        {
-          "at": "2026-08-15T22:03:41.875Z",
-          "prices": {
-            "inside": 535,
-            "oceanView": 687,
-            "balcony": 1150,
-            "suite": 5255
-          }
-        },
-        {
-          "at": "2026-08-21T22:04:58.627Z",
-          "prices": {
-            "inside": 537,
-            "oceanView": 652,
-            "balcony": 1150,
-            "suite": 5255
+            "inside": 770,
+            "balcony": 1570
           }
         },
         {
           "at": "2026-08-22T08:06:28.053Z",
           "prices": {
-            "inside": 535,
-            "oceanView": 652,
-            "balcony": 1150,
-            "suite": 5255
+            "inside": 625,
+            "suite": 3485
           }
         },
         {
-          "at": "2026-08-23T04:14:09.572Z",
+          "at": "2026-08-23T10:05:22.002Z",
           "prices": {
-            "inside": 537,
-            "oceanView": 652,
-            "balcony": 1150,
-            "suite": 5255
+            "inside": 625
           }
         }
-      ]
+      ],
+      "lastSeenAt": "2026-08-24T00:10:29.744Z"
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12LTKDRASUVAPWAITRARBRBRAIMOZPPT",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "South Pacific: Bora Bora & Moorea",
-      "departureDate": "2027-05-04",
-      "duration": "12-day Cruise",
-      "departurePort": "Lautoka, Fiji",
-      "departureRegion": "Australia & Pacific",
-      "destination": "South Pacific: Bora Bora & Moorea",
-      "destinationPort": "Papeete (Tahiti), French Polynesia",
-      "arrivalDate": "2027-05-16",
-      "priceFrom": "2490",
+      "id": "ncl_PRIMA7PCVPOPSTTTOVNPIPCV",
+      "shipName": "Norwegian Prima",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2022,
+      "itinerary": "Caribbean: Great Stirrup Cay & Dominican Republic",
+      "departureDate": "2026-08-23",
+      "duration": "7-day Cruise",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Dominican Republic",
+      "destinationPort": "Port Canaveral",
+      "arrivalDate": "2026-08-30",
+      "priceFrom": "469",
       "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-south-pacific-from-lautoka-to-papeete-bora-bora-and-moorea-SPIRIT12LTKDRASUVAPWAITRARBRBRAIMOZPPT?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12LTKDRASUVAPWAITRARBRBRAIMOZPPT",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-caribbean-round-trip-orlando-great-stirrup-cay-and-dominican-republic-PRIMA7PCVPOPSTTTOVNPIPCV?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=PRIMA7PCVPOPSTTTOVNPIPCV",
       "prices": {
-        "inside": "2490",
-        "oceanView": "3880",
+        "inside": "469",
+        "oceanView": null,
         "balcony": null,
         "suite": null
       },
-      "seaDays": 3,
-      "firstSeenAt": "2026-08-15T06:06:42.544Z",
-      "lastSeenAt": "2026-08-23T20:03:59.287Z",
+      "seaDays": 2,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "priceHistory": [
         {
-          "at": "2026-08-15T06:06:42.544Z",
+          "at": "2026-07-26T18:21:34.416Z",
           "prices": {
-            "inside": 2490,
-            "oceanView": 3880,
-            "suite": 16300
+            "inside": 649,
+            "suite": 2539
           }
         },
         {
-          "at": "2026-08-20T12:08:24.923Z",
+          "at": "2026-07-27T07:08:21.671Z",
           "prices": {
-            "inside": 2490,
-            "oceanView": 3785,
-            "suite": 16300
+            "suite": 1479
+          }
+        },
+        {
+          "at": "2026-07-27T20:30:55.885Z",
+          "prices": {
+            "inside": 684
+          }
+        },
+        {
+          "at": "2026-07-28T06:53:11.616Z",
+          "prices": {
+            "suite": 2539
+          }
+        },
+        {
+          "at": "2026-07-28T16:33:23.910Z",
+          "prices": {
+            "oceanView": 764
+          }
+        },
+        {
+          "at": "2026-07-29T08:58:32.018Z",
+          "prices": {
+            "inside": 649,
+            "oceanView": 764,
+            "balcony": 1094
+          }
+        },
+        {
+          "at": "2026-07-29T16:30:36.136Z",
+          "prices": {
+            "oceanView": 764,
+            "balcony": 1094
+          }
+        },
+        {
+          "at": "2026-07-30T05:02:31.501Z",
+          "prices": {
+            "inside": 664,
+            "suite": 1504
+          }
+        },
+        {
+          "at": "2026-07-31T09:01:34.099Z",
+          "prices": {
+            "inside": 664,
+            "balcony": 1069,
+            "suite": 1504
+          }
+        },
+        {
+          "at": "2026-07-31T18:37:01.180Z",
+          "prices": {
+            "inside": 664,
+            "balcony": 1069
+          }
+        },
+        {
+          "at": "2026-08-01T08:46:53.378Z",
+          "prices": {
+            "inside": 664,
+            "balcony": 1069,
+            "suite": 2029
+          }
+        },
+        {
+          "at": "2026-08-01T16:20:49.187Z",
+          "prices": {
+            "inside": 559,
+            "oceanView": 614,
+            "balcony": 814,
+            "suite": 1174
+          }
+        },
+        {
+          "at": "2026-08-02T20:20:46.877Z",
+          "prices": {
+            "inside": 559,
+            "oceanView": 614,
+            "balcony": 814,
+            "suite": 1134
+          }
+        },
+        {
+          "at": "2026-08-03T07:08:04.434Z",
+          "prices": {
+            "inside": 559,
+            "oceanView": 614,
+            "balcony": 814,
+            "suite": 1174
+          }
+        },
+        {
+          "at": "2026-08-03T18:35:08.580Z",
+          "prices": {
+            "inside": 559,
+            "oceanView": 624,
+            "balcony": 814,
+            "suite": 2209
+          }
+        },
+        {
+          "at": "2026-08-04T05:03:51.599Z",
+          "prices": {
+            "inside": 559,
+            "oceanView": 614,
+            "balcony": 814,
+            "suite": 1174
+          }
+        },
+        {
+          "at": "2026-08-04T06:52:50.395Z",
+          "prices": {
+            "inside": 559,
+            "oceanView": 624,
+            "balcony": 814,
+            "suite": 2209
+          }
+        },
+        {
+          "at": "2026-08-04T08:57:15.657Z",
+          "prices": {
+            "inside": 559,
+            "oceanView": 614,
+            "balcony": 814,
+            "suite": 1174
+          }
+        },
+        {
+          "at": "2026-08-04T18:32:32.410Z",
+          "prices": {
+            "inside": 544,
+            "oceanView": 584,
+            "balcony": 829,
+            "suite": 1189
+          }
+        },
+        {
+          "at": "2026-08-05T12:36:37.176Z",
+          "prices": {
+            "inside": 544,
+            "oceanView": 594,
+            "balcony": 829,
+            "suite": 2134
+          }
+        },
+        {
+          "at": "2026-08-06T05:03:36.212Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 594,
+            "balcony": 829,
+            "suite": 1189
+          }
+        },
+        {
+          "at": "2026-08-06T06:54:43.505Z",
+          "prices": {
+            "inside": 544,
+            "oceanView": 594,
+            "balcony": 829,
+            "suite": 2134
+          }
+        },
+        {
+          "at": "2026-08-06T10:52:40.073Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 594,
+            "balcony": 829,
+            "suite": 1189
+          }
+        },
+        {
+          "at": "2026-08-07T06:25:00.304Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 584,
+            "balcony": 829
+          }
+        },
+        {
+          "at": "2026-08-07T16:17:34.593Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 584,
+            "balcony": 829,
+            "suite": 1189
+          }
+        },
+        {
+          "at": "2026-08-08T08:13:01.236Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 584,
+            "balcony": 899,
+            "suite": 1189
+          }
+        },
+        {
+          "at": "2026-08-08T18:07:49.143Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 594,
+            "suite": 1914
+          }
+        },
+        {
+          "at": "2026-08-09T08:14:05.322Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 594,
+            "balcony": 844,
+            "suite": 1914
+          }
+        },
+        {
+          "at": "2026-08-09T18:08:47.467Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 594,
+            "suite": 1914
+          }
+        },
+        {
+          "at": "2026-08-10T08:32:52.516Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 599,
+            "suite": 3559
+          }
+        },
+        {
+          "at": "2026-08-10T16:17:26.473Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 594,
+            "suite": 1914
+          }
+        },
+        {
+          "at": "2026-08-11T06:19:08.651Z",
+          "prices": {
+            "inside": 504,
+            "oceanView": 624,
+            "suite": 4579
+          }
+        },
+        {
+          "at": "2026-08-12T06:29:31.420Z",
+          "prices": {
+            "inside": 519,
+            "suite": 1874
+          }
+        },
+        {
+          "at": "2026-08-12T20:14:10.820Z",
+          "prices": {
+            "inside": 524,
+            "oceanView": 624,
+            "suite": 3444
+          }
+        },
+        {
+          "at": "2026-08-13T10:24:14.095Z",
+          "prices": {
+            "inside": 524,
+            "oceanView": 624,
+            "suite": 1874
+          }
+        },
+        {
+          "at": "2026-08-14T10:22:29.459Z",
+          "prices": {
+            "inside": 529,
+            "oceanView": 554,
+            "balcony": 789,
+            "suite": 1754
+          }
+        },
+        {
+          "at": "2026-08-14T18:18:32.069Z",
+          "prices": {
+            "inside": 524,
+            "suite": 3444
+          }
+        },
+        {
+          "at": "2026-08-14T20:10:23.067Z",
+          "prices": {
+            "inside": 529,
+            "oceanView": 554,
+            "balcony": 789,
+            "suite": 1754
+          }
+        },
+        {
+          "at": "2026-08-14T22:04:51.008Z",
+          "prices": {
+            "inside": 524,
+            "suite": 3444
+          }
+        },
+        {
+          "at": "2026-08-15T08:06:04.211Z",
+          "prices": {
+            "inside": 529,
+            "oceanView": 554,
+            "balcony": 789,
+            "suite": 1094
+          }
+        },
+        {
+          "at": "2026-08-15T20:04:16.159Z",
+          "prices": {
+            "inside": 544,
+            "balcony": 939,
+            "suite": 3444
+          }
+        },
+        {
+          "at": "2026-08-16T06:07:38.572Z",
+          "prices": {
+            "inside": 529,
+            "oceanView": 554,
+            "balcony": 789,
+            "suite": 1094
+          }
+        },
+        {
+          "at": "2026-08-17T10:10:33.749Z",
+          "prices": {
+            "inside": 529,
+            "oceanView": 554,
+            "balcony": 789,
+            "suite": 1834
+          }
+        },
+        {
+          "at": "2026-08-17T20:06:03.729Z",
+          "prices": {
+            "inside": 529,
+            "oceanView": 554,
+            "balcony": 789,
+            "suite": 1094
+          }
+        },
+        {
+          "at": "2026-08-18T08:09:43.599Z",
+          "prices": {
+            "inside": 504
+          }
+        },
+        {
+          "at": "2026-08-19T14:18:57.645Z",
+          "prices": {
+            "inside": 469
+          }
+        },
+        {
+          "at": "2026-08-20T08:12:01.753Z",
+          "prices": {
+            "inside": 489,
+            "oceanView": 554,
+            "suite": 1794
+          }
+        },
+        {
+          "at": "2026-08-21T04:14:06.024Z",
+          "prices": {
+            "inside": 469,
+            "suite": 3129
+          }
+        },
+        {
+          "at": "2026-08-22T08:06:28.053Z",
+          "prices": {
+            "inside": 469
+          }
+        }
+      ],
+      "lastSeenAt": "2026-08-24T00:10:29.744Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_GEM7CIVSALCTACFUKOTSPUVCERAV",
+      "shipName": "Norwegian Gem",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2007,
+      "itinerary": "Mediterranean: Italy, Croatia & Greece",
+      "departureDate": "2026-08-23",
+      "duration": "7-day Cruise",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean: Italy, Croatia & Greece",
+      "destinationPort": "Venice (Ravenna)",
+      "arrivalDate": "2026-08-30",
+      "priceFrom": "704",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-mediterranean-from-rome-to-venice-ravenna-italy-croatia-and-greece-GEM7CIVSALCTACFUKOTSPUVCERAV?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=GEM7CIVSALCTACFUKOTSPUVCERAV",
+      "prices": {
+        "inside": "704",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 0,
+      "firstSeenAt": "2026-08-15T02:22:35.278Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-15T02:22:35.278Z",
+          "prices": {
+            "inside": 640,
+            "oceanView": 733,
+            "balcony": 960,
+            "suite": 1102
+          }
+        },
+        {
+          "at": "2026-08-16T14:05:52.860Z",
+          "prices": {
+            "inside": 640,
+            "oceanView": 733,
+            "balcony": 960,
+            "suite": 1980
+          }
+        },
+        {
+          "at": "2026-08-17T10:10:33.749Z",
+          "prices": {
+            "inside": 640,
+            "oceanView": 733,
+            "balcony": 960
+          }
+        },
+        {
+          "at": "2026-08-18T00:10:44.386Z",
+          "prices": {
+            "inside": 640,
+            "oceanView": 733,
+            "balcony": 960,
+            "suite": 6095
+          }
+        },
+        {
+          "at": "2026-08-18T16:07:21.144Z",
+          "prices": {
+            "inside": 640,
+            "oceanView": 733,
+            "balcony": 960,
+            "suite": 1102
+          }
+        },
+        {
+          "at": "2026-08-19T14:18:57.645Z",
+          "prices": {
+            "inside": 640,
+            "oceanView": 733,
+            "balcony": 960,
+            "suite": 6095
+          }
+        },
+        {
+          "at": "2026-08-20T06:09:22.632Z",
+          "prices": {
+            "inside": 640,
+            "oceanView": 733,
+            "balcony": 960,
+            "suite": 1102
+          }
+        },
+        {
+          "at": "2026-08-21T04:14:06.024Z",
+          "prices": {
+            "inside": 649,
+            "oceanView": 733,
+            "balcony": 960
           }
         },
         {
           "at": "2026-08-21T22:04:58.627Z",
           "prices": {
-            "inside": 2490,
-            "oceanView": 3785
+            "inside": 649,
+            "oceanView": 733,
+            "balcony": 960,
+            "suite": 1117
           }
         },
         {
-          "at": "2026-08-23T04:14:09.572Z",
+          "at": "2026-08-22T08:06:28.053Z",
           "prices": {
-            "inside": 2490,
-            "oceanView": 3880
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT11AKLTAUTMUORRMELBWTQDNSYD",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "Australia & New Zealand: Dusky Sound & Melbourne",
-      "departureDate": "2027-02-05",
-      "duration": "11-day Cruise",
-      "departurePort": "Auckland",
-      "departureRegion": "Australia & Pacific",
-      "destination": "Australia & New Zealand: Dusky Sound & Melbourne",
-      "destinationPort": "Sydney",
-      "arrivalDate": "2027-02-16",
-      "priceFrom": "1138",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-australia-and-new-zealand-from-auckland-to-sydney-SPIRIT11AKLTAUTMUORRMELBWTQDNSYD?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT11AKLTAUTMUORRMELBWTQDNSYD",
-      "prices": {
-        "inside": "1138",
-        "oceanView": "1955",
-        "balcony": "3615",
-        "suite": "7355"
-      },
-      "seaDays": 4,
-      "firstSeenAt": "2026-08-20T10:08:21.260Z",
-      "lastSeenAt": "2026-08-23T20:03:59.287Z",
-      "priceHistory": [
-        {
-          "at": "2026-08-20T10:08:21.260Z",
-          "prices": {
-            "inside": 1138,
-            "oceanView": 1955,
-            "balcony": 3615,
-            "suite": 7355
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT11AKLTAULYTORRMELBWTQDNSYD",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "Australia & New Zealand: Dusky Sound & Melbourne",
-      "departureDate": "2028-04-01",
-      "duration": "11-day Cruise",
-      "departurePort": "Auckland",
-      "departureRegion": "Australia & Pacific",
-      "destination": "Australia & New Zealand: Dusky Sound & Melbourne",
-      "destinationPort": "Sydney",
-      "arrivalDate": "2028-04-12",
-      "priceFrom": "1565",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/11-day-australia-and-new-zealand-from-auckland-to-sydney-SPIRIT11AKLTAULYTORRMELBWTQDNSYD?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT11AKLTAULYTORRMELBWTQDNSYD",
-      "prices": {
-        "inside": "1565",
-        "oceanView": "2005",
-        "balcony": "3300",
-        "suite": "7625"
-      },
-      "seaDays": 4,
-      "firstSeenAt": "2026-08-15T06:06:42.544Z",
-      "lastSeenAt": "2026-08-23T20:03:59.287Z",
-      "priceHistory": [
-        {
-          "at": "2026-08-15T06:06:42.544Z",
-          "prices": {
-            "inside": 1138,
-            "oceanView": 1955,
-            "balcony": 3615,
-            "suite": 7355
+            "inside": 649,
+            "oceanView": 733,
+            "balcony": 960
           }
         },
         {
-          "at": "2026-08-20T10:08:21.260Z",
+          "at": "2026-08-22T16:04:15.057Z",
           "prices": {
-            "inside": 1565,
-            "oceanView": 2005,
-            "balcony": 3300,
-            "suite": 7625
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT12AKLTAUNPETMUORRMELBWTQDNSYD",
-      "shipName": "Norwegian Spirit",
-      "shipClass": "Spirit",
-      "shipLaunchYear": 1998,
-      "itinerary": "Australia & New Zealand: Dusky Sound & Melbourne",
-      "departureDate": "2027-03-20",
-      "duration": "12-day Cruise",
-      "departurePort": "Auckland",
-      "departureRegion": "Australia & Pacific",
-      "destination": "Australia & New Zealand: Dusky Sound & Melbourne",
-      "destinationPort": "Sydney",
-      "arrivalDate": "2027-04-01",
-      "priceFrom": "1005",
-      "currency": "GBP",
-      "bookingUrl": "https://www.ncl.com/uk/en/cruises/12-day-australia-and-new-zealand-from-auckland-to-sydney-SPIRIT12AKLTAUNPETMUORRMELBWTQDNSYD?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SPIRIT12AKLTAUNPETMUORRMELBWTQDNSYD",
-      "prices": {
-        "inside": "1005",
-        "oceanView": "1124",
-        "balcony": "2423",
-        "suite": null
-      },
-      "seaDays": 4,
-      "firstSeenAt": "2026-08-15T06:06:42.544Z",
-      "lastSeenAt": "2026-08-23T20:03:59.287Z",
-      "priceHistory": [
-        {
-          "at": "2026-08-15T06:06:42.544Z",
-          "prices": {
-            "inside": 1030,
-            "oceanView": 1124,
-            "balcony": 2461
+            "inside": 649,
+            "balcony": 960,
+            "suite": 1117
           }
         },
         {
-          "at": "2026-08-20T10:08:21.260Z",
+          "at": "2026-08-23T10:05:22.002Z",
           "prices": {
-            "inside": 1005,
-            "oceanView": 1124,
-            "balcony": 2423
+            "inside": 704
           }
         }
-      ]
+      ],
+      "lastSeenAt": "2026-08-24T00:10:29.744Z"
     }
   ]
 }
