@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 26,
+  "count": 27,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -1590,6 +1590,121 @@
           "at": "2026-08-20T12:08:24.923Z",
           "prices": {
             "inside": 552
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SUN7HELTLLNYNRIXWARKIECPH",
+      "shipName": "Norwegian Sun",
+      "shipClass": "Sun",
+      "shipLaunchYear": 2001,
+      "itinerary": "Baltic: Germany, Sweden & Denmark",
+      "departureDate": "2026-08-29",
+      "duration": "7-day Cruise",
+      "departurePort": "Helsinki",
+      "departureRegion": "Northern Europe",
+      "destination": "Baltic: Germany, Sweden & Denmark",
+      "destinationPort": "Copenhagen",
+      "arrivalDate": "2026-09-05",
+      "priceFrom": "731",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-baltic-from-helsinki-to-copenhagen-germany-sweden-and-denmark-SUN7HELTLLNYNRIXWARKIECPH?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=SUN7HELTLLNYNRIXWARKIECPH",
+      "prices": {
+        "inside": "731",
+        "oceanView": "1280",
+        "balcony": "1215",
+        "suite": null
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-08-15T02:22:35.278Z",
+      "lastSeenAt": "2026-08-24T12:08:40.387Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-15T02:22:35.278Z",
+          "prices": {
+            "inside": 716,
+            "oceanView": 1280,
+            "balcony": 1215
+          }
+        },
+        {
+          "at": "2026-08-15T06:06:42.544Z",
+          "prices": {
+            "inside": 716,
+            "balcony": 1215,
+            "suite": 2630
+          }
+        },
+        {
+          "at": "2026-08-16T14:05:52.860Z",
+          "prices": {
+            "inside": 716,
+            "balcony": 1950,
+            "suite": 2630
+          }
+        },
+        {
+          "at": "2026-08-17T10:10:33.749Z",
+          "prices": {
+            "inside": 716,
+            "oceanView": 845,
+            "balcony": 1950
+          }
+        },
+        {
+          "at": "2026-08-18T16:07:21.144Z",
+          "prices": {
+            "inside": 716,
+            "balcony": 1950
+          }
+        },
+        {
+          "at": "2026-08-19T14:18:57.645Z",
+          "prices": {
+            "inside": 716,
+            "oceanView": 1280,
+            "balcony": 1935
+          }
+        },
+        {
+          "at": "2026-08-20T06:09:22.632Z",
+          "prices": {
+            "inside": 716,
+            "oceanView": 845,
+            "balcony": 1935
+          }
+        },
+        {
+          "at": "2026-08-20T12:08:24.923Z",
+          "prices": {
+            "inside": 716,
+            "oceanView": 845
+          }
+        },
+        {
+          "at": "2026-08-21T22:04:58.627Z",
+          "prices": {
+            "inside": 731,
+            "oceanView": 1280,
+            "balcony": 1950
+          }
+        },
+        {
+          "at": "2026-08-22T08:06:28.053Z",
+          "prices": {
+            "inside": 731,
+            "oceanView": 845,
+            "balcony": 1215
+          }
+        },
+        {
+          "at": "2026-08-23T10:05:22.002Z",
+          "prices": {
+            "inside": 731,
+            "oceanView": 1280,
+            "balcony": 1215
           }
         }
       ]
