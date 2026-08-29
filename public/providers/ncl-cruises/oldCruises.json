@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 482,
+  "count": 487,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -32341,6 +32341,367 @@
             "oceanView": 929,
             "balcony": 1139,
             "suite": 1769
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_AQUA5NYCWRFNYC",
+      "shipName": "Norwegian Aqua",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2025,
+      "itinerary": "Bermuda: Royal Naval Dockyard",
+      "departureDate": "2026-09-08",
+      "duration": "5-day Cruise",
+      "departurePort": "New York",
+      "departureRegion": "Americas",
+      "destination": "Bermuda: Royal Naval Dockyard",
+      "destinationPort": "New York",
+      "arrivalDate": "2026-09-13",
+      "priceFrom": "595",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/5-day-bermuda-round-trip-from-new-york-AQUA5NYCWRFNYC?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=AQUA5NYCWRFNYC",
+      "prices": {
+        "inside": "595",
+        "oceanView": "775",
+        "balcony": "815",
+        "suite": "2365"
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-08-15T02:22:35.278Z",
+      "lastSeenAt": "2026-08-29T06:12:00.545Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-15T02:22:35.278Z",
+          "prices": {
+            "inside": 830,
+            "balcony": 1300
+          }
+        },
+        {
+          "at": "2026-08-15T10:05:07.034Z",
+          "prices": {
+            "inside": 555,
+            "oceanView": 745,
+            "balcony": 815,
+            "suite": 1305
+          }
+        },
+        {
+          "at": "2026-08-17T08:13:47.904Z",
+          "prices": {
+            "inside": 555,
+            "oceanView": 745,
+            "balcony": 815,
+            "suite": 2310
+          }
+        },
+        {
+          "at": "2026-08-17T20:06:03.729Z",
+          "prices": {
+            "inside": 830,
+            "balcony": 1300
+          }
+        },
+        {
+          "at": "2026-08-19T14:11:11.654Z",
+          "prices": {
+            "balcony": 1300
+          }
+        },
+        {
+          "at": "2026-08-20T12:08:24.923Z",
+          "prices": {
+            "inside": 865
+          }
+        },
+        {
+          "at": "2026-08-21T04:14:06.024Z",
+          "prices": {
+            "inside": 865,
+            "balcony": 1335
+          }
+        },
+        {
+          "at": "2026-08-21T20:05:05.598Z",
+          "prices": {
+            "inside": 830,
+            "balcony": 1325
+          }
+        },
+        {
+          "at": "2026-08-22T08:06:28.053Z",
+          "prices": {
+            "inside": 580,
+            "oceanView": 765,
+            "balcony": 815,
+            "suite": 925
+          }
+        },
+        {
+          "at": "2026-08-22T20:04:12.718Z",
+          "prices": {
+            "balcony": 1335
+          }
+        },
+        {
+          "at": "2026-08-23T04:14:09.572Z",
+          "prices": {
+            "inside": 580,
+            "balcony": 815,
+            "suite": 2365
+          }
+        },
+        {
+          "at": "2026-08-24T04:17:11.419Z",
+          "prices": {
+            "inside": 580,
+            "oceanView": 765,
+            "balcony": 815,
+            "suite": 5880
+          }
+        },
+        {
+          "at": "2026-08-24T16:10:37.596Z",
+          "prices": {
+            "inside": 580,
+            "balcony": 815
+          }
+        },
+        {
+          "at": "2026-08-25T12:08:56.176Z",
+          "prices": {
+            "inside": 830,
+            "balcony": 1325,
+            "suite": 2795
+          }
+        },
+        {
+          "at": "2026-08-26T04:14:19.201Z",
+          "prices": {
+            "balcony": 1300,
+            "suite": 2795
+          }
+        },
+        {
+          "at": "2026-08-26T23:02:35.555Z",
+          "prices": {
+            "inside": 580,
+            "oceanView": 760,
+            "balcony": 815,
+            "suite": 2365
+          }
+        },
+        {
+          "at": "2026-08-27T11:23:08.889Z",
+          "prices": {
+            "inside": 865
+          }
+        },
+        {
+          "at": "2026-08-28T16:06:32.362Z",
+          "prices": {
+            "inside": 595,
+            "oceanView": 775,
+            "balcony": 815
+          }
+        },
+        {
+          "at": "2026-08-29T06:12:00.545Z",
+          "prices": {
+            "inside": 595,
+            "oceanView": 775,
+            "balcony": 815,
+            "suite": 2365
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_BLISS7NYCWRFNYC",
+      "shipName": "Norwegian Bliss",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2018,
+      "itinerary": "Bermuda: New York, New York, Royal Naval Dockyard, Bermuda, New York, New York",
+      "departureDate": "2027-03-21",
+      "duration": "7-day Cruise",
+      "departurePort": "New York",
+      "departureRegion": "Americas",
+      "destination": "Bermuda",
+      "destinationPort": "New York",
+      "arrivalDate": "2027-03-28",
+      "priceFrom": "835",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/7-day-bermuda-round-trip-new-york-BLISS7NYCWRFNYC?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=BLISS7NYCWRFNYC",
+      "prices": {
+        "inside": "835",
+        "oceanView": "890",
+        "balcony": "1025",
+        "suite": "1125"
+      },
+      "seaDays": 5,
+      "firstSeenAt": "2026-08-15T02:22:35.278Z",
+      "lastSeenAt": "2026-08-29T06:12:00.545Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-15T02:22:35.278Z",
+          "prices": {
+            "inside": 835,
+            "oceanView": 890,
+            "balcony": 1025,
+            "suite": 1090
+          }
+        },
+        {
+          "at": "2026-08-28T16:06:32.362Z",
+          "prices": {
+            "inside": 835,
+            "oceanView": 890,
+            "balcony": 1025,
+            "suite": 1125
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_GETAWAY16NYCPWMHALREYKLLBFSCOBLEHSOU",
+      "shipName": "Norwegian Getaway",
+      "shipClass": "Breakaway",
+      "shipLaunchYear": 2014,
+      "itinerary": "Transatlantic: France & United Kingdom",
+      "departureDate": "2028-04-28",
+      "duration": "16-day Cruise",
+      "departurePort": "New York",
+      "departureRegion": "Americas",
+      "destination": "Transatlantic: France & United Kingdom",
+      "destinationPort": "Southampton",
+      "arrivalDate": "2028-05-14",
+      "priceFrom": "1795",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/16-day-transatlantic-from-new-york-to-london-france-and-united-kingdom-GETAWAY16NYCPWMHALREYKLLBFSCOBLEHSOU?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=GETAWAY16NYCPWMHALREYKLLBFSCOBLEHSOU",
+      "prices": {
+        "inside": "1795",
+        "oceanView": "2100",
+        "balcony": "2835",
+        "suite": "3305"
+      },
+      "seaDays": 8,
+      "firstSeenAt": "2026-08-15T02:22:35.278Z",
+      "lastSeenAt": "2026-08-29T06:12:00.545Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-15T02:22:35.278Z",
+          "prices": {
+            "inside": 1795,
+            "oceanView": 2080,
+            "balcony": 2715,
+            "suite": 3180
+          }
+        },
+        {
+          "at": "2026-08-19T22:07:49.508Z",
+          "prices": {
+            "inside": 1855,
+            "oceanView": 2160,
+            "balcony": 2765,
+            "suite": 3235
+          }
+        },
+        {
+          "at": "2026-08-21T08:13:05.121Z",
+          "prices": {
+            "inside": 1795,
+            "oceanView": 2100,
+            "balcony": 2835,
+            "suite": 3305
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_BLISS19NYCPOPCTGCLNPCLPRQACACSLSFO",
+      "shipName": "Norwegian Bliss",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2018,
+      "itinerary": "Panama Canal: Mexico & Costa Rica",
+      "departureDate": "2028-04-14",
+      "duration": "19-day Cruise",
+      "departurePort": "New York",
+      "departureRegion": "Americas",
+      "destination": "Panama Canal: Mexico & Costa Rica",
+      "destinationPort": "San Francisco",
+      "arrivalDate": "2028-05-03",
+      "priceFrom": "1695",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/19-day-panama-canal-from-new-york-to-san-francisco-mexico-and-costa-rica-BLISS19NYCPOPCTGCLNPCLPRQACACSLSFO?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=BLISS19NYCPOPCTGCLNPCLPRQACACSLSFO",
+      "prices": {
+        "inside": "1695",
+        "oceanView": "2055",
+        "balcony": "2735",
+        "suite": "2975"
+      },
+      "seaDays": 11,
+      "firstSeenAt": "2026-08-15T02:22:35.278Z",
+      "lastSeenAt": "2026-08-29T06:12:00.545Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-15T02:22:35.278Z",
+          "prices": {
+            "inside": 1695,
+            "oceanView": 2055,
+            "balcony": 2735,
+            "suite": 2975
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_LUNA4NYCWRFNYC",
+      "shipName": "Norwegian Luna",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2024,
+      "itinerary": "Bermuda: Royal Naval Dockyard",
+      "departureDate": "2027-04-06",
+      "duration": "4-day Cruise",
+      "departurePort": "New York",
+      "departureRegion": "Americas",
+      "destination": "Bermuda: Royal Naval Dockyard",
+      "destinationPort": "New York",
+      "arrivalDate": "2027-04-10",
+      "priceFrom": "685",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/cruises/4-day-bermuda-round-trip-from-new-york-LUNA4NYCWRFNYC?numberOfGuests=4294949461&sortBy=closer_to_me&autoPopulate=f&from=resultpage&itineraryCode=LUNA4NYCWRFNYC",
+      "prices": {
+        "inside": "685",
+        "oceanView": "820",
+        "balcony": "900",
+        "suite": "1055"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-08-15T02:22:35.278Z",
+      "lastSeenAt": "2026-08-29T06:12:00.545Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-15T02:22:35.278Z",
+          "prices": {
+            "inside": 685,
+            "oceanView": 820,
+            "balcony": 900,
+            "suite": 1095
+          }
+        },
+        {
+          "at": "2026-08-21T04:14:06.024Z",
+          "prices": {
+            "inside": 685,
+            "oceanView": 820,
+            "balcony": 900,
+            "suite": 1055
           }
         }
       ]
