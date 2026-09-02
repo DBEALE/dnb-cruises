@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 74,
+  "count": 73,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -25222,941 +25222,498 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_LB08STH-401402023",
-      "shipName": "Liberty of the Seas",
-      "shipClass": "Freedom",
-      "shipLaunchYear": 2007,
-      "itinerary": "Spain & France Cruise: Southampton, England, Paris (Le Havre), France, Bilbao, Spain, La Coruna, Spain, Vigo, Spain, Cherbourg, France, Southampton, England",
-      "departureDate": "2026-09-25",
-      "duration": "8 Nights",
-      "departurePort": "Southampton",
-      "departureRegion": "UK & Ireland",
+      "id": "rc_BR07ATH-1781898780",
+      "shipName": "Brilliance of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2002,
+      "itinerary": "Greek Isles & Cyprus Cruise: Athens (Piraeus), Greece, Rhodes, Greece, Limassol, Cyprus, Bodrum, Turkey, Santorini, Greece, Mykonos, Greece, Athens (Piraeus), Greece",
+      "departureDate": "2026-10-05",
+      "duration": "7 Nights",
+      "departurePort": "Athens (Piraeus)",
+      "departureRegion": "Mediterranean",
       "destination": "Europe",
-      "priceFrom": "3724",
+      "priceFrom": "1892",
       "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LB08STH-401402023&sailDate=2026-09-25&shipCode=LB&packageCode=LB08U053&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=BR07ATH-1781898780&sailDate=2026-10-05&shipCode=BR&packageCode=BR07M817&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
       "prices": {
         "inside": null,
         "oceanView": null,
-        "balcony": null,
-        "suite": "3724"
+        "balcony": "1892",
+        "suite": null
       },
-      "destinationPort": "Southampton",
-      "seaDays": 1,
-      "enrichedAt": "2026-08-22T20:05:48.786Z",
-      "firstSeenAt": "2026-07-23T18:30:37.860Z",
-      "lastSeenAt": "2026-09-02T12:12:13.704Z",
+      "destinationPort": "Athens (Piraeus)",
+      "seaDays": 0,
+      "enrichedAt": "2026-09-01T16:31:59.172Z",
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-09-02T18:10:20.007Z",
       "priceHistory": [
         {
-          "at": "2026-07-30T05:02:31.501Z",
+          "at": "2026-07-03T05:18:05.086Z",
           "prices": {
-            "inside": 1094.5,
-            "balcony": 1405.5,
-            "suite": 1983
+            "inside": 990.5,
+            "oceanView": 1060.5,
+            "balcony": 1756.5,
+            "suite": 2426.5
           }
         },
         {
-          "at": "2026-07-30T08:55:42.363Z",
+          "at": "2026-07-03T18:28:31.831Z",
           "prices": {
-            "inside": 1094.5,
-            "suite": 3431
+            "inside": 981.5,
+            "oceanView": 1051.5,
+            "balcony": 1756.5,
+            "suite": 2426.5
           }
         },
         {
-          "at": "2026-07-30T12:34:44.884Z",
+          "at": "2026-07-03T22:22:03.645Z",
           "prices": {
-            "suite": 3431
+            "inside": 1017.5,
+            "oceanView": 1051.5,
+            "balcony": 1756.5,
+            "suite": 2426.5
+          }
+        },
+        {
+          "at": "2026-07-04T20:21:18.169Z",
+          "prices": {
+            "inside": 993.5,
+            "oceanView": 1026.5,
+            "balcony": 1756.5,
+            "suite": 2426.5
+          }
+        },
+        {
+          "at": "2026-07-06T00:36:03.625Z",
+          "prices": {
+            "inside": 995.5,
+            "oceanView": 1028.5,
+            "balcony": 1762.5,
+            "suite": 2436.5
+          }
+        },
+        {
+          "at": "2026-07-06T17:01:37.354Z",
+          "prices": {
+            "inside": 960.5,
+            "oceanView": 1028.5,
+            "balcony": 1762.5,
+            "suite": 2436.5
+          }
+        },
+        {
+          "at": "2026-07-06T22:27:32.065Z",
+          "prices": {
+            "inside": 960.5,
+            "oceanView": 1485.5,
+            "balcony": 1762.5,
+            "suite": 2436.5
+          }
+        },
+        {
+          "at": "2026-07-07T22:24:45.737Z",
+          "prices": {
+            "inside": 960.5,
+            "oceanView": 1485.5,
+            "balcony": 1762.5,
+            "suite": 2494
+          }
+        },
+        {
+          "at": "2026-07-08T16:32:38.105Z",
+          "prices": {
+            "inside": 960.5,
+            "oceanView": 1028.5,
+            "balcony": 1762.5,
+            "suite": 2494
+          }
+        },
+        {
+          "at": "2026-07-08T18:30:14.814Z",
+          "prices": {
+            "inside": 737.5,
+            "oceanView": 1313.5,
+            "balcony": 2156.5,
+            "suite": 2135
+          }
+        },
+        {
+          "at": "2026-07-09T00:33:45.149Z",
+          "prices": {
+            "inside": 737.5,
+            "balcony": 2156.5
+          }
+        },
+        {
+          "at": "2026-07-09T05:25:24.977Z",
+          "prices": {
+            "inside": 737.5,
+            "oceanView": 1313.5,
+            "balcony": 2156.5,
+            "suite": 2135
+          }
+        },
+        {
+          "at": "2026-07-09T11:06:45.984Z",
+          "prices": {
+            "inside": 737.5,
+            "oceanView": 1313.5,
+            "balcony": 2156.5
+          }
+        },
+        {
+          "at": "2026-07-10T06:40:41.897Z",
+          "prices": {
+            "inside": 720,
+            "oceanView": 1296,
+            "balcony": 2139
+          }
+        },
+        {
+          "at": "2026-07-10T09:06:03.509Z",
+          "prices": {
+            "inside": 943,
+            "oceanView": 1011,
+            "balcony": 1745,
+            "suite": 2379
+          }
+        },
+        {
+          "at": "2026-07-10T14:55:10.352Z",
+          "prices": {
+            "inside": 720,
+            "balcony": 2139
+          }
+        },
+        {
+          "at": "2026-07-10T16:41:56.156Z",
+          "prices": {
+            "inside": 943,
+            "oceanView": 1011,
+            "balcony": 1745,
+            "suite": 2379
+          }
+        },
+        {
+          "at": "2026-07-10T18:31:02.350Z",
+          "prices": {
+            "inside": 720,
+            "balcony": 2321
+          }
+        },
+        {
+          "at": "2026-07-10T20:31:47.354Z",
+          "prices": {
+            "inside": 987,
+            "oceanView": 1063,
+            "balcony": 1564,
+            "suite": 2379
+          }
+        },
+        {
+          "at": "2026-07-13T00:30:27.697Z",
+          "prices": {
+            "inside": 975,
+            "oceanView": 1050,
+            "balcony": 1544,
+            "suite": 2346
+          }
+        },
+        {
+          "at": "2026-07-13T03:04:40.504Z",
+          "prices": {
+            "inside": 975,
+            "oceanView": 1050,
+            "balcony": 1715,
+            "suite": 2346
+          }
+        },
+        {
+          "at": "2026-07-13T05:10:33.508Z",
+          "prices": {
+            "inside": 975,
+            "oceanView": 1050,
+            "balcony": 1544,
+            "suite": 2346
+          }
+        },
+        {
+          "at": "2026-07-13T22:19:04.599Z",
+          "prices": {
+            "inside": 975,
+            "oceanView": 1050,
+            "balcony": 1544,
+            "suite": 2363.5
+          }
+        },
+        {
+          "at": "2026-07-14T00:27:13.726Z",
+          "prices": {
+            "inside": 975,
+            "oceanView": 1050,
+            "balcony": 1618,
+            "suite": 2363.5
+          }
+        },
+        {
+          "at": "2026-07-16T22:21:11.294Z",
+          "prices": {
+            "inside": 975,
+            "oceanView": 1050,
+            "balcony": 1618,
+            "suite": 2346
+          }
+        },
+        {
+          "at": "2026-07-20T03:04:41.794Z",
+          "prices": {
+            "inside": 973,
+            "oceanView": 1048,
+            "balcony": 1614,
+            "suite": 2339
+          }
+        },
+        {
+          "at": "2026-07-20T20:30:17.978Z",
+          "prices": {
+            "inside": 973,
+            "oceanView": 1048,
+            "balcony": 1614,
+            "suite": 3309
+          }
+        },
+        {
+          "at": "2026-07-21T00:30:04.393Z",
+          "prices": {
+            "inside": 990.5,
+            "oceanView": 1065.5,
+            "balcony": 1631.5,
+            "suite": 3364
+          }
+        },
+        {
+          "at": "2026-07-21T05:04:34.229Z",
+          "prices": {
+            "inside": 990.5,
+            "oceanView": 1065.5,
+            "balcony": 1631.5,
+            "suite": 2535
+          }
+        },
+        {
+          "at": "2026-07-23T18:30:37.860Z",
+          "prices": {
+            "inside": 990.5,
+            "oceanView": 1065.5,
+            "balcony": 1631.5,
+            "suite": 3364
+          }
+        },
+        {
+          "at": "2026-07-23T22:21:34.053Z",
+          "prices": {
+            "inside": 990.5,
+            "oceanView": 1065.5,
+            "balcony": 1631.5,
+            "suite": 3346.5
+          }
+        },
+        {
+          "at": "2026-07-24T18:31:04.002Z",
+          "prices": {
+            "inside": 1035.5,
+            "oceanView": 1117.5,
+            "balcony": 1631.5,
+            "suite": 3346.5
+          }
+        },
+        {
+          "at": "2026-07-25T03:03:00.381Z",
+          "prices": {
+            "inside": 1035.5,
+            "oceanView": 1117.5,
+            "balcony": 1631.5
+          }
+        },
+        {
+          "at": "2026-07-27T00:32:26.294Z",
+          "prices": {
+            "inside": 1032.5,
+            "oceanView": 1114.5,
+            "balcony": 1627.5
+          }
+        },
+        {
+          "at": "2026-07-27T18:32:46.118Z",
+          "prices": {
+            "oceanView": 1114.5,
+            "balcony": 1627.5
+          }
+        },
+        {
+          "at": "2026-07-28T05:03:19.884Z",
+          "prices": {
+            "oceanView": 1114.5,
+            "balcony": 1740
+          }
+        },
+        {
+          "at": "2026-07-28T16:33:23.910Z",
+          "prices": {
+            "oceanView": 1441.5,
+            "balcony": 1740
+          }
+        },
+        {
+          "at": "2026-07-29T14:46:36.053Z",
+          "prices": {
+            "inside": 1032.5,
+            "oceanView": 1114.5,
+            "balcony": 1627.5
+          }
+        },
+        {
+          "at": "2026-07-30T00:28:30.408Z",
+          "prices": {
+            "inside": 1032.5,
+            "oceanView": 1463.5,
+            "balcony": 1627.5
           }
         },
         {
           "at": "2026-07-30T22:23:18.614Z",
           "prices": {
-            "suite": 3358.5
+            "oceanView": 1446,
+            "balcony": 1590
           }
         },
         {
-          "at": "2026-07-31T05:11:01.820Z",
+          "at": "2026-07-31T18:37:01.180Z",
           "prices": {
-            "suite": 2107.5
+            "oceanView": 1446,
+            "balcony": 1746
           }
         },
         {
-          "at": "2026-07-31T09:01:34.099Z",
+          "at": "2026-08-03T00:31:34.828Z",
           "prices": {
-            "suite": 3358.5
+            "oceanView": 1458,
+            "balcony": 1761
           }
         },
         {
-          "at": "2026-08-02T05:04:49.633Z",
+          "at": "2026-08-03T15:01:37.710Z",
           "prices": {
-            "inside": 1077,
-            "suite": 3358.5
+            "oceanView": 1458,
+            "balcony": 2654
           }
         },
         {
-          "at": "2026-08-02T08:48:28.553Z",
+          "at": "2026-08-04T20:31:58.572Z",
           "prices": {
-            "suite": 3358.5
+            "oceanView": 1627
           }
         },
         {
-          "at": "2026-08-03T18:35:08.580Z",
+          "at": "2026-08-07T22:12:18.884Z",
           "prices": {
-            "suite": 3389.5
-          }
-        },
-        {
-          "at": "2026-08-03T22:22:49.289Z",
-          "prices": {
-            "balcony": 1379,
-            "suite": 3407
-          }
-        },
-        {
-          "at": "2026-08-05T03:03:21.490Z",
-          "prices": {
-            "inside": 1085,
-            "balcony": 1379,
-            "suite": 3407
-          }
-        },
-        {
-          "at": "2026-08-07T00:01:05.576Z",
-          "prices": {
-            "balcony": 1521,
-            "suite": 3389.5
-          }
-        },
-        {
-          "at": "2026-08-07T04:39:43.964Z",
-          "prices": {
-            "balcony": 1379,
-            "suite": 3389.5
-          }
-        },
-        {
-          "at": "2026-08-07T20:12:51.146Z",
-          "prices": {
-            "suite": 3389.5
-          }
-        },
-        {
-          "at": "2026-08-08T02:38:57.448Z",
-          "prices": {
-            "balcony": 1751,
-            "suite": 3389.5
-          }
-        },
-        {
-          "at": "2026-08-08T10:09:31.821Z",
-          "prices": {
-            "suite": 3389.5
-          }
-        },
-        {
-          "at": "2026-08-09T04:27:49.143Z",
-          "prices": {
-            "inside": 1085,
-            "balcony": 1793,
-            "suite": 3389.5
-          }
-        },
-        {
-          "at": "2026-08-09T08:14:05.322Z",
-          "prices": {
-            "inside": 1085,
-            "suite": 3389.5
-          }
-        },
-        {
-          "at": "2026-08-10T00:16:10.235Z",
-          "prices": {
-            "suite": 3389.5
-          }
-        },
-        {
-          "at": "2026-08-10T04:32:09.416Z",
-          "prices": {
-            "balcony": 1521,
-            "suite": 3389.5
-          }
-        },
-        {
-          "at": "2026-08-10T18:17:05.102Z",
-          "prices": {
-            "balcony": 1508,
-            "suite": 3356.5
-          }
-        },
-        {
-          "at": "2026-08-10T20:13:31.102Z",
-          "prices": {
-            "balcony": 1508,
-            "suite": 1909.5
-          }
-        },
-        {
-          "at": "2026-08-10T22:13:12.446Z",
-          "prices": {
-            "balcony": 1508,
-            "suite": 1927
-          }
-        },
-        {
-          "at": "2026-08-11T12:16:49.225Z",
-          "prices": {
-            "balcony": 1508,
-            "suite": 3374
-          }
-        },
-        {
-          "at": "2026-08-11T16:18:20.270Z",
-          "prices": {
-            "suite": 3374
-          }
-        },
-        {
-          "at": "2026-08-12T04:34:16.118Z",
-          "prices": {
-            "inside": 1077,
-            "balcony": 1778,
-            "suite": 3374
-          }
-        },
-        {
-          "at": "2026-08-12T10:23:30.317Z",
-          "prices": {
-            "balcony": 1778,
-            "suite": 3374
-          }
-        },
-        {
-          "at": "2026-08-12T14:26:21.546Z",
-          "prices": {
-            "suite": 3374
-          }
-        },
-        {
-          "at": "2026-08-13T22:15:01.390Z",
-          "prices": {
-            "suite": 3411.5
-          }
-        },
-        {
-          "at": "2026-08-14T04:34:13.942Z",
-          "prices": {
-            "balcony": 1545.5,
-            "suite": 3411.5
-          }
-        },
-        {
-          "at": "2026-08-14T08:28:30.076Z",
-          "prices": {
-            "suite": 3411.5
-          }
-        },
-        {
-          "at": "2026-08-15T04:09:36.099Z",
-          "prices": {
-            "inside": 1094.5,
-            "suite": 3411.5
-          }
-        },
-        {
-          "at": "2026-08-15T20:04:16.159Z",
-          "prices": {
-            "suite": 3411.5
-          }
-        },
-        {
-          "at": "2026-08-17T04:15:33.951Z",
-          "prices": {
-            "balcony": 1545.5,
-            "suite": 3411.5
-          }
-        },
-        {
-          "at": "2026-08-17T18:08:38.889Z",
-          "prices": {
-            "suite": 3411.5
-          }
-        },
-        {
-          "at": "2026-08-18T00:10:44.386Z",
-          "prices": {
-            "suite": 3429
-          }
-        },
-        {
-          "at": "2026-08-19T14:11:11.654Z",
-          "prices": {
-            "suite": 5435
-          }
-        },
-        {
-          "at": "2026-08-20T04:14:15.071Z",
-          "prices": {
-            "suite": 3429
-          }
-        },
-        {
-          "at": "2026-08-20T22:06:24.321Z",
-          "prices": {
-            "suite": 3411.5
-          }
-        },
-        {
-          "at": "2026-08-22T20:04:12.718Z",
-          "prices": {
-            "suite": 3402.5
-          }
-        },
-        {
-          "at": "2026-08-24T14:15:27.567Z",
-          "prices": {
-            "inside": 996.5,
-            "suite": 3402.5
-          }
-        },
-        {
-          "at": "2026-08-24T16:10:37.596Z",
-          "prices": {
-            "suite": 3402.5
-          }
-        },
-        {
-          "at": "2026-08-25T00:11:03.494Z",
-          "prices": {
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-25T08:14:35.801Z",
-          "prices": {
-            "inside": 996.5,
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-25T10:08:38.597Z",
-          "prices": {
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-25T14:16:10.938Z",
-          "prices": {
-            "inside": 996.5,
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-26T08:14:55.678Z",
-          "prices": {
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-26T14:15:45.337Z",
-          "prices": {
-            "inside": 996.5,
-            "balcony": 1405.5,
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-26T16:28:05.976Z",
-          "prices": {
-            "inside": 996.5,
-            "suite": 1976
-          }
-        },
-        {
-          "at": "2026-08-26T20:47:45.400Z",
-          "prices": {
-            "inside": 996.5,
-            "balcony": 1405.5,
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-26T23:02:35.555Z",
-          "prices": {
-            "balcony": 1405.5,
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-27T03:43:40.607Z",
-          "prices": {
-            "balcony": 1395.5,
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-27T06:04:58.331Z",
-          "prices": {
-            "inside": 996.5,
-            "balcony": 1395.5,
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-27T19:32:25.118Z",
-          "prices": {
-            "balcony": 1395.5,
-            "suite": 3420
-          }
-        },
-        {
-          "at": "2026-08-27T23:08:02.946Z",
-          "prices": {
-            "balcony": 1395.5,
-            "suite": 3402.5
-          }
-        },
-        {
-          "at": "2026-08-28T22:19:13.094Z",
-          "prices": {
-            "balcony": 1395.5,
-            "suite": 3386.5
-          }
-        },
-        {
-          "at": "2026-08-29T00:19:16.282Z",
-          "prices": {
-            "suite": 3386.5
-          }
-        },
-        {
-          "at": "2026-08-31T22:07:15.962Z",
-          "prices": {
-            "suite": 3724
-          }
-        },
-        {
-          "at": "2026-09-01T06:15:37.894Z",
-          "prices": {
-            "inside": 1079,
-            "suite": 3724
-          }
-        },
-        {
-          "at": "2026-09-01T16:30:06.298Z",
-          "prices": {
-            "suite": 3724
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Royal Caribbean",
-      "id": "rc_AD08PCN-3156222246",
-      "shipName": "Adventure of the Seas",
-      "shipClass": "Voyager",
-      "shipLaunchYear": 2001,
-      "itinerary": "Southern Caribbean & Perfect Day: Orlando (Port Canaveral), Florida, Perfect Day at CocoCay, Bahamas, Cabo Rojo, Dominican Republic, Oranjestad, Aruba, Willemstad, Curacao, Orlando (Port Canaveral), Florida",
-      "departureDate": "2026-09-04",
-      "duration": "8 Nights",
-      "departurePort": "Port Canaveral",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "762",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AD08PCN-3156222246&sailDate=2026-09-04&shipCode=AD&packageCode=AD08D133&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": "762",
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "destinationPort": "Port Canaveral",
-      "seaDays": 2,
-      "enrichedAt": "2026-09-02T16:10:54.810Z",
-      "firstSeenAt": "2026-05-29T09:33:04.484Z",
-      "lastSeenAt": "2026-09-02T16:09:35.493Z",
-      "priceHistory": [
-        {
-          "at": "2026-08-04T18:32:32.410Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5,
-            "balcony": 1326.5
-          }
-        },
-        {
-          "at": "2026-08-05T05:03:34.089Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5,
-            "balcony": 1268.5
-          }
-        },
-        {
-          "at": "2026-08-05T16:33:18.007Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5,
-            "balcony": 1326.5
-          }
-        },
-        {
-          "at": "2026-08-05T18:32:39.315Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5
-          }
-        },
-        {
-          "at": "2026-08-06T03:03:04.826Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5,
-            "balcony": 1268.5
-          }
-        },
-        {
-          "at": "2026-08-06T14:47:47.398Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5
-          }
-        },
-        {
-          "at": "2026-08-07T00:01:05.576Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5,
-            "balcony": 1326.5
-          }
-        },
-        {
-          "at": "2026-08-07T18:16:26.016Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 960.5
-          }
-        },
-        {
-          "at": "2026-08-07T20:12:51.146Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5
+            "balcony": 1978
           }
         },
         {
           "at": "2026-08-08T04:24:11.390Z",
           "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5,
-            "balcony": 1268.5
-          }
-        },
-        {
-          "at": "2026-08-08T18:07:49.143Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5
-          }
-        },
-        {
-          "at": "2026-08-09T04:27:49.143Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5,
-            "balcony": 1326.5
+            "oceanView": 1504,
+            "balcony": 1978
           }
         },
         {
           "at": "2026-08-09T20:08:02.528Z",
           "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5
-          }
-        },
-        {
-          "at": "2026-08-10T04:32:09.416Z",
-          "prices": {
-            "inside": 651.5,
-            "oceanView": 976.5,
-            "balcony": 1268.5
-          }
-        },
-        {
-          "at": "2026-08-10T14:26:15.188Z",
-          "prices": {
-            "inside": 790.5,
-            "oceanView": 976.5,
-            "balcony": 1268.5
+            "oceanView": 1504
           }
         },
         {
           "at": "2026-08-10T18:17:05.102Z",
           "prices": {
-            "inside": 783.5,
-            "oceanView": 968.5,
-            "balcony": 1257.5
+            "balcony": 1857
           }
         },
         {
-          "at": "2026-08-10T22:13:12.446Z",
+          "at": "2026-08-17T16:06:37.126Z",
           "prices": {
-            "inside": 783.5,
-            "oceanView": 968.5,
-            "balcony": 1303.5,
-            "suite": 1706.5
-          }
-        },
-        {
-          "at": "2026-08-11T00:16:12.662Z",
-          "prices": {
-            "inside": 783.5,
-            "oceanView": 968.5,
-            "suite": 1706.5
-          }
-        },
-        {
-          "at": "2026-08-11T04:29:48.609Z",
-          "prices": {
-            "inside": 646.5,
-            "oceanView": 968.5,
-            "balcony": 1257.5,
-            "suite": 1706.5
-          }
-        },
-        {
-          "at": "2026-08-11T16:18:20.270Z",
-          "prices": {
-            "inside": 646.5,
-            "oceanView": 825.5,
-            "balcony": 1257.5,
-            "suite": 1706.5
-          }
-        },
-        {
-          "at": "2026-08-12T00:19:52.705Z",
-          "prices": {
-            "inside": 646.5,
-            "oceanView": 968.5,
-            "balcony": 1257.5,
-            "suite": 1706.5
-          }
-        },
-        {
-          "at": "2026-08-12T16:19:20.163Z",
-          "prices": {
-            "inside": 646.5,
-            "oceanView": 825.5,
-            "balcony": 1235.5,
-            "suite": 1706.5
-          }
-        },
-        {
-          "at": "2026-08-12T18:18:19.774Z",
-          "prices": {
-            "inside": 646.5,
-            "oceanView": 819.5,
-            "balcony": 1235.5,
-            "suite": 1706.5
-          }
-        },
-        {
-          "at": "2026-08-13T22:15:01.390Z",
-          "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1330,
-            "suite": 1744
-          }
-        },
-        {
-          "at": "2026-08-17T22:05:24.466Z",
-          "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1373,
-            "suite": 1744
-          }
-        },
-        {
-          "at": "2026-08-18T00:10:44.386Z",
-          "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1373,
-            "suite": 1761.5
-          }
-        },
-        {
-          "at": "2026-08-18T14:12:31.010Z",
-          "prices": {
-            "inside": 761,
-            "oceanView": 837,
-            "balcony": 1373,
-            "suite": 1561.5
-          }
-        },
-        {
-          "at": "2026-08-18T16:07:21.144Z",
-          "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1291
-          }
-        },
-        {
-          "at": "2026-08-18T18:08:56.097Z",
-          "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1366
-          }
-        },
-        {
-          "at": "2026-08-18T22:05:06.582Z",
-          "prices": {
-            "inside": 664,
-            "oceanView": 837
-          }
-        },
-        {
-          "at": "2026-08-19T02:31:19.985Z",
-          "prices": {
-            "inside": 664,
-            "oceanView": 983
-          }
-        },
-        {
-          "at": "2026-08-19T04:13:49.834Z",
-          "prices": {
-            "inside": 664,
-            "oceanView": 837
-          }
-        },
-        {
-          "at": "2026-08-19T14:11:11.654Z",
-          "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1291
+            "balcony": 1798.5
           }
         },
         {
           "at": "2026-08-19T22:07:49.508Z",
           "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "suite": 1761.5
+            "oceanView": 1475.5
           }
         },
         {
-          "at": "2026-08-20T02:25:40.441Z",
+          "at": "2026-08-20T00:10:53.254Z",
           "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1291
+            "inside": 1040.5,
+            "oceanView": 1475.5
           }
         },
         {
-          "at": "2026-08-20T04:14:15.071Z",
+          "at": "2026-08-20T22:06:24.321Z",
           "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1291,
-            "suite": 1761.5
+            "inside": 1040.5,
+            "balcony": 2340.5
           }
         },
         {
-          "at": "2026-08-20T20:07:02.010Z",
+          "at": "2026-08-21T00:11:52.824Z",
           "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1291
+            "balcony": 2340.5
           }
         },
         {
-          "at": "2026-08-21T04:14:06.024Z",
+          "at": "2026-08-27T15:41:15.857Z",
           "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1291,
-            "suite": 1744
+            "balcony": 1779.5
           }
         },
         {
-          "at": "2026-08-21T14:12:24.870Z",
+          "at": "2026-08-28T21:23:32.045Z",
           "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1291
+            "inside": 1040.5,
+            "balcony": 1779.5
           }
         },
         {
-          "at": "2026-08-21T16:08:08.133Z",
+          "at": "2026-08-29T22:06:51.545Z",
           "prices": {
-            "inside": 664,
-            "oceanView": 837,
-            "balcony": 1038
+            "balcony": 1779.5
           }
         },
         {
-          "at": "2026-08-22T18:04:40.701Z",
+          "at": "2026-08-31T02:11:55.993Z",
           "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1027
-          }
-        },
-        {
-          "at": "2026-08-24T16:10:37.596Z",
-          "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1270
-          }
-        },
-        {
-          "at": "2026-08-25T00:11:03.494Z",
-          "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1327
-          }
-        },
-        {
-          "at": "2026-08-25T16:12:52.734Z",
-          "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1327,
-            "suite": 1659.5
-          }
-        },
-        {
-          "at": "2026-08-25T20:06:51.485Z",
-          "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1327
-          }
-        },
-        {
-          "at": "2026-08-25T22:05:54.500Z",
-          "prices": {
-            "inside": 824,
-            "oceanView": 835,
-            "balcony": 1327
-          }
-        },
-        {
-          "at": "2026-08-26T16:28:05.976Z",
-          "prices": {
-            "inside": 799,
-            "oceanView": 835,
-            "balcony": 1327
-          }
-        },
-        {
-          "at": "2026-08-26T18:38:01.961Z",
-          "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1027
-          }
-        },
-        {
-          "at": "2026-08-28T16:06:32.362Z",
-          "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1312
-          }
-        },
-        {
-          "at": "2026-08-30T14:06:46.837Z",
-          "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1027
+            "balcony": 1999.5
           }
         },
         {
           "at": "2026-08-31T04:10:17.021Z",
           "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1312
+            "inside": 1040.5,
+            "balcony": 2019.5
           }
         },
         {
-          "at": "2026-08-31T14:09:18.753Z",
+          "at": "2026-08-31T06:17:11.056Z",
           "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1327
-          }
-        },
-        {
-          "at": "2026-08-31T16:08:35.460Z",
-          "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1027
-          }
-        },
-        {
-          "at": "2026-08-31T18:10:28.011Z",
-          "prices": {
-            "inside": 662,
-            "oceanView": 835,
-            "balcony": 1327
-          }
-        },
-        {
-          "at": "2026-08-31T20:07:44.957Z",
-          "prices": {
-            "inside": 662,
-            "oceanView": 835
+            "inside": 1040.5,
+            "balcony": 1779.5
           }
         },
         {
           "at": "2026-08-31T22:07:15.962Z",
           "prices": {
-            "inside": 762,
-            "oceanView": 935,
-            "suite": 2114
-          }
-        },
-        {
-          "at": "2026-09-01T16:30:06.298Z",
-          "prices": {
-            "inside": 762,
-            "oceanView": 1142,
-            "suite": 2114
-          }
-        },
-        {
-          "at": "2026-09-01T18:10:30.505Z",
-          "prices": {
-            "inside": 762,
-            "oceanView": 1142,
-            "balcony": 1467,
-            "suite": 2114
-          }
-        },
-        {
-          "at": "2026-09-01T20:08:10.797Z",
-          "prices": {
-            "inside": 762,
-            "oceanView": 1142,
-            "balcony": 1157,
-            "suite": 1919
-          }
-        },
-        {
-          "at": "2026-09-02T16:09:35.493Z",
-          "prices": {
-            "inside": 762
+            "balcony": 1892
           }
         }
       ]
