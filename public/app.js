@@ -2392,7 +2392,8 @@
     const duration = formatDurationDisplay(c.duration);
     const url      = c.bookingUrl ? escHtml(absoluteUrl(c.bookingUrl)) : '';
     const priceCell = buildPriceCell(c, url);
-    const perNight  = getPricePerNight(c);
+    const perNightBucket = PER_NIGHT_SORT_BUCKETS[sortColIndex];
+    const perNight  = perNightBucket ? getRoomPricePerNight(c, perNightBucket) : getPricePerNight(c);
     const perNightCell = Number.isFinite(perNight)
       ? `${escHtml(formatPriceDisplay(perNight, 'GBP'))}<span class="per-night-suffix">/night</span>`
       : '—';
@@ -3197,6 +3198,10 @@
       15: 'Suite',
       16: 'Price change',
       17: 'GBP/night',
+      23: 'GBP/night Inside',
+      24: 'GBP/night Sea view',
+      25: 'GBP/night Balcony',
+      26: 'GBP/night Suite',
       18: 'Recently found',
       19: 'Sea days',
       20: '24hr price reduction',
@@ -3537,6 +3542,11 @@
     }
   }
 
+  // Per-night sorts that target one cabin bucket rather than the cheapest one.
+  // The £/night column follows the active sort so the ordering is visible.
+  const PER_NIGHT_SORT_BUCKETS = { 23: 'inside', 24: 'oceanView', 25: 'balcony', 26: 'suite' };
+  const PER_NIGHT_SORT_LABELS  = { 23: 'Inside', 24: 'Sea view', 25: 'Balcony', 26: 'Suite' };
+
   // ── Sort ───────────────────────────────────────────────────────────────────
   // Header click: toggle direction if same column, else switch to it ascending.
   function sortTable(colIndex) {
@@ -3604,7 +3614,11 @@
     document.querySelectorAll('.sort-row th').forEach((th) => {
       th.classList.remove('sort-asc', 'sort-desc');
       const col = parseInt(th.dataset.sort, 10);
-      if (col === sortColIndex) {
+      if (col === 17) {
+        const label = PER_NIGHT_SORT_LABELS[sortColIndex];
+        th.textContent = label ? `£/night (${label})` : '£/night';
+      }
+      if (col === sortColIndex || (col === 17 && PER_NIGHT_SORT_BUCKETS[sortColIndex])) {
         th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
         th.setAttribute('aria-sort', sortAsc ? 'ascending' : 'descending');
       } else {
@@ -3775,6 +3789,10 @@
       case 15: return getRoomPrice(c, 'suite');
       case 16: return getPricePctChange(c);
       case 17: return getPricePerNight(c);
+      case 23: return getRoomPricePerNight(c, 'inside');
+      case 24: return getRoomPricePerNight(c, 'oceanView');
+      case 25: return getRoomPricePerNight(c, 'balcony');
+      case 26: return getRoomPricePerNight(c, 'suite');
       case 18: return getFirstSeenTime(c);
       case 19: return inferSeaDays(c);
       case 20: return getRecentPriceReductionPct(c, RECENT_WINDOW_MS['24h']);
@@ -5020,13 +5038,24 @@
     return min === Infinity ? getGBPPrice(c) : min;
   }
 
-  // Lowest-cabin price normalised to a per-night figure. Cruises of different
-  // lengths become directly comparable. NaN when nights or price unknown.
-  function getPricePerNight(c) {
-    const price  = getLowestRoomPrice(c);
+  // Divide any cabin price by the sailing's length so cruises of different
+  // durations become directly comparable. NaN when nights or price unknown.
+  function perNightOf(c, price) {
     const nights = parseInt(c.duration, 10);
     if (!Number.isFinite(price) || !Number.isFinite(nights) || nights <= 0) return NaN;
     return price / nights;
+  }
+
+  // Lowest-cabin price normalised to a per-night figure.
+  function getPricePerNight(c) {
+    return perNightOf(c, getLowestRoomPrice(c));
+  }
+
+  // Per-night figure for one specific cabin bucket. NaN when that bucket has
+  // no price, so cruises without the cabin sort to the bottom rather than
+  // masquerading as cheap.
+  function getRoomPricePerNight(c, bucket) {
+    return perNightOf(c, getRoomPrice(c, bucket));
   }
 
   function getFirstSeenRaw(c) {
