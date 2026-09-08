@@ -450,7 +450,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T16:09:07.655Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-G622",
@@ -904,7 +904,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-J608",
@@ -953,7 +953,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A628",
@@ -1462,7 +1462,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A628A",
@@ -1923,7 +1923,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-B617",
@@ -2332,7 +2332,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T16:09:07.655Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-N617",
@@ -2348,10 +2348,10 @@
       "destination": "Canary-Islands",
       "destinationPort": "Southampton",
       "seaDays": 6,
-      "priceFrom": "1099",
+      "priceFrom": "1089",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "1089",
         "oceanView": "1099",
         "balcony": null,
         "suite": null
@@ -2360,12 +2360,6 @@
       "arrivalDate": "2026-08-01",
       "firstSeenAt": "2026-07-04T10:39:49.793Z",
       "priceHistory": [
-        {
-          "at": "2026-08-29T16:07:40.663Z",
-          "prices": {
-            "oceanView": 1099
-          }
-        },
         {
           "at": "2026-08-29T18:08:44.769Z",
           "prices": {
@@ -2761,9 +2755,16 @@
           "prices": {
             "oceanView": 1099
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 1089,
+            "oceanView": 1099
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-G623",
@@ -3182,7 +3183,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-K616",
@@ -3661,7 +3662,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-R612",
@@ -4170,7 +4171,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A629",
@@ -4186,10 +4187,10 @@
       "destination": "Mediterranean",
       "destinationPort": "Valletta",
       "seaDays": 2,
-      "priceFrom": "999",
+      "priceFrom": "1049",
       "currency": "GBP",
       "prices": {
-        "inside": "999",
+        "inside": null,
         "oceanView": "1049",
         "balcony": "1299",
         "suite": null
@@ -4198,14 +4199,6 @@
       "arrivalDate": "2026-07-30",
       "firstSeenAt": "2026-07-04T10:39:49.793Z",
       "priceHistory": [
-        {
-          "at": "2026-09-01T02:12:54.206Z",
-          "prices": {
-            "inside": 999,
-            "oceanView": 1049,
-            "balcony": 1299
-          }
-        },
         {
           "at": "2026-09-01T10:08:52.490Z",
           "prices": {
@@ -4648,9 +4641,16 @@
             "oceanView": 1049,
             "balcony": 1299
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "oceanView": 1049,
+            "balcony": 1299
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A629A",
@@ -4666,11 +4666,11 @@
       "destination": "Mediterranean",
       "destinationPort": "Valletta",
       "seaDays": 4,
-      "priceFrom": "1629",
+      "priceFrom": "1449",
       "currency": "GBP",
       "prices": {
-        "inside": "1629",
-        "oceanView": "1679",
+        "inside": "1449",
+        "oceanView": "1499",
         "balcony": "1829",
         "suite": null
       },
@@ -4678,14 +4678,6 @@
       "arrivalDate": "2026-08-06",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-09-01T14:08:56.147Z",
-          "prices": {
-            "inside": 1629,
-            "oceanView": 1679,
-            "balcony": 1649
-          }
-        },
         {
           "at": "2026-09-01T20:08:10.797Z",
           "prices": {
@@ -5148,9 +5140,17 @@
             "oceanView": 1679,
             "balcony": 1829
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 1449,
+            "oceanView": 1499,
+            "balcony": 1829
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-G624",
@@ -5166,10 +5166,10 @@
       "destination": "Norwegian-Fjords-And-Iceland",
       "destinationPort": "Southampton",
       "seaDays": 2,
-      "priceFrom": "939",
+      "priceFrom": "899",
       "currency": "GBP",
       "prices": {
-        "inside": "939",
+        "inside": "899",
         "oceanView": null,
         "balcony": null,
         "suite": null
@@ -5178,12 +5178,6 @@
       "arrivalDate": "2026-08-01",
       "firstSeenAt": "2026-07-04T10:39:49.793Z",
       "priceHistory": [
-        {
-          "at": "2026-08-29T16:07:40.663Z",
-          "prices": {
-            "inside": 939
-          }
-        },
         {
           "at": "2026-08-29T18:08:44.769Z",
           "prices": {
@@ -5587,9 +5581,15 @@
           "prices": {
             "inside": 939
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 899
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-K617",
@@ -5609,7 +5609,7 @@
       "currency": "GBP",
       "prices": {
         "inside": "799",
-        "oceanView": "1149",
+        "oceanView": null,
         "balcony": "999",
         "suite": null
       },
@@ -5617,14 +5617,6 @@
       "arrivalDate": "2026-08-02",
       "firstSeenAt": "2026-07-04T10:39:49.793Z",
       "priceHistory": [
-        {
-          "at": "2026-09-01T12:12:09.134Z",
-          "prices": {
-            "inside": 799,
-            "oceanView": 1149,
-            "balcony": 999
-          }
-        },
         {
           "at": "2026-09-01T14:08:56.147Z",
           "prices": {
@@ -6094,9 +6086,16 @@
             "oceanView": 1149,
             "balcony": 999
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 799,
+            "balcony": 999
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A630A",
@@ -6155,7 +6154,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A630",
@@ -6171,10 +6170,10 @@
       "destination": "Mediterranean",
       "destinationPort": "Valletta",
       "seaDays": 2,
-      "priceFrom": "899",
+      "priceFrom": "699",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "699",
         "oceanView": null,
         "balcony": "899",
         "suite": null
@@ -6183,13 +6182,6 @@
       "arrivalDate": "2026-08-06",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-09-02T08:11:33.129Z",
-          "prices": {
-            "inside": 699,
-            "oceanView": 779
-          }
-        },
         {
           "at": "2026-09-02T10:09:05.399Z",
           "prices": {
@@ -6599,9 +6591,16 @@
           "prices": {
             "balcony": 899
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 699,
+            "balcony": 899
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-B618",
@@ -7110,7 +7109,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-N618",
@@ -7619,7 +7618,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-G625",
@@ -7668,7 +7667,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-K618",
@@ -8221,7 +8220,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-J610",
@@ -8237,25 +8236,18 @@
       "destination": "Norwegian-Fjords-And-Iceland",
       "destinationPort": "Southampton",
       "seaDays": 6,
-      "priceFrom": "1699",
+      "priceFrom": "2549",
       "currency": "GBP",
       "prices": {
-        "inside": "1699",
+        "inside": null,
         "oceanView": "2549",
-        "balcony": "3949",
+        "balcony": null,
         "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/J610/J610",
       "arrivalDate": "2026-08-21",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-08-31T00:24:00.717Z",
-          "prices": {
-            "inside": 1699,
-            "oceanView": 2549
-          }
-        },
         {
           "at": "2026-08-31T02:11:55.993Z",
           "prices": {
@@ -8680,9 +8672,15 @@
             "oceanView": 2549,
             "balcony": 3949
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "oceanView": 2549
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A631",
@@ -8701,7 +8699,7 @@
       "priceFrom": "749",
       "currency": "GBP",
       "prices": {
-        "inside": "749",
+        "inside": null,
         "oceanView": "749",
         "balcony": "949",
         "suite": null
@@ -8710,13 +8708,6 @@
       "arrivalDate": "2026-08-13",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-08-26T00:11:33.691Z",
-          "prices": {
-            "oceanView": 749,
-            "balcony": 949
-          }
-        },
         {
           "at": "2026-08-26T02:30:32.308Z",
           "prices": {
@@ -9168,9 +9159,16 @@
             "oceanView": 749,
             "balcony": 949
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "oceanView": 749,
+            "balcony": 949
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A631A",
@@ -9189,7 +9187,7 @@
       "priceFrom": "1399",
       "currency": "GBP",
       "prices": {
-        "inside": "1589",
+        "inside": null,
         "oceanView": "1399",
         "balcony": "1749",
         "suite": null
@@ -9198,14 +9196,6 @@
       "arrivalDate": "2026-08-20",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-08-29T22:06:51.545Z",
-          "prices": {
-            "inside": 1589,
-            "oceanView": 1399,
-            "balcony": 1749
-          }
-        },
         {
           "at": "2026-08-30T00:23:35.958Z",
           "prices": {
@@ -9663,9 +9653,16 @@
             "oceanView": 1399,
             "balcony": 1749
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "oceanView": 1399,
+            "balcony": 1749
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-R613",
@@ -9681,25 +9678,18 @@
       "destination": "Norwegian-Fjords-And-Iceland",
       "destinationPort": "Southampton",
       "seaDays": 5,
-      "priceFrom": "1199",
+      "priceFrom": "1549",
       "currency": "GBP",
       "prices": {
-        "inside": "1199",
+        "inside": null,
         "oceanView": "1549",
-        "balcony": "2689",
+        "balcony": "2599",
         "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/R613/R613",
       "arrivalDate": "2026-08-19",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-08-28T22:19:13.094Z",
-          "prices": {
-            "oceanView": 1549,
-            "balcony": 2689
-          }
-        },
         {
           "at": "2026-08-29T02:09:41.371Z",
           "prices": {
@@ -10147,9 +10137,16 @@
             "oceanView": 1549,
             "balcony": 2689
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "oceanView": 1549,
+            "balcony": 2599
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-N619",
@@ -10658,7 +10655,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-G626",
@@ -11197,7 +11194,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A632",
@@ -11706,7 +11703,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A632A",
@@ -12198,7 +12195,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-B619",
@@ -12707,7 +12704,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-G627",
@@ -12723,10 +12720,10 @@
       "destination": "Norwegian-Fjords-And-Iceland",
       "destinationPort": "Southampton",
       "seaDays": 2,
-      "priceFrom": "1399",
+      "priceFrom": "879",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "879",
         "oceanView": "1399",
         "balcony": "1599",
         "suite": null
@@ -12735,13 +12732,6 @@
       "arrivalDate": "2026-08-22",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-08-31T02:11:55.993Z",
-          "prices": {
-            "oceanView": 1399,
-            "balcony": 1599
-          }
-        },
         {
           "at": "2026-08-31T06:17:11.056Z",
           "prices": {
@@ -13190,9 +13180,17 @@
             "oceanView": 1399,
             "balcony": 1599
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 879,
+            "oceanView": 1399,
+            "balcony": 1599
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-K619",
@@ -13208,10 +13206,10 @@
       "destination": "Mediterranean",
       "destinationPort": "Southampton",
       "seaDays": 7,
-      "priceFrom": "1349",
+      "priceFrom": "999",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "999",
         "oceanView": "1349",
         "balcony": "1679",
         "suite": "1899"
@@ -13220,14 +13218,6 @@
       "arrivalDate": "2026-08-30",
       "firstSeenAt": "2026-07-04T10:39:49.793Z",
       "priceHistory": [
-        {
-          "at": "2026-08-29T02:09:41.371Z",
-          "prices": {
-            "oceanView": 1349,
-            "balcony": 1679,
-            "suite": 1899
-          }
-        },
         {
           "at": "2026-08-29T04:08:24.715Z",
           "prices": {
@@ -13735,9 +13725,18 @@
             "balcony": 1679,
             "suite": 1899
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1349,
+            "balcony": 1679,
+            "suite": 1899
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-R614",
@@ -13753,10 +13752,10 @@
       "destination": "Mediterranean",
       "destinationPort": "Southampton",
       "seaDays": 10,
-      "priceFrom": "2299",
+      "priceFrom": "1999",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "1999",
         "oceanView": "2299",
         "balcony": "2799",
         "suite": null
@@ -13765,13 +13764,6 @@
       "arrivalDate": "2026-09-09",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-08-29T22:06:51.545Z",
-          "prices": {
-            "oceanView": 2299,
-            "balcony": 2799
-          }
-        },
         {
           "at": "2026-08-30T14:06:46.837Z",
           "prices": {
@@ -14223,9 +14215,17 @@
             "oceanView": 2299,
             "balcony": 2799
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 1999,
+            "oceanView": 2299,
+            "balcony": 2799
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A633A",
@@ -14241,10 +14241,10 @@
       "destination": "Mediterranean",
       "destinationPort": "Valletta",
       "seaDays": 4,
-      "priceFrom": "1349",
+      "priceFrom": "1199",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "1199",
         "oceanView": "1349",
         "balcony": "1749",
         "suite": null
@@ -14253,14 +14253,6 @@
       "arrivalDate": "2026-09-03",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-08-25T10:08:38.597Z",
-          "prices": {
-            "inside": 1199,
-            "oceanView": 1349,
-            "balcony": 1749
-          }
-        },
         {
           "at": "2026-08-25T16:12:52.734Z",
           "prices": {
@@ -14702,9 +14694,17 @@
             "oceanView": 1349,
             "balcony": 1749
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 1199,
+            "oceanView": 1349,
+            "balcony": 1749
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A633",
@@ -15254,7 +15254,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-J611",
@@ -15789,7 +15789,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-N620",
@@ -16319,7 +16319,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-G628",
@@ -16828,7 +16828,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A634A",
@@ -17367,7 +17367,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A634",
@@ -17925,7 +17925,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-B620",
@@ -17947,19 +17947,12 @@
         "inside": "1379",
         "oceanView": null,
         "balcony": "1829",
-        "suite": "4049"
+        "suite": null
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/B620/B620",
       "arrivalDate": "2026-09-11",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-08-29T18:08:44.769Z",
-          "prices": {
-            "inside": 1379,
-            "balcony": 1829
-          }
-        },
         {
           "at": "2026-08-30T04:08:44.387Z",
           "prices": {
@@ -18405,9 +18398,16 @@
             "balcony": 1829,
             "suite": 4049
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 1379,
+            "balcony": 1829
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-G629",
@@ -18944,7 +18944,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-N621",
@@ -19437,7 +19437,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-K620N",
@@ -19945,7 +19945,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-N622",
@@ -19961,26 +19961,18 @@
       "destination": "Short-Break",
       "destinationPort": "Southampton",
       "seaDays": 1,
-      "priceFrom": "449",
+      "priceFrom": "429",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "429",
         "oceanView": "449",
-        "balcony": "529",
+        "balcony": "549",
         "suite": "1299"
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/N622/N622",
       "arrivalDate": "2026-09-05",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-09-01T02:12:54.206Z",
-          "prices": {
-            "oceanView": 449,
-            "balcony": 529,
-            "suite": 1299
-          }
-        },
         {
           "at": "2026-09-01T04:09:27.418Z",
           "prices": {
@@ -20500,9 +20492,18 @@
             "balcony": 529,
             "suite": 1299
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 429,
+            "oceanView": 449,
+            "balcony": 549,
+            "suite": 1299
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-J612",
@@ -20777,7 +20778,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A635",
@@ -21316,7 +21317,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-A635A",
@@ -21855,7 +21856,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-N623",
@@ -22364,7 +22365,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-G630",
@@ -22917,7 +22918,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-K620P",
@@ -22938,22 +22939,13 @@
       "prices": {
         "inside": "699",
         "oceanView": "949",
-        "balcony": "1079",
+        "balcony": "1149",
         "suite": "1639"
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/K620P/K620P",
       "arrivalDate": "2026-09-13",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-08-31T12:13:02.960Z",
-          "prices": {
-            "inside": 699,
-            "oceanView": 949,
-            "balcony": 1149,
-            "suite": 1639
-          }
-        },
         {
           "at": "2026-08-31T18:10:28.011Z",
           "prices": {
@@ -23484,9 +23476,18 @@
             "balcony": 1079,
             "suite": 1639
           }
+        },
+        {
+          "at": "2026-09-08T22:07:12.120Z",
+          "prices": {
+            "inside": 699,
+            "oceanView": 949,
+            "balcony": 1149,
+            "suite": 1639
+          }
         }
       ],
-      "lastSeenAt": "2026-09-08T20:10:32.023Z"
+      "lastSeenAt": "2026-09-08T22:07:12.120Z"
     },
     {
       "id": "pando-JLV",
