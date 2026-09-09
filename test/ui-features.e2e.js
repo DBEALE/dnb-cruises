@@ -184,6 +184,34 @@ test.describe('Sparklines', () => {
     expect(firstRowDate).toContain(latestDay);
   });
 
+  test('price history shares lowest-price highlights, star tiers and display settings', async ({ page }) => {
+    await gotoFresh(page, ALL_ON);
+    await page.locator('.cabin-spark').first().click();
+    const latest = page.locator('#phTableBody tr').first();
+    await expect(latest.locator('.best-price-val')).toHaveCount(4);
+    await expect(latest.locator('.best-price-val').first()).toHaveText('£500');
+    await expect(latest.locator('.tier-gold')).toHaveCount(1);
+    await expect(latest.locator('.tier-silver')).toHaveCount(1);
+    await expect(latest.locator('.tier-outline')).toHaveCount(1);
+    await expect(latest.locator('.tier-gold')).toHaveAttribute('title', /50% below recorded peak of £1,000/);
+    await expect(page.locator('#phTableBody tr').nth(1).locator('.best-price-val')).toHaveCount(0);
+    await page.screenshot({ path: 'docs/screenshots/price-history-highlights-desktop.png' });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(latest.locator('.tier-gold')).toBeVisible();
+    expect(await page.locator('.ph-table-wrap').evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+    const tableBox = await page.locator('.ph-table-wrap').boundingBox();
+    for (const arrow of await latest.locator('.ph-arrow').all()) {
+      const box = await arrow.boundingBox();
+      expect(box.x + box.width).toBeLessThanOrEqual(tableBox.x + tableBox.width);
+    }
+    await page.screenshot({ path: 'docs/screenshots/price-history-highlights-mobile.png' });
+
+    await gotoFresh(page, { ...ALL_ON, priceStars: false, lowestPriceHighlight: false });
+    await page.locator('.cabin-spark').first().click();
+    await expect(latest.locator('.tier-gold')).toBeHidden();
+    await expect(latest.locator('.best-price-val').first()).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  });
+
   test('price-history close button remains reachable on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 640 });
     await gotoFresh(page, ALL_ON);
@@ -1259,6 +1287,8 @@ test.describe('Route finder', () => {
   });
 
   test('the Find route button opens the finder, lists routes, and links each leg', async ({ page }) => {
+    // Keep the fixed September sailings in the future for the route search.
+    await page.clock.setFixedTime(new Date('2026-08-01T12:00:00Z'));
     await page.addInitScript(() => {
       window.open = (url, target, features) => { window.__opened = { url, target, features }; return {}; };
     });

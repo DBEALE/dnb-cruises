@@ -100,6 +100,13 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '9 Sep 2026',
+      title: 'Price history highlights',
+      items: [
+        'The price-history table now uses the same lowest-price highlights and peak-discount stars as the main screen, respecting your display options.',
+      ],
+    },
+    {
       date: '22 Jul 2026',
       title: 'Expired cruises view & fresher data',
       items: [
@@ -2594,6 +2601,7 @@
   }
 
   function renderHistoryTableBody(history, currency, buckets) {
+    const priceContext = { priceHistory: history, currency };
     // Display latest-first, while each delta still compares to the immediately
     // prior scrape in chronological order.
     return history.map((entry, i) => ({ entry, prev: i > 0 ? history[i - 1] : null })).reverse().map(({ entry, prev }) => {
@@ -2611,7 +2619,15 @@
             ? '<span class="ph-arrow up" aria-hidden="true">▲</span>'
             : '<span class="ph-arrow down" aria-hidden="true">▼</span>';
         }
-        return `<td class="ph-price" data-label="${escHtml(label)}"><span class="ph-price-line"><span class="ph-amount">${escHtml(formatPriceDisplay(cur, currency))}</span>${arrow}</span></td>`;
+        const best = cabinBestPriceInfo(priceContext, b, cur);
+        const peakDrop = pricePeakDropInfo(priceContext, cur, b);
+        const formatted = formatPriceDisplay(cur, currency);
+        const priceClass = best.isBest ? 'price-val best-price-val' : 'price-val';
+        const bestTitle = best.isBest
+          ? ` title="Lowest ${escHtml(label)} price seen; ${best.higherCount} recorded prices were higher" aria-label="${escHtml(formatted)} - best price"`
+          : '';
+        const amount = `<span class="ph-amount price-amount"><span class="${priceClass}"${bestTitle}>${escHtml(formatted)}</span>${peakDropStar(peakDrop, currency)}</span>`;
+        return `<td class="ph-price" data-label="${escHtml(label)}"><span class="ph-price-line">${amount}${arrow}</span></td>`;
       }).join('');
 
       return `<tr>${whenCell}${cells}</tr>`;
