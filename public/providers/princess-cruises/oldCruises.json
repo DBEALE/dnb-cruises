@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 780,
+  "count": 782,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -10857,42 +10857,6 @@
             "oceanView": 2184,
             "balcony": 2399,
             "suite": 2939
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-10T17:06:21.326Z"
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_EBI12S_MJ_20280818",
-      "shipName": "Majestic Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2017,
-      "itinerary": "Southampton (for London), England → Cornwall (Falmouth), England → Cork, Ireland (Cobh - For Blarney Castle) → Dublin (Dun Laoghaire), Ireland → Liverpool, England → Belfast, Northern Ireland → Glasgow (Greenock), Scotland → Glasgow (Greenock), Scotland → Invergordon, Scotland → Edinburgh (South Queensferry), Scotland → Le Havre (for Paris/Normandy), France → Southampton (for London), England",
-      "departureDate": "2028-08-18",
-      "duration": "12 Nights",
-      "departurePort": "Southampton (for London), England",
-      "departureRegion": "UK & Ireland",
-      "destination": "Europe",
-      "priceFrom": "2021",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=8819",
-      "prices": {
-        "inside": "2021",
-        "oceanView": "2746",
-        "balcony": "2721",
-        "suite": "3171"
-      },
-      "seaDays": 1,
-      "firstSeenAt": "2026-06-02T18:05:24.346Z",
-      "priceHistory": [
-        {
-          "at": "2026-06-02T18:05:24.346Z",
-          "prices": {
-            "inside": 2021,
-            "oceanView": 2746,
-            "balcony": 2721,
-            "suite": 3171
           }
         }
       ],
@@ -63200,6 +63164,126 @@
           "at": "2026-09-09T08:11:03.893Z",
           "prices": {
             "suite": 10803
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_AIT10A_RU_20270610",
+      "shipName": "Ruby Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2008,
+      "itinerary": "San Francisco, California → Sitka, Alaska → Haines, Alaska → Endicott Arm and Dawes Glacier (Scenic Cruising), Alaska → Ketchikan, Alaska → Prince Rupert, British Columbia, Canada → San Francisco, California",
+      "departureDate": "2027-06-10",
+      "duration": "10 Nights",
+      "departurePort": "San Francisco",
+      "departureRegion": "Americas",
+      "destination": "Alaska",
+      "destinationPort": "San Francisco",
+      "priceFrom": "1024",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=R714",
+      "prices": {
+        "inside": "1024",
+        "oceanView": "1714",
+        "balcony": "2244",
+        "suite": "3349"
+      },
+      "seaDays": 4,
+      "firstSeenAt": "2026-08-25T16:12:52.734Z",
+      "lastSeenAt": "2026-09-09T14:08:06.429Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1689,
+            "balcony": 2119,
+            "suite": 3199
+          }
+        },
+        {
+          "at": "2026-09-09T08:11:03.893Z",
+          "prices": {
+            "inside": 1024,
+            "oceanView": 1714,
+            "balcony": 2244,
+            "suite": 3349
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ESR12G_GP_20280618",
+      "shipName": "Regal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2014,
+      "itinerary": "Copenhagen, Denmark → Visby, Sweden → Stockholm, Sweden → Stockholm, Sweden → Helsinki, Finland → Tallinn, Estonia → Klaipeda, Lithuania → Gdansk (Gdynia), Poland → Oslo, Norway → Skagen, Denmark → Copenhagen, Denmark",
+      "departureDate": "2028-06-18",
+      "duration": "12 Nights",
+      "departurePort": "Copenhagen",
+      "departureRegion": "Northern Europe",
+      "destination": "Europe",
+      "destinationPort": "Copenhagen",
+      "priceFrom": "1799",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=G822",
+      "prices": {
+        "inside": "1799",
+        "oceanView": "3229",
+        "balcony": "3115",
+        "suite": "3759"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-08-31T20:07:44.957Z",
+      "lastSeenAt": "2026-09-09T14:08:06.429Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 1799,
+            "oceanView": 3229,
+            "balcony": 3115,
+            "suite": 3759
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_EBI12S_MJ_20280806",
+      "shipName": "Majestic Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2017,
+      "itinerary": "Southampton (for London), England → Cornwall (Falmouth), England → Cork, Ireland (Ringaskiddy - For Blarney Castle) → Liverpool, England → Belfast, Northern Ireland → Glasgow (Greenock), Scotland → Glasgow (Greenock), Scotland → Orkney Islands (Kirkwall), Scotland → Invergordon, Scotland → Edinburgh (South Queensferry), Scotland → Le Havre (for Paris/Normandy), France → Southampton (for London), England",
+      "departureDate": "2028-08-06",
+      "duration": "12 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Europe",
+      "destinationPort": "Southampton",
+      "priceFrom": "2019",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=8818",
+      "prices": {
+        "inside": "2019",
+        "oceanView": "2989",
+        "balcony": "2887",
+        "suite": "3509"
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-09-09T14:08:06.429Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 2019,
+            "oceanView": 2989,
+            "balcony": 2887,
+            "suite": 3509
           }
         }
       ]
