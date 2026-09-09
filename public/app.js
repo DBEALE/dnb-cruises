@@ -108,6 +108,13 @@
   const SITE_CHANGES = [
     {
       date: '9 Sep 2026',
+      title: 'Responsive filter controls',
+      items: [
+        'The Sort & filter sheet now applies your selections when you close it, keeping typing, sorting and scrolling responsive while you choose filters.',
+      ],
+    },
+    {
+      date: '9 Sep 2026',
       title: 'Smoother browsing with large cruise lists',
       items: [
         'Sorting and filtering reuse date and price formatters and onward-journey checks to reduce repeated work. Table refreshes also release old sparkline observers.',
@@ -3699,9 +3706,18 @@
   const LAUNCH_YEAR_DEBOUNCE_MS = 650;
   let _filterDebounceTimer = null;
   let _filterRunId = 0;
+  let _filterSheetNeedsApply = false;
+  function isFilterSheetOpen() {
+    return Boolean(document.getElementById('mobFilters')?.open);
+  }
   function scheduleApplyFilters({ delay = 0 } = {}) {
     if (_filterDebounceTimer) clearTimeout(_filterDebounceTimer);
     const runId = ++_filterRunId;
+    if (isFilterSheetOpen()) {
+      _filterDebounceTimer = null;
+      _filterSheetNeedsApply = true;
+      return;
+    }
     _filterDebounceTimer = setTimeout(async () => {
       _filterDebounceTimer = null;
       await waitForNextPaint();
@@ -3755,6 +3771,13 @@
       dlg.close();
       btn?.setAttribute('aria-expanded', 'false');
     } else {
+      // Stop any queued filter pass or progressive row append before opening.
+      // Rebuild once on close, also completing any interrupted initial render.
+      if (_filterDebounceTimer) clearTimeout(_filterDebounceTimer);
+      _filterDebounceTimer = null;
+      ++_filterRunId;
+      ++_renderRunId;
+      _filterSheetNeedsApply = true;
       updateMobileFilterActiveStates();
       if (typeof dlg.showModal === 'function') dlg.showModal();
       else dlg.setAttribute('open', '');
@@ -3773,6 +3796,24 @@
     document.getElementById('mobFiltersClose')?.addEventListener('click', closeMobileFilters);
     // Backdrop click closes
     dlg.addEventListener('click', (ev) => { if (ev.target === dlg) closeMobileFilters(); });
+    // Covers the close button, backdrop, Escape and native dialog.close().
+    dlg.addEventListener('close', () => {
+      if (dlg.open) return;
+      document.getElementById('mobFilterToggle')?.setAttribute('aria-expanded', 'false');
+      if (_filterSheetNeedsApply) {
+        _filterSheetNeedsApply = false;
+        scheduleApplyFilters();
+      }
+    });
+    // The sheet lives inside mobileControls, which disappears above 480px.
+    // Apply pending choices if rotation/resizing switches to the desktop table.
+    const shell = document.querySelector('.view-shell');
+    if (shell && typeof ResizeObserver !== 'undefined') {
+      const observer = new ResizeObserver(entries => {
+        if (dlg.open && entries.some(entry => entry.contentRect.width > 480)) closeMobileFilters();
+      });
+      observer.observe(shell);
+    }
   }
 
   function waitForNextPaint() {
@@ -3899,6 +3940,12 @@
 
   // ── Filter ─────────────────────────────────────────────────────────────────
   function applyFilters() {
+    // Data hydration, clear-all and date pickers also call this directly.
+    // Never rebuild the background catalogue while someone is editing filters.
+    if (isFilterSheetOpen()) {
+      _filterSheetNeedsApply = true;
+      return;
+    }
     const colFilters = {};
     document.querySelectorAll('.col-filter').forEach(el => {
       const v = el.value.trim();

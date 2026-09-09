@@ -761,6 +761,74 @@ test.describe('URL state', () => {
 });
 
 test.describe('Mobile filters', () => {
+  for (const closeMethod of ['button', 'escape', 'backdrop', 'resize']) {
+    test(`defers result rendering while editing and applies once on ${closeMethod} close`, async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await gotoFresh(page, ALL_ON);
+      await page.evaluate(() => {
+        window.__filterRenders = 0;
+        const original = renderBody;
+        renderBody = (...args) => { window.__filterRenders++; return original(...args); };
+      });
+      await page.click('#mobFilterToggle');
+      await page.selectOption('#mobFilterShip', 'Anthem of the Seas');
+      await page.selectOption('#mobileSortSelect', '15');
+      await page.locator('#mobFilterItinerary').fill('Southampton');
+      // Covers the debounce interval and direct refreshes (e.g. hydration).
+      await page.evaluate(() => applyFilters());
+      await page.waitForTimeout(750);
+      expect(await page.evaluate(() => window.__filterRenders)).toBe(0);
+      await expect(page.locator('#cruiseBody tr')).toHaveCount(3);
+      await expect(page.locator('#mobActiveFilterCount')).toHaveText('2 active');
+      if (closeMethod === 'button') await page.click('#mobFiltersClose');
+      else if (closeMethod === 'escape') await page.keyboard.press('Escape');
+      else if (closeMethod === 'resize') await page.setViewportSize({ width: 1440, height: 900 });
+      else await page.mouse.click(5, 5);
+      await expect(page.locator('#mobFilters')).not.toBeVisible();
+      await expect(page.locator('#cruiseBody tr')).toHaveCount(1);
+      await expect(page.locator('#cruiseBody')).toContainText('Anthem of the Seas');
+      await expect(page.locator('#mobFilterToggle')).toHaveAttribute('aria-expanded', 'false');
+      await expect(page).toHaveURL(/shipName=Anthem/);
+      expect(await page.evaluate(() => window.__filterRenders)).toBe(1);
+    });
+  }
+
+  test('clear all stays responsive and clears results on closing the sheet', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoFresh(page, ALL_ON);
+    await page.click('#mobFilterToggle');
+    await page.selectOption('#mobFilterShip', 'Anthem of the Seas');
+    await page.click('#mobFiltersClose');
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(1);
+    await page.click('#mobFilterToggle');
+    await page.click('#mobClearFilters');
+    await expect(page.locator('#mobClearFilters')).toBeEnabled();
+    await expect(page.locator('#mobFilterShip')).toHaveValue('');
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(1);
+    await page.click('#mobFiltersClose');
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(3);
+  });
+
+  test('opening during a large render pauses remaining rows until close', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoFresh(page, ALL_ON);
+    const before = await page.evaluate(() => {
+      allCruises = Array.from({ length: 180 }, (_, i) => ({ ...allCruises[0], id: `large_${i}` }));
+      applyFilters();
+      toggleMobileFilters();
+      return document.querySelectorAll('#cruiseBody tr').length;
+    });
+    expect(before).toBeLessThan(180);
+    await page.waitForTimeout(400);
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(before);
+    await page.click('#mobFiltersClose');
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(180);
+    // Offscreen cards still render correctly when scrolled into view.
+    const last = page.locator('#cruiseBody tr').last();
+    await last.scrollIntoViewIfNeeded();
+    await expect(last.locator('.mobile-ship-header')).toBeVisible();
+  });
+
   test('highlights and counts filters that are not at their defaults', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await gotoFresh(page, { ...ALL_ON, darkMode: true });

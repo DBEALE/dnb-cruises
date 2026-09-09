@@ -25,3 +25,25 @@ Run `node scripts/benchmark-ui.js` with locally populated provider files.
 keeping the same local data, allowing comparison before committing changes.
 After committing, HEAD will contain the optimized version too. The regular run
 also captures `docs/screenshots/performance-loaded-desktop.png`.
+
+## Mobile filter sheet
+
+The row-generation benchmark above missed expensive background layout while
+editing filters. `node scripts/benchmark-filters.js` now exercises the actual
+sheet at 390 × 844 with the full local catalogue and Chromium's 4× CPU slowdown.
+It opens the sheet, changes sorting four times, types an itinerary filter, then
+closes the sheet and verifies that the results summary reflects the selection.
+Use `--baseline` to serve the HTML, CSS and JavaScript from HEAD.
+
+Before this fix, the interaction sequence caused four background table rebuilds
+and repeated long tasks over one second (maximum observed: 2,625 ms). Deferring
+filter application alone removed those rebuilds but left a 1,531 ms opening
+task. Skipping layout and paint for offscreen mobile cards reduced the largest
+observed opening task to 241 ms; the control sequence had one 75 ms long task
+and zero background table rebuilds in that run.
+
+These are individual local runs, not percentile latency guarantees. The script
+reports main-thread tasks of at least 50 ms, and its opening phase includes
+click preparation, opening and animation. It does not measure native dropdown
+popup rendering on an actual phone. Results now update once the sheet closes;
+filter values, active badges and sort direction update immediately while open.
