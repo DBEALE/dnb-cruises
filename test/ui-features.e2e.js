@@ -151,6 +151,32 @@ const ALL_ON = {
 };
 
 test.describe('Sparklines', () => {
+  test('filtering releases observed sparklines from removed rows', async ({ page }) => {
+    await page.addInitScript(() => {
+      const NativeObserver = window.IntersectionObserver;
+      window.__observedTargets = new Set();
+      window.IntersectionObserver = class extends NativeObserver {
+        constructor(...args) { super(...args); this.targets = new Set(); }
+        observe(target) { this.targets.add(target); window.__observedTargets.add(target); super.observe(target); }
+        unobserve(target) { this.targets.delete(target); window.__observedTargets.delete(target); super.unobserve(target); }
+        disconnect() {
+          this.targets.forEach(target => window.__observedTargets.delete(target));
+          this.targets.clear();
+          super.disconnect();
+        }
+      };
+    });
+    const cruises = Array.from({ length: 90 }, (_, i) => ({
+      ...CRUISES_RC.cruises[0], id: `observer_${i}`, shipName: i < 2 ? 'Retained ship' : 'Other ship',
+    }));
+    await gotoFresh(page, ALL_ON, { royalCaribbean: { cruises }, celebrity: { cruises: [] } });
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(90);
+    expect(await page.evaluate(() => [...window.__observedTargets].filter(el => el.matches('.price-spark')).length)).toBeGreaterThan(0);
+    await page.locator('.col-filter[data-field="shipName"]').selectOption('Retained ship');
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(2);
+    expect(await page.evaluate(() => [...window.__observedTargets].every(el => el.isConnected))).toBe(true);
+  });
+
   test('per-cabin sparklines render as lazy placeholders and fill on intersection', async ({ page }) => {
     await gotoFresh(page, ALL_ON);
     // Anthem (3 history points) → 4 cabin sparks; Harmony (2 points) → 4 cabin sparks
@@ -1083,6 +1109,26 @@ function chainFixtures() {
 }
 
 test.describe('Onward journey explorer', () => {
+  test('cached onward availability updates when settings, ports or cruise data change', async ({ page }) => {
+    await gotoFresh(page, null, chainFixtures());
+    const result = await page.evaluate(() => {
+      const root = allCruises.find(c => c.id === 'rc_root');
+      const initial = cruiseHasOnwardOptions(root);
+      const oldCache = onwardOptionsCache;
+      portRegistry = [...portRegistry];
+      const afterPorts = cruiseHasOnwardOptions(root);
+      const portsInvalidated = onwardOptionsCache !== oldCache;
+      const settingsCache = onwardOptionsCache;
+      settings.followOnDays = 10;
+      const afterSettings = cruiseHasOnwardOptions(root);
+      const settingsInvalidated = onwardOptionsCache !== settingsCache;
+      allCruises = [root];
+      const afterRemoval = cruiseHasOnwardOptions(root);
+      return { initial, afterPorts, portsInvalidated, afterSettings, settingsInvalidated, afterRemoval };
+    });
+    expect(result).toEqual({ initial: true, afterPorts: true, portsInvalidated: true,
+      afterSettings: true, settingsInvalidated: true, afterRemoval: false });
+  });
 
   test('buildCruiseTree aggregates onward legs and guards the date window + cycles', async ({ page }) => {
     const fixtures = chainFixtures();

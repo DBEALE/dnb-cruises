@@ -8,6 +8,13 @@
   const EXPIRED_VIEW_ID = '__expired__';
   const CRUISE_SEARCH_META = Symbol('cruiseSearchMeta');
   const CRUISE_SEA_DAYS    = Symbol('cruiseSeaDays');
+  // Intl formatters are expensive to construct; share them across all rows.
+  const PRICE_FORMAT = new Intl.NumberFormat('en-GB');
+  const DATE_FORMAT = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  const FIRST_SEEN_FORMAT = new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
+    timeZone: 'UTC', timeZoneName: 'short',
+  });
 
   // Region groupings used by the departureRegion filter. Picking
   // `group:europe` matches cruises departing from any of these atomic
@@ -99,6 +106,13 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '9 Sep 2026',
+      title: 'Smoother browsing with large cruise lists',
+      items: [
+        'Sorting and filtering reuse date and price formatters and onward-journey checks to reduce repeated work. Table refreshes also release old sparkline observers.',
+      ],
+    },
     {
       date: '9 Sep 2026',
       title: 'Price history highlights',
@@ -1709,12 +1723,16 @@
   let onwardCtx = null;
   let onwardCtxSrc = null;
   let onwardCtxKey = '';
+  let onwardCtxPorts = null;
+  let onwardOptionsCache = new Map();
   function getOnwardCtx() {
     const key = normalizeFollowOnDays(settings.followOnDays) + '|' + normalizeProximityMiles(settings.proximityMiles);
-    if (onwardCtx && onwardCtxSrc === allCruises && onwardCtxKey === key) return onwardCtx;
+    if (onwardCtx && onwardCtxSrc === allCruises && onwardCtxKey === key && onwardCtxPorts === portRegistry) return onwardCtx;
     onwardCtx = makeTreeCtx(allCruises);
     onwardCtxSrc = allCruises;
     onwardCtxKey = key;
+    onwardCtxPorts = portRegistry;
+    onwardOptionsCache = new Map();
     return onwardCtx;
   }
   function cruiseHasOnwardOptions(c) {
@@ -1722,7 +1740,16 @@
     const date = searchMeta(c).arrivalDateKey;
     if (!port || !date) return false;
     const ctx = getOnwardCtx();
-    return buildTreeChildren(port, date, new Set([lowerText(simplifyPortName(port))]), ctx).length > 0;
+    const key = JSON.stringify([port, date]);
+    if (!onwardOptionsCache.has(key)) {
+      // Only existence matters for the button; prices and grouped tree nodes
+      // are computed when the user actually opens the explorer.
+      onwardOptionsCache.set(key, findOnwardCruises(port, date, ctx).some(candidate => {
+        const destination = getDestinationPortDisplay(candidate);
+        return Boolean(destination && lowerText(simplifyPortName(destination)));
+      }));
+    }
+    return onwardOptionsCache.get(key);
   }
 
   // Sits beside followOnButton: opens the multi-hop onward-journey tree explorer.
@@ -2446,6 +2473,9 @@
   let _renderRunId = 0;
   function renderBody(list, colFilters = {}) {
     const runId = ++_renderRunId;
+    // Offscreen buttons remain observed until explicitly disconnected, even
+    // after their rows are removed. Release the previous table on every render.
+    if (sparkObserver) sparkObserver.disconnect();
     const tbody = document.getElementById('cruiseBody');
     if (!list || list.length === 0) {
       tbody.innerHTML = '<tr class="empty-row"><td colspan="15">No cruises match your filters.</td></tr>';
@@ -5096,15 +5126,7 @@
     if (!raw) return '—';
     const d = new Date(raw);
     if (Number.isNaN(d.getTime())) return formatDateDisplay(raw);
-    return d.toLocaleString('en-GB', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZone: 'UTC',
-      timeZoneName: 'short',
-    });
+    return FIRST_SEEN_FORMAT.format(d);
   }
 
   // ── Formatting ─────────────────────────────────────────────────────────────
@@ -5112,10 +5134,10 @@
     const n = parseFloat(raw);
     if (!raw || isNaN(n)) return '—';
     if (showInGbp && usdToGbp && currency === 'USD') {
-      return '£' + Math.round(n * usdToGbp).toLocaleString('en-GB');
+      return '£' + PRICE_FORMAT.format(Math.round(n * usdToGbp));
     }
     const sym = currency === 'GBP' ? '£' : currency === 'EUR' ? '€' : '$';
-    return sym + Math.round(n).toLocaleString('en-GB');
+    return sym + PRICE_FORMAT.format(Math.round(n));
   }
 
   function formatDurationDisplay(raw) {
@@ -5128,7 +5150,7 @@
     if (!raw) return '—';
     if (/[a-zA-Z]/.test(raw) && raw.length > 4) return raw;
     const d = new Date(raw);
-    return isNaN(d) ? raw : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    return isNaN(d) ? raw : DATE_FORMAT.format(d);
   }
 
   function absoluteUrl(url) {
