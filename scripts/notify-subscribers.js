@@ -73,10 +73,21 @@ function loadAllCruises() {
 
 // Criteria matching (mirrors frontend filter logic)
 
+function selectedNames(value) {
+  if (!value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    if (Array.isArray(parsed)) return parsed.filter(v => typeof v === 'string' && v.trim()).map(v => v.trim());
+  } catch {}
+  return [String(value).trim()];
+}
+
 function matchesCriteria(cruise, criteria, usdToGbp) {
   const c = criteria;
-  if (c.shipName        && !cruise.shipName?.toLowerCase().includes(c.shipName.toLowerCase()))               return false;
-  if (c.provider        && cruise.provider !== c.provider)                                                    return false;
+  const ships = selectedNames(c.shipName);
+  const providers = selectedNames(c.provider);
+  if (ships.length && !ships.some(name => cruise.shipName?.toLowerCase().includes(name.toLowerCase()))) return false;
+  if (providers.length && !providers.some(name => cruise.provider?.toLowerCase().includes(name.toLowerCase()))) return false;
   if (c.shipClass       && cruise.shipClass !== c.shipClass)                                                  return false;
   if (c.minLaunch       && (cruise.shipLaunchYear ?? 0) < Number(c.minLaunch))                               return false;
   if (c.itinerary       && !cruise.itinerary?.toLowerCase().includes(c.itinerary.toLowerCase()))             return false;

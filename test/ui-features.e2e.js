@@ -150,6 +150,13 @@ const ALL_ON = {
   shipIcons: true,
 };
 
+async function chooseShips(page, names) {
+  const picker = page.locator('[data-multi-filter="shipName"]');
+  if (!(await picker.evaluate(el => el.open))) await picker.locator('summary').click();
+  for (const name of names) await picker.getByLabel(name, { exact: true }).check();
+  await picker.locator('summary').click();
+}
+
 test.describe('Sparklines', () => {
   test('filtering releases observed sparklines from removed rows', async ({ page }) => {
     await page.addInitScript(() => {
@@ -761,6 +768,63 @@ test.describe('URL state', () => {
 });
 
 test.describe('Mobile filters', () => {
+  test('multiple lines and ships survive search, refresh, saved views and sharing', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoFresh(page, ALL_ON);
+    await page.click('#mobFilterToggle');
+    const lines = page.locator('[data-multi-filter="provider"]');
+    const ships = page.locator('[data-multi-filter="shipName"]');
+    await lines.locator('summary').click();
+    await lines.getByLabel('Royal Caribbean', { exact: true }).check();
+    await lines.getByLabel('Celebrity Cruises', { exact: true }).check();
+    await expect(lines.locator('summary')).toHaveText('2 cruise lines selected');
+    await lines.locator('summary').click();
+    await ships.locator('summary').click();
+    await ships.getByRole('searchbox').fill('Anthem');
+    await ships.getByLabel('Anthem of the Seas', { exact: true }).check();
+    await ships.getByRole('searchbox').fill('Edge');
+    await ships.getByLabel('Celebrity Edge', { exact: true }).check();
+    await ships.getByRole('searchbox').fill('');
+    await expect(ships.getByLabel('Anthem of the Seas', { exact: true })).toBeChecked();
+    await expect(ships.getByLabel('Celebrity Edge', { exact: true })).toBeChecked();
+    await expect(ships.locator('summary')).toHaveText('2 ships selected');
+    // Catalogue refreshes must retain the entire selection.
+    await page.evaluate(() => populateDropdownFilters(allCruises));
+    await expect(ships.getByLabel('Celebrity Edge', { exact: true })).toBeChecked();
+    await page.click('#mobFiltersClose');
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(2);
+    await expect(page.locator('#cruiseBody')).toContainText('Anthem of the Seas');
+    await expect(page.locator('#cruiseBody')).toContainText('Celebrity Edge');
+    const sharedUrl = page.url();
+    const params = new URL(sharedUrl).hash.slice(1);
+    expect(JSON.parse(new URLSearchParams(params).get('shipName'))).toEqual(['Anthem of the Seas', 'Celebrity Edge']);
+    await page.evaluate(() => saveCurrentView('Two-line shortlist'));
+    await page.reload();
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(2);
+    await page.click('#mobFilterToggle');
+    await expect(lines.locator('summary')).toHaveText('2 cruise lines selected');
+    await expect(ships.locator('summary')).toHaveText('2 ships selected');
+    await lines.locator('summary').click();
+    await lines.getByLabel('Celebrity Cruises', { exact: true }).uncheck();
+    await page.click('#mobFiltersClose');
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(1);
+    await page.evaluate(() => applySavedView(loadSavedViews().find(v => v.name === 'Two-line shortlist').id));
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(2);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await expect(page.locator('.col-filter[data-field="shipName"] option:checked')).toHaveText('2 ships selected');
+    await page.locator('.col-filter[data-field="shipName"]').selectOption('Harmony of the Seas');
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(1);
+    await expect(page.locator('#cruiseBody')).toContainText('Harmony of the Seas');
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.click('#mobFilterToggle');
+    await page.click('#mobClearFilters');
+    await expect(lines.locator('summary')).toHaveText('All cruise lines');
+    await expect(ships.locator('summary')).toHaveText('All ships');
+    await page.click('#mobFiltersClose');
+    await expect(page.locator('#cruiseBody tr')).toHaveCount(3);
+    await expect(page.locator('option[data-multi-selection]')).toHaveCount(0);
+  });
+
   for (const closeMethod of ['button', 'escape', 'backdrop', 'resize']) {
     test(`defers result rendering while editing and applies once on ${closeMethod} close`, async ({ page }) => {
       await page.setViewportSize({ width: 390, height: 844 });
@@ -771,7 +835,7 @@ test.describe('Mobile filters', () => {
         renderBody = (...args) => { window.__filterRenders++; return original(...args); };
       });
       await page.click('#mobFilterToggle');
-      await page.selectOption('#mobFilterShip', 'Anthem of the Seas');
+      await chooseShips(page, ['Anthem of the Seas']);
       await page.selectOption('#mobileSortSelect', '15');
       await page.locator('#mobFilterItinerary').fill('Southampton');
       // Covers the debounce interval and direct refreshes (e.g. hydration).
@@ -797,7 +861,7 @@ test.describe('Mobile filters', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await gotoFresh(page, ALL_ON);
     await page.click('#mobFilterToggle');
-    await page.selectOption('#mobFilterShip', 'Anthem of the Seas');
+    await chooseShips(page, ['Anthem of the Seas']);
     await page.click('#mobFiltersClose');
     await expect(page.locator('#cruiseBody tr')).toHaveCount(1);
     await page.click('#mobFilterToggle');

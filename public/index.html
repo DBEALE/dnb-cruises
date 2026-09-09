@@ -301,21 +301,35 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('destinationPort')" aria-label="Clear destination port filter" title="Clear destination port filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group mob-filter-cruise">
-        <label for="mobFilterShip">Ship</label>
+      <div class="mob-filter-group mob-filter-cruise mob-filter-full">
+        <label id="mobFilterShipLabel">Ships</label>
         <div class="filter-entry">
-          <select id="mobFilterShip" class="mob-filter" data-field="shipName" onchange="mobileFilterSync(this)">
-            <option value="">All ships</option>
-          </select>
+          <details class="multi-filter" data-multi-filter="shipName">
+            <summary aria-labelledby="mobFilterShipLabel mobFilterShipSummary"><span id="mobFilterShipSummary" class="multi-filter-summary">All ships</span></summary>
+            <input type="hidden" id="mobFilterShip" class="mob-filter" data-field="shipName">
+            <div class="multi-filter-panel">
+              <input class="multi-filter-search" type="search" placeholder="Find ships…" aria-label="Find ships" oninput="filterMultiFilterOptions(this)">
+              <p class="multi-filter-help">Tick any number. No selection includes all ships.</p>
+              <div class="multi-filter-options" role="group" aria-label="Choose ships"></div>
+              <p class="multi-filter-empty" hidden>No ships match.</p>
+            </div>
+          </details>
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('shipName')" aria-label="Clear ship filter" title="Clear ship filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group mob-filter-cruise">
-        <label for="mobFilterProvider">Cruise line</label>
+      <div class="mob-filter-group mob-filter-cruise mob-filter-full">
+        <label id="mobFilterProviderLabel">Cruise lines</label>
         <div class="filter-entry">
-          <select id="mobFilterProvider" class="mob-filter" data-field="provider" onchange="mobileFilterSync(this)">
-            <option value="">All cruise lines</option>
-          </select>
+          <details class="multi-filter" data-multi-filter="provider">
+            <summary aria-labelledby="mobFilterProviderLabel mobFilterProviderSummary"><span id="mobFilterProviderSummary" class="multi-filter-summary">All cruise lines</span></summary>
+            <input type="hidden" id="mobFilterProvider" class="mob-filter" data-field="provider">
+            <div class="multi-filter-panel">
+              <input class="multi-filter-search" type="search" placeholder="Find cruise lines…" aria-label="Find cruise lines" oninput="filterMultiFilterOptions(this)">
+              <p class="multi-filter-help">Tick any number. No selection includes all lines.</p>
+              <div class="multi-filter-options" role="group" aria-label="Choose cruise lines"></div>
+              <p class="multi-filter-empty" hidden>No cruise lines match.</p>
+            </div>
+          </details>
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('provider')" aria-label="Clear cruise line filter" title="Clear cruise line filter">&times;</button>
         </div>
       </div>

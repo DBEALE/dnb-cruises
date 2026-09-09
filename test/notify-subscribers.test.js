@@ -2,7 +2,19 @@
 
 const assert = require('node:assert/strict');
 const test = require('node:test');
-const { buildMessages, compactCruiseLine } = require('../scripts/notify-subscribers');
+const { buildMessages, compactCruiseLine, matchesCriteria } = require('../scripts/notify-subscribers');
+
+test('multi-select alert criteria use OR within names and AND across filters', () => {
+  const criteria = {
+    shipName: JSON.stringify(['Celebrity Edge', 'Anthem of the Seas']),
+    provider: JSON.stringify(['Celebrity Cruises', 'Royal Caribbean']),
+  };
+  assert.equal(matchesCriteria(cruise({ shipName: 'Celebrity Edge' }), criteria), true);
+  assert.equal(matchesCriteria(cruise({ shipName: 'Anthem of the Seas', provider: 'Royal Caribbean' }), criteria), true);
+  assert.equal(matchesCriteria(cruise({ shipName: 'Other ship' }), criteria), false);
+  assert.equal(matchesCriteria(cruise({ shipName: 'Celebrity Edge', provider: 'Other line' }), criteria), false);
+  assert.equal(matchesCriteria(cruise({ shipName: 'Celebrity Edge' }), { shipName: 'Edge', provider: 'Celebrity Cruises' }), true);
+});
 
 function cruise(overrides = {}) {
   return {

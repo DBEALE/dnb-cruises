@@ -108,6 +108,13 @@
   const SITE_CHANGES = [
     {
       date: '9 Sep 2026',
+      title: 'Choose multiple cruise lines and ships',
+      items: [
+        'Select any combination of cruise lines and ships in Sort & filter. Search the ship list, tick your choices, then close filters to see results. Saved views and shared searches keep every selection.',
+      ],
+    },
+    {
+      date: '9 Sep 2026',
       title: 'Responsive filter controls',
       items: [
         'The Sort & filter sheet now applies your selections when you close it, keeping typing, sorting and scrolling responsive while you choose filters.',
@@ -855,15 +862,17 @@
         .filter(Boolean)))
         .sort((left, right) => left.localeCompare(right, 'en', { numeric: true, sensitivity: 'base' }));
 
-      const selects = document.querySelectorAll(`.col-filter[data-field="${field}"], .mob-filter[data-field="${field}"]`);
+      const selects = document.querySelectorAll(`.col-filter[data-field="${field}"]`);
       const currentValue = Array.from(selects).find(select => select.value)?.value || '';
 
       selects.forEach(select => {
         select.innerHTML = `<option value="">${escHtml(label)}</option>` + values
           .map(value => `<option value="${escHtml(value)}">${escHtml(value)}</option>`)
           .join('');
-        select.value = currentValue && values.includes(currentValue) ? currentValue : '';
+        assignFilterValue(select, currentValue);
       });
+      populateMultiFilter(field, values);
+      syncMultiFilter(field);
     }
 
     populateClassFilter(cruises);
@@ -2950,9 +2959,89 @@
     return document.querySelector(`.col-filter[data-field="${field}"]`)?.value || '';
   }
 
+  // One selection keeps legacy URLs intact; multiple selections use a JSON
+  // array, so names containing commas, ampersands or quotes round-trip safely.
+  function multiFilterValues(value) {
+    if (!value) return [];
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) return [...new Set(parsed.filter(v => typeof v === 'string' && v.trim()).map(v => v.trim()))];
+    } catch {}
+    return [String(value).trim()].filter(Boolean);
+  }
+
+  function multiFilterLabel(field, value) {
+    const values = multiFilterValues(value);
+    if (!values.length) return field === 'shipName' ? 'All ships' : 'All cruise lines';
+    if (values.length === 1) return values[0];
+    return `${values.length} ${field === 'shipName' ? 'ships' : 'cruise lines'} selected`;
+  }
+
+  function assignFilterValue(el, value) {
+    value = value || '';
+    if (el.tagName === 'SELECT' && ['shipName', 'provider'].includes(el.dataset.field)) {
+      el.querySelectorAll('option[data-multi-selection]').forEach(option => option.remove());
+      if (value && !Array.from(el.options).some(option => option.value === value)) {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = multiFilterLabel(el.dataset.field, value);
+        option.dataset.multiSelection = '1';
+        el.appendChild(option);
+      }
+    }
+    el.value = value;
+  }
+
+  function populateMultiFilter(field, values) {
+    const picker = document.querySelector(`[data-multi-filter="${field}"]`);
+    if (!picker) return;
+    const selected = multiFilterValues(getFilterFieldValue(field));
+    const options = [...new Set([...values, ...selected])];
+    picker.querySelector('.multi-filter-options').innerHTML = options.map(value =>
+      `<label class="multi-filter-option"><input type="checkbox" data-field="${field}" value="${escHtml(value)}" onchange="toggleMultiFilterChoice(this)"><span>${escHtml(value)}</span></label>`).join('');
+    filterMultiFilterOptions(picker.querySelector('.multi-filter-search'));
+  }
+
+  function syncMultiFilter(field) {
+    const picker = document.querySelector(`[data-multi-filter="${field}"]`);
+    if (!picker) return;
+    const value = getFilterFieldValue(field);
+    const values = multiFilterValues(value);
+    document.querySelector(`.col-filter[data-field="${field}"]`)?.querySelectorAll('option[data-multi-selection]').forEach(option => {
+      if (option.value !== value) option.remove();
+    });
+    picker.querySelector('.mob-filter').value = value;
+    picker.querySelector('.multi-filter-summary').textContent = multiFilterLabel(field, value);
+    picker.querySelectorAll('input[type="checkbox"]').forEach(input => { input.checked = values.includes(input.value); });
+  }
+
+  function toggleMultiFilterChoice(input) {
+    const field = input.dataset.field;
+    const values = new Set(multiFilterValues(getFilterFieldValue(field)));
+    if (input.checked) values.add(input.value);
+    else values.delete(input.value);
+    const selected = [...values];
+    setFilterFieldValue(field, selected.length > 1 ? JSON.stringify(selected) : selected[0] || '');
+    updateMobileFilterActiveStates();
+    scheduleApplyFilters();
+  }
+
+  function filterMultiFilterOptions(input) {
+    if (!input) return;
+    const picker = input.closest('[data-multi-filter]');
+    const query = input.value.trim().toLowerCase();
+    let visible = 0;
+    picker.querySelectorAll('.multi-filter-option').forEach(option => {
+      option.hidden = !option.textContent.toLowerCase().includes(query);
+      if (!option.hidden) visible++;
+    });
+    picker.querySelector('.multi-filter-empty').hidden = visible > 0;
+  }
+
   function setFilterFieldValue(field, value) {
     document.querySelectorAll(`.col-filter[data-field="${field}"], .mob-filter[data-field="${field}"]`)
-      .forEach(el => { el.value = value || ''; });
+      .forEach(el => assignFilterValue(el, value));
+    if (field === 'shipName' || field === 'provider') syncMultiFilter(field);
   }
 
   function clearFilterField(field) {
@@ -3189,7 +3278,7 @@
     }
     for (const [k, v] of p) {
       if (k === 'sort' || k === 'all' || k === 'gbp' || k === 'departureStart' || k === 'departureEnd') continue;
-      const recentLabel = k === 'priceDropWindow' || k === 'newWithin'
+      const recentLabel = k === 'priceDropWindow' || k === 'newWithin' || k === 'provider' || k === 'shipName'
         ? savedViewFilterLabel(k, v)
         : '';
       parts.push(recentLabel || `${k}=${v}`);
@@ -3209,8 +3298,7 @@
   function savedViewFilterLabel(key, value) {
     const v = String(value || '').trim();
     if (!v) return '';
-    if (key === 'provider') return v;
-    if (key === 'shipName') return v;
+    if (key === 'provider' || key === 'shipName') return multiFilterValues(v).join(' or ');
     if (key === 'shipClass') {
       if (v.startsWith('tier:')) {
         const tier = v.slice(5);
@@ -3746,6 +3834,8 @@
   }
 
   function updateMobileFilterActiveStates() {
+    syncMultiFilter('shipName');
+    syncMultiFilter('provider');
     const groups = document.querySelectorAll('#mobFilters .mob-filter-group:not(.mob-sort-inline):not(.mob-filter-actions)');
     let activeCount = 0;
 
@@ -3959,6 +4049,8 @@
       destinationPort: lowerText(colFilters.destinationPort),
     };
     const itineraryTerms = itinerarySearchTerms(colFilters.itinerary);
+    const shipChoices = multiFilterValues(colFilters.shipName).map(lowerText);
+    const providerChoices = multiFilterValues(colFilters.provider).map(lowerText);
 
     // The Expired view swaps the data source to the archived sailings; every
     // filter/sort below works identically on either list.
@@ -3971,7 +4063,9 @@
         if (!itineraryTerms.every(term => meta.itinerary.includes(term))) return false;
       }
 
-      const text = ['shipName', 'provider', 'destination', 'departurePort'];
+      if (shipChoices.length && !shipChoices.some(value => meta.shipName.includes(value))) return false;
+      if (providerChoices.length && !providerChoices.some(value => meta.provider.includes(value))) return false;
+      const text = ['destination', 'departurePort'];
       for (const f of text) {
         if (f === 'departurePort') {
           if (!portFilterMatches(c.departurePort, meta.departurePort, meta.departurePortSimple, normalizedFilters[f])) return false;
@@ -4980,7 +5074,7 @@
     // Filter inputs (both the desktop col-filter row and the mobile filter panel).
     document.querySelectorAll('.col-filter, .mob-filter').forEach(el => {
       const v = p.get(el.dataset.field);
-      if (v != null) el.value = v;
+      if (v != null) assignFilterValue(el, v);
     });
     updateDepartureRangeControls();
   }
