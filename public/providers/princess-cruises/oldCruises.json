@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 782,
+  "count": 784,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -62562,6 +62562,141 @@
           "at": "2026-09-09T08:11:03.893Z",
           "prices": {
             "suite": 7755
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OST14D_RP_20260919",
+      "shipName": "Royal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2013,
+      "itinerary": "Seattle, Washington → Juneau, Alaska → Hubbard Glacier (Scenic Cruising), Alaska → College Fjord (Scenic Cruising), Alaska → Anchorage (Whittier), Alaska → Cross International Date Line → Tokyo, Japan",
+      "departureDate": "2026-09-19",
+      "duration": "14 Nights",
+      "departurePort": "Seattle",
+      "departureRegion": "Americas",
+      "destination": "Other",
+      "destinationPort": "Tokyo (Yokohama)",
+      "priceFrom": "1139",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1640",
+      "prices": {
+        "inside": "1139",
+        "oceanView": null,
+        "balcony": "1478",
+        "suite": null
+      },
+      "seaDays": 8,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-09-10T02:11:23.120Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 1139,
+            "balcony": 1429,
+            "suite": 4291
+          }
+        },
+        {
+          "at": "2026-09-06T22:06:47.060Z",
+          "prices": {
+            "inside": 1139,
+            "balcony": 1379,
+            "suite": 4291
+          }
+        },
+        {
+          "at": "2026-09-08T06:13:11.310Z",
+          "prices": {
+            "suite": 4291
+          }
+        },
+        {
+          "at": "2026-09-08T08:11:26.606Z",
+          "prices": {
+            "suite": 1493
+          }
+        },
+        {
+          "at": "2026-09-08T16:09:07.655Z",
+          "prices": {
+            "inside": 1322,
+            "suite": 1493
+          }
+        },
+        {
+          "at": "2026-09-09T00:21:29.437Z",
+          "prices": {
+            "inside": 1139,
+            "suite": 4291
+          }
+        },
+        {
+          "at": "2026-09-09T02:11:24.025Z",
+          "prices": {
+            "inside": 1139,
+            "suite": 2386
+          }
+        },
+        {
+          "at": "2026-09-09T16:08:41.129Z",
+          "prices": {
+            "inside": 1139,
+            "balcony": 1478,
+            "suite": 2386
+          }
+        },
+        {
+          "at": "2026-09-09T22:06:33.315Z",
+          "prices": {
+            "inside": 1139,
+            "balcony": 1478
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_WTS30A_AP_20270805",
+      "shipName": "Grand Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 1998,
+      "itinerary": "Tokyo, Japan → Shimizu (for Mt. Fuji), Japan → Osaka (for Kyoto), Japan → Kochi, Japan → Kagoshima, Japan → Ishigaki, Japan → Taipei (Keelung) → Hong Kong → Hong Kong → Ho Chi Minh City (Phu My), Vietnam → Singapore → Bali (Benoa), Indonesia → Darwin, Australia → Brisbane, Australia → Sydney, Australia",
+      "departureDate": "2027-08-05",
+      "duration": "30 Nights",
+      "departurePort": "Tokyo (Yokohama)",
+      "departureRegion": "Asia & Far East",
+      "destination": "Western Caribbean",
+      "destinationPort": "Sydney",
+      "priceFrom": "5065",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A716",
+      "prices": {
+        "inside": "5065",
+        "oceanView": "5448",
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 16,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-09-10T02:11:23.120Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 5065,
+            "oceanView": 5448,
+            "balcony": 9818
+          }
+        },
+        {
+          "at": "2026-09-08T04:09:14.474Z",
+          "prices": {
+            "inside": 5065,
+            "oceanView": 5448
           }
         }
       ]
