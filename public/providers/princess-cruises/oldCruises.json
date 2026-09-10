@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 782,
+  "count": 783,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -26370,52 +26370,6 @@
             "oceanView": 1099,
             "balcony": 1124,
             "suite": 1379
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Princess Cruises",
-      "id": "princess_CFR10H_EX_20270406",
-      "shipName": "Enchanted Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2020,
-      "itinerary": "Ft. Lauderdale, Florida → Celebration Key, Bahamas → Amber Cove, Dominican Republic → San Juan, Puerto Rico → St. Maarten → Antigua → St. Kitts → Ft. Lauderdale, Florida",
-      "departureDate": "2027-04-06",
-      "duration": "10 Nights",
-      "departurePort": "Fort Lauderdale",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "destinationPort": "Fort Lauderdale",
-      "priceFrom": "964",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N711",
-      "prices": {
-        "inside": "964",
-        "oceanView": "1504",
-        "balcony": "1754",
-        "suite": "2219"
-      },
-      "seaDays": 3,
-      "firstSeenAt": "2026-07-27T18:32:46.118Z",
-      "lastSeenAt": "2026-07-29T20:21:26.773Z",
-      "priceHistory": [
-        {
-          "at": "2026-07-27T18:32:46.118Z",
-          "prices": {
-            "inside": 939,
-            "oceanView": 1479,
-            "balcony": 1629,
-            "suite": 2069
-          }
-        },
-        {
-          "at": "2026-07-28T08:56:14.534Z",
-          "prices": {
-            "inside": 964,
-            "oceanView": 1504,
-            "balcony": 1754,
-            "suite": 2219
           }
         }
       ]
@@ -62053,6 +62007,124 @@
             "inside": 1049,
             "oceanView": 1089,
             "suite": 1424
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ZSM04C_AP_20270402",
+      "shipName": "Grand Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 1998,
+      "itinerary": "Sydney, Australia → Newcastle, Australia → Melbourne, Australia",
+      "departureDate": "2027-04-02",
+      "duration": "4 Nights",
+      "departurePort": "Sydney",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand",
+      "destinationPort": "Melbourne",
+      "priceFrom": "717",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=A710D",
+      "prices": {
+        "inside": "717",
+        "oceanView": null,
+        "balcony": "1167",
+        "suite": null
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-09-10T18:09:54.906Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 692,
+            "balcony": 1062,
+            "suite": 1262
+          }
+        },
+        {
+          "at": "2026-09-09T06:13:31.381Z",
+          "prices": {
+            "inside": 692,
+            "balcony": 1142
+          }
+        },
+        {
+          "at": "2026-09-09T08:11:03.893Z",
+          "prices": {
+            "inside": 717,
+            "balcony": 1167
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_CFR10H_EX_20270327",
+      "shipName": "Enchanted Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2020,
+      "itinerary": "Ft. Lauderdale, Florida → Celebration Key, Bahamas → Amber Cove, Dominican Republic → San Juan, Puerto Rico → St. Maarten → Antigua → St. Kitts → Ft. Lauderdale, Florida",
+      "departureDate": "2027-03-27",
+      "duration": "10 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "destinationPort": "Fort Lauderdale",
+      "priceFrom": "1024",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=N710",
+      "prices": {
+        "inside": "1024",
+        "oceanView": null,
+        "balcony": "1474",
+        "suite": "2599"
+      },
+      "seaDays": 3,
+      "firstSeenAt": "2026-07-29T22:19:52.372Z",
+      "lastSeenAt": "2026-09-10T18:09:54.906Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 879,
+            "balcony": 1399,
+            "suite": 2399
+          }
+        },
+        {
+          "at": "2026-09-08T16:09:07.655Z",
+          "prices": {
+            "inside": 899,
+            "balcony": 1449,
+            "suite": 2449
+          }
+        },
+        {
+          "at": "2026-09-09T08:11:03.893Z",
+          "prices": {
+            "inside": 924,
+            "balcony": 1574,
+            "suite": 2599
+          }
+        },
+        {
+          "at": "2026-09-09T16:08:41.129Z",
+          "prices": {
+            "inside": 1024,
+            "balcony": 1574,
+            "suite": 2599
+          }
+        },
+        {
+          "at": "2026-09-10T18:09:54.906Z",
+          "prices": {
+            "inside": 1024,
+            "balcony": 1474,
+            "suite": 2599
           }
         }
       ]
