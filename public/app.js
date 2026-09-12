@@ -107,6 +107,11 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '12 Sep 2026',
+      title: 'More NCL sailing dates',
+      items: ['NCL imports now include every departure returned for each itinerary, with separate dates, cabin prices and booking links for each sailing.'],
+    },
+    {
       date: '9 Sep 2026',
       title: 'Virgin links open the selected sailing',
       items: ['Virgin Voyages price links now open the specific ship and sailing dates, including links in previously loaded cruise data.'],

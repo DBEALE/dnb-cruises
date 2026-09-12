@@ -4,6 +4,99 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 
 const provider = require('../providers/ncl-cruises');
+// Public NCL /uk/en/api/vacations/v2/search-result-itinerary/LUNA7MIAPOPSTTTOVNPIMIA
+// response captured 12 Sep 2026, with images/marketing offers removed.
+const lunaItinerary = require('./fixtures/ncl-luna-sailings.json');
+
+function fakeNclBrowser({ more = false, captured = true, recoveryOk = true } = {}) {
+  const state = { closed: false, requests: 0 };
+  const card = { code: lunaItinerary.code, bookingUrl: 'https://www.ncl.com/uk/en/cruises/luna' };
+  const page = {
+    on(event, handler) {
+      if (captured && event === 'response') handler({
+        url: () => 'https://www.ncl.com/uk/en/api/vacations/v2/search-result-itinerary/' + card.code,
+        json: async () => lunaItinerary,
+      });
+    },
+    goto: async () => {}, waitForTimeout: async () => {}, waitForSelector: async () => {},
+    $$eval: async () => [card],
+    locator: () => ({ count: async () => 1 }),
+    getByRole: () => ({ last: () => ({ isVisible: async () => more, evaluate: async () => {} }) }),
+    waitForFunction: async () => { throw new Error('Timed out'); },
+    request: { get: async () => {
+      state.requests++;
+      return { ok: () => recoveryOk, json: async () => lunaItinerary };
+    } },
+  };
+  return { state, browser: { launch: async () => ({ newPage: async () => page, close: async () => { state.closed = true; } }) } };
+}
+
+test('collector expands every captured departure instead of only the first card date', async () => {
+  const { state, browser } = fakeNclBrowser();
+  const result = await provider.collectCruiseCards(browser);
+  assert.equal(result.length, 32);
+  assert.ok(result.some(c => c.bookingUrl.includes('voyageId=25337848')));
+  assert.equal(state.requests, 0);
+  assert.equal(state.closed, true);
+});
+
+test('collector recovers missing API details and rejects failed recovery', async () => {
+  const { state, browser } = fakeNclBrowser({ captured: false });
+  assert.equal((await provider.collectCruiseCards(browser)).length, 32);
+  assert.equal(state.requests, 1);
+  const failed = fakeNclBrowser({ captured: false, recoveryOk: false });
+  await assert.rejects(provider.collectCruiseCards(failed.browser), /Could not load sailings/);
+  assert.equal(failed.state.closed, true);
+});
+
+test('collector rejects incomplete pagination so a partial list cannot overwrite good data', async () => {
+  const { state, browser } = fakeNclBrowser({ more: true });
+  await assert.rejects(provider.collectCruiseCards(browser), /Incomplete pagination/);
+  assert.equal(state.closed, true);
+});
+
+test('imports all 32 Luna departures, including 7 November 2027, with sailing-specific fares and links', () => {
+  const card = { code: lunaItinerary.code, bookingUrl: 'https://www.ncl.com/uk/en/cruises/luna?itineraryCode=' + lunaItinerary.code };
+  const cruises = provider.expandItineraryCard(card, lunaItinerary).map(({ detail, bookingUrl }) => provider.normalizeCruise(detail, bookingUrl));
+  assert.equal(cruises.length, 32);
+  assert.equal(new Set(cruises.map(c => c.id)).size, 32);
+  const cruise = cruises.find(c => c.departureDate === '2027-11-07');
+  assert.ok(cruise);
+  assert.equal(cruise.id, 'ncl_LUNA7MIAPOPSTTTOVNPIMIA_2027-11-07');
+  assert.equal(cruise.shipName, 'Norwegian Luna');
+  assert.equal(cruise.arrivalDate, '2027-11-14');
+  assert.equal(cruise.currency, 'GBP');
+  assert.equal(cruise.priceFrom, '780');
+  assert.deepEqual(cruise.prices, { inside: '780', oceanView: '935', balcony: '1165', suite: '1790' });
+  const url = new URL(cruise.bookingUrl);
+  assert.equal(url.pathname, '/uk/en/booking/stateroom-offers/stateroom');
+  assert.equal(url.searchParams.get('voyageId'), '25337848');
+  assert.equal(url.searchParams.get('itineraryCode'), lunaItinerary.code);
+  assert.equal(url.searchParams.get('sailDate'), '2027-11-07');
+  assert.equal(url.searchParams.get('shipCode'), 'LUNA');
+  const reversed = provider.expandItineraryCard(card, { ...lunaItinerary, sailings: [...lunaItinerary.sailings].reverse() })
+    .map(({ detail, bookingUrl }) => provider.normalizeCruise(detail, bookingUrl).id).sort();
+  assert.deepEqual(reversed, cruises.map(c => c.id).sort(), 'IDs are independent of itinerary ordering');
+});
+
+test('does not reuse another departure or the summary card price for an unpriced sailing', () => {
+  const api = { ...lunaItinerary, sailings: [
+    { ...lunaItinerary.sailings[0], staterooms: [] },
+    lunaItinerary.sailings[1],
+  ] };
+  const [empty, priced] = provider.expandItineraryCard({ code: api.code, priceFrom: '999' }, api)
+    .map(({ detail, bookingUrl }) => provider.normalizeCruise(detail, bookingUrl));
+  assert.equal(empty.priceFrom, '');
+  assert.deepEqual(empty.prices, { inside: null, oceanView: null, balcony: null, suite: null });
+  assert.notEqual(priced.priceFrom, '');
+  assert.notEqual(empty.id, priced.id);
+});
+
+test('rejects invalid API dates instead of attributing other sailings to the card date', () => {
+  assert.throws(() => provider.expandItineraryCard({ code: 'LUNA' }, {
+    sailings: [{ departureDate: 'unknown' }],
+  }), /Invalid sailing date/);
+});
 
 test('extracts NCL cards without relying on Node-scope helpers', () => {
   const bookingUrl = 'https://www.ncl.com/uk/en/cruises/test?itineraryCode=EPIC7BCNTEST';
@@ -61,7 +154,7 @@ test('normalizes Norwegian Cruise Line itinerary details', () => {
 
   assert.deepEqual(cruise, {
     provider: 'Norwegian Cruise Line',
-    id: 'ncl_SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU',
+    id: 'ncl_SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU_2026-07-18',
     shipName: 'Norwegian Sky',
     shipClass: 'Sun',
     shipLaunchYear: 1999,

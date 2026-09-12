@@ -2,13 +2,13 @@
 
 const { chromium } = require('@playwright/test');
 
-const { getDepartureRegion, estimateSeaDays, cleanText, getDestinationPort } = require('./shared');
+const { getDepartureRegion, estimateSeaDays, cleanText, getDestinationPort, fetchWithTimeout } = require('./shared');
+const { refreshNcl } = require('./ncl-incremental');
 
 const NCL_BASE_URL = 'https://www.ncl.com';
 const NCL_CRUISES_URL = 'https://www.ncl.com/uk/en/vacations';
 const NCL_PAGE_WAIT_MS = 800;
 const NCL_MAX_PAGINATION_STEPS = 60;
-const NCL_MAX_BOOKING_FALLBACKS = 40;
 const NCL_EMPTY_LOAD_RETRIES = 2;
 
 const SHIP_CLASS = {
@@ -342,41 +342,6 @@ function extractDateFromText(text) {
   return '';
 }
 
-async function extractPriceFromBookingPage(browser, bookingUrl) {
-  if (!bookingUrl) return '';
-
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1800 } });
-  try {
-    await page.goto(bookingUrl, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await page.waitForTimeout(NCL_PAGE_WAIT_MS);
-    const text = await page.evaluate(() => document.body?.innerText || '');
-    return extractPriceFromText(text);
-  } catch (err) {
-    console.warn(`  [NCL] price extract failed for ${bookingUrl}: ${err.message}`);
-    return '';
-  } finally {
-    await page.close();
-  }
-}
-
-async function extractDateFromBookingPage(browser, bookingUrl) {
-  if (!bookingUrl) return '';
-
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1800 } });
-  try {
-    await page.goto(bookingUrl, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await page.waitForTimeout(NCL_PAGE_WAIT_MS);
-    const text = await page.evaluate(() => document.body?.innerText || '');
-    const dateText = extractDateFromText(text);
-    return dateText || '';
-  } catch (err) {
-    console.warn(`  [NCL] date extract failed for ${bookingUrl}: ${err.message}`);
-    return '';
-  } finally {
-    await page.close();
-  }
-}
-
 function normalizeCruise(detail, bookingUrl) {
   const shipName = cleanText(detail?.ship?.title);
   const departurePort = cleanText(detail?.embarkationPort?.title);
@@ -415,25 +380,31 @@ function normalizeCruise(detail, bookingUrl) {
     seaDaysIncludeEndpoints = false;
   }
 
-  const roomPrices = extractRoomTypePrices(detail);
-  const arrivalDate = cleanText(sailing?.returnDate || sailing?.sailEndDate);
+  // Prices belong to this departure, never the cheapest room on another date.
+  const singleSailing = { sailings: sailing ? [sailing] : [] };
+  const roomPrices = extractRoomTypePrices(singleSailing);
+  const departureDate = formatEpochDate(sailing?.departureDate ?? sailing?.sailStartDate)
+    || buildDepartureDate(sailing?.departureDate || sailing?.sailStartDate, sailing?.returnDate || detail?.returnDate);
+  const arrivalDate = formatEpochDate(sailing?.returnDate ?? sailing?.sailEndDate)
+    || cleanText(sailing?.returnDate || sailing?.sailEndDate);
+  const dateKey = /^\d{4}-\d{2}-\d{2}$/.test(departureDate) ? `_${departureDate}` : '';
 
   return {
     provider: 'Norwegian Cruise Line',
-    id: `ncl_${itineraryCode || extractItineraryCode(bookingUrl) || ''}`,
+    id: `ncl_${itineraryCode || extractItineraryCode(bookingUrl) || ''}${dateKey}`,
     shipName,
     shipClass: SHIP_CLASS[shipName] || '',
     shipLaunchYear: SHIP_LAUNCH_YEAR[shipName] || null,
     itinerary: buildDetailedNclItinerary(baseItinerary, itineraryPorts),
-    departureDate: buildDepartureDate(sailing?.departureDate || sailing?.sailStartDate, sailing?.returnDate || detail?.returnDate),
+    departureDate,
     duration: cleanText(detail?.duration?.text || ''),
     departurePort,
     departureRegion: getDepartureRegion(departurePort),
     destination: cleanText(detail?.destination?.title || detail?.shortTitle || detail?.title),
     ...(destinationPort ? { destinationPort } : {}),
     ...(arrivalDate ? { arrivalDate } : {}),
-    priceFrom: getLowestPrice(detail)?.toString() || '',
-    currency: cleanText(detail?.currency) || 'GBP',
+    priceFrom: getLowestPrice(singleSailing)?.toString() || '',
+    currency: cleanText(detail?.currency?.code || detail?.currency) || 'GBP',
     bookingUrl: resolveUrl(bookingUrl),
     prices: roomPrices,
     seaDays: estimateSeaDays({
@@ -442,6 +413,38 @@ function normalizeCruise(detail, bookingUrl) {
       portsIncludeEndpoints: seaDaysIncludeEndpoints,
     }),
   };
+}
+
+function expandItineraryCard(card, api) {
+  if (Array.isArray(api?.sailings) && api.sailings.length) {
+    return api.sailings.map(sailing => {
+      const departureDate = formatEpochDate(sailing.departureDate ?? sailing.sailStartDate)
+        || cleanText(sailing.departureDate || sailing.sailStartDate);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(departureDate)) {
+        throw new Error(`[NCL] Invalid sailing date for ${card.code}`);
+      }
+      let bookingUrl = card.bookingUrl;
+      if (sailing.packageId && api.ship?.code) {
+        // NCL's public booking flow calls the API packageId a voyageId.
+        const room = (sailing.staterooms || []).find(room => toNumber(room.combinedPrice) > 0);
+        const params = new URLSearchParams({
+          itineraryCode: sailing.itineraryCode || card.code,
+          voyageId: String(sailing.packageId),
+          sailDate: departureDate,
+          departureDate,
+          shipCode: api.ship.code,
+          guestCount: '2',
+          selectedStateroomMeta: room?.code || 'INSIDE',
+        });
+        bookingUrl = `${NCL_BASE_URL}/uk/en/booking/stateroom-offers/stateroom?${params}`;
+      }
+      return {
+        code: card.code, bookingUrl,
+        detail: { ...api, code: card.code, sailings: [sailing] },
+      };
+    });
+  }
+  throw new Error('[NCL] No sailings returned for ' + card.code);
 }
 
 function extractCruiseCardsFromArticles(articles) {
@@ -495,8 +498,8 @@ async function waitForAnyCruiseCard(page, attempt) {
   }
 }
 
-async function collectCruiseCards() {
-  const browser = await chromium.launch({ headless: true, args: ['--disable-http2'] });
+async function collectCruiseCards(browserType = chromium, options = {}) {
+  const browser = await browserType.launch({ headless: true, args: ['--disable-http2'] });
   const page = await browser.newPage({
     viewport: { width: 1440, height: 1800 },
     userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
@@ -505,8 +508,14 @@ async function collectCruiseCards() {
   });
   const itineraryDetails = new Map();
   const itineraryPromises = [];
+  const cards = new Map();
+  const started = Date.now();
+  let deniedStatus = 0;
 
   page.on('response', response => {
+    if (response.url().includes('/api/vacations/') && [403, 429].includes(response.status?.())) {
+      deniedStatus = response.status();
+    }
     const match = response.url().match(/\/api\/vacations\/v2\/search-result-itinerary\/([^?/#]+)/i);
     if (!match) return;
 
@@ -522,13 +531,16 @@ async function collectCruiseCards() {
   });
 
   try {
-    await page.goto(NCL_CRUISES_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    const response = await page.goto(NCL_CRUISES_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    if ([403, 429].includes(response?.status())) {
+      throw Object.assign(new Error('NCL discovery denied'), { status: response.status() });
+    }
     await page.waitForTimeout(NCL_PAGE_WAIT_MS);
     await waitForAnyCruiseCard(page, 0);
 
-    const cards = new Map();
-
     for (let step = 0; step < NCL_MAX_PAGINATION_STEPS; step++) {
+      if (deniedStatus) throw Object.assign(new Error('NCL discovery denied'), { status: deniedStatus });
+      if (Date.now() - started > 120000) throw new Error('NCL discovery time limit reached');
       const pageCards = await page.$$eval('article.c495', extractCruiseCardsFromArticles);
 
       pageCards.forEach(card => {
@@ -536,12 +548,19 @@ async function collectCruiseCards() {
           cards.set(card.code, card);
         }
       });
+      if (options.onProgress) {
+        await Promise.allSettled(itineraryPromises);
+        await options.onProgress(Array.from(cards.values()), itineraryDetails);
+      }
 
       const visibleCount = await page.locator('article.c495').count();
       const moreButton = page.getByRole('button', { name: /view more results/i }).last();
       const hasMore = await moreButton.isVisible().catch(() => false);
 
       if (!hasMore) break;
+      if (step === NCL_MAX_PAGINATION_STEPS - 1) {
+        throw new Error(`[NCL] Pagination limit reached after ${cards.size} itineraries`);
+      }
 
       await moreButton.evaluate(button => button.click());
       try {
@@ -551,88 +570,39 @@ async function collectCruiseCards() {
           { timeout: 15000 }
         );
       } catch {
-        console.warn(`  [NCL] pagination stopped after ${cards.size} cards because the result count did not increase.`);
-        break;
+        throw Object.assign(new Error(`[NCL] Incomplete pagination after ${cards.size} itineraries: result count did not increase`), { status: deniedStatus });
       }
     }
 
+    if (!cards.size) throw new Error('[NCL] No itinerary cards loaded');
     await Promise.allSettled(itineraryPromises);
+    if (options.discoveryOnly) return [];
 
-    const cruises = Array.from(cards.values()).map(card => {
-      // The itinerary API (already captured for pricing) is the source of truth
-      // for sail dates and the port sequence; the card DOM selectors are a
-      // fallback for the handful of cruises whose API detail wasn't captured.
-      const api = itineraryDetails.get(card.code);
-      const apiSailing = api?.sailings?.[0];
-      const apiRooms = Array.isArray(apiSailing?.staterooms) ? apiSailing.staterooms : [];
-      const portsOfCall = Array.isArray(api?.portsOfCall) ? api.portsOfCall : [];
-      const departureDate = formatEpochDate(apiSailing?.departureDate ?? apiSailing?.sailStartDate)
-        || buildDepartureDate(card.departureDate, card.returnDate);
-      const returnDate = formatEpochDate(apiSailing?.returnDate ?? apiSailing?.sailEndDate)
-        || extractFirstDateText(card.returnDate);
-      return {
-        code: card.code,
-        bookingUrl: card.bookingUrl,
-        detail: {
-          code: card.code,
-          title: card.itinerary,
-          shortTitle: card.itinerary,
-          duration: { text: card.duration },
-          currency: card.currency,
-          ship: { title: card.shipName },
-          destination: { title: card.destination },
-          embarkationPort: { title: card.departurePort },
-          portsOfCall,
-          sailings: [{
-            departureDate,
-            sailStartDate: departureDate,
-            returnDate,
-            staterooms: apiRooms.length > 0
-              ? apiRooms
-              : [{ code: 'INSIDE', title: 'Inside', combinedPrice: card.priceFrom }],
-          }],
-        },
-      };
-    });
-
-    let bookingFallbacks = 0;
-    let skippedBookingFallbacks = 0;
-    for (const cruise of cruises) {
-      const sailing = Array.isArray(cruise.detail?.sailings) ? cruise.detail.sailings[0] : null;
-      const hasPrice = Boolean(sailing?.staterooms?.some(room => cleanText(room?.combinedPrice)));
-      const hasDepartureDate = Boolean(cleanText(sailing?.departureDate));
-      const needsBookingFallback = !hasDepartureDate || !hasPrice;
-
-      if (needsBookingFallback && bookingFallbacks >= NCL_MAX_BOOKING_FALLBACKS) {
-        skippedBookingFallbacks++;
-        continue;
+    // Responses can arrive late or fail during pagination. Recover missing
+    // details explicitly so those cards do not collapse to one departure.
+    for (const card of cards.values()) {
+      if (itineraryDetails.get(card.code)?.sailings?.length) continue;
+      const response = await page.request.get(
+        NCL_BASE_URL + '/uk/en/api/vacations/v2/search-result-itinerary/' + encodeURIComponent(card.code),
+        { timeout: 30000 }
+      );
+      if (!response.ok()) throw new Error('[NCL] Could not load sailings for ' + card.code);
+      const detail = await response.json();
+      if (!Array.isArray(detail?.sailings) || !detail.sailings.length) {
+        throw new Error('[NCL] No sailings returned for ' + card.code);
       }
-
-      if (needsBookingFallback) bookingFallbacks++;
-
-      if (!hasDepartureDate) {
-        const bookingDate = await extractDateFromBookingPage(browser, cruise.bookingUrl);
-        if (bookingDate) {
-          sailing.departureDate = bookingDate;
-          sailing.sailStartDate = bookingDate;
-        }
-      }
-
-      if (!hasPrice) {
-        const bookingPrice = await extractPriceFromBookingPage(browser, cruise.bookingUrl);
-        if (bookingPrice) {
-          sailing.staterooms = [{ combinedPrice: bookingPrice }];
-        }
-      }
+      itineraryDetails.set(card.code, detail);
     }
-
-    if (skippedBookingFallbacks) {
-      console.warn(`  [NCL] skipped ${skippedBookingFallbacks} booking-page fallback(s) after ${NCL_MAX_BOOKING_FALLBACKS} attempts.`);
-    }
+    const cruises = Array.from(cards.values()).flatMap(card =>
+      expandItineraryCard(card, itineraryDetails.get(card.code))
+    );
 
     return cruises;
   } finally {
-    await browser.close();
+    try {
+      await Promise.allSettled(itineraryPromises);
+      if (options.onProgress) await options.onProgress(Array.from(cards.values()), itineraryDetails);
+    } finally { await browser.close(); }
   }
 }
 
@@ -646,18 +616,31 @@ class NclCruisesProvider {
     return normalizeCruise(detail, bookingUrl);
   }
 
-  async fetchCruises() {
-    const itineraryLinks = await collectCruiseCards();
-    const cruises = [];
-
-    for (const { detail, bookingUrl } of itineraryLinks) {
-      const cruise = this.normalizeCruise(detail, bookingUrl);
-      if (cruise?.id && cruise.shipName) {
-        cruises.push(cruise);
-      }
-    }
-
-    console.log(`  [NCL] ${cruises.length} / ${itineraryLinks.length}`);
+  async fetchCruises(options = {}) {
+    const { cruises, state } = await refreshNcl({
+      priorState: options.priorScrapeState,
+      priorCruises: options.priorEnrichmentById,
+      priorArchive: options.priorArchiveById,
+      save: options.onScrapeState,
+      normalize: (card, api) => {
+        if (api?.code !== card.code || !Array.isArray(api.sailings)) throw new Error('Invalid NCL itinerary response');
+        if (!api.sailings.length) return []; // A valid retired itinerary, not a failed request.
+        return expandItineraryCard(card, api).map(({ detail, bookingUrl }) => normalizeCruise(detail, bookingUrl));
+      },
+      loadItinerary: async code => {
+        const response = await fetchWithTimeout(`${NCL_BASE_URL}/uk/en/api/vacations/v2/search-result-itinerary/${encodeURIComponent(code)}`);
+        if (!response.ok) {
+          const retryAfter = response.headers.get('retry-after');
+          const retryAfterMs = /^\d+$/.test(retryAfter || '') ? Number(retryAfter) * 1000
+            : Math.max(0, Date.parse(retryAfter) - Date.now()) || 0;
+          throw Object.assign(new Error(`NCL HTTP ${response.status}`), { status: response.status, retryAfterMs });
+        }
+        return response.json();
+      },
+      discover: onProgress => collectCruiseCards(chromium, { onProgress, discoveryOnly: true }),
+    });
+    console.log(`  [NCL] ${state.status.freshItineraries}/${state.status.knownItineraries} known itineraries checked within 48 hours; ${cruises.length} retained sailings`);
+    if (!cruises.length) throw new Error('[NCL] No saved sailings yet; import progress retained');
     return cruises;
   }
 }
@@ -678,3 +661,5 @@ module.exports.buildDetailedNclItinerary = buildDetailedNclItinerary;
 module.exports.classifyRoomType = classifyRoomType;
 module.exports.extractRoomTypePrices = extractRoomTypePrices;
 module.exports.extractCruiseCardsFromArticles = extractCruiseCardsFromArticles;
+
+module.exports.expandItineraryCard = expandItineraryCard;

@@ -53,6 +53,21 @@ function getProviderPortMapPath(providerId) {
   return path.join(PROVIDERS_DIR, providerId, 'port-map.json');
 }
 
+function readScrapeState(providerId) {
+  try { return JSON.parse(fs.readFileSync(path.join(PROVIDERS_DIR, providerId, 'scrape-state.json'), 'utf8')); }
+  catch { return null; }
+}
+
+function writeScrapeState(providerId, state) {
+  const dir = path.join(PROVIDERS_DIR, providerId);
+  fs.mkdirSync(dir, { recursive: true });
+  for (const [name, value] of [['scrape-state.json', state], ['scrape-status.json', state.status]]) {
+    const target = path.join(dir, name);
+    fs.writeFileSync(target + '.tmp', JSON.stringify(value) + '\n');
+    fs.renameSync(target + '.tmp', target);
+  }
+}
+
 function readProviderPortMap(providerId) {
   try {
     const data = JSON.parse(fs.readFileSync(getProviderPortMapPath(providerId), 'utf8'));
@@ -172,7 +187,9 @@ function entrySignature(entry) {
 
 function mergePriceHistory(providerId, prevCruise, newCruise, scrapedAt) {
   const history = sanitizePriceHistoryForProvider(providerId, prevCruise?.priceHistory);
-  const newEntry = buildHistoryEntry(newCruise, scrapedAt);
+  const observedAt = providerId === 'ncl-cruises' ? newCruise.priceCheckedAt || prevCruise?.lastSeenAt : scrapedAt;
+  if (providerId === 'ncl-cruises' && 'priceCheckedAt' in newCruise && !observedAt) return history;
+  const newEntry = buildHistoryEntry(newCruise, observedAt || scrapedAt);
   if (!newEntry) return history.slice(-MAX_PRICE_HISTORY);
   if (history.length === 0 && isInvalidLeadingHistoryEntry(providerId, newEntry)) {
     return history;
@@ -291,6 +308,9 @@ async function fetchProviderSnapshot(provider, options = {}) {
       priorEnrichmentById: options.priorEnrichmentById,
       priorPortMap:        options.priorPortMap,
       onPortMap:           options.onPortMap,
+      priorScrapeState:    options.priorScrapeState,
+      priorArchiveById:    options.priorArchiveById,
+      onScrapeState:       options.onScrapeState,
     });
     if (Array.isArray(cruises) && cruises.length > 0) {
       console.log(`  ✓ ${cruises.length} cruises from ${provider.name}`);
@@ -329,6 +349,11 @@ async function fetchAllSnapshots(activeProviders, options = {}) {
       priorEnrichmentById: priorByProvider.get(provider.id),
       priorPortMap:        readProviderPortMap(provider.id),
       onPortMap:           (portMap) => writeProviderPortMap(provider.id, portMap),
+      ...(provider.id === 'ncl-cruises' ? {
+        priorScrapeState: readScrapeState(provider.id),
+        priorArchiveById: readPreviousArchive(provider.id),
+        onScrapeState: state => writeScrapeState(provider.id, state),
+      } : {}),
     };
     try {
       settled.push({ status: 'fulfilled', value: await fetchProviderSnapshot(provider, providerOptions) });
@@ -532,7 +557,8 @@ async function main() {
         destinationPort: canonicalPortName(cruise.destinationPort),
         firstSeenAt: firstSeenAt(prevCruise, priceHistory, scrapedAt),
         priceHistory,
-        lastSeenAt:  scrapedAt,
+        lastSeenAt: snapshot.provider.id === 'ncl-cruises' && 'priceCheckedAt' in cruise
+          ? cruise.priceCheckedAt || prevCruise?.lastSeenAt || null : scrapedAt,
       };
     });
 

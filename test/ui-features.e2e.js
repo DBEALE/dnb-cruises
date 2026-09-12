@@ -136,6 +136,32 @@ async function gotoFresh(page, settings = null, fixtures = {}) {
   await page.waitForSelector('tbody tr:not(.empty-row)');
 }
 
+test('NCL imports expose the Luna November 2027 sailing in date searches', async ({ page }) => {
+  await page.setViewportSize({ width: 1680, height: 900 });
+  const ncl = require('../providers/ncl-cruises');
+  const api = require('./fixtures/ncl-luna-sailings.json');
+  const cruises = ncl.expandItineraryCard({ code: api.code }, api)
+    .map(({ detail, bookingUrl }) => ncl.normalizeCruise(detail, bookingUrl));
+  await page.route('**/functions/v1/visitor-count', route => route.fulfill({ json: { uniqueVisitors: 12, totalVisits: 34 } }));
+  await gotoFresh(page, null, { royalCaribbean: { cruises }, celebrity: { cruises: [] } });
+  await expect(page.locator('#summary')).toContainText('all 32');
+  await page.click('#departureRangeBtn');
+  await page.fill('#departureRangeStart', '2027-11-07');
+  await page.fill('#departureRangeEnd', '2027-11-07');
+  await page.click('#departureRangeApply');
+  await expect(page.locator('#summary')).toContainText('1 of 32');
+  await expect(page.locator('#cruiseBody')).toContainText('Norwegian Luna');
+  await expect(page.locator('#cruiseBody')).toContainText('7 Nov 2027');
+  await expect(page.locator('#cruiseBody')).toContainText('£1,165');
+  await expect(page.locator('.cabin-price-link').first()).toHaveAttribute('href', /voyageId=25337848/);
+  await expect(page.locator('#visitorStats')).toContainText('12 unique');
+  await page.screenshot({ path: 'docs/screenshots/ncl-luna-sailing-desktop.png', animations: 'disabled' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('#cruiseBody > tr').first().scrollIntoViewIfNeeded();
+  await expect(page.locator('#cruiseBody')).toContainText('7 Nov 2027');
+  await page.screenshot({ path: 'docs/screenshots/ncl-luna-sailing-mobile.png', animations: 'disabled' });
+});
+
 test('Virgin price links select the exact sailing in legacy and fresh data', async ({ page }) => {
   await page.route('**/functions/v1/visitor-count', route => route.fulfill({ json: { uniqueVisitors: 12, totalVisits: 34 } }));
   const expected = 'https://www.virginvoyages.com/book/voyage-planner/pre-checkout?currencyCode=GBP&packageCode=7NLAX&voyageId=BR2610107NLAX';
