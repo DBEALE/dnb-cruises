@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 784,
+  "count": 786,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -62879,6 +62879,80 @@
             "inside": 1199,
             "oceanView": 1389,
             "suite": 1764
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_CSR07F_KP_20270110",
+      "shipName": "Crown Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2006,
+      "itinerary": "San Juan, Puerto Rico → St. Thomas, Virgin Islands → St. Maarten → Antigua → St. Lucia → Barbados → San Juan, Puerto Rico",
+      "departureDate": "2027-01-10",
+      "duration": "7 Nights",
+      "departurePort": "San Juan",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "destinationPort": "San Juan",
+      "priceFrom": "669",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3703",
+      "prices": {
+        "inside": "669",
+        "oceanView": "869",
+        "balcony": "1634",
+        "suite": "2329"
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-09-11T22:07:20.635Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 669,
+            "oceanView": 869,
+            "balcony": 1634,
+            "suite": 2329
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_CSR14L_KP_20270110",
+      "shipName": "Crown Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2006,
+      "itinerary": "San Juan, Puerto Rico → St. Thomas, Virgin Islands → St. Maarten → Antigua → St. Lucia → Barbados → San Juan, Puerto Rico → St. Maarten → Martinique → Grenada → St. Lucia → Barbados → San Juan, Puerto Rico",
+      "departureDate": "2027-01-10",
+      "duration": "14 Nights",
+      "departurePort": "San Juan",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "destinationPort": "San Juan",
+      "priceFrom": "1716",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=3703A",
+      "prices": {
+        "inside": "1716",
+        "oceanView": "2016",
+        "balcony": "3696",
+        "suite": "5096"
+      },
+      "seaDays": 2,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-09-11T22:07:20.635Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 1716,
+            "oceanView": 2016,
+            "balcony": 3696,
+            "suite": 5096
           }
         }
       ]
