@@ -133,7 +133,7 @@ function normalizeVoyage(voyage, portMap = {}) {
     priceFrom: Number.isFinite(minPrice) && minPrice > 0 ? String(Math.round(minPrice)) : '',
     currency: 'GBP',
     prices: { inside: null, oceanView: null, balcony: null, suite: null },
-    bookingUrl: `https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=${encodeURIComponent(voyageId)}&currencyCode=GBP`,
+    bookingUrl: `https://www.virginvoyages.com/book/voyage-planner/pre-checkout?currencyCode=GBP&packageCode=${encodeURIComponent(voyage.packageCode)}&voyageId=${encodeURIComponent(voyageId)}`,
     arrivalDate: cleanText(voyage?.endDate).slice(0, 10),
   };
 }

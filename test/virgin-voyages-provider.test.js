@@ -48,7 +48,7 @@ test('normalizes a voyage into the shared cruise contract', () => {
   assert.equal(c.currency, 'GBP');
   assert.deepEqual(c.prices, { inside: null, oceanView: null, balcony: null, suite: null });
   assert.equal(c.itinerary, 'Seattle, Washington → Ketchikan, Alaska → Sitka, Alaska → Prince Rupert, British Columbia');
-  assert.match(c.bookingUrl, /voyageId=BR2607097NSBE/);
+  assert.equal(c.bookingUrl, 'https://www.virginvoyages.com/book/voyage-planner/pre-checkout?currencyCode=GBP&packageCode=7NSBE&voyageId=BR2607097NSBE');
 });
 
 test('maps all four Lady ships from their codes', () => {

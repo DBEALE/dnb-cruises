@@ -136,6 +136,41 @@ async function gotoFresh(page, settings = null, fixtures = {}) {
   await page.waitForSelector('tbody tr:not(.empty-row)');
 }
 
+test('Virgin price links select the exact sailing in legacy and fresh data', async ({ page }) => {
+  await page.route('**/functions/v1/visitor-count', route => route.fulfill({ json: { uniqueVisitors: 12, totalVisits: 34 } }));
+  const expected = 'https://www.virginvoyages.com/book/voyage-planner/pre-checkout?currencyCode=GBP&packageCode=7NLAX&voyageId=BR2610107NLAX';
+  const fixtures = {
+    royalCaribbean: { cruises: [
+      ...['legacy', 'fresh'].map((kind) => ({
+        ...cruise({ id: kind, shipName: 'Brilliant Lady', provider: 'Virgin Voyages', priceFrom: 1048,
+          departureDate: '2026-10-10', arrivalDate: '2026-10-17', port: 'Los Angeles',
+          itinerary: 'Mexican Riviera Cruise', prices: { inside: '1048', balcony: '1500' } }),
+        shipClass: 'Lady', shipLaunchYear: 2025, departureRegion: 'Americas',
+        bookingUrl: kind === 'legacy'
+          ? 'https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?voyageId=BR2610107NLAX&currencyCode=GBP'
+          : expected,
+      })),
+    ] },
+  };
+  await gotoFresh(page, null, fixtures);
+  const links = page.locator('.cabin-price-link');
+  await expect(links).toHaveCount(7);
+  const hrefs = await links.evaluateAll(nodes => nodes.map(node => node.href));
+  const virginLinks = hrefs.filter(href => href.includes('virginvoyages.com'));
+  expect(virginLinks).toHaveLength(4);
+  for (const href of virginLinks) {
+    const url = new URL(href);
+    expect(url.pathname).toBe('/book/voyage-planner/pre-checkout');
+    expect(Object.fromEntries(url.searchParams)).toEqual({ currencyCode: 'GBP', packageCode: '7NLAX', voyageId: 'BR2610107NLAX' });
+  }
+  expect(hrefs.filter(href => !href.includes('virginvoyages.com')).every(href => href.endsWith('/booking/cel_a'))).toBe(true);
+  await expect(page.locator('#visitorStats')).toContainText('12 unique');
+  await page.screenshot({ path: 'docs/screenshots/virgin-sailing-links-desktop.png', animations: 'disabled' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('#cruiseBody > tr').filter({ hasText: 'Brilliant Lady' }).first().scrollIntoViewIfNeeded();
+  await page.screenshot({ path: 'docs/screenshots/virgin-sailing-links-mobile.png', animations: 'disabled' });
+});
+
 // Settings preset for tests that need sparklines + per-night visible
 // (they're off by default for first-time visitors).
 const ALL_ON = {

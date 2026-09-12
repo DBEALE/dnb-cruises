@@ -108,6 +108,11 @@
   const SITE_CHANGES = [
     {
       date: '9 Sep 2026',
+      title: 'Virgin links open the selected sailing',
+      items: ['Virgin Voyages price links now open the specific ship and sailing dates, including links in previously loaded cruise data.'],
+    },
+    {
+      date: '9 Sep 2026',
       title: 'Choose multiple cruise lines and ships',
       items: [
         'Select any combination of cruise lines and ships in Sort & filter. Search the ship list, tick your choices, then close filters to see results. Saved views and shared searches keep every selection.',
@@ -2437,10 +2442,29 @@
     return String(c?.destinationPort || inferDestinationPortFromItinerary(c?.itinerary) || '').trim();
   }
 
+  function cruiseBookingUrl(c) {
+    const original = c.bookingUrl ? absoluteUrl(c.bookingUrl) : '';
+    if (!original) return '';
+    // Upgrade historical snapshots whose voyageId was ignored by the search page.
+    try {
+      const url = new URL(original);
+      if (url.hostname === 'www.virginvoyages.com' && url.pathname === '/book/voyage-planner/find-a-voyage') {
+        const voyageId = url.searchParams.get('voyageId') || '';
+        const match = /^(?:BR|RS|SC|VL)\d{6}([A-Z0-9]+)$/.exec(voyageId);
+        if (match) {
+          url.pathname = '/book/voyage-planner/pre-checkout';
+          url.searchParams.set('packageCode', match[1]);
+          return url.href;
+        }
+      }
+    } catch { /* Keep other providers' links unchanged. */ }
+    return original;
+  }
+
   function buildRowHtml(c, i, colFilters) {
     const date     = formatDateDisplay(c.departureDate);
     const duration = formatDurationDisplay(c.duration);
-    const url      = c.bookingUrl ? escHtml(absoluteUrl(c.bookingUrl)) : '';
+    const url      = escHtml(cruiseBookingUrl(c));
     const priceCell = buildPriceCell(c, url);
     const perNightBucket = PER_NIGHT_SORT_BUCKETS[sortColIndex];
     const perNight  = perNightBucket ? getRoomPricePerNight(c, perNightBucket) : getPricePerNight(c);
