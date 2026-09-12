@@ -1,7 +1,7 @@
 {
   "success": true,
-  "count": 183,
-  "priceCount": 717,
+  "count": 184,
+  "priceCount": 721,
   "provider": {
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
@@ -5130,7 +5130,35 @@
       "firstSeenAt": "2026-05-29T09:33:04.484Z",
       "lastSeenAt": "2026-09-12T10:07:05.176Z",
       "priceCheckedAt": "2026-09-12T10:07:05.176Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_AQUA4MIANPINASMIA_2028-04-24",
+      "shipName": "Norwegian Aqua",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2025,
+      "itinerary": "Bahamas: Great Stirrup Cay & Nassau",
+      "departureDate": "2028-04-24",
+      "duration": "4-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay & Nassau",
+      "destinationPort": "Miami",
+      "arrivalDate": "2028-04-28",
+      "priceFrom": "350",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=AQUA4MIANASNPIMIA&voyageId=26886768&sailDate=2028-04-24&departureDate=2028-04-24&shipCode=AQUA&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "350",
+        "oceanView": "385",
+        "balcony": "465",
+        "suite": "620"
+      },
+      "seaDays": 1,
+      "priceCheckedAt": "2026-09-12T12:10:20.913Z",
+      "firstSeenAt": "2026-09-12T12:10:20.913Z",
+      "lastSeenAt": "2026-09-12T12:10:20.913Z"
     }
   ],
-  "scrapedAt": "2026-09-12T12:10:20.904Z"
+  "scrapedAt": "2026-09-12T14:06:56.204Z"
 }
