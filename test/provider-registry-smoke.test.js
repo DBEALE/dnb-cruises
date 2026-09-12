@@ -123,7 +123,10 @@ test('every registered provider normalizes a representative sailing', () => {
     assert.equal(typeof provider.fetchCruises, 'function', `${provider.id} must expose fetchCruises()`);
     assert.equal(typeof provider.normalizeCruise, 'function', `${provider.id} must expose normalizeCruise()`);
 
-    const cruise = smokeCases[provider.id](provider);
+    // A provider whose source groups departures into one search result (Royal
+    // Caribbean) returns an array — one record per sailing. Assert on the first.
+    const [cruise] = [].concat(smokeCases[provider.id](provider));
+    assert.ok(cruise, `${provider.id} must normalize to at least one cruise`);
     assert.equal(cruise.provider, provider.name, `${provider.id} provider name`);
     assert.ok(cruise.id, `${provider.id} cruise id`);
     assert.ok(cruise.shipName, `${provider.id} ship name`);

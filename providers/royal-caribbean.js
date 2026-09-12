@@ -31,6 +31,23 @@ const CRUISE_SEARCH_QUERY = `query cruiseSearch_Cruises($filters: String, $quali
       cruises {
         id
         productViewLink
+        sailings {
+          id
+          bookingLink
+          sailDate
+          lowestStateroomClassPrice {
+            price {
+              value
+              currency {
+                code
+              }
+            }
+          }
+          stateroomClassPricing {
+            stateroomClass { name }
+            price { value currency { code } }
+          }
+        }
         lowestPriceSailing {
           bookingLink
           sailDate
@@ -152,15 +169,37 @@ function resolveBookingUrl(url) {
   return `https://www.royalcaribbean.com/gbr/en/${path}`;
 }
 
-function normalizeCruise(cruise) {
+/**
+ * Stable per-departure id for one sailing of a cruise product.
+ *
+ * RC's own `sailings[].id` is already `<packageCode>_<sailDate>`, which is
+ * exactly the identity we want: it survives price changes and re-sorting of the
+ * search results. Falls back to deriving the same shape from the sailing's
+ * booking link, then to the product id plus the sail date.
+ */
+function sailingKey(cruise, sailing) {
+  const own = cleanText(sailing?.id);
+  if (own) return own;
+
+  const sailDate = cleanText(sailing?.sailDate);
+  try {
+    const packageCode = new URL(resolveBookingUrl(sailing?.bookingLink)).searchParams.get('packageCode');
+    if (packageCode && sailDate) return `${packageCode}_${sailDate}`;
+  } catch { /* fall through */ }
+
+  const productId = cleanText(cruise?.id);
+  if (productId && sailDate) return `${productId}_${sailDate}`;
+  return productId;
+}
+
+function normalizeSailing(cruise, sailing, id) {
   const itinerary     = cruise?.masterSailing?.itinerary || {};
-  const sailing       = cruise?.lowestPriceSailing || cruise?.displaySailing || {};
   const price         = sailing?.lowestStateroomClassPrice?.price || {};
   const shipName      = itinerary?.ship?.name || '';
   const departurePort = itinerary?.departurePort?.name || '';
   return {
     provider:        'Royal Caribbean',
-    id:              `rc_${cruise.id || ''}`,
+    id,
     shipName,
     shipClass:       SHIP_CLASS[shipName] || '',
     shipLaunchYear:  SHIP_LAUNCH_YEAR[shipName] || null,
@@ -177,32 +216,74 @@ function normalizeCruise(cruise) {
   };
 }
 
-async function enrichCruiseItinerary(cruise) {
-  if (!cruise?.bookingUrl) return cruise;
+/**
+ * Expands one cruiseSearch result into one record per departure.
+ *
+ * A `cruise` in RC's cruiseSearch is a product (ship × route × package), not a
+ * departure: `lowestPriceSailing` is merely its cheapest date, while `sailings`
+ * holds every date — each with its own booking link and per-class pricing, in
+ * the same response. Reading only `lowestPriceSailing` published one date per
+ * route and dropped the rest (~70% of the catalogue).
+ *
+ * `priorIdByKey` maps a sailing key to the id a previous run published it under,
+ * so ids stay stable across the switch from product-level to departure-level
+ * records (keeping price history attached and avoiding a phantom archive entry
+ * for every product). New sailings simply use their own key.
+ */
+function normalizeCruise(cruise, priorIdByKey = null) {
+  const sailings = Array.isArray(cruise?.sailings) && cruise.sailings.length > 0
+    ? cruise.sailings
+    : [cruise?.lowestPriceSailing || cruise?.displaySailing].filter(Boolean);
 
-  const context = parseBookingContext(cruise.bookingUrl);
-  if (!context) return cruise;
+  return sailings.map(sailing => {
+    const key = sailingKey(cruise, sailing);
+    const id = (key && priorIdByKey?.get(key)) || `rc_${key || ''}`;
+    return normalizeSailing(cruise, sailing, id);
+  });
+}
 
-  try {
-    const { ports } = await fetchRoomSelectionData(context);
-    const detailedItinerary = buildDetailedItinerary(cruise.itinerary, ports);
-    return {
-      ...cruise,
-      itinerary: detailedItinerary || cruise.itinerary,
-      destinationPort: getDestinationPort(ports),
-      seaDays: estimateSeaDays({
-        labels: ports,
-        duration: cruise.duration,
-        portsIncludeEndpoints: true,
-      }),
-      // Stamp only on success so a failed (degraded) enrichment is retried next
-      // run rather than cached. Enables cross-run reuse (see fetchCruises).
-      enrichedAt: new Date().toISOString(),
-    };
-  } catch (err) {
-    console.warn(`  [RC] enrich failed for ${cruise.id || cruise.bookingUrl}: ${err.message}`);
-    return cruise;
+/**
+ * Indexes the previous run's records by sailing key so `normalizeCruise` can
+ * keep publishing each departure under the id it already has. Records whose
+ * booking URL carries no packageCode/sailDate are skipped — they cannot be
+ * matched to a fresh sailing.
+ */
+function buildPriorIdIndex(priorById) {
+  const index = new Map();
+  if (!(priorById instanceof Map)) return index;
+  for (const cruise of priorById.values()) {
+    const context = parseBookingContext(cruise?.bookingUrl);
+    if (!context || !cruise.id) continue;
+    const key = `${context.packageCode}_${context.sailDate}`;
+    if (!index.has(key)) index.set(key, cruise.id);
   }
+  return index;
+}
+
+/**
+ * Fetches the port sequence for a route. Depends only on the package, not the
+ * departure date, so one call covers every sailing of the product.
+ */
+async function fetchItineraryPorts(context) {
+  const { ports } = await fetchRoomSelectionData(context);
+  return Array.isArray(ports) && ports.length > 0 ? ports : null;
+}
+
+function applyItineraryPorts(cruise, ports, enrichedAt) {
+  if (!ports) return cruise;
+  return {
+    ...cruise,
+    itinerary: buildDetailedItinerary(cruise.itinerary, ports) || cruise.itinerary,
+    destinationPort: getDestinationPort(ports),
+    seaDays: estimateSeaDays({
+      labels: ports,
+      duration: cruise.duration,
+      portsIncludeEndpoints: true,
+    }),
+    // Stamp only on success so a failed (degraded) enrichment is retried next
+    // run rather than cached. Enables cross-run reuse (see fetchCruises).
+    enrichedAt,
+  };
 }
 
 class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
@@ -242,17 +323,30 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
   }
 
   normalizeCruise(cruise) {
-    return normalizeCruise(cruise);
+    return normalizeCruise(cruise, this.priorIdByKey);
+  }
+
+  // Indirected through the instance so tests can substitute the room-selection
+  // call without reaching across modules.
+  fetchItineraryPorts(context) {
+    return fetchItineraryPorts(context);
   }
 
   async fetchCruises(options = {}) {
+    const priorById = options.priorEnrichmentById instanceof Map ? options.priorEnrichmentById : new Map();
+    // Consumed by normalizeCruise() during super.fetchCruises() below.
+    this.priorIdByKey = buildPriorIdIndex(priorById);
     const cruises = await super.fetchCruises();
     // Reuse last run's itinerary enrichment for unchanged sailings so we only
     // hit the room-selection endpoint for new/changed ones (plus a rolling
     // refresh). RC prices come from the GraphQL search, not enrichment, so this
     // never staleness-freezes prices. See canReuseEnrichment for the safety net.
-    const priorById = options.priorEnrichmentById instanceof Map ? options.priorEnrichmentById : new Map();
     const now = Date.now();
+    const enrichedAt = new Date(now).toISOString();
+    // Keyed on the route, not the departure: a product's port sequence is fixed,
+    // so one room-selection call serves all of its sailings. Keying on sailDate
+    // here would multiply the calls by the number of departures per route — and
+    // that endpoint is the one that 503s under load.
     const cache = new Map();
     const concurrency = 2;
     let fetched = 0;
@@ -265,13 +359,16 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
         return applyReusedEnrichment(cruise, prior);
       }
       const context = parseBookingContext(cruise.bookingUrl);
-      const cacheKey = context ? rci.roomSelectionCacheKey(context) : null;
+      const cacheKey = context ? rci.routeCacheKey(context) : null;
       if (!cacheKey) return cruise;
       if (!cache.has(cacheKey)) {
         fetched += 1;
-        cache.set(cacheKey, enrichCruiseItinerary(cruise));
+        cache.set(cacheKey, this.fetchItineraryPorts(context).catch(err => {
+          console.warn(`  [RC] enrich failed for ${cruise.id || cruise.bookingUrl}: ${err.message}`);
+          return null;
+        }));
       }
-      return cache.get(cacheKey);
+      return applyItineraryPorts(cruise, await cache.get(cacheKey), enrichedAt);
     });
 
     if (enrichedCruises.length > 0) {
@@ -290,5 +387,8 @@ provider.classifyRoomType                 = classifyRoomType;
 provider.buildDetailedItinerary           = buildDetailedItinerary;
 provider.resolveBookingUrl                = resolveBookingUrl;
 provider.parseBookingContext              = parseBookingContext;
+provider.normalizeSearchResult            = normalizeCruise;
+provider.buildPriorIdIndex                = buildPriorIdIndex;
+provider.sailingKey                       = sailingKey;
 
 module.exports = provider;

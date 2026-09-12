@@ -130,17 +130,22 @@ class GraphQLCruiseProvider {
       if (pageCruises.length === 0) break;
 
       for (const cruise of pageCruises) {
-        const normalized = this.normalizeCruise(cruise);
-        if (!normalized?.id || !normalized.shipName) continue;
-        if (this.dedupeById) {
-          if (seenIds.has(normalized.id)) continue;
-          seenIds.add(normalized.id);
+        // A cruiseSearch result is a cruise *product* (ship × route × package),
+        // which can hold many departures. normalizeCruise may therefore return
+        // an array — one record per sailing — or a single record.
+        for (const normalized of [].concat(this.normalizeCruise(cruise) || [])) {
+          if (!normalized?.id || !normalized.shipName) continue;
+          if (this.dedupeById) {
+            if (seenIds.has(normalized.id)) continue;
+            seenIds.add(normalized.id);
+          }
+          cruises.push(normalized);
         }
-        cruises.push(normalized);
       }
 
+      // `total` counts products, not sailings, so page on the result count.
       skip += pageCruises.length;
-      console.log(`  ${this.progressPrefix} ${cruises.length} / ${total}`);
+      console.log(`  ${this.progressPrefix} ${skip} / ${total} (${cruises.length} sailings)`);
       if (total === null && pageCruises.length < this.pageSize) break;
       await sleep(this.requestDelayMs);
     }

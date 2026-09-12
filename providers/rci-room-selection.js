@@ -152,6 +152,22 @@ function roomSelectionCacheKey(context) {
 }
 
 /**
+ * Cache key for data that depends only on the ROUTE, not the departure date —
+ * i.e. the itinerary port sequence, which is fixed per package. Lets a provider
+ * that expands a product into all of its sailings fetch the port list once per
+ * package instead of once per departure.
+ *
+ * Only safe for date-independent data. Anything carrying a live price must key
+ * on roomSelectionCacheKey (which includes sailDate) instead.
+ */
+function routeCacheKey(context) {
+  if (!context) return null;
+  const { packageCode, selectedCurrencyCode, country } = context;
+  if (!packageCode) return null;
+  return `${packageCode}|${selectedCurrencyCode || ''}|${country || ''}`;
+}
+
+/**
  * Factory: returns the room-selection helpers wired to a specific host
  * (Royal Caribbean or Celebrity). Pass `hostConfig` to point at the
  * right backend; pass `paramAliases` to accept multiple URL parameter
@@ -281,6 +297,7 @@ function createRciRoomSelection(hostConfig) {
     extractPricesFromClassPricing,
     classifyRoomType,
     roomSelectionCacheKey,
+    routeCacheKey,
     mapWithConcurrency,
   };
 }
@@ -349,6 +366,7 @@ module.exports = {
   extractPricesFromClassPricing,
   buildRoomSelectionFilter,
   roomSelectionCacheKey,
+  routeCacheKey,
   mapWithConcurrency,
   timeoutSignal,
   DEFAULT_TIMEOUT_MS,

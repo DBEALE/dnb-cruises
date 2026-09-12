@@ -108,6 +108,11 @@
   const SITE_CHANGES = [
     {
       date: '12 Sep 2026',
+      title: 'Every Royal Caribbean departure date',
+      items: ['Royal Caribbean searches previously listed only the cheapest departure of each ship and route. All of its sailing dates now appear, each with its own cabin prices and booking link — around three and a half times as many cruises.'],
+    },
+    {
+      date: '12 Sep 2026',
       title: 'More NCL sailing dates',
       items: ['NCL imports now include every departure returned for each itinerary, with separate dates, cabin prices and booking links for each sailing.'],
     },
