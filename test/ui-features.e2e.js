@@ -136,6 +136,45 @@ async function gotoFresh(page, settings = null, fixtures = {}) {
   await page.waitForSelector('tbody tr:not(.empty-row)');
 }
 
+test('NCL refresh notice exposes incomplete coverage, cooldown and cached status', async ({ page }) => {
+  await page.setViewportSize({ width: 1680, height: 900 });
+  await setupRoutes(page);
+  const ncl = require('../providers/ncl-cruises');
+  const api = require('./fixtures/ncl-luna-sailings.json');
+  const cruises = ncl.expandItineraryCard({ code: api.code }, api)
+    .map(({ detail, bookingUrl }) => ncl.normalizeCruise(detail, bookingUrl));
+  await page.route('**/providers/index.json', route => route.fulfill({ json: {
+    providers: [{ id: 'ncl-cruises', name: 'Norwegian Cruise Line', cruisesUrl: './providers/ncl-cruises/cruises.json' }],
+  } }));
+  await page.route('**/providers/ncl-cruises/cruises.json', route => route.fulfill({ json: { cruises, scrapedAt: new Date().toISOString() } }));
+  await page.route('**/providers/ncl-cruises/price-history.json', route => route.fulfill({ json: { history: {} } }));
+  let unavailable = false;
+  await page.route('**/providers/ncl-cruises/scrape-status.json', route => unavailable
+    ? route.fulfill({ status: 503, body: '' }) : route.fulfill({ json: {
+      knownItineraries: 425, freshItineraries: 25, pendingItineraries: 400,
+      discoveryComplete: false, checkedAt: new Date().toISOString(),
+      lastPriceCheckAt: new Date().toISOString(), nextAttemptAt: new Date(Date.now() + 6 * HOUR).toISOString(),
+    } }));
+  await page.route('**/functions/v1/visitor-count', route => route.fulfill({ json: { uniqueVisitors: 12, totalVisits: 34 } }));
+  await page.goto('/');
+  const notice = page.locator('#nclDataStatus');
+  await expect(notice).toContainText('NCL refresh paused');
+  await expect(notice).toContainText('25 of 425');
+  await expect(notice).toContainText('Additional sailings may be missing');
+  await page.click('#departureRangeBtn');
+  await page.fill('#departureRangeStart', '2027-11-07');
+  await page.fill('#departureRangeEnd', '2027-11-07');
+  await page.click('#departureRangeApply');
+  await expect(page.locator('#summary')).toContainText('1 of 32');
+  await expect(page.locator('#visitorStats')).toContainText('12 unique');
+  await page.screenshot({ path: 'docs/screenshots/ncl-refresh-status-desktop.png', animations: 'disabled' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({ path: 'docs/screenshots/ncl-refresh-status-mobile.png', animations: 'disabled', fullPage: true });
+  unavailable = true;
+  await page.reload();
+  await expect(notice).toContainText('25 of 425');
+});
+
 test('NCL imports expose the Luna November 2027 sailing in date searches', async ({ page }) => {
   await page.setViewportSize({ width: 1680, height: 900 });
   const ncl = require('../providers/ncl-cruises');
@@ -154,12 +193,44 @@ test('NCL imports expose the Luna November 2027 sailing in date searches', async
   await expect(page.locator('#cruiseBody')).toContainText('7 Nov 2027');
   await expect(page.locator('#cruiseBody')).toContainText('£1,165');
   await expect(page.locator('.cabin-price-link').first()).toHaveAttribute('href', /voyageId=25337848/);
+  const hrefs = await page.locator('.cabin-price-link').evaluateAll(nodes => nodes.map(node => node.href));
+  expect(hrefs).toHaveLength(4);
+  for (const [index, code] of ['INSIDE', 'OCEANVIEW', 'BALCONY', 'MINISUITE'].entries()) {
+    const url = new URL(hrefs[index]);
+    expect(url.searchParams.get('selectedStateroomMeta')).toBe(code);
+    expect(url.searchParams.get('voyageId')).toBe('25337848');
+    expect(url.searchParams.get('sailDate')).toBe('2027-11-07');
+    expect(url.searchParams.get('departureDate')).toBe('2027-11-07');
+    expect(url.searchParams.get('itineraryCode')).toBe(api.code);
+    expect(url.searchParams.get('shipCode')).toBe('LUNA');
+  }
   await expect(page.locator('#visitorStats')).toContainText('12 unique');
+  await page.screenshot({ path: 'docs/screenshots/ncl-cabin-links-desktop.png', animations: 'disabled' });
   await page.screenshot({ path: 'docs/screenshots/ncl-luna-sailing-desktop.png', animations: 'disabled' });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.locator('#cruiseBody > tr').first().scrollIntoViewIfNeeded();
   await expect(page.locator('#cruiseBody')).toContainText('7 Nov 2027');
+  expect(await page.locator('.cabin-price-link').evaluateAll(nodes => nodes.map(node => node.href))).toEqual(hrefs);
+  await page.screenshot({ path: 'docs/screenshots/ncl-cabin-links-mobile.png', animations: 'disabled', fullPage: true });
   await page.screenshot({ path: 'docs/screenshots/ncl-luna-sailing-mobile.png', animations: 'disabled' });
+});
+
+test('NCL cached links correct cabin selection and preserve known Studio and Haven categories', async ({ page }) => {
+  const bookingUrl = 'https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=LUNA7MIAPOPSTTTOVNPIMIA&voyageId=25337848&sailDate=2027-11-07&selectedStateroomMeta=INSIDE';
+  const base = { ...cruise({ id: 'legacy', shipName: 'Norwegian Luna', priceFrom: 600,
+    prices: { inside: '600', oceanView: '900', balcony: '1200', suite: '1800' } }), bookingUrl };
+  await gotoFresh(page, null, { royalCaribbean: { cruises: [base,
+    { ...base, id: 'fresh', shipName: 'Norwegian Fresh', bookingCabinCodes: { inside: 'STUDIO', suite: 'HAVEN' } },
+    { ...base, id: 'generic', shipName: 'Norwegian Legacy', bookingUrl: 'https://www.ncl.com/uk/en/cruises/luna?itineraryCode=LUNA' },
+  ] }, celebrity: { cruises: [] } });
+  const codes = async name => page.locator('#cruiseBody > tr').filter({ hasText: name }).locator('.cabin-price-link')
+    .evaluateAll(nodes => nodes.map(node => new URL(node.href).searchParams.get('selectedStateroomMeta')));
+  expect(await codes('Norwegian Luna')).toEqual(['INSIDE', 'OCEANVIEW', 'BALCONY', null]);
+  expect(await codes('Norwegian Fresh')).toEqual(['STUDIO', 'OCEANVIEW', 'BALCONY', 'HAVEN']);
+  const generic = page.locator('#cruiseBody > tr').filter({ hasText: 'Norwegian Legacy' }).locator('.cabin-price-link');
+  for (const href of await generic.evaluateAll(nodes => nodes.map(node => node.href))) {
+    expect(href).toBe('https://www.ncl.com/uk/en/cruises/luna?itineraryCode=LUNA');
+  }
 });
 
 test('Virgin price links select the exact sailing in legacy and fresh data', async ({ page }) => {

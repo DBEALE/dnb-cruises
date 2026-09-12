@@ -2678,3 +2678,7 @@
       -webkit-mask-image: url(./img/ship-medium.png); mask-image: url(./img/ship-medium.png); }
     .ship-icon-wrap.tier-small  { width: 26px; height: 9px;
       -webkit-mask-image: url(./img/ship-small.png);  mask-image: url(./img/ship-small.png);  }
+/* Keep provider freshness visible without interrupting filtering. */
+.data-freshness { margin: 12px 16px; padding: 10px 14px; border: 1px solid #d9ac50; border-radius: 8px; background: #fff6df; color: #634600; font-size: 13px; line-height: 1.5; }
+.data-freshness[hidden] { display: none; }
+body.dark-mode .data-freshness { background: #342c19; color: #ffe2a0; border-color: #927334; }

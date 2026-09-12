@@ -285,8 +285,9 @@ function classifyRoomType(room) {
   return null;
 }
 
-function extractRoomTypePrices(detail) {
+function extractRoomTypeOffers(detail) {
   const prices = { inside: null, oceanView: null, balcony: null, suite: null };
+  const bookingCabinCodes = {};
   const lowest = { inside: Infinity, oceanView: Infinity, balcony: Infinity, suite: Infinity };
   const sailings = Array.isArray(detail?.sailings) ? detail.sailings : [];
 
@@ -296,7 +297,10 @@ function extractRoomTypePrices(detail) {
       const bucket = classifyRoomType(room);
       if (!bucket) continue;
       const price = toNumber(room?.combinedPrice ?? room?.price ?? room?.fare ?? room?.amount);
-      if (Number.isFinite(price) && price > 0 && price < lowest[bucket]) lowest[bucket] = price;
+      if (Number.isFinite(price) && price > 0 && price < lowest[bucket]) {
+        lowest[bucket] = price;
+        bookingCabinCodes[bucket] = cleanText(room.code).toUpperCase();
+      }
     }
   }
 
@@ -304,7 +308,11 @@ function extractRoomTypePrices(detail) {
     if (Number.isFinite(amount) && amount !== Infinity) prices[bucket] = String(Math.round(amount));
   }
 
-  return prices;
+  return { prices, bookingCabinCodes };
+}
+
+function extractRoomTypePrices(detail) {
+  return extractRoomTypeOffers(detail).prices;
 }
 
 function extractPriceFromText(text) {
@@ -382,7 +390,7 @@ function normalizeCruise(detail, bookingUrl) {
 
   // Prices belong to this departure, never the cheapest room on another date.
   const singleSailing = { sailings: sailing ? [sailing] : [] };
-  const roomPrices = extractRoomTypePrices(singleSailing);
+  const { prices: roomPrices, bookingCabinCodes } = extractRoomTypeOffers(singleSailing);
   const departureDate = formatEpochDate(sailing?.departureDate ?? sailing?.sailStartDate)
     || buildDepartureDate(sailing?.departureDate || sailing?.sailStartDate, sailing?.returnDate || detail?.returnDate);
   const arrivalDate = formatEpochDate(sailing?.returnDate ?? sailing?.sailEndDate)
@@ -407,6 +415,7 @@ function normalizeCruise(detail, bookingUrl) {
     currency: cleanText(detail?.currency?.code || detail?.currency) || 'GBP',
     bookingUrl: resolveUrl(bookingUrl),
     prices: roomPrices,
+    bookingCabinCodes,
     seaDays: estimateSeaDays({
       labels: seaDayLabels,
       duration: detail?.duration?.text || '',

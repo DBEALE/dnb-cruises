@@ -64,6 +64,7 @@
   let loadedProviders = [];
   let loadedProviderCounts = new Map();
   let loadedProviderScrapedAts = new Map();
+  let nclImportStatus = null;
   let sortColIndex = -1;
   let sortAsc      = true;
   let usdToGbp     = null;
@@ -106,6 +107,16 @@
   // User-facing changelog. Add new entries at the top whenever features,
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
+    {
+      date: '12 Sep 2026',
+      title: 'NCL links match the cabin price',
+      items: ['NCL cabin price links now preserve the sailing and select the matching cabin category. Refreshed prices remember the exact category, including Studio, Club Balcony Suite and The Haven. Older suite prices with no recorded category leave the cabin selection open.'],
+    },
+    {
+      date: '12 Sep 2026',
+      title: 'NCL refreshes resume between runs',
+      items: ['NCL refreshes a limited batch of known itineraries per run and saves its progress. Recently checked prices are reused, blocked requests trigger a cooldown, and an on-screen notice explains coverage and freshness.'],
+    },
     {
       date: '12 Sep 2026',
       title: 'Every Royal Caribbean departure date',
@@ -1239,6 +1250,7 @@
     lastDataLoadAt = Date.now();
     const { providers } = await loadProviderCatalog();
     loadedProviders = providers;
+    loadNclImportStatus(providers);
 
     // Show cached data immediately while fetching fresh
     const cached = await loadCachedCruises(providers.map(provider => provider.id));
@@ -1644,6 +1656,46 @@
     });
   }
 
+  async function loadNclImportStatus(providers) {
+    const panel = document.getElementById('nclDataStatus');
+    if (!panel) return;
+    const provider = providers.find(p => p.id === 'ncl-cruises');
+    if (!provider) { panel.hidden = true; return; }
+    const key = 'ncl-import-status';
+    nclImportStatus = await cacheGet(key).catch(() => null);
+    renderNclImportStatus();
+    try {
+      const url = provider.cruisesUrl.replace(/cruises\.json(?:\?.*)?$/, 'scrape-status.json');
+      const response = await fetchStaticJson(url);
+      if (!response.ok) throw new Error('Status unavailable');
+      const status = await response.json();
+      if (!Number.isFinite(status.knownItineraries)) throw new Error('Invalid status');
+      nclImportStatus = status;
+      cacheSet(key, status);
+      renderNclImportStatus();
+    } catch { renderNclImportStatus(); }
+  }
+
+  function renderNclImportStatus() {
+    const panel = document.getElementById('nclDataStatus');
+    if (!panel) return;
+    panel.hidden = false;
+    const s = nclImportStatus;
+    if (!s) {
+      panel.textContent = 'NCL coverage has not been verified. Some sailing dates or prices may be missing.';
+      return;
+    }
+    const paused = Date.parse(s.nextAttemptAt) > Date.now();
+    const old = !s.checkedAt || Date.now() - Date.parse(s.checkedAt) > 48 * 3600000;
+    const heading = paused ? 'NCL refresh paused' : old ? 'NCL data may be stale'
+      : s.pendingItineraries ? 'NCL refresh in progress' : 'NCL known itineraries refreshed';
+    const coverage = s.discoveryComplete ? '' : ' Additional sailings may be missing.';
+    const progress = old ? '' : ` ${s.freshItineraries} of ${s.knownItineraries} known itineraries checked within 48 hours of the last import.`;
+    const last = s.lastPriceCheckAt ? ` Last price check: ${formatProviderUpdatedAt(s.lastPriceCheckAt).replace(/^Updated:\s*/, '')}.` : ' No successful price check recorded yet.';
+    const resume = paused ? ` Next attempt after ${formatProviderUpdatedAt(s.nextAttemptAt).replace(/^Updated:\s*/, '')}.` : '';
+    panel.textContent = `${heading}.${progress}${s.pendingItineraries || old ? ' Some prices may be outdated.' : ''}${coverage}${last}${resume}`;
+  }
+
   function renderProviderScrapeTimes() {
     const list = document.getElementById('settingsProviderScrapes');
     if (!list) return;
@@ -1933,8 +1985,9 @@
             : '';
           const amount = `<span class="price-amount"><span class="${priceClass}"${bestTitle}>${escHtml(formatted)}</span>${peakDropStar(peakDrop, c.currency)}</span>`;
           const row = `<div class="${rowClass}"><span class="price-lbl">${escHtml(rt.label)}</span>${amount}</div>`;
-          const linkedRow = url
-            ? `<a class="cabin-price-link" href="${url}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${row}</a>`
+          const cabinUrl = escHtml(cabinBookingUrl(c, rt.key));
+          const linkedRow = cabinUrl
+            ? `<a class="cabin-price-link" href="${cabinUrl}" target="_blank" rel="noopener noreferrer" title="Book this cruise">${row}</a>`
             : row;
           const spark = cabinSparklineButton(c, rt.key);
           return `<div class="cabin-block">${linkedRow}${spark}</div>`;
@@ -2450,6 +2503,29 @@
 
   function getDestinationPortDisplay(c) {
     return String(c?.destinationPort || inferDestinationPortFromItinerary(c?.itinerary) || '').trim();
+  }
+
+  function cabinBookingUrl(c, bucket) {
+    const original = cruiseBookingUrl(c);
+    try {
+      const url = new URL(original);
+      if (url.hostname !== 'www.ncl.com' || url.pathname !== '/uk/en/booking/stateroom-offers/stateroom') return original;
+      const categories = {
+        inside: ['INSIDE', 'INTERIOR', 'STUDIO'], oceanView: ['OCEANVIEW'],
+        balcony: ['BALCONY'], suite: ['MINISUITE', 'SUITE', 'HAVEN'],
+      };
+      const allowed = categories[bucket] || [];
+      const recorded = c.bookingCabinCodes?.[bucket];
+      const existing = url.searchParams.get('selectedStateroomMeta');
+      // Older snapshots did not retain the category behind an aggregate price.
+      // In particular, never guess Mini Suite versus Suite versus Haven.
+      const code = allowed.includes(recorded) ? recorded
+        : allowed.includes(existing) ? existing
+          : bucket === 'suite' ? '' : allowed[0];
+      if (code) url.searchParams.set('selectedStateroomMeta', code);
+      else url.searchParams.delete('selectedStateroomMeta');
+      return url.href;
+    } catch { return original; }
   }
 
   function cruiseBookingUrl(c) {

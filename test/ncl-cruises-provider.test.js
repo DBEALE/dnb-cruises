@@ -68,6 +68,7 @@ test('imports all 32 Luna departures, including 7 November 2027, with sailing-sp
   assert.equal(cruise.currency, 'GBP');
   assert.equal(cruise.priceFrom, '780');
   assert.deepEqual(cruise.prices, { inside: '780', oceanView: '935', balcony: '1165', suite: '1790' });
+  assert.deepEqual(cruise.bookingCabinCodes, { inside: 'INSIDE', oceanView: 'OCEANVIEW', balcony: 'BALCONY', suite: 'MINISUITE' });
   const url = new URL(cruise.bookingUrl);
   assert.equal(url.pathname, '/uk/en/booking/stateroom-offers/stateroom');
   assert.equal(url.searchParams.get('voyageId'), '25337848');
@@ -77,6 +78,18 @@ test('imports all 32 Luna departures, including 7 November 2027, with sailing-sp
   const reversed = provider.expandItineraryCard(card, { ...lunaItinerary, sailings: [...lunaItinerary.sailings].reverse() })
     .map(({ detail, bookingUrl }) => provider.normalizeCruise(detail, bookingUrl).id).sort();
   assert.deepEqual(reversed, cruises.map(c => c.id).sort(), 'IDs are independent of itinerary ordering');
+});
+
+test('remembers the exact category contributing the lowest cabin fare', () => {
+  const result = provider.normalizeCruise({ sailings: [{ staterooms: [
+    { code: 'INSIDE', combinedPrice: 800 },
+    { code: 'STUDIO', combinedPrice: 600 },
+    { code: 'MINISUITE', combinedPrice: 2000 },
+    { code: 'HAVEN', combinedPrice: 1800 },
+    { code: 'SUITE', combinedPrice: 0 },
+  ] }] }, 'https://www.ncl.com/');
+  assert.deepEqual(result.prices, { inside: '600', oceanView: null, balcony: null, suite: '1800' });
+  assert.deepEqual(result.bookingCabinCodes, { inside: 'STUDIO', suite: 'HAVEN' });
 });
 
 test('does not reuse another departure or the summary card price for an unpriced sailing', () => {
@@ -168,6 +181,7 @@ test('normalizes Norwegian Cruise Line itinerary details', () => {
     currency: 'GBP',
     bookingUrl: 'https://www.ncl.com/uk/en/cruises/british-isles-test-SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU?itineraryCode=SKY10SOUSOQIVGLVPBFSDUNWATIPOSOU',
     prices: { inside: '999', oceanView: '1099', balcony: '1299', suite: '1799' },
+    bookingCabinCodes: { inside: 'INSIDE', oceanView: 'OCEANVIEW', balcony: 'BALCONY', suite: 'MINISUITE' },
     seaDays: null,
   });
 });

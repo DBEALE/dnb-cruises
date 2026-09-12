@@ -231,6 +231,11 @@ function writeProviderSnapshot(provider, cruises, scrapedAt) {
 
   const outPath = getProviderOutputPath(provider.id);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  if (provider.id === 'ncl-cruises' && cruises.some(c => 'priceCheckedAt' in c)) {
+    // A resumed run must not make reused prices look newly observed.
+    const observed = cruises.map(c => c.priceCheckedAt).filter(value => Number.isFinite(Date.parse(value))).sort();
+    scrapedAt = observed.at(-1) || null;
+  }
 
   // Split the heavy priceHistory arrays into a sibling price-history.json so
   // cruises.json carries only the fields the table renders from. The frontend
