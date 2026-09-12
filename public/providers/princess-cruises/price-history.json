@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 924,
+  "count": 923,
   "history": {
     "princess_AST070_ST_20270523": [
       {
@@ -1612,6 +1612,13 @@
         "at": "2026-09-12T08:09:08.249Z",
         "prices": {
           "inside": 1749,
+          "suite": 5813
+        }
+      },
+      {
+        "at": "2026-09-12T20:07:06.693Z",
+        "prices": {
+          "inside": 1819,
           "suite": 5813
         }
       }
@@ -6607,6 +6614,14 @@
           "balcony": 1908,
           "suite": 2399
         }
+      },
+      {
+        "at": "2026-09-12T20:07:06.693Z",
+        "prices": {
+          "inside": 1581,
+          "balcony": 1908,
+          "suite": 2399
+        }
       }
     ],
     "princess_CFR07T_SU_20261220": [
@@ -9211,6 +9226,14 @@
           "oceanView": 5449,
           "suite": 9023
         }
+      },
+      {
+        "at": "2026-09-12T20:07:06.693Z",
+        "prices": {
+          "inside": 5350,
+          "oceanView": 5449,
+          "suite": 9023
+        }
       }
     ],
     "princess_CSR14K_KP_20270228": [
@@ -10920,20 +10943,6 @@
         "at": "2026-09-05T16:07:32.624Z",
         "prices": {
           "suite": 27392
-        }
-      }
-    ],
-    "princess_OSH13A_CO_20270331": [
-      {
-        "at": "2026-09-05T16:07:32.624Z",
-        "prices": {
-          "balcony": 5769
-        }
-      },
-      {
-        "at": "2026-09-09T08:11:03.893Z",
-        "prices": {
-          "balcony": 5919
         }
       }
     ],
@@ -26294,5 +26303,5 @@
       }
     ]
   },
-  "scrapedAt": "2026-09-12T18:10:49.543Z"
+  "scrapedAt": "2026-09-12T20:07:06.693Z"
 }

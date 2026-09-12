@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 782,
+  "count": 783,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -62917,6 +62917,46 @@
             "inside": 529,
             "balcony": 599,
             "suite": 699
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_OSH13A_CO_20270331",
+      "shipName": "Coral Princess",
+      "shipClass": "Coral",
+      "shipLaunchYear": 2002,
+      "itinerary": "Singapore → Phuket, Thailand → Langkawi, Malaysia → Penang, Malaysia → Kuala Lumpur (Port Kelang), Malaysia → Ho Chi Minh City (Phu My), Vietnam → Cam Ranh (Nha Trang), Vietnam → Halong Bay/Hanoi (Cai Lan), Vietnam → Hong Kong",
+      "departureDate": "2027-03-31",
+      "duration": "13 Nights",
+      "departurePort": "Singapore",
+      "departureRegion": "Asia & Far East",
+      "destination": "Other",
+      "destinationPort": "Hong Kong",
+      "priceFrom": "5919",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=6705B",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "5919",
+        "suite": null
+      },
+      "seaDays": 5,
+      "firstSeenAt": "2026-07-27T16:42:49.260Z",
+      "lastSeenAt": "2026-09-12T18:10:49.543Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "balcony": 5769
+          }
+        },
+        {
+          "at": "2026-09-09T08:11:03.893Z",
+          "prices": {
+            "balcony": 5919
           }
         }
       ]
