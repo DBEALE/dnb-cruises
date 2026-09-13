@@ -580,6 +580,21 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── Table card ──────────────────────────────────────────────────────────── */
+    /* Virtual rows reserve space without thousands of background controls. */
+    #cruiseBody.is-virtual { overflow-anchor: none; }
+    #cruiseBody.is-virtual > tr[data-provider] { content-visibility: visible; }
+    #cruiseBody > tr.virtual-spacer {
+      display: table-row; margin: 0; padding: 0; border: 0;
+      background: transparent; box-shadow: none; pointer-events: none;
+    }
+    #cruiseBody > tr.virtual-spacer > td {
+      display: table-cell; padding: 0; border: 0; line-height: 0;
+      background: transparent; box-shadow: none;
+    }
+    @container view (max-width: 480px) {
+      #cruiseBody > tr.virtual-spacer, #cruiseBody > tr.virtual-spacer > td { display: block; }
+    }
+
     .table-card {
       background: white;
       border-radius: var(--radius);

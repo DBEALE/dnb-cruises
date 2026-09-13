@@ -136,6 +136,73 @@ async function gotoFresh(page, settings = null, fixtures = {}) {
   await page.waitForSelector('tbody tr:not(.empty-row)');
 }
 
+for (const mobile of [false, true]) {
+  test(`large lists preserve every sorted result while scrolling (${mobile ? 'mobile' : 'desktop'})`, async ({ page }) => {
+    test.setTimeout(60000);
+    await page.setViewportSize(mobile ? { width: 390, height: 844 } : { width: 1680, height: 900 });
+    await page.route('**/functions/v1/visitor-count', route => route.fulfill({ json: { uniqueVisitors: 12, totalVisits: 34 } }));
+    const cruises = Array.from({ length: 360 }, (_, i) => cruise({
+      id: `virtual_${i}`, shipName: `Cruise ${String(i).padStart(3, '0')}`, provider: 'Royal Caribbean',
+      priceFrom: 100 + i, prices: { inside: String(100 + i) },
+      itinerary: i % 3 ? 'Southampton Sample' : 'Southampton with a longer itinerary visiting several ports across the Mediterranean and returning home',
+    })).reverse();
+    await gotoFresh(page, null, { royalCaribbean: { cruises }, celebrity: { cruises: [] } });
+    await expect(page.locator('#summary')).toContainText('first 300 of 360');
+    await page.locator('#summary .show-all-btn').click();
+    await expect(page.locator('#summary')).toContainText('all 360');
+    const rows = page.locator('#cruiseBody > tr[data-provider]');
+    await expect(rows.first()).toContainText('Cruise 000');
+    const seen = new Set();
+    let last = -1;
+    while (last < 359) {
+      const visible = await rows.evaluateAll(nodes => nodes.map(node => ({
+        index: Number(node.dataset.virtualIndex), name: node.querySelector('.ship-name').textContent,
+      })));
+      expect(visible.length).toBeLessThan(60);
+      for (const row of visible) {
+        expect(row.name).toContain(`Cruise ${String(row.index).padStart(3, '0')}`);
+        seen.add(row.index);
+      }
+      last = visible.at(-1).index;
+      if (last === 359) break;
+      await rows.last().evaluate(node => node.scrollIntoView({ block: 'start' }));
+      await page.waitForFunction(previous => Number(
+        [...document.querySelectorAll('#cruiseBody > tr[data-provider]')].at(-1)?.dataset.virtualIndex) > previous, last);
+    }
+    expect(seen.size).toBe(360);
+    await rows.last().evaluate(node => node.scrollIntoView({ block: 'center' }));
+    await expect(rows.last()).toContainText('Cruise 359');
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(rows.first()).toContainText('Cruise 000');
+    // Scrollbar jumps and layout changes must also reach the real final row.
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await expect(rows.last()).toContainText('Cruise 359');
+    await expect(rows.last()).toBeInViewport();
+    await page.setViewportSize(mobile ? { width: 1680, height: 900 } : { width: 390, height: 844 });
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(rows.first()).toContainText('Cruise 000');
+    await page.setViewportSize(mobile ? { width: 390, height: 844 } : { width: 1680, height: 900 });
+    await expect(rows.first()).toBeInViewport();
+    await expect(page.locator('#visitorStats')).toContainText('12 unique');
+    if (mobile) {
+      await page.click('#mobFilterToggle');
+      await expect(page.locator('#mobFilters')).toBeVisible();
+      expect(await rows.count()).toBeLessThan(60);
+      await page.screenshot({ path: 'docs/screenshots/virtual-list-filters-mobile.png', animations: 'disabled' });
+      await page.click('#mobFiltersClose');
+    } else {
+      await page.screenshot({ path: 'docs/screenshots/virtual-list-desktop.png', animations: 'disabled' });
+    }
+    // Sort the complete list in reverse, then find a record outside the old window.
+    await page.evaluate(() => { sortColIndex = 15; sortAsc = false; applyFilters(); });
+    await expect(rows.first()).toContainText('Cruise 359');
+    await page.locator('.col-filter[data-field="itinerary"]').evaluate(node => { node.value = 'longer'; node.dispatchEvent(new Event('input', { bubbles: true })); });
+    await expect(page.locator('#summary')).toContainText('120 of 360');
+    await expect(rows).toHaveCount(120);
+    await expect(rows.first()).toContainText('Cruise 357');
+  });
+}
+
 test('NCL refresh notice exposes incomplete coverage, cooldown and cached status', async ({ page }) => {
   await page.setViewportSize({ width: 1680, height: 900 });
   await setupRoutes(page);

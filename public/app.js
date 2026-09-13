@@ -108,6 +108,11 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '13 Sep 2026',
+      title: 'Faster filters with large cruise lists',
+      items: ['Large result lists now draw only the cruises near your screen, keeping filters responsive even after Show all. Sorting and filtering still use every loaded cruise, and scrolling reveals every matching result. Use the site filters to search the complete list; the browser Find command only sees currently drawn rows.'],
+    },
+    {
       date: '12 Sep 2026',
       title: 'NCL links match the cabin price',
       items: ['NCL cabin price links now preserve the sailing and select the matching cabin category. Refreshed prices remember the exact category, including Studio, Club Balcony Suite and The Haven. Older suite prices with no recorded category leave the cabin selection open.'],
@@ -2597,8 +2602,11 @@
   // progressive render when a newer filter/sort apply starts.
   const RENDER_CHUNK = 60;
   let _renderRunId = 0;
+  let virtualCruiseList = null;
   function renderBody(list, colFilters = {}) {
     const runId = ++_renderRunId;
+    virtualCruiseList?.destroy();
+    virtualCruiseList = null;
     // Offscreen buttons remain observed until explicitly disconnected, even
     // after their rows are removed. Release the previous table on every render.
     if (sparkObserver) sparkObserver.disconnect();
@@ -2608,6 +2616,17 @@
       return;
     }
     const total = list.length;
+    if (total > 180 && typeof window.createVirtualCruiseList === 'function') {
+      virtualCruiseList = window.createVirtualCruiseList({
+        body: tbody, list,
+        renderRow: (cruise, index) => buildRowHtml(cruise, index, colFilters),
+        onRowsChanged: () => {
+          if (sparkObserver) sparkObserver.disconnect();
+          observeSparksInRows(tbody, 0);
+        },
+      });
+      return;
+    }
     const firstEnd = Math.min(RENDER_CHUNK, total);
     tbody.innerHTML = renderRowsHtml(list, 0, firstEnd, colFilters);
     observeSparksInRows(tbody, 0);
