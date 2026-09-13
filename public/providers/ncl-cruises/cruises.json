@@ -1,7 +1,7 @@
 {
   "success": true,
-  "count": 2440,
-  "priceCount": 9621,
+  "count": 2445,
+  "priceCount": 9639,
   "provider": {
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
@@ -55409,7 +55409,41 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_EPIC7BCNPMIMLALGNPMONAPCIV_2027-10-17",
+      "id": "ncl_EPIC7BCNPMILGNMLAPMONAPCIV_2027-05-02",
+      "shipName": "Norwegian Epic",
+      "shipClass": "Epic",
+      "shipLaunchYear": 2010,
+      "itinerary": "Mediterranean: Italy, Spain & Tunisia",
+      "departureDate": "2027-05-02",
+      "duration": "7-day Cruise",
+      "departurePort": "Barcelona",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean: Italy, Spain & Tunisia",
+      "destinationPort": "Rome (Civitavecchia)",
+      "arrivalDate": "2027-05-09",
+      "priceFrom": "925",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=EPIC7BCNPMIMLALGNPMONAPCIV&voyageId=24236982&sailDate=2027-05-02&departureDate=2027-05-02&shipCode=EPIC&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "925",
+        "oceanView": "1205",
+        "balcony": "1270",
+        "suite": "1350"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 1,
+      "priceCheckedAt": "2026-09-13T10:15:11.712Z",
+      "firstSeenAt": "2026-09-13T10:15:11.712Z",
+      "lastSeenAt": "2026-09-13T10:15:11.712Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_EPIC7BCNPMILGNMLAPMONAPCIV_2027-10-17",
       "shipName": "Norwegian Epic",
       "shipClass": "Epic",
       "shipLaunchYear": 2010,
@@ -55430,10 +55464,15 @@
         "balcony": "1310",
         "suite": "1505"
       },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
       "seaDays": 1,
-      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
-      "firstSeenAt": "2026-09-12T16:07:28.973Z",
-      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+      "priceCheckedAt": "2026-09-13T10:15:11.712Z",
+      "firstSeenAt": "2026-09-13T10:15:11.712Z",
+      "lastSeenAt": "2026-09-13T10:15:11.712Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -57537,7 +57576,75 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_EPIC7PCVNPIFMHGECCZMPCV_2027-04-04",
+      "id": "ncl_EPIC7PCVCZMGECFMHNPIPCV_2026-12-06",
+      "shipName": "Norwegian Epic",
+      "shipClass": "Epic",
+      "shipLaunchYear": 2010,
+      "itinerary": "Caribbean: Great Stirrup Cay & Cozumel",
+      "departureDate": "2026-12-06",
+      "duration": "7-day Cruise",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Cozumel",
+      "destinationPort": "Port Canaveral",
+      "arrivalDate": "2026-12-13",
+      "priceFrom": "442",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=EPIC7PCVNPIFMHGECCZMPCV&voyageId=23361660&sailDate=2026-12-06&departureDate=2026-12-06&shipCode=EPIC&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "442",
+        "oceanView": "702",
+        "balcony": "732",
+        "suite": "837"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-13T10:15:11.712Z",
+      "firstSeenAt": "2026-09-13T10:15:11.712Z",
+      "lastSeenAt": "2026-09-13T10:15:11.712Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_EPIC7PCVCZMGECFMHNPIPCV_2027-03-14",
+      "shipName": "Norwegian Epic",
+      "shipClass": "Epic",
+      "shipLaunchYear": 2010,
+      "itinerary": "Caribbean: Great Stirrup Cay & Cozumel",
+      "departureDate": "2027-03-14",
+      "duration": "7-day Cruise",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Cozumel",
+      "destinationPort": "Port Canaveral",
+      "arrivalDate": "2027-03-21",
+      "priceFrom": "644",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=EPIC7PCVNPIFMHGECCZMPCV&voyageId=23361674&sailDate=2027-03-14&departureDate=2027-03-14&shipCode=EPIC&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "644",
+        "oceanView": "839",
+        "balcony": "919",
+        "suite": "999"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-13T10:15:11.712Z",
+      "firstSeenAt": "2026-09-13T10:15:11.712Z",
+      "lastSeenAt": "2026-09-13T10:15:11.712Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_EPIC7PCVCZMGECFMHNPIPCV_2027-04-04",
       "shipName": "Norwegian Epic",
       "shipClass": "Epic",
       "shipLaunchYear": 2010,
@@ -57558,14 +57665,19 @@
         "balcony": "919",
         "suite": "999"
       },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
       "seaDays": 2,
-      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
-      "firstSeenAt": "2026-09-12T16:07:28.973Z",
-      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+      "priceCheckedAt": "2026-09-13T10:15:11.712Z",
+      "firstSeenAt": "2026-09-13T10:15:11.712Z",
+      "lastSeenAt": "2026-09-13T10:15:11.712Z"
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_EPIC7PCVNPIFMHGECCZMPCV_2027-04-11",
+      "id": "ncl_EPIC7PCVCZMGECFMHNPIPCV_2027-04-11",
       "shipName": "Norwegian Epic",
       "shipClass": "Epic",
       "shipLaunchYear": 2010,
@@ -57586,10 +57698,15 @@
         "balcony": "919",
         "suite": "999"
       },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
       "seaDays": 2,
-      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
-      "firstSeenAt": "2026-09-12T16:07:28.973Z",
-      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+      "priceCheckedAt": "2026-09-13T10:15:11.712Z",
+      "firstSeenAt": "2026-09-13T10:15:11.712Z",
+      "lastSeenAt": "2026-09-13T10:15:11.712Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -68169,7 +68286,7 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_EPIC7PCVCMARTBCZMNPIPCV_2027-01-03",
+      "id": "ncl_EPIC7PCVNPIRTBCMACZMPCV_2027-01-03",
       "shipName": "Norwegian Epic",
       "shipClass": "Epic",
       "shipLaunchYear": 2010,
@@ -68190,10 +68307,81 @@
         "balcony": "699",
         "suite": "824"
       },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
       "seaDays": 2,
-      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
-      "firstSeenAt": "2026-09-12T16:07:28.973Z",
-      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+      "priceCheckedAt": "2026-09-13T10:15:11.712Z",
+      "firstSeenAt": "2026-09-13T10:15:11.712Z",
+      "lastSeenAt": "2026-09-13T10:15:11.712Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_EPIC7PCVNPIRTBCMACZMPCV_2027-01-31",
+      "shipName": "Norwegian Epic",
+      "shipClass": "Epic",
+      "shipLaunchYear": 2010,
+      "itinerary": "Caribbean: Great Stirrup Cay & Cozumel",
+      "departureDate": "2027-01-31",
+      "duration": "7-day Cruise",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Cozumel",
+      "destinationPort": "Port Canaveral",
+      "arrivalDate": "2027-02-07",
+      "priceFrom": "489",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=EPIC7PCVCMARTBCZMNPIPCV&voyageId=23361668&sailDate=2027-01-31&departureDate=2027-01-31&shipCode=EPIC&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "489",
+        "oceanView": null,
+        "balcony": "694",
+        "suite": "824"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-13T10:15:11.712Z",
+      "firstSeenAt": "2026-09-13T10:15:11.712Z",
+      "lastSeenAt": "2026-09-13T10:15:11.712Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_EPIC7PCVNPIRTBCMACZMPCV_2027-02-14",
+      "shipName": "Norwegian Epic",
+      "shipClass": "Epic",
+      "shipLaunchYear": 2010,
+      "itinerary": "Caribbean: Great Stirrup Cay & Cozumel",
+      "departureDate": "2027-02-14",
+      "duration": "7-day Cruise",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Cozumel",
+      "destinationPort": "Port Canaveral",
+      "arrivalDate": "2027-02-21",
+      "priceFrom": "564",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=EPIC7PCVCMARTBCZMNPIPCV&voyageId=23361670&sailDate=2027-02-14&departureDate=2027-02-14&shipCode=EPIC&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "564",
+        "oceanView": null,
+        "balcony": "824",
+        "suite": "879"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-13T10:15:11.712Z",
+      "firstSeenAt": "2026-09-13T10:15:11.712Z",
+      "lastSeenAt": "2026-09-13T10:15:11.712Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -69456,5 +69644,5 @@
       "lastSeenAt": "2026-09-12T18:00:49.441Z"
     }
   ],
-  "scrapedAt": "2026-09-13T06:16:28.085Z"
+  "scrapedAt": "2026-09-13T10:15:11.712Z"
 }
