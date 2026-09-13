@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 185,
+  "count": 187,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -65358,6 +65358,76 @@
             "inside": 1126,
             "oceanView": 1185,
             "balcony": 2038
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_UT4BH339_2026-09-14",
+      "shipName": "Utopia of the Seas",
+      "shipClass": "Oasis",
+      "shipLaunchYear": 2024,
+      "itinerary": "Bahamas & Perfect Day Cruise: Orlando (Port Canaveral), Florida, Nassau, Bahamas, Perfect Day at CocoCay, Bahamas, Orlando (Port Canaveral), Florida",
+      "departureDate": "2026-09-14",
+      "duration": "4 Nights",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Bahamas",
+      "priceFrom": "438.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=UT04PCN-4069341576&sailDate=2026-09-14&shipCode=UT&packageCode=UT4BH339&destinationCode=BAHAM&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "438.5",
+        "suite": null
+      },
+      "destinationPort": "Port Canaveral",
+      "seaDays": 0,
+      "enrichedAt": "2026-09-13T10:15:40.164Z",
+      "firstSeenAt": "2026-09-13T06:16:28.034Z",
+      "lastSeenAt": "2026-09-13T10:15:11.651Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-13T06:16:28.034Z",
+          "prices": {
+            "balcony": 438.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LE7IP206_2026-10-15",
+      "shipName": "Legend of the Seas",
+      "shipClass": "Icon",
+      "shipLaunchYear": 2026,
+      "itinerary": "Western Mediterranean Cruise: Rome (Civitavecchia), Italy, Naples/Capri, Italy, Barcelona, Spain, Palma de Mallorca, Spain, Provence (Marseille), France, Florence/Pisa (La Spezia), Italy, Rome (Civitavecchia), Italy",
+      "departureDate": "2026-10-15",
+      "duration": "7 Nights",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "1413",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LE07ROM-237457943&sailDate=2026-10-15&shipCode=LE&packageCode=LE7IP206&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1413",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Rome (Civitavecchia)",
+      "seaDays": 0,
+      "enrichedAt": "2026-09-13T06:16:56.848Z",
+      "firstSeenAt": "2026-09-13T06:16:28.034Z",
+      "lastSeenAt": "2026-09-13T10:15:11.651Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-13T06:16:28.034Z",
+          "prices": {
+            "inside": 1413
           }
         }
       ]
