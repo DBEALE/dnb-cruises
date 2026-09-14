@@ -1,7 +1,7 @@
 {
   "success": true,
-  "count": 2554,
-  "priceCount": 10099,
+  "count": 2555,
+  "priceCount": 10103,
   "provider": {
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
@@ -54239,7 +54239,41 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_JOY10MIAORJWILCBRFMHGECMIA_2028-02-18",
+      "id": "ncl_JOY10MIAGECFMHCBRORJWILMIA_2028-01-04",
+      "shipName": "Norwegian Joy",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2017,
+      "itinerary": "Caribbean: Aruba & Curacao",
+      "departureDate": "2028-01-04",
+      "duration": "10-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Aruba & Curacao",
+      "destinationPort": "Miami",
+      "arrivalDate": "2028-01-14",
+      "priceFrom": "900",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=JOY10MIAORJWILCBRFMHGECMIA&voyageId=27216629&sailDate=2028-01-04&departureDate=2028-01-04&shipCode=JOY&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "900",
+        "oceanView": "1135",
+        "balcony": "1645",
+        "suite": "1840"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 4,
+      "priceCheckedAt": "2026-09-14T18:09:12.548Z",
+      "firstSeenAt": "2026-09-14T18:09:12.548Z",
+      "lastSeenAt": "2026-09-14T18:09:12.548Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JOY10MIAGECFMHCBRORJWILMIA_2028-02-18",
       "shipName": "Norwegian Joy",
       "shipClass": "Breakaway Plus",
       "shipLaunchYear": 2017,
@@ -54260,10 +54294,16 @@
         "balcony": "1725",
         "suite": "1920"
       },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
       "seaDays": 4,
-      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
-      "firstSeenAt": "2026-09-12T16:07:28.973Z",
-      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+      "priceCheckedAt": "2026-09-14T18:09:12.548Z",
+      "firstSeenAt": "2026-09-14T18:09:12.548Z",
+      "lastSeenAt": "2026-09-14T18:09:12.548Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -73600,5 +73640,5 @@
       "lastSeenAt": "2026-09-12T18:00:49.441Z"
     }
   ],
-  "scrapedAt": "2026-09-14T10:08:03.442Z"
+  "scrapedAt": "2026-09-14T18:09:12.548Z"
 }
