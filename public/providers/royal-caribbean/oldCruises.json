@@ -66920,41 +66920,6 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_EN07W689_2026-09-19",
-      "shipName": "Enchantment of the Seas",
-      "shipClass": "Vision",
-      "shipLaunchYear": 1997,
-      "itinerary": "Western Caribbean Cruise: Tampa, Florida, Roatan, Honduras, Puerto Costa Maya, Mexico, Belize City, Cozumel, Mexico, Tampa, Florida",
-      "departureDate": "2026-09-19",
-      "duration": "7 Nights",
-      "departurePort": "Tampa",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "456",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=EN07TPA-511770072&sailDate=2026-09-19&shipCode=EN&packageCode=EN07W689&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": "456",
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "destinationPort": "Tampa",
-      "seaDays": 1,
-      "enrichedAt": "2026-09-13T06:16:56.848Z",
-      "firstSeenAt": "2026-09-13T06:16:28.034Z",
-      "lastSeenAt": "2026-09-13T18:08:47.015Z",
-      "priceHistory": [
-        {
-          "at": "2026-09-13T06:16:28.034Z",
-          "prices": {
-            "inside": 456
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Royal Caribbean",
       "id": "rc_FR09D171_2026-09-24",
       "shipName": "Freedom of the Seas",
       "shipClass": "Freedom",
@@ -67654,6 +67619,41 @@
           "at": "2026-09-13T12:10:38.934Z",
           "prices": {
             "inside": 983
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_VI09N080_2026-10-08",
+      "shipName": "Vision of the Seas",
+      "shipClass": "Vision",
+      "shipLaunchYear": 1998,
+      "itinerary": "Canada & New England Cruise: Baltimore, Maryland, Boston, Massachusetts, Portland, Maine, Saint John (Bay of Fundy), New Brunswick, Halifax, Nova Scotia, Baltimore, Maryland",
+      "departureDate": "2026-10-08",
+      "duration": "9 Nights",
+      "departurePort": "Baltimore",
+      "departureRegion": "Americas",
+      "destination": "Canada & New England",
+      "priceFrom": "2541",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=VI09BWI-2442423319&sailDate=2026-10-08&shipCode=VI&packageCode=VI09N080&destinationCode=ATLCO&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "2541",
+        "suite": null
+      },
+      "destinationPort": "Baltimore",
+      "seaDays": 3,
+      "enrichedAt": "2026-09-13T06:16:56.848Z",
+      "firstSeenAt": "2026-09-13T06:16:28.034Z",
+      "lastSeenAt": "2026-09-13T22:06:59.718Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-13T06:16:28.034Z",
+          "prices": {
+            "balcony": 2541
           }
         }
       ]
