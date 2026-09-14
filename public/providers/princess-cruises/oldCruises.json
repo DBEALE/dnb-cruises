@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 793,
+  "count": 794,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -63600,6 +63600,88 @@
           "prices": {
             "inside": 4619,
             "balcony": 9011
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_EMM07E_SU_20260919",
+      "shipName": "Sun Princess",
+      "shipClass": "Sphere",
+      "shipLaunchYear": 2024,
+      "itinerary": "Barcelona, Spain → Ibiza, Spain → Corsica (Ajaccio), France → Marseille (Provence), France → Genoa (for Cinque Terre), Italy → La Spezia (for Florence/Pisa),Italy → Civitavecchia (for Rome), Italy",
+      "departureDate": "2026-09-19",
+      "duration": "7 Nights",
+      "departurePort": "Barcelona",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "destinationPort": "Rome (Civitavecchia)",
+      "priceFrom": "1039",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=U637",
+      "prices": {
+        "inside": "1039",
+        "oceanView": "1539",
+        "balcony": null,
+        "suite": "1839"
+      },
+      "seaDays": 1,
+      "firstSeenAt": "2026-07-17T10:33:26.020Z",
+      "lastSeenAt": "2026-09-14T04:10:04.782Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 1039,
+            "oceanView": 1637,
+            "suite": 1969
+          }
+        },
+        {
+          "at": "2026-09-06T08:09:19.313Z",
+          "prices": {
+            "inside": 1039,
+            "oceanView": 1581,
+            "suite": 1969
+          }
+        },
+        {
+          "at": "2026-09-07T16:21:31.111Z",
+          "prices": {
+            "inside": 1039,
+            "oceanView": 1637,
+            "suite": 1969
+          }
+        },
+        {
+          "at": "2026-09-09T18:09:55.686Z",
+          "prices": {
+            "inside": 1066,
+            "suite": 1969
+          }
+        },
+        {
+          "at": "2026-09-10T18:09:54.906Z",
+          "prices": {
+            "inside": 1039,
+            "oceanView": 1539,
+            "suite": 1839
+          }
+        },
+        {
+          "at": "2026-09-12T00:20:29.396Z",
+          "prices": {
+            "inside": 1039,
+            "suite": 1839
+          }
+        },
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 1039,
+            "oceanView": 1539,
+            "suite": 1839
           }
         }
       ]
