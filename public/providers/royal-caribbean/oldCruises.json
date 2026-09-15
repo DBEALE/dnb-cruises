@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 221,
+  "count": 222,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -74439,6 +74439,41 @@
           "at": "2026-09-15T04:09:35.968Z",
           "prices": {
             "inside": 1083
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_NV11I018_2026-10-18",
+      "shipName": "Navigator of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2002,
+      "itinerary": "Tokyo To Singapore Cruise: Tokyo (Yokohama), Japan, Nagasaki, Japan, Jeju (Seogwipo), South Korea, Hong Kong, China, Hue / Danang (Chan May), Vietnam, Singapore",
+      "departureDate": "2026-10-18",
+      "duration": "11 Nights",
+      "departurePort": "Tokyo (Yokohama)",
+      "departureRegion": "Asia & Far East",
+      "destination": "Asia",
+      "priceFrom": "4452",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=NV11YOK-478781971&sailDate=2026-10-18&shipCode=NV&packageCode=NV11I018&destinationCode=FAR.E&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "4452",
+        "suite": null
+      },
+      "destinationPort": "Singapore",
+      "seaDays": 5,
+      "enrichedAt": "2026-09-15T06:14:12.438Z",
+      "firstSeenAt": "2026-09-15T06:13:46.815Z",
+      "lastSeenAt": "2026-09-15T08:11:31.034Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T06:13:46.815Z",
+          "prices": {
+            "balcony": 4452
           }
         }
       ]
