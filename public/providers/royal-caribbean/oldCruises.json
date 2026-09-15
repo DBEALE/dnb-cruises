@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 222,
+  "count": 228,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -74398,53 +74398,6 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_OA09E063_2026-10-25",
-      "shipName": "Oasis of the Seas",
-      "shipClass": "Oasis",
-      "shipLaunchYear": 2009,
-      "itinerary": "Eastern Caribbean & Perfect Day: Cape Liberty (New York), New Jersey, Orlando (Port Canaveral), Florida, Perfect Day at CocoCay, Bahamas, San Juan, Puerto Rico, Puerto Plata, Dominican Republic, Cape Liberty (New York), New Jersey",
-      "departureDate": "2026-10-25",
-      "duration": "9 Nights",
-      "departurePort": "Cape Liberty (New York)",
-      "departureRegion": "Americas",
-      "destination": "Caribbean",
-      "priceFrom": "1083",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OA09BYE-1475648883&sailDate=2026-10-25&shipCode=OA&packageCode=OA09E063&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": "1083",
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "destinationPort": "Cape Liberty (New York)",
-      "seaDays": 3,
-      "enrichedAt": "2026-09-15T04:10:13.437Z",
-      "firstSeenAt": "2026-09-14T06:17:47.289Z",
-      "lastSeenAt": "2026-09-15T06:13:46.815Z",
-      "priceHistory": [
-        {
-          "at": "2026-09-14T06:17:47.289Z",
-          "prices": {
-            "balcony": 1592
-          }
-        },
-        {
-          "at": "2026-09-14T08:12:08.475Z",
-          "prices": {
-            "inside": 983
-          }
-        },
-        {
-          "at": "2026-09-15T04:09:35.968Z",
-          "prices": {
-            "inside": 1083
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Royal Caribbean",
       "id": "rc_NV11I018_2026-10-18",
       "shipName": "Navigator of the Seas",
       "shipClass": "Voyager",
@@ -74474,6 +74427,489 @@
           "at": "2026-09-15T06:13:46.815Z",
           "prices": {
             "balcony": 4452
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_MA05W679_2026-09-19",
+      "shipName": "Mariner of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2003,
+      "itinerary": "Western Caribbean Cruise: Galveston, Texas, Puerto Costa Maya, Mexico, Cozumel, Mexico, Galveston, Texas",
+      "departureDate": "2026-09-19",
+      "duration": "5 Nights",
+      "departurePort": "Galveston",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "550",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=MA05GAL-2956042404&sailDate=2026-09-19&shipCode=MA&packageCode=MA05W679&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": "550",
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Galveston",
+      "seaDays": 1,
+      "enrichedAt": "2026-09-15T06:14:12.438Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T12:11:19.607Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 439.5,
+            "oceanView": 476.5,
+            "balcony": 574.5
+          }
+        },
+        {
+          "at": "2026-09-13T00:23:28.305Z",
+          "prices": {
+            "inside": 446.5,
+            "oceanView": 476.5,
+            "balcony": 574.5
+          }
+        },
+        {
+          "at": "2026-09-14T14:09:09.509Z",
+          "prices": {
+            "oceanView": 476.5
+          }
+        },
+        {
+          "at": "2026-09-14T16:08:12.479Z",
+          "prices": {
+            "balcony": 581.5
+          }
+        },
+        {
+          "at": "2026-09-14T18:09:12.514Z",
+          "prices": {
+            "inside": 454.5,
+            "balcony": 581.5
+          }
+        },
+        {
+          "at": "2026-09-15T06:13:46.815Z",
+          "prices": {
+            "oceanView": 550,
+            "balcony": 657
+          }
+        },
+        {
+          "at": "2026-09-15T08:11:31.034Z",
+          "prices": {
+            "oceanView": 550
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_UT3BH170_2026-09-18",
+      "shipName": "Utopia of the Seas",
+      "shipClass": "Oasis",
+      "shipLaunchYear": 2024,
+      "itinerary": "Bahamas & Perfect Day Cruise",
+      "departureDate": "2026-09-18",
+      "duration": "3 Nights",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Bahamas",
+      "priceFrom": "741",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=UT03PCN-3464558580&sailDate=2026-09-18&shipCode=UT&packageCode=UT3BH170&destinationCode=BAHAM&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "741",
+        "suite": null
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T12:11:19.607Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "oceanView": 740.5,
+            "balcony": 747.5
+          }
+        },
+        {
+          "at": "2026-09-13T04:09:03.960Z",
+          "prices": {
+            "oceanView": 740.5,
+            "balcony": 702.5
+          }
+        },
+        {
+          "at": "2026-09-13T14:07:09.838Z",
+          "prices": {
+            "oceanView": 740.5,
+            "balcony": 747.5
+          }
+        },
+        {
+          "at": "2026-09-13T20:07:21.810Z",
+          "prices": {
+            "inside": 621.5,
+            "oceanView": 740.5,
+            "balcony": 747.5
+          }
+        },
+        {
+          "at": "2026-09-13T22:06:59.718Z",
+          "prices": {
+            "inside": 621.5,
+            "oceanView": 740.5,
+            "balcony": 747.5,
+            "suite": 5207.5
+          }
+        },
+        {
+          "at": "2026-09-14T00:23:54.063Z",
+          "prices": {
+            "oceanView": 740.5,
+            "balcony": 747.5,
+            "suite": 5207.5
+          }
+        },
+        {
+          "at": "2026-09-14T04:10:04.782Z",
+          "prices": {
+            "inside": 621.5,
+            "oceanView": 740.5,
+            "balcony": 702.5,
+            "suite": 5207.5
+          }
+        },
+        {
+          "at": "2026-09-14T14:09:09.509Z",
+          "prices": {
+            "inside": 621.5,
+            "oceanView": 666.5,
+            "balcony": 776.5,
+            "suite": 5207.5
+          }
+        },
+        {
+          "at": "2026-09-14T16:08:12.479Z",
+          "prices": {
+            "inside": 621.5,
+            "oceanView": 666.5,
+            "balcony": 629.5
+          }
+        },
+        {
+          "at": "2026-09-14T18:09:12.514Z",
+          "prices": {
+            "balcony": 776.5
+          }
+        },
+        {
+          "at": "2026-09-15T06:13:46.815Z",
+          "prices": {
+            "oceanView": 793,
+            "balcony": 741
+          }
+        },
+        {
+          "at": "2026-09-15T10:08:38.826Z",
+          "prices": {
+            "balcony": 741
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_NV07X068_2026-09-18",
+      "shipName": "Navigator of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2002,
+      "itinerary": "Ensenada, Cabo & Mazatlan: Los Angeles, California, Ensenada, Mexico, Cabo San Lucas, Mexico, Mazatlan, Mexico, Los Angeles, California",
+      "departureDate": "2026-09-18",
+      "duration": "7 Nights",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexico",
+      "priceFrom": "809",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=NV07LAX-2626294092&sailDate=2026-09-18&shipCode=NV&packageCode=NV07X068&destinationCode=MEXCO&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "809",
+        "suite": null
+      },
+      "destinationPort": "Los Angeles",
+      "seaDays": 2,
+      "enrichedAt": "2026-09-15T06:14:12.438Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T12:11:19.607Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "balcony": 883.5
+          }
+        },
+        {
+          "at": "2026-09-12T20:07:06.693Z",
+          "prices": {
+            "balcony": 604.5
+          }
+        },
+        {
+          "at": "2026-09-12T22:06:43.288Z",
+          "prices": {
+            "balcony": 883.5
+          }
+        },
+        {
+          "at": "2026-09-13T04:09:03.960Z",
+          "prices": {
+            "balcony": 604.5
+          }
+        },
+        {
+          "at": "2026-09-13T08:10:04.039Z",
+          "prices": {
+            "balcony": 883.5
+          }
+        },
+        {
+          "at": "2026-09-14T22:07:14.598Z",
+          "prices": {
+            "balcony": 809
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_VI05B092_2026-09-19",
+      "shipName": "Vision of the Seas",
+      "shipClass": "Vision",
+      "shipLaunchYear": 1998,
+      "itinerary": "Bermuda Cruise: Baltimore, Maryland, Royal Naval Dockyard, Bermuda, Baltimore, Maryland",
+      "departureDate": "2026-09-19",
+      "duration": "5 Nights",
+      "departurePort": "Baltimore",
+      "departureRegion": "Americas",
+      "destination": "Bermuda",
+      "priceFrom": "834",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=VI05BWI-675328256&sailDate=2026-09-19&shipCode=VI&packageCode=VI05B092&destinationCode=BERMU&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": "834",
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Baltimore",
+      "seaDays": 2,
+      "enrichedAt": "2026-09-13T22:07:27.243Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T12:11:19.607Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "oceanView": 774.5
+          }
+        },
+        {
+          "at": "2026-09-13T22:06:59.718Z",
+          "prices": {
+            "inside": 621.5
+          }
+        },
+        {
+          "at": "2026-09-14T04:10:04.782Z",
+          "prices": {
+            "inside": 621.5,
+            "oceanView": 785.5
+          }
+        },
+        {
+          "at": "2026-09-14T14:09:09.509Z",
+          "prices": {
+            "inside": 595.5,
+            "oceanView": 785.5
+          }
+        },
+        {
+          "at": "2026-09-14T16:08:12.479Z",
+          "prices": {
+            "oceanView": 785.5
+          }
+        },
+        {
+          "at": "2026-09-14T18:09:12.514Z",
+          "prices": {
+            "oceanView": 781.5
+          }
+        },
+        {
+          "at": "2026-09-14T22:07:14.598Z",
+          "prices": {
+            "oceanView": 834
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_OA7BH148_2026-09-27",
+      "shipName": "Oasis of the Seas",
+      "shipClass": "Oasis",
+      "shipLaunchYear": 2009,
+      "itinerary": "Perfect Day Bahamas Cruise: Cape Liberty (New York), New Jersey, Orlando (Port Canaveral), Florida, Nassau, Bahamas, Perfect Day at CocoCay, Bahamas, Cape Liberty (New York), New Jersey",
+      "departureDate": "2026-09-27",
+      "duration": "7 Nights",
+      "departurePort": "Cape Liberty (New York)",
+      "departureRegion": "Americas",
+      "destination": "Bahamas",
+      "priceFrom": "1919",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OA07BYE-3974839078&sailDate=2026-09-27&shipCode=OA&packageCode=OA7BH148&destinationCode=BAHAM&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "1919",
+        "suite": null
+      },
+      "destinationPort": "Cape Liberty (New York)",
+      "seaDays": 2,
+      "enrichedAt": "2026-09-12T18:01:16.016Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T12:11:19.607Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 764.5,
+            "oceanView": 1068.5,
+            "balcony": 1193.5
+          }
+        },
+        {
+          "at": "2026-09-14T14:09:09.509Z",
+          "prices": {
+            "inside": 690.5,
+            "oceanView": 1068.5,
+            "balcony": 1193.5
+          }
+        },
+        {
+          "at": "2026-09-14T22:07:14.598Z",
+          "prices": {
+            "balcony": 1919
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_AD08E151_2026-09-18",
+      "shipName": "Adventure of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2001,
+      "itinerary": "Eastern Caribbean & Perfect Day",
+      "departureDate": "2026-09-18",
+      "duration": "8 Nights",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "735",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=AD08PCN-1336910972&sailDate=2026-09-18&shipCode=AD&packageCode=AD08E151&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "735",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-15T00:21:37.729Z",
+      "lastSeenAt": "2026-09-15T12:11:19.607Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T00:21:37.729Z",
+          "prices": {
+            "inside": 666
+          }
+        },
+        {
+          "at": "2026-09-15T02:12:09.339Z",
+          "prices": {
+            "inside": 669
+          }
+        },
+        {
+          "at": "2026-09-15T08:11:31.034Z",
+          "prices": {
+            "inside": 735
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LE07M843_2026-10-04",
+      "shipName": "Legend of the Seas",
+      "shipClass": "Icon",
+      "shipLaunchYear": 2026,
+      "itinerary": "Western Mediterranean Cruise: Barcelona, Spain, Palma de Mallorca, Spain, Provence (Marseille), France, Florence/Pisa (La Spezia), Italy, Rome (Civitavecchia), Italy, Naples/Capri, Italy, Barcelona, Spain",
+      "departureDate": "2026-10-04",
+      "duration": "7 Nights",
+      "departurePort": "Barcelona",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "1582",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LE07BCN-1495935368&sailDate=2026-10-04&shipCode=LE&packageCode=LE07M843&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1582",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Barcelona",
+      "seaDays": 0,
+      "enrichedAt": "2026-09-12T18:01:16.016Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T12:11:19.607Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 1334
+          }
+        },
+        {
+          "at": "2026-09-14T16:08:12.479Z",
+          "prices": {
+            "inside": 1334,
+            "oceanView": 1605
+          }
+        },
+        {
+          "at": "2026-09-14T18:09:12.514Z",
+          "prices": {
+            "inside": 1482
+          }
+        },
+        {
+          "at": "2026-09-14T22:07:14.598Z",
+          "prices": {
+            "inside": 1582
           }
         }
       ]
