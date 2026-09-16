@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 233,
+  "count": 234,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -77285,6 +77285,51 @@
           "at": "2026-09-16T06:13:51.334Z",
           "prices": {
             "balcony": 772
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_MA07M900_2027-07-30",
+      "shipName": "Mariner of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2003,
+      "itinerary": "Spain & Morocco - Solar Eclipse",
+      "departureDate": "2027-07-30",
+      "duration": "7 Nights",
+      "departurePort": "Lisbon",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "4668.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=MA07LIS-1903108306&sailDate=2027-07-30&shipCode=MA&packageCode=MA07M900&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "4668.5",
+        "suite": null
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-14T16:08:12.479Z",
+      "lastSeenAt": "2026-09-16T08:11:07.416Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-14T16:08:12.479Z",
+          "prices": {
+            "balcony": 4747.5
+          }
+        },
+        {
+          "at": "2026-09-15T06:13:46.815Z",
+          "prices": {
+            "inside": 2749.5
+          }
+        },
+        {
+          "at": "2026-09-16T06:13:51.334Z",
+          "prices": {
+            "balcony": 4668.5
           }
         }
       ]
