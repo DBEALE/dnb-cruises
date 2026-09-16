@@ -1,7 +1,7 @@
 {
   "success": true,
-  "count": 2915,
-  "priceCount": 11540,
+  "count": 2916,
+  "priceCount": 11544,
   "provider": {
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
@@ -17678,6 +17678,40 @@
       "priceCheckedAt": "2026-09-12T16:07:28.973Z",
       "firstSeenAt": "2026-09-12T16:07:28.973Z",
       "lastSeenAt": "2026-09-12T16:07:28.973Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SPIRIT11AKLTAULYTORRMELBWTQDNSYD_2028-04-01",
+      "shipName": "Norwegian Spirit",
+      "shipClass": "Spirit",
+      "shipLaunchYear": 1998,
+      "itinerary": "Australia & New Zealand: Dusky Sound & Melbourne",
+      "departureDate": "2028-04-01",
+      "duration": "11-day Cruise",
+      "departurePort": "Auckland",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand: Dusky Sound & Melbourne",
+      "destinationPort": "Sydney",
+      "arrivalDate": "2028-04-12",
+      "priceFrom": "1565",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=SPIRIT11AKLTAULYTORRMELBWTQDNSYD&voyageId=25343350&sailDate=2028-04-01&departureDate=2028-04-01&shipCode=SPIRIT&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "1565",
+        "oceanView": "2005",
+        "balcony": "3300",
+        "suite": "7625"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "SUITE"
+      },
+      "seaDays": 4,
+      "priceCheckedAt": "2026-09-16T06:13:51.379Z",
+      "firstSeenAt": "2026-09-16T06:13:51.379Z",
+      "lastSeenAt": "2026-09-16T06:13:51.379Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -86192,5 +86226,5 @@
       "lastSeenAt": "2026-09-12T18:00:49.441Z"
     }
   ],
-  "scrapedAt": "2026-09-16T00:20:54.444Z"
+  "scrapedAt": "2026-09-16T06:13:51.379Z"
 }
