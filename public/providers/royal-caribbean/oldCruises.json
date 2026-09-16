@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 238,
+  "count": 246,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -72656,78 +72656,6 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_OA7BH149_2026-09-20",
-      "shipName": "Oasis of the Seas",
-      "shipClass": "Oasis",
-      "shipLaunchYear": 2009,
-      "itinerary": "Perfect Day Bahamas Cruise: Cape Liberty (New York), New Jersey, Orlando (Port Canaveral), Florida, Perfect Day at CocoCay, Bahamas, Nassau, Bahamas, Cape Liberty (New York), New Jersey",
-      "departureDate": "2026-09-20",
-      "duration": "7 Nights",
-      "departurePort": "Cape Liberty (New York)",
-      "departureRegion": "Americas",
-      "destination": "Bahamas",
-      "priceFrom": "1359.5",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=OA07BYE-3974839078&sailDate=2026-09-20&shipCode=OA&packageCode=OA7BH149&destinationCode=BAHAM&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": null,
-        "oceanView": null,
-        "balcony": "1359.5",
-        "suite": null
-      },
-      "destinationPort": "Cape Liberty (New York)",
-      "seaDays": 2,
-      "enrichedAt": "2026-09-12T18:01:16.016Z",
-      "firstSeenAt": "2026-09-12T18:00:49.413Z",
-      "lastSeenAt": "2026-09-14T20:08:22.078Z",
-      "priceHistory": [
-        {
-          "at": "2026-09-12T18:00:49.413Z",
-          "prices": {
-            "inside": 899.5,
-            "balcony": 1663.5,
-            "suite": 2105
-          }
-        },
-        {
-          "at": "2026-09-12T20:07:06.693Z",
-          "prices": {
-            "inside": 899.5,
-            "balcony": 1351.5,
-            "suite": 2105
-          }
-        },
-        {
-          "at": "2026-09-13T14:07:09.838Z",
-          "prices": {
-            "inside": 899.5,
-            "balcony": 1351.5
-          }
-        },
-        {
-          "at": "2026-09-13T18:08:47.015Z",
-          "prices": {
-            "inside": 899.5,
-            "balcony": 1663.5
-          }
-        },
-        {
-          "at": "2026-09-14T14:09:09.509Z",
-          "prices": {
-            "inside": 899.5,
-            "balcony": 1686.5
-          }
-        },
-        {
-          "at": "2026-09-14T20:08:22.078Z",
-          "prices": {
-            "balcony": 1359.5
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Royal Caribbean",
       "id": "rc_JW3BH227_2026-09-18",
       "shipName": "Jewel of the Seas",
       "shipClass": "Radiance",
@@ -77585,6 +77513,441 @@
           "at": "2026-09-15T18:08:36.686Z",
           "prices": {
             "inside": 940
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_RD04W214_2026-09-17",
+      "shipName": "Radiance of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2001,
+      "itinerary": "Western Caribbean Cruise: Tampa, Florida, Cozumel, Mexico, Tampa, Florida",
+      "departureDate": "2026-09-17",
+      "duration": "4 Nights",
+      "departurePort": "Tampa",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "418",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=RD04TPA-3250546435&sailDate=2026-09-17&shipCode=RD&packageCode=RD04W214&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "418",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Tampa",
+      "seaDays": 1,
+      "enrichedAt": "2026-09-14T22:07:41.256Z",
+      "firstSeenAt": "2026-09-14T06:17:47.289Z",
+      "lastSeenAt": "2026-09-15T22:07:31.105Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-14T06:17:47.289Z",
+          "prices": {
+            "oceanView": 365.5,
+            "balcony": 651.5
+          }
+        },
+        {
+          "at": "2026-09-14T08:12:08.475Z",
+          "prices": {
+            "balcony": 651.5
+          }
+        },
+        {
+          "at": "2026-09-14T22:07:14.598Z",
+          "prices": {
+            "inside": 382,
+            "suite": 989
+          }
+        },
+        {
+          "at": "2026-09-15T00:21:37.729Z",
+          "prices": {
+            "inside": 382,
+            "balcony": 727,
+            "suite": 989
+          }
+        },
+        {
+          "at": "2026-09-15T02:12:09.339Z",
+          "prices": {
+            "inside": 382,
+            "balcony": 727
+          }
+        },
+        {
+          "at": "2026-09-15T04:09:35.968Z",
+          "prices": {
+            "inside": 382,
+            "balcony": 727,
+            "suite": 989
+          }
+        },
+        {
+          "at": "2026-09-15T16:08:24.080Z",
+          "prices": {
+            "inside": 382,
+            "oceanView": 418,
+            "suite": 989
+          }
+        },
+        {
+          "at": "2026-09-15T18:08:36.686Z",
+          "prices": {
+            "inside": 382
+          }
+        },
+        {
+          "at": "2026-09-15T22:07:31.105Z",
+          "prices": {
+            "inside": 418
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_JW05W696_2027-01-02",
+      "shipName": "Jewel of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2004,
+      "itinerary": "Western Caribbean Cruise: Tampa, Florida, Puerto Costa Maya, Mexico, Cozumel, Mexico, Tampa, Florida",
+      "departureDate": "2027-01-02",
+      "duration": "5 Nights",
+      "departurePort": "Tampa",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "292",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=JW05TPA-1176431029&sailDate=2027-01-02&shipCode=JW&packageCode=JW05W696&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "292",
+        "oceanView": "362",
+        "balcony": "415",
+        "suite": "868"
+      },
+      "destinationPort": "Tampa",
+      "seaDays": 1,
+      "enrichedAt": "2026-09-15T08:11:57.382Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T22:07:31.105Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 292,
+            "oceanView": 362,
+            "balcony": 415,
+            "suite": 868
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_JW05W696_2027-01-16",
+      "shipName": "Jewel of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2004,
+      "itinerary": "Western Caribbean Cruise: Tampa, Florida, Puerto Costa Maya, Mexico, Cozumel, Mexico, Tampa, Florida",
+      "departureDate": "2027-01-16",
+      "duration": "5 Nights",
+      "departurePort": "Tampa",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "351",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=JW05TPA-1176431029&sailDate=2027-01-16&shipCode=JW&packageCode=JW05W696&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "351",
+        "oceanView": "390",
+        "balcony": "487",
+        "suite": "894"
+      },
+      "destinationPort": "Tampa",
+      "seaDays": 1,
+      "enrichedAt": "2026-09-15T08:11:57.382Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T22:07:31.105Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 351,
+            "oceanView": 390,
+            "balcony": 487,
+            "suite": 894
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_JW05W696_2027-02-13",
+      "shipName": "Jewel of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2004,
+      "itinerary": "Western Caribbean Cruise: Tampa, Florida, Puerto Costa Maya, Mexico, Cozumel, Mexico, Tampa, Florida",
+      "departureDate": "2027-02-13",
+      "duration": "5 Nights",
+      "departurePort": "Tampa",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "307",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=JW05TPA-1176431029&sailDate=2027-02-13&shipCode=JW&packageCode=JW05W696&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "307",
+        "oceanView": "385",
+        "balcony": "418",
+        "suite": "907"
+      },
+      "destinationPort": "Tampa",
+      "seaDays": 1,
+      "enrichedAt": "2026-09-15T08:11:57.382Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T22:07:31.105Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 307,
+            "oceanView": 385,
+            "balcony": 418,
+            "suite": 907
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_JW05W696_2027-02-27",
+      "shipName": "Jewel of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2004,
+      "itinerary": "Western Caribbean Cruise: Tampa, Florida, Puerto Costa Maya, Mexico, Cozumel, Mexico, Tampa, Florida",
+      "departureDate": "2027-02-27",
+      "duration": "5 Nights",
+      "departurePort": "Tampa",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "338",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=JW05TPA-1176431029&sailDate=2027-02-27&shipCode=JW&packageCode=JW05W696&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "338",
+        "oceanView": "415",
+        "balcony": "460",
+        "suite": "1082"
+      },
+      "destinationPort": "Tampa",
+      "seaDays": 1,
+      "enrichedAt": "2026-09-15T08:11:57.382Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T22:07:31.105Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 338,
+            "oceanView": 415,
+            "balcony": 460,
+            "suite": 1082
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_JW05W696_2027-03-27",
+      "shipName": "Jewel of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2004,
+      "itinerary": "Western Caribbean Cruise: Tampa, Florida, Puerto Costa Maya, Mexico, Cozumel, Mexico, Tampa, Florida",
+      "departureDate": "2027-03-27",
+      "duration": "5 Nights",
+      "departurePort": "Tampa",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "400",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=JW05TPA-1176431029&sailDate=2027-03-27&shipCode=JW&packageCode=JW05W696&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "400",
+        "oceanView": "507",
+        "balcony": "516",
+        "suite": "1045"
+      },
+      "destinationPort": "Tampa",
+      "seaDays": 1,
+      "enrichedAt": "2026-09-15T08:11:57.382Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-15T22:07:31.105Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 400,
+            "oceanView": 507,
+            "balcony": 516,
+            "suite": 1045
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_FR05E070_2026-09-19",
+      "shipName": "Freedom of the Seas",
+      "shipClass": "Freedom",
+      "shipLaunchYear": 2006,
+      "itinerary": "Perfect Day CocoCay & Bahamas: Miami, Florida, Perfect Day at CocoCay, Bahamas, Nassau, Bahamas, Miami, Florida",
+      "departureDate": "2026-09-19",
+      "duration": "5 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Bahamas",
+      "priceFrom": "306",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=FR05MIA-3040554279&sailDate=2026-09-19&shipCode=FR&packageCode=FR05E070&destinationCode=BAHAM&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "306",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Miami",
+      "seaDays": 1,
+      "enrichedAt": "2026-09-15T04:10:13.437Z",
+      "firstSeenAt": "2026-09-12T20:07:06.693Z",
+      "lastSeenAt": "2026-09-15T22:07:31.105Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T20:07:06.693Z",
+          "prices": {
+            "inside": 298.5,
+            "balcony": 423.5
+          }
+        },
+        {
+          "at": "2026-09-12T22:06:43.288Z",
+          "prices": {
+            "inside": 298.5
+          }
+        },
+        {
+          "at": "2026-09-14T04:10:04.782Z",
+          "prices": {
+            "inside": 284.5,
+            "balcony": 397.5
+          }
+        },
+        {
+          "at": "2026-09-14T06:17:47.289Z",
+          "prices": {
+            "balcony": 397.5
+          }
+        },
+        {
+          "at": "2026-09-15T04:09:35.968Z",
+          "prices": {
+            "inside": 306
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_VI09N080_2026-10-08",
+      "shipName": "Vision of the Seas",
+      "shipClass": "Vision",
+      "shipLaunchYear": 1998,
+      "itinerary": "Canada & New England Cruise",
+      "departureDate": "2026-10-08",
+      "duration": "9 Nights",
+      "departurePort": "Baltimore",
+      "departureRegion": "Americas",
+      "destination": "Canada & New England",
+      "priceFrom": "2676",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=VI09BWI-2442423319&sailDate=2026-10-08&shipCode=VI&packageCode=VI09N080&destinationCode=ATLCO&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "2676",
+        "suite": null
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-13T06:16:28.034Z",
+      "lastSeenAt": "2026-09-15T22:07:31.105Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-13T06:16:28.034Z",
+          "prices": {
+            "balcony": 2541
+          }
+        },
+        {
+          "at": "2026-09-15T06:13:46.815Z",
+          "prices": {
+            "balcony": 2691
+          }
+        },
+        {
+          "at": "2026-09-15T22:07:31.105Z",
+          "prices": {
+            "balcony": 2676
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_IC07E483_2026-09-19",
+      "shipName": "Icon of the Seas",
+      "shipClass": "Icon",
+      "shipLaunchYear": 2024,
+      "itinerary": "Eastern Caribbean & Perfect Day",
+      "departureDate": "2026-09-19",
+      "duration": "7 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1071",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=IC07MIA-2623281014&sailDate=2026-09-19&shipCode=IC&packageCode=IC07E483&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1071",
+        "oceanView": null,
+        "balcony": "1485",
+        "suite": null
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-15T06:13:46.815Z",
+      "lastSeenAt": "2026-09-15T22:07:31.105Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T06:13:46.815Z",
+          "prices": {
+            "oceanView": 1133,
+            "balcony": 1199
+          }
+        },
+        {
+          "at": "2026-09-15T14:08:40.695Z",
+          "prices": {
+            "balcony": 1199
+          }
+        },
+        {
+          "at": "2026-09-15T20:08:21.591Z",
+          "prices": {
+            "inside": 1071,
+            "balcony": 1485
           }
         }
       ]
