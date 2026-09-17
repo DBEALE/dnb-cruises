@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 637,
+  "count": 639,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -52095,6 +52095,81 @@
         }
       ],
       "lastSeenAt": "2026-09-14T06:17:47.332Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_VIVA10CIVLIVSALCTAHERJMKPIRKUSIST_2026-09-16",
+      "shipName": "Norwegian Viva",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2023,
+      "itinerary": "Greek Isles: Mykonos, Athens & Florence",
+      "departureDate": "2026-09-16",
+      "duration": "10-day Cruise",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Greek Isles: Mykonos, Athens & Florence",
+      "destinationPort": "Istanbul",
+      "arrivalDate": "2026-09-26",
+      "priceFrom": "732",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=VIVA10CIVLIVSALCTAHERJMKPIRKUSIST&voyageId=24103691&sailDate=2026-09-16&departureDate=2026-09-16&shipCode=VIVA&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "732",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 732
+          }
+        }
+      ],
+      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JEWEL10QUELBICHASYNHALBHBPWMBOSPHL_2026-09-16",
+      "shipName": "Norwegian Jewel",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2005,
+      "itinerary": "Canada & New England: Bar Harbor & Halifax",
+      "departureDate": "2026-09-16",
+      "duration": "10-day Cruise",
+      "departurePort": "Quebec City",
+      "departureRegion": "Americas",
+      "destination": "Canada & New England: Bar Harbor & Halifax",
+      "destinationPort": "Philadelphia, Pennsylvania",
+      "arrivalDate": "2026-09-26",
+      "priceFrom": "670",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=JEWEL10QUELBICHASYNHALBHBPWMBOSPHL&voyageId=22948115&sailDate=2026-09-16&departureDate=2026-09-16&shipCode=JEWEL&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "670",
+        "oceanView": "1040",
+        "balcony": "1905",
+        "suite": "1940"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 670,
+            "oceanView": 1040,
+            "balcony": 1905,
+            "suite": 1940
+          }
+        }
+      ],
+      "lastSeenAt": "2026-09-12T16:07:28.973Z"
     }
   ]
 }
