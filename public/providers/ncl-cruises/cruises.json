@@ -1,7 +1,7 @@
 {
   "success": true,
-  "count": 2915,
-  "priceCount": 11542,
+  "count": 2916,
+  "priceCount": 11546,
   "provider": {
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
@@ -64978,7 +64978,41 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_SPIRIT8PPTMOZRARRAIBRBPPT_2027-09-22",
+      "id": "ncl_SPIRIT8PPTRARBRBMOZRAIPPT_2027-06-09",
+      "shipName": "Norwegian Spirit",
+      "shipClass": "Spirit",
+      "shipLaunchYear": 1998,
+      "itinerary": "South Pacific: Rarotonga, Raiatea & Moorea",
+      "departureDate": "2027-06-09",
+      "duration": "8-day Cruise",
+      "departurePort": "Papeete (Tahiti), French Polynesia",
+      "departureRegion": "Australia & Pacific",
+      "destination": "South Pacific: Rarotonga, Raiatea & Moorea",
+      "destinationPort": "Papeete (Tahiti), French Polynesia",
+      "arrivalDate": "2027-06-17",
+      "priceFrom": "1420",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=SPIRIT8PPTMOZRARRAIBRBPPT&voyageId=25689446&sailDate=2027-06-09&departureDate=2027-06-09&shipCode=SPIRIT&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "1420",
+        "oceanView": "1605",
+        "balcony": "2705",
+        "suite": "5045"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "SUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-09-17T12:12:07.229Z",
+      "firstSeenAt": "2026-09-17T12:12:07.229Z",
+      "lastSeenAt": "2026-09-17T12:12:07.229Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SPIRIT8PPTRARBRBMOZRAIPPT_2027-09-22",
       "shipName": "Norwegian Spirit",
       "shipClass": "Spirit",
       "shipLaunchYear": 1998,
@@ -64999,10 +65033,16 @@
         "balcony": "2785",
         "suite": "5930"
       },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "SUITE"
+      },
       "seaDays": 3,
-      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
-      "firstSeenAt": "2026-09-12T16:07:28.973Z",
-      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+      "priceCheckedAt": "2026-09-17T12:12:07.229Z",
+      "firstSeenAt": "2026-09-17T12:12:07.229Z",
+      "lastSeenAt": "2026-09-17T12:12:07.229Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -86215,5 +86255,5 @@
       "lastSeenAt": "2026-09-12T18:00:49.441Z"
     }
   ],
-  "scrapedAt": "2026-09-16T20:09:09.672Z"
+  "scrapedAt": "2026-09-17T12:12:07.229Z"
 }
