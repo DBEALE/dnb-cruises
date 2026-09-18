@@ -1,7 +1,7 @@
 {
   "success": true,
-  "count": 2929,
-  "priceCount": 11596,
+  "count": 2931,
+  "priceCount": 11604,
   "provider": {
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
@@ -65751,7 +65751,41 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_SUN12MIANPICBRORJWILCTGPCGCLNLIOMIA_2027-01-25",
+      "id": "ncl_SUN12MIANPICBRWILORJCTGPCGCLNLIOMIA_2026-12-21",
+      "shipName": "Norwegian Sun",
+      "shipClass": "Sun",
+      "shipLaunchYear": 2001,
+      "itinerary": "Panama Canal: Bahamas & Costa Rica",
+      "departureDate": "2026-12-21",
+      "duration": "12-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Panama Canal: Bahamas & Costa Rica",
+      "destinationPort": "Miami",
+      "arrivalDate": "2027-01-02",
+      "priceFrom": "1112",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=SUN12MIANPICBRORJWILCTGPCGCLNLIOMIA&voyageId=23377866&sailDate=2026-12-21&departureDate=2026-12-21&shipCode=SUN&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "1112",
+        "oceanView": "1192",
+        "balcony": "2161",
+        "suite": "2260"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-09-18T12:11:26.413Z",
+      "firstSeenAt": "2026-09-18T12:11:26.413Z",
+      "lastSeenAt": "2026-09-18T12:11:26.413Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SUN12MIANPICBRWILORJCTGPCGCLNLIOMIA_2027-01-25",
       "shipName": "Norwegian Sun",
       "shipClass": "Sun",
       "shipLaunchYear": 2001,
@@ -65769,13 +65803,53 @@
       "prices": {
         "inside": "860",
         "oceanView": "985",
-        "balcony": "2080",
-        "suite": "4560"
+        "balcony": "2755",
+        "suite": "5490"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "SUITE"
       },
       "seaDays": 3,
-      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
-      "firstSeenAt": "2026-09-12T16:07:28.973Z",
-      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+      "priceCheckedAt": "2026-09-18T12:11:26.413Z",
+      "firstSeenAt": "2026-09-18T12:11:26.413Z",
+      "lastSeenAt": "2026-09-18T12:11:26.413Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SUN12MIANPICBRWILORJCTGPCGCLNLIOMIA_2027-03-01",
+      "shipName": "Norwegian Sun",
+      "shipClass": "Sun",
+      "shipLaunchYear": 2001,
+      "itinerary": "Panama Canal: Bahamas & Costa Rica",
+      "departureDate": "2027-03-01",
+      "duration": "12-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Panama Canal: Bahamas & Costa Rica",
+      "destinationPort": "Miami",
+      "arrivalDate": "2027-03-13",
+      "priceFrom": "972",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=SUN12MIANPICBRORJWILCTGPCGCLNLIOMIA&voyageId=23377868&sailDate=2027-03-01&departureDate=2027-03-01&shipCode=SUN&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "972",
+        "oceanView": "987",
+        "balcony": "1993",
+        "suite": "2994"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-09-18T12:11:26.413Z",
+      "firstSeenAt": "2026-09-18T12:11:26.413Z",
+      "lastSeenAt": "2026-09-18T12:11:26.413Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -86760,5 +86834,5 @@
       "lastSeenAt": "2026-09-12T18:00:49.441Z"
     }
   ],
-  "scrapedAt": "2026-09-18T10:08:00.645Z"
+  "scrapedAt": "2026-09-18T12:11:26.413Z"
 }
