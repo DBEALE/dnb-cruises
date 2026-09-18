@@ -1,7 +1,7 @@
 {
   "success": true,
-  "count": 2926,
-  "priceCount": 11584,
+  "count": 2927,
+  "priceCount": 11588,
   "provider": {
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
@@ -64659,16 +64659,50 @@
     },
     {
       "provider": "Norwegian Cruise Line",
-      "id": "ncl_STAR12SOUSVGAESTOSALTKRDBGOHAUSOU_2028-09-24",
+      "id": "ncl_STAR12SOUSVGBGOTOSALTKRDAESHAUSOU_2027-10-08",
       "shipName": "Norwegian Star",
       "shipClass": "Dawn",
       "shipLaunchYear": 2001,
-      "itinerary": "Northern Europe: Tromso, Alesund & Bergen",
+      "itinerary": "Northern Europe: Bergen, Alesund & Stavanger",
+      "departureDate": "2027-10-08",
+      "duration": "12-day Cruise",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Northern Europe: Bergen, Alesund & Stavanger",
+      "destinationPort": "Southampton",
+      "arrivalDate": "2027-10-20",
+      "priceFrom": "1945",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=STAR12SOUSVGAESTOSALTKRDBGOHAUSOU&voyageId=24872556&sailDate=2027-10-08&departureDate=2027-10-08&shipCode=STAR&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "1945",
+        "oceanView": "2160",
+        "balcony": "3665",
+        "suite": "3825"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 4,
+      "priceCheckedAt": "2026-09-18T06:13:39.608Z",
+      "firstSeenAt": "2026-09-18T06:13:39.608Z",
+      "lastSeenAt": "2026-09-18T06:13:39.608Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_STAR12SOUSVGBGOTOSALTKRDAESHAUSOU_2028-09-24",
+      "shipName": "Norwegian Star",
+      "shipClass": "Dawn",
+      "shipLaunchYear": 2001,
+      "itinerary": "Northern Europe: Bergen, Alesund & Stavanger",
       "departureDate": "2028-09-24",
       "duration": "12-day Cruise",
       "departurePort": "Southampton",
       "departureRegion": "UK & Ireland",
-      "destination": "Northern Europe: Tromso, Alesund & Bergen",
+      "destination": "Northern Europe: Bergen, Alesund & Stavanger",
       "destinationPort": "Southampton",
       "arrivalDate": "2028-10-06",
       "priceFrom": "1692",
@@ -64680,10 +64714,16 @@
         "balcony": "3397",
         "suite": "3787"
       },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
       "seaDays": 4,
-      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
-      "firstSeenAt": "2026-09-12T16:07:28.973Z",
-      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+      "priceCheckedAt": "2026-09-18T06:13:39.608Z",
+      "firstSeenAt": "2026-09-18T06:13:39.608Z",
+      "lastSeenAt": "2026-09-18T06:13:39.608Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -86640,5 +86680,5 @@
       "lastSeenAt": "2026-09-12T18:00:49.441Z"
     }
   ],
-  "scrapedAt": "2026-09-18T04:09:25.525Z"
+  "scrapedAt": "2026-09-18T06:13:39.608Z"
 }
