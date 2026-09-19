@@ -1,7 +1,7 @@
 {
   "success": true,
   "count": 2968,
-  "priceCount": 11705,
+  "priceCount": 11704,
   "provider": {
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
@@ -397,14 +397,18 @@
       "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=PEARL7PIRJTRKAKCFUKOTZADKOPRAV&voyageId=22997494&sailDate=2026-09-27&departureDate=2026-09-27&shipCode=PEARL&guestCount=2&selectedStateroomMeta=INSIDE",
       "prices": {
         "inside": "687",
-        "oceanView": "755",
+        "oceanView": null,
         "balcony": null,
         "suite": "3520"
       },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "suite": "SUITE"
+      },
       "seaDays": 0,
-      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
+      "priceCheckedAt": "2026-09-19T10:07:12.036Z",
       "firstSeenAt": "2026-09-12T16:07:28.973Z",
-      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+      "lastSeenAt": "2026-09-19T10:07:12.036Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -45673,19 +45677,25 @@
       "destination": "Canada & New England: Bar Harbor & Halifax",
       "destinationPort": "Philadelphia, Pennsylvania",
       "arrivalDate": "2026-10-17",
-      "priceFrom": "845",
+      "priceFrom": "865",
       "currency": "GBP",
       "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=JEWEL10QUELBICHASYNHALBHBPWMBOSPHL&voyageId=22948116&sailDate=2026-10-07&departureDate=2026-10-07&shipCode=JEWEL&guestCount=2&selectedStateroomMeta=INSIDE",
       "prices": {
-        "inside": "845",
-        "oceanView": "1260",
-        "balcony": "2450",
+        "inside": "865",
+        "oceanView": "1275",
+        "balcony": "2530",
         "suite": "2650"
       },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
       "seaDays": 2,
-      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
+      "priceCheckedAt": "2026-09-19T10:07:12.036Z",
       "firstSeenAt": "2026-09-12T16:07:28.973Z",
-      "lastSeenAt": "2026-09-12T16:07:28.973Z"
+      "lastSeenAt": "2026-09-19T10:07:12.036Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -99474,5 +99484,5 @@
       "lastSeenAt": "2026-09-19T06:12:24.968Z"
     }
   ],
-  "scrapedAt": "2026-09-19T06:12:24.968Z"
+  "scrapedAt": "2026-09-19T10:07:12.036Z"
 }
