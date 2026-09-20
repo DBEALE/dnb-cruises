@@ -6,6 +6,7 @@ const assert = require('node:assert/strict');
 const {
   enrichmentSignature,
   canReuseEnrichment,
+  canCarryForwardEnrichment,
   applyReusedEnrichment,
 } = require('../providers/rci-room-selection');
 
@@ -46,6 +47,25 @@ test('enrichmentSignature matches on sailing identity, ignores enrichment/price 
 
 test('canReuseEnrichment reuses a fresh, unchanged sailing', () => {
   assert.equal(canReuseEnrichment(enriched(), sailing(), NOW), true);
+});
+
+test('reuse compares canonical port names and refuses a different package', () => {
+  const bookingUrl = 'https://www.royalcaribbean.com/booking/landing?packageCode=IC07E479';
+  const prior = enriched({ departurePort: 'Miami', bookingUrl });
+  const fresh = sailing({ departurePort: 'Miami, Florida', bookingUrl });
+  assert.equal(canReuseEnrichment(prior, fresh, NOW), true);
+  assert.equal(canCarryForwardEnrichment(prior, { ...fresh, bookingUrl: bookingUrl.replace('IC07E479', 'IC07W480') }), false);
+});
+
+test('stale complete details can survive failure, but incomplete details never qualify', () => {
+  const prior = enriched({ enrichedAt: new Date(NOW - 30 * DAY).toISOString() });
+  assert.equal(canReuseEnrichment(prior, sailing(), NOW), false);
+  assert.equal(canCarryForwardEnrichment(prior, sailing()), true);
+  assert.equal(canCarryForwardEnrichment(prior, sailing({ departureDate: '2026-09-02' })), false);
+  for (const incomplete of [{ destinationPort: '' }, { itinerary: '' }, { enrichedAt: undefined }]) {
+    assert.equal(canReuseEnrichment(enriched(incomplete), sailing(), NOW), false);
+    assert.equal(canCarryForwardEnrichment(enriched(incomplete), sailing()), false);
+  }
 });
 
 test('canReuseEnrichment refuses when the prior was never successfully enriched', () => {

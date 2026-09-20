@@ -136,6 +136,42 @@ async function gotoFresh(page, settings = null, fixtures = {}) {
   await page.waitForSelector('tbody tr:not(.empty-row)');
 }
 
+test('RC preserves the Legend itinerary through an outage and shows unknown sea days for missing routes', async ({ page }) => {
+  const provider = require('../providers/royal-caribbean');
+  const prior = require('./fixtures/rc-legend-route.json');
+  const stub = Object.create(provider);
+  stub.requestDelayMs = 0;
+  stub.fetchPage = async () => ({ total: 1, cruises: [{
+    id: 'LE14FLL-4184155541',
+    sailings: [{ id: 'LE14T264_2027-04-25', sailDate: prior.departureDate, bookingLink: prior.bookingUrl,
+      lowestStateroomClassPrice: { price: { value: 1261, currency: { code: 'GBP' } } },
+      stateroomClassPricing: [{ stateroomClass: { name: 'Interior' }, price: { value: 1261 } }] }],
+    masterSailing: { itinerary: { name: 'Spanish Transatlantic Cruise', totalNights: 14,
+      departurePort: { name: 'Fort Lauderdale, Florida' }, ship: { name: prior.shipName }, destination: { name: 'Transatlantic' } } },
+  }] });
+  stub.fetchItineraryPorts = async () => null;
+  const [recovered] = await stub.fetchCruises({ priorEnrichmentById: new Map([[prior.id, prior]]) });
+  const [missing] = await stub.fetchCruises();
+  await page.setViewportSize({ width: 1680, height: 900 });
+  await page.route('**/functions/v1/visitor-count', route => route.fulfill({ json: { uniqueVisitors: 12, totalVisits: 34 } }));
+  await gotoFresh(page, { darkMode: true }, { royalCaribbean: { cruises: [{ ...recovered, firstSeenAt: prior.firstSeenAt }, { ...missing, id: 'missing', shipName: 'Route awaiting refresh' }] }, celebrity: { cruises: [] } });
+  const knownRow = page.locator('#cruiseBody > tr').filter({ hasText: 'Legend of the Seas' });
+  const missingRow = page.locator('#cruiseBody > tr').filter({ hasText: 'Route awaiting refresh' });
+  await expect(knownRow.locator('.col-itinerary')).toContainText('Seville (Cadiz), Spain');
+  await expect(knownRow.locator('.col-destination-port')).toContainText('Barcelona');
+  await expect(knownRow.locator('.cabin-price-link')).toContainText('£1,261');
+  await expect(missingRow.locator('.col-sea-days')).toHaveText('—');
+  await expect(missingRow.locator('.col-destination-port')).toHaveText('—');
+  await page.locator('.col-filter[data-field="shipName"]').selectOption('Legend of the Seas');
+  await expect(page.locator('#cruiseBody > tr')).toHaveCount(1);
+  await expect(page.locator('#visitorStats')).toContainText('12 unique');
+  await page.screenshot({ path: 'docs/screenshots/rc-route-recovery-desktop.png', animations: 'disabled' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await knownRow.scrollIntoViewIfNeeded();
+  await expect(knownRow.locator('.col-destination-port')).toContainText('Barcelona');
+  await page.screenshot({ path: 'docs/screenshots/rc-route-recovery-mobile.png', animations: 'disabled', fullPage: true });
+});
+
 for (const mobile of [false, true]) {
   test(`large lists preserve every sorted result while scrolling (${mobile ? 'mobile' : 'desktop'})`, async ({ page }) => {
     test.setTimeout(60000);

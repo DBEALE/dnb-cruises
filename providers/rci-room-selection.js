@@ -2,6 +2,7 @@
 
 const { cleanText, extractPortSequenceFromChapters, buildDetailedItinerary,
         estimateSeaDays, DEFAULT_USER_AGENT } = require('./shared');
+const { canonicalPortName } = require('./ports');
 
 /**
  * Default request timeout (ms) for outbound provider HTTP calls.
@@ -321,9 +322,23 @@ const ENRICH_REUSE_JITTER_MS = 7 * 24 * 60 * 60 * 1000;   // spread refresh acro
 // The fields that identify a specific sailing. If they all match between the
 // prior and fresh records, the route (and thus the enrichment) is the same.
 function enrichmentSignature(cruise) {
-  return ['shipName', 'departureDate', 'duration', 'departurePort']
-    .map(key => String(cruise?.[key] ?? '').trim().toLowerCase())
+  let packageCode = '';
+  try {
+    const url = new URL(cruise?.bookingUrl);
+    packageCode = url.searchParams.get('packageCode') || url.searchParams.get('pID') || '';
+  } catch { /* Legacy records may have no booking context. */ }
+  return [cruise?.shipName, cruise?.departureDate, cruise?.duration,
+    canonicalPortName(cruise?.departurePort), packageCode]
+    .map(value => String(value ?? '').trim().toLowerCase())
     .join('|');
+}
+
+// A success timestamp alone is not enough: older partial responses were stamped
+// even when they contained only the embarkation port.
+function canCarryForwardEnrichment(prior, fresh) {
+  return Boolean(prior && fresh && cleanText(prior.itinerary) && cleanText(prior.destinationPort)
+    && Number.isFinite(Date.parse(prior.enrichedAt))
+    && enrichmentSignature(prior) === enrichmentSignature(fresh));
 }
 
 function hashString(str) {
@@ -335,8 +350,7 @@ function hashString(str) {
 // True when the previous-run `prior` record can stand in for enriching `fresh`,
 // so we can skip its room-selection HTTP call this run.
 function canReuseEnrichment(prior, fresh, now = Date.now()) {
-  if (!prior || !fresh || !prior.enrichedAt) return false;
-  if (enrichmentSignature(prior) !== enrichmentSignature(fresh)) return false;
+  if (!canCarryForwardEnrichment(prior, fresh)) return false;
   const enrichedMs = Date.parse(prior.enrichedAt);
   if (!Number.isFinite(enrichedMs)) return false;
   const ttl = ENRICH_REUSE_MIN_MS + (hashString(String(prior.id || '')) % (ENRICH_REUSE_JITTER_MS + 1));
@@ -359,6 +373,7 @@ module.exports = {
   createRciRoomSelection,
   enrichmentSignature,
   canReuseEnrichment,
+  canCarryForwardEnrichment,
   applyReusedEnrichment,
   classifyRoomType,
   extractPriceFromEntry,

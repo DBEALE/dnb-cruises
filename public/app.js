@@ -108,6 +108,11 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '20 Sep 2026',
+      title: 'Royal Caribbean route details survive refresh failures',
+      items: ['Previously collected itineraries and destination ports are retained when Royal Caribbean cannot refresh them, while prices continue updating. Incomplete route responses are retried, and missing routes no longer produce a guessed sea-day count.'],
+    },
+    {
       date: '13 Sep 2026',
       title: 'Faster filters with large cruise lists',
       items: ['Large result lists now draw only the cruises near your screen, keeping filters responsive even after Show all. Sorting and filtering still use every loaded cruise, and scrolling reveals every matching result. Use the site filters to search the complete list; the browser Find command only sees currently drawn rows.'],
@@ -2406,6 +2411,9 @@
     if (Number.isFinite(fromField) && !/scenic cruising/i.test(itinerary)) {
       return Math.max(0, Math.round(fromField));
     }
+    // A search-result title is not a port schedule. Missing RC enrichment must
+    // not make a 14-night transatlantic look like it has 13 sea days.
+    if (c?.provider === 'Royal Caribbean' && !c.destinationPort && !itinerary.includes('→') && !itinerary.includes(':')) return null;
 
     const nights = parseFloat(String(c?.duration || '').match(/(\d+)/)?.[1] || '');
     if (!Number.isFinite(nights)) return null;

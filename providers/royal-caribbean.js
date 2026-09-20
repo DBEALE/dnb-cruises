@@ -6,7 +6,7 @@ const { getDepartureRegion, estimateSeaDays, cleanText, DEFAULT_USER_AGENT,
         getDestinationPort } = require('./shared');
 const { createRciRoomSelection, mapWithConcurrency,
         extractPricesFromClassPricing, extractRoomTypePricesFromPayload,
-        classifyRoomType, canReuseEnrichment, applyReusedEnrichment } = require('./rci-room-selection');
+        classifyRoomType, canReuseEnrichment, canCarryForwardEnrichment, applyReusedEnrichment } = require('./rci-room-selection');
 
 const ROOM_SELECTION_API_URL = 'https://www.royalcaribbean.com/room-selection/api/v1/rooms';
 
@@ -270,7 +270,8 @@ async function fetchItineraryPorts(context) {
 }
 
 function applyItineraryPorts(cruise, ports, enrichedAt) {
-  if (!ports) return cruise;
+  // A lone embarkation port (or only sea-day placeholders) is not a route.
+  if (!Array.isArray(ports) || !getDestinationPort(ports)) return cruise;
   return {
     ...cruise,
     itinerary: buildDetailedItinerary(cruise.itinerary, ports) || cruise.itinerary,
@@ -351,6 +352,8 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
     const concurrency = 2;
     let fetched = 0;
     let reused = 0;
+    let retained = 0;
+    let missing = 0;
 
     const enrichedCruises = await mapWithConcurrency(cruises, concurrency, async (cruise) => {
       const prior = priorById.get(cruise.id);
@@ -368,11 +371,20 @@ class RoyalCaribbeanProvider extends GraphQLCruiseProvider {
           return null;
         }));
       }
-      return applyItineraryPorts(cruise, await cache.get(cacheKey), enrichedAt);
+      const enriched = applyItineraryPorts(cruise, await cache.get(cacheKey), enrichedAt);
+      if (enriched.enrichedAt) return enriched;
+      if (canCarryForwardEnrichment(prior, cruise)) {
+        retained += 1;
+        // Keep the original check time, so expired details are retried next run.
+        // Prices and sailing dates still come from this run's search response.
+        return applyReusedEnrichment(cruise, prior);
+      }
+      missing += 1;
+      return cruise;
     });
 
     if (enrichedCruises.length > 0) {
-      console.log(`  ${this.progressPrefix} itinerary enrichment: ${fetched} fetched, ${reused} reused (${enrichedCruises.length} sailings)`);
+      console.log(`  ${this.progressPrefix} itinerary enrichment: ${fetched} fetched, ${reused} reused, ${retained} retained after failed refresh, ${missing} missing (${enrichedCruises.length} sailings)`);
     }
 
     return enrichedCruises;

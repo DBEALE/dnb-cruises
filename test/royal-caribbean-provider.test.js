@@ -354,3 +354,46 @@ test('enrichment reuses the prior run instead of re-fetching an unchanged sailin
   assert.equal(rows[0].priceFrom, '838', 'price still comes from this run');
   assert.deepEqual(calls, ['IC07E479'], 'only the un-reused departure triggered a fetch');
 });
+
+test('Legend retains its last known Barcelona route after a failed refresh, but updates prices and retries', async () => {
+  // Previously published route details for the sailing in the reported screenshot.
+  const saved = require('./fixtures/rc-legend-route.json');
+  const prior = { ...saved, enrichedAt: new Date(Date.now() - 30 * 86400000).toISOString() };
+  const raw = {
+    id: 'LE14FLL-4184155541',
+    sailings: [{ id: 'LE14T264_2027-04-25', sailDate: prior.departureDate, bookingLink: prior.bookingUrl,
+      lowestStateroomClassPrice: { price: { value: 1261, currency: { code: 'GBP' } } } }],
+    masterSailing: { itinerary: { name: 'Spanish Transatlantic Cruise', totalNights: 14,
+      departurePort: { name: 'Fort Lauderdale, Florida' }, ship: { name: prior.shipName }, destination: { name: 'Transatlantic' } } },
+  };
+  const stub = Object.create(provider);
+  stub.requestDelayMs = 0;
+  stub.fetchPage = async () => ({ total: 1, cruises: [raw] });
+  let attempts = 0;
+  stub.fetchItineraryPorts = async () => { attempts++; return null; };
+  const [result] = await stub.fetchCruises({ priorEnrichmentById: new Map([[prior.id, prior]]) });
+  assert.equal(result.id, prior.id);
+  assert.equal(result.itinerary, prior.itinerary);
+  assert.equal(result.destinationPort, 'Barcelona');
+  assert.equal(result.enrichedAt, prior.enrichedAt, 'do not renew the expired timestamp');
+  assert.equal(result.priceFrom, '1261');
+  await stub.fetchCruises({ priorEnrichmentById: new Map([[result.id, result]]) });
+  assert.equal(attempts, 2, 'the next run retries rather than treating fallback as a fresh check');
+  stub.fetchItineraryPorts = async () => ['Fort Lauderdale, Florida', 'Barcelona, Spain'];
+  const [refreshed] = await stub.fetchCruises({ priorEnrichmentById: new Map([[result.id, result]]) });
+  assert.equal(refreshed.destinationPort, 'Barcelona, Spain');
+  assert.notEqual(refreshed.enrichedAt, prior.enrichedAt);
+});
+
+test('single-port responses cannot be stamped as successfully enriched', async () => {
+  const stub = Object.create(provider);
+  stub.requestDelayMs = 0;
+  stub.fetchPage = async () => ({ total: 1, cruises: [searchResult()] });
+  stub.fetchItineraryPorts = async () => ['Miami, Florida', 'Cruising'];
+  const rows = await stub.fetchCruises();
+  for (const row of rows) {
+    assert.equal(row.enrichedAt, undefined);
+    assert.equal(row.destinationPort, undefined);
+    assert.equal(row.itinerary, 'Eastern Caribbean & Perfect Day');
+  }
+});
