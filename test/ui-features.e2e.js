@@ -1003,6 +1003,72 @@ test.describe('URL state', () => {
 });
 
 test.describe('Mobile filters', () => {
+  test('multiple ship classes survive searching, refresh, saved views, shared links and clearing', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.route('**/functions/v1/visitor-count', route => route.fulfill({ json: { uniqueVisitors: 12, totalVisits: 34 } }));
+    await gotoFresh(page, null, {
+      royalCaribbean: { cruises: CRUISES_RC.cruises.map((c, i) => ({ ...c, shipClass: i ? 'Quantum' : 'Oasis' })) },
+      celebrity: { cruises: CRUISES_CEL.cruises.map(c => ({ ...c, shipClass: 'Edge' })) },
+    });
+    const picker = page.locator('[data-multi-filter="shipClass"]');
+    const search = picker.getByRole('searchbox');
+    await page.click('#mobFilterToggle');
+    await picker.locator('summary').click();
+    await picker.getByLabel('Oasis', { exact: true }).check();
+    await search.fill('edge');
+    await picker.getByLabel('Edge', { exact: true }).check();
+    await search.fill('nothing matches');
+    await expect(picker.locator('.multi-filter-empty')).toBeVisible();
+    await search.fill('');
+    await expect(picker.getByLabel('Oasis', { exact: true })).toBeChecked();
+    await expect(picker.locator('summary')).toHaveText('2 classes selected');
+    await expect(page.locator('#mobActiveFilterCount')).toHaveText('1 active');
+    // A temporarily smaller provider response must not silently drop a choice.
+    await page.evaluate(() => populateClassFilter(allCruises.filter(c => c.shipClass === 'Oasis')));
+    await expect(picker.getByLabel('Edge', { exact: true })).toBeChecked();
+    await page.evaluate(() => populateDropdownFilters(allCruises));
+    await expect(page.locator('#cruiseBody > tr')).toHaveCount(3);
+    await picker.locator('.multi-filter-options').evaluate(node => { node.scrollTop = node.scrollHeight; });
+    await picker.evaluate(node => node.closest('.mob-filter-group').scrollIntoView({ block: 'start' }));
+    await expect(picker.getByLabel('Oasis', { exact: true })).toBeInViewport();
+    await page.screenshot({ path: 'docs/screenshots/multiple-ship-classes-mobile.png', animations: 'disabled' });
+    await page.click('#mobFiltersClose');
+    await expect(page.locator('#cruiseBody > tr')).toHaveCount(2);
+    await expect(page.locator('#summary')).toContainText('Oasis class or Edge class');
+    const sharedUrl = page.url();
+    expect(JSON.parse(new URLSearchParams(new URL(sharedUrl).hash.slice(1)).get('shipClass'))).toEqual(['Oasis', 'Edge']);
+    await page.evaluate(() => saveCurrentView('Two classes'));
+    await page.reload();
+    await expect(page.locator('#cruiseBody > tr')).toHaveCount(2);
+    await page.click('#mobFilterToggle');
+    await expect(picker.locator('summary')).toHaveText('2 classes selected');
+    await picker.locator('summary').click();
+    await picker.getByLabel('Oasis', { exact: true }).uncheck();
+    await picker.getByLabel('Mega (5,500+ pax)', { exact: true }).check();
+    await page.click('#mobFiltersClose');
+    await expect(page.locator('#cruiseBody > tr')).toHaveCount(2);
+    await expect(page.locator('#summary')).toContainText('Mega ships');
+    await page.evaluate(() => applySavedView(loadSavedViews().find(v => v.name === 'Two classes').id));
+    await expect(page.locator('#summary')).toContainText('Oasis class or Edge class');
+    await page.setViewportSize({ width: 1680, height: 900 });
+    await expect(page.locator('.col-filter[data-field="shipClass"] option:checked')).toHaveText('2 classes selected');
+    await expect(page.locator('#visitorStats')).toContainText('12 unique');
+    await page.screenshot({ path: 'docs/screenshots/multiple-ship-classes-desktop.png', animations: 'disabled' });
+    await page.locator('.col-filter[data-field="shipClass"]').selectOption('Quantum');
+    await expect(page.locator('#cruiseBody > tr')).toHaveCount(1);
+    // Opening a shared link loads the page; a hash-only goto stays in the old document.
+    await page.goto('about:blank');
+    await page.goto(sharedUrl);
+    await expect(page.locator('#cruiseBody > tr')).toHaveCount(2);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.click('#mobFilterToggle');
+    await page.getByRole('button', { name: 'Clear ship class filter', exact: true }).click();
+    await expect(picker.locator('summary')).toHaveText('All classes');
+    await page.click('#mobFiltersClose');
+    await expect(page.locator('#cruiseBody > tr')).toHaveCount(3);
+    await expect(page.locator('option[data-multi-selection]')).toHaveCount(0);
+  });
+
   test('multiple lines and ships survive search, refresh, saved views and sharing', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await gotoFresh(page, ALL_ON);

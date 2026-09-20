@@ -3,6 +3,7 @@
 const fs   = require('fs');
 const path = require('path');
 const { fetchWithTimeout } = require('../providers/shared');
+const { matchesShipClasses } = require('./ship-class-criteria');
 
 const SUPABASE_URL         = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -88,7 +89,7 @@ function matchesCriteria(cruise, criteria, usdToGbp) {
   const providers = selectedNames(c.provider);
   if (ships.length && !ships.some(name => cruise.shipName?.toLowerCase().includes(name.toLowerCase()))) return false;
   if (providers.length && !providers.some(name => cruise.provider?.toLowerCase().includes(name.toLowerCase()))) return false;
-  if (c.shipClass       && cruise.shipClass !== c.shipClass)                                                  return false;
+  if (!matchesShipClasses(cruise.shipClass, c.shipClass)) return false;
   if (c.minLaunch       && (cruise.shipLaunchYear ?? 0) < Number(c.minLaunch))                               return false;
   if (c.itinerary       && !cruise.itinerary?.toLowerCase().includes(c.itinerary.toLowerCase()))             return false;
   if (c.destination     && !cruise.destination?.toLowerCase().includes(c.destination.toLowerCase()))         return false;

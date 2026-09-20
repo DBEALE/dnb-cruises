@@ -109,6 +109,11 @@
   const SITE_CHANGES = [
     {
       date: '20 Sep 2026',
+      title: 'Choose multiple ship classes',
+      items: ['Select any combination of ship classes or sizes in Sort & filter, just like ships and cruise lines. Search the choices, tick those you want, and close filters to apply. Saved views and shared links keep every selection.'],
+    },
+    {
+      date: '20 Sep 2026',
       title: 'Royal Caribbean route details survive refresh failures',
       items: ['Previously collected itineraries and destination ports are retained when Royal Caribbean cannot refresh them, while prices continue updating. Incomplete route responses are retried, and missing routes no longer produce a guessed sea-day count.'],
     },
@@ -939,18 +944,15 @@
       `<optgroup label="By size">${tierHtml}</optgroup>` +
       `<optgroup label="By class">${classHtml}</optgroup>`;
 
-    const selects = document.querySelectorAll(
-      '.col-filter[data-field="shipClass"], .mob-filter[data-field="shipClass"]'
-    );
+    const selects = document.querySelectorAll('.col-filter[data-field="shipClass"]');
     const currentValue = Array.from(selects).find(s => s.value)?.value || '';
-    const stillValid = !currentValue ||
-      currentValue.startsWith('tier:') ||
-      classes.includes(currentValue);
 
     selects.forEach(s => {
       s.innerHTML = html;
-      s.value = stillValid ? currentValue : '';
+      assignFilterValue(s, currentValue);
     });
+    populateMultiFilter('shipClass', [...TIER_OPTIONS.map(([tier]) => `tier:${tier}`), ...classes]);
+    syncMultiFilter('shipClass');
   }
 
   function resolveStaticUrl(resourcePath) {
@@ -3107,16 +3109,25 @@
     return [String(value).trim()].filter(Boolean);
   }
 
+  function multiFilterChoiceLabel(field, value) {
+    if (field !== 'shipClass') return value;
+    return {
+      'tier:mega': 'Mega (5,500+ pax)', 'tier:large': 'Large (3,000–5,500)',
+      'tier:medium': 'Medium (2,000–3,000)', 'tier:small': 'Small (≤2,000)',
+    }[value] || value;
+  }
+
   function multiFilterLabel(field, value) {
     const values = multiFilterValues(value);
-    if (!values.length) return field === 'shipName' ? 'All ships' : 'All cruise lines';
-    if (values.length === 1) return values[0];
-    return `${values.length} ${field === 'shipName' ? 'ships' : 'cruise lines'} selected`;
+    const noun = { shipName: 'ships', provider: 'cruise lines', shipClass: 'classes' }[field];
+    if (!values.length) return `All ${noun}`;
+    if (values.length === 1) return multiFilterChoiceLabel(field, values[0]);
+    return `${values.length} ${noun} selected`;
   }
 
   function assignFilterValue(el, value) {
     value = value || '';
-    if (el.tagName === 'SELECT' && ['shipName', 'provider'].includes(el.dataset.field)) {
+    if (el.tagName === 'SELECT' && ['shipName', 'provider', 'shipClass'].includes(el.dataset.field)) {
       el.querySelectorAll('option[data-multi-selection]').forEach(option => option.remove());
       if (value && !Array.from(el.options).some(option => option.value === value)) {
         const option = document.createElement('option');
@@ -3135,7 +3146,7 @@
     const selected = multiFilterValues(getFilterFieldValue(field));
     const options = [...new Set([...values, ...selected])];
     picker.querySelector('.multi-filter-options').innerHTML = options.map(value =>
-      `<label class="multi-filter-option"><input type="checkbox" data-field="${field}" value="${escHtml(value)}" onchange="toggleMultiFilterChoice(this)"><span>${escHtml(value)}</span></label>`).join('');
+      `<label class="multi-filter-option"><input type="checkbox" data-field="${field}" value="${escHtml(value)}" onchange="toggleMultiFilterChoice(this)"><span>${escHtml(multiFilterChoiceLabel(field, value))}</span></label>`).join('');
     filterMultiFilterOptions(picker.querySelector('.multi-filter-search'));
   }
 
@@ -3178,7 +3189,7 @@
   function setFilterFieldValue(field, value) {
     document.querySelectorAll(`.col-filter[data-field="${field}"], .mob-filter[data-field="${field}"]`)
       .forEach(el => assignFilterValue(el, value));
-    if (field === 'shipName' || field === 'provider') syncMultiFilter(field);
+    if (['shipName', 'provider', 'shipClass'].includes(field)) syncMultiFilter(field);
   }
 
   function clearFilterField(field) {
@@ -3437,11 +3448,13 @@
     if (!v) return '';
     if (key === 'provider' || key === 'shipName') return multiFilterValues(v).join(' or ');
     if (key === 'shipClass') {
-      if (v.startsWith('tier:')) {
-        const tier = v.slice(5);
-        return tier ? `${tier[0].toUpperCase()}${tier.slice(1)} ships` : '';
-      }
-      return `${v} class`;
+      return multiFilterValues(v).map(choice => {
+        if (choice.startsWith('tier:')) {
+          const tier = choice.slice(5);
+          return tier ? `${tier[0].toUpperCase()}${tier.slice(1)} ships` : '';
+        }
+        return `${choice} class`;
+      }).join(' or ');
     }
     if (key === 'departureRegion') return v;
     if (key === 'departurePort') return `From ${v}`;
@@ -3973,6 +3986,7 @@
   function updateMobileFilterActiveStates() {
     syncMultiFilter('shipName');
     syncMultiFilter('provider');
+    syncMultiFilter('shipClass');
     const groups = document.querySelectorAll('#mobFilters .mob-filter-group:not(.mob-sort-inline):not(.mob-filter-actions)');
     let activeCount = 0;
 
@@ -4188,6 +4202,7 @@
     const itineraryTerms = itinerarySearchTerms(colFilters.itinerary);
     const shipChoices = multiFilterValues(colFilters.shipName).map(lowerText);
     const providerChoices = multiFilterValues(colFilters.provider).map(lowerText);
+    const classChoices = multiFilterValues(colFilters.shipClass).map(lowerText);
 
     // The Expired view swaps the data source to the archived sailings; every
     // filter/sort below works identically on either list.
@@ -4214,14 +4229,9 @@
       // shipClass filter is bi-modal: `tier:<size>` filters by computed
       // size tier from SHIP_TIER_BY_CLASS; anything else is a substring
       // match against the class name (unchanged behaviour).
-      const cls = colFilters.shipClass;
-      if (cls) {
-        if (cls.startsWith('tier:')) {
-          if (SHIP_TIER_BY_CLASS[c.shipClass] !== cls.slice(5)) return false;
-        } else if (!(c.shipClass || '').toLowerCase().includes(cls.toLowerCase())) {
-          return false;
-        }
-      }
+      if (classChoices.length && !classChoices.some(cls => cls.startsWith('tier:')
+        ? SHIP_TIER_BY_CLASS[c.shipClass] === cls.slice(5)
+        : (c.shipClass || '').toLowerCase().includes(cls))) return false;
       // departureRegion is similarly bi-modal: `group:<area>` matches any
       // of the regions in REGION_GROUP_MEMBERS; anything else is a
       // substring match against the region name.

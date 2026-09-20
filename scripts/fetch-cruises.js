@@ -5,6 +5,7 @@ const path      = require('path');
 const providers = require('../providers');
 const { fetchWithTimeout } = require('../providers/shared');
 const { canonicalPortName } = require('../providers/ports');
+const { matchesShipClasses } = require('./ship-class-criteria');
 const {
   hasUniformCabinPrices,
   isInvalidLeadingHistoryEntry,
@@ -390,7 +391,7 @@ async function fetchAllSnapshots(activeProviders, options = {}) {
 
 function matchesAlert(cruise, alert) {
   if (alert.departureRegion && cruise.departureRegion !== alert.departureRegion) return false;
-  if (alert.shipClass       && cruise.shipClass       !== alert.shipClass)       return false;
+  if (!matchesShipClasses(cruise.shipClass, alert.shipClass)) return false;
   if (alert.provider        && cruise.provider        !== alert.provider)        return false;
   if (alert.departurePort   && !cruise.departurePort?.toLowerCase().includes(alert.departurePort.toLowerCase())) return false;
   if (alert.shipName        && !cruise.shipName?.toLowerCase().includes(alert.shipName.toLowerCase()))           return false;

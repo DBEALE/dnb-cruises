@@ -31,6 +31,20 @@ function cruise(overrides = {}) {
   };
 }
 
+test('ship-class alerts match multiple classes and sizes without ignoring other criteria', () => {
+  const criteria = { shipClass: JSON.stringify(['Oasis', 'Edge']), provider: 'Celebrity Cruises' };
+  assert.equal(matchesCriteria(cruise({ shipClass: 'Edge' }), criteria), true);
+  assert.equal(matchesCriteria(cruise({ shipClass: 'Oasis' }), criteria), true);
+  assert.equal(matchesCriteria(cruise({ shipClass: 'Quantum' }), criteria), false);
+  assert.equal(matchesCriteria(cruise({ shipClass: 'Edge', provider: 'Royal Caribbean' }), criteria), false);
+  for (const shipClass of ['Oasis', 'Icon', 'Edge']) {
+    assert.equal(matchesCriteria(cruise({ shipClass }), { shipClass: '["tier:mega","Edge"]' }), true);
+  }
+  assert.equal(matchesCriteria(cruise({ shipClass: 'Unknown' }), { shipClass: 'tier:medium' }), false);
+  assert.equal(matchesCriteria(cruise({ shipClass: 'Edge' }), { shipClass: 'Edge' }), true);
+  assert.equal(matchesCriteria(cruise({ shipClass: 'Quantum' }), { shipClass: '[]' }), true);
+});
+
 test('buildMessages splits large alert batches into short Twilio-safe parts', () => {
   const cruises = Array.from({ length: 146 }, (_, index) => cruise({
     id: `match-${index}`,

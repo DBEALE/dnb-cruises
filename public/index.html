@@ -333,12 +333,19 @@
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('provider')" aria-label="Clear cruise line filter" title="Clear cruise line filter">&times;</button>
         </div>
       </div>
-      <div class="mob-filter-group mob-filter-cruise">
-        <label for="mobFilterClass">Ship class</label>
+      <div class="mob-filter-group mob-filter-full mob-filter-cruise">
+        <label id="mobFilterClassLabel">Ship classes</label>
         <div class="filter-entry">
-          <select id="mobFilterClass" class="mob-filter" data-field="shipClass" onchange="mobileFilterSync(this)">
-            <option value="">All classes</option>
-          </select>
+          <details class="multi-filter" data-multi-filter="shipClass">
+            <summary aria-labelledby="mobFilterClassLabel mobFilterClassSummary"><span id="mobFilterClassSummary" class="multi-filter-summary">All classes</span></summary>
+            <input type="hidden" id="mobFilterClass" class="mob-filter" data-field="shipClass">
+            <div class="multi-filter-panel">
+              <input class="multi-filter-search" type="search" placeholder="Find classes or sizes…" aria-label="Find ship classes" oninput="filterMultiFilterOptions(this)">
+              <p class="multi-filter-help">Tick any number of classes or sizes. No selection includes all classes.</p>
+              <div class="multi-filter-options" role="group" aria-label="Choose ship classes"></div>
+              <p class="multi-filter-empty" hidden>No classes match.</p>
+            </div>
+          </details>
           <button type="button" class="filter-clear-btn" onclick="clearFilterField('shipClass')" aria-label="Clear ship class filter" title="Clear ship class filter">&times;</button>
         </div>
       </div>
