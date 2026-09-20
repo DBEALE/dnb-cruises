@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 653,
+  "count": 654,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -52737,6 +52737,51 @@
         }
       ],
       "lastSeenAt": "2026-09-15T16:08:24.122Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_DAWN7LISPRMMOTCADGIBIBZPMIBCN_2026-09-20",
+      "shipName": "Norwegian Dawn",
+      "shipClass": "Dawn",
+      "shipLaunchYear": 2002,
+      "itinerary": "Mediterranean: Portugal, Gibraltar & Spain",
+      "departureDate": "2026-09-20",
+      "duration": "7-day Cruise",
+      "departurePort": "Lisbon",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean: Portugal, Gibraltar & Spain",
+      "destinationPort": "Barcelona",
+      "arrivalDate": "2026-09-27",
+      "priceFrom": "577",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=DAWN7LISPRMCADMOTGIBIBZPMIBCN&voyageId=22976178&sailDate=2026-09-20&departureDate=2026-09-20&shipCode=DAWN&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "577",
+        "oceanView": "610",
+        "balcony": "950",
+        "suite": "1755"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-09-13T04:09:04.036Z",
+      "firstSeenAt": "2026-09-13T04:09:04.036Z",
+      "lastSeenAt": "2026-09-13T04:09:04.036Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-13T04:09:04.036Z",
+          "prices": {
+            "inside": 577,
+            "oceanView": 610,
+            "balcony": 950,
+            "suite": 1755
+          }
+        }
+      ]
     }
   ]
 }
