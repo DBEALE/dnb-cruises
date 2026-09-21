@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 303,
+  "count": 305,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -90639,6 +90639,140 @@
           "at": "2026-09-20T00:23:24.450Z",
           "prices": {
             "inside": 705.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_LE7IP206_2026-10-01",
+      "shipName": "Legend of the Seas",
+      "shipClass": "Icon",
+      "shipLaunchYear": 2026,
+      "itinerary": "Western Mediterranean Cruise",
+      "departureDate": "2026-10-01",
+      "duration": "7 Nights",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "1344.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=LE07ROM-237457943&sailDate=2026-10-01&shipCode=LE&packageCode=LE7IP206&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "1344.5",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-21T06:18:04.460Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 1327,
+            "oceanView": 1995,
+            "suite": 9617.5
+          }
+        },
+        {
+          "at": "2026-09-13T08:10:04.039Z",
+          "prices": {
+            "inside": 1327
+          }
+        },
+        {
+          "at": "2026-09-15T16:08:24.080Z",
+          "prices": {
+            "inside": 1427,
+            "suite": 10010
+          }
+        },
+        {
+          "at": "2026-09-16T08:11:07.416Z",
+          "prices": {
+            "suite": 10010
+          }
+        },
+        {
+          "at": "2026-09-16T20:09:09.635Z",
+          "prices": {
+            "inside": 1427,
+            "suite": 10010
+          }
+        },
+        {
+          "at": "2026-09-16T22:06:51.962Z",
+          "prices": {
+            "inside": 1344.5,
+            "suite": 9672.5
+          }
+        },
+        {
+          "at": "2026-09-17T10:08:42.049Z",
+          "prices": {
+            "suite": 9672.5
+          }
+        },
+        {
+          "at": "2026-09-18T18:09:17.075Z",
+          "prices": {
+            "inside": 1344.5
+          }
+        },
+        {
+          "at": "2026-09-18T20:07:46.661Z",
+          "prices": {
+            "inside": 1344.5,
+            "balcony": 2532.5,
+            "suite": 9672.5
+          }
+        },
+        {
+          "at": "2026-09-19T00:20:31.605Z",
+          "prices": {
+            "inside": 1344.5,
+            "balcony": 2532.5
+          }
+        },
+        {
+          "at": "2026-09-19T20:07:15.872Z",
+          "prices": {
+            "inside": 1344.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_ID10D094_2026-10-29",
+      "shipName": "Independence of the Seas",
+      "shipClass": "Freedom",
+      "shipLaunchYear": 2008,
+      "itinerary": "Southern Caribbean Cruise",
+      "departureDate": "2026-10-29",
+      "duration": "10 Nights",
+      "departurePort": "Cape Liberty (New York)",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1522.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=ID10BYE-2420709763&sailDate=2026-10-29&shipCode=ID&packageCode=ID10D094&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "1522.5",
+        "suite": null
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-21T06:18:04.460Z",
+      "lastSeenAt": "2026-09-21T06:18:04.460Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-21T06:18:04.460Z",
+          "prices": {
+            "balcony": 1522.5
           }
         }
       ]
