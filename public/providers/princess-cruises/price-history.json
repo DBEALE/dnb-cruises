@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 906,
+  "count": 904,
   "history": {
     "princess_LVL060_CO_20260923": [
       {
@@ -515,6 +515,12 @@
           "inside": 714,
           "balcony": 799
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "balcony": 853
+        }
       }
     ],
     "princess_ERA07G_SU_20271024": [
@@ -897,6 +903,12 @@
           "inside": 359,
           "oceanView": 499
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 359
+        }
       }
     ],
     "princess_TLF16D_CO_20260929": [
@@ -1222,6 +1234,15 @@
         "at": "2026-09-19T10:07:11.996Z",
         "prices": {
           "inside": 1700,
+          "balcony": 3599,
+          "suite": 6192
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 1700,
+          "oceanView": 3341,
           "balcony": 3599,
           "suite": 6192
         }
@@ -3583,6 +3604,13 @@
           "inside": 2654,
           "suite": 3798
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 2814,
+          "suite": 4001
+        }
       }
     ],
     "princess_ERR07F_EX_20271106": [
@@ -4315,68 +4343,95 @@
         }
       }
     ],
-    "princess_CRF10L_EX_20270307": [
+    "princess_CRF10L_CO_20261029": [
       {
-        "at": "2026-09-05T16:07:32.624Z",
+        "at": "2026-08-22T06:07:27.649Z",
         "prices": {
-          "inside": 1135,
-          "oceanView": 1375,
-          "balcony": 1485,
-          "suite": 1912
+          "inside": 923,
+          "oceanView": 957,
+          "balcony": 1229,
+          "suite": 1782
         }
       },
       {
-        "at": "2026-09-08T16:09:07.655Z",
+        "at": "2026-08-27T15:41:15.857Z",
         "prices": {
-          "inside": 1145,
-          "oceanView": 1445,
-          "balcony": 1545,
-          "suite": 1922
+          "inside": 1059,
+          "oceanView": 1079,
+          "balcony": 1399,
+          "suite": 2049
         }
       },
       {
-        "at": "2026-09-09T08:11:03.893Z",
+        "at": "2026-08-27T19:32:25.118Z",
         "prices": {
-          "inside": 1170,
-          "oceanView": 1470,
-          "balcony": 1670,
-          "suite": 2072
+          "inside": 1013,
+          "oceanView": 999,
+          "balcony": 1289,
+          "suite": 1899
         }
       },
       {
-        "at": "2026-09-17T22:12:29.253Z",
+        "at": "2026-08-31T18:10:28.011Z",
         "prices": {
-          "inside": 1210,
-          "oceanView": 1370,
-          "balcony": 1570,
-          "suite": 2072
+          "inside": 950,
+          "oceanView": 979,
+          "balcony": 1199,
+          "suite": 1849
         }
       },
       {
-        "at": "2026-09-18T08:10:34.161Z",
+        "at": "2026-09-10T18:09:54.906Z",
         "prices": {
-          "inside": 1185,
-          "oceanView": 1345,
-          "balcony": 1520,
-          "suite": 2022
+          "inside": 888,
+          "oceanView": 999,
+          "balcony": 1249,
+          "suite": 1749
         }
       },
       {
-        "at": "2026-09-19T08:09:50.837Z",
+        "at": "2026-09-14T16:08:12.479Z",
         "prices": {
-          "inside": 1217,
-          "oceanView": 1370,
-          "balcony": 1577,
-          "suite": 2072
+          "inside": 846,
+          "oceanView": 949,
+          "balcony": 1199,
+          "suite": 1699
         }
       },
       {
-        "at": "2026-09-19T10:07:11.996Z",
+        "at": "2026-09-15T20:08:21.591Z",
         "prices": {
-          "inside": 1185,
-          "oceanView": 1345,
-          "balcony": 1520,
-          "suite": 2022
+          "inside": 1159,
+          "oceanView": 1300,
+          "balcony": 1643,
+          "suite": 2328
+        }
+      },
+      {
+        "at": "2026-09-15T22:07:31.105Z",
+        "prices": {
+          "inside": 846,
+          "oceanView": 949,
+          "balcony": 1199,
+          "suite": 1699
+        }
+      },
+      {
+        "at": "2026-09-17T18:10:03.708Z",
+        "prices": {
+          "inside": 846,
+          "oceanView": 899,
+          "balcony": 1099,
+          "suite": 1599
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 809,
+          "oceanView": 929,
+          "balcony": 1099,
+          "suite": 1599
         }
       }
     ],
@@ -5723,6 +5778,13 @@
           "balcony": 1149,
           "suite": 1539
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "balcony": 1149,
+          "suite": 1539
+        }
       }
     ],
     "princess_CFR06F_GP_20270131": [
@@ -6846,89 +6908,6 @@
         "prices": {
           "inside": 1096,
           "balcony": 1212
-        }
-      }
-    ],
-    "princess_OLT19A_SA_20261122": [
-      {
-        "at": "2026-09-05T16:07:32.624Z",
-        "prices": {
-          "inside": 2199,
-          "oceanView": 2482,
-          "balcony": 2929,
-          "suite": 3811
-        }
-      },
-      {
-        "at": "2026-09-07T14:08:39.305Z",
-        "prices": {
-          "inside": 2235,
-          "oceanView": 2482,
-          "balcony": 2929,
-          "suite": 3811
-        }
-      },
-      {
-        "at": "2026-09-07T16:21:31.111Z",
-        "prices": {
-          "inside": 2199,
-          "oceanView": 2482,
-          "balcony": 2929,
-          "suite": 3811
-        }
-      },
-      {
-        "at": "2026-09-09T20:07:23.171Z",
-        "prices": {
-          "inside": 2235,
-          "oceanView": 2482,
-          "balcony": 2929,
-          "suite": 3811
-        }
-      },
-      {
-        "at": "2026-09-12T08:09:08.249Z",
-        "prices": {
-          "inside": 2235,
-          "oceanView": 2379,
-          "balcony": 2929,
-          "suite": 3811
-        }
-      },
-      {
-        "at": "2026-09-14T08:12:08.475Z",
-        "prices": {
-          "inside": 2199,
-          "oceanView": 2379,
-          "balcony": 2929,
-          "suite": 3811
-        }
-      },
-      {
-        "at": "2026-09-15T20:08:21.591Z",
-        "prices": {
-          "inside": 3012,
-          "oceanView": 3260,
-          "balcony": 4012,
-          "suite": 5221
-        }
-      },
-      {
-        "at": "2026-09-15T22:07:31.105Z",
-        "prices": {
-          "inside": 2199,
-          "oceanView": 2379,
-          "balcony": 2929,
-          "suite": 3811
-        }
-      },
-      {
-        "at": "2026-09-20T00:23:24.450Z",
-        "prices": {
-          "inside": 2199,
-          "oceanView": 2379,
-          "balcony": 2929,
-          "suite": 4153
         }
       }
     ],
@@ -8794,6 +8773,14 @@
           "balcony": 2817,
           "suite": 3072
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 2372,
+          "balcony": 2638,
+          "suite": 3072
+        }
       }
     ],
     "princess_CPR06E_YP_20270104": [
@@ -9282,6 +9269,14 @@
           "oceanView": 2566,
           "balcony": 2846,
           "suite": 3251
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 2171,
+          "oceanView": 2566,
+          "balcony": 2846
         }
       }
     ],
@@ -10702,6 +10697,15 @@
         "at": "2026-09-19T10:07:11.996Z",
         "prices": {
           "inside": 730,
+          "oceanView": 780,
+          "balcony": 850,
+          "suite": 1100
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 754,
           "oceanView": 780,
           "balcony": 850,
           "suite": 1100
@@ -12307,6 +12311,15 @@
           "balcony": 2989,
           "suite": 5149
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 1699,
+          "oceanView": 1749,
+          "balcony": 2989,
+          "suite": 4849
+        }
       }
     ],
     "princess_CSR14N_EP_20280102": [
@@ -13380,95 +13393,6 @@
         }
       }
     ],
-    "princess_TFL15D_CO_20270106": [
-      {
-        "at": "2026-09-05T16:07:32.624Z",
-        "prices": {
-          "oceanView": 2071,
-          "balcony": 3442,
-          "suite": 4142
-        }
-      },
-      {
-        "at": "2026-09-08T08:11:26.606Z",
-        "prices": {
-          "oceanView": 2293,
-          "balcony": 3592,
-          "suite": 4342
-        }
-      },
-      {
-        "at": "2026-09-15T20:08:21.591Z",
-        "prices": {
-          "oceanView": 3270,
-          "balcony": 4921,
-          "suite": 5949
-        }
-      },
-      {
-        "at": "2026-09-15T22:07:31.105Z",
-        "prices": {
-          "oceanView": 2387,
-          "balcony": 3592,
-          "suite": 4342
-        }
-      },
-      {
-        "at": "2026-09-16T22:06:51.962Z",
-        "prices": {
-          "oceanView": 2171,
-          "balcony": 3592,
-          "suite": 4342
-        }
-      },
-      {
-        "at": "2026-09-17T00:20:30.809Z",
-        "prices": {
-          "oceanView": 2387,
-          "balcony": 3592,
-          "suite": 4342
-        }
-      },
-      {
-        "at": "2026-09-19T08:09:50.837Z",
-        "prices": {
-          "oceanView": 2287,
-          "balcony": 3452,
-          "suite": 4142
-        }
-      },
-      {
-        "at": "2026-09-19T10:07:11.996Z",
-        "prices": {
-          "oceanView": 2387,
-          "balcony": 3592,
-          "suite": 4342
-        }
-      },
-      {
-        "at": "2026-09-20T00:23:24.450Z",
-        "prices": {
-          "oceanView": 2387,
-          "suite": 4342
-        }
-      },
-      {
-        "at": "2026-09-20T08:10:12.203Z",
-        "prices": {
-          "oceanView": 2387,
-          "balcony": 3592,
-          "suite": 4342
-        }
-      },
-      {
-        "at": "2026-09-20T18:09:40.287Z",
-        "prices": {
-          "oceanView": 2387,
-          "balcony": 3592,
-          "suite": 3111
-        }
-      }
-    ],
     "princess_WF129A_CO_20270106": [
       {
         "at": "2026-09-05T16:07:32.624Z",
@@ -13639,6 +13563,15 @@
       {
         "at": "2026-09-19T10:07:11.996Z",
         "prices": {
+          "balcony": 5975,
+          "suite": 8042
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 3530,
+          "oceanView": 3652,
           "balcony": 5975,
           "suite": 8042
         }
@@ -15104,6 +15037,15 @@
           "balcony": 1099,
           "suite": 1304
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 499,
+          "oceanView": 779,
+          "balcony": 1099,
+          "suite": 1304
+        }
       }
     ],
     "princess_ILS36B_CO_20270121": [
@@ -15160,6 +15102,13 @@
         "at": "2026-09-19T10:07:11.996Z",
         "prices": {
           "inside": 6508,
+          "oceanView": 7065
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 6928,
           "oceanView": 7065
         }
       }
@@ -15259,6 +15208,15 @@
         "at": "2026-09-19T10:07:11.996Z",
         "prices": {
           "inside": 20342,
+          "oceanView": 24314,
+          "balcony": 28291,
+          "suite": 39374
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 22147,
           "oceanView": 24314,
           "balcony": 28291,
           "suite": 39374
@@ -16307,6 +16265,12 @@
           "inside": 2025,
           "balcony": 3190
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 2025
+        }
       }
     ],
     "princess_OST28B_SA_20270206": [
@@ -16795,6 +16759,14 @@
           "inside": 4272,
           "balcony": 5124,
           "suite": 6766
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 4357,
+          "balcony": 5284,
+          "suite": 6809
         }
       }
     ],
@@ -21251,6 +21223,14 @@
           "inside": 1968,
           "suite": 3344
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 1968,
+          "balcony": 3179,
+          "suite": 4613
+        }
       }
     ],
     "princess_ZSA05D_RP_20270328": [
@@ -21861,6 +21841,14 @@
         "prices": {
           "inside": 792,
           "oceanView": 984,
+          "suite": 1239
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 792,
+          "oceanView": 1033,
           "suite": 1239
         }
       }
@@ -22751,78 +22739,23 @@
         }
       }
     ],
-    "princess_EBI12E_MJ_20270419": [
+    "princess_EBI12E_MJ_20280419": [
       {
-        "at": "2026-05-29T18:29:37.417Z",
+        "at": "2026-07-15T08:47:23.484Z",
         "prices": {
-          "inside": 1814,
-          "balcony": 2351,
-          "suite": 2539
+          "inside": 2009,
+          "oceanView": 2709,
+          "balcony": 2616,
+          "suite": 3089
         }
       },
       {
-        "at": "2026-06-03T14:25:08.048Z",
+        "at": "2026-09-17T16:09:03.415Z",
         "prices": {
-          "inside": 1719,
-          "balcony": 2147,
-          "suite": 2389
-        }
-      },
-      {
-        "at": "2026-06-05T21:21:41.187Z",
-        "prices": {
-          "inside": 1719,
-          "balcony": 2147,
-          "suite": 2369
-        }
-      },
-      {
-        "at": "2026-06-08T18:22:55.802Z",
-        "prices": {
-          "inside": 1674,
-          "balcony": 2181,
-          "suite": 2479
-        }
-      },
-      {
-        "at": "2026-06-13T20:29:37.518Z",
-        "prices": {
-          "inside": 1764,
-          "balcony": 2286,
-          "suite": 2579
-        }
-      },
-      {
-        "at": "2026-06-15T21:03:22.919Z",
-        "prices": {
-          "inside": 1814,
-          "balcony": 2412,
-          "suite": 2729
-        }
-      },
-      {
-        "at": "2026-06-18T07:41:29.008Z",
-        "prices": {
-          "inside": 1789,
-          "balcony": 2312,
-          "suite": 2579
-        }
-      },
-      {
-        "at": "2026-06-21T07:38:44.706Z",
-        "prices": {
-          "inside": 1789,
-          "oceanView": 2359,
-          "balcony": 2312,
-          "suite": 2579
-        }
-      },
-      {
-        "at": "2026-09-18T08:10:34.161Z",
-        "prices": {
-          "inside": 1989,
-          "balcony": 3101,
-          "suite": 3569
+          "inside": 2009,
+          "oceanView": 2899,
+          "balcony": 2800,
+          "suite": 3419
         }
       }
     ],
@@ -32919,6 +32852,13 @@
           "inside": 3694,
           "suite": 8632
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 3694,
+          "suite": 8747
+        }
       }
     ],
     "princess_EBA11B_SU_20270613": [
@@ -34744,6 +34684,14 @@
           "balcony": 4109,
           "suite": 5636
         }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 3459,
+          "balcony": 4109,
+          "suite": 5636
+        }
       }
     ],
     "princess_ESR35A_GP_20270625": [
@@ -35690,6 +35638,14 @@
           "inside": 1581,
           "oceanView": 2181,
           "suite": 2731
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 1581,
+          "oceanView": 2181,
+          "suite": 2781
         }
       }
     ],
@@ -45135,6 +45091,15 @@
         "prices": {
           "inside": 6863,
           "oceanView": 7283,
+          "balcony": 10258,
+          "suite": 13003
+        }
+      },
+      {
+        "at": "2026-09-21T16:08:35.341Z",
+        "prices": {
+          "inside": 6863,
+          "oceanView": 7328,
           "balcony": 10258,
           "suite": 13003
         }
@@ -65509,5 +65474,5 @@
       }
     ]
   },
-  "scrapedAt": "2026-09-21T14:09:07.296Z"
+  "scrapedAt": "2026-09-21T16:08:35.341Z"
 }
