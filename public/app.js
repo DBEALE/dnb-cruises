@@ -3234,6 +3234,9 @@
     const range = normalizeDateRange(start, end);
     const preview = document.getElementById('departureRangePreview');
     if (preview) preview.textContent = `Range: ${departureRangeLabel(range.start, range.end)}`;
+    // An empty date picker opens on today's month; a min makes it open on the start date instead.
+    const endInput = document.getElementById('departureRangeEnd');
+    if (endInput) endInput.min = start;
   }
 
   function openDepartureRange() {
