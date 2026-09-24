@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 672,
+  "count": 673,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -53578,6 +53578,44 @@
           }
         }
       ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SUN9CPHWARGDYKLJRIXNYNTLLHEL_2026-09-23",
+      "shipName": "Norwegian Sun",
+      "shipClass": "Sun",
+      "shipLaunchYear": 2001,
+      "itinerary": "Baltic: Germany, Poland & Sweden",
+      "departureDate": "2026-09-23",
+      "duration": "9-day Cruise",
+      "departurePort": "Copenhagen",
+      "departureRegion": "Northern Europe",
+      "destination": "Baltic: Germany, Poland & Sweden",
+      "destinationPort": "Helsinki",
+      "arrivalDate": "2026-10-02",
+      "priceFrom": "980",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=SUN9CPHWARGDYKLJRIXNYNTLLHEL&voyageId=22979384&sailDate=2026-09-23&departureDate=2026-09-23&shipCode=SUN&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "980",
+        "oceanView": null,
+        "balcony": "1880",
+        "suite": "5345"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-12T16:07:28.973Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 980,
+            "balcony": 1880,
+            "suite": 5345
+          }
+        }
+      ],
+      "lastSeenAt": "2026-09-12T16:07:28.973Z"
     }
   ]
 }
