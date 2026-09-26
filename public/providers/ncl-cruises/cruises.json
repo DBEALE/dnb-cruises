@@ -1,7 +1,7 @@
 {
   "success": true,
-  "count": 2938,
-  "priceCount": 11613,
+  "count": 2939,
+  "priceCount": 11614,
   "provider": {
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
@@ -45015,6 +45015,37 @@
       "priceCheckedAt": "2026-09-26T10:07:13.754Z",
       "firstSeenAt": "2026-09-12T16:07:28.973Z",
       "lastSeenAt": "2026-09-26T10:07:13.754Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_BREAKAWAY7BOSPWMBHBEPMHALBOS_2026-10-04",
+      "shipName": "Norwegian Breakaway",
+      "shipClass": "Breakaway",
+      "shipLaunchYear": 2013,
+      "itinerary": "Canada & New England: Bar Harbor & Halifax",
+      "departureDate": "2026-10-04",
+      "duration": "7-day Cruise",
+      "departurePort": "Boston",
+      "departureRegion": "Americas",
+      "destination": "Canada & New England: Bar Harbor & Halifax",
+      "destinationPort": "Boston",
+      "arrivalDate": "2026-10-11",
+      "priceFrom": "940",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=BREAKAWAY7BOSPWMBHBEPMHALBOS&voyageId=22695902&sailDate=2026-10-04&departureDate=2026-10-04&shipCode=BREAKAWAY&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "940",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-26T16:09:00.665Z",
+      "firstSeenAt": "2026-09-26T16:09:00.665Z",
+      "lastSeenAt": "2026-09-26T16:09:00.665Z"
     },
     {
       "provider": "Norwegian Cruise Line",
@@ -99755,5 +99786,5 @@
       "lastSeenAt": "2026-09-26T10:07:13.754Z"
     }
   ],
-  "scrapedAt": "2026-09-26T10:07:13.754Z"
+  "scrapedAt": "2026-09-26T16:09:00.665Z"
 }
