@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 360,
+  "count": 364,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -113048,52 +113048,6 @@
     },
     {
       "provider": "Royal Caribbean",
-      "id": "rc_MA07M899_2027-07-23",
-      "shipName": "Mariner of the Seas",
-      "shipClass": "Voyager",
-      "shipLaunchYear": 2003,
-      "itinerary": "Spain & Morocco Cruise",
-      "departureDate": "2027-07-23",
-      "duration": "7 Nights",
-      "departurePort": "Barcelona",
-      "departureRegion": "Mediterranean",
-      "destination": "Europe",
-      "priceFrom": "1835.5",
-      "currency": "GBP",
-      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=MA07BCN-3641775270&sailDate=2027-07-23&shipCode=MA&packageCode=MA07M899&destinationCode=EUROP&selectedCurrencyCode=GBP&country=GBR",
-      "prices": {
-        "inside": "1835.5",
-        "oceanView": null,
-        "balcony": null,
-        "suite": null
-      },
-      "destinationPort": "",
-      "firstSeenAt": "2026-09-29T08:12:14.946Z",
-      "lastSeenAt": "2026-09-29T16:09:46.813Z",
-      "priceHistory": [
-        {
-          "at": "2026-09-29T08:12:14.946Z",
-          "prices": {
-            "inside": 1835.5
-          }
-        },
-        {
-          "at": "2026-09-29T14:08:27.237Z",
-          "prices": {
-            "inside": 1835.5,
-            "balcony": 3129.5
-          }
-        },
-        {
-          "at": "2026-09-29T16:09:46.813Z",
-          "prices": {
-            "inside": 1835.5
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Royal Caribbean",
       "id": "rc_RH07D516_2026-10-03",
       "shipName": "Rhapsody of the Seas",
       "shipClass": "Vision",
@@ -114833,6 +114787,738 @@
           "at": "2026-09-29T22:08:12.926Z",
           "prices": {
             "balcony": 1270
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_VY03X045_2026-10-05",
+      "shipName": "Voyager of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 1999,
+      "itinerary": "Ensenada Cruise",
+      "departureDate": "2026-10-05",
+      "duration": "3 Nights",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexico",
+      "priceFrom": "267.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=VY03LAX-1965471073&sailDate=2026-10-05&shipCode=VY&packageCode=VY03X045&destinationCode=MEXCO&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "267.5",
+        "oceanView": null,
+        "balcony": "324.5",
+        "suite": null
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-15T02:12:09.339Z",
+      "lastSeenAt": "2026-09-30T00:23:26.634Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T02:12:09.339Z",
+          "prices": {
+            "inside": 263
+          }
+        },
+        {
+          "at": "2026-09-16T06:13:51.334Z",
+          "prices": {
+            "oceanView": 286
+          }
+        },
+        {
+          "at": "2026-09-17T06:14:26.401Z",
+          "prices": {
+            "oceanView": 233.5
+          }
+        },
+        {
+          "at": "2026-09-18T18:09:17.075Z",
+          "prices": {
+            "inside": 220.5
+          }
+        },
+        {
+          "at": "2026-09-18T20:07:46.661Z",
+          "prices": {
+            "inside": 249
+          }
+        },
+        {
+          "at": "2026-09-21T22:07:51.626Z",
+          "prices": {
+            "balcony": 269.5
+          }
+        },
+        {
+          "at": "2026-09-22T04:09:27.414Z",
+          "prices": {
+            "balcony": 328.5
+          }
+        },
+        {
+          "at": "2026-09-23T16:09:29.037Z",
+          "prices": {
+            "inside": 284
+          }
+        },
+        {
+          "at": "2026-09-23T22:07:58.656Z",
+          "prices": {
+            "inside": 284,
+            "oceanView": 332
+          }
+        },
+        {
+          "at": "2026-09-24T22:07:37.764Z",
+          "prices": {
+            "balcony": 403
+          }
+        },
+        {
+          "at": "2026-09-25T02:10:44.610Z",
+          "prices": {
+            "inside": 270.5
+          }
+        },
+        {
+          "at": "2026-09-26T06:12:47.721Z",
+          "prices": {
+            "inside": 257.5
+          }
+        },
+        {
+          "at": "2026-09-27T18:09:32.049Z",
+          "prices": {
+            "inside": 264.5
+          }
+        },
+        {
+          "at": "2026-09-28T16:09:29.988Z",
+          "prices": {
+            "inside": 257.5,
+            "suite": 445.5
+          }
+        },
+        {
+          "at": "2026-09-28T20:08:18.500Z",
+          "prices": {
+            "inside": 257.5
+          }
+        },
+        {
+          "at": "2026-09-29T16:09:46.813Z",
+          "prices": {
+            "inside": 259.5
+          }
+        },
+        {
+          "at": "2026-09-29T18:10:44.552Z",
+          "prices": {
+            "inside": 259.5,
+            "oceanView": 296.5,
+            "balcony": 324.5
+          }
+        },
+        {
+          "at": "2026-09-29T20:09:30.980Z",
+          "prices": {
+            "inside": 259.5
+          }
+        },
+        {
+          "at": "2026-09-30T00:23:26.634Z",
+          "prices": {
+            "inside": 267.5,
+            "balcony": 324.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_MA05W678_2026-10-12",
+      "shipName": "Mariner of the Seas",
+      "shipClass": "Voyager",
+      "shipLaunchYear": 2003,
+      "itinerary": "Western Caribbean Cruise: Galveston, Texas, Puerto Costa Maya, Mexico, Cozumel, Mexico, Galveston, Texas",
+      "departureDate": "2026-10-12",
+      "duration": "5 Nights",
+      "departurePort": "Galveston",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "978.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=MA05GAL-2956042404&sailDate=2026-10-12&shipCode=MA&packageCode=MA05W678&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "978.5",
+        "suite": null
+      },
+      "destinationPort": "Galveston",
+      "seaDays": 1,
+      "enrichedAt": "2026-09-12T18:01:16.016Z",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-30T00:23:26.634Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 343,
+            "oceanView": 539,
+            "balcony": 684
+          }
+        },
+        {
+          "at": "2026-09-14T02:14:08.040Z",
+          "prices": {
+            "inside": 542,
+            "oceanView": 539,
+            "balcony": 791
+          }
+        },
+        {
+          "at": "2026-09-14T06:17:47.289Z",
+          "prices": {
+            "inside": 343,
+            "oceanView": 539,
+            "balcony": 684
+          }
+        },
+        {
+          "at": "2026-09-14T22:07:14.598Z",
+          "prices": {
+            "inside": 343,
+            "oceanView": 584,
+            "balcony": 759
+          }
+        },
+        {
+          "at": "2026-09-15T04:09:35.968Z",
+          "prices": {
+            "inside": 587,
+            "oceanView": 584,
+            "balcony": 759
+          }
+        },
+        {
+          "at": "2026-09-15T06:13:46.815Z",
+          "prices": {
+            "inside": 343,
+            "oceanView": 584,
+            "balcony": 759
+          }
+        },
+        {
+          "at": "2026-09-15T20:08:21.591Z",
+          "prices": {
+            "inside": 587,
+            "oceanView": 584,
+            "balcony": 759
+          }
+        },
+        {
+          "at": "2026-09-16T06:13:51.334Z",
+          "prices": {
+            "inside": 343,
+            "oceanView": 584,
+            "balcony": 759
+          }
+        },
+        {
+          "at": "2026-09-16T22:06:51.962Z",
+          "prices": {
+            "inside": 534.5,
+            "oceanView": 531.5,
+            "balcony": 676.5
+          }
+        },
+        {
+          "at": "2026-09-17T00:20:30.809Z",
+          "prices": {
+            "inside": 534.5,
+            "oceanView": 531.5
+          }
+        },
+        {
+          "at": "2026-09-17T04:09:48.357Z",
+          "prices": {
+            "inside": 534.5,
+            "oceanView": 531.5,
+            "balcony": 1044.5
+          }
+        },
+        {
+          "at": "2026-09-17T06:14:26.401Z",
+          "prices": {
+            "inside": 343,
+            "oceanView": 531.5,
+            "balcony": 1044.5
+          }
+        },
+        {
+          "at": "2026-09-17T14:09:13.808Z",
+          "prices": {
+            "inside": 343,
+            "oceanView": 531.5
+          }
+        },
+        {
+          "at": "2026-09-18T00:20:51.595Z",
+          "prices": {
+            "inside": 343,
+            "oceanView": 531.5,
+            "balcony": 1044.5
+          }
+        },
+        {
+          "at": "2026-09-18T20:07:46.661Z",
+          "prices": {
+            "inside": 343,
+            "oceanView": 531.5
+          }
+        },
+        {
+          "at": "2026-09-18T22:06:57.889Z",
+          "prices": {
+            "inside": 476.5,
+            "oceanView": 531.5
+          }
+        },
+        {
+          "at": "2026-09-21T02:14:32.662Z",
+          "prices": {
+            "inside": 534.5,
+            "oceanView": 531.5
+          }
+        },
+        {
+          "at": "2026-09-21T06:18:04.460Z",
+          "prices": {
+            "inside": 476.5,
+            "oceanView": 531.5
+          }
+        },
+        {
+          "at": "2026-09-22T04:09:27.414Z",
+          "prices": {
+            "inside": 442.5,
+            "oceanView": 615.5
+          }
+        },
+        {
+          "at": "2026-09-22T22:06:56.465Z",
+          "prices": {
+            "inside": 495,
+            "oceanView": 668
+          }
+        },
+        {
+          "at": "2026-09-24T02:11:59.909Z",
+          "prices": {
+            "inside": 532,
+            "oceanView": 668
+          }
+        },
+        {
+          "at": "2026-09-24T06:14:02.691Z",
+          "prices": {
+            "inside": 495,
+            "oceanView": 668
+          }
+        },
+        {
+          "at": "2026-09-24T22:07:37.764Z",
+          "prices": {
+            "inside": 539,
+            "oceanView": 668
+          }
+        },
+        {
+          "at": "2026-09-25T00:21:41.511Z",
+          "prices": {
+            "inside": 486.5,
+            "oceanView": 615.5
+          }
+        },
+        {
+          "at": "2026-09-25T04:09:57.233Z",
+          "prices": {
+            "inside": 442.5,
+            "oceanView": 615.5
+          }
+        },
+        {
+          "at": "2026-09-27T02:14:58.383Z",
+          "prices": {
+            "inside": 486.5,
+            "oceanView": 615.5
+          }
+        },
+        {
+          "at": "2026-09-27T04:10:26.170Z",
+          "prices": {
+            "inside": 442.5,
+            "oceanView": 615.5
+          }
+        },
+        {
+          "at": "2026-09-28T00:24:42.753Z",
+          "prices": {
+            "inside": 494.5,
+            "oceanView": 615.5
+          }
+        },
+        {
+          "at": "2026-09-28T04:10:38.581Z",
+          "prices": {
+            "inside": 442.5,
+            "oceanView": 615.5
+          }
+        },
+        {
+          "at": "2026-09-28T06:19:23.040Z",
+          "prices": {
+            "inside": 494.5,
+            "oceanView": 615.5
+          }
+        },
+        {
+          "at": "2026-09-28T14:09:25.817Z",
+          "prices": {
+            "oceanView": 615.5
+          }
+        },
+        {
+          "at": "2026-09-29T02:14:34.027Z",
+          "prices": {
+            "oceanView": 622.5
+          }
+        },
+        {
+          "at": "2026-09-29T04:10:08.967Z",
+          "prices": {
+            "inside": 446.5,
+            "oceanView": 622.5
+          }
+        },
+        {
+          "at": "2026-09-29T08:12:14.946Z",
+          "prices": {
+            "oceanView": 622.5
+          }
+        },
+        {
+          "at": "2026-09-29T22:08:12.926Z",
+          "prices": {
+            "oceanView": 622.5,
+            "balcony": 978.5
+          }
+        },
+        {
+          "at": "2026-09-30T00:23:26.634Z",
+          "prices": {
+            "balcony": 978.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_SR06W374_2028-02-12",
+      "shipName": "Serenade of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2003,
+      "itinerary": "Western Caribbean Cruise",
+      "departureDate": "2028-02-12",
+      "duration": "6 Nights",
+      "departurePort": "Tampa",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "497.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=SR06TPA-1175041009&sailDate=2028-02-12&shipCode=SR&packageCode=SR06W374&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "497.5",
+        "oceanView": "565.5",
+        "balcony": "849.5",
+        "suite": "1059"
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-30T00:23:26.634Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 494.5,
+            "oceanView": 568.5,
+            "balcony": 835.5,
+            "suite": 1010.5
+          }
+        },
+        {
+          "at": "2026-09-14T22:07:14.598Z",
+          "prices": {
+            "inside": 577,
+            "oceanView": 651,
+            "balcony": 948,
+            "suite": 1348
+          }
+        },
+        {
+          "at": "2026-09-16T22:06:51.962Z",
+          "prices": {
+            "inside": 494.5,
+            "oceanView": 568.5,
+            "balcony": 835.5,
+            "suite": 1010.5
+          }
+        },
+        {
+          "at": "2026-09-22T04:09:27.414Z",
+          "prices": {
+            "inside": 493.5,
+            "oceanView": 559.5,
+            "balcony": 839.5,
+            "suite": 1006.5
+          }
+        },
+        {
+          "at": "2026-09-22T22:06:56.465Z",
+          "prices": {
+            "inside": 576,
+            "oceanView": 642,
+            "balcony": 952,
+            "suite": 1344
+          }
+        },
+        {
+          "at": "2026-09-25T00:21:41.511Z",
+          "prices": {
+            "inside": 493.5,
+            "oceanView": 559.5,
+            "balcony": 839.5,
+            "suite": 1024
+          }
+        },
+        {
+          "at": "2026-09-28T22:08:32.678Z",
+          "prices": {
+            "inside": 493.5,
+            "oceanView": 559.5,
+            "balcony": 839.5,
+            "suite": 1044
+          }
+        },
+        {
+          "at": "2026-09-29T00:23:25.283Z",
+          "prices": {
+            "inside": 497.5,
+            "oceanView": 565.5,
+            "balcony": 849.5,
+            "suite": 1059
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_SR06W374_2028-03-11",
+      "shipName": "Serenade of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2003,
+      "itinerary": "Western Caribbean Cruise",
+      "departureDate": "2028-03-11",
+      "duration": "6 Nights",
+      "departurePort": "Tampa",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "534.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=SR06TPA-1175041009&sailDate=2028-03-11&shipCode=SR&packageCode=SR06W374&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "534.5",
+        "oceanView": "603.5",
+        "balcony": "789.5",
+        "suite": "1104"
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-30T00:23:26.634Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 540.5,
+            "oceanView": 598.5,
+            "balcony": 783.5,
+            "suite": 1054.5
+          }
+        },
+        {
+          "at": "2026-09-14T22:07:14.598Z",
+          "prices": {
+            "inside": 623,
+            "oceanView": 681,
+            "balcony": 896,
+            "suite": 1392
+          }
+        },
+        {
+          "at": "2026-09-16T22:06:51.962Z",
+          "prices": {
+            "inside": 540.5,
+            "oceanView": 598.5,
+            "balcony": 783.5,
+            "suite": 1054.5
+          }
+        },
+        {
+          "at": "2026-09-22T04:09:27.414Z",
+          "prices": {
+            "inside": 529.5,
+            "oceanView": 597.5,
+            "balcony": 781.5,
+            "suite": 1051.5
+          }
+        },
+        {
+          "at": "2026-09-22T22:06:56.465Z",
+          "prices": {
+            "inside": 612,
+            "oceanView": 680,
+            "balcony": 894,
+            "suite": 1389
+          }
+        },
+        {
+          "at": "2026-09-25T00:21:41.511Z",
+          "prices": {
+            "inside": 529.5,
+            "oceanView": 597.5,
+            "balcony": 781.5,
+            "suite": 1069
+          }
+        },
+        {
+          "at": "2026-09-28T22:08:32.678Z",
+          "prices": {
+            "inside": 529.5,
+            "oceanView": 597.5,
+            "balcony": 781.5,
+            "suite": 1089
+          }
+        },
+        {
+          "at": "2026-09-29T02:14:34.027Z",
+          "prices": {
+            "inside": 534.5,
+            "oceanView": 603.5,
+            "balcony": 789.5,
+            "suite": 1104
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_SR06W374_2028-04-08",
+      "shipName": "Serenade of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2003,
+      "itinerary": "Western Caribbean Cruise",
+      "departureDate": "2028-04-08",
+      "duration": "6 Nights",
+      "departurePort": "Tampa",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "562.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=SR06TPA-1175041009&sailDate=2028-04-08&shipCode=SR&packageCode=SR06W374&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "562.5",
+        "oceanView": "600.5",
+        "balcony": "779.5",
+        "suite": "1153"
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-12T18:00:49.413Z",
+      "lastSeenAt": "2026-09-30T00:23:26.634Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T18:00:49.413Z",
+          "prices": {
+            "inside": 572.5,
+            "oceanView": 617.5,
+            "balcony": 798.5,
+            "suite": 1127.5
+          }
+        },
+        {
+          "at": "2026-09-14T22:07:14.598Z",
+          "prices": {
+            "inside": 655,
+            "oceanView": 700,
+            "balcony": 911,
+            "suite": 1465
+          }
+        },
+        {
+          "at": "2026-09-16T22:06:51.962Z",
+          "prices": {
+            "inside": 572.5,
+            "oceanView": 617.5,
+            "balcony": 798.5,
+            "suite": 1127.5
+          }
+        },
+        {
+          "at": "2026-09-22T04:09:27.414Z",
+          "prices": {
+            "inside": 556.5,
+            "oceanView": 593.5,
+            "balcony": 770.5,
+            "suite": 1099.5
+          }
+        },
+        {
+          "at": "2026-09-22T22:06:56.465Z",
+          "prices": {
+            "inside": 639,
+            "oceanView": 676,
+            "balcony": 883,
+            "suite": 1437
+          }
+        },
+        {
+          "at": "2026-09-25T00:21:41.511Z",
+          "prices": {
+            "inside": 556.5,
+            "oceanView": 593.5,
+            "balcony": 770.5,
+            "suite": 1117
+          }
+        },
+        {
+          "at": "2026-09-28T22:08:32.678Z",
+          "prices": {
+            "inside": 556.5,
+            "oceanView": 593.5,
+            "balcony": 770.5,
+            "suite": 1137
+          }
+        },
+        {
+          "at": "2026-09-29T02:14:34.027Z",
+          "prices": {
+            "inside": 562.5,
+            "oceanView": 600.5,
+            "balcony": 779.5,
+            "suite": 1153
           }
         }
       ]
