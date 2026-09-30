@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 698,
+  "count": 700,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -54904,6 +54904,114 @@
         }
       ],
       "lastSeenAt": "2026-09-26T10:07:13.754Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_GETAWAY3MIANASNPIMIA_2026-10-02",
+      "shipName": "Norwegian Getaway",
+      "shipClass": "Breakaway",
+      "shipLaunchYear": 2014,
+      "itinerary": "Bahamas: Great Stirrup Cay & Nassau",
+      "departureDate": "2026-10-02",
+      "duration": "3-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay & Nassau",
+      "destinationPort": "Miami",
+      "arrivalDate": "2026-10-05",
+      "priceFrom": "210",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=GETAWAY3MIANASNPIMIA&voyageId=23468041&sailDate=2026-10-02&departureDate=2026-10-02&shipCode=GETAWAY&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "210",
+        "oceanView": "230",
+        "balcony": "325",
+        "suite": "350"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-09-21T16:08:35.367Z",
+      "firstSeenAt": "2026-09-14T06:17:47.332Z",
+      "lastSeenAt": "2026-09-21T16:08:35.367Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-14T06:17:47.332Z",
+          "prices": {
+            "inside": 215,
+            "oceanView": 230,
+            "balcony": 295,
+            "suite": 325
+          }
+        },
+        {
+          "at": "2026-09-21T16:08:35.367Z",
+          "prices": {
+            "inside": 210,
+            "oceanView": 230,
+            "balcony": 325,
+            "suite": 350
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_GETAWAY3MIANASNPIMIA_2026-10-09",
+      "shipName": "Norwegian Getaway",
+      "shipClass": "Breakaway",
+      "shipLaunchYear": 2014,
+      "itinerary": "Bahamas: Great Stirrup Cay & Nassau",
+      "departureDate": "2026-10-09",
+      "duration": "3-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay & Nassau",
+      "destinationPort": "Miami",
+      "arrivalDate": "2026-10-12",
+      "priceFrom": "280",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=GETAWAY3MIANPINASMIA&voyageId=23468042&sailDate=2026-10-09&departureDate=2026-10-09&shipCode=GETAWAY&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "280",
+        "oceanView": "320",
+        "balcony": "390",
+        "suite": "435"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-09-21T16:08:35.367Z",
+      "firstSeenAt": "2026-09-14T06:17:47.332Z",
+      "lastSeenAt": "2026-09-21T16:08:35.367Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-14T06:17:47.332Z",
+          "prices": {
+            "inside": 245,
+            "oceanView": 285,
+            "balcony": 350,
+            "suite": 395
+          }
+        },
+        {
+          "at": "2026-09-21T16:08:35.367Z",
+          "prices": {
+            "inside": 280,
+            "oceanView": 320,
+            "balcony": 390,
+            "suite": 435
+          }
+        }
+      ]
     }
   ]
 }
