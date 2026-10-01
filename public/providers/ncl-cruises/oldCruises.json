@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 700,
+  "count": 702,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -55009,6 +55009,106 @@
             "oceanView": 320,
             "balcony": 390,
             "suite": 435
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_LUNA7MIANPISTTTOVPOPMIA_2026-10-03",
+      "shipName": "Norwegian Luna",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2024,
+      "itinerary": "Caribbean: Great Stirrup Cay & Dominican Republic",
+      "departureDate": "2026-10-03",
+      "duration": "7-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Dominican Republic",
+      "destinationPort": "Miami",
+      "arrivalDate": "2026-10-10",
+      "priceFrom": "530",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=LUNA7MIAPOPSTTTOVNPIMIA&voyageId=23075909&sailDate=2026-10-03&departureDate=2026-10-03&shipCode=LUNA&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "530",
+        "oceanView": null,
+        "balcony": null,
+        "suite": "1820"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "suite": "SUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-22T22:06:56.511Z",
+      "firstSeenAt": "2026-09-15T16:08:24.122Z",
+      "lastSeenAt": "2026-09-22T22:06:56.511Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T16:08:24.122Z",
+          "prices": {
+            "inside": 490,
+            "oceanView": 605,
+            "balcony": 860,
+            "suite": 1250
+          }
+        },
+        {
+          "at": "2026-09-22T22:06:56.511Z",
+          "prices": {
+            "inside": 530,
+            "suite": 1820
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_LUNA7MIAPOPTOVSTTNPIMIA_2026-10-03",
+      "shipName": "Norwegian Luna",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2024,
+      "itinerary": "Caribbean: Great Stirrup Cay & Dominican Republic",
+      "departureDate": "2026-10-03",
+      "duration": "7-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Dominican Republic",
+      "destinationPort": "Miami",
+      "arrivalDate": "2026-10-10",
+      "priceFrom": "530",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=LUNA7MIAPOPSTTTOVNPIMIA&voyageId=23075909&sailDate=2026-10-03&departureDate=2026-10-03&shipCode=LUNA&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "530",
+        "oceanView": null,
+        "balcony": null,
+        "suite": "1820"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "suite": "SUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-22T22:06:56.511Z",
+      "firstSeenAt": "2026-09-15T16:08:24.122Z",
+      "lastSeenAt": "2026-09-22T22:06:56.511Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T16:08:24.122Z",
+          "prices": {
+            "inside": 490,
+            "oceanView": 605,
+            "balcony": 860,
+            "suite": 1250
+          }
+        },
+        {
+          "at": "2026-09-22T22:06:56.511Z",
+          "prices": {
+            "inside": 530,
+            "suite": 1820
           }
         }
       ]
