@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 702,
+  "count": 703,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -55112,6 +55112,69 @@
           }
         }
       ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JOY6VANSEAASTSFOLAX_2026-10-01",
+      "shipName": "Norwegian Joy",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2017,
+      "itinerary": "Pacific Coast: Vancouver to Los Angeles: San Francisco & Seattle",
+      "departureDate": "2026-10-01",
+      "duration": "6-day Cruise",
+      "departurePort": "Vancouver",
+      "departureRegion": "Americas",
+      "destination": "Pacific Coast: Vancouver to Los Angeles: San Francisco & Seattle",
+      "destinationPort": "Los Angeles",
+      "arrivalDate": "2026-10-07",
+      "priceFrom": "320",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=JOY6VANSEAASTSFOLAX&voyageId=24095223&sailDate=2026-10-01&departureDate=2026-10-01&shipCode=JOY&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "320",
+        "oceanView": "405",
+        "balcony": "525",
+        "suite": "580"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-09-26T10:07:13.754Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 405,
+            "oceanView": 430,
+            "balcony": 555,
+            "suite": 605
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 405,
+            "oceanView": 405,
+            "balcony": 540,
+            "suite": 580
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 320,
+            "oceanView": 405,
+            "balcony": 525,
+            "suite": 580
+          }
+        }
+      ],
+      "lastSeenAt": "2026-09-26T10:07:13.754Z"
     }
   ]
 }
