@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 853,
+  "count": 854,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -75979,6 +75979,65 @@
           "at": "2026-09-15T22:07:31.105Z",
           "prices": {
             "inside": 1499
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_SFV33A_MJ_20261119",
+      "shipName": "Majestic Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2017,
+      "itinerary": "Ft. Lauderdale, Florida → St. Maarten → St. Lucia → Barbados → Fortaleza, Brazil → Rio de Janeiro, Brazil → Montevideo, Uruguay → Buenos Aires, Argentina → Buenos Aires, Argentina → Buenos Aires, Argentina → Montevideo, Uruguay → Puerto Madryn, Argentina → Falkland Islands (Stanley) → Cape Horn (Scenic Cruising) → Ushuaia (Tierra del Fuego), Argentina → Beagle Channel Fjords & Glacier Alley, Chile → Punta Arenas, Chile → Puerto Montt, Chile → Santiago (Valparaiso), Chile",
+      "departureDate": "2026-11-19",
+      "duration": "33 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Southeast Asia",
+      "destinationPort": "Santiago (Valparaiso), Chile",
+      "priceFrom": "3671",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=8635A",
+      "prices": {
+        "inside": "3671",
+        "oceanView": null,
+        "balcony": "4739",
+        "suite": "13031"
+      },
+      "seaDays": 15,
+      "firstSeenAt": "2026-09-24T18:10:42.471Z",
+      "lastSeenAt": "2026-10-02T08:11:06.443Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-24T18:10:42.471Z",
+          "prices": {
+            "inside": 3671,
+            "balcony": 4417,
+            "suite": 5471
+          }
+        },
+        {
+          "at": "2026-09-28T18:11:13.634Z",
+          "prices": {
+            "inside": 3671,
+            "suite": 4605
+          }
+        },
+        {
+          "at": "2026-09-28T22:08:32.678Z",
+          "prices": {
+            "inside": 3671,
+            "balcony": 4739,
+            "suite": 5471
+          }
+        },
+        {
+          "at": "2026-09-30T00:23:26.634Z",
+          "prices": {
+            "inside": 3671,
+            "balcony": 4739,
+            "suite": 13031
           }
         }
       ]
