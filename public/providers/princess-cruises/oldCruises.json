@@ -33334,43 +33334,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_HRL16A_EP_20261108",
-      "shipName": "Emerald Princess",
-      "shipClass": "Grand",
-      "shipLaunchYear": 2007,
-      "itinerary": "Los Angeles, California → Hilo, Hawaii → Kona, Hawaii → Honolulu, Hawaii → Kauai (Nawiliwili), Hawaii → Ensenada, Mexico → Los Angeles, California",
-      "departureDate": "2026-11-08",
-      "duration": "16 Nights",
-      "departurePort": "Los Angeles",
-      "departureRegion": "Americas",
-      "destination": "Hawaii",
-      "destinationPort": "Los Angeles",
-      "priceFrom": "1094",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=E634",
-      "prices": {
-        "inside": "1094",
-        "oceanView": "1517",
-        "balcony": "1731",
-        "suite": "3406"
-      },
-      "seaDays": 10,
-      "firstSeenAt": "2026-08-22T06:07:27.649Z",
-      "lastSeenAt": "2026-08-22T06:07:27.649Z",
-      "priceHistory": [
-        {
-          "at": "2026-08-22T06:07:27.649Z",
-          "prices": {
-            "inside": 1094,
-            "oceanView": 1517,
-            "balcony": 1731,
-            "suite": 3406
-          }
-        }
-      ]
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_MLR070_XP_20261010",
       "shipName": "Discovery Princess",
       "shipClass": "Royal",
@@ -76899,6 +76862,56 @@
             "inside": 779,
             "oceanView": 979,
             "suite": 1944
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_HRL16A_EP_20261016",
+      "shipName": "Emerald Princess",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2007,
+      "itinerary": "Los Angeles, California → Hilo, Hawaii → Kahului, Hawaii → Honolulu, Hawaii → Kauai (Nawiliwili), Hawaii → Ensenada, Mexico → Los Angeles, California",
+      "departureDate": "2026-10-16",
+      "duration": "16 Nights",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Hawaii",
+      "destinationPort": "Los Angeles",
+      "priceFrom": "999",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=E632",
+      "prices": {
+        "inside": "999",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "seaDays": 10,
+      "firstSeenAt": "2026-07-15T08:47:23.484Z",
+      "lastSeenAt": "2026-10-03T08:10:59.459Z",
+      "priceHistory": [
+        {
+          "at": "2026-07-15T08:47:23.484Z",
+          "prices": {
+            "inside": 1349,
+            "oceanView": 1926,
+            "balcony": 2599,
+            "suite": 4329
+          }
+        },
+        {
+          "at": "2026-10-01T08:11:44.336Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1219
+          }
+        },
+        {
+          "at": "2026-10-01T18:13:53.583Z",
+          "prices": {
+            "inside": 999
           }
         }
       ]
