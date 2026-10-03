@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 401,
+  "count": 402,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -125933,6 +125933,141 @@
           "at": "2026-10-03T00:21:16.257Z",
           "prices": {
             "balcony": 2215.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_FR09D172_2026-10-08",
+      "shipName": "Freedom of the Seas",
+      "shipClass": "Freedom",
+      "shipLaunchYear": 2006,
+      "itinerary": "Perfect Day Cococay Caribbean",
+      "departureDate": "2026-10-08",
+      "duration": "9 Nights",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "1009",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=FR09MIA-265066509&sailDate=2026-10-08&shipCode=FR&packageCode=FR09D172&destinationCode=CARIB&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "1009",
+        "suite": null
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-09-28T04:10:38.581Z",
+      "lastSeenAt": "2026-10-03T02:12:42.946Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-28T04:10:38.581Z",
+          "prices": {
+            "inside": 434.5,
+            "oceanView": 722
+          }
+        },
+        {
+          "at": "2026-09-28T06:19:23.040Z",
+          "prices": {
+            "oceanView": 722
+          }
+        },
+        {
+          "at": "2026-09-28T16:09:29.988Z",
+          "prices": {
+            "oceanView": 722,
+            "suite": 2040.5
+          }
+        },
+        {
+          "at": "2026-09-28T18:11:13.634Z",
+          "prices": {
+            "suite": 2040.5
+          }
+        },
+        {
+          "at": "2026-09-28T20:08:18.500Z",
+          "prices": {
+            "oceanView": 722,
+            "suite": 2040.5
+          }
+        },
+        {
+          "at": "2026-09-28T22:08:32.678Z",
+          "prices": {
+            "suite": 3161.5
+          }
+        },
+        {
+          "at": "2026-09-29T02:14:34.027Z",
+          "prices": {
+            "suite": 3202.5
+          }
+        },
+        {
+          "at": "2026-09-29T04:10:08.967Z",
+          "prices": {
+            "oceanView": 719,
+            "suite": 3202.5
+          }
+        },
+        {
+          "at": "2026-09-29T14:08:27.237Z",
+          "prices": {
+            "suite": 3202.5
+          }
+        },
+        {
+          "at": "2026-09-29T16:09:46.813Z",
+          "prices": {
+            "balcony": 1361,
+            "suite": 3202.5
+          }
+        },
+        {
+          "at": "2026-09-29T18:10:44.552Z",
+          "prices": {
+            "inside": 461
+          }
+        },
+        {
+          "at": "2026-09-29T22:08:12.926Z",
+          "prices": {
+            "suite": 2088.5
+          }
+        },
+        {
+          "at": "2026-09-30T04:09:57.307Z",
+          "prices": {
+            "oceanView": 719,
+            "suite": 2088.5
+          }
+        },
+        {
+          "at": "2026-09-30T10:08:49.309Z",
+          "prices": {
+            "suite": 2088.5
+          }
+        },
+        {
+          "at": "2026-10-01T20:13:13.188Z",
+          "prices": {
+            "inside": 438.5
+          }
+        },
+        {
+          "at": "2026-10-02T06:14:12.029Z",
+          "prices": {
+            "balcony": 1361
+          }
+        },
+        {
+          "at": "2026-10-03T00:21:16.257Z",
+          "prices": {
+            "balcony": 1009
           }
         }
       ]
