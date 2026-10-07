@@ -4095,39 +4095,6 @@
     },
     {
       "provider": "Princess Cruises",
-      "id": "princess_ZSR14B_RP_20270116",
-      "shipName": "Royal Princess",
-      "shipClass": "Royal",
-      "shipLaunchYear": 2013,
-      "itinerary": "Sydney, Australia → Bay of Islands, New Zealand → Auckland, New Zealand → Tauranga, New Zealand → Picton, New Zealand → Christchurch (Lyttelton), New Zealand → Dunedin (Port Chalmers), New Zealand → Fiordland National Park (Scenic Cruising) → Sydney, Australia",
-      "departureDate": "2027-01-16",
-      "duration": "14 Nights",
-      "departurePort": "Sydney, Australia",
-      "departureRegion": "Australia & Pacific",
-      "destination": "Australia & New Zealand",
-      "priceFrom": "2594",
-      "currency": "USD",
-      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1703",
-      "prices": {
-        "inside": "2594",
-        "oceanView": null,
-        "balcony": "3598",
-        "suite": "4374"
-      },
-      "priceHistory": [
-        {
-          "at": "2026-06-03T22:26:29.557Z",
-          "prices": {
-            "inside": 2594,
-            "balcony": 3598,
-            "suite": 4374
-          }
-        }
-      ],
-      "lastSeenAt": "2026-06-03T22:26:29.557Z"
-    },
-    {
-      "provider": "Princess Cruises",
       "id": "princess_OTR07A_SA_20270717",
       "shipName": "Sapphire Princess",
       "shipClass": "Grand",
@@ -79968,6 +79935,84 @@
           "prices": {
             "inside": 1388,
             "suite": 2448
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_ZSR14B_RP_20280115",
+      "shipName": "Royal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2013,
+      "itinerary": "Sydney, Australia → Bay of Islands, New Zealand → Tauranga, New Zealand → Auckland, New Zealand → Wellington, New Zealand → Christchurch (Lyttelton), New Zealand → Dunedin (Port Chalmers), New Zealand → Fiordland National Park (Scenic Cruising) → Sydney, Australia",
+      "departureDate": "2028-01-15",
+      "duration": "14 Nights",
+      "departurePort": "Sydney",
+      "departureRegion": "Australia & Pacific",
+      "destination": "Australia & New Zealand",
+      "destinationPort": "Sydney",
+      "priceFrom": "1699",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=1803",
+      "prices": {
+        "inside": "1699",
+        "oceanView": "2099",
+        "balcony": "2074",
+        "suite": "2594"
+      },
+      "seaDays": 6,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-10-07T02:20:31.967Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-05T16:07:32.624Z",
+          "prices": {
+            "inside": 1699,
+            "balcony": 2074,
+            "suite": 2594
+          }
+        },
+        {
+          "at": "2026-09-15T20:08:21.591Z",
+          "prices": {
+            "inside": 2327,
+            "balcony": 2841,
+            "suite": 3553
+          }
+        },
+        {
+          "at": "2026-09-15T22:07:31.105Z",
+          "prices": {
+            "inside": 1699,
+            "balcony": 2074,
+            "suite": 2594
+          }
+        },
+        {
+          "at": "2026-09-19T08:09:50.837Z",
+          "prices": {
+            "inside": 1699,
+            "oceanView": 2174,
+            "balcony": 2074,
+            "suite": 2594
+          }
+        },
+        {
+          "at": "2026-09-22T00:21:13.109Z",
+          "prices": {
+            "inside": 1699,
+            "balcony": 2074,
+            "suite": 2594
+          }
+        },
+        {
+          "at": "2026-09-25T06:14:18.649Z",
+          "prices": {
+            "inside": 1699,
+            "oceanView": 2099,
+            "balcony": 2074,
+            "suite": 2594
           }
         }
       ]
