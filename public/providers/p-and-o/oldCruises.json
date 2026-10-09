@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 79,
+  "count": 84,
   "cruises": [
     {
       "id": "pando-A627A",
@@ -616,7 +616,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T06:14:45.376Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-R611",
@@ -1035,7 +1035,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-J608",
@@ -1084,7 +1084,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A628",
@@ -1593,7 +1593,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A628A",
@@ -2057,7 +2057,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-B617",
@@ -2897,7 +2897,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G623",
@@ -3316,7 +3316,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-K616",
@@ -3795,7 +3795,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-R612",
@@ -4304,7 +4304,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A629",
@@ -4786,7 +4786,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A629A",
@@ -5290,7 +5290,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G624",
@@ -5735,7 +5735,7 @@
       "currency": "GBP",
       "prices": {
         "inside": "799",
-        "oceanView": "1189",
+        "oceanView": "1149",
         "balcony": "999",
         "suite": null
       },
@@ -5743,14 +5743,6 @@
       "arrivalDate": "2026-08-02",
       "firstSeenAt": "2026-07-04T10:39:49.793Z",
       "priceHistory": [
-        {
-          "at": "2026-09-29T14:08:27.237Z",
-          "prices": {
-            "inside": 799,
-            "oceanView": 1149,
-            "balcony": 999
-          }
-        },
         {
           "at": "2026-09-29T16:09:46.813Z",
           "prices": {
@@ -6214,9 +6206,17 @@
             "oceanView": 1189,
             "balcony": 999
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "inside": 799,
+            "oceanView": 1149,
+            "balcony": 999
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A630A",
@@ -6275,7 +6275,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A630",
@@ -6291,11 +6291,11 @@
       "destination": "Mediterranean",
       "destinationPort": "Valletta",
       "seaDays": 2,
-      "priceFrom": "779",
+      "priceFrom": "899",
       "currency": "GBP",
       "prices": {
         "inside": null,
-        "oceanView": "779",
+        "oceanView": null,
         "balcony": "899",
         "suite": null
       },
@@ -6303,13 +6303,6 @@
       "arrivalDate": "2026-08-06",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-09-30T14:10:52.463Z",
-          "prices": {
-            "oceanView": 779,
-            "balcony": 899
-          }
-        },
         {
           "at": "2026-09-30T16:10:19.056Z",
           "prices": {
@@ -6726,9 +6719,15 @@
             "oceanView": 779,
             "balcony": 899
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "balcony": 899
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-B618",
@@ -7237,7 +7236,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-N618",
@@ -7746,7 +7745,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G625",
@@ -7795,7 +7794,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-K618",
@@ -8350,7 +8349,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-J610",
@@ -8800,7 +8799,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A631",
@@ -9283,7 +9282,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A631A",
@@ -9769,7 +9768,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-R613",
@@ -9785,10 +9784,10 @@
       "destination": "Norwegian-Fjords-And-Iceland",
       "destinationPort": "Southampton",
       "seaDays": 5,
-      "priceFrom": "1549",
+      "priceFrom": "1199",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "1199",
         "oceanView": "1549",
         "balcony": "2689",
         "suite": null
@@ -9797,14 +9796,6 @@
       "arrivalDate": "2026-08-19",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-09-30T02:17:37.401Z",
-          "prices": {
-            "inside": 1199,
-            "oceanView": 1549,
-            "balcony": 2689
-          }
-        },
         {
           "at": "2026-09-30T06:14:52.784Z",
           "prices": {
@@ -10246,9 +10237,17 @@
             "oceanView": 1549,
             "balcony": 2689
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "inside": 1199,
+            "oceanView": 1549,
+            "balcony": 2689
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-N619",
@@ -10757,7 +10756,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G626",
@@ -11296,7 +11295,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A632",
@@ -11805,7 +11804,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A632A",
@@ -12297,7 +12296,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-B619",
@@ -12806,7 +12805,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G627",
@@ -13290,7 +13289,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-K619",
@@ -13836,7 +13835,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-R614",
@@ -14330,7 +14329,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A633A",
@@ -14809,7 +14808,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A633",
@@ -15358,7 +15357,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-J611",
@@ -15891,7 +15890,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-N620",
@@ -16421,7 +16420,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G628",
@@ -16930,7 +16929,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A634A",
@@ -16950,7 +16949,7 @@
       "currency": "GBP",
       "prices": {
         "inside": "1349",
-        "oceanView": null,
+        "oceanView": "1399",
         "balcony": "1899",
         "suite": "3349"
       },
@@ -16958,15 +16957,6 @@
       "arrivalDate": "2026-09-10",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-09-21T04:10:09.166Z",
-          "prices": {
-            "inside": 1349,
-            "oceanView": 1399,
-            "balcony": 1899,
-            "suite": 3349
-          }
-        },
         {
           "at": "2026-09-21T16:08:35.341Z",
           "prices": {
@@ -17467,9 +17457,18 @@
             "balcony": 1899,
             "suite": 3349
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "inside": 1349,
+            "oceanView": 1399,
+            "balcony": 1899,
+            "suite": 3349
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A634",
@@ -18024,7 +18023,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-B620",
@@ -18046,20 +18045,12 @@
         "inside": "1379",
         "oceanView": null,
         "balcony": "1829",
-        "suite": null
+        "suite": "4049"
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/B620/B620",
       "arrivalDate": "2026-09-11",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-09-25T14:09:56.487Z",
-          "prices": {
-            "inside": 1299,
-            "balcony": 1779,
-            "suite": 4049
-          }
-        },
         {
           "at": "2026-09-25T16:09:27.934Z",
           "prices": {
@@ -18504,9 +18495,17 @@
             "inside": 1379,
             "balcony": 1829
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "inside": 1379,
+            "balcony": 1829,
+            "suite": 4049
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G629",
@@ -19041,7 +19040,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-N621",
@@ -19536,7 +19535,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-K620N",
@@ -20049,7 +20048,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-N622",
@@ -20065,27 +20064,18 @@
       "destination": "Short-Break",
       "destinationPort": "Southampton",
       "seaDays": 1,
-      "priceFrom": "429",
+      "priceFrom": "449",
       "currency": "GBP",
       "prices": {
-        "inside": "429",
+        "inside": null,
         "oceanView": "449",
-        "balcony": "549",
+        "balcony": "529",
         "suite": "1299"
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/N622/N622",
       "arrivalDate": "2026-09-05",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-09-29T08:12:14.946Z",
-          "prices": {
-            "inside": 429,
-            "oceanView": 449,
-            "balcony": 549,
-            "suite": 1299
-          }
-        },
         {
           "at": "2026-09-29T16:09:46.813Z",
           "prices": {
@@ -20602,9 +20592,17 @@
             "balcony": 549,
             "suite": 1299
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "oceanView": 449,
+            "balcony": 529,
+            "suite": 1299
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-J612",
@@ -20879,7 +20877,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A635",
@@ -21418,7 +21416,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A635A",
@@ -21957,7 +21955,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-N623",
@@ -22466,7 +22464,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G630",
@@ -23019,7 +23017,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-K620P",
@@ -23588,7 +23586,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-R615",
@@ -24144,7 +24142,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A636",
@@ -24623,7 +24621,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A636A",
@@ -25162,7 +25160,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-B621",
@@ -25178,10 +25176,10 @@
       "destination": "Norwegian-Fjords-And-Iceland",
       "destinationPort": "Southampton",
       "seaDays": 2,
-      "priceFrom": "1079",
+      "priceFrom": "699",
       "currency": "GBP",
       "prices": {
-        "inside": null,
+        "inside": "699",
         "oceanView": null,
         "balcony": "1079",
         "suite": "3079"
@@ -25190,12 +25188,6 @@
       "arrivalDate": "2026-09-18",
       "firstSeenAt": "2026-07-04T11:52:45.512Z",
       "priceHistory": [
-        {
-          "at": "2026-09-28T06:19:23.040Z",
-          "prices": {
-            "balcony": 1079
-          }
-        },
         {
           "at": "2026-09-28T14:09:25.817Z",
           "prices": {
@@ -25604,9 +25596,17 @@
             "balcony": 1079,
             "suite": 3079
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "inside": 699,
+            "balcony": 1079,
+            "suite": 3079
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-N624",
@@ -26145,7 +26145,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G631",
@@ -26691,7 +26691,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-K621",
@@ -27237,7 +27237,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-R616",
@@ -27806,7 +27806,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A637",
@@ -28345,7 +28345,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A637A",
@@ -28824,7 +28824,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-B622",
@@ -29303,7 +29303,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G632N",
@@ -29858,7 +29858,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A638A",
@@ -30090,7 +30090,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A638",
@@ -30106,10 +30106,10 @@
       "destination": "Mediterranean",
       "destinationPort": "Valletta",
       "seaDays": 2,
-      "priceFrom": "999",
+      "priceFrom": "1099",
       "currency": "GBP",
       "prices": {
-        "inside": "999",
+        "inside": null,
         "oceanView": "1099",
         "balcony": "1399",
         "suite": null
@@ -30440,9 +30440,16 @@
             "oceanView": 1099,
             "balcony": 1399
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "oceanView": 1099,
+            "balcony": 1399
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-B623N",
@@ -30479,7 +30486,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G632P",
@@ -30891,7 +30898,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-N625",
@@ -31168,7 +31175,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-K622",
@@ -31190,7 +31197,7 @@
         "inside": "1099",
         "oceanView": "1399",
         "balcony": "1429",
-        "suite": null
+        "suite": "2099"
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/K622/K622",
       "arrivalDate": "2026-10-10",
@@ -31633,9 +31640,18 @@
             "oceanView": 1399,
             "balcony": 1429
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "inside": 1099,
+            "oceanView": 1399,
+            "balcony": 1429,
+            "suite": 2099
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A639A",
@@ -32114,7 +32130,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A639B",
@@ -32136,7 +32152,7 @@
         "inside": "1399",
         "oceanView": "1499",
         "balcony": "1979",
-        "suite": null
+        "suite": "3099"
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/A639B/A639B",
       "arrivalDate": "2026-10-17",
@@ -32579,9 +32595,18 @@
             "oceanView": 1499,
             "balcony": 1979
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "inside": 1399,
+            "oceanView": 1499,
+            "balcony": 1979,
+            "suite": 3099
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-A639",
@@ -32603,20 +32628,12 @@
         "inside": "849",
         "oceanView": "849",
         "balcony": "899",
-        "suite": null
+        "suite": "1859"
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/A639/A639",
       "arrivalDate": "2026-10-08",
       "firstSeenAt": "2026-09-21T22:07:51.626Z",
       "priceHistory": [
-        {
-          "at": "2026-09-30T06:14:52.784Z",
-          "prices": {
-            "oceanView": 849,
-            "balcony": 899,
-            "suite": 1859
-          }
-        },
         {
           "at": "2026-09-30T08:12:17.089Z",
           "prices": {
@@ -33103,9 +33120,18 @@
             "oceanView": 849,
             "balcony": 899
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "inside": 849,
+            "oceanView": 849,
+            "balcony": 899,
+            "suite": 1859
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-J613",
@@ -33125,23 +33151,14 @@
       "currency": "GBP",
       "prices": {
         "inside": "2349",
-        "oceanView": null,
+        "oceanView": "2799",
         "balcony": "3349",
-        "suite": null
+        "suite": "5699"
       },
       "bookingUrl": "https://www.pocruises.com/find-a-cruise/J613/J613",
       "arrivalDate": "2026-10-21",
       "firstSeenAt": "2026-09-21T22:07:51.626Z",
       "priceHistory": [
-        {
-          "at": "2026-09-27T06:13:34.311Z",
-          "prices": {
-            "inside": 2349,
-            "oceanView": 2799,
-            "balcony": 3349,
-            "suite": 5699
-          }
-        },
         {
           "at": "2026-09-27T08:10:23.359Z",
           "prices": {
@@ -33629,9 +33646,18 @@
             "inside": 2349,
             "balcony": 3349
           }
+        },
+        {
+          "at": "2026-10-09T00:23:58.100Z",
+          "prices": {
+            "inside": 2349,
+            "oceanView": 2799,
+            "balcony": 3349,
+            "suite": 5699
+          }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-B623P",
@@ -33878,7 +33904,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-G633",
@@ -34426,7 +34452,7 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     },
     {
       "id": "pando-N626",
@@ -34734,7 +34760,888 @@
           }
         }
       ],
-      "lastSeenAt": "2026-10-08T20:08:49.992Z"
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
+    },
+    {
+      "id": "pando-R617",
+      "provider": "P&O Cruises",
+      "shipName": "Aurora",
+      "shipClass": "R",
+      "shipLaunchYear": 2000,
+      "itinerary": "Southampton, UK → Stavanger, Norway → Nordfjordeid, Norway → Cruise in Nordfjord, Norway → Kristiansund, Norway → Andalsnes, Norway → Cruise in Romsdalsfjord, Norway → Alesund, Norway → Haugesund, Norway → Zeebrugge (for Bruges), Belgium → Southampton, UK",
+      "departureDate": "2026-10-08",
+      "duration": "12 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "Norwegian-Fjords-And-Iceland",
+      "destinationPort": "Southampton",
+      "seaDays": 4,
+      "priceFrom": "1069",
+      "currency": "GBP",
+      "prices": {
+        "inside": "1069",
+        "oceanView": "1199",
+        "balcony": "1729",
+        "suite": "3149"
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/R617/R617",
+      "arrivalDate": "2026-10-20",
+      "firstSeenAt": "2026-09-21T22:07:51.626Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-21T22:07:51.626Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-22T12:11:45.082Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-22T14:08:51.741Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-22T20:07:28.826Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-23T00:20:08.447Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-23T04:09:55.858Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-23T08:11:09.265Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-23T12:12:13.093Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-23T16:09:29.037Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-24T02:11:59.909Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-24T04:09:30.694Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-25T02:10:44.610Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-25T06:14:18.649Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-25T12:12:34.660Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-25T14:09:56.487Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-25T16:09:27.934Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-25T18:10:00.849Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-26T18:08:59.330Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-26T20:07:34.022Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-27T04:10:26.170Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-27T06:13:34.311Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-28T18:11:13.634Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-28T20:08:18.500Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-29T06:14:01.666Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-09-29T08:12:14.946Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-01T06:15:20.853Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-01T08:11:44.336Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-01T16:09:03.801Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-01T18:13:53.583Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-01T22:07:50.282Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-02T00:23:28.661Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-02T10:08:21.863Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-02T14:09:03.514Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-02T16:08:42.100Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-02T18:11:17.673Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-03T10:07:28.519Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-03T13:42:10.698Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-03T22:54:43.697Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-04T01:03:17.307Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-05T04:15:08.425Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-05T06:22:52.957Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-05T08:20:10.684Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-05T10:11:23.763Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-05T14:11:25.438Z",
+          "prices": {
+            "inside": 1049,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-05T20:19:18.964Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-06T12:12:15.029Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-06T14:09:06.636Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-06T16:10:13.393Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-06T18:10:33.057Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-08T00:22:26.698Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-08T02:19:56.047Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-08T12:12:33.988Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "suite": 3149
+          }
+        },
+        {
+          "at": "2026-10-08T14:09:22.851Z",
+          "prices": {
+            "inside": 1069,
+            "oceanView": 1199,
+            "balcony": 1729,
+            "suite": 3149
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
+    },
+    {
+      "id": "pando-A640B",
+      "provider": "P&O Cruises",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Valletta, Malta → Cartagena, Spain → Tangiers, Morocco → Arrecife de Lanzarote, Spain → Tenerife, Spain → Madeira, Portugal → Fuerteventura, Spain → La Palma, Spain → Tenerife, Spain",
+      "departureDate": "2026-10-08",
+      "duration": "15 Nights",
+      "departurePort": "Valletta",
+      "departureRegion": "Mediterranean",
+      "destination": "Canary-Islands",
+      "destinationPort": "Santa Cruz de Tenerife",
+      "seaDays": 6,
+      "priceFrom": "1599",
+      "currency": "GBP",
+      "prices": {
+        "inside": "1599",
+        "oceanView": "1949",
+        "balcony": "1749",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A640B/A640B",
+      "arrivalDate": "2026-10-23",
+      "firstSeenAt": "2026-09-21T22:07:51.626Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-21T22:07:51.626Z",
+          "prices": {
+            "inside": 1599,
+            "oceanView": 1949,
+            "balcony": 1749
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
+    },
+    {
+      "id": "pando-A640A",
+      "provider": "P&O Cruises",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Valletta, Malta → Cartagena, Spain → Tangiers, Morocco → Arrecife de Lanzarote, Spain → Tenerife, Spain",
+      "departureDate": "2026-10-08",
+      "duration": "9 Nights",
+      "departurePort": "Valletta",
+      "departureRegion": "Mediterranean",
+      "destination": "Canary-Islands",
+      "destinationPort": "Santa Cruz de Tenerife",
+      "seaDays": 4,
+      "priceFrom": "999",
+      "currency": "GBP",
+      "prices": {
+        "inside": "999",
+        "oceanView": "1049",
+        "balcony": "1149",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A640A/A640A",
+      "arrivalDate": "2026-10-17",
+      "firstSeenAt": "2026-09-21T22:07:51.626Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-21T22:07:51.626Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-09-22T12:11:45.082Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-09-22T14:08:51.741Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-09-22T20:07:28.826Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-09-23T00:20:08.447Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-09-23T04:09:55.858Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-09-23T08:11:09.265Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-09-23T12:12:13.093Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-09-23T16:09:29.037Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-09-24T02:11:59.909Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-09-24T04:09:30.694Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-09-25T14:09:56.487Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-09-25T16:09:27.934Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-09-26T18:08:59.330Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-09-26T20:07:34.022Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-09-29T06:14:01.666Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-09-29T08:12:14.946Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-10-01T06:15:20.853Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-10-01T08:11:44.336Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-10-01T22:07:50.282Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-10-02T00:23:28.661Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-10-02T10:08:21.863Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-10-02T14:09:03.514Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-10-02T16:08:42.100Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-10-02T18:11:17.673Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-10-03T10:07:28.519Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-10-03T13:42:10.698Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-10-05T08:20:10.684Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-10-05T10:11:23.763Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        },
+        {
+          "at": "2026-10-05T14:11:25.438Z",
+          "prices": {
+            "inside": 899,
+            "oceanView": 949,
+            "balcony": 1049
+          }
+        },
+        {
+          "at": "2026-10-05T20:19:18.964Z",
+          "prices": {
+            "inside": 999,
+            "oceanView": 1049,
+            "balcony": 1149
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
+    },
+    {
+      "id": "pando-A640C",
+      "provider": "P&O Cruises",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Valletta, Malta → Cartagena, Spain → Tangiers, Morocco → Arrecife de Lanzarote, Spain → Tenerife, Spain → Madeira, Portugal → Fuerteventura, Spain → La Palma, Spain → Tenerife, Spain",
+      "departureDate": "2026-10-08",
+      "duration": "16 Nights",
+      "departurePort": "Valletta",
+      "departureRegion": "Mediterranean",
+      "destination": "Canary-Islands",
+      "destinationPort": "Santa Cruz de Tenerife",
+      "seaDays": 6,
+      "priceFrom": "1499",
+      "currency": "GBP",
+      "prices": {
+        "inside": "1499",
+        "oceanView": null,
+        "balcony": "2099",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A640C/A640C",
+      "arrivalDate": "2026-10-24",
+      "firstSeenAt": "2026-09-21T22:07:51.626Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-21T22:07:51.626Z",
+          "prices": {
+            "inside": 1499,
+            "balcony": 2099
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
+    },
+    {
+      "id": "pando-A640",
+      "provider": "P&O Cruises",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Valletta, Malta → Cartagena, Spain → Tangiers, Morocco → Arrecife de Lanzarote, Spain → Tenerife, Spain",
+      "departureDate": "2026-10-08",
+      "duration": "8 Nights",
+      "departurePort": "Valletta",
+      "departureRegion": "Mediterranean",
+      "destination": "Canary-Islands",
+      "destinationPort": "Santa Cruz de Tenerife",
+      "seaDays": 4,
+      "priceFrom": "829",
+      "currency": "GBP",
+      "prices": {
+        "inside": "829",
+        "oceanView": "849",
+        "balcony": "879",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A640/A640",
+      "arrivalDate": "2026-10-16",
+      "firstSeenAt": "2026-09-21T22:07:51.626Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-21T22:07:51.626Z",
+          "prices": {
+            "inside": 829,
+            "oceanView": 849,
+            "balcony": 879
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-09T00:23:58.100Z"
     }
   ]
 }
