@@ -3,7 +3,7 @@
     "id": "princess-cruises",
     "name": "Princess Cruises"
   },
-  "count": 872,
+  "count": 873,
   "cruises": [
     {
       "provider": "Princess Cruises",
@@ -81190,6 +81190,82 @@
           "at": "2026-10-08T00:12:02.375Z",
           "prices": {
             "suite": 2219
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Princess Cruises",
+      "id": "princess_CER14A_GP_20270117",
+      "shipName": "Regal Princess",
+      "shipClass": "Royal",
+      "shipLaunchYear": 2014,
+      "itinerary": "Ft. Lauderdale, Florida → Celebration Key, Bahamas → Amber Cove, Dominican Republic → Grand Turk, Turks & Caicos → Ft. Lauderdale, Florida → Amber Cove, Dominican Republic → San Juan, Puerto Rico → St. Thomas, Virgin Islands → Grand Turk, Turks & Caicos → Ft. Lauderdale, Florida",
+      "departureDate": "2027-01-17",
+      "duration": "14 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "destinationPort": "Fort Lauderdale",
+      "priceFrom": "1299",
+      "currency": "USD",
+      "bookingUrl": "https://www.princess.com/itinerary-details/?voyageCode=G704A",
+      "prices": {
+        "inside": "1299",
+        "oceanView": null,
+        "balcony": "1851",
+        "suite": "2249"
+      },
+      "seaDays": 5,
+      "firstSeenAt": "2026-08-03T16:48:34.964Z",
+      "lastSeenAt": "2026-10-10T20:08:08.223Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-03T16:48:34.964Z",
+          "prices": {
+            "inside": 1074,
+            "balcony": 2049,
+            "suite": 2774
+          }
+        },
+        {
+          "at": "2026-08-07T08:24:20.549Z",
+          "prices": {
+            "inside": 1049,
+            "balcony": 1899,
+            "suite": 2599
+          }
+        },
+        {
+          "at": "2026-08-10T18:17:05.102Z",
+          "prices": {
+            "inside": 1029,
+            "balcony": 1749,
+            "suite": 2399
+          }
+        },
+        {
+          "at": "2026-08-12T20:14:10.820Z",
+          "prices": {
+            "inside": 1029,
+            "balcony": 1599,
+            "suite": 2199
+          }
+        },
+        {
+          "at": "2026-08-24T22:06:10.210Z",
+          "prices": {
+            "inside": 1074,
+            "balcony": 1349,
+            "suite": 1849
+          }
+        },
+        {
+          "at": "2026-10-09T20:08:16.889Z",
+          "prices": {
+            "inside": 1299,
+            "balcony": 1851,
+            "suite": 2249
           }
         }
       ]
