@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 717,
+  "count": 718,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -56026,6 +56026,69 @@
         }
       ],
       "lastSeenAt": "2026-10-06T00:22:59.919Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_GETAWAY4MIANASNPIMIA_2026-10-12",
+      "shipName": "Norwegian Getaway",
+      "shipClass": "Breakaway",
+      "shipLaunchYear": 2014,
+      "itinerary": "Bahamas: Great Stirrup Cay & Nassau",
+      "departureDate": "2026-10-12",
+      "duration": "4-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay & Nassau",
+      "destinationPort": "Miami",
+      "arrivalDate": "2026-10-16",
+      "priceFrom": "175",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=GETAWAY4MIANPINASMIA&voyageId=23468083&sailDate=2026-10-12&departureDate=2026-10-12&shipCode=GETAWAY&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "175",
+        "oceanView": "215",
+        "balcony": "350",
+        "suite": "390"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 1,
+      "priceCheckedAt": "2026-09-30T10:08:49.344Z",
+      "firstSeenAt": "2026-09-14T06:17:47.332Z",
+      "lastSeenAt": "2026-09-30T10:08:49.344Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-14T06:17:47.332Z",
+          "prices": {
+            "inside": 190,
+            "oceanView": 215,
+            "balcony": 270,
+            "suite": 365
+          }
+        },
+        {
+          "at": "2026-09-21T16:08:35.367Z",
+          "prices": {
+            "inside": 185,
+            "oceanView": 215,
+            "balcony": 285,
+            "suite": 375
+          }
+        },
+        {
+          "at": "2026-09-30T10:08:49.344Z",
+          "prices": {
+            "inside": 175,
+            "oceanView": 215,
+            "balcony": 350,
+            "suite": 390
+          }
+        }
+      ]
     }
   ]
 }
