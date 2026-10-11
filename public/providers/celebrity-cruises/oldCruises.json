@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 131,
+  "count": 132,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -28441,6 +28441,94 @@
           "at": "2026-10-06T12:12:15.029Z",
           "prices": {
             "balcony": 2740.99
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_ML15SIN-1310794208",
+      "shipName": "Celebrity Millennium",
+      "shipClass": "Millennium",
+      "shipLaunchYear": 2000,
+      "itinerary": "Japan, Vietnam & Hong Kong: Singapore, Cruising (Cruising), Ho Chi Minh (Phu My), Vietnam, Hue/Danang (Chan May), Vietnam, Hong Kong, China, Taipei(Keelung), Taiwan, Nagasaki, Japan, Kagoshima, Japan, Mt Fuji (Shimizu), Japan, Tokyo (Yokohama), Japan",
+      "departureDate": "2028-02-24",
+      "duration": "15 Nights",
+      "departurePort": "Singapore",
+      "departureRegion": "Asia & Far East",
+      "destination": "Asia",
+      "priceFrom": "3042.37",
+      "currency": "USD",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=ML15SIN-1310794208&pID=ML15I056&sDT=2028-02-24&sCD=ML&sCT=CO&country=GBR",
+      "prices": {
+        "inside": null,
+        "oceanView": "3042.37",
+        "balcony": null,
+        "suite": null
+      },
+      "destinationPort": "Tokyo (Yokohama)",
+      "seaDays": 6,
+      "firstSeenAt": "2026-05-29T09:33:04.484Z",
+      "lastSeenAt": "2026-10-11T12:12:13.445Z",
+      "priceHistory": [
+        {
+          "at": "2026-08-04T03:03:27.901Z",
+          "prices": {
+            "inside": 1517,
+            "oceanView": 1933
+          }
+        },
+        {
+          "at": "2026-08-18T00:10:44.386Z",
+          "prices": {
+            "inside": 1501,
+            "oceanView": 1917
+          }
+        },
+        {
+          "at": "2026-08-27T19:32:25.118Z",
+          "prices": {
+            "inside": 2093.37,
+            "oceanView": 2639.37
+          }
+        },
+        {
+          "at": "2026-08-27T23:08:02.946Z",
+          "prices": {
+            "inside": 1501,
+            "oceanView": 1917
+          }
+        },
+        {
+          "at": "2026-09-15T10:08:38.826Z",
+          "prices": {
+            "inside": 2093.37,
+            "oceanView": 2639.37
+          }
+        },
+        {
+          "at": "2026-09-15T12:11:19.607Z",
+          "prices": {
+            "oceanView": 2639.37
+          }
+        },
+        {
+          "at": "2026-09-17T04:09:48.357Z",
+          "prices": {
+            "inside": 1501,
+            "oceanView": 1917
+          }
+        },
+        {
+          "at": "2026-09-17T08:12:06.058Z",
+          "prices": {
+            "oceanView": 2639.37
+          }
+        },
+        {
+          "at": "2026-10-03T02:12:42.946Z",
+          "prices": {
+            "oceanView": 3042.37
           }
         }
       ]
