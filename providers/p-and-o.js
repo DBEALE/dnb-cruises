@@ -6,9 +6,15 @@
  * P&O's find-a-cruise page is a client-rendered SPA, so scraping the rendered
  * HTML (previously via the Jina reader) only ever captured the first page of
  * results (~24 of 900+). This provider instead calls the same JSON search API
- * the SPA uses — `cruise-query-processor/cruisesearch` — paginating through the
- * whole catalogue. It needs brand/locale/currency request headers and paginates
- * with a `start` offset (fixed page size of 10).
+ * the SPA uses — `orchestrator/cruise-query-processor/cruisesearch`. A GET to
+ * its `/cruiselist` sub-path returns every sellable cruise id; POSTing batches
+ * of those ids back returns their search results (10 per response). It needs
+ * brand/locale/currency request headers.
+ *
+ * The older un-prefixed `cruise-query-processor/cruisesearch?start=N` GET API
+ * still answers but is a stale legacy index (by 2026-10 it was missing ~130
+ * sailings, lacked newer fares such as EARLY-SAVER — e.g. K720N £849 vs the
+ * site's £629 — and 503'd intermittently), so it must not be used.
  *
  * pocruises.com started rejecting plain HTTP requests outright (403, on every
  * path including the plain homepage) rather than just this provider's calls,
@@ -33,7 +39,8 @@ const {
   DEFAULT_USER_AGENT,
 } = require('./shared');
 
-const CRUISE_SEARCH_URL = 'https://www.pocruises.com/cruise-query-processor/cruisesearch';
+const CRUISE_SEARCH_URL = 'https://www.pocruises.com/orchestrator/cruise-query-processor/cruisesearch';
+const CRUISE_LIST_URL   = `${CRUISE_SEARCH_URL}/cruiselist`;
 const BOOKING_BASE_URL  = 'https://www.pocruises.com/find-a-cruise';
 
 // The search API rejects requests without these (verified by probing the
@@ -41,6 +48,7 @@ const BOOKING_BASE_URL  = 'https://www.pocruises.com/find-a-cruise';
 const API_HEADERS = Object.freeze({
   'user-agent': DEFAULT_USER_AGENT,
   accept: 'application/json',
+  'content-type': 'application/json',
   'accept-language': 'en-GB,en;q=0.9',
   brand: 'po',
   locale: 'en_GB',
@@ -48,14 +56,24 @@ const API_HEADERS = Object.freeze({
   currency: 'GBP',
 });
 
-const PAGE_SIZE        = 10;    // the API's fixed page size (no size param honoured)
-const PAGE_CONCURRENCY = 6;
-const MAX_PAGES        = 300;   // safety cap (~3000 cruises) against a bad total
+const BATCH_SIZE        = 10;    // the API returns at most 10 results per POST
+const MAX_CRUISE_IDS    = 3000;  // safety cap against a runaway id list
+// The orchestrator API is rate-limited by the WAF: 6 concurrent unpaced POSTs
+// got ~40% of batches 403'd and then the whole IP blocked for minutes. So
+// batches run with low concurrency, a pause after each, and retry with backoff.
+const BATCH_CONCURRENCY = 2;
+const BATCH_DELAY_MS    = 400;
+const BATCH_ATTEMPTS    = 3;
+const BATCH_RETRY_MS    = 5000;
+// More failed batches than this in any pass means the session got blocked; the
+// result would silently drop sailings, so the whole scrape is aborted instead
+// (the orchestrator then keeps the last good cruises.json).
+const MAX_FAILED_BATCH_RATIO = 0.02;
 
 // The base search returns only each sailing's cheapest cabin. Filtering by
-// roomType surfaces that specific cabin's fare, so we run one pass per cabin
-// type and merge the prices. Their union covers the whole catalogue (every
-// sailing has at least one of these).
+// roomType (inside the base64 `cabins` party spec) surfaces that specific
+// cabin's fare, so we run one pass per cabin type and merge the prices. A
+// sailing without that cabin type comes back with an empty `cabins` array.
 const ROOM_TYPES    = ['I', 'O', 'B', 'S'];
 const PRICE_BUCKETS = ['inside', 'oceanView', 'balcony', 'suite'];
 
@@ -256,37 +274,71 @@ function normalizeApiCruise(raw, portMap = {}) {
     currency: 'GBP',
     prices,
     bookingUrl: `${BOOKING_BASE_URL}/${encodeURIComponent(cruiseId)}/${encodeURIComponent(cruiseId)}`,
-    arrivalDate: toIsoDate(raw?.arrivalAtArrivalPort),
+    // The orchestrator API names it arrivalDate; the legacy one arrivalAtArrivalPort.
+    arrivalDate: toIsoDate(raw?.arrivalDate || raw?.arrivalAtArrivalPort),
   };
 }
 
-async function fetchSearchPage(start, fetchImpl = fetchWithTimeout, roomType = '') {
-  const rt = roomType ? `&roomTypes=${encodeURIComponent(roomType)}` : '';
-  const res = await fetchImpl(`${CRUISE_SEARCH_URL}?start=${start}${rt}`, { headers: API_HEADERS });
-  if (!res.ok) throw new Error(`P&O search HTTP ${res.status} at start=${start}${roomType ? ` (${roomType})` : ''}`);
+// The SPA's `cabins` param: base64 of a party spec, e.g. [{"party":2,"roomType":"I"}].
+function encodeCabins(roomType = '') {
+  const party = roomType ? { party: 2, roomType } : { party: 2 };
+  return Buffer.from(JSON.stringify([party])).toString('base64');
+}
+
+// Every sellable cruise id, in the site's own list order.
+async function fetchCruiseIds(fetchImpl = fetchWithTimeout) {
+  const res = await fetchImpl(`${CRUISE_LIST_URL}?sort=availableCruiseList&cabins=${encodeURIComponent(encodeCabins())}`, { headers: API_HEADERS });
+  if (!res.ok) throw new Error(`P&O cruise list HTTP ${res.status}`);
   const data = await res.json();
-  return {
-    total: Number(data?.results),
-    results: Array.isArray(data?.searchResults) ? data.searchResults : [],
-  };
+  const ids = String(data?.availableCruiseList || '').split(',').map(id => cleanText(id)).filter(Boolean);
+  return [...new Set(ids)].slice(0, MAX_CRUISE_IDS);
 }
 
-// Paginate one cabin-type pass fully. A failed page is logged and skipped so a
-// single blip doesn't lose the whole pass.
-async function fetchRoomTypePages(roomType, fetchImpl, logger) {
-  const first = await fetchSearchPage(0, fetchImpl, roomType);
-  const total = Number.isFinite(first.total) && first.total > 0 ? first.total : first.results.length;
-  const starts = [];
-  for (let start = PAGE_SIZE; start < total && starts.length < MAX_PAGES; start += PAGE_SIZE) starts.push(start);
-  const pages = await mapWithConcurrency(starts, PAGE_CONCURRENCY, async (start) => {
-    try {
-      return (await fetchSearchPage(start, fetchImpl, roomType)).results;
-    } catch (err) {
-      if (logger?.warn) logger.warn(`  [P&O] ${roomType} page start=${start} failed: ${err.message}`);
-      return [];
+async function fetchSearchBatch(ids, fetchImpl = fetchWithTimeout, roomType = '') {
+  const res = await fetchImpl(CRUISE_SEARCH_URL, {
+    method: 'POST',
+    headers: API_HEADERS,
+    body: JSON.stringify({ filters: {}, cabins: encodeCabins(roomType), availableCruiseList: ids.join(',') }),
+  });
+  if (!res.ok) throw new Error(`P&O search HTTP ${res.status}${roomType ? ` (${roomType})` : ''}`);
+  const data = await res.json();
+  return Array.isArray(data?.searchResults) ? data.searchResults : [];
+}
+
+const sleep = ms => (ms > 0 ? new Promise(resolve => setTimeout(resolve, ms)) : Promise.resolve());
+
+// Fetch one cabin-type pass over every id, BATCH_SIZE at a time, paced and
+// retried (see BATCH_*). A batch that still fails is logged and skipped so a
+// single blip doesn't lose the whole pass; too many failures abort the scrape.
+async function fetchRoomTypePages(roomType, ids, fetchImpl, logger, pacing = {}) {
+  const concurrency = pacing.concurrency ?? BATCH_CONCURRENCY;
+  const delayMs     = pacing.delayMs ?? BATCH_DELAY_MS;
+  const attempts    = pacing.attempts ?? BATCH_ATTEMPTS;
+  const retryMs     = pacing.retryMs ?? BATCH_RETRY_MS;
+  const batches = [];
+  for (let i = 0; i < ids.length; i += BATCH_SIZE) batches.push(ids.slice(i, i + BATCH_SIZE));
+  let failed = 0;
+  const pages = await mapWithConcurrency(batches, concurrency, async (batch) => {
+    for (let attempt = 1; ; attempt++) {
+      try {
+        const rows = await fetchSearchBatch(batch, fetchImpl, roomType);
+        await sleep(delayMs);
+        return rows;
+      } catch (err) {
+        if (attempt < attempts) {
+          await sleep(retryMs * attempt);
+          continue;
+        }
+        failed++;
+        if (logger?.warn) logger.warn(`  [P&O] ${roomType} batch ${batch[0]}… failed: ${err.message}`);
+        return [];
+      }
     }
   });
-  return [first.results, ...pages].flat();
+  if (failed > batches.length * MAX_FAILED_BATCH_RATIO) {
+    throw new Error(`P&O ${roomType} pass lost ${failed}/${batches.length} batches — aborting to preserve existing data`);
+  }
+  return pages.flat();
 }
 
 // Small bounded-concurrency map (kept local so this provider stays self-contained).
@@ -349,10 +401,13 @@ async function fetchCruisesWithFetchImpl(options = {}) {
     if (typeof options.onPortMap === 'function') options.onPortMap(portMap);
   }
 
+  const cruiseIds = await fetchCruiseIds(fetchImpl);
+  if (!cruiseIds.length) throw new Error('P&O returned no cruise results');
+
   // One pass per cabin type, merging each sailing's per-cabin fares by id.
   const byId = new Map();
   for (const roomType of ROOM_TYPES) {
-    const rows = await fetchRoomTypePages(roomType, fetchImpl, logger);
+    const rows = await fetchRoomTypePages(roomType, cruiseIds, fetchImpl, logger, options.pacing);
     for (const raw of rows) {
       const cruise = normalizeApiCruise(raw, portMap);
       if (!cruise) continue;
@@ -424,7 +479,7 @@ function chromeUserAgent(browserVersion) {
 // engine — sharing whatever cookies/session the initial page.goto() picked up
 // and carrying a genuine Chromium network fingerprint, unlike a raw Node
 // fetch() from this process. Returns a Response-like object (ok/status/
-// text()/json()) so it's a drop-in for fetchPortMapOnce and fetchSearchPage.
+// text()/json()) so it's a drop-in for fetchPortMapOnce and the search calls.
 function createBrowserFetch(page) {
   return async function browserFetch(url, opts = {}) {
     // Drop any user-agent override: browsers honour it on fetch() (UA is no
@@ -434,14 +489,17 @@ function createBrowserFetch(page) {
     for (const key of Object.keys(headers)) {
       if (key.toLowerCase() === 'user-agent') delete headers[key];
     }
-    const result = await page.evaluate(async ({ url, headers }) => {
+    const init = { headers };
+    if (opts.method) init.method = opts.method;
+    if (opts.body != null) init.body = String(opts.body);
+    const result = await page.evaluate(async ({ url, init }) => {
       try {
-        const res = await fetch(url, { headers });
+        const res = await fetch(url, init);
         return { ok: res.ok, status: res.status, statusText: res.statusText, body: await res.text() };
       } catch (err) {
         return { ok: false, status: 0, statusText: String(err?.message || err), body: '' };
       }
-    }, { url: String(url), headers });
+    }, { url: String(url), init });
     return {
       ok: result.ok,
       status: result.status,
@@ -474,7 +532,7 @@ async function openVerifiedSession(launchImpl, config) {
     if (response && response.status() >= 400) throw new Error(`find-a-cruise HTTP ${response.status()}`);
     await page.waitForTimeout(SESSION_SETTLE_MS);
     const fetchImpl = createBrowserFetch(page);
-    const probe = await fetchImpl(`${CRUISE_SEARCH_URL}?start=0`, { headers: API_HEADERS });
+    const probe = await fetchImpl(`${CRUISE_LIST_URL}?sort=availableCruiseList&cabins=${encodeURIComponent(encodeCabins())}`, { headers: API_HEADERS });
     if (!probe.ok) throw new Error(`search API probe HTTP ${probe.status}`);
     return { browser, fetchImpl };
   } catch (err) {
@@ -528,7 +586,9 @@ const provider = {
 
 module.exports = provider;
 module.exports.normalizeApiCruise = normalizeApiCruise;
-module.exports.fetchSearchPage = fetchSearchPage;
+module.exports.fetchCruiseIds = fetchCruiseIds;
+module.exports.fetchSearchBatch = fetchSearchBatch;
+module.exports.encodeCabins = encodeCabins;
 module.exports.classifyCabinType = classifyCabinType;
 module.exports.resolveShipName = resolveShipName;
 module.exports.buildItinerary = buildItinerary;

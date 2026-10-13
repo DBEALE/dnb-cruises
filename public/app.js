@@ -108,6 +108,11 @@
   // controls, or layout changes ship so the Site changes dialog stays useful.
   const SITE_CHANGES = [
     {
+      date: '13 Oct 2026',
+      title: 'P&O prices match the P&O website',
+      items: ['P&O prices now come from the same search P&O’s own site uses, so newer fares such as Early Saver appear and recently added sailings are included. A refresh that P&O partly blocks is discarded rather than published with missing cruises.'],
+    },
+    {
       date: '20 Sep 2026',
       title: 'Choose multiple ship classes',
       items: ['Select any combination of ship classes or sizes in Sort & filter, just like ships and cruise lines. Search the choices, tick those you want, and close filters to apply. Saved views and shared links keep every selection.'],

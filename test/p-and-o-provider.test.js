@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 
 const provider = require('../providers/p-and-o');
 
-// A representative `searchResults` entry from the cruise-query-processor API.
+// A representative `searchResults` entry from the orchestrator cruisesearch API.
 function apiResult(overrides = {}) {
   return {
     entityId: 'A627A_A627A',
@@ -19,13 +19,40 @@ function apiResult(overrides = {}) {
     shipName: 'Azura',
     embarkPortCode: 'MLA',
     disembarkPortCode: 'MLA',
-    arrivalAtArrivalPort: '2026-07-23T06:00:00Z',
+    arrivalDate: '2026-07-23T00:00:00Z',
     availableRoomTypes: ['B', 'I'],
     avgPerPersonPrice: 2532.33,
     cabins: [{ roomTypeId: 'B', lowerPrice: 2409 }],
     ...overrides,
   };
 }
+
+// Fakes the orchestrator search API: GET /cruiselist returns every id, and a
+// POST returns the rows for the requested ids (at most 10), as filtered by the
+// roomType encoded in the base64 `cabins` spec. `rowFor(id, roomType)` builds
+// each row (or returns null to omit it); `fail(ids)` forces a batch to error.
+function fakeSearchApi(ids, rowFor, { fail = () => false, calls = [] } = {}) {
+  return async (url, opts = {}) => {
+    if (String(url).includes('/cruiselist')) {
+      return { ok: true, json: async () => ({ availableCruiseList: ids.join(',') }) };
+    }
+    const body = JSON.parse(opts.body);
+    const batch = body.availableCruiseList.split(',');
+    const roomType = JSON.parse(Buffer.from(body.cabins, 'base64').toString())[0].roomType || '';
+    calls.push({ method: opts.method, roomType, batch });
+    if (fail(batch)) return { ok: false, status: 500, json: async () => ({}) };
+    const rows = batch.map(id => rowFor(id, roomType)).filter(Boolean).slice(0, 10);
+    return { ok: true, json: async () => ({ results: rows.length, searchResults: rows }) };
+  };
+}
+
+// Zero pacing so fetchCruises tests don't sleep between or retry batches.
+const FAST = { delayMs: 0, retryMs: 0, attempts: 1 };
+
+test('encodeCabins matches the SPA party spec', () => {
+  assert.equal(provider.encodeCabins(), Buffer.from('[{"party":2}]').toString('base64'));
+  assert.equal(provider.encodeCabins('I'), 'W3sicGFydHkiOjIsInJvb21UeXBlIjoiSSJ9XQ==');
+});
 
 test('classifies P&O room-type ids into the application cabin buckets', () => {
   assert.equal(provider.classifyCabinType('I'), 'inside');
@@ -143,23 +170,17 @@ test('normalizeCruise is idempotent for already-normalized cruises', () => {
 });
 
 test('fetchCruises runs one pass per cabin type and merges per-cabin fares', async () => {
-  const seen = new Set();
   // One sailing priced differently in the Inside and Balcony passes only.
-  const fetchImpl = async (url) => {
-    const u = new URL(url);
-    const roomType = u.searchParams.get('roomTypes');
-    const start = Number(u.searchParams.get('start')) || 0;
-    seen.add(roomType);
+  const calls = [];
+  const fetchImpl = fakeSearchApi(['C1'], (id, roomType) => {
     const fare = { I: 500, B: 900 }[roomType];
-    const rows = (start === 0 && fare)
-      ? [apiResult({ cruiseId: 'C1', cabins: [{ roomTypeId: roomType, lowerPrice: fare }] })]
-      : [];
-    return { ok: true, json: async () => ({ results: rows.length, searchResults: rows }) };
-  };
+    return apiResult({ cruiseId: id, cabins: fare ? [{ roomTypeId: roomType, lowerPrice: fare }] : [] });
+  }, { calls });
 
-  const cruises = await provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn() {} } });
+  const cruises = await provider.fetchCruises({ fetchImpl, pacing: FAST, portMap: {}, logger: { warn() {} } });
 
-  assert.deepEqual([...seen].sort(), ['B', 'I', 'O', 'S'], 'one pass per cabin type');
+  assert.deepEqual(calls.map(c => c.roomType).sort(), ['B', 'I', 'O', 'S'], 'one pass per cabin type');
+  assert.ok(calls.every(c => c.method === 'POST'));
   assert.equal(cruises.length, 1);
   assert.equal(cruises[0].prices.inside, '500');
   assert.equal(cruises[0].prices.balcony, '900');
@@ -167,32 +188,28 @@ test('fetchCruises runs one pass per cabin type and merges per-cabin fares', asy
   assert.equal(cruises[0].priceFrom, '500', 'priceFrom is the cheapest populated cabin');
 });
 
-test('fetchCruises paginates each pass by start offset and dedupes across passes', async () => {
-  const all = Array.from({ length: 25 }, (_, i) => apiResult({ cruiseId: `C${i}` }));
-  const starts = [];
-  const fetchImpl = async (url) => {
-    const start = Number(new URL(url).searchParams.get('start')) || 0;
-    starts.push(start);
-    return { ok: true, json: async () => ({ results: all.length, searchResults: all.slice(start, start + 10) }) };
-  };
+test('fetchCruises posts the cruise id list in batches of 10 and dedupes across passes', async () => {
+  const ids = Array.from({ length: 25 }, (_, i) => `C${i}`);
+  const calls = [];
+  const fetchImpl = fakeSearchApi(ids, id => apiResult({ cruiseId: id }), { calls });
 
-  const cruises = await provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn() {} } });
+  const cruises = await provider.fetchCruises({ fetchImpl, pacing: FAST, portMap: {}, logger: { warn() {} } });
 
   assert.equal(cruises.length, 25, 'deduped across the four passes');
-  assert.deepEqual([...new Set(starts)].sort((a, b) => a - b), [0, 10, 20], 'paginated by start offset');
-  assert.equal(starts.length, 12, 'four cabin passes × three pages each');
+  assert.deepEqual([...new Set(calls.map(c => c.batch.length))].sort((a, b) => a - b), [5, 10], 'batched by 10');
+  assert.equal(calls.length, 12, 'four cabin passes × three batches each');
 });
 
 test('fetchCruises throws when the self-fetched port map is empty (never degrades itineraries)', async () => {
   // Port-map page fails; search API would return good rows. Without the guard
   // these rows would be written with single-port itineraries, overwriting good
   // data — so the pass must abort instead.
-  const fetchImpl = async (url) => {
+  const fetchImpl = async (url, opts) => {
     if (String(url).includes('/find-a-cruise')) return { ok: false, status: 503 };
-    return { ok: true, json: async () => ({ results: 1, searchResults: [apiResult({ cruiseId: 'C1' })] }) };
+    return fakeSearchApi(['C1'], id => apiResult({ cruiseId: id }))(url, opts);
   };
   await assert.rejects(
-    () => provider.fetchCruises({ fetchImpl, portMapOptions: { attempts: 1 }, logger: { warn() {} } }),
+    () => provider.fetchCruises({ fetchImpl, pacing: FAST, portMapOptions: { attempts: 1 }, logger: { warn() {} } }),
     /port map unavailable/,
   );
 });
@@ -206,16 +223,14 @@ function bigPortMap() {
 }
 
 test('fetchCruises reuses a prior port map when the site blocks the fresh fetch', async () => {
-  const fetchImpl = async (url) => {
+  const fetchImpl = async (url, opts) => {
     if (String(url).includes('/find-a-cruise')) return { ok: false, status: 403 };
-    return {
-      ok: true,
-      json: async () => ({ results: 1, searchResults: [apiResult({ cruiseId: 'C1', portOfCallIds: ['MLA'] })] }),
-    };
+    return fakeSearchApi(['C1'], id => apiResult({ cruiseId: id, portOfCallIds: ['MLA'] }))(url, opts);
   };
   const warnings = [];
   const cruises = await provider.fetchCruises({
     fetchImpl,
+    pacing: FAST,
     portMapOptions: { attempts: 1 },
     priorPortMap: bigPortMap(),
     logger: { warn: m => warnings.push(m) },
@@ -226,13 +241,14 @@ test('fetchCruises reuses a prior port map when the site blocks the fresh fetch'
 });
 
 test('fetchCruises still throws when neither the fresh fetch nor the prior map are usable', async () => {
-  const fetchImpl = async (url) => {
+  const fetchImpl = async (url, opts) => {
     if (String(url).includes('/find-a-cruise')) return { ok: false, status: 403 };
-    return { ok: true, json: async () => ({ results: 1, searchResults: [apiResult({ cruiseId: 'C1' })] }) };
+    return fakeSearchApi(['C1'], id => apiResult({ cruiseId: id }))(url, opts);
   };
   await assert.rejects(
     () => provider.fetchCruises({
       fetchImpl,
+      pacing: FAST,
       portMapOptions: { attempts: 1 },
       priorPortMap: { MLA: 'Valletta, Malta' }, // far below MIN_PORT_MAP_SIZE
       logger: { warn() {} },
@@ -249,37 +265,66 @@ test('fetchCruises reports the resolved port map via onPortMap so the orchestrat
   const html = `<html><script id="__NEXT_DATA__" type="application/json">${JSON.stringify({
     x: { portOfCalls: { items } },
   })}</script></html>`;
-  const fetchImpl = async (url) => {
+  const fetchImpl = async (url, opts) => {
     if (String(url).includes('/find-a-cruise')) return { ok: true, text: async () => html };
-    return { ok: true, json: async () => ({ results: 0, searchResults: [] }) };
+    return fakeSearchApi([], () => null)(url, opts);
   };
   let reported = null;
   await assert.rejects(
-    () => provider.fetchCruises({ fetchImpl, onPortMap: (m) => { reported = m; }, logger: { warn() {} } }),
+    () => provider.fetchCruises({ fetchImpl, pacing: FAST, onPortMap: (m) => { reported = m; }, logger: { warn() {} } }),
     /P&O returned no cruise results/,
   );
   assert.equal(reported?.MLA, 'Valletta, Malta', 'onPortMap still fires even though the search pass came up empty');
 });
 
 test('fetchCruises throws when the API returns nothing (never overwrites good data)', async () => {
-  const fetchImpl = async () => ({ ok: true, json: async () => ({ results: 0, searchResults: [] }) });
+  const fetchImpl = fakeSearchApi(['C1'], () => null);
   await assert.rejects(
-    () => provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn() {} } }),
+    () => provider.fetchCruises({ fetchImpl, pacing: FAST, portMap: {}, logger: { warn() {} } }),
     /P&O returned no cruise results/,
   );
 });
 
-test('fetchCruises keeps successful pages when one page request fails', async () => {
-  const rows = Array.from({ length: 20 }, (_, i) => apiResult({ cruiseId: `C${i}` }));
-  const fetchImpl = async (url) => {
-    const start = Number(new URL(url).searchParams.get('start')) || 0;
-    if (start === 10) return { ok: false, status: 500, json: async () => ({}) };
-    return { ok: true, json: async () => ({ results: 20, searchResults: rows.slice(start, start + 10) }) };
-  };
+test('fetchCruises skips an isolated failed batch but keeps the rest', async () => {
+  // 60 batches per pass, one of which always fails — under the abort threshold.
+  const ids = Array.from({ length: 600 }, (_, i) => `C${i}`);
+  const fetchImpl = fakeSearchApi(ids, id => apiResult({ cruiseId: id }), { fail: batch => batch[0] === 'C10' });
   const warnings = [];
-  const cruises = await provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn: m => warnings.push(m) } });
-  assert.equal(cruises.length, 10, 'first page kept despite the second failing');
-  assert.match(warnings.join(' '), /page start=10 failed/);
+  const cruises = await provider.fetchCruises({ fetchImpl, pacing: FAST, portMap: {}, logger: { warn: m => warnings.push(m) } });
+  assert.equal(cruises.length, 590, 'every other batch kept');
+  assert.match(warnings.join(' '), /batch C10… failed/);
+});
+
+test('fetchCruises retries a batch that fails transiently', async () => {
+  let failures = 0;
+  const fetchImpl = fakeSearchApi(['C1'], id => apiResult({ cruiseId: id }), {
+    fail: () => failures++ === 0,
+  });
+  const cruises = await provider.fetchCruises({
+    fetchImpl,
+    pacing: { ...FAST, attempts: 2 },
+    portMap: {},
+    logger: { warn() {} },
+  });
+  assert.equal(cruises.length, 1, 'second attempt succeeded');
+});
+
+test('fetchCruises aborts when the WAF blocks a large share of batches', async () => {
+  // Mirrors a real rate-limit block: partial results would silently drop sailings.
+  const ids = Array.from({ length: 100 }, (_, i) => `C${i}`);
+  const fetchImpl = fakeSearchApi(ids, id => apiResult({ cruiseId: id }), { fail: batch => batch[0] >= 'C5' });
+  await assert.rejects(
+    () => provider.fetchCruises({ fetchImpl, pacing: FAST, portMap: {}, logger: { warn() {} } }),
+    /pass lost \d+\/10 batches/,
+  );
+});
+
+test('fetchCruises throws when the cruise list is empty', async () => {
+  const fetchImpl = fakeSearchApi([], () => null);
+  await assert.rejects(
+    () => provider.fetchCruises({ fetchImpl, pacing: FAST, portMap: {}, logger: { warn() {} } }),
+    /P&O returned no cruise results/,
+  );
 });
 
 // createBrowserFetch wraps a Playwright `page` as a fetchImpl by running the
@@ -307,6 +352,23 @@ test('createBrowserFetch translates an in-page fetch into a Response-like object
   }
 });
 
+test('createBrowserFetch forwards the method and body for POST requests', async () => {
+  const realFetch = global.fetch;
+  let seen;
+  global.fetch = async (url, opts) => {
+    seen = opts;
+    return { ok: true, status: 200, statusText: 'OK', text: async () => '{}' };
+  };
+  try {
+    const fakePage = { evaluate: async (fn, arg) => fn(arg) };
+    const browserFetch = provider.createBrowserFetch(fakePage);
+    await browserFetch('https://example.com/x', { method: 'POST', headers: { brand: 'po' }, body: '{"a":1}' });
+    assert.deepEqual(seen, { method: 'POST', headers: { brand: 'po' }, body: '{"a":1}' });
+  } finally {
+    global.fetch = realFetch;
+  }
+});
+
 test('createBrowserFetch surfaces a failed in-page fetch as a non-ok response instead of throwing', async () => {
   const realFetch = global.fetch;
   global.fetch = async () => { throw new Error('blocked'); };
@@ -327,7 +389,7 @@ test('fetchCruises routes to the browser path only when no fetchImpl is supplied
   // test in this file does) must never attempt to launch a real browser.
   const fetchImpl = async () => ({ ok: true, json: async () => ({ results: 0, searchResults: [] }) });
   await assert.rejects(
-    () => provider.fetchCruises({ fetchImpl, portMap: {}, logger: { warn() {} } }),
+    () => provider.fetchCruises({ fetchImpl, pacing: FAST, portMap: {}, logger: { warn() {} } }),
     /P&O returned no cruise results/,
   );
 });
@@ -362,9 +424,10 @@ function stubBrowserEnvironment() {
   const html = `<html>${JSON.stringify({ portOfCalls: { items } })}</html>`;
   const row = apiResult({ cruiseId: 'C1' });
   global.fetch = async (url) => {
-    const body = String(url).includes('find-a-cruise')
-      ? html
-      : JSON.stringify({ results: 1, searchResults: [row] });
+    let body;
+    if (String(url).includes('/cruiselist')) body = JSON.stringify({ availableCruiseList: 'C1' });
+    else if (String(url).includes('find-a-cruise')) body = html;
+    else body = JSON.stringify({ results: 1, searchResults: [row] });
     return { ok: true, status: 200, statusText: 'OK', text: async () => body };
   };
   return {
@@ -387,7 +450,7 @@ test('browser cascade falls through failed launch configs to a working session',
     return { newPage: async () => page, close: async () => {}, version: () => '143.0.1.2' };
   };
   try {
-    const cruises = await provider.fetchCruises({ launchImpl, logger: { warn() {}, log() {} } });
+    const cruises = await provider.fetchCruises({ launchImpl, pacing: FAST, logger: { warn() {}, log() {} } });
     assert.deepEqual(attempts, ['chrome', 'chromium'], 'stopped at the first config that worked');
     assert.equal(cruises.length, 1);
     assert.equal(cruises[0].id, 'pando-C1');
@@ -399,7 +462,7 @@ test('browser cascade falls through failed launch configs to a working session',
 test('browser cascade reports every config when all of them are blocked', async () => {
   const launchImpl = async () => { throw new Error('net::ERR_HTTP2_PROTOCOL_ERROR'); };
   await assert.rejects(
-    () => provider.fetchCruises({ launchImpl, logger: { warn() {}, log() {} } }),
+    () => provider.fetchCruises({ launchImpl, pacing: FAST, logger: { warn() {}, log() {} } }),
     (err) => {
       assert.match(err.message, /blocked across all browser configs/);
       assert.match(err.message, /system Chrome/);
@@ -424,7 +487,7 @@ test('browser cascade rejects a session whose search-API probe fails despite the
   const launchImpl = async () => ({ newPage: async () => page, close: async () => {}, version: () => '143.0.1.2' });
   try {
     await assert.rejects(
-      () => provider.fetchCruises({ launchImpl, logger: { warn() {}, log() {} } }),
+      () => provider.fetchCruises({ launchImpl, pacing: FAST, logger: { warn() {}, log() {} } }),
       /search API probe HTTP 403/,
     );
   } finally {
