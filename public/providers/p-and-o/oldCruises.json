@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 108,
+  "count": 109,
   "cruises": [
     {
       "id": "pando-A627A",
@@ -46361,6 +46361,47 @@
           "at": "2026-10-13T18:24:48.600Z",
           "prices": {
             "inside": 849
+          }
+        }
+      ]
+    },
+    {
+      "id": "pando-JLX",
+      "provider": "P&O Cruises",
+      "shipName": "Arcadia",
+      "shipClass": "Vista",
+      "shipLaunchYear": 2005,
+      "itinerary": "Southampton, UK → Gran Canaria, Spain → Bridgetown, Barbados → Oranjestad, Aruba → Panama Canal (full transit) → Manzanillo, Mexico → San Diego, United States → San Francisco, United States → Honolulu, United States → Nawiliwili (Hawaii), United States → Cross International Date Line → Apia, Samoan Islands → Suva, Fiji → Auckland, New Zealand → Tauranga, New Zealand → Wellington, New Zealand → Sydney, Australia → Airlie Beach, Australia → Cairns, Australia → Rabaul, Papua New Guinea → Busan, Korea → Nagasaki, Japan → Kagoshima, Japan → Tokyo, Japan → Hong Kong, Hong Kong",
+      "departureDate": "2028-01-06",
+      "duration": "74 Nights",
+      "departurePort": "Southampton",
+      "departureRegion": "UK & Ireland",
+      "destination": "World-Cruise",
+      "destinationPort": "Hong Kong",
+      "seaDays": 47,
+      "priceFrom": "13679",
+      "currency": "GBP",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "13679",
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/JLX/JLX",
+      "arrivalDate": "2028-03-21",
+      "firstSeenAt": "2026-09-21T22:07:51.626Z",
+      "lastSeenAt": "2026-10-15T06:13:39.605Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-21T22:07:51.626Z",
+          "prices": {
+            "balcony": 13169
+          }
+        },
+        {
+          "at": "2026-10-13T18:24:48.600Z",
+          "prices": {
+            "balcony": 13679
           }
         }
       ]
