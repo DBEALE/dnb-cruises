@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 108,
+  "count": 109,
   "cruises": [
     {
       "id": "pando-A627A",
@@ -45961,6 +45961,49 @@
           "at": "2026-09-21T22:07:51.626Z",
           "prices": {
             "balcony": 16229
+          }
+        }
+      ]
+    },
+    {
+      "id": "pando-A641B",
+      "provider": "P&O Cruises",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Tenerife, Spain → Madeira, Portugal → Fuerteventura, Spain → La Palma, Spain → Tenerife, Spain",
+      "departureDate": "2026-10-17",
+      "duration": "7 Nights",
+      "departurePort": "Santa Cruz de Tenerife",
+      "departureRegion": "Mediterranean",
+      "destination": "Canary-Islands",
+      "destinationPort": "Santa Cruz de Tenerife",
+      "seaDays": 2,
+      "priceFrom": "879",
+      "currency": "GBP",
+      "prices": {
+        "inside": "879",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A641B/A641B",
+      "arrivalDate": "2026-10-24",
+      "firstSeenAt": "2026-09-21T22:07:51.626Z",
+      "lastSeenAt": "2026-10-15T22:07:20.107Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-21T22:07:51.626Z",
+          "prices": {
+            "inside": 789,
+            "oceanView": 859,
+            "balcony": 889
+          }
+        },
+        {
+          "at": "2026-10-15T12:11:40.415Z",
+          "prices": {
+            "inside": 879
           }
         }
       ]
