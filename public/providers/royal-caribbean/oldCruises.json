@@ -3,7 +3,7 @@
     "id": "royal-caribbean",
     "name": "Royal Caribbean"
   },
-  "count": 491,
+  "count": 492,
   "cruises": [
     {
       "provider": "Royal Caribbean",
@@ -159327,6 +159327,65 @@
           "at": "2026-10-17T06:11:28.293Z",
           "prices": {
             "inside": 796.5
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Royal Caribbean",
+      "id": "rc_JW3BH229_2026-10-19",
+      "shipName": "Jewel of the Seas",
+      "shipClass": "Radiance",
+      "shipLaunchYear": 2004,
+      "itinerary": "Bahamas Getaway Cruise",
+      "departureDate": "2026-10-19",
+      "duration": "3 Nights",
+      "departurePort": "Fort Lauderdale",
+      "departureRegion": "Americas",
+      "destination": "Bahamas",
+      "priceFrom": "266.5",
+      "currency": "GBP",
+      "bookingUrl": "https://www.royalcaribbean.com/booking/landing?groupId=JW03FLL-61209694&sailDate=2026-10-19&shipCode=JW&packageCode=JW3BH229&destinationCode=BAHAM&selectedCurrencyCode=GBP&country=GBR",
+      "prices": {
+        "inside": "266.5",
+        "oceanView": null,
+        "balcony": "340.5",
+        "suite": null
+      },
+      "destinationPort": "",
+      "firstSeenAt": "2026-10-16T02:10:47.902Z",
+      "lastSeenAt": "2026-10-17T14:06:40.550Z",
+      "priceHistory": [
+        {
+          "at": "2026-10-16T02:10:47.902Z",
+          "prices": {
+            "balcony": 365.5
+          }
+        },
+        {
+          "at": "2026-10-16T14:08:13.473Z",
+          "prices": {
+            "balcony": 340.5
+          }
+        },
+        {
+          "at": "2026-10-16T22:07:14.275Z",
+          "prices": {
+            "inside": 254.5,
+            "balcony": 340.5
+          }
+        },
+        {
+          "at": "2026-10-17T02:10:30.982Z",
+          "prices": {
+            "balcony": 340.5
+          }
+        },
+        {
+          "at": "2026-10-17T04:08:27.685Z",
+          "prices": {
+            "inside": 266.5,
+            "balcony": 340.5
           }
         }
       ]
