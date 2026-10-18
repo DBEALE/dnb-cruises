@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 749,
+  "count": 750,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -57800,6 +57800,78 @@
             "inside": 995,
             "balcony": 1505,
             "suite": 1740
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_LUNA7MIAPOPSTTTOVNPIMIA_2026-10-17",
+      "shipName": "Norwegian Luna",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2024,
+      "itinerary": "Caribbean: Great Stirrup Cay, Dominican Republic & Tortola",
+      "departureDate": "2026-10-17",
+      "duration": "7-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay, Dominican Republic & Tortola",
+      "destinationPort": "Miami",
+      "arrivalDate": "2026-10-24",
+      "priceFrom": "465",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=LUNA7MIAPOPSTTTOVNPIMIA&voyageId=23075911&sailDate=2026-10-17&departureDate=2026-10-17&shipCode=LUNA&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "465",
+        "oceanView": "520",
+        "balcony": "820",
+        "suite": "1330"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-10-06T00:22:59.919Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "lastSeenAt": "2026-10-06T00:22:59.919Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 475,
+            "oceanView": 530,
+            "balcony": 780,
+            "suite": 1290
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 475,
+            "oceanView": 530,
+            "balcony": 780,
+            "suite": 1330
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 465,
+            "oceanView": 520,
+            "balcony": 820,
+            "suite": 1935
+          }
+        },
+        {
+          "at": "2026-10-06T00:22:59.919Z",
+          "prices": {
+            "inside": 465,
+            "oceanView": 520,
+            "balcony": 820,
+            "suite": 1330
           }
         }
       ]
