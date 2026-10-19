@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 759,
+  "count": 760,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -58460,6 +58460,69 @@
         }
       ],
       "lastSeenAt": "2026-10-17T00:19:38.028Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JADE7WQFICYJNUSGYKTNVAN_2027-05-31",
+      "shipName": "Norwegian Jade",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Alaska: Skagway, Juneau & Ketchikan",
+      "departureDate": "2027-05-31",
+      "duration": "7-day Cruise",
+      "departurePort": "Whittier, Alaska",
+      "departureRegion": "Americas",
+      "destination": "Alaska: Skagway, Juneau & Ketchikan",
+      "destinationPort": "Vancouver",
+      "arrivalDate": "2027-06-07",
+      "priceFrom": "526",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=JADE7WQFICYJNUSGYKTNVAN&voyageId=24218515&sailDate=2027-05-31&departureDate=2027-05-31&shipCode=JADE&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "526",
+        "oceanView": "690",
+        "balcony": "1698",
+        "suite": "1823"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-10-06T00:22:59.919Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "lastSeenAt": "2026-10-06T00:22:59.919Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 608,
+            "oceanView": 818,
+            "balcony": 1698,
+            "suite": 1843
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 538,
+            "oceanView": 706,
+            "balcony": 1698,
+            "suite": 1843
+          }
+        },
+        {
+          "at": "2026-10-06T00:22:59.919Z",
+          "prices": {
+            "inside": 526,
+            "oceanView": 690,
+            "balcony": 1698,
+            "suite": 1823
+          }
+        }
+      ]
     }
   ]
 }
