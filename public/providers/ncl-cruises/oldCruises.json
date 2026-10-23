@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 768,
+  "count": 769,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -58922,6 +58922,75 @@
             "oceanView": 1096,
             "balcony": 1331,
             "suite": 2026
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SPIRIT12PPTMOZRAIBRBITONWKHNL_2026-10-24",
+      "shipName": "Norwegian Spirit",
+      "shipClass": "Spirit",
+      "shipLaunchYear": 1998,
+      "itinerary": "South Pacific: Hilo, Maui & Moorea",
+      "departureDate": "2026-10-24",
+      "duration": "12-day Cruise",
+      "departurePort": "Papeete (Tahiti), French Polynesia",
+      "departureRegion": "Australia & Pacific",
+      "destination": "South Pacific: Hilo, Maui & Moorea",
+      "destinationPort": "Honolulu",
+      "arrivalDate": "2026-11-05",
+      "priceFrom": "513",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=SPIRIT12PPTMOZRAIBRBITONWKHNL&voyageId=22997665&sailDate=2026-10-24&departureDate=2026-10-24&shipCode=SPIRIT&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "513",
+        "oceanView": "1161",
+        "balcony": "937",
+        "suite": null
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY"
+      },
+      "seaDays": 6,
+      "priceCheckedAt": "2026-10-06T00:22:59.919Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "lastSeenAt": "2026-10-06T00:22:59.919Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 534,
+            "oceanView": 605,
+            "balcony": 1029,
+            "suite": 4924
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 534,
+            "oceanView": 1115,
+            "balcony": 1897,
+            "suite": 4924
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 526,
+            "oceanView": 1161,
+            "balcony": 980
+          }
+        },
+        {
+          "at": "2026-10-06T00:22:59.919Z",
+          "prices": {
+            "inside": 513,
+            "oceanView": 1161,
+            "balcony": 937
           }
         }
       ]
