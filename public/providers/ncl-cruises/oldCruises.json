@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 776,
+  "count": 785,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -59472,6 +59472,621 @@
           }
         }
       ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_AQUA7MIARTBBPICZMNPIMIA_2026-10-25",
+      "shipName": "Norwegian Aqua",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2025,
+      "itinerary": "Caribbean: Great Stirrup Cay & Harvest Caye",
+      "departureDate": "2026-10-25",
+      "duration": "7-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Harvest Caye",
+      "destinationPort": "Miami",
+      "arrivalDate": "2026-11-01",
+      "priceFrom": "599",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=AQUA7MIARTBBPICZMNPIMIA&voyageId=23353038&sailDate=2026-10-25&departureDate=2026-10-25&shipCode=AQUA&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "599",
+        "oceanView": "649",
+        "balcony": "799",
+        "suite": "979"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-10-14T22:07:36.008Z",
+      "firstSeenAt": "2026-09-12T12:10:20.913Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T12:10:20.913Z",
+          "prices": {
+            "inside": 440,
+            "oceanView": 520,
+            "balcony": 650,
+            "suite": 885
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 430,
+            "oceanView": 480,
+            "balcony": 645,
+            "suite": 855
+          }
+        },
+        {
+          "at": "2026-10-05T12:14:49.175Z",
+          "prices": {
+            "inside": 430,
+            "oceanView": 480,
+            "balcony": 645,
+            "suite": 920
+          }
+        },
+        {
+          "at": "2026-10-14T22:07:36.008Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 649,
+            "balcony": 799,
+            "suite": 979
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-14T22:07:36.008Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_EPIC7CIVSALCTALIVVLFMRSBCN_2026-10-25",
+      "shipName": "Norwegian Epic",
+      "shipClass": "Epic",
+      "shipLaunchYear": 2010,
+      "itinerary": "Mediterranean: Florence & Marseille",
+      "departureDate": "2026-10-25",
+      "duration": "7-day Cruise",
+      "departurePort": "Rome (Civitavecchia)",
+      "departureRegion": "Mediterranean",
+      "destination": "Mediterranean: Florence & Marseille",
+      "destinationPort": "Barcelona",
+      "arrivalDate": "2026-11-01",
+      "priceFrom": "3259",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=EPIC7CIVSALCTALIVVLFMRSBCN&voyageId=22977658&sailDate=2026-10-25&departureDate=2026-10-25&shipCode=EPIC&guestCount=2&selectedStateroomMeta=HAVEN",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "3259"
+      },
+      "bookingCabinCodes": {
+        "suite": "HAVEN"
+      },
+      "seaDays": 1,
+      "priceCheckedAt": "2026-10-17T06:11:28.348Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 375,
+            "balcony": 552,
+            "suite": 2710
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 375,
+            "balcony": 552,
+            "suite": 1060
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 487,
+            "balcony": 602,
+            "suite": 2890
+          }
+        },
+        {
+          "at": "2026-10-06T00:22:59.919Z",
+          "prices": {
+            "inside": 540,
+            "balcony": 1055,
+            "suite": 2710
+          }
+        },
+        {
+          "at": "2026-10-17T06:11:28.348Z",
+          "prices": {
+            "suite": 3259
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-17T06:11:28.348Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_GEM7RAVSPUDBVKOTCFUMSNSALCIV_2026-10-25",
+      "shipName": "Norwegian Gem",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2007,
+      "itinerary": "Greek Isles: Italy, Greece & Croatia",
+      "departureDate": "2026-10-25",
+      "duration": "7-day Cruise",
+      "departurePort": "Venice (Ravenna)",
+      "departureRegion": "Mediterranean",
+      "destination": "Greek Isles: Italy, Greece & Croatia",
+      "destinationPort": "Rome (Civitavecchia)",
+      "arrivalDate": "2026-11-01",
+      "priceFrom": "465",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=GEM7RAVSPUDBVKOTCFUMSNSALCIV&voyageId=22988323&sailDate=2026-10-25&departureDate=2026-10-25&shipCode=GEM&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "465",
+        "oceanView": null,
+        "balcony": null,
+        "suite": "2535"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "suite": "SUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-10-06T10:08:36.375Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "lastSeenAt": "2026-10-06T10:08:36.375Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 460,
+            "oceanView": 875,
+            "balcony": 737,
+            "suite": 1535
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 460,
+            "oceanView": 875,
+            "balcony": 742,
+            "suite": 2570
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 460,
+            "oceanView": 875,
+            "balcony": 730,
+            "suite": 2535
+          }
+        },
+        {
+          "at": "2026-10-06T10:08:36.375Z",
+          "prices": {
+            "inside": 465,
+            "suite": 2535
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL7PIRJTRKAKCFUKOTDBVKOPRAV_2026-10-25",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Greek Isles: Montenegro, Croatia & Corfu",
+      "departureDate": "2026-10-25",
+      "duration": "7-day Cruise",
+      "departurePort": "Athens (Piraeus)",
+      "departureRegion": "Mediterranean",
+      "destination": "Greek Isles: Montenegro, Croatia & Corfu",
+      "destinationPort": "Venice (Ravenna)",
+      "arrivalDate": "2026-11-01",
+      "priceFrom": "730",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=PEARL7PIRJTRKAKCFUKOTDBVKOPRAV&voyageId=22997496&sailDate=2026-10-25&departureDate=2026-10-25&shipCode=PEARL&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "730",
+        "oceanView": "1040",
+        "balcony": "1335",
+        "suite": "1505"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-09-19T04:08:49.068Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "lastSeenAt": "2026-09-19T04:08:49.068Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 730,
+            "oceanView": 1040,
+            "balcony": 1335,
+            "suite": 1505
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_ENCORE7LAXCSLMZTPVRLAX_2026-10-25",
+      "shipName": "Norwegian Encore",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2019,
+      "itinerary": "Mexican Riviera: Cabo San Lucas & Puerto Vallarta",
+      "departureDate": "2026-10-25",
+      "duration": "7-day Cruise",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexican Riviera: Cabo San Lucas & Puerto Vallarta",
+      "destinationPort": "Los Angeles",
+      "arrivalDate": "2026-11-01",
+      "priceFrom": "459",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=ENCORE7LAXCSLMZTPVRLAX&voyageId=23338077&sailDate=2026-10-25&departureDate=2026-10-25&shipCode=ENCORE&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "459",
+        "oceanView": null,
+        "balcony": "679",
+        "suite": "799"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-10-17T00:19:38.028Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 415,
+            "oceanView": 470,
+            "balcony": 585,
+            "suite": 705
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 415,
+            "oceanView": 490,
+            "balcony": 585,
+            "suite": 705
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 375,
+            "oceanView": 415,
+            "balcony": 565,
+            "suite": 660
+          }
+        },
+        {
+          "at": "2026-10-17T00:19:38.028Z",
+          "prices": {
+            "inside": 459,
+            "balcony": 679,
+            "suite": 799
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-17T00:19:38.028Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_BREAKAWAY7BOSHALWRFBOS_2026-10-25",
+      "shipName": "Norwegian Breakaway",
+      "shipClass": "Breakaway",
+      "shipLaunchYear": 2013,
+      "itinerary": "Halifax & Bermuda: Boston, Massachusetts, Halifax, Nova Scotia, Royal Naval Dockyard, Bermuda, Boston, Massachusetts",
+      "departureDate": "2026-10-25",
+      "duration": "7-day Cruise",
+      "departurePort": "Boston",
+      "departureRegion": "Americas",
+      "destination": "Halifax & Bermuda",
+      "destinationPort": "Boston",
+      "arrivalDate": "2026-11-01",
+      "priceFrom": "509",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=BREAKAWAY7BOSHALWRFBOS&voyageId=22695921&sailDate=2026-10-25&departureDate=2026-10-25&shipCode=BREAKAWAY&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "509",
+        "oceanView": "559",
+        "balcony": null,
+        "suite": "2559"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "suite": "HAVEN"
+      },
+      "seaDays": 4,
+      "priceCheckedAt": "2026-10-15T10:07:59.402Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 500,
+            "oceanView": 535,
+            "balcony": 665,
+            "suite": 760
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 500,
+            "oceanView": 535,
+            "balcony": 640,
+            "suite": 760
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 445,
+            "oceanView": 515,
+            "balcony": 610,
+            "suite": 760
+          }
+        },
+        {
+          "at": "2026-10-05T20:19:19.002Z",
+          "prices": {
+            "inside": 445,
+            "oceanView": 490,
+            "balcony": 610,
+            "suite": 760
+          }
+        },
+        {
+          "at": "2026-10-15T10:07:59.402Z",
+          "prices": {
+            "inside": 509,
+            "oceanView": 559,
+            "suite": 2559
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-15T10:07:59.402Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PRIMA7PCVNPIFMHGECCZMPCV_2026-10-25",
+      "shipName": "Norwegian Prima",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2022,
+      "itinerary": "Caribbean: Great Stirrup Cay & Cozumel",
+      "departureDate": "2026-10-25",
+      "duration": "7-day Cruise",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Cozumel",
+      "destinationPort": "Port Canaveral",
+      "arrivalDate": "2026-11-01",
+      "priceFrom": "299",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=PRIMA7PCVNPIFMHGECCZMPCV&voyageId=22925679&sailDate=2026-10-25&departureDate=2026-10-25&shipCode=PRIMA&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "299",
+        "oceanView": "679",
+        "balcony": "799",
+        "suite": null
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-10-22T06:13:10.527Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 467,
+            "oceanView": 522,
+            "balcony": 717,
+            "suite": 1047
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 467,
+            "oceanView": 547,
+            "balcony": 732,
+            "suite": 1087
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 457,
+            "oceanView": 522,
+            "balcony": 732,
+            "suite": 1127
+          }
+        },
+        {
+          "at": "2026-10-22T06:13:10.527Z",
+          "prices": {
+            "inside": 299,
+            "oceanView": 679,
+            "balcony": 799
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-22T06:13:10.527Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_ENCORE7LAXMZTPVRCSLLAX_2026-10-25",
+      "shipName": "Norwegian Encore",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2019,
+      "itinerary": "Mexican Riviera: Cabo San Lucas & Puerto Vallarta",
+      "departureDate": "2026-10-25",
+      "duration": "7-day Cruise",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexican Riviera: Cabo San Lucas & Puerto Vallarta",
+      "destinationPort": "Los Angeles",
+      "arrivalDate": "2026-11-01",
+      "priceFrom": "459",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=ENCORE7LAXCSLMZTPVRLAX&voyageId=23338077&sailDate=2026-10-25&departureDate=2026-10-25&shipCode=ENCORE&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "459",
+        "oceanView": null,
+        "balcony": "679",
+        "suite": "799"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-10-17T00:19:38.028Z",
+      "firstSeenAt": "2026-09-13T06:16:28.085Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-13T06:16:28.085Z",
+          "prices": {
+            "inside": 415,
+            "oceanView": 470,
+            "balcony": 585,
+            "suite": 705
+          }
+        },
+        {
+          "at": "2026-09-29T10:08:44.714Z",
+          "prices": {
+            "inside": 375,
+            "oceanView": 415,
+            "balcony": 565,
+            "suite": 660
+          }
+        },
+        {
+          "at": "2026-10-09T18:10:08.525Z",
+          "prices": {
+            "inside": 459,
+            "oceanView": 529,
+            "balcony": 679,
+            "suite": 799
+          }
+        },
+        {
+          "at": "2026-10-17T00:19:38.028Z",
+          "prices": {
+            "inside": 459,
+            "balcony": 679,
+            "suite": 799
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-17T00:19:38.028Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_ENCORE7LAXPVRMZTCSLLAX_2026-10-25",
+      "shipName": "Norwegian Encore",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2019,
+      "itinerary": "Mexican Riviera: Cabo & Puerto Vallarta",
+      "departureDate": "2026-10-25",
+      "duration": "7-day Cruise",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexican Riviera: Cabo & Puerto Vallarta",
+      "destinationPort": "Los Angeles",
+      "arrivalDate": "2026-11-01",
+      "priceFrom": "459",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=ENCORE7LAXCSLMZTPVRLAX&voyageId=23338077&sailDate=2026-10-25&departureDate=2026-10-25&shipCode=ENCORE&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "459",
+        "oceanView": null,
+        "balcony": "679",
+        "suite": "799"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-10-17T00:19:38.028Z",
+      "firstSeenAt": "2026-09-13T06:16:28.085Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-13T06:16:28.085Z",
+          "prices": {
+            "inside": 415,
+            "oceanView": 470,
+            "balcony": 585,
+            "suite": 705
+          }
+        },
+        {
+          "at": "2026-09-29T10:08:44.714Z",
+          "prices": {
+            "inside": 375,
+            "oceanView": 415,
+            "balcony": 565,
+            "suite": 660
+          }
+        },
+        {
+          "at": "2026-10-09T18:10:08.525Z",
+          "prices": {
+            "inside": 459,
+            "oceanView": 529,
+            "balcony": 679,
+            "suite": 799
+          }
+        },
+        {
+          "at": "2026-10-17T00:19:38.028Z",
+          "prices": {
+            "inside": 459,
+            "balcony": 679,
+            "suite": 799
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-17T00:19:38.028Z"
     }
   ]
 }
