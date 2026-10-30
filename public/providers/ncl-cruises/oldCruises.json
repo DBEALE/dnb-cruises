@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 793,
+  "count": 795,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -60638,6 +60638,135 @@
           }
         }
       ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_STAR11BCNMOTCADCASAGAACESCTFNCLXOLIS_2026-10-29",
+      "shipName": "Norwegian Star",
+      "shipClass": "Dawn",
+      "shipLaunchYear": 2001,
+      "itinerary": "Europe: Spain, Morocco & Portugal",
+      "departureDate": "2026-10-29",
+      "duration": "11-day Cruise",
+      "departurePort": "Barcelona",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe: Spain, Morocco & Portugal",
+      "destinationPort": "Lisbon",
+      "arrivalDate": "2026-11-09",
+      "priceFrom": "1509",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=STAR11BCNMOTCADCASAGAACESCTFNCLXOLIS&voyageId=25691099&sailDate=2026-10-29&departureDate=2026-10-29&shipCode=STAR&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "1509",
+        "oceanView": null,
+        "balcony": "2869",
+        "suite": "2759"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-10-25T04:08:41.117Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 971,
+            "oceanView": 1154,
+            "balcony": 1616,
+            "suite": 2000
+          }
+        },
+        {
+          "at": "2026-10-25T04:08:41.117Z",
+          "prices": {
+            "inside": 1509,
+            "balcony": 2869,
+            "suite": 2759
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-25T04:08:41.117Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JADE14TOKSDAHKDAOMAKISKTKZWPUSSHIHSMKCZOSANGOSMZYOK_2026-10-29",
+      "shipName": "Norwegian Jade",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Asia: Kochi, Osaka, Jeju & Nagoya",
+      "departureDate": "2026-10-29",
+      "duration": "14-day Cruise",
+      "departurePort": "Tokyo (Yokohama)",
+      "departureRegion": "Asia & Far East",
+      "destination": "Asia: Kochi, Osaka, Jeju & Nagoya",
+      "destinationPort": "Tokyo (Yokohama)",
+      "arrivalDate": "2026-11-12",
+      "priceFrom": "3359",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=JADE14TOKSDAHKDAOMAKISKTKZWPUSSHIHSMKCZOSANGOSMZYOK&voyageId=24544541&sailDate=2026-10-29&departureDate=2026-10-29&shipCode=JADE&guestCount=2&selectedStateroomMeta=OCEANVIEW",
+      "prices": {
+        "inside": null,
+        "oceanView": "3359",
+        "balcony": "4599",
+        "suite": "4969"
+      },
+      "bookingCabinCodes": {
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-10-19T00:22:00.284Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 1037,
+            "oceanView": 1155,
+            "balcony": 2192,
+            "suite": 2873
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 880,
+            "oceanView": 1052,
+            "balcony": 1850,
+            "suite": 1985
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 880,
+            "balcony": 1877,
+            "suite": 1892
+          }
+        },
+        {
+          "at": "2026-10-06T00:22:59.919Z",
+          "prices": {
+            "inside": 880,
+            "balcony": 1930,
+            "suite": 1892
+          }
+        },
+        {
+          "at": "2026-10-19T00:22:00.284Z",
+          "prices": {
+            "oceanView": 3359,
+            "balcony": 4599,
+            "suite": 4969
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-19T00:22:00.284Z"
     }
   ]
 }
