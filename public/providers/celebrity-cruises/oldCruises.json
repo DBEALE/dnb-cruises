@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 144,
+  "count": 145,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -33953,6 +33953,50 @@
           "at": "2026-11-01T20:05:14.418Z",
           "prices": {
             "suite": 8206.57
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_XC07BCN-2502280023",
+      "shipName": "Celebrity Xcel",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2025,
+      "itinerary": "Spain & Morocco Solar Eclipse: Barcelona, Spain, Palma De Mallorca, Spain, Solar Eclipse (Cruising), Tangier, Morocco, Seville (Cadiz), Spain, Malaga, Spain, Ibiza, Spain, Barcelona, Spain",
+      "departureDate": "2027-07-31",
+      "duration": "7 Nights",
+      "departurePort": "Barcelona",
+      "departureRegion": "Mediterranean",
+      "destination": "Europe",
+      "priceFrom": "3883",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=XC07BCN-2502280023&pID=XC07M853&sDT=2027-07-31&sCD=XC&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "3883",
+        "oceanView": null,
+        "balcony": "4404",
+        "suite": "10105"
+      },
+      "destinationPort": "Barcelona",
+      "seaDays": 0,
+      "firstSeenAt": "2026-11-01T20:05:14.418Z",
+      "lastSeenAt": "2026-11-02T14:06:41.084Z",
+      "priceHistory": [
+        {
+          "at": "2026-11-01T20:05:14.418Z",
+          "prices": {
+            "inside": 3883,
+            "balcony": 4415,
+            "suite": 10105
+          }
+        },
+        {
+          "at": "2026-11-02T06:11:28.181Z",
+          "prices": {
+            "inside": 3883,
+            "balcony": 4404,
+            "suite": 10105
           }
         }
       ]
