@@ -3,7 +3,7 @@
     "id": "celebrity-cruises",
     "name": "Celebrity Cruises"
   },
-  "count": 142,
+  "count": 144,
   "cruises": [
     {
       "provider": "Celebrity Cruises",
@@ -33453,6 +33453,98 @@
           "prices": {
             "inside": 1171,
             "balcony": 1335
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_AX07PCN-2938633160",
+      "shipName": "Celebrity Apex",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2020,
+      "itinerary": "Western Caribbean: Grand Cayman, Jamaica & Cozumel: Orlando (Port Canaveral), Florida, Cruising (Cruising), George Town, Grand Cayman, Ocho Rios, Jamaica, Cozumel, Mexico, Orlando (Port Canaveral), Florida",
+      "departureDate": "2029-02-03",
+      "duration": "7 Nights",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "706",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AX07PCN-2938633160&pID=AX07W949&sDT=2029-02-03&sCD=AX&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "706",
+        "oceanView": "793",
+        "balcony": "965",
+        "suite": "3141"
+      },
+      "destinationPort": "Port Canaveral",
+      "seaDays": 2,
+      "firstSeenAt": "2026-11-03T00:13:35.435Z",
+      "lastSeenAt": "2026-11-07T00:11:52.352Z",
+      "priceHistory": [
+        {
+          "at": "2026-11-03T00:13:35.435Z",
+          "prices": {
+            "inside": 706,
+            "oceanView": 793,
+            "balcony": 929,
+            "suite": 3031
+          }
+        },
+        {
+          "at": "2026-11-06T11:22:33.210Z",
+          "prices": {
+            "inside": 706,
+            "oceanView": 793,
+            "balcony": 965,
+            "suite": 3141
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Celebrity Cruises",
+      "id": "celebrity_AX07PCN-3046184645",
+      "shipName": "Celebrity Apex",
+      "shipClass": "Edge",
+      "shipLaunchYear": 2020,
+      "itinerary": "Eastern Caribbean Highlights: Tortola & St. Maarten: Orlando (Port Canaveral), Florida, Cruising (Cruising), Puerto Plata, Dominican Republic, Tortola, BVI, Philipsburg, St. Maarten, Orlando (Port Canaveral), Florida",
+      "departureDate": "2029-01-06",
+      "duration": "7 Nights",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean",
+      "priceFrom": "719",
+      "currency": "GBP",
+      "bookingUrl": "https://www.celebritycruises.com/booking-cruise/selectRoom/stateroomQuantity?groupId=AX07PCN-3046184645&pID=AX07E595&sDT=2029-01-06&sCD=AX&sCT=CO&country=GBR",
+      "prices": {
+        "inside": "719",
+        "oceanView": "810",
+        "balcony": "988",
+        "suite": "3256"
+      },
+      "destinationPort": "Port Canaveral",
+      "seaDays": 2,
+      "firstSeenAt": "2026-11-03T00:13:35.435Z",
+      "lastSeenAt": "2026-11-07T00:11:52.352Z",
+      "priceHistory": [
+        {
+          "at": "2026-11-03T00:13:35.435Z",
+          "prices": {
+            "inside": 719,
+            "oceanView": 810,
+            "balcony": 952,
+            "suite": 3147
+          }
+        },
+        {
+          "at": "2026-11-06T11:22:33.210Z",
+          "prices": {
+            "inside": 719,
+            "oceanView": 810,
+            "balcony": 988,
+            "suite": 3256
           }
         }
       ]
