@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 835,
+  "count": 837,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -63691,6 +63691,130 @@
         }
       ],
       "lastSeenAt": "2026-10-31T12:06:29.299Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JADE9YOKSMZNGOKOBKCZHSMKOJNGSJJUINC_2026-11-12",
+      "shipName": "Norwegian Jade",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Asia: Kochi, Jeju & Nagoya",
+      "departureDate": "2026-11-12",
+      "duration": "9-day Cruise",
+      "departurePort": "Tokyo (Yokohama)",
+      "departureRegion": "Asia & Far East",
+      "destination": "Asia: Kochi, Jeju & Nagoya",
+      "destinationPort": "Seoul (Incheon)",
+      "arrivalDate": "2026-11-21",
+      "priceFrom": "615",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=JADE9YOKSMZNGOKOBKCZHSMKOJNGSJJUINC&voyageId=24544549&sailDate=2026-11-12&departureDate=2026-11-12&shipCode=JADE&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "615",
+        "oceanView": "1085",
+        "balcony": null,
+        "suite": "3645"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "suite": "SUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-10-06T00:22:59.919Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "lastSeenAt": "2026-10-06T00:22:59.919Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 595,
+            "oceanView": 899,
+            "balcony": 1295,
+            "suite": 1316
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 595,
+            "oceanView": 899,
+            "balcony": 1175,
+            "suite": 1622
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 615,
+            "oceanView": 1085,
+            "suite": 3645
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PRIMA3PCVPOPSJU_2026-11-12",
+      "shipName": "Norwegian Prima",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2022,
+      "itinerary": "Caribbean: Puerto Plata",
+      "departureDate": "2026-11-12",
+      "duration": "3-day Cruise",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Puerto Plata",
+      "destinationPort": "San Juan",
+      "arrivalDate": "2026-11-15",
+      "priceFrom": "449",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=PRIMA3PCVPOPSJU&voyageId=25659742&sailDate=2026-11-12&departureDate=2026-11-12&shipCode=PRIMA&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "449",
+        "oceanView": "479",
+        "balcony": "509",
+        "suite": "629"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 1,
+      "priceCheckedAt": "2026-10-22T06:13:10.527Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 360,
+            "oceanView": 385,
+            "balcony": 440,
+            "suite": 480
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 360,
+            "oceanView": 375,
+            "balcony": 440,
+            "suite": 540
+          }
+        },
+        {
+          "at": "2026-10-22T06:13:10.527Z",
+          "prices": {
+            "inside": 449,
+            "oceanView": 479,
+            "balcony": 509,
+            "suite": 629
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-22T06:13:10.527Z"
     }
   ]
 }
