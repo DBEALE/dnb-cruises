@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 838,
+  "count": 839,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -63887,6 +63887,78 @@
         }
       ],
       "lastSeenAt": "2026-10-30T22:04:34.832Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_VIVA7GALCZMRTBBPICMAGAL_2026-11-21",
+      "shipName": "Norwegian Viva",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2023,
+      "itinerary": "Caribbean: Harvest Caye, Cozumel & Roatan",
+      "departureDate": "2026-11-21",
+      "duration": "7-day Cruise",
+      "departurePort": "Galveston",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Harvest Caye, Cozumel & Roatan",
+      "destinationPort": "Galveston",
+      "arrivalDate": "2026-11-28",
+      "priceFrom": "1059",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=VIVA7GALCZMRTBBPICMAGAL&voyageId=23369079&sailDate=2026-11-21&departureDate=2026-11-21&shipCode=VIVA&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "1059",
+        "oceanView": "1269",
+        "balcony": "1719",
+        "suite": "5609"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "HAVEN"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-10-27T06:14:04.272Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "lastSeenAt": "2026-10-27T06:14:04.272Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 695,
+            "oceanView": 865,
+            "balcony": 1195,
+            "suite": 1385
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 695,
+            "oceanView": 865,
+            "balcony": 1195,
+            "suite": 4250
+          }
+        },
+        {
+          "at": "2026-10-06T00:22:59.919Z",
+          "prices": {
+            "inside": 740,
+            "oceanView": 895,
+            "balcony": 1195,
+            "suite": 4250
+          }
+        },
+        {
+          "at": "2026-10-27T06:14:04.272Z",
+          "prices": {
+            "inside": 1059,
+            "oceanView": 1269,
+            "balcony": 1719,
+            "suite": 5609
+          }
+        }
+      ]
     }
   ]
 }
