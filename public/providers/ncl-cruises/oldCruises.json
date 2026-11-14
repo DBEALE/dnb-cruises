@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 837,
+  "count": 838,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -63815,6 +63815,78 @@
         }
       ],
       "lastSeenAt": "2026-10-22T06:13:10.527Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_ESCAPE7PCVPOPSTTTOVNPIPCV_2026-11-13",
+      "shipName": "Norwegian Escape",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2015,
+      "itinerary": "Caribbean: Dominican Republic & St. Thomas",
+      "departureDate": "2026-11-13",
+      "duration": "7-day Cruise",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Dominican Republic & St. Thomas",
+      "destinationPort": "Port Canaveral",
+      "arrivalDate": "2026-11-20",
+      "priceFrom": "499",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=ESCAPE7PCVPOPSTTTOVNPIPCV&voyageId=23369101&sailDate=2026-11-13&departureDate=2026-11-13&shipCode=ESCAPE&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "499",
+        "oceanView": "799",
+        "balcony": "779",
+        "suite": "1009"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-10-30T22:04:34.832Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 469,
+            "oceanView": 544,
+            "balcony": 719,
+            "suite": 784
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 429,
+            "oceanView": 504,
+            "balcony": 639,
+            "suite": 819
+          }
+        },
+        {
+          "at": "2026-10-18T04:08:40.502Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 679,
+            "balcony": 779,
+            "suite": 1009
+          }
+        },
+        {
+          "at": "2026-10-30T22:04:34.832Z",
+          "prices": {
+            "inside": 499,
+            "oceanView": 799,
+            "balcony": 779,
+            "suite": 1009
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-30T22:04:34.832Z"
     }
   ]
 }
