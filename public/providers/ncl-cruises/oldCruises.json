@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 842,
+  "count": 843,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -64175,6 +64175,69 @@
         }
       ],
       "lastSeenAt": "2026-11-14T04:05:45.348Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_BLISS8NYCPCVNPINASNYC_2026-11-21",
+      "shipName": "Norwegian Bliss",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2018,
+      "itinerary": "Bahamas: Great Stirrup Cay, Orlando & Nassau",
+      "departureDate": "2026-11-21",
+      "duration": "8-day Cruise",
+      "departurePort": "New York",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay, Orlando & Nassau",
+      "destinationPort": "New York",
+      "arrivalDate": "2026-11-29",
+      "priceFrom": "969",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=BLISS8NYCPCVNPINASNYC&voyageId=23392386&sailDate=2026-11-21&departureDate=2026-11-21&shipCode=BLISS&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "969",
+        "oceanView": "1149",
+        "balcony": "1249",
+        "suite": "1369"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 4,
+      "priceCheckedAt": "2026-10-28T10:06:37.002Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "lastSeenAt": "2026-10-28T10:06:37.002Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 770,
+            "oceanView": 990,
+            "balcony": 1150,
+            "suite": 1185
+          }
+        },
+        {
+          "at": "2026-10-15T10:07:59.402Z",
+          "prices": {
+            "inside": 949,
+            "oceanView": 1099,
+            "balcony": 1199,
+            "suite": 1319
+          }
+        },
+        {
+          "at": "2026-10-28T10:06:37.002Z",
+          "prices": {
+            "inside": 969,
+            "oceanView": 1149,
+            "balcony": 1249,
+            "suite": 1369
+          }
+        }
+      ]
     }
   ]
 }
