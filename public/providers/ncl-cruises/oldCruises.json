@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 843,
+  "count": 855,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -64238,6 +64238,947 @@
           }
         }
       ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_DAWN5JAXFPONPIJAX_2026-11-15",
+      "shipName": "Norwegian Dawn",
+      "shipClass": "Dawn",
+      "shipLaunchYear": 2002,
+      "itinerary": "Bahamas: Great Stirrup Cay, Nassau & Grand Bahama Island",
+      "departureDate": "2026-11-15",
+      "duration": "5-day Cruise",
+      "departurePort": "Jacksonville, Florida",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay, Nassau & Grand Bahama Island",
+      "destinationPort": "Jacksonville, Florida",
+      "arrivalDate": "2026-11-20",
+      "priceFrom": "249",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=DAWN5JAXFPONPIJAX&voyageId=25382931&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=DAWN&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "249",
+        "oceanView": "269",
+        "balcony": "389",
+        "suite": "479"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-10-29T06:10:22.786Z",
+      "firstSeenAt": "2026-09-13T04:09:04.036Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-13T04:09:04.036Z",
+          "prices": {
+            "inside": 340,
+            "oceanView": 360,
+            "balcony": 450,
+            "suite": 645
+          }
+        },
+        {
+          "at": "2026-09-20T12:10:38.155Z",
+          "prices": {
+            "inside": 330,
+            "oceanView": 345,
+            "balcony": 450,
+            "suite": 645
+          }
+        },
+        {
+          "at": "2026-09-29T06:14:01.731Z",
+          "prices": {
+            "inside": 305,
+            "oceanView": 340,
+            "balcony": 435,
+            "suite": 630
+          }
+        },
+        {
+          "at": "2026-10-09T16:08:51.657Z",
+          "prices": {
+            "inside": 369,
+            "oceanView": 379,
+            "balcony": 549,
+            "suite": 709
+          }
+        },
+        {
+          "at": "2026-10-16T10:08:04.875Z",
+          "prices": {
+            "inside": 249,
+            "oceanView": 269,
+            "balcony": 379,
+            "suite": 579
+          }
+        },
+        {
+          "at": "2026-10-29T06:10:22.786Z",
+          "prices": {
+            "inside": 249,
+            "oceanView": 269,
+            "balcony": 389,
+            "suite": 479
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-29T06:10:22.786Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PRIMA7SJUBASBGIANUPHITOVSTTSJU_2026-11-15",
+      "shipName": "Norwegian Prima",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2022,
+      "itinerary": "Caribbean: Barbados & St. Thomas",
+      "departureDate": "2026-11-15",
+      "duration": "7-day Cruise",
+      "departurePort": "San Juan",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Barbados & St. Thomas",
+      "destinationPort": "San Juan",
+      "arrivalDate": "2026-11-22",
+      "priceFrom": "1789",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=PRIMA7SJUTOVANUBGIBASPHISTTSJU&voyageId=24929587&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=PRIMA&guestCount=2&selectedStateroomMeta=SUITE",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "1789"
+      },
+      "bookingCabinCodes": {
+        "suite": "SUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-11-08T00:15:04.688Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 785,
+            "oceanView": 825,
+            "balcony": 1095,
+            "suite": 1250
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 760,
+            "oceanView": 880,
+            "balcony": 1130,
+            "suite": 1185
+          }
+        },
+        {
+          "at": "2026-10-22T06:13:10.527Z",
+          "prices": {
+            "inside": 909,
+            "oceanView": 1209,
+            "balcony": 1509,
+            "suite": 1759
+          }
+        },
+        {
+          "at": "2026-11-08T00:15:04.688Z",
+          "prices": {
+            "suite": 1789
+          }
+        }
+      ],
+      "lastSeenAt": "2026-11-08T00:15:04.688Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_AQUA7MIAPOPSTTTOVNPIMIA_2026-11-15",
+      "shipName": "Norwegian Aqua",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2025,
+      "itinerary": "Caribbean: Bahamas & Dominican Republic",
+      "departureDate": "2026-11-15",
+      "duration": "7-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Bahamas & Dominican Republic",
+      "destinationPort": "Miami",
+      "arrivalDate": "2026-11-22",
+      "priceFrom": "",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=AQUA7MIAPOPSTTTOVNPIMIA&voyageId=23353041&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=AQUA&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "bookingCabinCodes": {},
+      "seaDays": 2,
+      "priceCheckedAt": "2026-11-14T20:04:48.585Z",
+      "firstSeenAt": "2026-09-12T12:10:20.913Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T12:10:20.913Z",
+          "prices": {
+            "inside": 530,
+            "oceanView": 605,
+            "balcony": 820,
+            "suite": 975
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 530,
+            "oceanView": 590,
+            "balcony": 805,
+            "suite": 960
+          }
+        },
+        {
+          "at": "2026-10-14T22:07:36.008Z",
+          "prices": {
+            "inside": 609,
+            "oceanView": 809,
+            "balcony": 979,
+            "suite": 1259
+          }
+        },
+        {
+          "at": "2026-10-27T18:07:40.785Z",
+          "prices": {
+            "inside": 609,
+            "oceanView": 819,
+            "balcony": 929,
+            "suite": 1259
+          }
+        }
+      ],
+      "lastSeenAt": "2026-11-14T20:04:48.585Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_EPIC7PCVNPIOCJCZMPCV_2026-11-15",
+      "shipName": "Norwegian Epic",
+      "shipClass": "Epic",
+      "shipLaunchYear": 2010,
+      "itinerary": "Caribbean: Great Stirrup Cay & Cozumel",
+      "departureDate": "2026-11-15",
+      "duration": "7-day Cruise",
+      "departurePort": "Port Canaveral",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Great Stirrup Cay & Cozumel",
+      "destinationPort": "Port Canaveral",
+      "arrivalDate": "2026-11-22",
+      "priceFrom": "399",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=EPIC7PCVNPIOCJCZMPCV&voyageId=23361657&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=EPIC&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "399",
+        "oceanView": null,
+        "balcony": "497",
+        "suite": "719"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-10-30T04:07:14.439Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 442,
+            "balcony": 697,
+            "suite": 837
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 402,
+            "balcony": 577,
+            "suite": 677
+          }
+        },
+        {
+          "at": "2026-10-17T06:11:28.348Z",
+          "prices": {
+            "inside": 399,
+            "balcony": 497,
+            "suite": 699
+          }
+        },
+        {
+          "at": "2026-10-30T04:07:14.439Z",
+          "prices": {
+            "inside": 399,
+            "balcony": 497,
+            "suite": 719
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-30T04:07:14.439Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_ENCORE7LAXCSLMZTPVRLAX_2026-11-15",
+      "shipName": "Norwegian Encore",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2019,
+      "itinerary": "Mexican Riviera: Cabo San Lucas & Puerto Vallarta",
+      "departureDate": "2026-11-15",
+      "duration": "7-day Cruise",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexican Riviera: Cabo San Lucas & Puerto Vallarta",
+      "destinationPort": "Los Angeles",
+      "arrivalDate": "2026-11-22",
+      "priceFrom": "429",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=ENCORE7LAXCSLMZTPVRLAX&voyageId=23338080&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=ENCORE&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "429",
+        "oceanView": "479",
+        "balcony": "529",
+        "suite": "739"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-10-29T22:05:42.871Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 400,
+            "oceanView": 455,
+            "balcony": 585,
+            "suite": 680
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 375,
+            "oceanView": 400,
+            "balcony": 525,
+            "suite": 620
+          }
+        },
+        {
+          "at": "2026-10-17T00:19:38.028Z",
+          "prices": {
+            "inside": 449,
+            "oceanView": 479,
+            "balcony": 579,
+            "suite": 679
+          }
+        },
+        {
+          "at": "2026-10-29T22:05:42.871Z",
+          "prices": {
+            "inside": 429,
+            "oceanView": 479,
+            "balcony": 529,
+            "suite": 739
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-29T22:05:42.871Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_DAWN5JAXNPIFPOJAX_2026-11-15",
+      "shipName": "Norwegian Dawn",
+      "shipClass": "Dawn",
+      "shipLaunchYear": 2002,
+      "itinerary": "Bahamas: Great Stirrup Cay, Nassau & Grand Bahama Island",
+      "departureDate": "2026-11-15",
+      "duration": "5-day Cruise",
+      "departurePort": "Jacksonville, Florida",
+      "departureRegion": "Americas",
+      "destination": "Bahamas: Great Stirrup Cay, Nassau & Grand Bahama Island",
+      "destinationPort": "Jacksonville, Florida",
+      "arrivalDate": "2026-11-20",
+      "priceFrom": "249",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=DAWN5JAXFPONPIJAX&voyageId=25382931&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=DAWN&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "249",
+        "oceanView": "269",
+        "balcony": "389",
+        "suite": "479"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-10-29T06:10:22.786Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 340,
+            "oceanView": 360,
+            "balcony": 450,
+            "suite": 645
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 330,
+            "oceanView": 345,
+            "balcony": 450,
+            "suite": 645
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 305,
+            "oceanView": 340,
+            "balcony": 435,
+            "suite": 630
+          }
+        },
+        {
+          "at": "2026-10-16T10:08:04.875Z",
+          "prices": {
+            "inside": 249,
+            "oceanView": 269,
+            "balcony": 379,
+            "suite": 579
+          }
+        },
+        {
+          "at": "2026-10-29T06:10:22.786Z",
+          "prices": {
+            "inside": 249,
+            "oceanView": 269,
+            "balcony": 389,
+            "suite": 479
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-29T06:10:22.786Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PRIMA7SJUTOVANUBGIBASPHISTTSJU_2026-11-15",
+      "shipName": "Norwegian Prima",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2022,
+      "itinerary": "Caribbean: St. Thomas & Tortola",
+      "departureDate": "2026-11-15",
+      "duration": "7-day Cruise",
+      "departurePort": "San Juan",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: St. Thomas & Tortola",
+      "destinationPort": "San Juan",
+      "arrivalDate": "2026-11-22",
+      "priceFrom": "1789",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=PRIMA7SJUTOVANUBGIBASPHISTTSJU&voyageId=24929587&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=PRIMA&guestCount=2&selectedStateroomMeta=SUITE",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "1789"
+      },
+      "bookingCabinCodes": {
+        "suite": "SUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-11-08T04:05:49.081Z",
+      "firstSeenAt": "2026-09-15T22:07:31.140Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T22:07:31.140Z",
+          "prices": {
+            "inside": 785,
+            "oceanView": 825,
+            "balcony": 1095,
+            "suite": 1250
+          }
+        },
+        {
+          "at": "2026-09-23T06:13:51.623Z",
+          "prices": {
+            "inside": 800,
+            "oceanView": 840,
+            "balcony": 1130,
+            "suite": 1185
+          }
+        },
+        {
+          "at": "2026-10-02T00:23:28.700Z",
+          "prices": {
+            "inside": 760,
+            "oceanView": 880,
+            "balcony": 1130,
+            "suite": 1185
+          }
+        },
+        {
+          "at": "2026-10-12T08:25:23.159Z",
+          "prices": {
+            "inside": 1009,
+            "oceanView": 1189,
+            "balcony": 1509,
+            "suite": 1829
+          }
+        },
+        {
+          "at": "2026-10-22T10:07:19.959Z",
+          "prices": {
+            "inside": 909,
+            "oceanView": 1209,
+            "balcony": 1509,
+            "suite": 1759
+          }
+        },
+        {
+          "at": "2026-11-08T04:05:49.081Z",
+          "prices": {
+            "suite": 1789
+          }
+        }
+      ],
+      "lastSeenAt": "2026-11-08T04:05:49.081Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PRIMA7SJUTOVBASANUBGIPHISTTSJU_2026-11-15",
+      "shipName": "Norwegian Prima",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2022,
+      "itinerary": "Caribbean: Barbados & St. Thomas",
+      "departureDate": "2026-11-15",
+      "duration": "7-day Cruise",
+      "departurePort": "San Juan",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Barbados & St. Thomas",
+      "destinationPort": "San Juan",
+      "arrivalDate": "2026-11-22",
+      "priceFrom": "1789",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=PRIMA7SJUTOVANUBGIBASPHISTTSJU&voyageId=24929587&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=PRIMA&guestCount=2&selectedStateroomMeta=SUITE",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "1789"
+      },
+      "bookingCabinCodes": {
+        "suite": "SUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-11-08T04:05:49.081Z",
+      "firstSeenAt": "2026-09-15T22:07:31.140Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T22:07:31.140Z",
+          "prices": {
+            "inside": 785,
+            "oceanView": 825,
+            "balcony": 1095,
+            "suite": 1250
+          }
+        },
+        {
+          "at": "2026-09-23T06:13:51.623Z",
+          "prices": {
+            "inside": 800,
+            "oceanView": 840,
+            "balcony": 1130,
+            "suite": 1185
+          }
+        },
+        {
+          "at": "2026-10-02T00:23:28.700Z",
+          "prices": {
+            "inside": 760,
+            "oceanView": 880,
+            "balcony": 1130,
+            "suite": 1185
+          }
+        },
+        {
+          "at": "2026-10-12T08:25:23.159Z",
+          "prices": {
+            "inside": 1009,
+            "oceanView": 1189,
+            "balcony": 1509,
+            "suite": 1829
+          }
+        },
+        {
+          "at": "2026-10-22T10:07:19.959Z",
+          "prices": {
+            "inside": 909,
+            "oceanView": 1209,
+            "balcony": 1509,
+            "suite": 1759
+          }
+        },
+        {
+          "at": "2026-11-08T04:05:49.081Z",
+          "prices": {
+            "suite": 1789
+          }
+        }
+      ],
+      "lastSeenAt": "2026-11-08T04:05:49.081Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PRIMA7SJUTOVBASBGIANUPHISTTSJU_2026-11-15",
+      "shipName": "Norwegian Prima",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2022,
+      "itinerary": "Caribbean: Tortola & St. Thomas",
+      "departureDate": "2026-11-15",
+      "duration": "7-day Cruise",
+      "departurePort": "San Juan",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Tortola & St. Thomas",
+      "destinationPort": "San Juan",
+      "arrivalDate": "2026-11-22",
+      "priceFrom": "1789",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=PRIMA7SJUTOVANUBGIBASPHISTTSJU&voyageId=24929587&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=PRIMA&guestCount=2&selectedStateroomMeta=SUITE",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "1789"
+      },
+      "bookingCabinCodes": {
+        "suite": "SUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-11-08T04:05:49.081Z",
+      "firstSeenAt": "2026-09-15T22:07:31.140Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T22:07:31.140Z",
+          "prices": {
+            "inside": 785,
+            "oceanView": 825,
+            "balcony": 1095,
+            "suite": 1250
+          }
+        },
+        {
+          "at": "2026-09-23T06:13:51.623Z",
+          "prices": {
+            "inside": 800,
+            "oceanView": 840,
+            "balcony": 1130,
+            "suite": 1185
+          }
+        },
+        {
+          "at": "2026-10-02T00:23:28.700Z",
+          "prices": {
+            "inside": 760,
+            "oceanView": 880,
+            "balcony": 1130,
+            "suite": 1185
+          }
+        },
+        {
+          "at": "2026-10-12T08:25:23.159Z",
+          "prices": {
+            "inside": 1009,
+            "oceanView": 1189,
+            "balcony": 1509,
+            "suite": 1829
+          }
+        },
+        {
+          "at": "2026-10-22T10:07:19.959Z",
+          "prices": {
+            "inside": 909,
+            "oceanView": 1209,
+            "balcony": 1509,
+            "suite": 1759
+          }
+        },
+        {
+          "at": "2026-11-08T04:05:49.081Z",
+          "prices": {
+            "suite": 1789
+          }
+        }
+      ],
+      "lastSeenAt": "2026-11-08T04:05:49.081Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PRIMA7SJUSTTBASBGIANUPHITOVSJU_2026-11-15",
+      "shipName": "Norwegian Prima",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2022,
+      "itinerary": "Caribbean: Barbados & St. Thomas",
+      "departureDate": "2026-11-15",
+      "duration": "7-day Cruise",
+      "departurePort": "San Juan",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Barbados & St. Thomas",
+      "destinationPort": "San Juan",
+      "arrivalDate": "2026-11-22",
+      "priceFrom": "1789",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=PRIMA7SJUTOVANUBGIBASPHISTTSJU&voyageId=24929587&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=PRIMA&guestCount=2&selectedStateroomMeta=SUITE",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": null,
+        "suite": "1789"
+      },
+      "bookingCabinCodes": {
+        "suite": "SUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-11-08T04:05:49.081Z",
+      "firstSeenAt": "2026-09-15T22:07:31.140Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T22:07:31.140Z",
+          "prices": {
+            "inside": 785,
+            "oceanView": 825,
+            "balcony": 1095,
+            "suite": 1250
+          }
+        },
+        {
+          "at": "2026-09-23T06:13:51.623Z",
+          "prices": {
+            "inside": 800,
+            "oceanView": 840,
+            "balcony": 1130,
+            "suite": 1185
+          }
+        },
+        {
+          "at": "2026-10-02T00:23:28.700Z",
+          "prices": {
+            "inside": 760,
+            "oceanView": 880,
+            "balcony": 1130,
+            "suite": 1185
+          }
+        },
+        {
+          "at": "2026-10-12T08:25:23.159Z",
+          "prices": {
+            "inside": 1009,
+            "oceanView": 1189,
+            "balcony": 1509,
+            "suite": 1829
+          }
+        },
+        {
+          "at": "2026-10-22T10:07:19.959Z",
+          "prices": {
+            "inside": 909,
+            "oceanView": 1209,
+            "balcony": 1509,
+            "suite": 1759
+          }
+        },
+        {
+          "at": "2026-11-08T04:05:49.081Z",
+          "prices": {
+            "suite": 1789
+          }
+        }
+      ],
+      "lastSeenAt": "2026-11-08T04:05:49.081Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_ENCORE7LAXMZTPVRCSLLAX_2026-11-15",
+      "shipName": "Norwegian Encore",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2019,
+      "itinerary": "Mexican Riviera: Cabo San Lucas & Puerto Vallarta",
+      "departureDate": "2026-11-15",
+      "duration": "7-day Cruise",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexican Riviera: Cabo San Lucas & Puerto Vallarta",
+      "destinationPort": "Los Angeles",
+      "arrivalDate": "2026-11-22",
+      "priceFrom": "429",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=ENCORE7LAXCSLMZTPVRLAX&voyageId=23338080&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=ENCORE&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "429",
+        "oceanView": "479",
+        "balcony": "529",
+        "suite": "739"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-10-29T22:05:42.871Z",
+      "firstSeenAt": "2026-09-13T06:16:28.085Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-13T06:16:28.085Z",
+          "prices": {
+            "inside": 400,
+            "oceanView": 455,
+            "balcony": 585,
+            "suite": 680
+          }
+        },
+        {
+          "at": "2026-09-29T10:08:44.714Z",
+          "prices": {
+            "inside": 375,
+            "oceanView": 400,
+            "balcony": 525,
+            "suite": 620
+          }
+        },
+        {
+          "at": "2026-10-09T18:10:08.525Z",
+          "prices": {
+            "inside": 479,
+            "oceanView": 519,
+            "balcony": 579,
+            "suite": 729
+          }
+        },
+        {
+          "at": "2026-10-17T00:19:38.028Z",
+          "prices": {
+            "inside": 449,
+            "oceanView": 479,
+            "balcony": 579,
+            "suite": 679
+          }
+        },
+        {
+          "at": "2026-10-29T22:05:42.871Z",
+          "prices": {
+            "inside": 429,
+            "oceanView": 479,
+            "balcony": 529,
+            "suite": 739
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-29T22:05:42.871Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_ENCORE7LAXPVRMZTCSLLAX_2026-11-15",
+      "shipName": "Norwegian Encore",
+      "shipClass": "Breakaway Plus",
+      "shipLaunchYear": 2019,
+      "itinerary": "Mexican Riviera: Cabo & Puerto Vallarta",
+      "departureDate": "2026-11-15",
+      "duration": "7-day Cruise",
+      "departurePort": "Los Angeles",
+      "departureRegion": "Americas",
+      "destination": "Mexican Riviera: Cabo & Puerto Vallarta",
+      "destinationPort": "Los Angeles",
+      "arrivalDate": "2026-11-22",
+      "priceFrom": "429",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=ENCORE7LAXCSLMZTPVRLAX&voyageId=23338080&sailDate=2026-11-15&departureDate=2026-11-15&shipCode=ENCORE&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "429",
+        "oceanView": "479",
+        "balcony": "529",
+        "suite": "739"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-10-29T22:05:42.871Z",
+      "firstSeenAt": "2026-09-13T06:16:28.085Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-13T06:16:28.085Z",
+          "prices": {
+            "inside": 400,
+            "oceanView": 455,
+            "balcony": 585,
+            "suite": 680
+          }
+        },
+        {
+          "at": "2026-09-29T10:08:44.714Z",
+          "prices": {
+            "inside": 375,
+            "oceanView": 400,
+            "balcony": 525,
+            "suite": 620
+          }
+        },
+        {
+          "at": "2026-10-09T18:10:08.525Z",
+          "prices": {
+            "inside": 479,
+            "oceanView": 519,
+            "balcony": 579,
+            "suite": 729
+          }
+        },
+        {
+          "at": "2026-10-17T00:19:38.028Z",
+          "prices": {
+            "inside": 449,
+            "oceanView": 479,
+            "balcony": 579,
+            "suite": 679
+          }
+        },
+        {
+          "at": "2026-10-29T22:05:42.871Z",
+          "prices": {
+            "inside": 429,
+            "oceanView": 479,
+            "balcony": 529,
+            "suite": 739
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-29T22:05:42.871Z"
     }
   ]
 }
