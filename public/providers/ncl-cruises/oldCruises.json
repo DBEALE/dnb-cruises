@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 870,
+  "count": 871,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -66430,6 +66430,69 @@
             "inside": 879,
             "balcony": 1129,
             "suite": 1179
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_SPIRIT13PPTMOZBRBRAIRARPPGAPWSUVDRALTK_2026-11-17",
+      "shipName": "Norwegian Spirit",
+      "shipClass": "Spirit",
+      "shipLaunchYear": 1998,
+      "itinerary": "South Pacific: Fiji, Moorea & Bora Bora",
+      "departureDate": "2026-11-17",
+      "duration": "13-day Cruise",
+      "departurePort": "Papeete (Tahiti), French Polynesia",
+      "departureRegion": "Australia & Pacific",
+      "destination": "South Pacific: Fiji, Moorea & Bora Bora",
+      "destinationPort": "Lautoka, Fiji",
+      "arrivalDate": "2026-11-30",
+      "priceFrom": "782",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=SPIRIT13PPTMOZBRBRAIRARPPGAPWSUVDRALTK&voyageId=22997668&sailDate=2026-11-17&departureDate=2026-11-17&shipCode=SPIRIT&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "782",
+        "oceanView": "1057",
+        "balcony": null,
+        "suite": null
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW"
+      },
+      "seaDays": 4,
+      "priceCheckedAt": "2026-10-06T00:22:59.919Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "lastSeenAt": "2026-10-06T00:22:59.919Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 780,
+            "oceanView": 1077,
+            "balcony": 4130
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 775,
+            "oceanView": 1077
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 775,
+            "oceanView": 1057
+          }
+        },
+        {
+          "at": "2026-10-06T00:22:59.919Z",
+          "prices": {
+            "inside": 782,
+            "oceanView": 1057
           }
         }
       ]
