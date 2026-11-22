@@ -3,7 +3,7 @@
     "id": "ncl-cruises",
     "name": "Norwegian Cruise Line"
   },
-  "count": 881,
+  "count": 886,
   "cruises": [
     {
       "provider": "Norwegian Cruise Line",
@@ -67289,6 +67289,383 @@
         }
       ],
       "lastSeenAt": "2026-11-02T16:06:06.717Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_LUNA7MIARTBBPICMACZMMIA_2026-11-21",
+      "shipName": "Norwegian Luna",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2024,
+      "itinerary": "Caribbean: Harvest Caye, Cozumel & Roatan",
+      "departureDate": "2026-11-21",
+      "duration": "7-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Harvest Caye, Cozumel & Roatan",
+      "destinationPort": "Miami",
+      "arrivalDate": "2026-11-28",
+      "priceFrom": "1229",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=LUNA7MIARTBBPICMACZMMIA&voyageId=23367511&sailDate=2026-11-21&departureDate=2026-11-21&shipCode=LUNA&guestCount=2&selectedStateroomMeta=BALCONY",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "1229",
+        "suite": "2999"
+      },
+      "bookingCabinCodes": {
+        "balcony": "BALCONY",
+        "suite": "SUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-11-06T11:22:33.262Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 520,
+            "oceanView": 635,
+            "balcony": 885,
+            "suite": 1240
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 555,
+            "oceanView": 660,
+            "balcony": 885,
+            "suite": 1225
+          }
+        },
+        {
+          "at": "2026-10-21T10:07:25.404Z",
+          "prices": {
+            "inside": 799,
+            "oceanView": 999,
+            "balcony": 1049,
+            "suite": 1504
+          }
+        },
+        {
+          "at": "2026-11-06T11:22:33.262Z",
+          "prices": {
+            "balcony": 1229,
+            "suite": 2999
+          }
+        }
+      ],
+      "lastSeenAt": "2026-11-06T11:22:33.262Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_JADE9INCJJUNGSKOJHSMKCZOSANGOSMZYOK_2026-11-21",
+      "shipName": "Norwegian Jade",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Asia: Osaka, Kochi, Jeju & Nagoya",
+      "departureDate": "2026-11-21",
+      "duration": "9-day Cruise",
+      "departurePort": "Seoul (Incheon)",
+      "departureRegion": "Asia & Far East",
+      "destination": "Asia: Osaka, Kochi, Jeju & Nagoya",
+      "destinationPort": "Tokyo (Yokohama)",
+      "arrivalDate": "2026-11-30",
+      "priceFrom": "805",
+      "currency": "GBP",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=JADE9INCJJUNGSKOJHSMKCZOSANGOSMZYOK&voyageId=24564052&sailDate=2026-11-21&departureDate=2026-11-21&shipCode=JADE&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "805",
+        "oceanView": "903",
+        "balcony": "1386",
+        "suite": "1473"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 0,
+      "priceCheckedAt": "2026-10-06T00:22:59.919Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "lastSeenAt": "2026-10-06T00:22:59.919Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 794,
+            "oceanView": 941,
+            "balcony": 1333,
+            "suite": 1487
+          }
+        },
+        {
+          "at": "2026-09-19T04:08:49.068Z",
+          "prices": {
+            "inside": 794,
+            "oceanView": 941,
+            "balcony": 1333,
+            "suite": 1540
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 805,
+            "oceanView": 903,
+            "balcony": 1386,
+            "suite": 1473
+          }
+        }
+      ]
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_PEARL7PHLWRFPHL_2026-11-21",
+      "shipName": "Norwegian Pearl",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2006,
+      "itinerary": "Bermuda: Royal Naval Dockyard",
+      "departureDate": "2026-11-21",
+      "duration": "7-day Cruise",
+      "departurePort": "Philadelphia, Pennsylvania",
+      "departureRegion": "Americas",
+      "destination": "Bermuda: Royal Naval Dockyard",
+      "destinationPort": "Philadelphia, Pennsylvania",
+      "arrivalDate": "2026-11-28",
+      "priceFrom": "599",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=PEARL7PHLWRFPHL&voyageId=23401404&sailDate=2026-11-21&departureDate=2026-11-21&shipCode=PEARL&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "599",
+        "oceanView": "689",
+        "balcony": null,
+        "suite": "2409"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "suite": "SUITE"
+      },
+      "seaDays": 5,
+      "priceCheckedAt": "2026-11-07T00:11:52.402Z",
+      "firstSeenAt": "2026-09-12T16:07:28.973Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-12T16:07:28.973Z",
+          "prices": {
+            "inside": 540,
+            "oceanView": 620,
+            "balcony": 1005,
+            "suite": 1280
+          }
+        },
+        {
+          "at": "2026-09-26T10:07:13.754Z",
+          "prices": {
+            "inside": 505,
+            "oceanView": 595,
+            "balcony": 1030,
+            "suite": 1400
+          }
+        },
+        {
+          "at": "2026-10-21T16:08:30.889Z",
+          "prices": {
+            "inside": 629,
+            "oceanView": 719,
+            "balcony": 1199,
+            "suite": 2349
+          }
+        },
+        {
+          "at": "2026-11-07T00:11:52.402Z",
+          "prices": {
+            "inside": 599,
+            "oceanView": 689,
+            "suite": 2409
+          }
+        }
+      ],
+      "lastSeenAt": "2026-11-07T00:11:52.402Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_LUNA7MIARTBBPICZMCMAMIA_2026-11-21",
+      "shipName": "Norwegian Luna",
+      "shipClass": "Prima",
+      "shipLaunchYear": 2024,
+      "itinerary": "Caribbean: Harvest Caye, Cozumel & Roatan",
+      "departureDate": "2026-11-21",
+      "duration": "7-day Cruise",
+      "departurePort": "Miami",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Harvest Caye, Cozumel & Roatan",
+      "destinationPort": "Miami",
+      "arrivalDate": "2026-11-28",
+      "priceFrom": "1229",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=LUNA7MIARTBBPICMACZMMIA&voyageId=23367511&sailDate=2026-11-21&departureDate=2026-11-21&shipCode=LUNA&guestCount=2&selectedStateroomMeta=BALCONY",
+      "prices": {
+        "inside": null,
+        "oceanView": null,
+        "balcony": "1229",
+        "suite": "2999"
+      },
+      "bookingCabinCodes": {
+        "balcony": "BALCONY",
+        "suite": "SUITE"
+      },
+      "seaDays": 2,
+      "priceCheckedAt": "2026-11-06T11:22:33.262Z",
+      "firstSeenAt": "2026-09-15T16:08:24.122Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-15T16:08:24.122Z",
+          "prices": {
+            "inside": 520,
+            "oceanView": 635,
+            "balcony": 885,
+            "suite": 1240
+          }
+        },
+        {
+          "at": "2026-09-22T22:06:56.511Z",
+          "prices": {
+            "inside": 520,
+            "oceanView": 630,
+            "balcony": 885,
+            "suite": 1225
+          }
+        },
+        {
+          "at": "2026-10-01T16:09:03.848Z",
+          "prices": {
+            "inside": 555,
+            "oceanView": 660,
+            "balcony": 885,
+            "suite": 1225
+          }
+        },
+        {
+          "at": "2026-10-12T00:26:24.408Z",
+          "prices": {
+            "inside": 779,
+            "oceanView": 949,
+            "balcony": 1149,
+            "suite": 1529
+          }
+        },
+        {
+          "at": "2026-10-21T10:07:25.404Z",
+          "prices": {
+            "inside": 799,
+            "oceanView": 999,
+            "balcony": 1049,
+            "suite": 1504
+          }
+        },
+        {
+          "at": "2026-11-06T11:22:33.262Z",
+          "prices": {
+            "balcony": 1229,
+            "suite": 2999
+          }
+        }
+      ],
+      "lastSeenAt": "2026-11-06T11:22:33.262Z"
+    },
+    {
+      "provider": "Norwegian Cruise Line",
+      "id": "ncl_GEM7TPACZMRTBBPITPA_2026-11-21",
+      "shipName": "Norwegian Gem",
+      "shipClass": "Jewel",
+      "shipLaunchYear": 2007,
+      "itinerary": "Caribbean: Harvest Caye, Cozumel & Roatan",
+      "departureDate": "2026-11-21",
+      "duration": "7-day Cruise",
+      "departurePort": "Tampa",
+      "departureRegion": "Americas",
+      "destination": "Caribbean: Harvest Caye, Cozumel & Roatan",
+      "destinationPort": "Tampa",
+      "arrivalDate": "2026-11-28",
+      "priceFrom": "629",
+      "currency": "USD",
+      "bookingUrl": "https://www.ncl.com/uk/en/booking/stateroom-offers/stateroom?itineraryCode=GEM7TPACZMRTBBPITPA&voyageId=25382901&sailDate=2026-11-21&departureDate=2026-11-21&shipCode=GEM&guestCount=2&selectedStateroomMeta=INSIDE",
+      "prices": {
+        "inside": "629",
+        "oceanView": "699",
+        "balcony": "1059",
+        "suite": "1149"
+      },
+      "bookingCabinCodes": {
+        "inside": "INSIDE",
+        "oceanView": "OCEANVIEW",
+        "balcony": "BALCONY",
+        "suite": "MINISUITE"
+      },
+      "seaDays": 3,
+      "priceCheckedAt": "2026-10-31T10:05:11.596Z",
+      "firstSeenAt": "2026-09-14T04:10:04.868Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-14T04:10:04.868Z",
+          "prices": {
+            "inside": 485,
+            "oceanView": 525,
+            "balcony": 850,
+            "suite": 920
+          }
+        },
+        {
+          "at": "2026-09-21T12:11:37.859Z",
+          "prices": {
+            "inside": 465,
+            "oceanView": 525,
+            "balcony": 850,
+            "suite": 920
+          }
+        },
+        {
+          "at": "2026-09-30T06:14:52.819Z",
+          "prices": {
+            "inside": 465,
+            "oceanView": 520,
+            "balcony": 855,
+            "suite": 925
+          }
+        },
+        {
+          "at": "2026-10-10T16:08:37.697Z",
+          "prices": {
+            "inside": 629,
+            "oceanView": 699,
+            "balcony": 1059,
+            "suite": 1149
+          }
+        },
+        {
+          "at": "2026-10-18T16:06:58.512Z",
+          "prices": {
+            "inside": 629,
+            "oceanView": 699,
+            "balcony": 1009,
+            "suite": 1074
+          }
+        },
+        {
+          "at": "2026-10-31T10:05:11.596Z",
+          "prices": {
+            "inside": 629,
+            "oceanView": 699,
+            "balcony": 1059,
+            "suite": 1149
+          }
+        }
+      ],
+      "lastSeenAt": "2026-10-31T10:05:11.596Z"
     }
   ]
 }
