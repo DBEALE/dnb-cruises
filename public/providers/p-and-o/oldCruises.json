@@ -3,7 +3,7 @@
     "id": "p-and-o",
     "name": "P&O Cruises"
   },
-  "count": 175,
+  "count": 176,
   "cruises": [
     {
       "id": "pando-A627A",
@@ -75275,6 +75275,48 @@
           "at": "2026-11-24T14:29:57.355Z",
           "prices": {
             "inside": 799
+          }
+        }
+      ]
+    },
+    {
+      "id": "pando-A702A",
+      "provider": "P&O Cruises",
+      "shipName": "Azura",
+      "shipClass": "Grand",
+      "shipLaunchYear": 2010,
+      "itinerary": "Tenerife, Spain → Madeira, Portugal → Gran Canaria, Spain → Arrecife de Lanzarote, Spain → Tenerife, Spain → Arrecife de Lanzarote, Spain → Agadir, Morocco → Casablanca, Morocco → Tenerife, Spain",
+      "departureDate": "2027-01-15",
+      "duration": "14 Nights",
+      "departurePort": "Santa Cruz de Tenerife",
+      "departureRegion": "Mediterranean",
+      "destination": "Canary-Islands",
+      "destinationPort": "Santa Cruz de Tenerife",
+      "seaDays": 4,
+      "priceFrom": "1329",
+      "currency": "GBP",
+      "prices": {
+        "inside": "1329",
+        "oceanView": null,
+        "balcony": null,
+        "suite": null
+      },
+      "bookingUrl": "https://www.pocruises.com/find-a-cruise/A702A/A702A",
+      "arrivalDate": "2027-01-29",
+      "firstSeenAt": "2026-09-21T22:07:51.626Z",
+      "lastSeenAt": "2026-11-26T13:29:38.329Z",
+      "priceHistory": [
+        {
+          "at": "2026-09-21T22:07:51.626Z",
+          "prices": {
+            "inside": 1339,
+            "oceanView": 1339
+          }
+        },
+        {
+          "at": "2026-11-26T03:54:56.062Z",
+          "prices": {
+            "inside": 1329
           }
         }
       ]
