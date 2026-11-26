@@ -160,3 +160,11 @@ npm run test:e2e  # Playwright end-to-end only
 
 Prices shown are per person and subject to change. Always verify on the cruise
 line's website before booking.
+
+## Rickmansworth Bowls Club site
+
+A standalone, mobile-friendly club website lives in `public/rickmansworth-bowls/` and is served at `/rickmansworth-bowls/` (`npm start`, then open http://localhost:3000/rickmansworth-bowls/).
+
+- Edit `public/rickmansworth-bowls/club-data.js` to change season dates, open days, membership prices, fixtures, news, the contact email and the "What's changed" list. No other file needs to change.
+- Prices, fixtures, open days, news and the contact address are starter content. Confirm them with the club before going live.
+- Tests: `test/rickmansworth-bowls.test.js` (unit) and `test/rickmansworth-bowls.e2e.js` (desktop + mobile).
